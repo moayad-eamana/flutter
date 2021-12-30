@@ -21,6 +21,7 @@ class EmpInfo {
   int DirectManagerEmployeeNumber;
   String GeneralManagerName;
   int Extension;
+  int GenderID;
   EmpInfo(
       this.EmployeeNumber,
       this.EmployeeName,
@@ -41,7 +42,8 @@ class EmpInfo {
       this.DirectManagerName,
       this.DirectManagerEmployeeNumber,
       this.GeneralManagerName,
-      this.Extension);
+      this.Extension,
+      this.GenderID);
   factory EmpInfo.fromJson(dynamic json) {
     return EmpInfo(
         json["EmployeeNumber"],
@@ -63,6 +65,7 @@ class EmpInfo {
         json["DirectManagerName"],
         json["DirectManagerEmployeeNumber"],
         json["GeneralManagerName"],
-        json["Extension"]);
+        json["Extension"],
+        json["GenderID"]);
   }
 }

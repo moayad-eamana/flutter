@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -86,7 +87,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                   child: ScaleAnimation(
                                     curve: Curves.linear,
                                     child: Container(
-                                      height: 270,
+                                      height: 295,
                                       child: Card(
                                         elevation: 5,
                                         child: Container(
@@ -147,17 +148,26 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                           ),
                                                   ),
                                                   Container(
-                                                    margin: EdgeInsets.only(
-                                                        right: 20),
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 20),
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        SelectableText(
-                                                            "رقم الجوال : " +
-                                                                _provider[index]
-                                                                    .MobileNumber),
+                                                        Row(
+                                                          children: [
+                                                            SelectableText("رقم الجوال : " +
+                                                                (_provider[index]
+                                                                            .GenderID ==
+                                                                        2
+                                                                    ? "0"
+                                                                    : _provider[
+                                                                            index]
+                                                                        .MobileNumber)),
+                                                          ],
+                                                        ),
                                                         TexrW(
                                                             "البريد الالكتروني : " +
                                                                 _provider[index]
@@ -166,11 +176,33 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                             _provider[index]
                                                                 .Extension
                                                                 .toString()),
-                                                        TexrW("الرقم الوضيفي : " +
-                                                            _provider[index]
-                                                                .EmployeeNumber
-                                                                .toString()
-                                                                .split(".")[0])
+                                                        Row(
+                                                          children: [
+                                                            TexrW("الرقم الوضيفي : " +
+                                                                _provider[index]
+                                                                    .EmployeeNumber
+                                                                    .toString()
+                                                                    .split(
+                                                                        ".")[0]),
+                                                            IconButton(
+                                                                onPressed: () {
+                                                                  FlutterClipboard.copy(_provider[
+                                                                              index]
+                                                                          .EmployeeNumber
+                                                                          .toString()
+                                                                          .split(
+                                                                              ".")[0])
+                                                                      .then((value) => print('copied'));
+                                                                },
+                                                                icon:
+                                                                    const Icon(
+                                                                  Icons.copy,
+                                                                  size: 20,
+                                                                  color:
+                                                                      baseColor,
+                                                                ))
+                                                          ],
+                                                        )
                                                       ],
                                                     ),
                                                   )
@@ -188,25 +220,29 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     ElevatedButton.icon(
-                                                      label: const Text(
-                                                          'نسخ الرقم الوظيفي'),
-                                                      icon: const Icon(
-                                                        Icons.copy,
+                                                      label:
+                                                          const Text('واتساب'),
+                                                      icon: const FaIcon(
+                                                        FontAwesomeIcons
+                                                            .whatsapp,
                                                         color: baseColor,
                                                         size: 24.0,
                                                       ),
                                                       style: mainbtn,
-                                                      onPressed: () {
-                                                        FlutterClipboard.copy(
-                                                                _provider[index]
-                                                                    .EmployeeNumber
-                                                                    .toString()
-                                                                    .split(
-                                                                        ".")[0])
-                                                            .then((value) =>
-                                                                print(
-                                                                    'copied'));
-                                                      },
+                                                      onPressed: _provider[
+                                                                      index]
+                                                                  .GenderID ==
+                                                              2
+                                                          ? null
+                                                          : () {
+                                                              if (_provider[
+                                                                          index]
+                                                                      .GenderID ==
+                                                                  1) {
+                                                                launch(
+                                                                    "https://wa.me/+966${_provider[index].MobileNumber}/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
+                                                              }
+                                                            },
                                                     ),
                                                     const SizedBox(
                                                       width: 10,
@@ -220,11 +256,17 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                         size: 24.0,
                                                       ),
                                                       style: mainbtn,
-                                                      onPressed: () {
-                                                        launch("tel://" +
-                                                            _provider[index]
-                                                                .MobileNumber);
-                                                      },
+                                                      onPressed: _provider[
+                                                                      index]
+                                                                  .GenderID ==
+                                                              2
+                                                          ? null
+                                                          : () {
+                                                              launch("tel://" +
+                                                                  _provider[
+                                                                          index]
+                                                                      .MobileNumber);
+                                                            },
                                                     ),
                                                   ],
                                                 ),

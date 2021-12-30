@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MeetingView extends StatefulWidget {
   const MeetingView({Key? key}) : super(key: key);
@@ -235,9 +236,15 @@ class _MeetingViewState extends State<MeetingView> {
                                           children: [
                                             Row(
                                               children: [
-                                                const Icon(
-                                                  Icons.phone_android,
-                                                  color: Color(0xff1F9EB9),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    launch(
+                                                        "https://wa.me/+966${_provider.meetingList[index].Appwithmobile}/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.phone_android,
+                                                    color: Color(0xff1F9EB9),
+                                                  ),
                                                 ),
                                                 TextW(_provider
                                                     .meetingList[index]
