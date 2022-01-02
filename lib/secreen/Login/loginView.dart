@@ -66,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
                             const SizedBox(
                               height: 10,
                             ),
-                            loginBtn(),
+                            loginBtn(_provider),
                           ],
                         ),
                       ],
@@ -169,7 +169,8 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget loginBtn() {
+  Widget loginBtn(_provider) {
+    var provider2 = Provider.of<LoginProvider>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(top: 8),
       child: ElevatedButton(
@@ -189,8 +190,14 @@ class _LoginViewState extends State<LoginView> {
                 await _provider.checkUser(_username.text, _password.text);
             EasyLoading.dismiss();
             if (isValiedUser) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const OTPView()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChangeNotifierProvider.value(
+                      value: provider2,
+                      child: OTPView(),
+                    ),
+                  ));
             } else {
               Alert(
                 context: context,

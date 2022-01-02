@@ -317,7 +317,28 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                         ],
                                       ).show().then((value) {
                                         if (reject) {
-                                          Navigator.pop(context);
+                                          Alert(
+                                            context: context,
+                                            type: AlertType.warning,
+                                            title: "",
+                                            desc: "تم رفض الطلب",
+                                            buttons: [
+                                              DialogButton(
+                                                child: const Text(
+                                                  "حسنا",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                width: 120,
+                                              ),
+                                            ],
+                                          ).show().then((value) {
+                                            Navigator.pop(context);
+                                          });
                                         }
                                       });
                                     },
@@ -356,8 +377,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                               color: Colors.white,
                                               fontSize: 20),
                                         ),
-                                        onPressed: () {
-                                          _provider.deleteEtmad(
+                                        onPressed: () async {
+                                          await _provider.deleteEtmad(
                                               widget.index ?? 0,
                                               true,
                                               resondID);
@@ -380,7 +401,28 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                     ],
                                   ).show().then((value) {
                                     if (reject) {
-                                      Navigator.pop(context);
+                                      Alert(
+                                        context: context,
+                                        type: AlertType.warning,
+                                        title: "",
+                                        desc: "تم قبول الطلب بنجاح",
+                                        buttons: [
+                                          DialogButton(
+                                            child: const Text(
+                                              "حسنا",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20),
+                                            ),
+                                            onPressed: () async {
+                                              Navigator.pop(context);
+                                            },
+                                            width: 120,
+                                          ),
+                                        ],
+                                      ).show().then((value) {
+                                        Navigator.pop(context);
+                                      });
                                     }
                                   });
                                 },

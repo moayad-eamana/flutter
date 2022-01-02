@@ -1,5 +1,8 @@
+import 'package:eamanaapp/provider/loginProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class OTPView extends StatefulWidget {
   const OTPView({Key? key}) : super(key: key);
@@ -9,8 +12,10 @@ class OTPView extends StatefulWidget {
 }
 
 class _OTPViewState extends State<OTPView> {
+  TextEditingController _otp = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var _provider = Provider.of<LoginProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -93,11 +98,12 @@ class _OTPViewState extends State<OTPView> {
     return Container(
       height: 45,
       margin: const EdgeInsets.only(left: 100, right: 100),
-      child: const TextField(
+      child: TextField(
+        controller: _otp,
         keyboardType: TextInputType.text,
         maxLines: 1,
         textAlign: TextAlign.right,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           filled: true,
           fillColor: Colors.white,
           border:
@@ -117,8 +123,30 @@ class _OTPViewState extends State<OTPView> {
           primary: Colors.blue, // background
           onPrimary: Colors.white, // foreground
         ),
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, "/tab");
+        onPressed: () async {
+          bool isValid =
+              await Provider.of<LoginProvider>(context, listen: false)
+                  .checkUserOTP(_otp.text);
+          if (isValid) {
+            Navigator.pushReplacementNamed(context, "/tab");
+          } else {
+            Alert(
+              context: context,
+              type: AlertType.error,
+              title: "خطأ",
+              desc: "خطأ في الرمز",
+              buttons: [
+                DialogButton(
+                  child: const Text(
+                    "حسنا",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  width: 120,
+                )
+              ],
+            ).show();
+          }
         },
         child: const Text('إستمرار'),
       ),

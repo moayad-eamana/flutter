@@ -4,6 +4,7 @@ import 'package:eamanaapp/provider/loginProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
+import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/Transaction/TransactionDetail.dart';
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Cairo',
-        tabBarTheme: TabBarTheme(
+        tabBarTheme: const TabBarTheme(
             labelColor: Colors.black,
             labelStyle: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -81,7 +82,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const TabBarDemo(),
+        '/': (context) => ChangeNotifierProvider(
+              create: (_) => LoginProvider(),
+              child: TabBarDemo(),
+            ),
         '/TabBarDemo': (context) => ChangeNotifierProvider(
               create: (_) => LoginProvider(),
               child: TabBarDemo(),

@@ -17,7 +17,8 @@ class HrDecisionsDetailesView extends StatefulWidget {
 class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
   @override
   Widget build(BuildContext context) {
-    var _provider = Provider.of<HrDecisionsProvider>(context).HrDecisionsList;
+    var _provider = Provider.of<HrDecisionsProvider>(context, listen: false)
+        .HrDecisionsList;
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -199,7 +200,12 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               primary: Colors.green, // background
                               onPrimary: Colors.white, // foreground
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Provider.of<HrDecisionsProvider>(context,
+                                      listen: false)
+                                  .PostAproveDesition(widget.index);
+                              Navigator.pop(context);
+                            },
                             child: const Text("قبول"),
                           ),
                         ),

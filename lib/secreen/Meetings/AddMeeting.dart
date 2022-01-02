@@ -321,6 +321,7 @@ class _AddMeetingState extends State<AddMeeting> {
                             children: [
                               Expanded(
                                 child: TextField(
+                                  controller: _meetingId,
                                   keyboardType: TextInputType.text,
                                   maxLines: 1,
                                   decoration: decoration("الرقم المعرف", 4),
@@ -344,6 +345,7 @@ class _AddMeetingState extends State<AddMeeting> {
                                 child: TextField(
                                   keyboardType: TextInputType.text,
                                   maxLines: 1,
+                                  controller: _pass,
                                   decoration: decoration("كلمة السر", 5),
                                   onChanged: (String val) {
                                     if (_tpeApp.text == "إفتراضي") {
@@ -535,25 +537,35 @@ class _AddMeetingState extends State<AddMeeting> {
       setState(() {
         error[2].text = errorTx(2);
       });
+    }
+    if (_tpeApp.text == "") {
+      isFalse = true;
+      setState(() {
+        error[8].text = errorTx(8);
+      });
+    }
+    if (_tpeApp.text == "إفتراضي") {
       if (_url.text == "") {
         isFalse = true;
         setState(() {
           error[3].text = errorTx(3);
         });
-        if (_meetingId == "") {
-          isFalse = true;
-          setState(() {
-            error[4].text = errorTx(4);
-          });
-        }
-        if (_pass.text == "") {
-          isFalse = true;
-          setState(() {
-            error[5].text = errorTx(5);
-          });
-        }
+      }
+
+      if (_meetingId.text == "") {
+        isFalse = true;
+        setState(() {
+          error[4].text = errorTx(4);
+        });
+      }
+      if (_pass.text == "") {
+        isFalse = true;
+        setState(() {
+          error[5].text = errorTx(5);
+        });
       }
     }
+
     if (_mobile.text == "") {
       isFalse = true;
       setState(() {

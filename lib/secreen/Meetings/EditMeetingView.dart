@@ -579,18 +579,18 @@ class _EditMeetingViewState extends State<EditMeetingView> {
         setState(() {
           error[5].text = errorTx(5);
         });
-        if (_meetingId == "") {
-          isFalse = true;
-          setState(() {
-            error[4].text = errorTx(4);
-          });
-        }
-        if (_pass.text == "") {
-          isFalse = true;
-          setState(() {
-            error[5].text = errorTx(5);
-          });
-        }
+      }
+      if (_meetingId.text == "") {
+        isFalse = true;
+        setState(() {
+          error[6].text = errorTx(6);
+        });
+      }
+      if (_pass.text == "") {
+        isFalse = true;
+        setState(() {
+          error[7].text = errorTx(7);
+        });
       }
     }
 

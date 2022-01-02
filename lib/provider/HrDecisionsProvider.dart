@@ -29,9 +29,11 @@ class HrDecisionsProvider extends ChangeNotifier {
     return List.from(_hrDecisions);
   }
 
-  Future<void> PostAproveDesition() async {
-    var respose = await http.post(Uri.parse(url + "ApproveDecisionRequest"),
-        headers: APP_HEADERS, body: jsonEncode({"": ""}));
+  Future<void> PostAproveDesition(int index) async {
+    // var respose = await http.post(Uri.parse(url + "ApproveDecisionRequest"),
+    //   headers: APP_HEADERS, body: jsonEncode({"": ""}));
+    _hrDecisions.removeAt(index);
+    notifyListeners();
   }
 }
 

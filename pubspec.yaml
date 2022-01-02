@@ -43,6 +43,7 @@ dependencies:
   pdf: ^3.6.5
   path_provider: ^2.0.8
   open_file: ^3.2.1
+  shared_preferences: ^2.0.11
 
 dev_dependencies:
   flutter_test:

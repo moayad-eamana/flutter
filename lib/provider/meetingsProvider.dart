@@ -12,7 +12,7 @@ class MettingsProvider extends ChangeNotifier {
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsByEmail.php"),
+            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsByEmail.php"),
         body: jsonEncode(
             {"token": "RETTErhyty45ythTRH45y45y", "username": "akubaish"}));
     _meetings = (jsonDecode(respose.body) as List)
@@ -30,7 +30,7 @@ class MettingsProvider extends ChangeNotifier {
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsToken.php"),
+            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsToken.php"),
         body: jsonEncode(
             {"token": "RETTErhyty45ythTRH45y45y", "username": "akubaish"}));
     _meetingsTime = (jsonDecode(respose.body) as List)
@@ -59,7 +59,7 @@ class MettingsProvider extends ChangeNotifier {
       String meeting_pswd) async {
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/editAppointment.php"),
+            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/editAppointment.php"),
         body: jsonEncode({
           "token": "RETTErhyty45ythTRH45y45y",
           "username": "akubaish",
@@ -79,7 +79,7 @@ class MettingsProvider extends ChangeNotifier {
     _meetings[index].Date = appDate;
     _meetings[index].Appwith = app_with;
     _meetings[index].Appwithmobile = mobile;
-    _meetings[index].MeetingDetails = "حضوري";
+    _meetings[index].MeetingDetails = appDow == "p" ? "حضوري" : "إفتراضي";
     _meetings[index].Notes = notes;
     _meetings[index].Subject = subject;
     _meetings[index].Meeting_url = meeting_url;
@@ -94,7 +94,7 @@ class MettingsProvider extends ChangeNotifier {
   Future<void> addApp(Meetings meetings, String p) async {
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/createAppointments.php"),
+            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/createAppointments.php"),
         body: jsonEncode({
           "token": "RETTErhyty45ythTRH45y45y",
           "username": "akubaish",
@@ -113,6 +113,45 @@ class MettingsProvider extends ChangeNotifier {
         }));
     print(respose.body);
     meetings.Id = "55555";
+    meetings.MeetingDetails =
+        meetings.MeetingDetails == "p" ? "حضوري" : "إفتراضي";
+    switch (p) {
+      case "0":
+        {
+          meetings.Day = "الأحد";
+        }
+        break;
+      case "1":
+        {
+          meetings.Day = "الاثنين";
+        }
+        break;
+      case "2":
+        {
+          meetings.Day = "الثلاثاء";
+        }
+        break;
+      case "3":
+        {
+          meetings.Day = "الأربعاء";
+        }
+        break;
+      case "4":
+        {
+          meetings.Day = "الخميس";
+        }
+        break;
+      case "5":
+        {
+          meetings.Day = "الجمعة";
+        }
+        break;
+      case "6":
+        {
+          meetings.Day = "السبت";
+        }
+        break;
+    }
     _meetings.insert(0, meetings);
     notifyListeners();
   }
@@ -125,7 +164,7 @@ class MettingsProvider extends ChangeNotifier {
   Future<void> deletApp(int id) async {
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/deleteAppointments.php"),
+            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/deleteAppointments.php"),
         body: jsonEncode({
           "token": "RETTErhyty45ythTRH45y45y",
           "username": "akubaish",

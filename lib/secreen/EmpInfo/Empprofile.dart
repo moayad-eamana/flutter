@@ -26,7 +26,7 @@ class _EmpProfileState extends State<EmpProfile> {
         status: 'loading...',
       );
       await Provider.of<EmpInfoProvider>(context, listen: false)
-          .fetchEmpInfo("4261003");
+          .fetchEmpInfo("4341012");
 
       EasyLoading.dismiss();
     });
