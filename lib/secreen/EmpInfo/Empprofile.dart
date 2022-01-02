@@ -63,7 +63,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                   margin: const EdgeInsets.only(top: 20),
                                   height: 150,
                                   width: 150,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 200,
                                     height: 200,
                                     child: ClipOval(
@@ -89,9 +89,20 @@ class _EmpProfileState extends State<EmpProfile> {
                         TextW_size(_provider[0].EmployeeName),
                         TextW(_provider[0].Title),
                         Container(
-                          height: 250,
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                side: const BorderSide(
+                                  width: 1,
+                                  color: Color(0xFFDDDDDD),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                primary: Colors.white, // background
+                                onPrimary: Colors.black, // foreground
+
+                                elevation: 2),
                             onPressed: () async {
                               final pdf = pw.Document();
                               var imag = pw.MemoryImage((await rootBundle
@@ -292,66 +303,62 @@ class _EmpProfileState extends State<EmpProfile> {
                               height: 250,
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              child: Card(
-                                elevation: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      _provider[0].EmployeeName,
-                                      style: const TextStyle(
-                                          color: baseColor,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    TextW(
-                                      _provider[0].Title,
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            TextW("رقم الجوال : " +
-                                                _provider[0].MobileNumber),
-                                            TextW("رقم التحويلة : " +
-                                                _provider[0]
-                                                    .Extension
-                                                    .toString()),
-                                            TextW("البريد الالكتروني : " +
-                                                _provider[0].Email),
-                                            TextW("الرقم الوضيفي : " +
-                                                _provider[0]
-                                                    .EmployeeNumber
-                                                    .toString()
-                                                    .split(".")[0]),
-                                          ],
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    _provider[0].EmployeeName,
+                                    style: const TextStyle(
+                                        color: baseColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  TextW(
+                                    _provider[0].Title,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          TextW("رقم الجوال : " +
+                                              _provider[0].MobileNumber),
+                                          TextW("رقم التحويلة : " +
+                                              _provider[0]
+                                                  .Extension
+                                                  .toString()),
+                                          TextW("البريد الالكتروني : " +
+                                              _provider[0].Email),
+                                          TextW("الرقم الوضيفي : " +
+                                              _provider[0]
+                                                  .EmployeeNumber
+                                                  .toString()
+                                                  .split(".")[0]),
+                                        ],
+                                      ),
+                                      Container(
+                                        width: 120,
+                                        height: 120,
+                                        child: Image.asset(
+                                          'assets/SVGs/amanah-v.png',
+                                          alignment: Alignment.center,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          //height: MediaQuery.of(context).size.height,
+                                          fit: BoxFit.fill,
                                         ),
-                                        Container(
-                                          width: 120,
-                                          height: 120,
-                                          child: Image.asset(
-                                            'assets/SVGs/amanah-v.png',
-                                            alignment: Alignment.center,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            //height: MediaQuery.of(context).size.height,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),

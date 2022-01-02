@@ -11,14 +11,13 @@ class HrDecisionsProvider extends ChangeNotifier {
     HttpHeaders.authorizationHeader:
         basicAuthenticationHeader("DevTeam", "DevTeam"),
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
   };
 
   late List<HrDecisions> _hrDecisions = [];
   Future<void> fetchHrDecisions() async {
     notifyListeners();
-    var respose = await http.post(Uri.parse(url + "ApproveDecisionRequest"),
-        headers: APP_HEADERS, body: jsonEncode({"": ""}));
+    var respose = await http.get(Uri.parse(url + "GetDecisions" + "/4341012"),
+        headers: APP_HEADERS);
 
     _hrDecisions = (jsonDecode(respose.body)["DecisionList"] as List)
         .map(((e) => HrDecisions.fromJson(e)))
