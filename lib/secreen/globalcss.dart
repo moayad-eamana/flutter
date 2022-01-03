@@ -13,3 +13,4 @@ ButtonStyle mainbtn = ElevatedButton.styleFrom(
 );
 
 const Color baseColor = Color(0xff1F9EB9);
+const Color secondryColor = Color(0xffE2F3FF);

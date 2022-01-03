@@ -1,8 +1,10 @@
 import 'package:eamanaapp/provider/HrDecisionsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HrDecisionsDetailesView extends StatefulWidget {
   int index;
@@ -93,14 +95,14 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("نوع الطلب"),
+                                  const Text("نوع الطلب"),
                                   Text(_provider[widget.index].TransactionName)
                                 ],
                               ),
                             ),
                           ),
                         ),
-                        Icon(Icons.forward),
+                        const Icon(Icons.forward),
                         Expanded(
                           child: Container(
                             height: 75,
@@ -122,12 +124,12 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                       children: [
                         Expanded(
                           child: Container(
-                            height: 90,
+                            height: 120,
                             child: Card(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("الادارة السابقة"),
+                                  const Text("الادارة السابقة"),
                                   Text(
                                       _provider[widget.index].OldDepartmentName)
                                 ],
@@ -135,15 +137,15 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                             ),
                           ),
                         ),
-                        Icon(Icons.forward),
+                        const Icon(Icons.forward),
                         Expanded(
                           child: Container(
-                            height: 90,
+                            height: 120,
                             child: Card(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("الادارة الحالية"),
+                                  const Text("الادارة الحالية"),
                                   Text(
                                       _provider[widget.index].NewDepartmentName)
                                 ],
@@ -163,7 +165,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("المرتبة السابقة"),
+                                  const Text("المرتبة السابقة"),
                                   Text(_provider[widget.index]
                                       .OldClass
                                       .toString())
@@ -172,7 +174,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                             ),
                           ),
                         ),
-                        Icon(Icons.forward),
+                        const Icon(Icons.forward),
                         Expanded(
                           child: Container(
                             height: 75,
@@ -180,7 +182,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("المرتبة الحالية"),
+                                  const Text("المرتبة الحالية"),
                                   Text(_provider[widget.index]
                                       .NewClass
                                       .toString())
@@ -201,10 +203,17 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () {
-                              Provider.of<HrDecisionsProvider>(context,
-                                      listen: false)
-                                  .PostAproveDesition(widget.index);
-                              Navigator.pop(context);
+                              showalert("", "هل أنت متأكد من القبول", context)
+                                  .show()
+                                  .then((value) {
+                                if (value == true) {
+                                  showalertsu("", "تم القبول ")
+                                      .show()
+                                      .then((value) {
+                                    Navigator.pop(context);
+                                  });
+                                }
+                              });
                             },
                             child: const Text("قبول"),
                           ),
@@ -218,6 +227,64 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
           ],
         ),
       ),
+    );
+  }
+
+  Alert showalert(String title, String desc, context) {
+    return Alert(
+      context: context,
+      type: AlertType.warning,
+      title: title,
+      desc: desc,
+      buttons: [
+        DialogButton(
+          child: const Text(
+            "نعم",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () async {
+            EasyLoading.show(
+              status: 'loading...',
+            );
+            await Provider.of<HrDecisionsProvider>(context, listen: false)
+                .PostAproveDesition(widget.index);
+            Navigator.pop(context, true);
+            EasyLoading.dismiss();
+          },
+          width: 120,
+        ),
+        DialogButton(
+          child: const Text(
+            "إلغاء",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          width: 120,
+        )
+      ],
+    );
+  }
+
+  Alert showalertsu(String title, String desc) {
+    return Alert(
+      context: context,
+      type: AlertType.success,
+      title: title,
+      desc: desc,
+      buttons: [
+        DialogButton(
+          child: const Text(
+            "حسنا",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          width: 120,
+        ),
+      ],
     );
   }
 }

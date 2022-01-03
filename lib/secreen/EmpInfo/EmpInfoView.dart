@@ -42,6 +42,15 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                   keyboardType: TextInputType.text,
                   maxLines: 1,
                   controller: _search,
+                  onEditingComplete: () async {
+                    FocusScope.of(context).unfocus();
+                    EasyLoading.show(
+                      status: 'loading...',
+                    );
+                    await Provider.of<EmpInfoProvider>(context, listen: false)
+                        .fetchEmpInfo(_search.text);
+                    EasyLoading.dismiss();
+                  },
                   decoration: InputDecoration(
                       border: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black)),
@@ -60,7 +69,6 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                   listen: false)
                               .fetchEmpInfo(_search.text);
                           EasyLoading.dismiss();
-                          print("ssssssssss");
                         },
                       )),
                   onChanged: (String val) {

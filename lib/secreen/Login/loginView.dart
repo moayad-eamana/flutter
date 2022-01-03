@@ -1,5 +1,6 @@
 import 'package:eamanaapp/provider/loginProvider.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
+import 'package:eamanaapp/secreen/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,14 +24,6 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            Text("دخول"),
-          ],
-        ),
-      ),
       body: Stack(
         children: [
           background(),
@@ -83,7 +76,7 @@ class _LoginViewState extends State<LoginView> {
 
   Widget userName() {
     return Container(
-      margin: const EdgeInsets.only(left: 60, right: 60),
+      margin: const EdgeInsets.only(left: 30, right: 30),
       child: TextField(
         controller: _username,
         keyboardType: TextInputType.text,
@@ -112,7 +105,7 @@ class _LoginViewState extends State<LoginView> {
 
   Widget password() {
     return Container(
-      margin: const EdgeInsets.only(left: 60, right: 60),
+      margin: const EdgeInsets.only(left: 30, right: 30),
       child: TextField(
         controller: _password,
         keyboardType: TextInputType.text,
@@ -158,13 +151,14 @@ class _LoginViewState extends State<LoginView> {
 
   Widget bagPanel() {
     return Center(
-      child: SvgPicture.asset(
-        'assets/SVGs/panel-bg.svg',
-        alignment: Alignment.center,
-        //   width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.height,
-        height: 280,
-        // fit: BoxFit.,
+      child: Container(
+        decoration: BoxDecoration(
+            color: secondryColor,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12.0),
+            ),
+            border: Border.all(color: Colors.white)),
+        width: MediaQuery.of(context).size.width,
       ),
     );
   }
@@ -172,7 +166,8 @@ class _LoginViewState extends State<LoginView> {
   Widget loginBtn(_provider) {
     var provider2 = Provider.of<LoginProvider>(context, listen: false);
     return Container(
-      margin: const EdgeInsets.only(top: 8),
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(top: 8, left: 20, right: 20),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Colors.blue, // background

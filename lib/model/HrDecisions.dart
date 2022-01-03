@@ -10,7 +10,7 @@ class HrDecisions {
   String OldDepartmentName;
   int NewDepartmentID;
   String NewDepartmentName;
-
+  String ExecutionDateH;
   String ExexutionDateG;
   String SignTypeID;
   String SignTypeName;
@@ -28,6 +28,7 @@ class HrDecisions {
       this.OldDepartmentName,
       this.NewDepartmentID,
       this.NewDepartmentName,
+      this.ExecutionDateH,
       this.ExexutionDateG,
       this.SignTypeID,
       this.SignTypeName,
@@ -46,6 +47,7 @@ class HrDecisions {
       json["OldDepartmentName"],
       json["NewDepartmentID"],
       json["NewDepartmentName"],
+      json["ExecutionDateH"],
       json["ExexutionDateG"],
       json["SignTypeID"],
       json["SignTypeName"],

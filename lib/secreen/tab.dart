@@ -3,6 +3,7 @@ import 'package:eamanaapp/provider/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
+import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'EmpInfo/EmpInfoView.dart';
@@ -20,7 +21,7 @@ class _TabBarDemoState extends State<TabBarDemo> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 3,
-      length: 4,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -60,6 +61,9 @@ class _TabBarDemoState extends State<TabBarDemo> {
                       isScrollable: true,
                       tabs: [
                         Tab(
+                          text: "إحصائيات",
+                        ),
+                        Tab(
                           text: "لوحة البيانات",
                         ),
                         Tab(
@@ -81,6 +85,7 @@ class _TabBarDemoState extends State<TabBarDemo> {
         ),
         body: TabBarView(
           children: [
+            Statistics(),
             ChangeNotifierProvider(
               create: (_) => EmpInfoProvider(),
               // ignore: prefer_const_constructors
