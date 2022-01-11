@@ -1,4 +1,5 @@
 import 'package:eamanaapp/provider/HrDecisionsProvider.dart';
+import 'package:eamanaapp/secreen/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -21,6 +22,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
   Widget build(BuildContext context) {
     var _provider = Provider.of<HrDecisionsProvider>(context, listen: false)
         .HrDecisionsList;
+    double width = MediaQuery.of(context).size.width;
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -40,13 +42,20 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                 child: Column(
                   children: [
                     Container(
-                      height: 130,
+                      height: 150,
                       child: Card(
                         elevation: 1,
                         child: Column(
                           children: [
                             Center(
-                              child: Text(_provider[widget.index].EmployeeName),
+                              child: Text(
+                                _provider[widget.index].EmployeeName,
+                                style: TextStyle(
+                                    color: baseColor,
+                                    fontFamily: ("Cairo"),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: width >= 768.0 ? 22 : 14),
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -203,7 +212,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () {
-                              showalert("", "هل أنت متأكد من القبول", context)
+                              showalert("", "تأكيد قبول الطلب", context)
                                   .show()
                                   .then((value) {
                                 if (value == true) {
@@ -244,7 +253,8 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
           ),
           onPressed: () async {
             EasyLoading.show(
-              status: 'loading...',
+              status: 'جاري المعالجة...',
+              maskType: EasyLoadingMaskType.black,
             );
             await Provider.of<HrDecisionsProvider>(context, listen: false)
                 .PostAproveDesition(widget.index);

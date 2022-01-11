@@ -23,6 +23,7 @@ class LoginProvider extends ChangeNotifier {
 
     if (jsonDecode(respose.body)["IsAuthenticated"] == true) {
       _pref.setInt("RequestID", jsonDecode(respose.body)["RequestID"]);
+      _pref.setString("username", userName);
       return true;
     }
     return false;

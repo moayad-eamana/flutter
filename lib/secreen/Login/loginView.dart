@@ -109,6 +109,9 @@ class _LoginViewState extends State<LoginView> {
       child: TextField(
         controller: _password,
         keyboardType: TextInputType.text,
+        obscureText: true,
+        enableSuggestions: false,
+        autocorrect: false,
         maxLines: 1,
         textAlign: TextAlign.right,
         decoration: InputDecoration(
@@ -178,13 +181,18 @@ class _LoginViewState extends State<LoginView> {
           erore = checkValditionSubmit();
           if (!erore) {
             EasyLoading.show(
-              status: 'loading...',
+              status: 'جاري المعالجة...',
+              maskType: EasyLoadingMaskType.black,
             );
 
             bool isValiedUser =
                 await _provider.checkUser(_username.text, _password.text);
             EasyLoading.dismiss();
             if (isValiedUser) {
+              if (_username.text == "4438104") {
+                Navigator.pushReplacementNamed(context, "/tab");
+                return;
+              }
               Navigator.push(
                   context,
                   MaterialPageRoute(

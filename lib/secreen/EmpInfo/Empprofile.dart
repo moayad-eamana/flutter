@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EmpProfile extends StatefulWidget {
   const EmpProfile({Key? key}) : super(key: key);
@@ -22,10 +23,12 @@ class _EmpProfileState extends State<EmpProfile> {
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       EasyLoading.show(
-        status: 'loading...',
+        status: 'جاري المعالجة...',
+        maskType: EasyLoadingMaskType.black,
       );
+      SharedPreferences _pref = await SharedPreferences.getInstance();
       await Provider.of<EmpInfoProvider>(context, listen: false)
-          .fetchEmpInfo("4341012");
+          .fetchEmpInfo(_pref.getString("username").toString());
 
       EasyLoading.dismiss();
     });
@@ -34,6 +37,20 @@ class _EmpProfileState extends State<EmpProfile> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double imageHgit = 0;
+    double imagemargin = 0;
+    print(width);
+    if (width >= 1024.0) {
+      imageHgit = 350;
+      imagemargin = 45;
+    } else if (width >= 768) {
+      imageHgit = 280;
+      imagemargin = 30;
+    } else {
+      imageHgit = 150;
+      imagemargin = 10;
+    }
     var _provider = Provider.of<EmpInfoProvider>(context).empinfoList;
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -53,31 +70,32 @@ class _EmpProfileState extends State<EmpProfile> {
                     margin: EdgeInsets.only(top: 10),
                     child: Column(
                       children: [
-                        Center(
+                        Container(
                           child: Stack(
+                            alignment: Alignment.center,
                             children: [
-                              Image.asset("assets/SVGs/profileBackground.png"),
-                              Center(
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  height: 150,
-                                  width: 150,
+                              Container(
+                                width: width,
+                                child: Image.asset(
+                                  "assets/SVGs/profileBackground.png",
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: imagemargin),
+                                child: ClipOval(
                                   child: SizedBox(
-                                    width: 200,
-                                    height: 200,
-                                    child: ClipOval(
-                                      child: FadeInImage.assetNetwork(
-                                        fit: BoxFit.cover,
-                                        width: 50,
-                                        height: 50,
-                                        image:
-                                            "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                _provider[0]
-                                                    .ImageURL
-                                                    .split("\$")[1],
-                                        placeholder:
-                                            "assets/SVGs/dumyprofile.png",
-                                      ),
+                                    height: imageHgit,
+                                    width: imageHgit,
+                                    child: FadeInImage.assetNetwork(
+                                      fit: BoxFit.cover,
+                                      image:
+                                          "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                              _provider[0]
+                                                  .ImageURL
+                                                  .split("\$")[1],
+                                      placeholder:
+                                          "assets/SVGs/dumyprofile.png",
                                     ),
                                   ),
                                 ),
@@ -122,7 +140,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                             child: pw.Center(
                                                 child: pw.Container(
                                           height: 250,
-                                          width: 400,
+                                          width: 500,
                                           decoration: const pw.BoxDecoration(
                                             color: PdfColors.white,
                                             borderRadius: pw.BorderRadius.only(
@@ -181,8 +199,8 @@ class _EmpProfileState extends State<EmpProfile> {
                                                         .spaceAround,
                                                     children: [
                                                       pw.Container(
-                                                        width: 120,
-                                                        height: 120,
+                                                        width: 150,
+                                                        height: 130,
                                                         child: pw.Image(
                                                           imag,
                                                           alignment: pw
@@ -300,6 +318,7 @@ class _EmpProfileState extends State<EmpProfile> {
                             },
                             child: Container(
                               height: 250,
+                              width: 500,
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: Column(
@@ -361,6 +380,33 @@ class _EmpProfileState extends State<EmpProfile> {
                               ),
                             ),
                           ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: (width >= 768 ? 300 : 20)),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    side: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xFFDDDDDD),
+                                    ),
+                                  ),
+                                  onPressed: () async {
+                                    SharedPreferences _pref =
+                                        await SharedPreferences.getInstance();
+                                    _pref.setString("username", "");
+
+                                    Navigator.pushReplacementNamed(
+                                        context, '/loginView');
+                                  },
+                                  child: const Text("تسجيل الخروج"),
+                                ),
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),

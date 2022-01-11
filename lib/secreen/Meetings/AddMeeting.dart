@@ -49,7 +49,8 @@ class _AddMeetingState extends State<AddMeeting> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'loading...',
+          status: 'جاري المعالجة...',
+          maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<MettingsProvider>(context, listen: false)
             .fetchMeetingsTime();
@@ -64,6 +65,8 @@ class _AddMeetingState extends State<AddMeeting> {
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<MettingsProvider>(context);
+    double width = MediaQuery.of(context).size.width;
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -77,409 +80,384 @@ class _AddMeetingState extends State<AddMeeting> {
               //height: MediaQuery.of(context).size.height,
               fit: BoxFit.fill,
             ),
-            SingleChildScrollView(
-              child: Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                child: Column(
-                  children: [
-                    TextField(
-                      keyboardType: TextInputType.text,
-                      maxLines: 1,
-                      controller: _appWith,
-                      decoration: decoration("الموعد مع", 0),
-                      onChanged: (String val) {
-                        if (val == "") {
-                          setState(() {
-                            error[0].text = errorTx(0);
-                          });
-                        } else {
-                          setState(() {
-                            error[0].text = "";
-                          });
-                        }
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextField(
-                      keyboardType: TextInputType.text,
-                      maxLines: 1,
-                      controller: _mobile,
-                      decoration: decoration("رقم الجوال", 6),
-                      onChanged: (String val) {
-                        if (val == "") {
-                          setState(() {
-                            error[6].text = errorTx(6);
-                          });
-                        } else {
-                          setState(() {
-                            error[6].text = "";
-                          });
-                        }
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextField(
-                      keyboardType: TextInputType.text,
-                      maxLines: 1,
-                      controller: _subject,
-                      decoration: decoration("الموضوع", 1),
-                      onChanged: (String val) {
-                        if (val == "") {
-                          setState(() {
-                            error[1].text = errorTx(1);
-                          });
-                        } else {
-                          setState(() {
-                            error[1].text = "";
-                          });
-                        }
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextField(
-                      keyboardType: TextInputType.text,
-                      maxLines: 1,
-                      controller: _date,
-                      decoration: decoration("التاريخ", 2),
-                      onChanged: (String val) {
-                        if (val == "") {
-                          setState(() {
-                            error[2].text = errorTx(2);
-                          });
-                        } else {
-                          setState(() {
-                            error[2].text = "";
-                          });
-                        }
-                      },
-                      onTap: () {
-                        DatePicker.showDatePicker(context,
-                            showTitleActions: true,
-                            minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                          _date.text = date.toString().split(" ")[0];
-                          print('change $date');
-                        }, onConfirm: (date) {
-                          _date.text = date.toString().split(" ")[0];
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: GridView.count(
+                crossAxisCount: width >= 768 ? 2 : 1,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 5,
+                childAspectRatio: width >= 768 ? 5 : 5,
 
-                          error[1].text = "";
+                //  shrinkWrap: true,
 
-                          fetchMeetinsTime(_provider.getMeetingsTimeList);
-                          print('confirm $date');
-                        }, currentTime: DateTime.now(), locale: LocaleType.ar);
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    DropdownSearch<String>(
-                      items: TimsAvilable.length == 0 ? [] : TimsAvilable,
-                      //maxHeight: 300,
-                      selectedItem: _Time.text,
-                      mode: Mode.BOTTOM_SHEET,
-                      showClearButton: true,
-                      showAsSuffixIcons: true,
-
-                      dropdownSearchDecoration:
-                          decoration("الاوقات المتاحة", 7),
-                      showSearchBox: true,
-                      onChanged: (String? v) {
-                        if (v == "") {
-                          setState(() {
-                            error[7].text = errorTx(7);
-                          });
-                        } else {
-                          setState(() {
-                            error[7].text = "";
-                          });
-                        }
-                        _Time.text = v ?? "";
-                      },
-
-                      popupTitle: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.blue[100],
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'الاوقات المتاحة',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      popupShape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    DropdownSearch<String>(
-                      items: ["حضوري", "إفتراضي"],
-                      //maxHeight: 300,
-                      selectedItem: _tpeApp.text == "" ? "" : _tpeApp.text,
-                      mode: Mode.BOTTOM_SHEET,
-                      showClearButton: true,
-                      showAsSuffixIcons: true,
-                      dropdownSearchDecoration: decoration("نوع الإجتماع", 8),
-
-                      showSearchBox: true,
-
-                      onChanged: (String? v) {
-                        v = v ?? "";
-
+                children: [
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    maxLines: 1,
+                    controller: _appWith,
+                    decoration: decoration("الموعد مع", 0),
+                    onChanged: (String val) {
+                      if (val == "") {
                         setState(() {
-                          _tpeApp.text = v ?? "";
+                          error[0].text = errorTx(0);
                         });
-                        if (v == "") {
-                          setState(() {
-                            error[8].text = errorTx(8);
-                          });
-                        } else {
-                          setState(() {
-                            error[8].text = "";
-                          });
+                      } else {
+                        setState(() {
+                          error[0].text = "";
+                        });
+                      }
+                    },
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    maxLines: 1,
+                    controller: _mobile,
+                    decoration: decoration("رقم الجوال", 6),
+                    onChanged: (String val) {
+                      if (val == "") {
+                        setState(() {
+                          error[6].text = errorTx(6);
+                        });
+                      } else {
+                        setState(() {
+                          error[6].text = "";
+                        });
+                      }
+                    },
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    maxLines: 1,
+                    controller: _subject,
+                    decoration: decoration("الموضوع", 1),
+                    onChanged: (String val) {
+                      if (val == "") {
+                        setState(() {
+                          error[1].text = errorTx(1);
+                        });
+                      } else {
+                        setState(() {
+                          error[1].text = "";
+                        });
+                      }
+                    },
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    maxLines: 1,
+                    controller: _date,
+                    decoration: decoration("التاريخ", 2),
+                    onChanged: (String val) {
+                      if (val == "") {
+                        setState(() {
+                          error[2].text = errorTx(2);
+                        });
+                      } else {
+                        setState(() {
+                          error[2].text = "";
+                        });
+                      }
+                    },
+                    onTap: () {
+                      DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(2021, 3, 5), onChanged: (date) {
+                        _date.text = date.toString().split(" ")[0];
+                        print('change $date');
+                      }, onConfirm: (date) {
+                        _date.text = date.toString().split(" ")[0];
+
+                        error[1].text = "";
+
+                        fetchMeetinsTime(_provider.getMeetingsTimeList);
+                        print('confirm $date');
+                      }, currentTime: DateTime.now(), locale: LocaleType.ar);
+                    },
+                  ),
+                  DropdownSearch<String>(
+                    items: TimsAvilable.length == 0 ? [] : TimsAvilable,
+                    //maxHeight: 300,
+                    selectedItem: _Time.text,
+                    mode: Mode.BOTTOM_SHEET,
+                    showClearButton: true,
+                    showAsSuffixIcons: true,
+
+                    dropdownSearchDecoration: decoration("الاوقات المتاحة", 7),
+                    showSearchBox: true,
+                    onChanged: (String? v) {
+                      if (v == "") {
+                        setState(() {
+                          error[7].text = errorTx(7);
+                        });
+                      } else {
+                        setState(() {
+                          error[7].text = "";
+                        });
+                      }
+                      _Time.text = v ?? "";
+                    },
+
+                    popupTitle: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'الاوقات المتاحة',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    popupShape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                    ),
+                  ),
+                  DropdownSearch<String>(
+                    items: ["حضوري", "إفتراضي"],
+                    //maxHeight: 300,
+                    selectedItem: _tpeApp.text == "" ? "" : _tpeApp.text,
+                    mode: Mode.BOTTOM_SHEET,
+                    showClearButton: true,
+                    showAsSuffixIcons: true,
+                    dropdownSearchDecoration: decoration("نوع الإجتماع", 8),
+
+                    showSearchBox: true,
+
+                    onChanged: (String? v) {
+                      v = v ?? "";
+
+                      setState(() {
+                        _tpeApp.text = v ?? "";
+                      });
+                      if (v == "") {
+                        setState(() {
+                          error[8].text = errorTx(8);
+                        });
+                      } else {
+                        setState(() {
+                          error[8].text = "";
+                        });
+                      }
+                    },
+
+                    popupTitle: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'نوع الاجتماع',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    popupShape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                    ),
+                  ),
+                  if (_tpeApp.text == "إفتراضي")
+                    TextField(
+                      keyboardType: TextInputType.text,
+                      maxLines: 1,
+                      controller: _url,
+                      decoration: decoration("رابط الإجتماع", 3),
+                      onChanged: (String val) {
+                        if (_tpeApp.text == "إفتراضي") {
+                          if (val == "") {
+                            setState(() {
+                              error[3].text = errorTx(3);
+                            });
+                          } else {
+                            setState(() {
+                              error[3].text = "";
+                            });
+                          }
                         }
                       },
-
-                      popupTitle: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.blue[100],
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'نوع الاجتماع',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      popupShape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
-                      ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    _tpeApp.text == "حضوري" || _tpeApp.text == ""
-                        ? Container()
-                        : TextField(
+                  if (_tpeApp.text == "إفتراضي")
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: _meetingId,
                             keyboardType: TextInputType.text,
                             maxLines: 1,
-                            controller: _url,
-                            decoration: decoration("رابط الإجتماع", 3),
+                            decoration: decoration("الرقم المعرف", 4),
                             onChanged: (String val) {
                               if (_tpeApp.text == "إفتراضي") {
                                 if (val == "") {
                                   setState(() {
-                                    error[3].text = errorTx(3);
+                                    error[4].text = errorTx(4);
                                   });
                                 } else {
                                   setState(() {
-                                    error[3].text = "";
+                                    error[4].text = "";
                                   });
                                 }
                               }
                             },
                           ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    _tpeApp.text == "حضوري" || _tpeApp.text == ""
-                        ? Container()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: _meetingId,
-                                  keyboardType: TextInputType.text,
-                                  maxLines: 1,
-                                  decoration: decoration("الرقم المعرف", 4),
-                                  onChanged: (String val) {
-                                    if (_tpeApp.text == "إفتراضي") {
-                                      if (val == "") {
-                                        setState(() {
-                                          error[4].text = errorTx(4);
-                                        });
-                                      } else {
-                                        setState(() {
-                                          error[4].text = "";
-                                        });
-                                      }
-                                    }
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: TextField(
-                                  keyboardType: TextInputType.text,
-                                  maxLines: 1,
-                                  controller: _pass,
-                                  decoration: decoration("كلمة السر", 5),
-                                  onChanged: (String val) {
-                                    if (_tpeApp.text == "إفتراضي") {
-                                      if (val == "") {
-                                        setState(() {
-                                          error[5].text = errorTx(5);
-                                        });
-                                      } else {
-                                        setState(() {
-                                          error[5].text = "";
-                                        });
-                                      }
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.text,
+                            maxLines: 1,
+                            controller: _pass,
+                            decoration: decoration("كلمة السر", 5),
+                            onChanged: (String val) {
+                              if (_tpeApp.text == "إفتراضي") {
+                                if (val == "") {
+                                  setState(() {
+                                    error[5].text = errorTx(5);
+                                  });
+                                } else {
+                                  setState(() {
+                                    error[5].text = "";
+                                  });
+                                }
+                              }
+                            },
                           ),
-                    _tpeApp.text == "حضوري"
-                        ? Container()
-                        : const SizedBox(
-                            height: 10,
-                          ),
-                    TextField(
-                      keyboardType: TextInputType.text,
-                      maxLines: 3,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: "ملاحظات",
-                        alignLabelWithHint: true,
-                      ),
-                      onChanged: (String val) {
-                        if (val == "") {
-                          setState(() {
-                            error[1].text = "الرجاء إدخال التاريخ";
-                          });
-                        } else {
-                          setState(() {
-                            error[1].text = "";
-                          });
-                        }
-                      },
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    maxLines: 3,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)),
+                      filled: true,
+                      fillColor: Colors.white,
+                      labelText: "ملاحظات",
+                      alignLabelWithHint: true,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue, // background
-                        onPrimary: Colors.white, // foreground
-                      ),
-                      onPressed: () {
-                        bool isFalse = checkInputs();
-                        if (isFalse) {
-                          return;
-                        }
-                        bool rej = true;
-                        late Meetings meetings = Meetings(
-                            "",
-                            _date.text,
-                            _meetingId.text,
-                            _Time.text,
-                            _appWith.text,
-                            _mobile.text,
-                            _subject.text,
-                            _notes.text,
-                            _tpeApp.text == "حضوري" ? "p" : "v",
-                            _url.text ?? "",
-                            _meetingId.text,
-                            _pass.text);
-
-                        Alert(
-                          context: context,
-                          type: AlertType.warning,
-                          title: "",
-                          desc: "هل تريد إضافة الموعد",
-                          buttons: [
-                            DialogButton(
-                              child: const Text(
-                                "نعم",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              onPressed: () {
-                                rej = false;
-
-                                Navigator.pop(context);
-                              },
-                              width: 120,
-                            ),
-                            DialogButton(
-                              child: const Text(
-                                "إلغاء",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                              width: 120,
-                            )
-                          ],
-                        ).show().then((value) async {
-                          if (!rej) {
-                            EasyLoading.show(
-                              status: 'loading...',
-                            );
-                            await _provider.addApp(meetings, p);
-                            EasyLoading.dismiss();
-                            Alert(
-                              context: context,
-                              type: AlertType.success,
-                              title: "",
-                              desc: "تم إضافة الموعد",
-                              buttons: [
-                                DialogButton(
-                                  child: const Text(
-                                    "حستا",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                  width: 120,
-                                )
-                              ],
-                            ).show().then((value) => Navigator.pop(context));
-                          }
+                    onChanged: (String val) {
+                      if (val == "") {
+                        setState(() {
+                          error[1].text = "الرجاء إدخال التاريخ";
                         });
-                      },
-                      child: const Text('إضافة موعد'),
+                      } else {
+                        setState(() {
+                          error[1].text = "";
+                        });
+                      }
+                    },
+                  ),
+                  Container(),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue, // background
+                      onPrimary: Colors.white, // foreground
                     ),
-                  ],
-                ),
+                    onPressed: () {
+                      bool isFalse = checkInputs();
+                      if (isFalse) {
+                        return;
+                      }
+                      bool rej = true;
+                      late Meetings meetings = Meetings(
+                          "",
+                          _date.text,
+                          _meetingId.text,
+                          _Time.text,
+                          _appWith.text,
+                          _mobile.text,
+                          _subject.text,
+                          _notes.text,
+                          _tpeApp.text == "حضوري" ? "p" : "v",
+                          _url.text ?? "",
+                          _meetingId.text,
+                          _pass.text);
+
+                      Alert(
+                        context: context,
+                        type: AlertType.warning,
+                        title: "",
+                        desc: "تأكيد إضافة الموعد",
+                        buttons: [
+                          DialogButton(
+                            child: const Text(
+                              "نعم",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () {
+                              rej = false;
+
+                              Navigator.pop(context);
+                            },
+                            width: 120,
+                          ),
+                          DialogButton(
+                            child: const Text(
+                              "إلغاء",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            width: 120,
+                          )
+                        ],
+                      ).show().then((value) async {
+                        if (!rej) {
+                          EasyLoading.show(
+                            status: 'جاري المعالجة...',
+                            maskType: EasyLoadingMaskType.black,
+                          );
+                          await _provider.addApp(meetings, p);
+                          EasyLoading.dismiss();
+                          Alert(
+                            context: context,
+                            type: AlertType.success,
+                            title: "",
+                            desc: "تم إضافة الموعد",
+                            buttons: [
+                              DialogButton(
+                                child: const Text(
+                                  "حستا",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                width: 120,
+                              )
+                            ],
+                          ).show().then((value) => Navigator.pop(context));
+                        }
+                      });
+                    },
+                    child: const Text('إضافة موعد'),
+                  ),
+                ],
               ),
             ),
           ],

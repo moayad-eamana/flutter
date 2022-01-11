@@ -7,6 +7,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmpInfoView extends StatefulWidget {
@@ -21,7 +22,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<EmpInfoProvider>(context).empinfoList;
-
+    double width = MediaQuery.of(context).size.width;
+    print(width);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -45,7 +47,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                   onEditingComplete: () async {
                     FocusScope.of(context).unfocus();
                     EasyLoading.show(
-                      status: 'loading...',
+                      status: 'جاري المعالجة...',
+                      maskType: EasyLoadingMaskType.black,
                     );
                     await Provider.of<EmpInfoProvider>(context, listen: false)
                         .fetchEmpInfo(_search.text);
@@ -56,18 +59,40 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                           borderSide: BorderSide(color: Colors.black)),
                       filled: true,
                       fillColor: Colors.white,
-                      labelText: "رقم الوضيفي",
+                      labelText: "بحث عن موظف",
                       alignLabelWithHint: true,
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.search),
                         onPressed: () async {
                           FocusScope.of(context).unfocus();
                           EasyLoading.show(
-                            status: 'loading...',
+                            status: 'جاري المعالجة...',
+                            maskType: EasyLoadingMaskType.black,
                           );
-                          await Provider.of<EmpInfoProvider>(context,
+                          bool hasinfo = await Provider.of<EmpInfoProvider>(
+                                  context,
                                   listen: false)
                               .fetchEmpInfo(_search.text);
+
+                          if (hasinfo == false) {
+                            Alert(
+                              context: context,
+                              type: AlertType.warning,
+                              title: "",
+                              desc: "لايوجد موظفين",
+                              buttons: [
+                                DialogButton(
+                                  child: const Text(
+                                    "حسنا",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  width: 120,
+                                )
+                              ],
+                            ).show();
+                          }
                           EasyLoading.dismiss();
                         },
                       )),
@@ -85,7 +110,12 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         child: AnimationLimiter(
-                          child: ListView.builder(
+                          child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: (width >= 768.0 ? 2 : 1),
+                                      mainAxisSpacing: 10,
+                                      mainAxisExtent: 300),
                               shrinkWrap: true,
                               itemCount: _provider.length,
                               itemBuilder: (BuildContext context, index) {
@@ -106,7 +136,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                               Center(
                                                 child: Text(
                                                   _provider[index].EmployeeName,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
+                                                      color: baseColor,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 18),
@@ -114,7 +145,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                               ),
                                               Center(
                                                 child: TexrW(
-                                                    _provider[index].JobName),
+                                                    _provider[index].Title),
                                               ),
                                               Container(
                                                 margin:
@@ -131,8 +162,9 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                   Container(
                                                     width: 100,
                                                     height: 100,
-                                                    margin: EdgeInsets.only(
-                                                        right: 10),
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 10),
                                                     child: _provider[index]
                                                                 .ImageURL ==
                                                             ""

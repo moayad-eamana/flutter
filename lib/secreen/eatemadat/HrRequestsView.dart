@@ -1,5 +1,6 @@
 import 'package:eamanaapp/provider/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/eatemadat/HRdetailsView.dart';
+import 'package:eamanaapp/secreen/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -23,7 +24,8 @@ class _HrRequestsViewState extends State<HrRequestsView> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'loading...',
+          status: 'جاري المعالجة...',
+          maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<EatemadatProvider>(context, listen: false)
             .fetchHrRequests();
@@ -35,6 +37,8 @@ class _HrRequestsViewState extends State<HrRequestsView> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    print(width);
     var _provider = Provider.of<EatemadatProvider>(context);
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -56,8 +60,8 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                   : AnimationLimiter(
                       child: GridView.builder(
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: (width >= 768.0 ? 2 : 1),
                                   mainAxisSpacing: 10,
                                   mainAxisExtent: 170),
                           itemCount: _provider.getHrRequests.length,
@@ -98,9 +102,10 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                                                   .getHrRequests[index]
                                                   .RequesterName,
                                               style: const TextStyle(
-                                                  fontSize: 16,
+                                                  fontSize: 18,
                                                   fontWeight: FontWeight.bold,
-                                                  fontFamily: "Cairo"),
+                                                  fontFamily: "Cairo",
+                                                  color: baseColor),
                                             ),
                                           ),
                                           Container(
@@ -187,7 +192,8 @@ class _HrRequestsViewState extends State<HrRequestsView> {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontFamily: "Cairo"),
+          style: const TextStyle(
+              fontSize: 14, fontFamily: "Cairo", fontWeight: FontWeight.bold),
         ),
         Text(dec, style: const TextStyle(fontSize: 14, fontFamily: "Cairo"))
       ],

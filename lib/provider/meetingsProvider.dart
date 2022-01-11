@@ -171,8 +171,8 @@ class MettingsProvider extends ChangeNotifier {
           "app_id": id
         }));
 
-    // _meetings.removeWhere((element) => element.Id == id.toString());
-    //notifyListeners();
+    _meetings.removeWhere((element) => element.Id == id.toString());
+    notifyListeners();
   }
 }
 

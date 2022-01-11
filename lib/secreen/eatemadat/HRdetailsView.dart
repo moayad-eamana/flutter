@@ -1,4 +1,5 @@
 import 'package:eamanaapp/provider/eatemadatProvider.dart';
+import 'package:eamanaapp/secreen/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -16,6 +17,7 @@ class HRdetailsView extends StatefulWidget {
 }
 
 class _HRdetailsViewState extends State<HRdetailsView> {
+  double width = 0.0;
   String resondID = "";
   final key = GlobalKey();
   bool isValied = true;
@@ -27,7 +29,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'loading...',
+          status: 'جاري المعالجة...',
+          maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<EatemadatProvider>(context, listen: false)
             .fetchRejectReasonNames();
@@ -39,6 +42,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     var _provider = Provider.of<EatemadatProvider>(context);
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -283,7 +288,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                         context: context,
                                         type: AlertType.warning,
                                         title: "",
-                                        desc: "هل أنت متاك من عملية الرفض",
+                                        desc: "تأكيد رفض الطلب",
                                         buttons: [
                                           DialogButton(
                                             child: const Text(
@@ -368,7 +373,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                     context: context,
                                     type: AlertType.warning,
                                     title: "",
-                                    desc: "هل أنت متأكد من القبول",
+                                    desc: "تأكيد قبول الطلب",
                                     buttons: [
                                       DialogButton(
                                         child: const Text(
@@ -442,6 +447,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
   }
 
   Widget employeeName(_provider) {
+    double width = MediaQuery.of(context).size.width;
     return SizedBox(
       height: 90,
       child: Card(
@@ -455,7 +461,11 @@ class _HRdetailsViewState extends State<HRdetailsView> {
               children: [
                 Text(
                   _provider.getHrRequests[widget.index ?? 0].RequesterName,
-                  style: const TextStyle(fontFamily: ("Cairo")),
+                  style: TextStyle(
+                      color: baseColor,
+                      fontFamily: ("Cairo"),
+                      fontWeight: FontWeight.bold,
+                      fontSize: width >= 768.0 ? 22 : 14),
                 ),
               ],
             ),
@@ -480,9 +490,11 @@ class _HRdetailsViewState extends State<HRdetailsView> {
   }
 
   Widget TextW(String txt) {
+    double width = MediaQuery.of(context).size.width;
+
     return Text(
       txt,
-      style: const TextStyle(fontFamily: "Cairo"),
+      style: TextStyle(fontFamily: "Cairo", fontSize: width >= 768.0 ? 18 : 14),
     );
   }
 }

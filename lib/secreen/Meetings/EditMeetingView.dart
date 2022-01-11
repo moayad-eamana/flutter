@@ -58,7 +58,8 @@ class _EditMeetingViewState extends State<EditMeetingView> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'loading...',
+          status: 'جاري المعالجة...',
+          maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<MettingsProvider>(context, listen: false)
             .fetchMeetingsTime();
@@ -404,7 +405,7 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                           context: context,
                           type: AlertType.warning,
                           title: "",
-                          desc: "هل انت متاكد من تعديل الموعد",
+                          desc: "تأكيد تعديل الموعد",
                           buttons: [
                             DialogButton(
                               child: const Text(
@@ -431,7 +432,8 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                         ).show().then((value) async {
                           if (!rej) {
                             EasyLoading.show(
-                              status: 'loading...',
+                              status: 'جاري المعالجة...',
+                              maskType: EasyLoadingMaskType.black,
                             );
                             await _provider.putappoit(
                                 widget.index ?? 0,

@@ -13,7 +13,7 @@ class EmpInfoProvider extends ChangeNotifier {
     "Content-Type": "application/json"
   };
 
-  Future<void> fetchEmpInfo(String name) async {
+  Future<bool> fetchEmpInfo(String name) async {
     _empinfo = [];
     notifyListeners();
     var respose = await http.get(
@@ -21,10 +21,18 @@ class EmpInfoProvider extends ChangeNotifier {
             "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/GetEmployees/" +
                 name),
         headers: APP_HEADERS);
-    _empinfo = (jsonDecode(respose.body)["EmpInfo"] as List)
-        .map(((e) => EmpInfo.fromJson(e)))
-        .toList();
+    _empinfo.clear();
+    if (jsonDecode(respose.body)["EmpInfo"] != null) {
+      _empinfo = (jsonDecode(respose.body)["EmpInfo"] as List)
+          .map(((e) => EmpInfo.fromJson(e)))
+          .toList();
+    }
+    print(_empinfo);
     notifyListeners();
+    if (_empinfo.length == 0) {
+      return false;
+    }
+    return true;
   }
 
   List<EmpInfo> get empinfoList {

@@ -1,5 +1,3 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:eamanaapp/model/EmpInfo.dart';
 import 'package:eamanaapp/provider/loginProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
@@ -14,14 +12,18 @@ import 'package:eamanaapp/secreen/eatemadat/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/eatemadat/HrRequestsView.dart';
 import 'package:eamanaapp/secreen/globalcss.dart';
 import 'package:eamanaapp/secreen/tab.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+  String? username = sharedPref.getString("username");
   runApp(
-    MyApp(),
+    MyApp(username),
   );
   configLoading();
 }
@@ -37,13 +39,14 @@ void configLoading() {
     ..backgroundColor = Colors.white
     ..indicatorColor = Colors.blue
     ..textColor = Colors.blue
-    ..maskColor = Colors.black
+    ..maskColor = Colors.blue.withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  String? username;
+  MyApp(this.username);
 
   // This widget is the root of your application.
   @override
@@ -80,15 +83,19 @@ class MyApp extends StatelessWidget {
 
         // deprecated,
       ),
-      initialRoute: '/',
+      initialRoute: username == null || username == "" ? '/' : '/TabBarDemo',
       routes: {
         '/': (context) => ChangeNotifierProvider(
               create: (_) => LoginProvider(),
-              child: TabBarDemo(),
+              child: LoginView(),
             ),
         '/TabBarDemo': (context) => ChangeNotifierProvider(
               create: (_) => LoginProvider(),
               child: TabBarDemo(),
+            ),
+        '/loginView': (context) => ChangeNotifierProvider(
+              create: (_) => LoginProvider(),
+              child: LoginView(),
             ),
         '/tab': (context) => const TabBarDemo(),
         '/transaction': (context) => TransactionsView(),

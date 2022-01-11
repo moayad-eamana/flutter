@@ -1,0 +1,185 @@
+import 'dart:io';
+
+import 'package:eamanaapp/provider/LoansRequestsProvider.dart';
+import 'package:eamanaapp/secreen/eatemadat/LoansRequestsDetailesView.dart';
+import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+
+class LoansRequestsView extends StatefulWidget {
+  const LoansRequestsView({Key? key}) : super(key: key);
+
+  @override
+  _LoansRequestsViewState createState() => _LoansRequestsViewState();
+}
+
+class _LoansRequestsViewState extends State<LoansRequestsView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      if (Provider.of<LoansRequestsProvider>(context, listen: false)
+          .LoansRequestList
+          .isEmpty) {
+        EasyLoading.show(
+          status: 'جاري المعالجة...',
+          maskType: EasyLoadingMaskType.black,
+        );
+        await Provider.of<LoansRequestsProvider>(context, listen: false)
+            .fetchRejectReasonNames();
+        await Provider.of<LoansRequestsProvider>(context, listen: false)
+            .fethLoansRequests();
+        EasyLoading.dismiss();
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var _provider = Provider.of<LoansRequestsProvider>(context);
+    double width = MediaQuery.of(context).size.width;
+    print(width);
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBarW.appBarW("الاعارات", context),
+        body: _provider.LoansRequestList.length == 0
+            ? Container()
+            : Stack(
+                children: [
+                  SvgPicture.asset(
+                    'assets/SVGs/background.svg',
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    //height: MediaQuery.of(context).size.height,
+                    fit: BoxFit.cover,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: AnimationLimiter(
+                      child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: (width >= 768.0 ? 2 : 1),
+                                  mainAxisSpacing: 10,
+                                  mainAxisExtent: 200),
+                          itemCount: _provider.LoansRequestList.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              child: ScaleAnimation(
+                                curve: Curves.linear,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChangeNotifierProvider.value(
+                                                value: _provider,
+                                                child:
+                                                    LoansRequestsDetailesView(
+                                                  index: index,
+                                                )),
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: Card(
+                                      elevation: 1,
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            _provider.LoansRequestList[index]
+                                                .EmployeeName,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 22,
+                                                color: baseColor),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  const Text("نوع الطلب",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(_provider
+                                                      .LoansRequestList[index]
+                                                      .RequestTypeName),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  const Text("الاجراء المتخذ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(_provider
+                                                      .LoansRequestList[index]
+                                                      .StatusName),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          const Divider(
+                                            indent: 10,
+                                            endIndent: 10,
+                                            thickness: 0.5,
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: const [
+                                                Text("التفاصيل"),
+                                                Icon(
+                                                  Icons.arrow_back_ios_new,
+                                                  size: 15,
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ),
+                ],
+              ),
+      ),
+    );
+  }
+}

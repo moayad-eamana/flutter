@@ -1,5 +1,6 @@
 import 'package:eamanaapp/secreen/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Statistics extends StatefulWidget {
   const Statistics({Key? key}) : super(key: key);
@@ -11,27 +12,38 @@ class Statistics extends StatefulWidget {
 class _StatisticsState extends State<Statistics> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
       children: [
-        ListView(
-          shrinkWrap: true,
+        SvgPicture.asset(
+          'assets/SVGs/background.svg',
+          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          //height: MediaQuery.of(context).size.height,
+          fit: BoxFit.fill,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            ListView(
+              shrinkWrap: true,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buildCard("إجمالي المنصرف", "300 مليون"),
-                    buildCard("إجمالي الإيرادات", "300 مليون"),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    buildCard("إجمالي الغير محصل", "300 مليون"),
-                    buildCard("إجمالي المحصل", "300 مليون"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        buildCard("إجمالي المنصرف", "1.6 BN"),
+                        buildCard("إجمالي الإيرادات", "107 M"),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        buildCard("إجمالي الغير محصل", "33 M"),
+                        buildCard("إجمالي المحصل", "74 M"),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -52,27 +64,20 @@ class _StatisticsState extends State<Statistics> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-                height: 40,
-                width: 40,
-                decoration: const BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(2.0),
-                  ),
-                ),
-                child: const Icon(Icons.ac_unit)),
             const SizedBox(
               height: 10,
             ),
             Text(
               title,
-              style: const TextStyle(color: baseColor),
+              style: const TextStyle(
+                  color: baseColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(
               height: 10,
             ),
-            Text(value, style: const TextStyle(color: baseColor))
+            Text(value,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:eamanaapp/provider/loginProvider.dart';
+import 'package:eamanaapp/secreen/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -17,14 +19,6 @@ class _OTPViewState extends State<OTPView> {
   Widget build(BuildContext context) {
     var _provider = Provider.of<LoginProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            Text("دخول"),
-          ],
-        ),
-      ),
       body: Stack(
         children: [
           background(),
@@ -83,20 +77,22 @@ class _OTPViewState extends State<OTPView> {
 
   Widget banalPag() {
     return Center(
-      child: SvgPicture.asset(
-        'assets/SVGs/panel-bg.svg',
-        alignment: Alignment.center,
-        //  width: MediaQuery.of(context).size.width,
-        //  height: MediaQuery.of(context).size.height,
-        height: 250,
-        //fit: BoxFit.,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+            color: secondryColor,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12.0),
+            ),
+            border: Border.all(color: Colors.white)),
+        width: MediaQuery.of(context).size.width,
       ),
     );
   }
 
   Widget smsTxt() {
     return Container(
-      height: 45,
+      height: 60,
       margin: const EdgeInsets.only(left: 100, right: 100),
       child: TextField(
         controller: _otp,
@@ -124,9 +120,14 @@ class _OTPViewState extends State<OTPView> {
           onPrimary: Colors.white, // foreground
         ),
         onPressed: () async {
+          EasyLoading.show(
+            status: 'جاري المعالجة...',
+            maskType: EasyLoadingMaskType.black,
+          );
           bool isValid =
               await Provider.of<LoginProvider>(context, listen: false)
                   .checkUserOTP(_otp.text);
+          EasyLoading.dismiss();
           if (isValid) {
             Navigator.pushReplacementNamed(context, "/tab");
           } else {
