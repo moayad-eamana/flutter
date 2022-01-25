@@ -1,7 +1,7 @@
-import 'package:eamanaapp/provider/meetingsProvider.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
@@ -81,7 +81,7 @@ class _MeetingViewState extends State<MeetingView> {
                           duration: const Duration(milliseconds: 375),
                           child: ScaleAnimation(
                             //  verticalOffset: 50.0,
-                            curve: Curves.linear,
+                            curve: Curves.easeInOut,
 
                             child: Container(
                               //margin: EdgeInsets.symmetric(vertical: 250),

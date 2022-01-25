@@ -1,14 +1,16 @@
-import 'package:eamanaapp/provider/HrDecisionsProvider.dart';
-import 'package:eamanaapp/provider/LoansRequestsProvider.dart';
-import 'package:eamanaapp/provider/eatemadatProvider.dart';
-import 'package:eamanaapp/secreen/eatemadat/HrDecisionsView.dart';
-import 'package:eamanaapp/secreen/eatemadat/HrRequestsView.dart';
-import 'package:eamanaapp/secreen/eatemadat/LoansRequestsView.dart';
+import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
+import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
+import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+import 'HrDecisionsView.dart';
+import 'HrRequestsView.dart';
+import 'LoansRequestsView.dart';
 
 class InboxHedersView extends StatefulWidget {
   const InboxHedersView({Key? key}) : super(key: key);
@@ -62,7 +64,10 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                     child: GridView.builder(
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: (width >= 768.0 ? 3 : 1),
+                            crossAxisCount:
+                                (SizerUtil.deviceType == DeviceType.tablet
+                                    ? 3
+                                    : 1),
                             mainAxisSpacing: 10,
                             mainAxisExtent: 300),
                         itemCount: _provider.length,

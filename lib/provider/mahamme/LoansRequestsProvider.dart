@@ -1,24 +1,15 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:eamanaapp/model/LoansRequests.dart';
+import 'package:eamanaapp/model/mahamme/LoansRequests.dart';
 import 'package:eamanaapp/model/RequestRejectReasons.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 
 class LoansRequestsProvider extends ChangeNotifier {
-  String url = "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/";
-  var APP_HEADERS = {
-    HttpHeaders.authorizationHeader:
-        basicAuthenticationHeader("DevTeam", "DevTeam"),
-    "Content-Type": "application/json; charset=utf-8",
-  };
-
   late List<LoansRequest> _LoanRequest = [];
   Future<void> fethLoansRequests() async {
-    var respose = await http.get(
-        Uri.parse(url + "GetLoansRequests" + "/4341012"),
-        headers: APP_HEADERS);
+    var respose = await getAction("GetLoansRequests" + "/4341012");
 
     _LoanRequest = (jsonDecode(respose.body)["LoansList"] as List)
         .map(((e) => LoansRequest.fromJson(e)))
@@ -31,11 +22,9 @@ class LoansRequestsProvider extends ChangeNotifier {
   }
 
   Future<void> deleteLoansReques(int index) async {
-    var respose = await http.post(
-        Uri.parse(
-            "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/ApproveLoanRequest"),
-        headers: APP_HEADERS,
-        body: jsonEncode({
+    var respose = await postAction(
+        "ApproveLoanRequest",
+        jsonEncode({
           "BdgLoc": _LoanRequest[index].BdgLoc,
           "EmployeeNumber": _LoanRequest[index].EmployeeNumber,
           "RequestNumber": _LoanRequest[index].RequestNumber,
@@ -47,11 +36,6 @@ class LoansRequestsProvider extends ChangeNotifier {
           "Notes": "kkkk",
           "ApproveFlag": "A"
         }));
-    print(_LoanRequest[index].BdgLoc);
-    print(_LoanRequest[index].RequestNumber);
-    print(_LoanRequest[index].EmployeeName);
-    print(_LoanRequest[index].RequestTypeID);
-    print(_LoanRequest[index].LocationCode);
 
     print(_LoanRequest[index].BdgLoc.toString() +
         " " +
@@ -70,10 +54,8 @@ class LoansRequestsProvider extends ChangeNotifier {
   List<String> _reason = [];
   late List<RequestRejectReasons> _RequestRejectReasons;
   Future<void> fetchRejectReasonNames() async {
-    var respose = await http.get(
-        Uri.parse(
-            "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/GetHrRequestRejectReasons"),
-        headers: APP_HEADERS);
+    var respose = await getAction("GetHrRequestRejectReasons");
+
     _RequestRejectReasons =
         (jsonDecode(respose.body)["RejectReasonsList"] as List)
             .map(((e) => RequestRejectReasons.fromJson(e)))
@@ -89,8 +71,4 @@ class LoansRequestsProvider extends ChangeNotifier {
   List<String> get resonsSrtings {
     return _reason;
   }
-}
-
-String basicAuthenticationHeader(String username, String password) {
-  return 'Basic ' + base64Encode(utf8.encode('$username:$password'));
 }

@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:eamanaapp/provider/EmpInfoProvider.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

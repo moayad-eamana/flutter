@@ -1,11 +1,11 @@
-import 'package:eamanaapp/provider/loginProvider.dart';
+import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -202,22 +202,9 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ));
             } else {
-              Alert(
-                context: context,
-                type: AlertType.error,
-                title: "خطأ",
-                desc: "خطأ في كلمة المرور أو إسم المستخدم",
-                buttons: [
-                  DialogButton(
-                    child: const Text(
-                      "حسنا",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                    width: 120,
-                  )
-                ],
-              ).show();
+              Alerts.errorAlert(
+                      context, "خطأ", "خطأ في كلمة المرور أو إسم المستخدم")
+                  .show();
             }
           }
         },

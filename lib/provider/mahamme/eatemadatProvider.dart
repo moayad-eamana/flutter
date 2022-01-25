@@ -1,29 +1,19 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:eamanaapp/model/HrRequests.dart';
-import 'package:eamanaapp/model/InboxHeader.dart';
+import 'package:eamanaapp/model/mahamme/HrRequests.dart';
+import 'package:eamanaapp/model/mahamme/InboxHeader.dart';
 import 'package:eamanaapp/model/RequestRejectReasons.dart';
-import 'package:http/http.dart' as http;
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
 
 class EatemadatProvider extends ChangeNotifier {
   bool isLoding = false;
-  String url = "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/";
-  var APP_HEADERS = {
-    HttpHeaders.authorizationHeader:
-        basicAuthenticationHeader("DevTeam", "DevTeam"),
-    "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers":
-        "Access-Control-Allow-Headers,Content-Type, Access-Control-Allow-Methods, authorization, X-Requested-With"
-  };
 
   late List<InboxHeader> _inboxHeader = [];
   Future<void> getInboxHeader() async {
     isLoding = true;
     notifyListeners();
-    var respose = await http.get(Uri.parse(url + "GetInboxHeader/4341012"),
-        headers: APP_HEADERS);
+
+    var respose = await getAction("GetInboxHeader/4341012");
     _inboxHeader = (jsonDecode(respose.body)["HeaderList"] as List)
         .map(((e) => InboxHeader.fromJson(e)))
         .toList();
@@ -41,8 +31,7 @@ class EatemadatProvider extends ChangeNotifier {
   Future<void> fetchHrRequests() async {
     isLoding = true;
     notifyListeners();
-    var respose = await http.get(Uri.parse(url + "GetInboxHrRequests/4341012"),
-        headers: APP_HEADERS);
+    var respose = await getAction("GetInboxHrRequests/4341012");
     _hrRequestsList = (jsonDecode(respose.body)["RequestList"] as List)
         .map(((e) => HrRequests.fromJson(e)))
         .toList();
@@ -63,11 +52,9 @@ class EatemadatProvider extends ChangeNotifier {
         break;
       }
     }
-    var respose = await http.post(
-        Uri.parse(
-            "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/HrRequestApprove"),
-        headers: APP_HEADERS,
-        body: jsonEncode({
+    var respose = await postAction(
+        "HrRequestApprove",
+        jsonEncode({
           "RequesterEmployeeNumber":
               _hrRequestsList[index].RequesterEmployeeNumber,
           "RequestNumber": _hrRequestsList[index].RequestNumber,
@@ -76,7 +63,8 @@ class EatemadatProvider extends ChangeNotifier {
           "RequestTypeID": _hrRequestsList[index].RequestTypeID,
           "ApprovedBy": 4341012
         }));
-    //  print(respose.body);
+
+    print(respose.body);
     _hrRequestsList.removeAt(index);
 
     notifyListeners();
@@ -86,10 +74,7 @@ class EatemadatProvider extends ChangeNotifier {
   List<String> _reason = [];
   late List<RequestRejectReasons> _RequestRejectReasons;
   Future<void> fetchRejectReasonNames() async {
-    var respose = await http.get(
-        Uri.parse(
-            "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/GetHrRequestRejectReasons"),
-        headers: APP_HEADERS);
+    var respose = await getAction("GetHrRequestRejectReasons");
     _RequestRejectReasons =
         (jsonDecode(respose.body)["RejectReasonsList"] as List)
             .map(((e) => RequestRejectReasons.fromJson(e)))
@@ -109,8 +94,4 @@ class EatemadatProvider extends ChangeNotifier {
   List<RequestRejectReasons> get getRequestRejectReasonsList {
     return List.from(_RequestRejectReasons);
   }
-}
-
-String basicAuthenticationHeader(String username, String password) {
-  return 'Basic ' + base64Encode(utf8.encode('$username:$password'));
 }

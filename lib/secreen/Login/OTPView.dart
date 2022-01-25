@@ -1,10 +1,10 @@
-import 'package:eamanaapp/provider/loginProvider.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/provider/login/loginProvider.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class OTPView extends StatefulWidget {
   const OTPView({Key? key}) : super(key: key);
@@ -131,22 +131,7 @@ class _OTPViewState extends State<OTPView> {
           if (isValid) {
             Navigator.pushReplacementNamed(context, "/tab");
           } else {
-            Alert(
-              context: context,
-              type: AlertType.error,
-              title: "خطأ",
-              desc: "خطأ في الرمز",
-              buttons: [
-                DialogButton(
-                  child: const Text(
-                    "حسنا",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  width: 120,
-                )
-              ],
-            ).show();
+            Alerts.errorAlert(context, "خطأ", "خطأ في الرمز").show();
           }
         },
         child: const Text('إستمرار'),

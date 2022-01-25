@@ -1,12 +1,13 @@
-import 'package:eamanaapp/provider/eatemadatProvider.dart';
-import 'package:eamanaapp/secreen/eatemadat/HRdetailsView.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import 'HRdetailsView.dart';
 
 class HrRequestsView extends StatefulWidget {
   const HrRequestsView({Key? key}) : super(key: key);

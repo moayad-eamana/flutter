@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:eamanaapp/provider/LoansRequestsProvider.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,6 +21,8 @@ class LoansRequestsDetailesView extends StatefulWidget {
 class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
   int val = 1;
   String error = "";
+  var FinancialType = null;
+  var ApproveFlag = "A";
 
   @override
   Widget build(BuildContext context) {
@@ -246,6 +249,8 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                             onPressed: () {
                               String loan = "";
                               String errorval = "";
+                              FinancialType = "A";
+                              ApproveFlag = "A";
                               showDialog(
                                 context: context,
                                 builder: (context) {
@@ -266,6 +271,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                     groupValue: val,
                                                     toggleable: true,
                                                     onChanged: (s) {
+                                                      FinancialType = "A";
                                                       setState(() {
                                                         val = 1;
                                                       });
@@ -281,6 +287,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                     groupValue: val,
                                                     toggleable: true,
                                                     onChanged: (s) {
+                                                      FinancialType = "S";
                                                       setState(() {
                                                         val = 2;
                                                       });
@@ -431,23 +438,9 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                 },
                               ).then((value) {
                                 if (value == true) {
-                                  Alert(
-                                    context: context,
-                                    type: AlertType.success,
-                                    desc: "تم القبول",
-                                    buttons: [
-                                      DialogButton(
-                                        child: const Text(
-                                          "حسنا",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                        onPressed: () => Navigator.pop(context),
-                                        width: 120,
-                                      )
-                                    ],
-                                  ).show().then((value) {
+                                  Alerts.successAlert(context, "", "تم القبول")
+                                      .show()
+                                      .then((value) {
                                     Navigator.pop(context);
                                   });
                                 }
@@ -467,6 +460,8 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                             ),
                             onPressed: () {
                               String resaon = "";
+                              FinancialType = null;
+                              ApproveFlag = "R";
                               showDialog(
                                 context: context,
                                 builder: (context) {
@@ -478,74 +473,24 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                           child: SingleChildScrollView(
                                             child: Column(
                                               children: [
-                                                DropdownSearch<String>(
-                                                  items:
-                                                      _provider.resonsSrtings,
-                                                  maxHeight: 300,
-                                                  mode: Mode.BOTTOM_SHEET,
-                                                  showClearButton: true,
-                                                  showAsSuffixIcons: true,
-                                                  dropdownSearchDecoration:
-                                                      InputDecoration(
-                                                    errorText: error == ""
-                                                        ? null
-                                                        : error,
+                                                TextField(
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                  maxLines: 1,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.black)),
+                                                    filled: true,
+                                                    fillColor: Colors.white,
                                                     labelText: "سبب الرفض",
-                                                    contentPadding:
-                                                        const EdgeInsets
-                                                                .fromLTRB(
-                                                            12, 12, 0, 0),
-                                                    border:
-                                                        OutlineInputBorder(),
+                                                    alignLabelWithHint: true,
                                                   ),
-                                                  showSearchBox: true,
-                                                  onChanged: (String? v) {
-                                                    setState(() {
-                                                      if (v == null) {
-                                                        resaon = "";
-                                                        error =
-                                                            "الرجاء إختيار سبب الرفض";
-                                                      } else {
-                                                        resaon = v ?? "";
-                                                        error = "";
-                                                      }
-                                                    });
+                                                  onChanged: (String val) {
+                                                    setState(() {});
                                                   },
-                                                  popupTitle: Container(
-                                                    height: 50,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.blue[100],
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(20),
-                                                        topRight:
-                                                            Radius.circular(20),
-                                                      ),
-                                                    ),
-                                                    child: const Center(
-                                                      child: Text(
-                                                        'سبب الرفض',
-                                                        style: TextStyle(
-                                                          fontSize: 24,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  popupShape:
-                                                      const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(24),
-                                                      topRight:
-                                                          Radius.circular(24),
-                                                    ),
-                                                  ),
                                                 ),
                                                 const SizedBox(
                                                   height: 10,
@@ -610,23 +555,9 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                 },
                               ).then((value) {
                                 if (value == true) {
-                                  Alert(
-                                    context: context,
-                                    type: AlertType.success,
-                                    desc: "تم الرفض",
-                                    buttons: [
-                                      DialogButton(
-                                        child: const Text(
-                                          "حسنا",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                        onPressed: () => Navigator.pop(context),
-                                        width: 120,
-                                      )
-                                    ],
-                                  ).show().then((value) {
+                                  Alerts.successAlert(context, "", "تم الرفض")
+                                      .show()
+                                      .then((value) {
                                     Navigator.pop(context);
                                   });
                                 }

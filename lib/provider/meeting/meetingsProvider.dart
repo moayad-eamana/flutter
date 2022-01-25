@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:eamanaapp/model/meetings.dart';
-import 'package:eamanaapp/model/meetingsTime.dart';
+import 'package:eamanaapp/model/meeting/meetings.dart';
+import 'package:eamanaapp/model/meeting/meetingsTime.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

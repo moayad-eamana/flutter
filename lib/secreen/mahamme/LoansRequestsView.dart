@@ -1,14 +1,13 @@
-import 'dart:io';
-
-import 'package:eamanaapp/provider/LoansRequestsProvider.dart';
-import 'package:eamanaapp/secreen/eatemadat/LoansRequestsDetailesView.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import 'LoansRequestsDetailesView.dart';
 
 class LoansRequestsView extends StatefulWidget {
   const LoansRequestsView({Key? key}) : super(key: key);

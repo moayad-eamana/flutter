@@ -1,7 +1,5 @@
-import 'package:eamanaapp/secreen/globalcss.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AppBarW {
   static PreferredSize appBarW(String title, BuildContext context) {

@@ -1,6 +1,6 @@
-import 'package:eamanaapp/provider/EmpInfoProvider.dart';
-import 'package:eamanaapp/provider/eatemadatProvider.dart';
-import 'package:eamanaapp/provider/meetingsProvider.dart';
+import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
+import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'EmpInfo/EmpInfoView.dart';
-import 'eatemadat/InboxHedersView.dart';
+import 'mahamme/InboxHedersView.dart';
 
 class TabBarDemo extends StatefulWidget {
   const TabBarDemo({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class TabBarDemo extends StatefulWidget {
 }
 
 class _TabBarDemoState extends State<TabBarDemo> {
-  String usernam = "";
+  String usernam = "drefr";
   void initState() {
     getuser();
     super.initState();
@@ -26,16 +26,16 @@ class _TabBarDemoState extends State<TabBarDemo> {
 
   Future<void> getuser() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-    setState(() {
-      usernam = _pref.getString("username") as String;
-    });
+    // setState(() {
+    //  usernam = _pref.getString("username") as String;
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: usernam == "4438104" ? 2 : 4,
-      length: usernam == "4438104" ? 3 : 5,
+      initialIndex: usernam == "" ? 4 : 4,
+      length: usernam == "" ? 5 : 5,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -74,7 +74,7 @@ class _TabBarDemoState extends State<TabBarDemo> {
                     TabBar(
                       //padding: EdgeInsets.all(0),
                       isScrollable: true,
-                      tabs: usernam == "4438104"
+                      tabs: usernam == ""
                           ? [
                               Tab(
                                 text: "إحصائيات",
@@ -111,7 +111,7 @@ class _TabBarDemoState extends State<TabBarDemo> {
           ),
         ),
         body: TabBarView(
-            children: usernam == "4438104"
+            children: usernam == ""
                 ? [
                     ChangeNotifierProvider(
                       create: (_) => EmpInfoProvider(),

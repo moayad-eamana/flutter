@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:eamanaapp/provider/meetingsProvider.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
@@ -452,23 +450,9 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                                 _pass.text);
 
                             EasyLoading.dismiss();
-                            Alert(
-                              context: context,
-                              type: AlertType.success,
-                              title: "",
-                              desc: "تم تعديل الموعد",
-                              buttons: [
-                                DialogButton(
-                                  child: const Text(
-                                    "حستا",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                  width: 120,
-                                )
-                              ],
-                            ).show().then((value) => Navigator.pop(context));
+                            Alerts.successAlert(context, "", "تم تعديل الموعد")
+                                .show()
+                                .then((value) => Navigator.pop(context));
                           }
                         });
                       },

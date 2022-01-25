@@ -1,5 +1,6 @@
-import 'package:eamanaapp/provider/HrDecisionsProvider.dart';
-import 'package:eamanaapp/secreen/globalcss.dart';
+import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -216,7 +217,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                                   .show()
                                   .then((value) {
                                 if (value == true) {
-                                  showalertsu("", "تم القبول ")
+                                  Alerts.successAlert(context, "", "تم القبول ")
                                       .show()
                                       .then((value) {
                                     Navigator.pop(context);
@@ -273,27 +274,6 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
           },
           width: 120,
         )
-      ],
-    );
-  }
-
-  Alert showalertsu(String title, String desc) {
-    return Alert(
-      context: context,
-      type: AlertType.success,
-      title: title,
-      desc: desc,
-      buttons: [
-        DialogButton(
-          child: const Text(
-            "حسنا",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          width: 120,
-        ),
       ],
     );
   }

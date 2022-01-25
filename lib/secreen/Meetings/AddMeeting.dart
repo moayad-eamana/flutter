@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:eamanaapp/model/meetings.dart';
-import 'package:eamanaapp/provider/meetingsProvider.dart';
+import 'package:eamanaapp/model/meeting/meetings.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 
 import 'package:flutter/material.dart';
@@ -435,23 +436,9 @@ class _AddMeetingState extends State<AddMeeting> {
                           );
                           await _provider.addApp(meetings, p);
                           EasyLoading.dismiss();
-                          Alert(
-                            context: context,
-                            type: AlertType.success,
-                            title: "",
-                            desc: "تم إضافة الموعد",
-                            buttons: [
-                              DialogButton(
-                                child: const Text(
-                                  "حستا",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                width: 120,
-                              )
-                            ],
-                          ).show().then((value) => Navigator.pop(context));
+                          Alerts.successAlert(context, "", "تم إضافة الموعد")
+                              .show()
+                              .then((value) => Navigator.pop(context));
                         }
                       });
                     },
