@@ -44,7 +44,8 @@ class EatemadatProvider extends ChangeNotifier {
     return List.from(_hrRequestsList);
   }
 
-  Future<bool> deleteEtmad(int index, bool IsRecjcted, String resondID) async {
+  Future<dynamic> deleteEtmad(
+      int index, bool IsRecjcted, String resondID) async {
     double id = 0;
     for (int i = 0; i < _RequestRejectReasons.length; i++) {
       if (resondID == _RequestRejectReasons[i].RejectReasonName) {
@@ -65,6 +66,11 @@ class EatemadatProvider extends ChangeNotifier {
         }));
 
     print(respose.body);
+    if (jsonDecode(respose.body)["StatusCode"] != 400 ||
+        jsonDecode(respose.body)["StatusCode"] != 200) {
+      return jsonDecode(respose.body)["ErrorMessage"];
+    }
+
     _hrRequestsList.removeAt(index);
 
     notifyListeners();

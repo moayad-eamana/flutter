@@ -21,7 +21,7 @@ class HrDecisionsProvider extends ChangeNotifier {
     return List.from(_hrDecisions);
   }
 
-  Future<void> PostAproveDesition(int index) async {
+  Future<dynamic> PostAproveDesition(int index) async {
     var respose = await postAction(
         "ApproveDecisionRequest",
         jsonEncode({
@@ -34,8 +34,12 @@ class HrDecisionsProvider extends ChangeNotifier {
           "ExecutionDateH": _hrDecisions[index].ExecutionDateH,
           "ExexutionDateG": _hrDecisions[index].ExexutionDateG
         }));
-
+    if (jsonDecode(respose.body)["StatusCode"] != 400 ||
+        jsonDecode(respose.body)["StatusCode"] != 200) {
+      return jsonDecode(respose.body)["ErrorMessage"];
+    }
     _hrDecisions.removeAt(index);
     notifyListeners();
+    return true;
   }
 }

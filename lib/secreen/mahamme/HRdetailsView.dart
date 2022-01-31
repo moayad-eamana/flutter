@@ -284,51 +284,35 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                           isValied = true;
                                         });
                                       }
-                                      bool reject = false;
-                                      Alert(
-                                        context: context,
-                                        type: AlertType.warning,
-                                        title: "",
-                                        desc: "تأكيد رفض الطلب",
-                                        buttons: [
-                                          DialogButton(
-                                            child: const Text(
-                                              "رفض",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20),
-                                            ),
-                                            onPressed: () {
-                                              _provider.deleteEtmad(
+
+                                      Alerts.confirmAlrt(context, "",
+                                              "تأكيد رفض الطلب", "رفض")
+                                          .show()
+                                          .then((val) async {
+                                        if (val == true) {
+                                          EasyLoading.show(
+                                            status: 'جاري المعالجة...',
+                                            maskType: EasyLoadingMaskType.black,
+                                          );
+                                          var bool =
+                                              await _provider.deleteEtmad(
                                                   widget.index ?? 0,
                                                   false,
                                                   resondID);
-
-                                              reject = true;
+                                          EasyLoading.dismiss();
+                                          if (bool == true) {
+                                            Alerts.successAlert(
+                                                    context, "", "تم رفض الطلب")
+                                                .show()
+                                                .then((value) {
+                                              // to exit from secreen after clicking حسنا btn
+                                              //remova page from secreen
                                               Navigator.pop(context);
-                                            },
-                                            width: 120,
-                                          ),
-                                          DialogButton(
-                                            child: const Text(
-                                              "إلغاء",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20),
-                                            ),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                            width: 120,
-                                          )
-                                        ],
-                                      ).show().then((value) {
-                                        if (reject) {
-                                          Alerts.warningAlert(
-                                                  context, "", "تم رفض الطلب")
-                                              .show()
-                                              .then((value) {
-                                            Navigator.pop(context);
-                                          });
+                                            });
+                                          } else {
+                                            Alerts.errorAlert(context, "", bool)
+                                                .show();
+                                          }
                                         }
                                       });
                                     },
@@ -353,50 +337,29 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                   onPrimary: Colors.white, // foreground
                                 ),
                                 onPressed: () {
-                                  bool reject = false;
-                                  Alert(
-                                    context: context,
-                                    type: AlertType.warning,
-                                    title: "",
-                                    desc: "تأكيد قبول الطلب",
-                                    buttons: [
-                                      DialogButton(
-                                        child: const Text(
-                                          "قبول",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                        onPressed: () async {
-                                          await _provider.deleteEtmad(
-                                              widget.index ?? 0,
-                                              true,
-                                              resondID);
-
-                                          reject = true;
+                                  Alerts.confirmAlrt(context, "",
+                                          "تأكيد قبول الطلب", "قبول")
+                                      .show()
+                                      .then((val) async {
+                                    if (val == true) {
+                                      EasyLoading.show(
+                                        status: 'جاري المعالجة...',
+                                        maskType: EasyLoadingMaskType.black,
+                                      );
+                                      var bool = await _provider.deleteEtmad(
+                                          widget.index ?? 0, true, resondID);
+                                      EasyLoading.dismiss();
+                                      if (bool == true) {
+                                        Alerts.successAlert(
+                                                context, "", "تم القبول ")
+                                            .show()
+                                            .then((value) {
                                           Navigator.pop(context);
-                                        },
-                                        width: 120,
-                                      ),
-                                      DialogButton(
-                                        child: const Text(
-                                          "إلغاء",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                        onPressed: () => Navigator.pop(context),
-                                        width: 120,
-                                      )
-                                    ],
-                                  ).show().then((value) {
-                                    if (reject) {
-                                      Alerts.successAlert(context, "",
-                                              "تم قبول الطلب بنجاح")
-                                          .show()
-                                          .then((value) {
-                                        Navigator.pop(context);
-                                      });
+                                        });
+                                      } else {
+                                        Alerts.errorAlert(context, "", bool)
+                                            .show();
+                                      }
                                     }
                                   });
                                 },

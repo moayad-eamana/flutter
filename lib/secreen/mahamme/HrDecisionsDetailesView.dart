@@ -212,16 +212,34 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               primary: Colors.green, // background
                               onPrimary: Colors.white, // foreground
                             ),
-                            onPressed: () {
-                              showalert("", "تأكيد قبول الطلب", context)
+                            onPressed: () async {
+                              Alerts.confirmAlrt(
+                                      context, "", "تأكيد قبول الطلب", "نعم")
                                   .show()
-                                  .then((value) {
+                                  .then((value) async {
                                 if (value == true) {
-                                  Alerts.successAlert(context, "", "تم القبول ")
-                                      .show()
-                                      .then((value) {
-                                    Navigator.pop(context);
-                                  });
+                                  EasyLoading.show(
+                                    status: 'جاري المعالجة...',
+                                    maskType: EasyLoadingMaskType.black,
+                                  );
+                                  var bool =
+                                      await Provider.of<HrDecisionsProvider>(
+                                              context,
+                                              listen: false)
+                                          .PostAproveDesition(widget.index);
+                                  EasyLoading.dismiss();
+                                  if (bool == true) {
+                                    Alerts.successAlert(
+                                            context, "", "تم القبول ")
+                                        .show()
+                                        .then((value) {
+                                      // to exit from secreen after clicking حسنا btn
+                                      //remova page from secreen
+                                      Navigator.pop(context);
+                                    });
+                                  } else {
+                                    Alerts.errorAlert(context, "", bool).show();
+                                  }
                                 }
                               });
                             },
@@ -237,44 +255,6 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
           ],
         ),
       ),
-    );
-  }
-
-  Alert showalert(String title, String desc, context) {
-    return Alert(
-      context: context,
-      type: AlertType.warning,
-      title: title,
-      desc: desc,
-      buttons: [
-        DialogButton(
-          child: const Text(
-            "نعم",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () async {
-            EasyLoading.show(
-              status: 'جاري المعالجة...',
-              maskType: EasyLoadingMaskType.black,
-            );
-            await Provider.of<HrDecisionsProvider>(context, listen: false)
-                .PostAproveDesition(widget.index);
-            Navigator.pop(context, true);
-            EasyLoading.dismiss();
-          },
-          width: 120,
-        ),
-        DialogButton(
-          child: const Text(
-            "إلغاء",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          width: 120,
-        )
-      ],
     );
   }
 }

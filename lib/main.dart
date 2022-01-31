@@ -9,7 +9,7 @@ import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
-import 'package:eamanaapp/secreen/tab.dart';
+import 'package:eamanaapp/secreen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
                 create: (_) => LoginProvider(),
                 child: LoginView(),
               ),
-          '/tab': (context) => const TabBarDemo(),
+          '/home': (context) => const TabBarDemo(),
           '/OTPView': (context) => const OTPView(),
           '/HrRequestsView': (context) => const HrRequestsView(),
           '/HRdetailsView': (context) => HRdetailsView(),

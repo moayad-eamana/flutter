@@ -62,4 +62,36 @@ class Alerts {
       ],
     );
   }
+
+  static Alert confirmAlrt(
+      BuildContext context, String title, String desc, String confirmMsg) {
+    return Alert(
+      context: context,
+      type: AlertType.warning,
+      title: title,
+      desc: desc,
+      buttons: [
+        DialogButton(
+          child: Text(
+            confirmMsg,
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () async {
+            Navigator.pop(context, true);
+          },
+          width: 120,
+        ),
+        DialogButton(
+          child: const Text(
+            "إلغاء",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.pop(context, false);
+          },
+          width: 120,
+        )
+      ],
+    );
+  }
 }
