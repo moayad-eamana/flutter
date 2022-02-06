@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "438916329352",
+    "project_id": "raqame-ed870",
+    "storage_bucket": "raqame-ed870.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438916329352:android:a233858715555bbc38943d",
+        "android_client_info": {
+          "package_name": "com.example.eamanaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438916329352-sop69sqgfl8ojgbmv0vi1hnn15jp1j2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiHYeLIpyVemE7ZoYwxmIESkYME1jiEgk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438916329352-sop69sqgfl8ojgbmv0vi1hnn15jp1j2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

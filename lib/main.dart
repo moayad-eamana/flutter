@@ -10,17 +10,29 @@ import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
   String? username = sharedPref.getString("username");
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp();
   runApp(
     MyApp(username),
   );
@@ -43,32 +55,49 @@ void configLoading() {
     ..dismissOnTap = false;
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   String? username;
   MyApp(this.username);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+  String messageTitle = "Empty";
+  String notificationAlert = "alert";
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getToken();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
+
+  getToken() async {
+    String? token = await messaging.getToken();
+    print(token);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       print(SizerUtil.deviceType);
-
-      print(100.w.toString() + "www");
-
       return MaterialApp(
-        //    useInheritedMediaQuery: true,
-        //  locale: DevicePreview.locale(context),
-        //  builder: (context, myWidget) {
-        //    // do your initialization here
-        //   myWidget = DevicePreview.appBuilder(context, myWidget);
-        //   myWidget = BotToastInit()(context, myWidget);
-        //    myWidget = EasyLoading.init()(context, myWidget);
-        //    return myWidget;
-        //   },
-
         builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'رقمي',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: 'Cairo',
@@ -88,7 +117,9 @@ class MyApp extends StatelessWidget {
 
           // deprecated,
         ),
-        initialRoute: username == null || username == "" ? '/' : '/TabBarDemo',
+        initialRoute: widget.username == null || widget.username == ""
+            ? '/'
+            : '/TabBarDemo',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
