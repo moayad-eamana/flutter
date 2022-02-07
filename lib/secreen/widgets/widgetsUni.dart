@@ -1,3 +1,4 @@
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -31,6 +32,35 @@ class widgetsUni {
           ),
         )
       ],
+    );
+  }
+
+  static Widget servicebutton(String text, icon, VoidCallback onClicked) {
+    return Container(
+      height: 60,
+      width: 140,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: ElevatedButton(
+          style: cardServiece,
+          onPressed: () {
+            onClicked();
+          },
+          child: Row(
+            children: [
+              Icon(
+                Icons.calendar_today,
+                color: baseColor,
+                size: 30.sp,
+              ),
+              Text(
+                text,
+                style: TextStyle(color: Colors.black),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

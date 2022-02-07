@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +18,7 @@ import 'EmpInfo/EmpInfoView.dart';
 import 'mahamme/InboxHedersView.dart';
 import 'package:sizer/sizer.dart';
 import 'package:barcode/barcode.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class TabBarDemo extends StatefulWidget {
   const TabBarDemo({Key? key}) : super(key: key);
@@ -100,14 +102,63 @@ class _TabBarDemoState extends State<TabBarDemo>
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ElevatedButton(
-                      onPressed: null,
-                      child: Row(
-                        children: [Icon(Icons.calendar_today), Text("مواعيدي")],
-                      ))
-                ],
+              child: Container(
+                color: Colors.amber,
+                height: 120,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    widgetsUni.servicebutton(
+                      "rrr",
+                      Icons.calendar_today,
+                      () {
+                        print("ee");
+                      },
+                    ),
+                    widgetsUni.servicebutton(
+                      "rrr",
+                      Icons.calendar_today,
+                      () {
+                        print("ee");
+                      },
+                    ),
+                    widgetsUni.servicebutton(
+                      "rrr",
+                      Icons.calendar_today,
+                      () {
+                        print("ee");
+                      },
+                    ),
+                    widgetsUni.servicebutton(
+                      "rrr",
+                      Icons.calendar_today,
+                      () {
+                        print("ee");
+                      },
+                    ),
+                    widgetsUni.servicebutton(
+                      "rrr",
+                      Icons.calendar_today,
+                      () {
+                        print("ee");
+                      },
+                    ),
+                    widgetsUni.servicebutton(
+                      "rrr",
+                      Icons.calendar_today,
+                      () {
+                        print("ee");
+                      },
+                    ),
+                    widgetsUni.servicebutton(
+                      "rrr",
+                      Icons.calendar_today,
+                      () {
+                        print("ee");
+                      },
+                    ),
+                  ],
+                ),
               ),
             )
           ],
@@ -226,100 +277,144 @@ class _TabBarDemoState extends State<TabBarDemo>
                     panel: isOpen
                         ? Container(
                             child: Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 50.sp,
-                                    backgroundColor: Colors.blue,
-                                    backgroundImage:
-                                        AssetImage("assets/image/avatar.jpg"),
-                                  ),
-                                  Text(
-                                    "عبدالله أحمد آل الكبيش",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "مدير إدارة التطبيقات والخدمات الالكترونية",
-                                    style: TextStyle(
-                                        color: Colors.blue, fontSize: 10.sp),
-                                  ),
-                                  Container(
-                                    height: 125,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Colors.blue.shade800,
-                                          Colors.blue.shade200,
-                                        ],
+                                      color: Color(0xff274690),
+                                      borderRadius: BorderRadius.only(
+                                        bottomRight: new Radius.circular(20),
+                                        topRight: new Radius.circular(20),
                                       ),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 2.0,
-                                        style: BorderStyle.solid,
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20.0)),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                "بطاقة تسجيل الدخول",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white),
-                                              ),
-                                              Text(
-                                                "أمانة المنطقة الشرقية",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                    fontSize: 9.sp,
-                                                    color: Colors.white),
-                                              ),
-                                              Text(
-                                                "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                    fontSize: 9.sp,
-                                                    color: Colors.white),
-                                              )
+                                    width: 120,
+                                    // color: Colors.blue.shade900,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Text(
+                                        "على رأس العمل",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 52.sp,
+                                        backgroundColor: Color(0xff274690),
+                                        child: CircleAvatar(
+                                          radius: 50.sp,
+                                          backgroundImage: AssetImage(
+                                              "assets/image/avatar.jpg"),
+                                        ),
+                                      ),
+                                      Text(
+                                        "عبدالله أحمد آل الكبيش",
+                                        style: TextStyle(
+                                            color: Color(0xff274690),
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        "مدير إدارة التطبيقات والخدمات الالكترونية",
+                                        style: TextStyle(
+                                            color: Color(0xff274690),
+                                            fontSize: 10.sp),
+                                      ),
+                                      Container(
+                                        height: 125,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Colors.blue.shade800,
+                                              Colors.blue.shade200,
                                             ],
                                           ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(right: 20),
-                                          color: Colors.white,
-                                          width: 100,
-                                          height: 100,
-                                          child: SfBarcodeGenerator(
-                                            value: '4438040',
-                                            symbology: QRCode(),
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2.0,
+                                            style: BorderStyle.solid,
                                           ),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20.0)),
                                         ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "بطاقة تسجيل الدخول",
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "أمانة المنطقة الشرقية",
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        fontSize: 9.sp,
+                                                        color: Colors.white),
+                                                  ),
+                                                  // AutoSizeText(
+                                                  //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                  //   maxLines: 1,
+                                                  //   style: TextStyle(
+                                                  //       color: Colors.white),
+                                                  //   group: autoSizeGroup,
+                                                  // ),
+                                                  Text(
+                                                    "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        fontSize: 8.sp,
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 20),
+                                              color: Colors.white,
+                                              width: 100,
+                                              height: 100,
+                                              child: SfBarcodeGenerator(
+                                                value: '4438040',
+                                                symbology: QRCode(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ))
                         : Container(
@@ -353,9 +448,14 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             child: Column(
                                               children: [
                                                 CircleAvatar(
-                                                  backgroundColor: Colors.blue,
-                                                  backgroundImage: AssetImage(
-                                                      "assets/image/avatar.jpg"),
+                                                  backgroundColor:
+                                                      Color(0xff274690),
+                                                  radius: 18.sp,
+                                                  child: CircleAvatar(
+                                                    radius: 16.sp,
+                                                    backgroundImage: AssetImage(
+                                                        "assets/image/avatar.jpg"),
+                                                  ),
                                                 ),
                                                 Text("مرحبا / عبدالله")
                                               ],
