@@ -5,6 +5,7 @@ import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
+import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
@@ -48,13 +49,13 @@ class _TabBarDemoState extends State<TabBarDemo>
   bool animatedPositionedStart = false;
 
   final iconList = <IconData>[
-    Icons.meeting_room,
-    Icons.mail,
-    Icons.person_outline_rounded,
-    Icons.settings
+    Icons.home,
+    Icons.support_rounded,
+    Icons.grid_4x4,
+    Icons.star_outline
   ];
 
-  List<String> list = ['مواعيدي', 'اعتمداتي', 'لوحة البيانات', 'الاعدادات'];
+  List<String> list = ['الرئيسية', 'دعم الفني', 'الخدمات', 'تواصل'];
   List<dynamic> screen = [
     Directionality(
       textDirection: TextDirection.rtl,
@@ -118,11 +119,10 @@ class _TabBarDemoState extends State<TabBarDemo>
       // ignore: prefer_const_constructors
       child: MeetingView(),
     ),
-    ChangeNotifierProvider(
-      create: (context) => EatemadatProvider(),
-      // ignore: prefer_const_constructors
-      child: InboxHedersView(),
-    ),
+
+    // ignore: prefer_const_constructors
+    ServicesView(),
+
     ChangeNotifierProvider(
       create: (_) => EmpInfoProvider(),
       // ignore: prefer_const_constructors
