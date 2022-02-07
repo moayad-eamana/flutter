@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LoansRequestsDetailesView extends StatefulWidget {
   int? index;
@@ -254,7 +253,6 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  String contentText = "Content of Dialog";
                                   return StatefulBuilder(
                                     builder: (context, setState) {
                                       return AlertDialog(

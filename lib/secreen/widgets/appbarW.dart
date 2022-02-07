@@ -54,9 +54,14 @@ class AppBarW {
                             },
                           ),
                         ),
-                        Container(
-                            margin: EdgeInsets.only(right: 10, top: 30),
-                            child: Text("رجوع")),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                              margin: EdgeInsets.only(right: 10, top: 30),
+                              child: Text("رجوع")),
+                        ),
                       ],
                     ),
                   ],
