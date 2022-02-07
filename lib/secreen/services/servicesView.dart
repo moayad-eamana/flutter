@@ -24,7 +24,7 @@ class _ServicesViewState extends State<ServicesView> {
         textDirection: TextDirection.rtl,
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 10, right: 10, top: 70, bottom: 30),
+            margin: EdgeInsets.only(left: 10, right: 10, bottom: 15.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
