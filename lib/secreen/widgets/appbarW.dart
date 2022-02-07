@@ -4,29 +4,20 @@ import 'package:flutter/material.dart';
 class AppBarW {
   static PreferredSize appBarW(String title, BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(80.0),
+      preferredSize: Size.fromHeight(100.0),
       child: AppBar(
         automaticallyImplyLeading: false,
         flexibleSpace: SafeArea(
           child: Stack(
             children: [
               Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xffDBF3FF),
-                      Color(0xffE8FEFF),
-                    ],
-                  ),
-                ),
+                decoration: const BoxDecoration(color: Colors.white),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/SVGs/header.png',
+                        'assets/image/raqmy-logo.png',
                         width: 120,
                       ),
                       Text(
@@ -39,7 +30,6 @@ class AppBarW {
               ),
               Container(
                 margin: EdgeInsets.only(right: 25),
-                padding: EdgeInsets.all(0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

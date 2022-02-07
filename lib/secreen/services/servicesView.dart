@@ -19,12 +19,13 @@ class _ServicesViewState extends State<ServicesView> {
   @override
   Widget build(BuildContext context) {
     print(SizerUtil.deviceType == DeviceType.mobile);
-    return Scaffold(
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: SingleChildScrollView(
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBarW.appBarW("جميع الخدمات", context),
+        body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 10, right: 10, bottom: 15.h),
+            margin: EdgeInsets.only(left: 18, right: 18, bottom: 15.h, top: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -77,7 +78,7 @@ class _ServicesViewState extends State<ServicesView> {
   Widget hrServices() {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      // margin: EdgeInsets.symmetric(horizontal: 20),
       child: StaggeredGrid.count(
         crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
         mainAxisSpacing: 15,
@@ -161,7 +162,7 @@ class _ServicesViewState extends State<ServicesView> {
   Widget mahamme() {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      //margin: EdgeInsets.symmetric(horizontal: 20),
       child: StaggeredGrid.count(
         crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
         mainAxisSpacing: 6,
@@ -213,7 +214,7 @@ class _ServicesViewState extends State<ServicesView> {
   Widget trainning() {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      //   margin: EdgeInsets.symmetric(horizontal: 20),
       child: StaggeredGrid.count(
         crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
         mainAxisSpacing: 6,
@@ -237,7 +238,7 @@ class _ServicesViewState extends State<ServicesView> {
   Widget otherServices() {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
+      //    margin: EdgeInsets.symmetric(horizontal: 20),
       child: StaggeredGrid.count(
         crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
         mainAxisSpacing: 6,

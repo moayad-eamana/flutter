@@ -114,7 +114,7 @@ class _MeetingViewState extends State<MeetingView> {
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
-                                                color: Color(0xff1f9EB9)),
+                                                color: baseColor),
                                           ),
                                         ),
                                         const Divider(
@@ -259,7 +259,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                   },
                                                   icon: const Icon(
                                                     Icons.phone_android,
-                                                    color: Color(0xff1F9EB9),
+                                                    color: baseColor,
                                                   ),
                                                 ),
                                                 TextW(_provider
