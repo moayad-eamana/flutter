@@ -30,3 +30,13 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
   primary: Colors.white,
   onPrimary: Colors.grey, // foreground
 );
+
+TextStyle titleTx =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: baseColor);
+
+TextStyle subtitleTx =
+    TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: secondryColor);
+
+TextStyle descTx1 =
+    TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: baseColorText);
+TextStyle descTx2 = TextStyle(fontSize: 12, color: secondryColorText);

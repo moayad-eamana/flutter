@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppBarW {
   static PreferredSize appBarW(String title, BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(100.0),
+      preferredSize: Size.fromHeight(120.0),
       child: AppBar(
         automaticallyImplyLeading: false,
         flexibleSpace: SafeArea(
@@ -22,7 +22,7 @@ class AppBarW {
                       ),
                       Text(
                         title,
-                        style: const TextStyle(color: baseColor),
+                        style: const TextStyle(color: baseColor, fontSize: 18),
                       ),
                     ],
                   ),
