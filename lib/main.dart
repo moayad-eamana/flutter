@@ -8,16 +8,16 @@ import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
+import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/home.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+/*
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
@@ -25,14 +25,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
   print("Handling a background message: ${message.messageId}");
 }
-
+*/
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
   String? username = sharedPref.getString("username");
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await Firebase.initializeApp();
+//  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+//  await Firebase.initializeApp();
   runApp(
     MyApp(username),
   );
@@ -68,12 +68,13 @@ class _MyAppState extends State<MyApp> {
   String messageTitle = "Empty";
   String notificationAlert = "alert";
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  //FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    /*
     getToken();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
@@ -83,11 +84,14 @@ class _MyAppState extends State<MyApp> {
         print('Message also contained a notification: ${message.notification}');
       }
     });
+    */
   }
 
   getToken() async {
+    /*
     String? token = await messaging.getToken();
     print(token);
+    */
   }
 
   @override
@@ -119,7 +123,7 @@ class _MyAppState extends State<MyApp> {
         ),
         initialRoute: widget.username == null || widget.username == ""
             ? '/'
-            : '/TabBarDemo',
+            : '/services',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
@@ -142,6 +146,7 @@ class _MyAppState extends State<MyApp> {
           '/EmpInfoView': (context) => EmpInfoView(),
           '/Empprofile': (context) => EmpProfile(),
           '/HrDecisionsView': (context) => HrDecisionsView(),
+          '/services': (context) => ServicesView(),
         },
       );
     });
