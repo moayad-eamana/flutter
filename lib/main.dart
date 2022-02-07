@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
 
           // deprecated,
         ),
-        initialRoute: username == null || username == "" ? '/' : '/TabBarDemo',
+        initialRoute: username == null || username == "" ? '/' : '/home',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),

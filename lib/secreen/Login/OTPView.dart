@@ -129,7 +129,10 @@ class _OTPViewState extends State<OTPView> {
                   .checkUserOTP(_otp.text);
           EasyLoading.dismiss();
           if (isValid) {
-            Navigator.pushReplacementNamed(context, "/tab");
+            //here to make initialRoute is /home
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                '/home', (Route<dynamic> route) => false);
+            //Navigator.pushReplacementNamed(context, "/home");
           } else {
             Alerts.errorAlert(context, "خطأ", "خطأ في الرمز").show();
           }

@@ -41,11 +41,17 @@ dependencies:
   device_preview: ^1.0.0
   bot_toast: ^4.0.1
   font_awesome_flutter: ^9.2.0
-  pdf: ^3.6.5
+  pdf: ^3.7.1
   path_provider: ^2.0.8
   open_file: ^3.2.1
   shared_preferences: ^2.0.11
   sizer: ^2.0.15
+  animated_bottom_navigation_bar: ^0.3.2
+  auto_size_text: ^3.0.0
+  circular_reveal_animation: ^2.0.0
+  sliding_up_panel: ^2.0.0+1
+  syncfusion_flutter_barcodes: ^19.4.48
+  
 
 
 dev_dependencies:
@@ -96,12 +102,9 @@ flutter:
   - assets/SVGs/dumyprofile.png
   - assets/SVGs/asset4-100.jpg
   - assets/SVGs/appstore.png
+  - assets/image/
 
 
-
-
-
-      
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
