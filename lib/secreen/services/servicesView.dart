@@ -33,7 +33,7 @@ class _ServicesViewState extends State<ServicesView> {
                 //hr
                 Text(
                   "شؤون الموظفين",
-                  style: subtitleTx,
+                  style: subtitleTx(baseColor),
                 ),
                 widgetsUni.divider(),
                 SizedBox(
@@ -45,7 +45,7 @@ class _ServicesViewState extends State<ServicesView> {
                 ),
                 Text(
                   "مهامي",
-                  style: subtitleTx,
+                  style: subtitleTx(baseColor),
                 ),
                 widgetsUni.divider(),
                 SizedBox(
@@ -58,10 +58,7 @@ class _ServicesViewState extends State<ServicesView> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "خدمات التدريب",
-                  style: subtitleTx,
-                ),
+                Text("خدمات التدريب", style: subtitleTx(baseColor)),
                 widgetsUni.divider(),
                 SizedBox(
                   height: 5,
@@ -70,10 +67,7 @@ class _ServicesViewState extends State<ServicesView> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "خدمات أخرى",
-                  style: subtitleTx,
-                ),
+                Text("خدمات أخرى", style: subtitleTx(baseColor)),
                 widgetsUni.divider(),
                 SizedBox(
                   height: 5,
