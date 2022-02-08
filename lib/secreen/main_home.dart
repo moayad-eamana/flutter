@@ -188,51 +188,58 @@ class _MainHomeState extends State<MainHome> {
                     ),
                   ],
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Container(
-                    height: 65,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        widgetsUni.servicebutton(
-                          "مواعيد",
-                          Icons.calendar_today,
-                          () {
-                            print("ee");
-                          },
+                Row(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Container(
+                          height: 65,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              widgetsUni.servicebutton(
+                                "مواعيد",
+                                Icons.calendar_today,
+                                () {
+                                  print("ee");
+                                },
+                              ),
+                              widgetsUni.servicebutton(
+                                "بياناتي",
+                                Icons.data_saver_off_outlined,
+                                () {
+                                  print("ee");
+                                },
+                              ),
+                              widgetsUni.servicebutton(
+                                "دليل الموظفين",
+                                Icons.people_alt,
+                                () {
+                                  print("ee");
+                                },
+                              ),
+                              widgetsUni.servicebutton(
+                                "طلب استيكر",
+                                Icons.directions_car,
+                                () {
+                                  print("ee");
+                                },
+                              ),
+                              widgetsUni.servicebutton(
+                                "تعريف بالراتب",
+                                Icons.money,
+                                () {
+                                  print("ee");
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                        widgetsUni.servicebutton(
-                          "بياناتي",
-                          Icons.data_saver_off_outlined,
-                          () {
-                            print("ee");
-                          },
-                        ),
-                        widgetsUni.servicebutton(
-                          "دليل الموظفين",
-                          Icons.people_alt,
-                          () {
-                            print("ee");
-                          },
-                        ),
-                        widgetsUni.servicebutton(
-                          "طلب استيكر",
-                          Icons.directions_car,
-                          () {
-                            print("ee");
-                          },
-                        ),
-                        widgetsUni.servicebutton(
-                          "تعريف بالراتب",
-                          Icons.money,
-                          () {
-                            print("ee");
-                          },
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Icon(Icons.arrow_forward_ios_rounded),
+                  ],
                 ),
                 SizedBox(
                   height: 2.h,
