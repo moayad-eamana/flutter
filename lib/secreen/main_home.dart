@@ -271,23 +271,36 @@ class _MainHomeState extends State<MainHome> {
                         ),
                         items: SliderWidget.sliderw(),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: selectsilder.map((urlOfItem) {
-                          int index = selectsilder.indexOf(urlOfItem);
-                          return Container(
-                            width: 10.0,
-                            height: 10.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 2.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _currentIndex == index
-                                  ? Color.fromRGBO(0, 0, 0, 0.8)
-                                  : Color.fromRGBO(0, 0, 0, 0.3),
-                            ),
-                          );
-                        }).toList(),
+                      Stack(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: selectsilder.map((urlOfItem) {
+                              int index = selectsilder.indexOf(urlOfItem);
+                              return Container(
+                                width: 10.0,
+                                height: 10.0,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _currentIndex == index
+                                      ? Color.fromRGBO(0, 0, 0, 0.8)
+                                      : Color.fromRGBO(0, 0, 0, 0.3),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                          Positioned(
+                            left: 5,
+                            bottom: 5,
+                            child: Image(
+                                width: 15.w,
+                                //height: 15.h,
+                                image:
+                                    AssetImage("assets/image/raqmy-logo.png")),
+                          ),
+                        ],
                       ),
                     ],
                   ),
