@@ -16,7 +16,8 @@ class widgetsUni {
       children: [
         Icon(
           icon,
-          size: SizerUtil.deviceType == DeviceType.mobile ? 25 : 35,
+          size: SizerUtil.deviceType == DeviceType.mobile ? 30 : 35,
+          color: baseColor,
         ),
         SizedBox(
           height: 5,
