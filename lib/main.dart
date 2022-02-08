@@ -8,6 +8,7 @@ import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
+import 'package:eamanaapp/secreen/main_home.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/home.dart';
@@ -145,6 +146,7 @@ class _MyAppState extends State<MyApp> {
           '/Empprofile': (context) => EmpProfile(),
           '/HrDecisionsView': (context) => HrDecisionsView(),
           '/services': (context) => ServicesView(),
+          '/mainhome': (context) => MainHome(),
         },
       );
     });
