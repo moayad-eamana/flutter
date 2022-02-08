@@ -103,56 +103,41 @@ class _TabBarDemoState extends State<TabBarDemo>
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Container(
-                color: Colors.amber,
-                height: 120,
+                height: 65,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     widgetsUni.servicebutton(
-                      "rrr",
+                      "مواعيد",
                       Icons.calendar_today,
                       () {
                         print("ee");
                       },
                     ),
                     widgetsUni.servicebutton(
-                      "rrr",
-                      Icons.calendar_today,
+                      "بياناتي",
+                      Icons.data_saver_off_outlined,
                       () {
                         print("ee");
                       },
                     ),
                     widgetsUni.servicebutton(
-                      "rrr",
-                      Icons.calendar_today,
+                      "دليل الموظفين",
+                      Icons.people_alt,
                       () {
                         print("ee");
                       },
                     ),
                     widgetsUni.servicebutton(
-                      "rrr",
-                      Icons.calendar_today,
+                      "طلب استيكر",
+                      Icons.directions_car,
                       () {
                         print("ee");
                       },
                     ),
                     widgetsUni.servicebutton(
-                      "rrr",
-                      Icons.calendar_today,
-                      () {
-                        print("ee");
-                      },
-                    ),
-                    widgetsUni.servicebutton(
-                      "rrr",
-                      Icons.calendar_today,
-                      () {
-                        print("ee");
-                      },
-                    ),
-                    widgetsUni.servicebutton(
-                      "rrr",
-                      Icons.calendar_today,
+                      "تعريف بالراتب",
+                      Icons.money,
                       () {
                         print("ee");
                       },

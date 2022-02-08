@@ -49,13 +49,16 @@ class widgetsUni {
           child: Row(
             children: [
               Icon(
-                Icons.calendar_today,
+                icon,
                 color: baseColor,
                 size: 30.sp,
               ),
-              Text(
-                text,
-                style: TextStyle(color: Colors.black),
+              Expanded(
+                child: Text(
+                  text,
+                  style: TextStyle(color: Colors.black),
+                  maxLines: 2,
+                ),
               )
             ],
           ),
