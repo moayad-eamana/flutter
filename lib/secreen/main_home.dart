@@ -59,9 +59,7 @@ class _MainHomeState extends State<MainHome> {
               mainAxisExtent: 100,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {
-                    print("object");
-                  },
+                  onPressed: () {},
                   child: widgetsUni.cardcontentService(
                       Icons.note_add, "طلب خارج دوام"))),
           StaggeredGridTile.extent(
@@ -267,7 +265,7 @@ class _MainHomeState extends State<MainHome> {
                       ),
                       CarouselSlider(
                         options: CarouselOptions(
-                          height: 180.0,
+                          height: 200.0,
                           onPageChanged: (index, reason) {
                             setState(
                               () {
@@ -276,7 +274,7 @@ class _MainHomeState extends State<MainHome> {
                             );
                           },
                         ),
-                        items: SliderWidget.sliderw(),
+                        items: SliderWidget.sliderw(context),
                       ),
                       Stack(
                         children: [

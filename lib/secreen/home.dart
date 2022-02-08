@@ -160,7 +160,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                           isOpen = true;
                         }),
                     controller: panlC,
-                    maxHeight: 400,
+                    maxHeight: 380,
                     minHeight: 80,
                     slideDirection: SlideDirection.DOWN,
                     border: Border.all(color: Color(0xff9F9F9F)),
@@ -175,7 +175,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 2.h,
+                                  height: 20,
                                 ),
                                 Align(
                                   alignment: Alignment.topLeft,

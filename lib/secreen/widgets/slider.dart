@@ -1,11 +1,17 @@
+import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
+import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class SliderWidget {
-  static List<Widget> sliderw() {
+  static List<Widget> sliderw(BuildContext context) {
     return [
       Container(
         //color: Colors.red,
@@ -23,17 +29,25 @@ class SliderWidget {
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
-                      print("object");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider(
+                            create: (context) => EatemadatProvider(),
+                            // ignore: prefer_const_constructors
+                            child: InboxHedersView(),
+                          ),
+                        ),
+                      );
                     },
-                    child: widgetsUni.cardcontentService(Icons.task, "مهامي"))),
+                    child: widgetsUni.cardcontentService(
+                        Icons.task, "إعتماداتي"))),
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
                 mainAxisExtent: 100,
                 child: ElevatedButton(
                     style: cardServiece,
-                    onPressed: () {
-                      print("object");
-                    },
+                    onPressed: () {},
                     child: widgetsUni.cardcontentService(
                         Icons.note_add, "طلب خارج دوام"))),
             StaggeredGridTile.extent(
@@ -52,7 +66,7 @@ class SliderWidget {
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
-                      print("object");
+                      Navigator.pushNamed(context, '/EamanaDiscount');
                     },
                     child: widgetsUni.cardcontentService(
                         Icons.local_offer_rounded, "عروض الموظفين"))),
