@@ -6,7 +6,7 @@ class widgetsUni {
   static Divider divider() {
     return Divider(
       thickness: 0.5,
-      color: Colors.deepPurpleAccent,
+      color: baseColor,
     );
   }
 
@@ -25,10 +25,7 @@ class widgetsUni {
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: SizerUtil.deviceType == DeviceType.mobile ? 13 : 18,
-            ),
+            style: descTx1(baseColor),
           ),
         )
       ],
