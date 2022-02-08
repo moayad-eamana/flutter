@@ -30,6 +30,14 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
   primary: Colors.white,
   onPrimary: Colors.grey, // foregroundjjjkl
 );
+
+BoxDecoration containerdecoration(Color color) {
+  return BoxDecoration(
+      color: color,
+      border: Border.all(color: Color(0xFFDDDDDD)),
+      borderRadius: BorderRadius.all(Radius.circular(4)));
+}
+
 TextStyle titleTx(Color color) {
   return TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color);
 }

@@ -1,4 +1,5 @@
 import 'package:eamanaapp/provider/login/loginProvider.dart';
+import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
@@ -145,6 +146,7 @@ class _MyAppState extends State<MyApp> {
           '/Empprofile': (context) => EmpProfile(),
           '/HrDecisionsView': (context) => HrDecisionsView(),
           '/services': (context) => ServicesView(),
+          '/EamanaDiscount': (context) => EamanaDiscount(),
         },
       );
     });

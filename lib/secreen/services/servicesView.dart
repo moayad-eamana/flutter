@@ -4,6 +4,7 @@ import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -266,7 +267,7 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    print("object");
+                    Navigator.pushNamed(context, "/EamanaDiscount");
                   },
                   child: widgetsUni.cardcontentService(
                       Icons.not_accessible, "عروض الموظفين"))),
