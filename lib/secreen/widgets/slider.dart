@@ -12,6 +12,8 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class SliderWidget {
   static List<Widget> sliderw(BuildContext context) {
+    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
+
     return [
       Container(
         //color: Colors.red,
@@ -25,7 +27,7 @@ class SliderWidget {
           children: [
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
@@ -44,7 +46,7 @@ class SliderWidget {
                         Icons.task, "إعتماداتي"))),
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {},
@@ -52,7 +54,7 @@ class SliderWidget {
                         Icons.note_add, "طلب خارج دوام"))),
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
@@ -62,7 +64,7 @@ class SliderWidget {
                         Icons.note_add, "رصيد إجازات"))),
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
@@ -85,7 +87,7 @@ class SliderWidget {
           children: [
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
@@ -95,7 +97,7 @@ class SliderWidget {
                         Icons.not_accessible, "طلب إجازة"))),
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
@@ -105,7 +107,7 @@ class SliderWidget {
                         Icons.note_add, "طلب خارج دوام"))),
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
@@ -115,7 +117,7 @@ class SliderWidget {
                         Icons.note_add, "رصيد إجازات"))),
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
-                mainAxisExtent: 100,
+                mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {

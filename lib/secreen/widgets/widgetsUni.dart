@@ -46,11 +46,7 @@ class widgetsUni {
           },
           child: Row(
             children: [
-              Icon(
-                icon,
-                color: baseColor,
-                size: 30.sp,
-              ),
+              Icon(icon, color: baseColor, size: 40),
               Expanded(
                 child: Text(
                   text,

@@ -159,8 +159,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                           isOpen = true;
                         }),
                     controller: panlC,
-                    maxHeight: 380,
-                    minHeight: 80,
+                    maxHeight: responsiveMT(380, 500),
+                    minHeight: responsiveMT(80, 120),
                     slideDirection: SlideDirection.DOWN,
                     border: Border.all(color: Color(0xff9F9F9F)),
                     borderRadius: const BorderRadius.only(

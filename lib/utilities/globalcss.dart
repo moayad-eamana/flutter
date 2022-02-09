@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 const Color baseColor = Color(0xff274690);
 const Color secondryColor = Color(0xff2E8D9A);
@@ -53,4 +54,12 @@ TextStyle descTx1(Color color) {
 
 TextStyle descTx2(Color color) {
   return TextStyle(fontSize: 12, color: color);
+}
+
+double responsiveMT(double mobile, double tablet) {
+  return SizerUtil.deviceType == DeviceType.mobile ? mobile : tablet;
+}
+
+int responsiveGrid(int mobile, int tablet) {
+  return SizerUtil.deviceType == DeviceType.mobile ? mobile : tablet;
 }
