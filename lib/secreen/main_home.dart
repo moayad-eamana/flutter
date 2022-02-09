@@ -147,6 +147,7 @@ class _MainHomeState extends State<MainHome> {
                 ),
                 Container(
                   decoration: BoxDecoration(
+                    //color: Colors.amber,
                     border: Border.all(
                       color: Color(0xFFDDDDDD),
                     ),
@@ -162,7 +163,7 @@ class _MainHomeState extends State<MainHome> {
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        //   crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             "الخدمات الاكثر أستخداماً",
