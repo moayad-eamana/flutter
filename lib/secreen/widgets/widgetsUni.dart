@@ -54,7 +54,7 @@ class widgetsUni {
               Expanded(
                 child: Text(
                   text,
-                  style: TextStyle(color: Colors.black),
+                  style: descTx1(baseColorText),
                   maxLines: 2,
                 ),
               )

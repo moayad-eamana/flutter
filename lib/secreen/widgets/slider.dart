@@ -89,7 +89,7 @@ class SliderWidget {
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
-                      print("object");
+                      Navigator.pushNamed(context, '/VacationRequest');
                     },
                     child: widgetsUni.cardcontentService(
                         Icons.not_accessible, "طلب إجازة"))),
@@ -99,7 +99,7 @@ class SliderWidget {
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
-                      print("object");
+                      Navigator.pushNamed(context, '/EamanaDiscount');
                     },
                     child: widgetsUni.cardcontentService(
                         Icons.note_add, "طلب خارج دوام"))),

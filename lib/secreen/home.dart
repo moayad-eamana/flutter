@@ -113,7 +113,6 @@ class _TabBarDemoState extends State<TabBarDemo>
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _search = TextEditingController();
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     var isMobile = Responsive.isMobile(context);
 
@@ -187,7 +186,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                         topRight: new Radius.circular(20),
                                       ),
                                     ),
-                                    width: 120,
+                                    width: 100,
                                     // color: Colors.blue.shade900,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -195,7 +194,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                       child: Text(
                                         "على رأس العمل",
                                         textAlign: TextAlign.right,
-                                        style: TextStyle(color: Colors.white),
+                                        style: descTx1(Colors.white),
                                       ),
                                     ),
                                   ),
@@ -206,27 +205,21 @@ class _TabBarDemoState extends State<TabBarDemo>
                                   child: Column(
                                     children: [
                                       CircleAvatar(
-                                        radius: 52.sp,
+                                        radius: 42.sp,
                                         backgroundColor: Color(0xff274690),
                                         child: CircleAvatar(
-                                          radius: 50.sp,
+                                          radius: 40.sp,
                                           backgroundImage: AssetImage(
                                               "assets/image/avatar.jpg"),
                                         ),
                                       ),
                                       Text(
                                         "عبدالله أحمد آل الكبيش",
-                                        style: TextStyle(
-                                            color: Color(0xff274690),
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold),
+                                        style: titleTx(baseColor),
                                       ),
                                       Text(
-                                        "مدير إدارة التطبيقات والخدمات الالكترونية",
-                                        style: TextStyle(
-                                            color: Color(0xff274690),
-                                            fontSize: 10.sp),
-                                      ),
+                                          "مدير إدارة التطبيقات والخدمات الالكترونية",
+                                          style: descTx2(baseColor)),
                                       Container(
                                         height: 125,
                                         decoration: BoxDecoration(
@@ -234,8 +227,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             begin: Alignment.topCenter,
                                             end: Alignment.bottomCenter,
                                             colors: [
-                                              Colors.blue.shade800,
-                                              Colors.blue.shade200,
+                                              baseColor,
+                                              secondryColor,
                                             ],
                                           ),
                                           border: Border.all(
@@ -244,7 +237,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             style: BorderStyle.solid,
                                           ),
                                           borderRadius: const BorderRadius.all(
-                                              Radius.circular(20.0)),
+                                              Radius.circular(8.0)),
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
@@ -262,18 +255,14 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                   Text(
                                                     "بطاقة تسجيل الدخول",
                                                     textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                        fontSize: 12.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
+                                                    style:
+                                                        titleTx(Colors.white),
                                                   ),
                                                   Text(
                                                     "أمانة المنطقة الشرقية",
                                                     textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                        fontSize: 9.sp,
-                                                        color: Colors.white),
+                                                    style:
+                                                        descTx2(Colors.white),
                                                   ),
                                                   // AutoSizeText(
                                                   //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
@@ -285,21 +274,20 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                   Text(
                                                     "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
                                                     textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                        fontSize: 8.sp,
-                                                        color: Colors.white),
+                                                    style:
+                                                        descTx2(Colors.white),
                                                   )
                                                 ],
                                               ),
                                             ),
                                             Container(
                                               margin:
-                                                  EdgeInsets.only(right: 20),
-                                              color: Colors.white,
+                                                  EdgeInsets.only(right: 18),
                                               width: 100,
                                               height: 100,
                                               child: SfBarcodeGenerator(
-                                                value: '4438040',
+                                                backgroundColor: Colors.white,
+                                                value: '444444',
                                                 symbology: QRCode(),
                                               ),
                                             ),
@@ -329,7 +317,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                       alignment: Alignment.bottomCenter,
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           // Column(
                                           //   children: [
@@ -337,6 +325,22 @@ class _TabBarDemoState extends State<TabBarDemo>
                                           //     Text("تنبيهات")
                                           //   ],
                                           // ),
+                                          Container(
+                                            margin: EdgeInsets.only(left: 10),
+                                            child: Column(
+                                              children: [
+                                                Icon(
+                                                  Icons.notifications_active,
+                                                  color: baseColor,
+                                                  size: 30,
+                                                ),
+                                                Text(
+                                                  "تنبيهات",
+                                                  style: descTx1(baseColorText),
+                                                )
+                                              ],
+                                            ),
+                                          ),
 
                                           Container(
                                             margin: EdgeInsets.only(right: 10),
@@ -352,7 +356,10 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                         "assets/image/avatar.jpg"),
                                                   ),
                                                 ),
-                                                Text("مرحبا / عبدالله")
+                                                Text(
+                                                  "مرحبا / عبدالله",
+                                                  style: descTx1(baseColorText),
+                                                )
                                               ],
                                             ),
                                           ),
@@ -388,12 +395,12 @@ class _TabBarDemoState extends State<TabBarDemo>
             child: _bottomNavIndex == 0
                 ? Icon(
                     Icons.card_membership,
-                    color: Colors.blue,
+                    color: baseColor,
                     size: isMobile == true ? 24.sp : 18.sp,
                   )
                 : Icon(
                     Icons.home,
-                    color: Colors.blue,
+                    color: baseColor,
                     size: isMobile == true ? 24.sp : 18.sp,
                   ),
             onPressed: () {
@@ -407,14 +414,14 @@ class _TabBarDemoState extends State<TabBarDemo>
             AnimatedBottomNavigationBar.builder(
               itemCount: iconList.length,
               tabBuilder: (int index, bool isActive) {
-                final color = isActive ? Colors.white : Colors.blue.shade200;
+                final color = isActive ? secondryColor : Colors.white;
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       iconList[index],
-                      size: isMobile == true ? 24.sp : 18.sp,
+                      size: isMobile == true ? 20.sp : 18.sp,
                       color: color,
                     ),
                     const SizedBox(height: 4),
@@ -430,9 +437,10 @@ class _TabBarDemoState extends State<TabBarDemo>
                   ],
                 );
               },
-              notchMargin: 5,
-              height: isMobile == true ? 9.h : 7.h,
-              backgroundColor: Colors.blueGrey,
+              splashRadius: 0,
+              notchMargin: 0,
+              height: isMobile == true ? 7.h : 7.h,
+              backgroundColor: baseColor,
               activeIndex: _bottomNavIndex,
               splashColor: Colors.blueGrey,
               notchAndCornersAnimation: animation,
@@ -454,7 +462,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
-              right: isPortrait == true ? (50.w - 20) : (50.h - 20),
+              right: isPortrait == true ? (50.w - 21) : (50.h - 21),
               bottom: _bottomNavIndex == 0
                   ? animatedPositionedStart
                       ? 5
@@ -470,7 +478,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
-              right: isPortrait == true ? (50.w - 20) : (50.h - 20),
+              right: isPortrait == true ? (50.w - 21) : (50.h - 21),
               bottom: _bottomNavIndex == 0 ? -25 : 5,
             ),
 

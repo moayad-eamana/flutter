@@ -4,11 +4,12 @@ const Color baseColor = Color(0xff274690);
 const Color secondryColor = Color(0xff2E8D9A);
 const Color baseColorText = Color(0xff444444);
 const Color secondryColorText = Color(0xff707070);
+const Color bordercolor = Color(0xffDDDDDD);
 
 ButtonStyle mainbtn = ElevatedButton.styleFrom(
   side: const BorderSide(
     width: 1,
-    color: Color(0xFFDDDDDD),
+    color: bordercolor,
   ),
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(4.0),
