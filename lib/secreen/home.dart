@@ -205,10 +205,10 @@ class _TabBarDemoState extends State<TabBarDemo>
                                   child: Column(
                                     children: [
                                       CircleAvatar(
-                                        radius: 42.sp,
+                                        radius: responsiveMT(52, 92),
                                         backgroundColor: Color(0xff274690),
                                         child: CircleAvatar(
-                                          radius: 40.sp,
+                                          radius: responsiveMT(50, 90),
                                           backgroundImage: AssetImage(
                                               "assets/image/avatar.jpg"),
                                         ),
@@ -309,7 +309,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                                   children: [
                                     Center(
                                       child: Image(
-                                          width: 25.w,
+                                          alignment: Alignment.bottomCenter,
+                                          width: responsiveMT(100, 150),
                                           //height: 15.h,
                                           image: AssetImage(
                                               "assets/image/raqmy-logo.png")),
@@ -333,7 +334,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                 Icon(
                                                   Icons.notifications_active,
                                                   color: baseColor,
-                                                  size: 30,
+                                                  size: responsiveMT(30, 45),
                                                 ),
                                                 Text(
                                                   "تنبيهات",
@@ -350,9 +351,10 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                 CircleAvatar(
                                                   backgroundColor:
                                                       Color(0xff274690),
-                                                  radius: 18.sp,
+                                                  radius: responsiveMT(26, 28),
                                                   child: CircleAvatar(
-                                                    radius: 16.sp,
+                                                    radius:
+                                                        responsiveMT(23, 25),
                                                     backgroundImage: AssetImage(
                                                         "assets/image/avatar.jpg"),
                                                   ),
@@ -422,7 +424,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                   children: [
                     Icon(
                       iconList[index],
-                      size: isMobile == true ? 20.sp : 18.sp,
+                      size: responsiveMT(25, 25),
                       color: color,
                     ),
                     const SizedBox(height: 4),
@@ -440,7 +442,7 @@ class _TabBarDemoState extends State<TabBarDemo>
               },
               splashRadius: 0,
               notchMargin: 0,
-              height: isMobile == true ? 7.h : 7.h,
+              height: responsiveMT(70, 70),
               backgroundColor: baseColor,
               activeIndex: _bottomNavIndex,
               splashColor: Colors.blueGrey,
