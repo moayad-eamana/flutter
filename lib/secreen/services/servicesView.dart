@@ -2,6 +2,7 @@ import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -93,16 +94,16 @@ class _ServicesViewState extends State<ServicesView> {
         mainAxisSpacing: 15,
         crossAxisSpacing: 10,
         children: [
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    print("object");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      Icons.request_page, "طلب إجازة"))),
+          StaggeredGridTileW(
+              1,
+              hi,
+              widgetsUni.servicebutton2(
+                "طلب إجازة",
+                Icons.request_page,
+                () {
+                  print("object");
+                },
+              )),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,

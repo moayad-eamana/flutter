@@ -60,4 +60,11 @@ class widgetsUni {
       ),
     );
   }
+
+  static Widget servicebutton2(String text, icon, VoidCallback onClicked) {
+    return ElevatedButton(
+        style: cardServiece,
+        onPressed: onClicked,
+        child: widgetsUni.cardcontentService(Icons.request_page, text));
+  }
 }
