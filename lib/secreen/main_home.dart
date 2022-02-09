@@ -156,7 +156,7 @@ class _MainHomeState extends State<MainHome> {
                     ),
                   ),
                   //color: Colors.red,
-                  height: 300,
+                  height: responsiveMT(300, 500),
                   width: 100.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,7 +168,7 @@ class _MainHomeState extends State<MainHome> {
                       ),
                       CarouselSlider(
                         options: CarouselOptions(
-                          height: 200.0,
+                          height: responsiveMT(200, 400),
                           onPageChanged: (index, reason) {
                             setState(
                               () {
@@ -202,8 +202,8 @@ class _MainHomeState extends State<MainHome> {
                             left: 5,
                             bottom: 5,
                             child: Image(
-                                width: 15.w,
-                                //height: 15.h,
+                                width: responsiveMT(20, 120),
+                                //height: responsiveMT(30, 100),
                                 image:
                                     AssetImage("assets/image/raqmy-logo.png")),
                           ),

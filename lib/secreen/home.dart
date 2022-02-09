@@ -113,6 +113,7 @@ class _TabBarDemoState extends State<TabBarDemo>
 
   @override
   Widget build(BuildContext context) {
+    bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     var isMobile = Responsive.isMobile(context);
 
@@ -392,23 +393,45 @@ class _TabBarDemoState extends State<TabBarDemo>
         ),
         floatingActionButton: ScaleTransition(
           scale: animation,
-          child: FloatingActionButton(
-            elevation: 8,
-            backgroundColor: Colors.white,
-            child: _bottomNavIndex == 0
-                ? Icon(
-                    Icons.card_membership,
-                    color: baseColor,
-                    size: isMobile == true ? 24.sp : 18.sp,
+          child: Visibility(
+            visible: !keyboardIsOpen,
+            child: SizerUtil.deviceType == DeviceType.mobile
+                ? FloatingActionButton(
+                    elevation: 8,
+                    backgroundColor: Colors.white,
+                    child: _bottomNavIndex == 0
+                        ? Icon(
+                            Icons.card_membership,
+                            color: baseColor,
+                            size: 24,
+                          )
+                        : Icon(
+                            Icons.home,
+                            color: baseColor,
+                            size: 24,
+                          ),
+                    onPressed: () {
+                      openpanel();
+                    },
                   )
-                : Icon(
-                    Icons.home,
-                    color: baseColor,
-                    size: isMobile == true ? 24.sp : 18.sp,
+                : FloatingActionButton.large(
+                    elevation: 8,
+                    backgroundColor: Colors.white,
+                    child: _bottomNavIndex == 0
+                        ? Icon(
+                            Icons.card_membership,
+                            color: baseColor,
+                            size: 50,
+                          )
+                        : Icon(
+                            Icons.home,
+                            color: baseColor,
+                            size: 50,
+                          ),
+                    onPressed: () {
+                      openpanel();
+                    },
                   ),
-            onPressed: () {
-              openpanel();
-            },
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -424,7 +447,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                   children: [
                     Icon(
                       iconList[index],
-                      size: responsiveMT(25, 25),
+                      size: responsiveMT(25, 45),
                       color: color,
                     ),
                     const SizedBox(height: 4),
@@ -442,7 +465,7 @@ class _TabBarDemoState extends State<TabBarDemo>
               },
               splashRadius: 0,
               notchMargin: 0,
-              height: responsiveMT(70, 70),
+              height: responsiveMT(70, 90),
               backgroundColor: baseColor,
               activeIndex: _bottomNavIndex,
               splashColor: Colors.blueGrey,
