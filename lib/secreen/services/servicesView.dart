@@ -3,7 +3,9 @@ import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -157,7 +159,7 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    print("object");
+                    ViewFile.open(testbase64Pfd, "pdf");
                   },
                   child: widgetsUni.cardcontentService(
                       Icons.note_add, "تعريف بالراتب"))),
