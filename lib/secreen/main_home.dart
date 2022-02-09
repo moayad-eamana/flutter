@@ -158,29 +158,29 @@ class _MainHomeState extends State<MainHome> {
                   //color: Colors.red,
                   height: responsiveMT(300, 500),
                   width: 100.w,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  child: Stack(
                     children: [
-                      Text(
-                        "الخدمات الاكثر أستخداماً",
-                        style: titleTx(baseColor),
-                      ),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          height: responsiveMT(200, 400),
-                          onPageChanged: (index, reason) {
-                            setState(
-                              () {
-                                _currentIndex = index;
-                              },
-                            );
-                          },
-                        ),
-                        items: SliderWidget.sliderw(context),
-                      ),
-                      Stack(
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Text(
+                            "الخدمات الاكثر أستخداماً",
+                            style: titleTx(baseColor),
+                          ),
+                          CarouselSlider(
+                            options: CarouselOptions(
+                              height: responsiveMT(200, 400),
+                              onPageChanged: (index, reason) {
+                                setState(
+                                  () {
+                                    _currentIndex = index;
+                                  },
+                                );
+                              },
+                            ),
+                            items: SliderWidget.sliderw(context),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: selectsilder.map((urlOfItem) {
@@ -198,16 +198,15 @@ class _MainHomeState extends State<MainHome> {
                               );
                             }).toList(),
                           ),
-                          Positioned(
-                            left: 5,
-                            bottom: 5,
-                            child: Image(
-                                width: responsiveMT(20, 120),
-                                //height: responsiveMT(30, 100),
-                                image:
-                                    AssetImage("assets/image/raqmy-logo.png")),
-                          ),
                         ],
+                      ),
+                      Positioned(
+                        left: 5,
+                        bottom: 5,
+                        child: Image(
+                            width: responsiveMT(60, 120),
+                            //height: responsiveMT(30, 100),
+                            image: AssetImage("assets/image/raqmy-logo.png")),
                       ),
                     ],
                   ),
