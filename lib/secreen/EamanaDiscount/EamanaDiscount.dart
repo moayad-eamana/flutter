@@ -1,6 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sizer/sizer.dart';
 
 class EamanaDiscount extends StatefulWidget {
@@ -111,10 +119,15 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.download,
-                                size: 30,
+                              IconButton(
                                 color: secondryColor,
+                                icon: Icon(
+                                  Icons.download,
+                                  size: 30,
+                                ),
+                                onPressed: () async {
+                                  await ViewFile.open(testbase64Pfd, "pdf");
+                                },
                               ),
                               Text(
                                 "إستعراض",
