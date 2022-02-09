@@ -274,8 +274,9 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                   Text(
                                                     "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
                                                     textAlign: TextAlign.right,
-                                                    style:
-                                                        descTx2(Colors.white),
+                                                    style: TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.white),
                                                   )
                                                 ],
                                               ),
