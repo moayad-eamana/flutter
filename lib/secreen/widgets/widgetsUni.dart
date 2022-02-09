@@ -35,8 +35,8 @@ class widgetsUni {
 
   static Widget servicebutton(String text, icon, VoidCallback onClicked) {
     return Container(
-      height: 60,
-      width: 140,
+      height: responsiveMT(60, 120),
+      width: responsiveMT(140, 280),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: ElevatedButton(
