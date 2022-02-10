@@ -11,7 +11,7 @@ import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/secreen/main_home.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
-import 'package:eamanaapp/secreen/vacation/vacation_request.dart';
+import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/home.dart';
 import 'package:flutter/material.dart';
