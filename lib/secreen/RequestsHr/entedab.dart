@@ -46,109 +46,85 @@ class _EntedabState extends State<Entedab> {
                     "فضلا أدخل بيانات طلب الانتداب",
                     style: subtitleTx(secondryColorText),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   Form(
                     key: _formKey,
                     child: StaggeredGrid.count(
                         crossAxisCount: responsiveGrid(1, 2),
-                        mainAxisSpacing: 15,
+                        mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         children: [
-                          StaggeredGridTileW(
-                            1,
-                            responsiveMT(60, 100),
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              maxLines: 1,
-                              controller: _date,
-                              decoration: formlabel1("تاريخ الانتداب"),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "الرجاء إختيار التاريخ";
-                                } else {
-                                  return null;
-                                }
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            maxLines: 1,
+                            controller: _date,
+                            decoration: formlabel1("تاريخ الانتداب"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "الرجاء إختيار التاريخ";
+                              } else {
+                                return null;
+                              }
+                            },
+                            onTap: () {
+                              DatePicker.showDatePicker(context,
+                                  showTitleActions: true,
+                                  minTime: DateTime(2021, 3, 5),
+                                  onChanged: (date) {
+                                print('change $date');
+                              }, onConfirm: (date) {
+                                setState(() {
+                                  _date.text = date.toString().split(" ")[0];
+                                });
                               },
-                              onTap: () {
-                                DatePicker.showDatePicker(context,
-                                    showTitleActions: true,
-                                    minTime: DateTime(2021, 3, 5),
-                                    onChanged: (date) {
-                                  print('change $date');
-                                }, onConfirm: (date) {
-                                  setState(() {
-                                    _date.text = date.toString().split(" ")[0];
-                                  });
-                                },
-                                    currentTime: DateTime.now(),
-                                    locale: LocaleType.ar);
-                              },
-                            ),
+                                  currentTime: DateTime.now(),
+                                  locale: LocaleType.ar);
+                            },
                           ),
-                          StaggeredGridTileW(
-                            1,
-                            responsiveMT(60, 100),
-                            TextFormField(
-                              keyboardType: TextInputType.number,
-                              maxLines: 1,
-                              controller: _dayNumber,
-                              decoration: formlabel1("عدد الايام"),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "الرجاء إدخال عدد الايام";
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
+                          TextFormField(
+                            keyboardType: TextInputType.number,
+                            maxLines: 1,
+                            controller: _dayNumber,
+                            decoration: formlabel1("عدد الايام"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "الرجاء إدخال عدد الايام";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
-                          StaggeredGridTileW(
-                            1,
-                            responsiveMT(60, 100),
-                            DropdownSearch<String>(
-                              dropdownSearchDecoration: InputDecoration(
-                                hintText: "نوع الانتداب",
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: responsiveMT(10, 20),
-                                    horizontal: responsiveMT(10, 20)),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4.0),
-                                  borderSide: BorderSide(color: bordercolor),
-                                ),
+                          DropdownSearch<String>(
+                            dropdownSearchDecoration: InputDecoration(
+                              hintText: "نوع الانتداب",
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: responsiveMT(10, 20),
+                                  horizontal: responsiveMT(10, 20)),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4.0),
+                                borderSide: BorderSide(color: bordercolor),
                               ),
-                              mode: Mode.MENU,
-                              showSelectedItems: true,
-                              items: ["داخلي", "خارجي"],
-                              popupItemDisabled: (String s) =>
-                                  s.startsWith('I'),
-                              onChanged: print,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "الرجاء إدختيار نوع الانتداب";
-                                } else {
-                                  return null;
-                                }
-                              },
                             ),
+                            mode: Mode.MENU,
+                            showSelectedItems: true,
+                            items: ["داخلي", "خارجي"],
+                            popupItemDisabled: (String s) => s.startsWith('I'),
+                            onChanged: print,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "الرجاء إدختيار نوع الانتداب";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
-                          StaggeredGridTileW(
-                            1,
-                            responsiveMT(60, 100),
-                            drop1.drop(["اليابان", "استراليا", "أمريكا"],
-                                "جهة الانتداب"),
+                          drop1.drop(["اليابان", "استراليا", "أمريكا"],
+                              "جهة الانتداب"),
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            maxLines: 3,
+                            controller: _Note,
+                            decoration: formlabel1("ملاحظات"),
                           ),
-                          StaggeredGridTileW(
-                            responsiveGrid(1, 2),
-                            120,
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              maxLines: 3,
-                              controller: _Note,
-                              decoration: formlabel1("ملاحظات"),
-                            ),
-                          )
                         ]),
                   ),
                   SizedBox(
