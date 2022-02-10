@@ -4,14 +4,14 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-class VacationRequest extends StatefulWidget {
-  const VacationRequest({Key? key}) : super(key: key);
+class OutdutyRequest extends StatefulWidget {
+  const OutdutyRequest({Key? key}) : super(key: key);
 
   @override
-  State<VacationRequest> createState() => _VacationRequestState();
+  State<OutdutyRequest> createState() => _OutdutyRequestState();
 }
 
-class _VacationRequestState extends State<VacationRequest> {
+class _OutdutyRequestState extends State<OutdutyRequest> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _date = TextEditingController();
