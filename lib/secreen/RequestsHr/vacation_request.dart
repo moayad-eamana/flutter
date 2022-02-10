@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class VacationRequest extends StatefulWidget {
   const VacationRequest({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _VacationRequestState extends State<VacationRequest> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                height: 650,
+                height: responsiveMT(650, 500),
                 decoration: BoxDecoration(
                   //color: Colors.amber,
                   border: Border.all(
@@ -56,98 +57,103 @@ class _VacationRequestState extends State<VacationRequest> {
                             style: titleTx(baseColor),
                           ),
                         ),
-                        TextFormField(
-                          controller: _daysNumber,
-                          keyboardType: TextInputType.number,
-                          maxLines: 1,
-                          decoration: formlabel1("عدد الايام"),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormField(
-                          controller: _date,
-                          readOnly: true,
-                          // keyboardType: TextInputType.datetime,
-                          maxLines: 1,
-                          decoration: formlabel1("تاريخ الإجازة"),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          onTap: () {
-                            DatePicker.showDatePicker(context,
-                                showTitleActions: true,
-                                minTime: DateTime(2021, 3, 5),
-                                onChanged: (date) {
-                              _date.text = date.toString();
-                              print('change $date');
-                            }, onConfirm: (date) {
-                              _date.text = date.toString().split(" ")[0];
-                              print('confirm $date');
-                            },
-                                currentTime: DateTime.now(),
-                                locale: LocaleType.ar);
-                          },
-                        ),
-                        DropdownSearch<String>(
-                          validator: (v) => v == null ? "required field" : null,
-                          dropdownSearchDecoration: InputDecoration(
-                            hintText: "الموظف البديل",
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 2.0, horizontal: 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(color: bordercolor),
-                            ),
-                          ),
-                          mode: Mode.MENU,
-                          showSelectedItems: true,
-                          items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
-                          popupItemDisabled: (String s) => s.startsWith('I'),
-                          onChanged: print,
-                        ),
-                        DropdownSearch<String>(
-                          validator: (v) => v == null ? "required field" : null,
-                          dropdownSearchDecoration: InputDecoration(
-                            hintText: "نوع الإجازة",
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 2.0, horizontal: 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(color: bordercolor),
-                            ),
-                          ),
-                          mode: Mode.MENU,
-                          showSelectedItems: true,
-                          items: [
-                            "إجازة اضطرارية",
-                            "إجازة اعتيادية",
-                            "تمديد إجازة اعتيادية",
-                          ],
-                          popupItemDisabled: (String s) => s.startsWith('I'),
-                          onChanged: print,
-                        ),
+                        StaggeredGrid.count(
+                            crossAxisCount: responsiveGrid(1, 2),
+                            mainAxisSpacing: 30,
+                            crossAxisSpacing: 10,
+                            children: [
+                              TextFormField(
+                                controller: _daysNumber,
+                                keyboardType: TextInputType.number,
+                                maxLines: 1,
+                                decoration: formlabel1("عدد الايام"),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              TextFormField(
+                                controller: _date,
+                                readOnly: true,
+                                // keyboardType: TextInputType.datetime,
+                                maxLines: 1,
+                                decoration: formlabel1("تاريخ الإجازة"),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                onTap: () {
+                                  DatePicker.showDatePicker(context,
+                                      showTitleActions: true,
+                                      minTime: DateTime(2021, 3, 5),
+                                      onChanged: (date) {
+                                    _date.text = date.toString();
+                                    print('change $date');
+                                  }, onConfirm: (date) {
+                                    _date.text = date.toString().split(" ")[0];
+                                    print('confirm $date');
+                                  },
+                                      currentTime: DateTime.now(),
+                                      locale: LocaleType.ar);
+                                },
+                              ),
+                              DropdownSearch<String>(
+                                validator: (v) =>
+                                    v == null ? "required field" : null,
+                                dropdownSearchDecoration: InputDecoration(
+                                  hintText: "الموظف البديل",
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 2.0, horizontal: 20.0),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderSide: BorderSide(color: bordercolor),
+                                  ),
+                                ),
+                                mode: Mode.MENU,
+                                showSelectedItems: true,
+                                items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
+                                popupItemDisabled: (String s) =>
+                                    s.startsWith('I'),
+                                onChanged: print,
+                              ),
+                              DropdownSearch<String>(
+                                validator: (v) =>
+                                    v == null ? "required field" : null,
+                                dropdownSearchDecoration: InputDecoration(
+                                  hintText: "نوع الإجازة",
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 2.0, horizontal: 20.0),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderSide: BorderSide(color: bordercolor),
+                                  ),
+                                ),
+                                mode: Mode.MENU,
+                                showSelectedItems: true,
+                                items: [
+                                  "إجازة اضطرارية",
+                                  "إجازة اعتيادية",
+                                  "تمديد إجازة اعتيادية",
+                                ],
+                                popupItemDisabled: (String s) =>
+                                    s.startsWith('I'),
+                                onChanged: print,
+                              ),
+                            ]),
                         TextFormField(
                           controller: _note,
                           keyboardType: TextInputType.text,
                           maxLines: 3,
                           decoration: formlabel1("ملاحظات"),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
                         ),
                         Align(
-                          alignment: Alignment.bottomLeft,
+                          alignment: Alignment.bottomCenter,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               widgetsUni.actionbutton(
                                 "الطلبات السابقة",
@@ -156,8 +162,13 @@ class _VacationRequestState extends State<VacationRequest> {
                                   print("ee");
                                 },
                               ),
-                              ElevatedButton(
-                                onPressed: () {
+                              SizedBox(
+                                width: 10,
+                              ),
+                              widgetsUni.actionbutton(
+                                'تنفيذ',
+                                Icons.send,
+                                () {
                                   // Validate returns true if the form is valid, or false otherwise.
                                   if (_formKey.currentState!.validate()) {
                                     // If the form is valid, display a snackbar. In the real world,
@@ -168,7 +179,6 @@ class _VacationRequestState extends State<VacationRequest> {
                                     );
                                   }
                                 },
-                                child: const Text('تنفيذ'),
                               ),
                             ],
                           ),
