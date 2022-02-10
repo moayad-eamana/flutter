@@ -58,7 +58,7 @@ class _VacationRequestState extends State<VacationRequest> {
                         ),
                         StaggeredGrid.count(
                             crossAxisCount: responsiveGrid(1, 2),
-                            mainAxisSpacing: 30,
+                            mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                             children: [
                               TextFormField(
@@ -144,7 +144,7 @@ class _VacationRequestState extends State<VacationRequest> {
                               ),
                             ]),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         TextFormField(
                           controller: _note,
@@ -153,7 +153,7 @@ class _VacationRequestState extends State<VacationRequest> {
                           decoration: formlabel1("ملاحظات"),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,

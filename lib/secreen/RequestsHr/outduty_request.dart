@@ -59,7 +59,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                         ),
                         StaggeredGrid.count(
                             crossAxisCount: responsiveGrid(1, 2),
-                            mainAxisSpacing: 30,
+                            mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                             children: [
                               TextFormField(
@@ -132,7 +132,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                               ),
                             ]),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         TextFormField(
                           controller: _note,
@@ -141,7 +141,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                           decoration: formlabel1("ملاحظات"),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
