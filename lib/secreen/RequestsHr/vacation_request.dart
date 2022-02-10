@@ -32,7 +32,6 @@ class _VacationRequestState extends State<VacationRequest> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                height: responsiveMT(650, 500),
                 decoration: BoxDecoration(
                   //color: Colors.amber,
                   border: Border.all(
@@ -144,11 +143,17 @@ class _VacationRequestState extends State<VacationRequest> {
                                 onChanged: print,
                               ),
                             ]),
+                        SizedBox(
+                          height: 30,
+                        ),
                         TextFormField(
                           controller: _note,
                           keyboardType: TextInputType.text,
                           maxLines: 3,
                           decoration: formlabel1("ملاحظات"),
+                        ),
+                        SizedBox(
+                          height: 30,
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
