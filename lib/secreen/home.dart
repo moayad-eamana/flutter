@@ -308,11 +308,14 @@ class _TabBarDemoState extends State<TabBarDemo>
                               children: [
                                 Stack(
                                   children: [
-                                    Center(
-                                      child: Image(
-                                          width: responsiveMT(110, 150),
-                                          image: AssetImage(
-                                              "assets/image/rakamy-logo-21.png")),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: Center(
+                                        child: Image(
+                                            width: responsiveMT(110, 150),
+                                            image: AssetImage(
+                                                "assets/image/rakamy-logo-21.png")),
+                                      ),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomCenter,
