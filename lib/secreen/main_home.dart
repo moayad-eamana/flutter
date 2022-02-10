@@ -147,7 +147,7 @@ class _MainHomeState extends State<MainHome> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    //color: Colors.amber,
+                    color: Colors.white,
                     border: Border.all(
                       color: Color(0xFFDDDDDD),
                     ),

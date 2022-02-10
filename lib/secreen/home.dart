@@ -10,6 +10,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
@@ -171,136 +172,155 @@ class _TabBarDemoState extends State<TabBarDemo>
                     parallaxOffset: 0,
                     panel: isOpen
                         ? Container(
-                            child: Center(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: baseColor,
-                                      borderRadius: BorderRadius.only(
-                                        bottomRight: new Radius.circular(20),
-                                        topRight: new Radius.circular(20),
-                                      ),
+                            child: Stack(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/SVGs/background.svg',
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width,
+                                //height: MediaQuery.of(context).size.height,
+                                fit: BoxFit.fill,
+                              ),
+                              Center(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
                                     ),
-                                    width: 100,
-                                    // color: Colors.blue.shade900,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      child: Text(
-                                        "على رأس العمل",
-                                        textAlign: TextAlign.right,
-                                        style: descTx1(Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                  child: Column(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: responsiveMT(52, 92),
-                                        backgroundColor: Color(0xff274690),
-                                        child: CircleAvatar(
-                                          radius: responsiveMT(50, 90),
-                                          backgroundImage: AssetImage(
-                                              "assets/image/avatar.jpg"),
-                                        ),
-                                      ),
-                                      Text(
-                                        "عبدالله أحمد آل الكبيش",
-                                        style: titleTx(baseColor),
-                                      ),
-                                      Text(
-                                          "مدير إدارة التطبيقات والخدمات الالكترونية",
-                                          style: descTx2(baseColor)),
-                                      Container(
-                                        height: 125,
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Container(
                                         decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              baseColor,
-                                              secondryColor,
-                                            ],
+                                          color: baseColor,
+                                          borderRadius: BorderRadius.only(
+                                            bottomRight:
+                                                new Radius.circular(20),
+                                            topRight: new Radius.circular(20),
                                           ),
-                                          border: Border.all(
-                                            color: Colors.white,
-                                            width: 2.0,
-                                            style: BorderStyle.solid,
-                                          ),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(8.0)),
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 10),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    "بطاقة تسجيل الدخول",
-                                                    textAlign: TextAlign.right,
-                                                    style:
-                                                        titleTx(Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "أمانة المنطقة الشرقية",
-                                                    textAlign: TextAlign.right,
-                                                    style:
-                                                        descTx2(Colors.white),
-                                                  ),
-                                                  // AutoSizeText(
-                                                  //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                  //   maxLines: 1,
-                                                  //   style: TextStyle(
-                                                  //       color: Colors.white),
-                                                  //   group: autoSizeGroup,
-                                                  // ),
-                                                  Text(
-                                                    "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                    textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                        fontSize: 10,
-                                                        color: Colors.white),
-                                                  )
+                                        width: 100,
+                                        // color: Colors.blue.shade900,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child: Text(
+                                            "على رأس العمل",
+                                            textAlign: TextAlign.right,
+                                            style: descTx1(Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 10, 10, 10),
+                                      child: Column(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: responsiveMT(52, 92),
+                                            backgroundColor: Color(0xff274690),
+                                            child: CircleAvatar(
+                                              radius: responsiveMT(50, 90),
+                                              backgroundImage: AssetImage(
+                                                  "assets/image/avatar.jpg"),
+                                            ),
+                                          ),
+                                          Text(
+                                            "عبدالله أحمد آل الكبيش",
+                                            style: titleTx(baseColor),
+                                          ),
+                                          Text(
+                                              "مدير إدارة التطبيقات والخدمات الالكترونية",
+                                              style: descTx2(baseColor)),
+                                          Container(
+                                            height: 125,
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  baseColor,
+                                                  secondryColor,
                                                 ],
                                               ),
-                                            ),
-                                            Container(
-                                              margin:
-                                                  EdgeInsets.only(right: 18),
-                                              width: 100,
-                                              height: 100,
-                                              child: SfBarcodeGenerator(
-                                                backgroundColor: Colors.white,
-                                                value: '444444',
-                                                symbology: QRCode(),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 2.0,
+                                                style: BorderStyle.solid,
                                               ),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(8.0)),
                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        "بطاقة تسجيل الدخول",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: titleTx(
+                                                            Colors.white),
+                                                      ),
+                                                      Text(
+                                                        "أمانة المنطقة الشرقية",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: descTx2(
+                                                            Colors.white),
+                                                      ),
+                                                      // AutoSizeText(
+                                                      //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                      //   maxLines: 1,
+                                                      //   style: TextStyle(
+                                                      //       color: Colors.white),
+                                                      //   group: autoSizeGroup,
+                                                      // ),
+                                                      Text(
+                                                        "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                      right: 18),
+                                                  width: 100,
+                                                  height: 100,
+                                                  child: SfBarcodeGenerator(
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    value: '444444',
+                                                    symbology: QRCode(),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ))
                         : Container(
                             child: Column(
