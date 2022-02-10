@@ -100,7 +100,7 @@ class _ServicesViewState extends State<ServicesView> {
                 "طلب إجازة",
                 Icons.request_page,
                 () {
-                  print("object");
+                  Navigator.pushNamed(context, "/VacationRequest");
                 },
               )),
           StaggeredGridTile.extent(
@@ -109,7 +109,7 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    print("object");
+                    Navigator.pushNamed(context, "/OutdutyRequest");
                   },
                   child: widgetsUni.cardcontentService(
                       Icons.note_add, "طلب خارج دوام"))),
@@ -118,9 +118,7 @@ class _ServicesViewState extends State<ServicesView> {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {
-                     Navigator.pushNamed(context, "/OutdutyRequest");
-                  },
+                  onPressed: () {},
                   child: widgetsUni.cardcontentService(
                       Icons.note_add, "رصيد إجازات"))),
           StaggeredGridTile.extent(
