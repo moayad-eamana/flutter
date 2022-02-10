@@ -33,6 +33,21 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
   onPrimary: Colors.grey, // foregroundjjjkl
 );
 
+InputDecoration formlabel = InputDecoration(
+  contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15.0),
+    borderSide: BorderSide(color: bordercolor),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15.0),
+    borderSide: BorderSide(color: baseColor),
+  ),
+  hoverColor: baseColor,
+  filled: true,
+  fillColor: Colors.white,
+);
+
 BoxDecoration containerdecoration(Color color) {
   return BoxDecoration(
       color: color,
