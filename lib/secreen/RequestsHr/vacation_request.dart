@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class VacationRequest extends StatefulWidget {
   const VacationRequest({Key? key}) : super(key: key);
@@ -13,6 +14,8 @@ class VacationRequest extends StatefulWidget {
 class _VacationRequestState extends State<VacationRequest> {
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController _date = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -23,7 +26,7 @@ class _VacationRequestState extends State<VacationRequest> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                height: 900,
+                height: 650,
                 decoration: BoxDecoration(
                   //color: Colors.amber,
                   border: Border.all(
@@ -48,81 +51,53 @@ class _VacationRequestState extends State<VacationRequest> {
                             style: titleTx(baseColor),
                           ),
                         ),
-                        Text(
-                          "الرقم الوظيفي",
-                          style: descTx1(secondryColorText),
-                        ),
                         TextFormField(
                           //controller: _search,
                           keyboardType: TextInputType.number,
                           maxLines: 1,
-                          decoration: formlabel,
+                          decoration: formlabel1("عدد الايام"),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';
                             }
                             return null;
                           },
-                        ),
-                        Text(
-                          "اسم الموظف",
-                          style: descTx1(secondryColorText),
                         ),
                         TextFormField(
-                          //controller: _search,
-                          keyboardType: TextInputType.text,
+                          controller: _date,
+                          readOnly: true,
+                          // keyboardType: TextInputType.datetime,
                           maxLines: 1,
-                          decoration: formlabel,
+                          decoration: formlabel1("تاريخ الإجازة"),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';
                             }
                             return null;
                           },
-                        ),
-                        Text(
-                          "عدد الايام",
-                          style: descTx1(secondryColorText),
-                        ),
-                        TextFormField(
-                          //controller: _search,
-                          keyboardType: TextInputType.number,
-                          maxLines: 1,
-                          decoration: formlabel,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
+                          onTap: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2021, 3, 5),
+                                onChanged: (date) {
+                              _date.text = date.toString();
+                              print('change $date');
+                            }, onConfirm: (date) {
+                              _date.text = date.toString().split(" ")[0];
+                              print('confirm $date');
+                            },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.ar);
                           },
-                        ),
-                        Text(
-                          "تاريخ الإجازة",
-                          style: descTx1(secondryColorText),
-                        ),
-                        TextFormField(
-                          //controller: _search,
-                          keyboardType: TextInputType.datetime,
-                          maxLines: 1,
-                          decoration: formlabel,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                        ),
-                        Text(
-                          "الموظف البديل",
-                          style: descTx1(secondryColorText),
                         ),
                         DropdownSearch<String>(
+                          validator: (v) => v == null ? "required field" : null,
                           dropdownSearchDecoration: InputDecoration(
-                            hintText: "اختر",
+                            hintText: "الموظف البديل",
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 2.0, horizontal: 20.0),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0),
+                              borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(color: bordercolor),
                             ),
                           ),
@@ -132,35 +107,32 @@ class _VacationRequestState extends State<VacationRequest> {
                           popupItemDisabled: (String s) => s.startsWith('I'),
                           onChanged: print,
                         ),
-                        Text(
-                          "نوع الإجازة",
-                          style: descTx1(secondryColorText),
-                        ),
                         DropdownSearch<String>(
+                          validator: (v) => v == null ? "required field" : null,
                           dropdownSearchDecoration: InputDecoration(
-                            hintText: "اختر",
+                            hintText: "نوع الإجازة",
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 2.0, horizontal: 20.0),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0),
+                              borderRadius: BorderRadius.circular(4.0),
                               borderSide: BorderSide(color: bordercolor),
                             ),
                           ),
                           mode: Mode.MENU,
                           showSelectedItems: true,
-                          items: ["مرضية", "اعتيادية", "", ""],
+                          items: [
+                            "إجازة اضطرارية",
+                            "إجازة اعتيادية",
+                            "تمديد إجازة اعتيادية",
+                          ],
                           popupItemDisabled: (String s) => s.startsWith('I'),
                           onChanged: print,
-                        ),
-                        Text(
-                          "ملاحظات",
-                          style: descTx1(secondryColorText),
                         ),
                         TextFormField(
                           //controller: _search,
                           keyboardType: TextInputType.text,
                           maxLines: 3,
-                          decoration: formlabel,
+                          decoration: formlabel1("ملاحظات"),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';

@@ -33,30 +33,19 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
   onPrimary: Colors.grey, // foregroundjjjkl
 );
 
-InputDecoration formlabel = InputDecoration(
-  contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(15.0),
-    borderSide: BorderSide(color: bordercolor),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(15.0),
-    borderSide: BorderSide(color: baseColor),
-  ),
-  hoverColor: baseColor,
-  filled: true,
-  fillColor: Colors.white,
-);
-
 InputDecoration formlabel1(String lableName) {
   return InputDecoration(
       labelText: lableName,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4.0),
+        borderSide: BorderSide(color: bordercolor),
+      ),
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(width: 3, color: Colors.blue),
+        borderSide: BorderSide(color: bordercolor),
         borderRadius: BorderRadius.circular(4),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(width: 3, color: Colors.red),
+        borderSide: BorderSide(color: bordercolor),
         borderRadius: BorderRadius.circular(4),
       ));
 }
