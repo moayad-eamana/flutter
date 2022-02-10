@@ -17,7 +17,7 @@ class AppBarW {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'assets/image/raqmy-logo.png',
+                        'assets/image/rakamy-logo-21.png',
                         width: 120,
                       ),
                       Text(
