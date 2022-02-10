@@ -207,7 +207,8 @@ class _MainHomeState extends State<MainHome> {
                         child: Image(
                             width: responsiveMT(60, 120),
                             //height: responsiveMT(30, 100),
-                            image: AssetImage("assets/image/raqmy-logo.png")),
+                            image:
+                                AssetImage("assets/image/rakamy-logo-21.png")),
                       ),
                     ],
                   ),
