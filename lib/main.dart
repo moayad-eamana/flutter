@@ -6,6 +6,7 @@ import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
+import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
@@ -150,6 +151,7 @@ class _MyAppState extends State<MyApp> {
           '/services': (context) => ServicesView(),
           '/EamanaDiscount': (context) => EamanaDiscount(),
           '/VacationRequest': (context) => VacationRequest(),
+          '/entedab': (context) => Entedab(),
         },
       );
     });

@@ -48,6 +48,19 @@ InputDecoration formlabel = InputDecoration(
   fillColor: Colors.white,
 );
 
+InputDecoration formlabel1(String lableName) {
+  return InputDecoration(
+      labelText: lableName,
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(width: 3, color: Colors.blue),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(width: 3, color: Colors.red),
+        borderRadius: BorderRadius.circular(4),
+      ));
+}
+
 BoxDecoration containerdecoration(Color color) {
   return BoxDecoration(
       color: color,

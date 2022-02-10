@@ -130,7 +130,7 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    print("object");
+                    Navigator.pushNamed(context, "/entedab");
                   },
                   child: widgetsUni.cardcontentService(
                       Icons.note_add, "طلب إنتداب"))),
@@ -139,9 +139,7 @@ class _ServicesViewState extends State<ServicesView> {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {
-                    print("object");
-                  },
+                  onPressed: () {},
                   child: widgetsUni.cardcontentService(
                       Icons.note_add, "طلب إعارة"))),
           StaggeredGridTile.extent(
