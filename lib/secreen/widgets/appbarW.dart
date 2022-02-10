@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppBarW {
   static PreferredSize appBarW(String title, BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(120.0),
+      preferredSize: Size.fromHeight(90.0),
       child: AppBar(
         automaticallyImplyLeading: false,
         flexibleSpace: SafeArea(
@@ -18,7 +18,7 @@ class AppBarW {
                     children: [
                       Image.asset(
                         'assets/image/rakamy-logo-21.png',
-                        width: 120,
+                        width: 80,
                       ),
                       Text(
                         title,
