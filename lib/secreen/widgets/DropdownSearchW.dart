@@ -6,16 +6,18 @@ class DropdownSearchW {
   String value = "";
   DropdownSearch drop(List<String> item, String LableName) {
     //dynamic values = "";
+
     return DropdownSearch<String>(
       items: item,
-      //maxHeight: 300
       mode: Mode.BOTTOM_SHEET,
+      showSelectedItems: true,
       showClearButton: true,
+      maxHeight: 400,
       showAsSuffixIcons: true,
       dropdownSearchDecoration: InputDecoration(
         hintText: LableName,
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 2.0, horizontal: 20.0),
+        contentPadding: EdgeInsets.symmetric(
+            vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.0),
           borderSide: BorderSide(color: bordercolor),
@@ -29,14 +31,12 @@ class DropdownSearchW {
         }
       },
       showSearchBox: true,
-
       onChanged: (String? v) {
         print('object');
         value = v ?? "";
       },
-
       popupTitle: Container(
-        height: 50,
+        height: 80,
         decoration: BoxDecoration(
           color: secondryColor,
           borderRadius: const BorderRadius.only(
