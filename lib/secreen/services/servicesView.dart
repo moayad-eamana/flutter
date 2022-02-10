@@ -119,7 +119,7 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    print("object");
+                     Navigator.pushNamed(context, "/OutdutyRequest");
                   },
                   child: widgetsUni.cardcontentService(
                       Icons.note_add, "رصيد إجازات"))),

@@ -4,6 +4,8 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+
 class VacationRequest extends StatefulWidget {
   const VacationRequest({Key? key}) : super(key: key);
 
@@ -145,19 +147,30 @@ class _VacationRequestState extends State<VacationRequest> {
                         ),
                         Align(
                           alignment: Alignment.bottomLeft,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Validate returns true if the form is valid, or false otherwise.
-                              if (_formKey.currentState!.validate()) {
-                                // If the form is valid, display a snackbar. In the real world,
-                                // you'd often call a server or save the information in a database.
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
-                                );
-                              }
-                            },
-                            child: const Text('Submit'),
+                          child: Row(
+                            children: [
+                              widgetsUni.actionbutton(
+                                "الطلبات السابقة",
+                                Icons.local_attraction_sharp,
+                                () {
+                                  print("ee");
+                                },
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Validate returns true if the form is valid, or false otherwise.
+                                  if (_formKey.currentState!.validate()) {
+                                    // If the form is valid, display a snackbar. In the real world,
+                                    // you'd often call a server or save the information in a database.
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Processing Data')),
+                                    );
+                                  }
+                                },
+                                child: const Text('تنفيذ'),
+                              ),
+                            ],
                           ),
                         ),
                       ],

@@ -153,7 +153,7 @@ class _MyAppState extends State<MyApp> {
           '/EamanaDiscount': (context) => EamanaDiscount(),
           '/VacationRequest': (context) => VacationRequest(),
           '/entedab': (context) => Entedab(),
-          'OutdutyRequest': (context) => OutdutyRequest(),
+          '/OutdutyRequest': (context) => OutdutyRequest(),
         },
       );
     });

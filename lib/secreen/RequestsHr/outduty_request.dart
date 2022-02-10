@@ -14,7 +14,8 @@ class OutdutyRequest extends StatefulWidget {
 class _OutdutyRequestState extends State<OutdutyRequest> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _date = TextEditingController();
+  TextEditingController _dateFrom = TextEditingController();
+  TextEditingController _dateTo = TextEditingController();
   TextEditingController _daysNumber = TextEditingController();
   TextEditingController _note = TextEditingController();
   // TextEditingController _date = TextEditingController();
@@ -24,7 +25,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("طلب إجازة", context),
+          appBar: AppBarW.appBarW("طلب خارج الدوام", context),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -50,7 +51,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                       children: [
                         Center(
                           child: Text(
-                            "فضلاً أدخل بيانات طلب إجازة",
+                            "فضلاً أدخل بيانات طلب خارج الدوام",
                             style: titleTx(baseColor),
                           ),
                         ),
@@ -58,7 +59,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                           controller: _daysNumber,
                           keyboardType: TextInputType.number,
                           maxLines: 1,
-                          decoration: formlabel1("عدد الايام"),
+                          decoration: formlabel1("عدد الساعات"),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';
@@ -67,11 +68,11 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                           },
                         ),
                         TextFormField(
-                          controller: _date,
+                          controller: _dateFrom,
                           readOnly: true,
                           // keyboardType: TextInputType.datetime,
                           maxLines: 1,
-                          decoration: formlabel1("تاريخ الإجازة"),
+                          decoration: formlabel1("تاريخ بداية خارج الدوام"),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';
@@ -83,53 +84,42 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 showTitleActions: true,
                                 minTime: DateTime(2021, 3, 5),
                                 onChanged: (date) {
-                              _date.text = date.toString();
+                              _dateFrom.text = date.toString();
                               print('change $date');
                             }, onConfirm: (date) {
-                              _date.text = date.toString().split(" ")[0];
+                              _dateFrom.text = date.toString();
                               print('confirm $date');
                             },
                                 currentTime: DateTime.now(),
                                 locale: LocaleType.ar);
                           },
                         ),
-                        DropdownSearch<String>(
-                          validator: (v) => v == null ? "required field" : null,
-                          dropdownSearchDecoration: InputDecoration(
-                            hintText: "الموظف البديل",
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 2.0, horizontal: 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(color: bordercolor),
-                            ),
-                          ),
-                          mode: Mode.MENU,
-                          showSelectedItems: true,
-                          items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
-                          popupItemDisabled: (String s) => s.startsWith('I'),
-                          onChanged: print,
-                        ),
-                        DropdownSearch<String>(
-                          validator: (v) => v == null ? "required field" : null,
-                          dropdownSearchDecoration: InputDecoration(
-                            hintText: "نوع الإجازة",
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 2.0, horizontal: 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: BorderSide(color: bordercolor),
-                            ),
-                          ),
-                          mode: Mode.MENU,
-                          showSelectedItems: true,
-                          items: [
-                            "إجازة اضطرارية",
-                            "إجازة اعتيادية",
-                            "تمديد إجازة اعتيادية",
-                          ],
-                          popupItemDisabled: (String s) => s.startsWith('I'),
-                          onChanged: print,
+                        TextFormField(
+                          controller: _dateTo,
+                          readOnly: true,
+                          // keyboardType: TextInputType.datetime,
+                          maxLines: 1,
+                          decoration: formlabel1("تاريخ نهاية خارج الدوام"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          onTap: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2021, 3, 5),
+                                onChanged: (date) {
+                              _dateTo.text = date.toString();
+                              print('change $date');
+                            }, onConfirm: (date) {
+                              _dateTo.text = date.toString();
+                              print('confirm $date');
+                            },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.ar);
+                          },
                         ),
                         TextFormField(
                           controller: _note,
