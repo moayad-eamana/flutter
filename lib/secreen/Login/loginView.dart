@@ -37,30 +37,54 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text("تسجيل الدخول"),
-                  const Text("فضلا أدخل معلومات التسجيل"),
+                  //    const Text("تسجيل الدخول"),
+                  //   const Text("فضلا أدخل معلومات التسجيل"),
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    height: 280,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Stack(
+                  Center(
+                    child: Column(
                       children: [
-                        bagPanel(),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            userName(),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            password(),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            loginBtn(_provider),
-                          ],
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          decoration: containerdecoration(Colors.white),
+                          child: Column(
+                            //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "تسجيل دخول موظف أمانة",
+                                style: titleTx(baseColor),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              userName(),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              password(),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "تغير كلمة المرور",
+                                    style: subtitleTx(baseColor),
+                                  ),
+                                  loginBtn(_provider),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -146,21 +170,17 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget logo() {
-    return SvgPicture.asset(
-      'assets/SVGs/brand-logo.svg',
-      alignment: Alignment.center,
+    return Image.asset(
+      "assets/image/rakamy-logo-21.png",
+      width: 150,
     );
   }
 
   Widget bagPanel() {
     return Center(
       child: Container(
-        decoration: BoxDecoration(
-            color: secondryColor,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(12.0),
-            ),
-            border: Border.all(color: Colors.white)),
+        height: 500,
+        decoration: containerdecoration(Colors.white),
         width: MediaQuery.of(context).size.width,
       ),
     );
@@ -168,48 +188,44 @@ class _LoginViewState extends State<LoginView> {
 
   Widget loginBtn(_provider) {
     var provider2 = Provider.of<LoginProvider>(context, listen: false);
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(top: 8, left: 20, right: 20),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.blue, // background
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          primary: baseColor, // background
           onPrimary: Colors.white, // foreground
-        ),
-        onPressed: () async {
-          bool erore = false;
-          erore = checkValditionSubmit();
-          if (!erore) {
-            EasyLoading.show(
-              status: 'جاري المعالجة...',
-              maskType: EasyLoadingMaskType.black,
-            );
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 8)),
+      onPressed: () async {
+        bool erore = false;
+        erore = checkValditionSubmit();
+        if (!erore) {
+          EasyLoading.show(
+            status: 'جاري المعالجة...',
+            maskType: EasyLoadingMaskType.black,
+          );
 
-            bool isValiedUser =
-                await _provider.checkUser(_username.text, _password.text);
-            EasyLoading.dismiss();
-            if (isValiedUser) {
-              if (_username.text == "4438104") {
-                Navigator.pushReplacementNamed(context, "/tab");
-                return;
-              }
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChangeNotifierProvider.value(
-                      value: provider2,
-                      child: OTPView(),
-                    ),
-                  ));
-            } else {
-              Alerts.errorAlert(
-                      context, "خطأ", "خطأ في كلمة المرور أو إسم المستخدم")
-                  .show();
+          bool isValiedUser =
+              await _provider.checkUser(_username.text, _password.text);
+          EasyLoading.dismiss();
+          if (isValiedUser) {
+            if (_username.text == "4438104") {
+              Navigator.pushReplacementNamed(context, "/tab");
+              return;
             }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChangeNotifierProvider.value(
+                    value: provider2,
+                    child: OTPView(),
+                  ),
+                ));
+          } else {
+            Alerts.errorAlert(
+                    context, "خطأ", "خطأ في كلمة المرور أو إسم المستخدم")
+                .show();
           }
-        },
-        child: const Text('دخول'),
-      ),
+        }
+      },
+      child: const Text('دخول'),
     );
   }
 

@@ -16,6 +16,7 @@ class DropdownSearchW {
       showAsSuffixIcons: true,
       dropdownSearchDecoration: InputDecoration(
         hintText: LableName,
+        helperStyle: TextStyle(color: Colors.amber),
         contentPadding: EdgeInsets.symmetric(
             vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
         border: OutlineInputBorder(
@@ -36,7 +37,7 @@ class DropdownSearchW {
         value = v ?? "";
       },
       popupTitle: Container(
-        height: 80,
+        height: 60,
         decoration: BoxDecoration(
           color: secondryColor,
           borderRadius: const BorderRadius.only(

@@ -1,5 +1,8 @@
+import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
+import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
@@ -270,15 +273,52 @@ class _ServicesViewState extends State<ServicesView> {
                   child: widgetsUni.cardcontentService(
                       Icons.not_accessible, "عروض الموظفين"))),
           StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    print("object");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      Icons.not_accessible, "طلب استيكر"))),
+            crossAxisCellCount: 1,
+            mainAxisExtent: hi,
+            child: ElevatedButton(
+                style: cardServiece,
+                onPressed: () {
+                  print("object");
+                },
+                child: widgetsUni.cardcontentService(
+                    Icons.not_accessible, "طلب استيكر")),
+          ),
+          StaggeredGridTileW(
+              1,
+              hi,
+              widgetsUni.servicebutton2(
+                "دليل الموظفين",
+                Icons.request_page,
+                () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => EmpInfoProvider(),
+                          // ignore: prefer_const_constructors
+                          child: EmpInfoView(),
+                        ),
+                      ));
+                },
+              )),
+          StaggeredGridTileW(
+              1,
+              hi,
+              widgetsUni.servicebutton2(
+                "بياناتي",
+                Icons.request_page,
+                () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => EmpInfoProvider(),
+                          // ignore: prefer_const_constructors
+                          child: EmpProfile(),
+                        ),
+                      ));
+                },
+              )),
         ],
       ),
     );
