@@ -33,7 +33,26 @@ class MainHome extends StatefulWidget {
 class _MainHomeState extends State<MainHome> {
   TextEditingController _search = TextEditingController();
   var _currentIndex = 0;
+  var _currentIndexBanner = 0;
+
   List<int> selectsilder = [0, 1];
+
+  List<Widget> imageBanner = [
+    Image(
+        //width: responsiveMT(60, 120),
+        //height: responsiveMT(30, 100),
+        image: AssetImage("assets/image/banner.png")),
+    Image(
+        //width: responsiveMT(60, 120),
+        //height: responsiveMT(30, 100),
+        image: AssetImage("assets/image/banner.png")),
+  ];
+
+  List<int> selectsilderBanner = [0, 1];
+  List<String> selectsilderTitle = [
+    "اليوم الوطني السعودي 90",
+    "اليوم الوطني السعودي 90 - 2"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -213,6 +232,76 @@ class _MainHomeState extends State<MainHome> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "الفعاليات",
+                      style: titleTx(baseColorText),
+                    ),
+                    Expanded(
+                      child: Container(
+                          // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                          child: Divider(
+                        color: baseColorText,
+                        height: 20,
+                        thickness: 1,
+                        indent: 5,
+                        endIndent: 5,
+                      )),
+                    ),
+                  ],
+                ),
+                Container(
+                  decoration: containerdecoration(Colors.white),
+                  child: Column(
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          height: responsiveMT(100, 200),
+                          onPageChanged: (index, reason) {
+                            setState(
+                              () {
+                                _currentIndexBanner = index;
+                              },
+                            );
+                          },
+                        ),
+                        items: imageBanner,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(selectsilderTitle
+                                .elementAt(_currentIndexBanner)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: selectsilderBanner.map((urlOfItem2) {
+                                int index =
+                                    selectsilderBanner.indexOf(urlOfItem2);
+                                return Container(
+                                  width: 10.0,
+                                  height: 10.0,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: _currentIndexBanner == index
+                                          ? baseColor
+                                          : secondryColorText),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
