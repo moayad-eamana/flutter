@@ -173,6 +173,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                         bottomRight: Radius.circular(18.0)),
                     //    parallaxEnabled: true,
                     //  parallaxOffset: 0,
+
                     panel: isOpen
                         ? Stack(
                             fit: StackFit.loose,
