@@ -173,8 +173,73 @@ class _TabBarDemoState extends State<TabBarDemo>
                         bottomRight: Radius.circular(18.0)),
                     //    parallaxEnabled: true,
                     //  parallaxOffset: 0,
-
-                    panel: isOpen
+                    collapsed: Container(
+                      decoration: containerdecoration(Colors.white),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Center(
+                                  child: Image(
+                                      width: responsiveMT(90, 150),
+                                      image: AssetImage(
+                                          "assets/image/rakamy-logo-21.png")),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.notifications_active,
+                                            color: baseColor,
+                                            size: responsiveMT(30, 45),
+                                          ),
+                                          Text(
+                                            "تنبيهات",
+                                            style: descTx1(baseColorText),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(right: 10),
+                                      child: Column(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: Color(0xff274690),
+                                            radius: responsiveMT(26, 28),
+                                            child: CircleAvatar(
+                                              radius: responsiveMT(23, 25),
+                                              backgroundImage: AssetImage(
+                                                  "assets/image/avatar.jpg"),
+                                            ),
+                                          ),
+                                          Text(
+                                            "مرحبا / عبدالله",
+                                            style: descTx1(baseColorText),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    panel: true
                         ? Stack(
                             fit: StackFit.loose,
                             overflow: Overflow.visible,
@@ -182,6 +247,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                             children: [
                               Container(
                                 decoration: BoxDecoration(
+                                    color: Colors.white,
                                     border: Border.all(
                                       color: Color(0xFFDDDDDD),
                                     ),
@@ -200,11 +266,20 @@ class _TabBarDemoState extends State<TabBarDemo>
                                         BorderRadius.all(Radius.circular(4))),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(4),
-                                  child: SvgPicture.asset(
-                                    'assets/SVGs/background.svg',
+                                  child:
+                                      //  SvgPicture.asset(
+                                      //   'assets/SVGs/Union_1.svg',
+                                      //   alignment: Alignment.center,
+                                      //   width: MediaQuery.of(context).size.width,
+                                      //   fit: BoxFit.fitWidth,
+                                      // ),
+                                      Image(
+                                    //width: responsiveMT(90, 150),
                                     alignment: Alignment.center,
                                     width: MediaQuery.of(context).size.width,
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.fitWidth,
+                                    image:
+                                        AssetImage("assets/image/Union_1.png"),
                                   ),
                                 ),
                               ),

@@ -37,37 +37,9 @@ class _MainHomeState extends State<MainHome> {
 
   List<int> selectsilder = [0, 1];
 
-  List<Widget> imageBanner = [
-    Container(
-      color: Colors.amber,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: Image(
-                //width: responsiveMT(60, 120),
-                //height: responsiveMT(30, 100),
-
-                height: responsiveMT(100, 200),
-                fit: BoxFit.fitWidth,
-                image: AssetImage("assets/image/banner.png")),
-          ),
-        ],
-      ),
-    ),
-    Row(
-      children: [
-        Expanded(
-          child: Image(
-              //width: responsiveMT(60, 120),
-              //height: responsiveMT(30, 100),
-
-              height: responsiveMT(100, 200),
-              fit: BoxFit.fitWidth,
-              image: AssetImage("assets/image/banner.png")),
-        ),
-      ],
-    ),
+  List<dynamic> imageBanner = [
+    "assets/image/banner.png",
+    "assets/image/banner.png"
   ];
 
   List<int> selectsilderBanner = [0, 1];
@@ -295,7 +267,22 @@ class _MainHomeState extends State<MainHome> {
                             );
                           },
                         ),
-                        items: imageBanner,
+                        items: imageBanner
+                            .map(
+                              (e) => Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Image(
+                                      height: responsiveMT(100, 200),
+                                      fit: BoxFit.fitWidth,
+                                      image: AssetImage(e),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            .toList(),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
