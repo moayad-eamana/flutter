@@ -151,7 +151,7 @@ class _TabBarDemoState extends State<TabBarDemo>
             ]),
             _bottomNavIndex == 0
                 ? SlidingUpPanel(
-                    //renderPanelSheet: false,
+                    //   //renderPanelSheet: false,
                     boxShadow: [
                         BoxShadow(
                             blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))
