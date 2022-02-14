@@ -180,6 +180,13 @@ class _TabBarDemoState extends State<TabBarDemo>
                         children: [
                           Stack(
                             children: [
+                              Image(
+                                //width: responsiveMT(90, 150),
+                                alignment: Alignment.center,
+                                width: MediaQuery.of(context).size.width,
+                                fit: BoxFit.fitWidth,
+                                image: AssetImage("assets/image/Union_1.png"),
+                              ),
                               Container(
                                 margin: EdgeInsets.only(top: 10),
                                 child: Center(
