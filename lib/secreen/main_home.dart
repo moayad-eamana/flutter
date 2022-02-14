@@ -41,10 +41,12 @@ class _MainHomeState extends State<MainHome> {
     Image(
         //width: responsiveMT(60, 120),
         //height: responsiveMT(30, 100),
+        fit: BoxFit.fitWidth,
         image: AssetImage("assets/image/banner.png")),
     Image(
         //width: responsiveMT(60, 120),
         //height: responsiveMT(30, 100),
+        fit: BoxFit.fitWidth,
         image: AssetImage("assets/image/banner.png")),
   ];
 
