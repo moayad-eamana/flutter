@@ -247,7 +247,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.amber,
+                                    color: Colors.white,
                                     border: Border.all(
                                       color: Color(0xFFDDDDDD),
                                     ),
@@ -266,11 +266,20 @@ class _TabBarDemoState extends State<TabBarDemo>
                                         BorderRadius.all(Radius.circular(4))),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(4),
-                                  child: SvgPicture.asset(
-                                    'assets/SVGs/Union_1.svg',
-                                    //alignment: Alignment.center,
-                                    //width: MediaQuery.of(context).size.width,
+                                  child:
+                                      //  SvgPicture.asset(
+                                      //   'assets/SVGs/Union_1.svg',
+                                      //   alignment: Alignment.center,
+                                      //   width: MediaQuery.of(context).size.width,
+                                      //   fit: BoxFit.fitWidth,
+                                      // ),
+                                      Image(
+                                    //width: responsiveMT(90, 150),
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width,
                                     fit: BoxFit.fitWidth,
+                                    image:
+                                        AssetImage("assets/image/Union_1.png"),
                                   ),
                                 ),
                               ),
