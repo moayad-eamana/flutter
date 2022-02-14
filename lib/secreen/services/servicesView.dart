@@ -29,59 +29,71 @@ class _ServicesViewState extends State<ServicesView> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW("جميع الخدمات", context),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(left: 18, right: 18, bottom: 15.h, top: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // شؤون الموظفين
-                //hr
-                Text(
-                  "شؤون الموظفين",
-                  style: subtitleTx(baseColor),
-                ),
-                widgetsUni.divider(),
-                SizedBox(
-                  height: 5,
-                ),
-                hrServices(),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "مهامي",
-                  style: subtitleTx(baseColor),
-                ),
-                widgetsUni.divider(),
-                SizedBox(
-                  height: 10,
-                ),
-                mahamme(),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text("خدمات التدريب", style: subtitleTx(baseColor)),
-                widgetsUni.divider(),
-                SizedBox(
-                  height: 5,
-                ),
-                trainning(),
-                SizedBox(
-                  height: 10,
-                ),
-                Text("خدمات أخرى", style: subtitleTx(baseColor)),
-                widgetsUni.divider(),
-                SizedBox(
-                  height: 5,
-                ),
-                otherServices(),
-              ],
+        body: Stack(
+          children: [
+            Image.asset(
+              'assets/image/Union_1.png',
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              //height: MediaQuery.of(context).size.height,
+              fit: BoxFit.fill,
             ),
-          ),
+            SingleChildScrollView(
+              child: Container(
+                margin:
+                    EdgeInsets.only(left: 18, right: 18, bottom: 15.h, top: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // شؤون الموظفين
+                    //hr
+                    Text(
+                      "شؤون الموظفين",
+                      style: subtitleTx(baseColor),
+                    ),
+                    widgetsUni.divider(),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    hrServices(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "مهامي",
+                      style: subtitleTx(baseColor),
+                    ),
+                    widgetsUni.divider(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    mahamme(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("خدمات التدريب", style: subtitleTx(baseColor)),
+                    widgetsUni.divider(),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    trainning(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("خدمات أخرى", style: subtitleTx(baseColor)),
+                    widgetsUni.divider(),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    otherServices(),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
