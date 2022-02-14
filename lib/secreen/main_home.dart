@@ -184,6 +184,8 @@ class _MainHomeState extends State<MainHome> {
                           ),
                           CarouselSlider(
                             options: CarouselOptions(
+                              viewportFraction: 1.0,
+                              enlargeCenterPage: false,
                               height: responsiveMT(200, 400),
                               onPageChanged: (index, reason) {
                                 setState(

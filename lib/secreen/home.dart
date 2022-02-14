@@ -32,15 +32,15 @@ class _TabBarDemoState extends State<TabBarDemo>
   final PanelController panlC = PanelController();
   bool isOpen = false;
   final autoSizeGroup = AutoSizeGroup();
-  var _bottomNavIndex = 0;
+  var _bottomNavIndex = 4;
 
   void openpanel() {
-    _bottomNavIndex == 0
+    _bottomNavIndex == 4
         ? panlC.isPanelOpen
             ? panlC.close()
             : panlC.open()
         : setState(() {
-            _bottomNavIndex = 0;
+            _bottomNavIndex = 4;
           });
   }
 
@@ -52,21 +52,19 @@ class _TabBarDemoState extends State<TabBarDemo>
   bool showpanel = false;
 
   final iconList = <IconData>[
-    Icons.home,
+    Icons.settings,
     Icons.support_rounded,
     Icons.grid_4x4,
     Icons.star_outline
   ];
 
-  List<String> list = ['الرئيسية', 'دعم الفني', 'الخدمات', 'تواصل'];
+  List<String> list = ['الاعدادات', 'دعم الفني', 'الخدمات', 'تواصل'];
   List<dynamic> screen = [
-    MainHome(),
     ChangeNotifierProvider(
       create: (_) => MettingsProvider(),
       // ignore: prefer_const_constructors
       child: MeetingView(),
     ),
-
     // ignore: prefer_const_constructors
     ServicesView(),
 
@@ -80,6 +78,7 @@ class _TabBarDemoState extends State<TabBarDemo>
       // ignore: prefer_const_constructors
       child: EmpProfile(),
     ),
+    MainHome(),
   ];
 
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
@@ -142,7 +141,7 @@ class _TabBarDemoState extends State<TabBarDemo>
           clipBehavior: Clip.hardEdge,
           children: [
             Column(children: [
-              _bottomNavIndex == 0
+              _bottomNavIndex == 4
                   ? SizedBox(
                       height: 10.h,
                     )
@@ -151,7 +150,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                 child: screen[_bottomNavIndex],
               ),
             ]),
-            _bottomNavIndex == 0
+            _bottomNavIndex == 4
                 ? SlidingUpPanel(
                     //   //renderPanelSheet: false,
                     boxShadow: [
@@ -450,8 +449,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                                           ),
                                           Container(
                                             margin: EdgeInsets.only(right: 18),
-                                            width: 100,
-                                            height: 100,
+                                            width: 90,
+                                            height: 90,
                                             child: SfBarcodeGenerator(
                                               backgroundColor: Colors.white,
                                               value: '444444',
@@ -584,7 +583,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                 ? FloatingActionButton(
                     elevation: 8,
                     backgroundColor: Colors.white,
-                    child: _bottomNavIndex == 0
+                    child: _bottomNavIndex == 4
                         ? Icon(
                             Icons.card_membership,
                             color: baseColor,
@@ -602,7 +601,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                 : FloatingActionButton.large(
                     elevation: 8,
                     backgroundColor: Colors.white,
-                    child: _bottomNavIndex == 0
+                    child: _bottomNavIndex == 4
                         ? Icon(
                             Icons.card_membership,
                             color: baseColor,
@@ -674,7 +673,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               right: isPortrait == true ? (50.w - 21) : (50.h - 21),
-              bottom: _bottomNavIndex == 0
+              bottom: _bottomNavIndex == 4
                   ? animatedPositionedStart
                       ? 5
                       : -25
@@ -690,7 +689,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               right: isPortrait == true ? (50.w - 21) : (50.h - 21),
-              bottom: _bottomNavIndex == 0 ? -25 : 5,
+              bottom: _bottomNavIndex == 4 ? -25 : 5,
             ),
 
             // AnimatedPositioned(
