@@ -38,16 +38,36 @@ class _MainHomeState extends State<MainHome> {
   List<int> selectsilder = [0, 1];
 
   List<Widget> imageBanner = [
-    Image(
-        //width: responsiveMT(60, 120),
-        //height: responsiveMT(30, 100),
-        fit: BoxFit.fitWidth,
-        image: AssetImage("assets/image/banner.png")),
-    Image(
-        //width: responsiveMT(60, 120),
-        //height: responsiveMT(30, 100),
-        fit: BoxFit.fitWidth,
-        image: AssetImage("assets/image/banner.png")),
+    Container(
+      color: Colors.amber,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: Image(
+                //width: responsiveMT(60, 120),
+                //height: responsiveMT(30, 100),
+
+                height: responsiveMT(100, 200),
+                fit: BoxFit.fitWidth,
+                image: AssetImage("assets/image/banner.png")),
+          ),
+        ],
+      ),
+    ),
+    Row(
+      children: [
+        Expanded(
+          child: Image(
+              //width: responsiveMT(60, 120),
+              //height: responsiveMT(30, 100),
+
+              height: responsiveMT(100, 200),
+              fit: BoxFit.fitWidth,
+              image: AssetImage("assets/image/banner.png")),
+        ),
+      ],
+    ),
   ];
 
   List<int> selectsilderBanner = [0, 1];
@@ -262,6 +282,7 @@ class _MainHomeState extends State<MainHome> {
                     children: [
                       CarouselSlider(
                         options: CarouselOptions(
+                          // aspectRatio: 3 / 4,
                           viewportFraction: 1.0,
                           enlargeCenterPage: false,
                           autoPlay: true,
