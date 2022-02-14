@@ -46,7 +46,9 @@ class _LoginViewState extends State<LoginView> {
                     child: Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
+                          padding: EdgeInsets.symmetric(vertical: 25),
                           decoration: containerdecoration(Colors.white),
                           child: Column(
                             //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -106,12 +108,13 @@ class _LoginViewState extends State<LoginView> {
         keyboardType: TextInputType.text,
         maxLines: 1,
         decoration: InputDecoration(
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black)),
+          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+          border: OutlineInputBorder(borderSide: BorderSide(color: baseColor)),
           filled: true,
           fillColor: Colors.white,
           errorText: _usernameError ? "الرجاء إدخال الرقم الوضيفي" : null,
           labelText: "رقم الوضيفي",
+          labelStyle: TextStyle(color: lableTextcolor),
           alignLabelWithHint: true,
         ),
         onChanged: (String val) {
@@ -139,11 +142,13 @@ class _LoginViewState extends State<LoginView> {
         maxLines: 1,
         textAlign: TextAlign.right,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black)),
           filled: true,
           fillColor: Colors.white,
           labelText: "الرقم السري",
+          labelStyle: TextStyle(color: lableTextcolor),
           errorText: (passError ? "الرجاء إدخال الرقم السري" : null),
         ),
         onChanged: (String val) {

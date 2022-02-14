@@ -6,6 +6,7 @@ const Color secondryColor = Color(0xff2E8D9A);
 const Color baseColorText = Color(0xff444444);
 const Color secondryColorText = Color(0xff707070);
 const Color bordercolor = Color(0xffDDDDDD);
+const Color lableTextcolor = Color(0xffACC5FF);
 
 ButtonStyle mainbtn = ElevatedButton.styleFrom(
   side: const BorderSide(
