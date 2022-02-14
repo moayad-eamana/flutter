@@ -416,24 +416,28 @@ class _TabBarDemoState extends State<TabBarDemo>
                                   ),
                                 ],
                               ),
-                              Positioned(
-                                bottom: -20,
-                                right:
-                                    isPortrait == true ? 50.w - 40 : 50.h - 40,
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border:
-                                          Border.all(color: Color(0xFFDDDDDD)),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(50))),
-                                  child: IconButton(
-                                    icon: Icon(Icons.arrow_upward_rounded),
-                                    onPressed: () {
-                                      openpanel();
-                                    },
+                              Visibility(
+                                visible: isOpen,
+                                child: Positioned(
+                                  bottom: -20,
+                                  right: isPortrait == true
+                                      ? 50.w - 40
+                                      : 50.h - 40,
+                                  child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: Color(0xFFDDDDDD)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    child: IconButton(
+                                      icon: Icon(Icons.arrow_upward_rounded),
+                                      onPressed: () {
+                                        openpanel();
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),

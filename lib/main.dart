@@ -17,7 +17,6 @@ import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/home.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,9 +32,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 */
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: baseColor,
-  ));
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
