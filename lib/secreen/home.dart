@@ -49,6 +49,8 @@ class _TabBarDemoState extends State<TabBarDemo>
   late CurvedAnimation curve;
   bool animatedPositionedStart = false;
 
+  bool showpanel = false;
+
   final iconList = <IconData>[
     Icons.home,
     Icons.support_rounded,
@@ -159,10 +161,17 @@ class _TabBarDemoState extends State<TabBarDemo>
                     margin: EdgeInsets.symmetric(horizontal: 20),
                     onPanelClosed: () => setState(() {
                           isOpen = false;
+                          showpanel = false;
                         }),
                     onPanelOpened: () => setState(() {
                           isOpen = true;
+                          print("oopppppppppppppppeeeeeeeeeeeennnnnnnnnnnn it");
                         }),
+                    onPanelSlide: (position) {
+                      setState(() {
+                        showpanel = true;
+                      });
+                    },
                     controller: panlC,
                     maxHeight: responsiveMT(380, 500),
                     minHeight: responsiveMT(80, 120),
@@ -173,282 +182,298 @@ class _TabBarDemoState extends State<TabBarDemo>
                         bottomRight: Radius.circular(18.0)),
                     //    parallaxEnabled: true,
                     //  parallaxOffset: 0,
-                    collapsed: Container(
-                      decoration: containerdecoration(Colors.white),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Stack(
+                    collapsed: Stack(
+                      children: [
+                        Container(
+                          decoration: containerdecoration(Colors.white),
+                          child: Image(
+                            //width: responsiveMT(90, 150),
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            fit: BoxFit.fitWidth,
+                            image: AssetImage("assets/image/Union_1.png"),
+                          ),
+                        ),
+                        Container(
+                          decoration:
+                              containerdecoration(Colors.white.withOpacity(0)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Image(
-                                //width: responsiveMT(90, 150),
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.fitWidth,
-                                image: AssetImage("assets/image/Union_1.png"),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Center(
-                                  child: Image(
-                                      width: responsiveMT(90, 150),
-                                      image: AssetImage(
-                                          "assets/image/rakamy-logo-21.png")),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(left: 10),
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.notifications_active,
-                                            color: baseColor,
-                                            size: responsiveMT(30, 45),
+                              Stack(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Center(
+                                      child: Image(
+                                          width: responsiveMT(90, 150),
+                                          image: AssetImage(
+                                              "assets/image/rakamy-logo-21.png")),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(left: 10),
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                Icons.notifications_active,
+                                                color: baseColor,
+                                                size: responsiveMT(30, 45),
+                                              ),
+                                              Text(
+                                                "تنبيهات",
+                                                style: descTx1(baseColorText),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            "تنبيهات",
-                                            style: descTx1(baseColorText),
-                                          )
-                                        ],
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          child: Column(
+                                            children: [
+                                              CircleAvatar(
+                                                backgroundColor:
+                                                    Color(0xff274690),
+                                                radius: responsiveMT(26, 28),
+                                                child: CircleAvatar(
+                                                  radius: responsiveMT(23, 25),
+                                                  backgroundImage: AssetImage(
+                                                      "assets/image/avatar.jpg"),
+                                                ),
+                                              ),
+                                              Text(
+                                                "مرحبا / عبدالله",
+                                                style: descTx1(baseColorText),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    panel: true
+                        ? Visibility(
+                            visible: showpanel,
+                            child: Stack(
+                              fit: StackFit.loose,
+                              overflow: Overflow.visible,
+                              clipBehavior: Clip.hardEdge,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: Color(0xFFDDDDDD),
+                                      ),
+                                      //  Border(
+                                      //   bottom: BorderSide(
+                                      //     color: Color(0xFFDDDDDD),
+                                      //   ),
+                                      //   left: BorderSide(
+                                      //     color: Color(0xFFDDDDDD),
+                                      //   ),
+                                      //   right: BorderSide(
+                                      //     color: Color(0xFFDDDDDD),
+                                      //   ),
+                                      // ),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4))),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(4),
+                                    child:
+                                        //  SvgPicture.asset(
+                                        //   'assets/SVGs/Union_1.svg',
+                                        //   alignment: Alignment.center,
+                                        //   width: MediaQuery.of(context).size.width,
+                                        //   fit: BoxFit.fitWidth,
+                                        // ),
+                                        Image(
+                                      //width: responsiveMT(90, 150),
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width,
+                                      fit: BoxFit.fitWidth,
+                                      image: AssetImage(
+                                          "assets/image/Union_1.png"),
+                                    ),
+                                  ),
+                                ),
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: baseColor,
+                                          borderRadius: BorderRadius.only(
+                                            bottomRight:
+                                                new Radius.circular(20),
+                                            topRight: new Radius.circular(20),
+                                          ),
+                                        ),
+                                        width: 100,
+                                        // color: Colors.blue.shade900,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child: Text(
+                                            "على رأس العمل",
+                                            textAlign: TextAlign.right,
+                                            style: descTx1(Colors.white),
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    Container(
-                                      margin: EdgeInsets.only(right: 10),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 10, 10, 10),
                                       child: Column(
                                         children: [
                                           CircleAvatar(
+                                            radius: responsiveMT(52, 92),
                                             backgroundColor: Color(0xff274690),
-                                            radius: responsiveMT(26, 28),
                                             child: CircleAvatar(
-                                              radius: responsiveMT(23, 25),
+                                              radius: responsiveMT(50, 90),
                                               backgroundImage: AssetImage(
                                                   "assets/image/avatar.jpg"),
                                             ),
                                           ),
                                           Text(
-                                            "مرحبا / عبدالله",
-                                            style: descTx1(baseColorText),
+                                            "عبدالله أحمد آل الكبيش",
+                                            style: titleTx(baseColor),
+                                          ),
+                                          Text(
+                                              "مدير إدارة التطبيقات والخدمات الالكترونية",
+                                              style: descTx2(baseColor)),
+                                          Container(
+                                            height: 125,
+                                            decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  baseColor,
+                                                  secondryColor,
+                                                ],
+                                              ),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 2.0,
+                                                style: BorderStyle.solid,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(8.0)),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        "بطاقة تسجيل الدخول",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: titleTx(
+                                                            Colors.white),
+                                                      ),
+                                                      Text(
+                                                        "أمانة المنطقة الشرقية",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: descTx2(
+                                                            Colors.white),
+                                                      ),
+                                                      // AutoSizeText(
+                                                      //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                      //   maxLines: 1,
+                                                      //   style: TextStyle(
+                                                      //       color: Colors.white),
+                                                      //   group: autoSizeGroup,
+                                                      // ),
+                                                      Text(
+                                                        "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(
+                                                      right: 18),
+                                                  width: 100,
+                                                  height: 100,
+                                                  child: SfBarcodeGenerator(
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    value: '444444',
+                                                    symbology: QRCode(),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           )
                                         ],
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    panel: true
-                        ? Stack(
-                            fit: StackFit.loose,
-                            overflow: Overflow.visible,
-                            clipBehavior: Clip.hardEdge,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: Color(0xFFDDDDDD),
-                                    ),
-                                    //  Border(
-                                    //   bottom: BorderSide(
-                                    //     color: Color(0xFFDDDDDD),
-                                    //   ),
-                                    //   left: BorderSide(
-                                    //     color: Color(0xFFDDDDDD),
-                                    //   ),
-                                    //   right: BorderSide(
-                                    //     color: Color(0xFFDDDDDD),
-                                    //   ),
-                                    // ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4))),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child:
-                                      //  SvgPicture.asset(
-                                      //   'assets/SVGs/Union_1.svg',
-                                      //   alignment: Alignment.center,
-                                      //   width: MediaQuery.of(context).size.width,
-                                      //   fit: BoxFit.fitWidth,
-                                      // ),
-                                      Image(
-                                    //width: responsiveMT(90, 150),
-                                    alignment: Alignment.center,
-                                    width: MediaQuery.of(context).size.width,
-                                    fit: BoxFit.fitWidth,
-                                    image:
-                                        AssetImage("assets/image/Union_1.png"),
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
+                                Visibility(
+                                  visible: isOpen,
+                                  child: Positioned(
+                                    bottom: -20,
+                                    right: isPortrait == true
+                                        ? 50.w - 40
+                                        : 50.h - 40,
                                     child: Container(
+                                      width: 40,
+                                      height: 40,
                                       decoration: BoxDecoration(
-                                        color: baseColor,
-                                        borderRadius: BorderRadius.only(
-                                          bottomRight: new Radius.circular(20),
-                                          topRight: new Radius.circular(20),
-                                        ),
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Color(0xFFDDDDDD)),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50))),
+                                      child: IconButton(
+                                        icon: Icon(Icons.arrow_upward_rounded),
+                                        onPressed: () {
+                                          openpanel();
+                                        },
                                       ),
-                                      width: 100,
-                                      // color: Colors.blue.shade900,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: Text(
-                                          "على رأس العمل",
-                                          textAlign: TextAlign.right,
-                                          style: descTx1(Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        10, 10, 10, 10),
-                                    child: Column(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: responsiveMT(52, 92),
-                                          backgroundColor: Color(0xff274690),
-                                          child: CircleAvatar(
-                                            radius: responsiveMT(50, 90),
-                                            backgroundImage: AssetImage(
-                                                "assets/image/avatar.jpg"),
-                                          ),
-                                        ),
-                                        Text(
-                                          "عبدالله أحمد آل الكبيش",
-                                          style: titleTx(baseColor),
-                                        ),
-                                        Text(
-                                            "مدير إدارة التطبيقات والخدمات الالكترونية",
-                                            style: descTx2(baseColor)),
-                                        Container(
-                                          height: 125,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                baseColor,
-                                                secondryColor,
-                                              ],
-                                            ),
-                                            border: Border.all(
-                                              color: Colors.white,
-                                              width: 2.0,
-                                              style: BorderStyle.solid,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(8.0)),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 10),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      "بطاقة تسجيل الدخول",
-                                                      textAlign:
-                                                          TextAlign.right,
-                                                      style:
-                                                          titleTx(Colors.white),
-                                                    ),
-                                                    Text(
-                                                      "أمانة المنطقة الشرقية",
-                                                      textAlign:
-                                                          TextAlign.right,
-                                                      style:
-                                                          descTx2(Colors.white),
-                                                    ),
-                                                    // AutoSizeText(
-                                                    //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                    //   maxLines: 1,
-                                                    //   style: TextStyle(
-                                                    //       color: Colors.white),
-                                                    //   group: autoSizeGroup,
-                                                    // ),
-                                                    Text(
-                                                      "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                      textAlign:
-                                                          TextAlign.right,
-                                                      style: TextStyle(
-                                                          fontSize: 10,
-                                                          color: Colors.white),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(right: 18),
-                                                width: 100,
-                                                height: 100,
-                                                child: SfBarcodeGenerator(
-                                                  backgroundColor: Colors.white,
-                                                  value: '444444',
-                                                  symbology: QRCode(),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Visibility(
-                                visible: isOpen,
-                                child: Positioned(
-                                  bottom: -20,
-                                  right: isPortrait == true
-                                      ? 50.w - 40
-                                      : 50.h - 40,
-                                  child: Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                            color: Color(0xFFDDDDDD)),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50))),
-                                    child: IconButton(
-                                      icon: Icon(Icons.arrow_upward_rounded),
-                                      onPressed: () {
-                                        openpanel();
-                                      },
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           )
                         : Container(
                             decoration: containerdecoration(Colors.white),
