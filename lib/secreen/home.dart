@@ -343,7 +343,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                               ),
                               Positioned(
                                 bottom: -20,
-                                right: 50.w - 40,
+                                right:
+                                    isPortrait == true ? 50.w - 40 : 50.h - 40,
                                 child: Container(
                                   width: 40,
                                   height: 40,
@@ -374,7 +375,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                       margin: EdgeInsets.only(top: 10),
                                       child: Center(
                                         child: Image(
-                                            width: responsiveMT(110, 150),
+                                            width: responsiveMT(90, 150),
                                             image: AssetImage(
                                                 "assets/image/rakamy-logo-21.png")),
                                       ),
