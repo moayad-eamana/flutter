@@ -126,10 +126,10 @@ class _TabBarDemoState extends State<TabBarDemo>
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     var isMobile = Responsive.isMobile(context);
 
-    print("isPortrait = " + isPortrait.toString());
-    print("width = " + 100.w.toString());
-    print("is mobile = " + Responsive.isMobile(context).toString());
-    print("is tablet = " + Responsive.isTablet(context).toString());
+    // print("isPortrait = " + isPortrait.toString());
+    // print("width = " + 100.w.toString());
+    // print("is mobile = " + Responsive.isMobile(context).toString());
+    // print("is tablet = " + Responsive.isTablet(context).toString());
 
     isMobile == true
         ? {
@@ -251,11 +251,31 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                 backgroundColor:
                                                     Color(0xff274690),
                                                 radius: responsiveMT(26, 28),
-                                                child: CircleAvatar(
-                                                  radius: responsiveMT(23, 25),
-                                                  backgroundImage: AssetImage(
-                                                      "assets/image/avatar.jpg"),
-                                                ),
+                                                child: empinfo.ImageURL == null
+                                                    ? Image.asset(
+                                                        "assets/image/avatar.jpg")
+                                                    : ClipOval(
+                                                        child: FadeInImage
+                                                            .assetNetwork(
+                                                          fit: BoxFit.cover,
+                                                          width: 50,
+                                                          height: 50,
+                                                          image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                              empinfo.ImageURL
+                                                                      .toString()
+                                                                  .split(
+                                                                      "\$")[1],
+                                                          placeholder:
+                                                              "assets/image/avatar.jpg",
+                                                        ),
+                                                      ),
+
+                                                //    CircleAvatar(
+                                                //     radius: responsiveMT(23, 25),
+                                                //     backgroundImage:  AssetImage(
+                                                //       "assets/image/avatar.jpg"
+                                                //         ),
+                                                //   ),
                                               ),
                                               Text(
                                                 ("مرحبا/") +
