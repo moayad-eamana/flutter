@@ -353,9 +353,9 @@ class _TabBarDemoState extends State<TabBarDemo>
                                 bottomRight: Radius.circular(4),
                               ),
                               child:
-                                  //  SvgPicture.asset(
-                                  //   'assets/SVGs/Union_1.svg',
-                                  //   alignment: Alignment.center,
+                                  // SvgPicture.asset(
+                                  //   'assets/SVGs/Asset_1.svg',
+                                  //   alignment: Alignment.topLeft,
                                   //   width: MediaQuery.of(context).size.width,
                                   //   fit: BoxFit.fitWidth,
                                   // ),
@@ -423,11 +423,10 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             ),
                                     ),
                                     Text(
-                                      "عبدالله أحمد آل الكبيش",
+                                      empinfo.EmployeeName,
                                       style: titleTx(baseColor),
                                     ),
-                                    Text(
-                                        "مدير إدارة التطبيقات والخدمات الالكترونية",
+                                    Text(empinfo.MainDepartmentName.toString(),
                                         style: descTx2(baseColor)),
                                     Container(
                                       height: 125,
@@ -467,7 +466,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                   style: titleTx(Colors.white),
                                                 ),
                                                 Text(
-                                                  "أمانة المنطقة الشرقية",
+                                                  empinfo.empTypeName
+                                                      .toString(),
                                                   textAlign: TextAlign.right,
                                                   style: descTx2(Colors.white),
                                                 ),
@@ -494,7 +494,9 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             height: 90,
                                             child: SfBarcodeGenerator(
                                               backgroundColor: Colors.white,
-                                              value: '4438040',
+                                              value: (empinfo.EmployeeNumber)
+                                                  .toString()
+                                                  .split(".")[0],
                                               symbology: QRCode(),
                                             ),
                                           ),
