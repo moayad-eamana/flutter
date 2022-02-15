@@ -52,8 +52,8 @@ class LoginProvider extends ChangeNotifier {
         body: jsonEncode({
           "EmployeeNumber": int.parse(getuserName),
           "PrivateToken": getPrivetToken,
-          "UserName": username,
-          "Password": pass,
+          "UserName": "DevTeam",
+          "Password": "DevTeam",
           "OTP": int.parse(otp)
         }),
         headers: {"Content-Type": "application/json"});

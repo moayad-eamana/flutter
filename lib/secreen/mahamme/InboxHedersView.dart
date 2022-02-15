@@ -54,8 +54,8 @@ class _InboxHedersViewState extends State<InboxHedersView> {
         appBar: AppBarW.appBarW("إعتماداتي", context),
         body: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/SVGs/background.svg',
+            Image.asset(
+              'assets/image/Union_1.png',
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,

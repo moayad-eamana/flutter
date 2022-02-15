@@ -13,7 +13,7 @@ class EatemadatProvider extends ChangeNotifier {
     isLoding = true;
     notifyListeners();
 
-    var respose = await getAction("GetInboxHeader/4341012");
+    var respose = await getAction("Inbox/GetInboxHeader/4341012");
     _inboxHeader = (jsonDecode(respose.body)["HeaderList"] as List)
         .map(((e) => InboxHeader.fromJson(e)))
         .toList();
@@ -31,7 +31,7 @@ class EatemadatProvider extends ChangeNotifier {
   Future<void> fetchHrRequests() async {
     isLoding = true;
     notifyListeners();
-    var respose = await getAction("GetInboxHrRequests/4341012");
+    var respose = await getAction("Inbox/GetInboxHrRequests/4341012");
     _hrRequestsList = (jsonDecode(respose.body)["RequestList"] as List)
         .map(((e) => HrRequests.fromJson(e)))
         .toList();
@@ -80,7 +80,7 @@ class EatemadatProvider extends ChangeNotifier {
   List<String> _reason = [];
   late List<RequestRejectReasons> _RequestRejectReasons;
   Future<void> fetchRejectReasonNames() async {
-    var respose = await getAction("GetHrRequestRejectReasons");
+    var respose = await getAction("Inbox/GetHrRequestRejectReasons");
     _RequestRejectReasons =
         (jsonDecode(respose.body)["RejectReasonsList"] as List)
             .map(((e) => RequestRejectReasons.fromJson(e)))

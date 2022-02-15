@@ -54,7 +54,7 @@ class LoansRequestsProvider extends ChangeNotifier {
   List<String> _reason = [];
   late List<RequestRejectReasons> _RequestRejectReasons;
   Future<void> fetchRejectReasonNames() async {
-    var respose = await getAction("GetHrRequestRejectReasons");
+    var respose = await getAction("GetHrRequestRejectReasons/4341012");
 
     _RequestRejectReasons =
         (jsonDecode(respose.body)["RejectReasonsList"] as List)

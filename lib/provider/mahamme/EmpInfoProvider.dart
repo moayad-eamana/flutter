@@ -9,7 +9,7 @@ class EmpInfoProvider extends ChangeNotifier {
   Future<bool> fetchEmpInfo(String name) async {
     _empinfo = [];
     notifyListeners();
-    var respose = await getAction("GetEmployees/" + name);
+    var respose = await getAction("HR/GetEmployees/" + name);
 
     _empinfo.clear();
     if (jsonDecode(respose.body)["EmpInfo"] != null) {

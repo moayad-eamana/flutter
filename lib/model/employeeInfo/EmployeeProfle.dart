@@ -65,6 +65,7 @@ class EmployeeProfile {
     employeeProfile.MainDepartmentName = _pref.getString("MainDepartmentName");
     employeeProfile.Extension = _pref.getInt("Extension");
     employeeProfile.GenderID = _pref.getInt("GenderID");
+
     //notifyListeners();
     return employeeProfile;
   }

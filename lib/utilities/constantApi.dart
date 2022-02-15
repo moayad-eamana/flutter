@@ -1,26 +1,31 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-String Url = "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/";
-var APP_HEADERS = {
-  HttpHeaders.authorizationHeader:
-      basicAuthenticationHeader("DevTeam", "DevTeam"),
-  "Content-Type": "application/json; charset=utf-8",
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-      "Access-Control-Allow-Headers,Content-Type, Access-Control-Allow-Methods, authorization, X-Requested-With"
-};
+//4341012 old https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/
+String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
 
-String basicAuthenticationHeader(String username, String password) {
-  return 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+Future<String> Bearer() async {
+  SharedPreferences _pref = await SharedPreferences.getInstance();
+
+  return _pref.getString("AccessToken") ?? "";
 }
 
 dynamic getAction(String link) async {
-  return await http.get(Uri.parse(Url + link), headers: APP_HEADERS);
+  SharedPreferences _pref = await SharedPreferences.getInstance();
+  var respns = await http.get(Uri.parse(Url + link), headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': 'Bearer ' + _pref.getString("AccessToken").toString()
+  });
+  return respns;
 }
 
 dynamic postAction(String link, dynamic body) async {
   return await http.post(Uri.parse(Url + link),
-      headers: APP_HEADERS, body: body);
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $Bearer',
+      },
+      body: body);
 }
