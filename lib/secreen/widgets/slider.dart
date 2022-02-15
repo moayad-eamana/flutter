@@ -17,8 +17,8 @@ class SliderWidget {
     return [
       StaggeredGrid.count(
         crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 2 : 2,
-        mainAxisSpacing: 20,
-        crossAxisSpacing: 30,
+        mainAxisSpacing: 15,
+        crossAxisSpacing: 10,
         children: [
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
