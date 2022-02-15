@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:eamanaapp/model/employeeInfo/EmpInfo.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -388,7 +389,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8),
                                     child: Text(
-                                      "على رأس العمل",
+                                      empinfo.StatusName.toString(),
                                       textAlign: TextAlign.right,
                                       style: descTx1(Colors.white),
                                     ),
@@ -403,11 +404,23 @@ class _TabBarDemoState extends State<TabBarDemo>
                                     CircleAvatar(
                                       radius: responsiveMT(52, 92),
                                       backgroundColor: Color(0xff274690),
-                                      child: CircleAvatar(
-                                        radius: responsiveMT(50, 90),
-                                        backgroundImage: AssetImage(
-                                            "assets/image/avatar.jpg"),
-                                      ),
+                                      child: empinfo.ImageURL == null
+                                          ? Image.asset(
+                                              "assets/image/avatar.jpg")
+                                          : ClipOval(
+                                              child: FadeInImage.assetNetwork(
+                                                fit: BoxFit.cover,
+                                                width: 100,
+                                                height: 100,
+                                                image:
+                                                    "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                        empinfo.ImageURL
+                                                                .toString()
+                                                            .split("\$")[1],
+                                                placeholder:
+                                                    "assets/image/avatar.jpg",
+                                              ),
+                                            ),
                                     ),
                                     Text(
                                       "عبدالله أحمد آل الكبيش",
