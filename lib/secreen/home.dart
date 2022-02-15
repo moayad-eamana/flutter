@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'EmpInfo/EmpInfoView.dart';
@@ -33,7 +35,7 @@ class _TabBarDemoState extends State<TabBarDemo>
   bool isOpen = false;
   final autoSizeGroup = AutoSizeGroup();
   var _bottomNavIndex = 0;
-
+  EmployeeProfile empinfo = new EmployeeProfile();
   void openpanel() {
     _bottomNavIndex == 0
         ? panlC.isPanelOpen
@@ -81,11 +83,16 @@ class _TabBarDemoState extends State<TabBarDemo>
       child: EmpProfile(),
     ),
   ];
-
+  String name = "";
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
+  getuserinfo() async {
+    empinfo = await empinfo.getEmployeeProfile();
+    setState(() {});
+  }
 
   void initState() {
     super.initState();
+    getuserinfo();
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -248,7 +255,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                 ),
                                               ),
                                               Text(
-                                                "مرحبا / عبدالله",
+                                                ("مرحبا/") +
+                                                    (empinfo.FirstName ?? ""),
                                                 style: descTx1(baseColorText),
                                               )
                                             ],

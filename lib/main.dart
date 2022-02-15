@@ -39,7 +39,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
-  String? username = sharedPref.getString("username");
+  double? username = sharedPref.getDouble("EmployeeNumber");
 //  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 //  await Firebase.initializeApp();
   runApp(
@@ -65,7 +65,7 @@ void configLoading() {
 }
 
 class MyApp extends StatefulWidget {
-  String? username;
+  double? username;
   MyApp(this.username);
 
   @override
@@ -130,7 +130,7 @@ class _MyAppState extends State<MyApp> {
 
           // deprecated,
         ),
-        initialRoute: '/home',
+        initialRoute: widget.username == null ? "/" : '/home',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),

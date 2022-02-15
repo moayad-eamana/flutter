@@ -211,10 +211,6 @@ class _LoginViewState extends State<LoginView> {
               await _provider.checkUser(_username.text, _password.text);
           EasyLoading.dismiss();
           if (isValiedUser) {
-            if (_username.text == "4438104") {
-              Navigator.pushReplacementNamed(context, "/tab");
-              return;
-            }
             Navigator.push(
                 context,
                 MaterialPageRoute(
