@@ -63,24 +63,27 @@ class _TabBarDemoState extends State<TabBarDemo>
 
   List<String> list = ['الاعدادات', 'دعم الفني', 'الخدمات', 'تواصل'];
   List<dynamic> screen = [
+    //page 1
     ChangeNotifierProvider(
       create: (_) => MettingsProvider(),
       // ignore: prefer_const_constructors
       child: MeetingView(),
     ),
-    // ignore: prefer_const_constructors
-    ServicesView(),
-
+    // page 2
     ChangeNotifierProvider(
       create: (_) => EmpInfoProvider(),
       // ignore: prefer_const_constructors
       child: EmpInfoView(),
     ),
+    //page 3
+    ServicesView(),
+    //page 4
     ChangeNotifierProvider(
       create: (_) => EmpInfoProvider(),
       // ignore: prefer_const_constructors
       child: EmpProfile(),
     ),
+    //home page
     MainHome(),
   ];
   String name = "";
@@ -396,10 +399,12 @@ class _TabBarDemoState extends State<TabBarDemo>
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     CircleAvatar(
                                       radius: responsiveMT(52, 92),
@@ -423,12 +428,14 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             ),
                                     ),
                                     Text(
-                                      empinfo.EmployeeName,
+                                      empinfo.EmployeeName ?? "",
                                       style: titleTx(baseColor),
+                                      textAlign: TextAlign.center,
                                     ),
                                     Text(empinfo.MainDepartmentName.toString(),
                                         style: descTx2(baseColor)),
                                     Container(
+                                      margin: EdgeInsets.all(12),
                                       height: 125,
                                       decoration: BoxDecoration(
                                         gradient: LinearGradient(
@@ -466,11 +473,17 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                   style: titleTx(Colors.white),
                                                 ),
                                                 Text(
+                                                  "أمانة المنطقة الشرقية",
+                                                  textAlign: TextAlign.right,
+                                                  style: descTx2(Colors.white),
+                                                ),
+                                                Text(
                                                   empinfo.empTypeName
                                                       .toString(),
                                                   textAlign: TextAlign.right,
                                                   style: descTx2(Colors.white),
                                                 ),
+
                                                 // AutoSizeText(
                                                 //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
                                                 //   maxLines: 1,
