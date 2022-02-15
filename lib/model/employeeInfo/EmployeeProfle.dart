@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class EmployeeProfile {
   double? EmployeeNumber;
-  late String EmployeeName;
+  String? EmployeeName;
   String? FirstName;
   String? SecondName;
   String? ThirdName;

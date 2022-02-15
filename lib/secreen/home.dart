@@ -8,6 +8,7 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
+import 'package:eamanaapp/secreen/widgets/exit_popup.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
@@ -63,24 +64,27 @@ class _TabBarDemoState extends State<TabBarDemo>
 
   List<String> list = ['الاعدادات', 'دعم الفني', 'الخدمات', 'تواصل'];
   List<dynamic> screen = [
+    //page 1
     ChangeNotifierProvider(
       create: (_) => MettingsProvider(),
       // ignore: prefer_const_constructors
       child: MeetingView(),
     ),
-    // ignore: prefer_const_constructors
-    ServicesView(),
-
+    // page 2
     ChangeNotifierProvider(
       create: (_) => EmpInfoProvider(),
       // ignore: prefer_const_constructors
       child: EmpInfoView(),
     ),
+    //page 3
+    ServicesView(),
+    //page 4
     ChangeNotifierProvider(
       create: (_) => EmpInfoProvider(),
       // ignore: prefer_const_constructors
       child: EmpProfile(),
     ),
+    //home page
     MainHome(),
   ];
   String name = "";
@@ -142,369 +146,168 @@ class _TabBarDemoState extends State<TabBarDemo>
         : null;
 
     return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          fit: StackFit.loose,
-          overflow: Overflow.visible,
-          clipBehavior: Clip.hardEdge,
-          children: [
-            Column(children: [
+      child: WillPopScope(
+        onWillPop: () async {
+          if (_bottomNavIndex == 4) {
+            return showExitPopup(context);
+          }
+          setState(() {
+            _bottomNavIndex = 4;
+          });
+          return false;
+        },
+        child: Scaffold(
+          body: Stack(
+            fit: StackFit.loose,
+            overflow: Overflow.visible,
+            clipBehavior: Clip.hardEdge,
+            children: [
+              Column(children: [
+                _bottomNavIndex == 4
+                    ? SizedBox(
+                        height: 90,
+                      )
+                    : Container(),
+                Expanded(
+                  child: screen[_bottomNavIndex],
+                ),
+              ]),
               _bottomNavIndex == 4
-                  ? SizedBox(
-                      height: 90,
-                    )
-                  : Container(),
-              Expanded(
-                child: screen[_bottomNavIndex],
-              ),
-            ]),
-            _bottomNavIndex == 4
-                ? SlidingUpPanel(
-                    //   //renderPanelSheet: false,
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))
-                    ],
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    onPanelClosed: () => setState(() {
-                      isOpen = false;
-                      showpanel = false;
-                    }),
-                    onPanelOpened: () => setState(() {
-                      isOpen = true;
-                    }),
-                    onPanelSlide: (position) {
-                      setState(() {
-                        showpanel = true;
-                      });
-                    },
-                    controller: panlC,
-                    maxHeight: responsiveMT(380, 500),
-                    minHeight: responsiveMT(80, 120),
-                    slideDirection: SlideDirection.DOWN,
-                    border: Border.all(color: Color(0xff9F9F9F)),
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(4.0),
-                        bottomRight: Radius.circular(4.0)),
-                    //    parallaxEnabled: true,
-                    //  parallaxOffset: 0,
-                    collapsed: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Color(0xFFDDDDDD)),
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(4.0),
-                                  bottomRight: Radius.circular(4.0))),
-                          child: Image(
-                            //width: responsiveMT(90, 150),
-                            alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.fitWidth,
-                            image: AssetImage("assets/image/Union_1.png"),
-                          ),
-                        ),
-                        Container(
-                          decoration:
-                              containerdecoration(Colors.white.withOpacity(0)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 10),
-                                    child: Center(
-                                      child: Image(
-                                          width: responsiveMT(90, 150),
-                                          image: AssetImage(
-                                              "assets/image/rakamy-logo-21.png")),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(left: 10),
-                                          child: Column(
-                                            children: [
-                                              Icon(
-                                                Icons.notifications_active,
-                                                color: baseColor,
-                                                size: responsiveMT(30, 45),
-                                              ),
-                                              Text(
-                                                "تنبيهات",
-                                                style: descTx1(baseColorText),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(right: 10),
-                                          child: Column(
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor:
-                                                    Color(0xff274690),
-                                                radius: responsiveMT(26, 28),
-                                                child: empinfo.ImageURL == null
-                                                    ? Image.asset(
-                                                        "assets/image/avatar.jpg")
-                                                    : ClipOval(
-                                                        child: FadeInImage
-                                                            .assetNetwork(
-                                                          fit: BoxFit.cover,
-                                                          width: 50,
-                                                          height: 50,
-                                                          image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                              empinfo.ImageURL
-                                                                      .toString()
-                                                                  .split(
-                                                                      "\$")[1],
-                                                          placeholder:
-                                                              "assets/image/avatar.jpg",
-                                                        ),
-                                                      ),
-
-                                                //    CircleAvatar(
-                                                //     radius: responsiveMT(23, 25),
-                                                //     backgroundImage:  AssetImage(
-                                                //       "assets/image/avatar.jpg"
-                                                //         ),
-                                                //   ),
-                                              ),
-                                              Text(
-                                                ("مرحبا/") +
-                                                    (empinfo.FirstName ?? ""),
-                                                style: descTx1(baseColorText),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Visibility(
-                          visible: showpanel,
-                          child: Positioned(
-                            bottom: -20,
-                            right: isPortrait == true ? 50.w - 40 : 50.h - 40,
-                            child: Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(color: Color(0xFFDDDDDD)),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50))),
-                              child: IconButton(
-                                icon: Icon(Icons.arrow_upward_rounded),
-                                onPressed: () {
-                                  openpanel();
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
+                  ? SlidingUpPanel(
+                      //   //renderPanelSheet: false,
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))
                       ],
-                    ),
-                    panel: Visibility(
-                      visible: showpanel,
-                      child: Stack(
-                        fit: StackFit.loose,
-                        overflow: Overflow.visible,
-                        clipBehavior: Clip.hardEdge,
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      onPanelClosed: () => setState(() {
+                        isOpen = false;
+                        showpanel = false;
+                      }),
+                      onPanelOpened: () => setState(() {
+                        isOpen = true;
+                      }),
+                      onPanelSlide: (position) {
+                        setState(() {
+                          showpanel = true;
+                        });
+                      },
+                      controller: panlC,
+                      maxHeight: responsiveMT(380, 500),
+                      minHeight: responsiveMT(80, 120),
+                      slideDirection: SlideDirection.DOWN,
+                      border: Border.all(color: Color(0xff9F9F9F)),
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(4.0),
+                          bottomRight: Radius.circular(4.0)),
+                      //    parallaxEnabled: true,
+                      //  parallaxOffset: 0,
+                      collapsed: Stack(
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Color(0xFFDDDDDD),
-                              ),
-                              //  Border(
-                              //   bottom: BorderSide(
-                              //     color: Color(0xFFDDDDDD),
-                              //   ),
-                              //   left: BorderSide(
-                              //     color: Color(0xFFDDDDDD),
-                              //   ),
-                              //   right: BorderSide(
-                              //     color: Color(0xFFDDDDDD),
-                              //   ),
-                              // ),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(4),
-                                bottomRight: Radius.circular(4),
-                              ),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(4),
-                                bottomRight: Radius.circular(4),
-                              ),
-                              child:
-                                  //  SvgPicture.asset(
-                                  //   'assets/SVGs/Union_1.svg',
-                                  //   alignment: Alignment.center,
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   fit: BoxFit.fitWidth,
-                                  // ),
-                                  Image(
-                                //width: responsiveMT(90, 150),
-                                alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width,
-                                fit: BoxFit.fitWidth,
-                                image: AssetImage("assets/image/Union_1.png"),
-                              ),
+                                color: Colors.white,
+                                border: Border.all(color: Color(0xFFDDDDDD)),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(4.0),
+                                    bottomRight: Radius.circular(4.0))),
+                            child: Image(
+                              //width: responsiveMT(90, 150),
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width,
+                              fit: BoxFit.fitWidth,
+                              image: AssetImage("assets/image/Union_1.png"),
                             ),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: baseColor,
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: new Radius.circular(20),
-                                      topRight: new Radius.circular(20),
-                                    ),
-                                  ),
-                                  width: 100,
-                                  // color: Colors.blue.shade900,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: Text(
-                                      empinfo.StatusName.toString(),
-                                      textAlign: TextAlign.right,
-                                      style: descTx1(Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                child: Column(
+                          Container(
+                            decoration: containerdecoration(
+                                Colors.white.withOpacity(0)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Stack(
                                   children: [
-                                    CircleAvatar(
-                                      radius: responsiveMT(52, 92),
-                                      backgroundColor: Color(0xff274690),
-                                      child: empinfo.ImageURL == null
-                                          ? Image.asset(
-                                              "assets/image/avatar.jpg")
-                                          : ClipOval(
-                                              child: FadeInImage.assetNetwork(
-                                                fit: BoxFit.cover,
-                                                width: 100,
-                                                height: 100,
-                                                image:
-                                                    "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                        empinfo.ImageURL
-                                                                .toString()
-                                                            .split("\$")[1],
-                                                placeholder:
-                                                    "assets/image/avatar.jpg",
-                                              ),
-                                            ),
-                                    ),
-                                    Text(
-                                      "عبدالله أحمد آل الكبيش",
-                                      style: titleTx(baseColor),
-                                    ),
-                                    Text(
-                                        "مدير إدارة التطبيقات والخدمات الالكترونية",
-                                        style: descTx2(baseColor)),
                                     Container(
-                                      height: 125,
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                            baseColor,
-                                            secondryColor,
-                                          ],
-                                        ),
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 2.0,
-                                          style: BorderStyle.solid,
-                                        ),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(8.0)),
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: Center(
+                                        child: Image(
+                                            width: responsiveMT(90, 150),
+                                            image: AssetImage(
+                                                "assets/image/rakamy-logo-21.png")),
                                       ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomCenter,
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 10),
+                                            margin: EdgeInsets.only(left: 10),
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
                                               children: [
-                                                Text(
-                                                  "بطاقة تسجيل الدخول",
-                                                  textAlign: TextAlign.right,
-                                                  style: titleTx(Colors.white),
+                                                Icon(
+                                                  Icons.notifications_active,
+                                                  color: baseColor,
+                                                  size: responsiveMT(30, 45),
                                                 ),
                                                 Text(
-                                                  "أمانة المنطقة الشرقية",
-                                                  textAlign: TextAlign.right,
-                                                  style: descTx2(Colors.white),
-                                                ),
-                                                // AutoSizeText(
-                                                //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                //   maxLines: 1,
-                                                //   style: TextStyle(
-                                                //       color: Colors.white),
-                                                //   group: autoSizeGroup,
-                                                // ),
-                                                Text(
-                                                  "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      fontSize: 10,
-                                                      color: Colors.white),
+                                                  "تنبيهات",
+                                                  style: descTx1(baseColorText),
                                                 )
                                               ],
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.only(right: 18),
-                                            width: 90,
-                                            height: 90,
-                                            child: SfBarcodeGenerator(
-                                              backgroundColor: Colors.white,
-                                              value: '4438040',
-                                              symbology: QRCode(),
+                                            margin: EdgeInsets.only(right: 10),
+                                            child: Column(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundColor:
+                                                      Color(0xff274690),
+                                                  radius: responsiveMT(26, 28),
+                                                  child: empinfo.ImageURL ==
+                                                          null
+                                                      ? Image.asset(
+                                                          "assets/image/avatar.jpg")
+                                                      : ClipOval(
+                                                          child: FadeInImage
+                                                              .assetNetwork(
+                                                            fit: BoxFit.cover,
+                                                            width: 50,
+                                                            height: 50,
+                                                            image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                empinfo.ImageURL
+                                                                        .toString()
+                                                                    .split(
+                                                                        "\$")[1],
+                                                            placeholder:
+                                                                "assets/image/avatar.jpg",
+                                                          ),
+                                                        ),
+
+                                                  //    CircleAvatar(
+                                                  //     radius: responsiveMT(23, 25),
+                                                  //     backgroundImage:  AssetImage(
+                                                  //       "assets/image/avatar.jpg"
+                                                  //         ),
+                                                  //   ),
+                                                ),
+                                                Text(
+                                                  ("مرحبا/") +
+                                                      (empinfo.FirstName ?? ""),
+                                                  style: descTx1(baseColorText),
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           Visibility(
                             visible: showpanel,
@@ -531,241 +334,475 @@ class _TabBarDemoState extends State<TabBarDemo>
                           ),
                         ],
                       ),
-                    ),
-                    // : Container(
-                    //     decoration: containerdecoration(Colors.white),
-                    //     child: Column(
-                    //       mainAxisAlignment: MainAxisAlignment.end,
-                    //       children: [
-                    //         Stack(
-                    //           children: [
-                    //             Container(
-                    //               margin: EdgeInsets.only(top: 10),
-                    //               child: Center(
-                    //                 child: Image(
-                    //                     width: responsiveMT(90, 150),
-                    //                     image: AssetImage(
-                    //                         "assets/image/rakamy-logo-21.png")),
-                    //               ),
-                    //             ),
-                    //             Align(
-                    //               alignment: Alignment.bottomCenter,
-                    //               child: Row(
-                    //                 mainAxisAlignment:
-                    //                     MainAxisAlignment.spaceBetween,
-                    //                 children: [
-                    //                   Container(
-                    //                     margin: EdgeInsets.only(left: 10),
-                    //                     child: Column(
-                    //                       children: [
-                    //                         Icon(
-                    //                           Icons.notifications_active,
-                    //                           color: baseColor,
-                    //                           size: responsiveMT(30, 45),
-                    //                         ),
-                    //                         Text(
-                    //                           "تنبيهات",
-                    //                           style: descTx1(baseColorText),
-                    //                         )
-                    //                       ],
-                    //                     ),
-                    //                   ),
-                    //                   Container(
-                    //                     margin: EdgeInsets.only(right: 10),
-                    //                     child: Column(
-                    //                       children: [
-                    //                         CircleAvatar(
-                    //                           backgroundColor:
-                    //                               Color(0xff274690),
-                    //                           radius: responsiveMT(26, 28),
-                    //                           child: CircleAvatar(
-                    //                             radius:
-                    //                                 responsiveMT(23, 25),
-                    //                             backgroundImage: AssetImage(
-                    //                                 "assets/image/avatar.jpg"),
-                    //                           ),
-                    //                         ),
-                    //                         Text(
-                    //                           "مرحبا / عبدالله",
-                    //                           style: descTx1(baseColorText),
-                    //                         )
-                    //                       ],
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   )
-                    // AnimatedAlign(
-                    //   alignment:
-                    //       isOpen ? Alignment.center : Alignment.bottomCenter,
-                    //   duration: const Duration(milliseconds: 200),
-                    //   child: const Padding(
-                    //     padding: EdgeInsets.all(20.0),
-                    //     child: Text(
-                    //       "This is the sliding Widget",
-                    //       style: TextStyle(color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
-                  )
-                : Container(),
-          ],
-        ),
-        floatingActionButton: ScaleTransition(
-          scale: animation,
-          child: Visibility(
-            visible: !keyboardIsOpen,
-            child: SizerUtil.deviceType == DeviceType.mobile
-                ? FloatingActionButton(
-                    elevation: 8,
-                    backgroundColor: Colors.white,
-                    child: _bottomNavIndex == 4
-                        ? Icon(
-                            Icons.card_membership,
-                            color: baseColor,
-                            size: 24,
-                          )
-                        : Icon(
-                            Icons.home,
-                            color: baseColor,
-                            size: 24,
-                          ),
-                    onPressed: () {
-                      openpanel();
-                    },
-                  )
-                : FloatingActionButton.large(
-                    elevation: 8,
-                    backgroundColor: Colors.white,
-                    child: _bottomNavIndex == 4
-                        ? Icon(
-                            Icons.card_membership,
-                            color: baseColor,
-                            size: 50,
-                          )
-                        : Icon(
-                            Icons.home,
-                            color: baseColor,
-                            size: 50,
-                          ),
-                    onPressed: () {
-                      openpanel();
-                    },
-                  ),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: Stack(
-          children: [
-            AnimatedBottomNavigationBar.builder(
-              itemCount: iconList.length,
-              tabBuilder: (int index, bool isActive) {
-                final color = isActive ? secondryColor : Colors.white;
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      iconList[index],
-                      size: responsiveMT(25, 45),
-                      color: color,
-                    ),
-                    const SizedBox(height: 4),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: AutoSizeText(
-                        list[index],
-                        maxLines: 1,
-                        style: TextStyle(color: color),
-                        group: autoSizeGroup,
+                      panel: Visibility(
+                        visible: showpanel,
+                        child: Stack(
+                          fit: StackFit.loose,
+                          overflow: Overflow.visible,
+                          clipBehavior: Clip.hardEdge,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Color(0xFFDDDDDD),
+                                ),
+                                //  Border(
+                                //   bottom: BorderSide(
+                                //     color: Color(0xFFDDDDDD),
+                                //   ),
+                                //   left: BorderSide(
+                                //     color: Color(0xFFDDDDDD),
+                                //   ),
+                                //   right: BorderSide(
+                                //     color: Color(0xFFDDDDDD),
+                                //   ),
+                                // ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(4),
+                                  bottomRight: Radius.circular(4),
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(4),
+                                  bottomRight: Radius.circular(4),
+                                ),
+                                child:
+                                    // SvgPicture.asset(
+                                    //   'assets/SVGs/Asset_1.svg',
+                                    //   alignment: Alignment.topLeft,
+                                    //   width: MediaQuery.of(context).size.width,
+                                    //   fit: BoxFit.fitWidth,
+                                    // ),
+                                    Image(
+                                  //width: responsiveMT(90, 150),
+                                  alignment: Alignment.center,
+                                  width: MediaQuery.of(context).size.width,
+                                  fit: BoxFit.fitWidth,
+                                  image: AssetImage("assets/image/Union_1.png"),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: baseColor,
+                                      borderRadius: BorderRadius.only(
+                                        bottomRight: new Radius.circular(20),
+                                        topRight: new Radius.circular(20),
+                                      ),
+                                    ),
+                                    width: 100,
+                                    // color: Colors.blue.shade900,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Text(
+                                        empinfo.StatusName.toString(),
+                                        textAlign: TextAlign.right,
+                                        style: descTx1(Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: responsiveMT(52, 92),
+                                        backgroundColor: Color(0xff274690),
+                                        child: empinfo.ImageURL == null
+                                            ? Image.asset(
+                                                "assets/image/avatar.jpg")
+                                            : ClipOval(
+                                                child: FadeInImage.assetNetwork(
+                                                  fit: BoxFit.cover,
+                                                  width: 100,
+                                                  height: 100,
+                                                  image:
+                                                      "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                          empinfo.ImageURL
+                                                                  .toString()
+                                                              .split("\$")[1],
+                                                  placeholder:
+                                                      "assets/image/avatar.jpg",
+                                                ),
+                                              ),
+                                      ),
+                                      Text(
+                                        empinfo.EmployeeName ?? "",
+                                        style: titleTx(baseColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                          empinfo.MainDepartmentName.toString(),
+                                          style: descTx2(baseColor)),
+                                      Container(
+                                        margin: EdgeInsets.all(12),
+                                        height: 125,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              baseColor,
+                                              secondryColor,
+                                            ],
+                                          ),
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2.0,
+                                            style: BorderStyle.solid,
+                                          ),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(8.0)),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "بطاقة تسجيل الدخول",
+                                                    textAlign: TextAlign.right,
+                                                    style:
+                                                        titleTx(Colors.white),
+                                                  ),
+                                                  Text(
+                                                    "أمانة المنطقة الشرقية",
+                                                    textAlign: TextAlign.right,
+                                                    style:
+                                                        descTx2(Colors.white),
+                                                  ),
+                                                  Text(
+                                                    empinfo.empTypeName
+                                                        .toString(),
+                                                    textAlign: TextAlign.right,
+                                                    style:
+                                                        descTx2(Colors.white),
+                                                  ),
+
+                                                  // AutoSizeText(
+                                                  //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                  //   maxLines: 1,
+                                                  //   style: TextStyle(
+                                                  //       color: Colors.white),
+                                                  //   group: autoSizeGroup,
+                                                  // ),
+                                                  Text(
+                                                    "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 18),
+                                              width: 90,
+                                              height: 90,
+                                              child: SfBarcodeGenerator(
+                                                backgroundColor: Colors.white,
+                                                value: (empinfo.EmployeeNumber)
+                                                    .toString()
+                                                    .split(".")[0],
+                                                symbology: QRCode(),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Visibility(
+                              visible: showpanel,
+                              child: Positioned(
+                                bottom: -20,
+                                right:
+                                    isPortrait == true ? 50.w - 40 : 50.h - 40,
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border:
+                                          Border.all(color: Color(0xFFDDDDDD)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: IconButton(
+                                    icon: Icon(Icons.arrow_upward_rounded),
+                                    onPressed: () {
+                                      openpanel();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                      // : Container(
+                      //     decoration: containerdecoration(Colors.white),
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.end,
+                      //       children: [
+                      //         Stack(
+                      //           children: [
+                      //             Container(
+                      //               margin: EdgeInsets.only(top: 10),
+                      //               child: Center(
+                      //                 child: Image(
+                      //                     width: responsiveMT(90, 150),
+                      //                     image: AssetImage(
+                      //                         "assets/image/rakamy-logo-21.png")),
+                      //               ),
+                      //             ),
+                      //             Align(
+                      //               alignment: Alignment.bottomCenter,
+                      //               child: Row(
+                      //                 mainAxisAlignment:
+                      //                     MainAxisAlignment.spaceBetween,
+                      //                 children: [
+                      //                   Container(
+                      //                     margin: EdgeInsets.only(left: 10),
+                      //                     child: Column(
+                      //                       children: [
+                      //                         Icon(
+                      //                           Icons.notifications_active,
+                      //                           color: baseColor,
+                      //                           size: responsiveMT(30, 45),
+                      //                         ),
+                      //                         Text(
+                      //                           "تنبيهات",
+                      //                           style: descTx1(baseColorText),
+                      //                         )
+                      //                       ],
+                      //                     ),
+                      //                   ),
+                      //                   Container(
+                      //                     margin: EdgeInsets.only(right: 10),
+                      //                     child: Column(
+                      //                       children: [
+                      //                         CircleAvatar(
+                      //                           backgroundColor:
+                      //                               Color(0xff274690),
+                      //                           radius: responsiveMT(26, 28),
+                      //                           child: CircleAvatar(
+                      //                             radius:
+                      //                                 responsiveMT(23, 25),
+                      //                             backgroundImage: AssetImage(
+                      //                                 "assets/image/avatar.jpg"),
+                      //                           ),
+                      //                         ),
+                      //                         Text(
+                      //                           "مرحبا / عبدالله",
+                      //                           style: descTx1(baseColorText),
+                      //                         )
+                      //                       ],
+                      //                     ),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   )
+                      // AnimatedAlign(
+                      //   alignment:
+                      //       isOpen ? Alignment.center : Alignment.bottomCenter,
+                      //   duration: const Duration(milliseconds: 200),
+                      //   child: const Padding(
+                      //     padding: EdgeInsets.all(20.0),
+                      //     child: Text(
+                      //       "This is the sliding Widget",
+                      //       style: TextStyle(color: Colors.black),
+                      //     ),
+                      //   ),
+                      // ),
                     )
-                  ],
-                );
-              },
-              splashRadius: 0,
-              notchMargin: 0,
-              height: responsiveMT(70, 90),
-              backgroundColor: baseColor,
-              activeIndex: _bottomNavIndex,
-              splashColor: secondryColor,
-              notchAndCornersAnimation: animation,
-              splashSpeedInMilliseconds: 300,
-              notchSmoothness: NotchSmoothness.defaultEdge,
-              gapLocation: GapLocation.center,
-              leftCornerRadius: 0,
-              rightCornerRadius: 0,
-              onTap: (index) => setState(() {
-                Statistics();
-                _bottomNavIndex = index;
-              }),
+                  : Container(),
+            ],
+          ),
+          floatingActionButton: ScaleTransition(
+            scale: animation,
+            child: Visibility(
+              visible: !keyboardIsOpen,
+              child: SizerUtil.deviceType == DeviceType.mobile
+                  ? FloatingActionButton(
+                      elevation: 8,
+                      backgroundColor: Colors.white,
+                      child: _bottomNavIndex == 4
+                          ? Icon(
+                              Icons.card_membership,
+                              color: baseColor,
+                              size: 24,
+                            )
+                          : Icon(
+                              Icons.home,
+                              color: baseColor,
+                              size: 24,
+                            ),
+                      onPressed: () {
+                        openpanel();
+                      },
+                    )
+                  : FloatingActionButton.large(
+                      elevation: 8,
+                      backgroundColor: Colors.white,
+                      child: _bottomNavIndex == 4
+                          ? Icon(
+                              Icons.card_membership,
+                              color: baseColor,
+                              size: 50,
+                            )
+                          : Icon(
+                              Icons.home,
+                              color: baseColor,
+                              size: 50,
+                            ),
+                      onPressed: () {
+                        openpanel();
+                      },
+                    ),
             ),
-
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 500),
-              child: Text(
-                "بطاقتي",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: Stack(
+            children: [
+              AnimatedBottomNavigationBar.builder(
+                itemCount: iconList.length,
+                tabBuilder: (int index, bool isActive) {
+                  final color = isActive ? secondryColor : Colors.white;
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        iconList[index],
+                        size: responsiveMT(25, 45),
+                        color: color,
+                      ),
+                      const SizedBox(height: 4),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: AutoSizeText(
+                          list[index],
+                          maxLines: 1,
+                          style: TextStyle(color: color),
+                          group: autoSizeGroup,
+                        ),
+                      )
+                    ],
+                  );
+                },
+                splashRadius: 0,
+                notchMargin: 0,
+                height: responsiveMT(70, 90),
+                backgroundColor: baseColor,
+                activeIndex: _bottomNavIndex,
+                splashColor: secondryColor,
+                notchAndCornersAnimation: animation,
+                splashSpeedInMilliseconds: 300,
+                notchSmoothness: NotchSmoothness.defaultEdge,
+                gapLocation: GapLocation.center,
+                leftCornerRadius: 0,
+                rightCornerRadius: 0,
+                onTap: (index) => setState(() {
+                  Statistics();
+                  _bottomNavIndex = index;
+                }),
               ),
-              right: isPortrait == true ? (50.w - 21) : (50.h - 21),
-              bottom: _bottomNavIndex == 4
-                  ? animatedPositionedStart
-                      ? 5
-                      : -25
-                  : animatedPositionedStart
-                      ? -25
-                      : 5,
-            ),
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 500),
-              child: Text(
-                "الرئيسية",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 500),
+                child: Text(
+                  "بطاقتي",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                right: isPortrait == true ? (50.w - 21) : (50.h - 21),
+                bottom: _bottomNavIndex == 4
+                    ? animatedPositionedStart
+                        ? 5
+                        : -25
+                    : animatedPositionedStart
+                        ? -25
+                        : 5,
               ),
-              right: isPortrait == true ? (50.w - 21) : (50.h - 21),
-              bottom: _bottomNavIndex == 4 ? -25 : 5,
-            ),
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 500),
+                child: Text(
+                  "الرئيسية",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                right: isPortrait == true ? (50.w - 21) : (50.h - 21),
+                bottom: _bottomNavIndex == 4 ? -25 : 5,
+              ),
 
-            // AnimatedPositioned(
-            //   duration: Duration(seconds: 1),
-            //   child: _bottomNavIndex == 0
-            //       ? Text(
-            //           "بطاقتي",
-            //           style: TextStyle(
-            //               color: Colors.white, fontWeight: FontWeight.bold),
-            //         )
-            //       : Text(
-            //           "رئيسية",
-            //           style: TextStyle(
-            //               color: Colors.white, fontWeight: FontWeight.bold),
-            //         ),
-            //   right: isPortrait == true ? (50.w - 20) : (50.h - 20),
-            //   bottom: animatedPositionedStart ? 5 : -25,
-            // ),
+              // AnimatedPositioned(
+              //   duration: Duration(seconds: 1),
+              //   child: _bottomNavIndex == 0
+              //       ? Text(
+              //           "بطاقتي",
+              //           style: TextStyle(
+              //               color: Colors.white, fontWeight: FontWeight.bold),
+              //         )
+              //       : Text(
+              //           "رئيسية",
+              //           style: TextStyle(
+              //               color: Colors.white, fontWeight: FontWeight.bold),
+              //         ),
+              //   right: isPortrait == true ? (50.w - 20) : (50.h - 20),
+              //   bottom: animatedPositionedStart ? 5 : -25,
+              // ),
 
-            // Positioned(
-            //   bottom: 5,
-            //   right: isPortrait == true ? (50.w - 20) : (50.h - 20),
-            //   child: _bottomNavIndex == 0
-            //       ? Text(
-            //           "بطاقتي",
-            //           style: TextStyle(
-            //               color: Colors.white, fontWeight: FontWeight.bold),
-            //         )
-            //       : Text(
-            //           "رئيسية",
-            //           style: TextStyle(
-            //               color: Colors.white, fontWeight: FontWeight.bold),
-            //         ),
-            // ),
-          ],
+              // Positioned(
+              //   bottom: 5,
+              //   right: isPortrait == true ? (50.w - 20) : (50.h - 20),
+              //   child: _bottomNavIndex == 0
+              //       ? Text(
+              //           "بطاقتي",
+              //           style: TextStyle(
+              //               color: Colors.white, fontWeight: FontWeight.bold),
+              //         )
+              //       : Text(
+              //           "رئيسية",
+              //           style: TextStyle(
+              //               color: Colors.white, fontWeight: FontWeight.bold),
+              //         ),
+              // ),
+            ],
+          ),
         ),
       ),
     );
