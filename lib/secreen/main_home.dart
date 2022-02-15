@@ -81,7 +81,7 @@ class _MainHomeState extends State<MainHome> {
                   onChanged: (String val) {},
                 ),
                 SizedBox(
-                  height: 2.h,
+                  height: 20,
                 ),
                 Row(
                   children: [

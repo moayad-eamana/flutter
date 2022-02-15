@@ -143,7 +143,7 @@ class _TabBarDemoState extends State<TabBarDemo>
             Column(children: [
               _bottomNavIndex == 4
                   ? SizedBox(
-                      height: 10.h,
+                      height: 90,
                     )
                   : Container(),
               Expanded(
@@ -453,7 +453,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             height: 90,
                                             child: SfBarcodeGenerator(
                                               backgroundColor: Colors.white,
-                                              value: '444444',
+                                              value: '4438040',
                                               symbology: QRCode(),
                                             ),
                                           ),
