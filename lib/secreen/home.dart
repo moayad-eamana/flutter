@@ -34,7 +34,7 @@ class _TabBarDemoState extends State<TabBarDemo>
   final PanelController panlC = PanelController();
   bool isOpen = false;
   final autoSizeGroup = AutoSizeGroup();
-  var _bottomNavIndex = 0;
+  var _bottomNavIndex = 4;
   EmployeeProfile empinfo = new EmployeeProfile();
   void openpanel() {
     _bottomNavIndex == 4
