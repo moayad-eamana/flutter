@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
+import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
@@ -60,6 +61,8 @@ class _MainHomeState extends State<MainHome> {
             child: Column(
               children: [
                 TextField(
+                  showCursor: true,
+                  readOnly: true,
                   controller: _search,
                   keyboardType: TextInputType.text,
                   maxLines: 1,
@@ -78,7 +81,15 @@ class _MainHomeState extends State<MainHome> {
                     labelText: "بحث الخدمات",
                     alignLabelWithHint: true,
                   ),
-                  onChanged: (String val) {},
+                  // onChanged: (String val) {
+                  //   showSearch(
+                  //       context: context, delegate: CustomSearchDelegate());
+                  // },
+                  onTap: () {
+                    showSearch(
+                        context: context,
+                        delegate: CustomSearchDelegate(context));
+                  },
                 ),
                 SizedBox(
                   height: 20,

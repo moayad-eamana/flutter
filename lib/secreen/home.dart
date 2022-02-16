@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/exit_popup.dart';
+import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
@@ -246,6 +247,16 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             margin: EdgeInsets.only(left: 10),
                                             child: Column(
                                               children: [
+                                                // ElevatedButton.icon(
+                                                //     onPressed: () {
+                                                //       showSearch(
+                                                //           context: context,
+                                                //           delegate:
+                                                //               CustomSearchDelegate());
+                                                //     },
+                                                //     icon: Icon(Icons
+                                                //         .notifications_active),
+                                                //     label: Text("test")),
                                                 Icon(
                                                   Icons.notifications_active,
                                                   color: baseColor,
