@@ -79,12 +79,7 @@ class _OTPViewState extends State<OTPView> {
     return Center(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-            color: secondryColor,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(12.0),
-            ),
-            border: Border.all(color: Colors.white)),
+        decoration: containerdecoration(Colors.white),
         width: MediaQuery.of(context).size.width,
       ),
     );

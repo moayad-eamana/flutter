@@ -5,7 +5,6 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -28,8 +27,8 @@ class _EmpProfileState extends State<EmpProfile> {
         maskType: EasyLoadingMaskType.black,
       );
       SharedPreferences _pref = await SharedPreferences.getInstance();
-      await Provider.of<EmpInfoProvider>(context, listen: false)
-          .fetchEmpInfo(_pref.getString("username").toString());
+      await Provider.of<EmpInfoProvider>(context, listen: false).fetchEmpInfo(
+          _pref.getDouble("EmployeeNumber").toString().split(".")[0]);
 
       EasyLoading.dismiss();
     });
@@ -60,8 +59,8 @@ class _EmpProfileState extends State<EmpProfile> {
         body: SingleChildScrollView(
           child: Stack(
             children: [
-              SvgPicture.asset(
-                'assets/SVGs/background.svg',
+              Image.asset(
+                'assets/image/Union_1.png',
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 //height: MediaQuery.of(context).size.height,
@@ -410,7 +409,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                     onPressed: () async {
                                       SharedPreferences _pref =
                                           await SharedPreferences.getInstance();
-                                      _pref.setString("username", "");
+                                      _pref.setString("EmployeeNumber", "");
 
                                       Navigator.pushReplacementNamed(
                                           context, '/loginView');

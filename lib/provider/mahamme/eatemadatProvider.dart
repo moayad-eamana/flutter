@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/mahamme/HrRequests.dart';
 import 'package:eamanaapp/model/mahamme/InboxHeader.dart';
 import 'package:eamanaapp/model/RequestRejectReasons.dart';
@@ -12,8 +13,9 @@ class EatemadatProvider extends ChangeNotifier {
   Future<void> getInboxHeader() async {
     isLoding = true;
     notifyListeners();
-
-    var respose = await getAction("Inbox/GetInboxHeader/4341012");
+    String empNo = await EmployeeProfile.getEmployeeNumber();
+    var respose = await getAction("Inbox/GetInboxHeader/" + empNo);
+    print(respose);
     _inboxHeader = (jsonDecode(respose.body)["HeaderList"] as List)
         .map(((e) => InboxHeader.fromJson(e)))
         .toList();
@@ -31,7 +33,9 @@ class EatemadatProvider extends ChangeNotifier {
   Future<void> fetchHrRequests() async {
     isLoding = true;
     notifyListeners();
-    var respose = await getAction("Inbox/GetInboxHrRequests/4341012");
+    String empNo = await EmployeeProfile.getEmployeeNumber();
+    var respose = await getAction("Inbox/GetInboxHrRequests/" + empNo);
+    print((jsonDecode(respose.body)["RequestList"]));
     _hrRequestsList = (jsonDecode(respose.body)["RequestList"] as List)
         .map(((e) => HrRequests.fromJson(e)))
         .toList();
@@ -53,8 +57,10 @@ class EatemadatProvider extends ChangeNotifier {
         break;
       }
     }
+    String empNo = await EmployeeProfile.getEmployeeNumber();
+
     var respose = await postAction(
-        "HrRequestApprove",
+        "Inbox/HrRequestApprove",
         jsonEncode({
           "RequesterEmployeeNumber":
               _hrRequestsList[index].RequesterEmployeeNumber,
@@ -62,12 +68,11 @@ class EatemadatProvider extends ChangeNotifier {
           "IsApproved": IsRecjcted,
           "RejectReasonID": IsRecjcted ? 0.0 : id,
           "RequestTypeID": _hrRequestsList[index].RequestTypeID,
-          "ApprovedBy": 4341012
+          "ApprovedBy": int.parse(empNo)
         }));
 
     print(respose.body);
-    if (jsonDecode(respose.body)["StatusCode"] != 400 ||
-        jsonDecode(respose.body)["StatusCode"] != 200) {
+    if (jsonDecode(respose.body)["StatusCode"] != 400) {
       return jsonDecode(respose.body)["ErrorMessage"];
     }
 

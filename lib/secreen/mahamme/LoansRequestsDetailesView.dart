@@ -421,7 +421,10 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                     EasyLoadingMaskType.black,
                                               );
                                               await _provider.deleteLoansReques(
-                                                  widget.index ?? 0);
+                                                  widget.index ?? 0,
+                                                  FinancialType,
+                                                  ApproveFlag,
+                                                  "");
                                               EasyLoading.dismiss();
                                               Navigator.pop(context, true);
                                             },
@@ -539,7 +542,10 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                 return;
                                               }
                                               _provider.deleteLoansReques(
-                                                  widget.index ?? 0);
+                                                  widget.index ?? 0,
+                                                  FinancialType,
+                                                  ApproveFlag,
+                                                  resaon);
                                               Navigator.pop(context, true);
                                             },
                                             child: const Text("تأكيد",

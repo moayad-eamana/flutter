@@ -69,4 +69,11 @@ class EmployeeProfile {
     //notifyListeners();
     return employeeProfile;
   }
+
+  static Future<String> getEmployeeNumber() async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    return (_pref.getDouble("EmployeeNumber")).toString().split(".")[0];
+  }
 }

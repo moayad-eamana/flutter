@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/mahamme/HrDecisions.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:http/http.dart' as http;
@@ -9,8 +10,9 @@ class HrDecisionsProvider extends ChangeNotifier {
   late List<HrDecisions> _hrDecisions = [];
   Future<void> fetchHrDecisions() async {
     notifyListeners();
-    var respose = await getAction("Inbox/GetDecisions" + "/4341012");
-
+    String empNo = await EmployeeProfile.getEmployeeNumber();
+    var respose = await getAction("Inbox/GetDecisions" + "/" + empNo);
+    print((jsonDecode(respose.body)["DecisionList"]));
     _hrDecisions = (jsonDecode(respose.body)["DecisionList"] as List)
         .map(((e) => HrDecisions.fromJson(e)))
         .toList();
@@ -22,10 +24,11 @@ class HrDecisionsProvider extends ChangeNotifier {
   }
 
   Future<dynamic> PostAproveDesition(int index) async {
+    String empNo = await EmployeeProfile.getEmployeeNumber();
     var respose = await postAction(
-        "ApproveDecisionRequest",
+        "Inbox/ApproveDecisionRequest",
         jsonEncode({
-          "BossNumber": 4341012,
+          "BossNumber": int.parse(empNo),
           "EmplyeeNumber": _hrDecisions[index].EmplyeeNumber,
           "SignTypeID": _hrDecisions[index].SignTypeID,
           "Seq": _hrDecisions[index].Seq,
@@ -34,8 +37,7 @@ class HrDecisionsProvider extends ChangeNotifier {
           "ExecutionDateH": _hrDecisions[index].ExecutionDateH,
           "ExexutionDateG": _hrDecisions[index].ExexutionDateG
         }));
-    if (jsonDecode(respose.body)["StatusCode"] != 400 ||
-        jsonDecode(respose.body)["StatusCode"] != 200) {
+    if (jsonDecode(respose.body)["StatusCode"] != 400) {
       return jsonDecode(respose.body)["ErrorMessage"];
     }
     _hrDecisions.removeAt(index);
