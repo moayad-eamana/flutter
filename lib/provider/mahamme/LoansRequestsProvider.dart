@@ -2,14 +2,13 @@ import 'dart:convert';
 import 'package:eamanaapp/model/mahamme/LoansRequests.dart';
 import 'package:eamanaapp/model/RequestRejectReasons.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 
 class LoansRequestsProvider extends ChangeNotifier {
   late List<LoansRequest> _LoanRequest = [];
   Future<void> fethLoansRequests() async {
-    var respose = await getAction("GetLoansRequests" + "/4341012");
+    var respose = await getAction("Inbox/GetLoansRequests" + "/4341012");
 
     _LoanRequest = (jsonDecode(respose.body)["LoansList"] as List)
         .map(((e) => LoansRequest.fromJson(e)))
@@ -54,7 +53,7 @@ class LoansRequestsProvider extends ChangeNotifier {
   List<String> _reason = [];
   late List<RequestRejectReasons> _RequestRejectReasons;
   Future<void> fetchRejectReasonNames() async {
-    var respose = await getAction("GetHrRequestRejectReasons/4341012");
+    var respose = await getAction("Inbox/GetHrRequestRejectReasons");
 
     _RequestRejectReasons =
         (jsonDecode(respose.body)["RejectReasonsList"] as List)

@@ -52,8 +52,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
         appBar: AppBarW.appBarW("تفاصيل الطلب", context),
         body: Stack(
           children: [
-            SvgPicture.asset(
-              'assets/SVGs/background.svg',
+            Image.asset(
+              'assets/image/Union_1.png',
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,

@@ -9,7 +9,7 @@ class HrDecisionsProvider extends ChangeNotifier {
   late List<HrDecisions> _hrDecisions = [];
   Future<void> fetchHrDecisions() async {
     notifyListeners();
-    var respose = await getAction("GetDecisions" + "/4341012");
+    var respose = await getAction("Inbox/GetDecisions" + "/4341012");
 
     _hrDecisions = (jsonDecode(respose.body)["DecisionList"] as List)
         .map(((e) => HrDecisions.fromJson(e)))

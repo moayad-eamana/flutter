@@ -5,9 +5,9 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 import 'HrDecisionsView.dart';
 import 'HrRequestsView.dart';
@@ -65,17 +65,19 @@ class _InboxHedersViewState extends State<InboxHedersView> {
               child: _provider.length == 0
                   ? Container()
                   : AnimationLimiter(
-                      child: Center(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
                         child: GridView.builder(
                             shrinkWrap: true,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: (SizerUtil.deviceType ==
                                             DeviceType.tablet
-                                        ? 3
-                                        : 1),
+                                        ? 4
+                                        : 3),
                                     mainAxisSpacing: 10,
-                                    mainAxisExtent: 300),
+                                    crossAxisSpacing: 10,
+                                    mainAxisExtent: 120),
                             itemCount: _provider.length,
                             itemBuilder: (BuildContext context, index) {
                               return AnimationConfiguration.staggeredList(
@@ -87,10 +89,12 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                                     textDirection: TextDirection.rtl,
                                     child: Container(
                                       margin: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 20),
+                                          vertical: 20),
                                       child: _provider[index].TypeID == 1
-                                          ? InkWell(
-                                              onTap: () {
+                                          ? widgetsUni.servicebutton2(
+                                              "شؤون الموظفين",
+                                              Icons.request_page,
+                                              () {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -104,14 +108,12 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                                                   ),
                                                 );
                                               },
-                                              child: ClipRRect(
-                                                child: Image.asset(
-                                                    "assets/SVGs/etemadat.jpg"),
-                                              ),
                                             )
                                           : (_provider[index].TypeID == 38
-                                              ? InkWell(
-                                                  onTap: () {
+                                              ? widgetsUni.servicebutton2(
+                                                  "القرارات الالكترونية",
+                                                  Icons.request_page,
+                                                  () {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
@@ -124,11 +126,11 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                                                       ),
                                                     );
                                                   },
-                                                  child: Image.asset(
-                                                      "assets/SVGs/decisions.jpg"),
                                                 )
-                                              : InkWell(
-                                                  onTap: () {
+                                              : widgetsUni.servicebutton2(
+                                                  "الاعارة",
+                                                  Icons.request_page,
+                                                  () {
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
@@ -141,8 +143,6 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                                                       ),
                                                     );
                                                   },
-                                                  child: Image.asset(
-                                                      "assets/SVGs/asset4-100.jpg"),
                                                 )),
                                     ),
                                   ),

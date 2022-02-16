@@ -50,12 +50,12 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
             ? Container()
             : Stack(
                 children: [
-                  SvgPicture.asset(
-                    'assets/SVGs/background.svg',
+                  Image.asset(
+                    'assets/image/Union_1.png',
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width,
                     //height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

@@ -30,6 +30,13 @@ class _EntedabState extends State<Entedab> {
         appBar: AppBarW.appBarW("طلب إنتداب", context),
         body: Stack(
           children: [
+            Image.asset(
+              'assets/image/Union_1.png',
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              //height: MediaQuery.of(context).size.height,
+              fit: BoxFit.fill,
+            ),
             SingleChildScrollView(
               child: Container(
                 //color: Colors.amber,
