@@ -4,13 +4,33 @@ import 'package:flutter/material.dart';
 
 class DropdownSearchW {
   String value = "";
-  DropdownSearch drop(List<String> item, String LableName) {
+  late BuildContext context;
+  DropdownSearch drop(List<Map<dynamic, dynamic>> item, String LableName,
+      BuildContext context) {
     //dynamic values = "";
 
-    return DropdownSearch<String>(
-      items: item,
+    return DropdownSearch<dynamic>(
+      items: [
+        {"tt": "أمريكا", "id": "11"},
+        {"tt": "اليابان", "id": "11"},
+        {"tt": "استراليا", "id": "11"},
+        {"tt": "افز", "id": "26"}
+      ],
+
+      popupItemBuilder: (context, rr, isSelected) => (Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+          children: [Text(rr["tt"], style: subtitleTx(baseColorText))],
+        ),
+      )),
+      dropdownBuilder: (context, selectedItem) => Container(
+        child: Text(
+          selectedItem == null ? "" : selectedItem["tt"] ?? "",
+          style: subtitleTx(baseColorText),
+        ),
+      ),
       mode: Mode.BOTTOM_SHEET,
-      showSelectedItems: true,
+      //  showSelectedItems: true,
       showClearButton: true,
       maxHeight: 400,
       showAsSuffixIcons: true,
@@ -24,7 +44,7 @@ class DropdownSearchW {
           borderSide: BorderSide(color: bordercolor),
         ),
       ),
-      validator: (String? value) {
+      validator: (value) {
         if (value == "" || value == null) {
           return "hgfef";
         } else {
@@ -32,9 +52,10 @@ class DropdownSearchW {
         }
       },
       showSearchBox: true,
-      onChanged: (String? v) {
+      onChanged: (v) {
         print('object');
-        value = v ?? "";
+        // print(v);
+        //value = v ?? "";
       },
       popupTitle: Container(
         height: 60,
@@ -62,6 +83,33 @@ class DropdownSearchW {
           topRight: Radius.circular(24),
         ),
       ),
+    );
+  }
+
+  Widget _customDropDownExample(
+      BuildContext context, List<Map<dynamic, dynamic>> item) {
+    if (item == null) {
+      return Container();
+    }
+
+    return Container(
+      child: (item[0]["ee"] == null)
+          ? ListTile(
+              contentPadding: EdgeInsets.all(0),
+              leading: CircleAvatar(),
+              title: Text("No item selected"),
+            )
+          : ListTile(
+              contentPadding: EdgeInsets.all(0),
+              leading: CircleAvatar(
+                  // this does not work - throws 404 error
+                  // backgroundImage: NetworkImage(item.avatar ?? ''),
+                  ),
+              title: Text(item[0]["ee"]),
+              subtitle: Text(
+                item[0]["ee"].toString(),
+              ),
+            ),
     );
   }
 }

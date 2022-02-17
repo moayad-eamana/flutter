@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class EmpProfile extends StatefulWidget {
   const EmpProfile({Key? key}) : super(key: key);
@@ -56,19 +57,19 @@ class _EmpProfileState extends State<EmpProfile> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW("بياناتي", context),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Image.asset(
-                'assets/image/Union_1.png',
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                //height: MediaQuery.of(context).size.height,
-                fit: BoxFit.fill,
-              ),
-              _provider.length == 0
-                  ? Container()
-                  : Container(
+        body: Stack(
+          children: [
+            Image.asset(
+              'assets/image/Union_1.png',
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              //height: MediaQuery.of(context).size.height,
+              fit: BoxFit.cover,
+            ),
+            _provider.length == 0
+                ? Container()
+                : SingleChildScrollView(
+                    child: Container(
                       margin: EdgeInsets.only(top: 10),
                       child: Column(
                         children: [
@@ -394,37 +395,27 @@ class _EmpProfileState extends State<EmpProfile> {
                             ),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: (width >= 768 ? 300 : 20)),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      side: const BorderSide(
-                                        width: 1,
-                                        color: Color(0xFFDDDDDD),
-                                      ),
-                                    ),
-                                    onPressed: () async {
-                                      SharedPreferences _pref =
-                                          await SharedPreferences.getInstance();
-                                      _pref.setString("EmployeeNumber", "");
+                              widgetsUni.actionbutton(
+                                "تسجيل خروج",
+                                Icons.logout,
+                                () async {
+                                  SharedPreferences _pref =
+                                      await SharedPreferences.getInstance();
+                                  _pref.setString("EmployeeNumber", "");
 
-                                      Navigator.pushReplacementNamed(
-                                          context, '/loginView');
-                                    },
-                                    child: const Text("تسجيل الخروج"),
-                                  ),
-                                ),
+                                  Navigator.pushReplacementNamed(
+                                      context, '/loginView');
+                                },
                               ),
                             ],
                           )
                         ],
                       ),
                     ),
-            ],
-          ),
+                  ),
+          ],
         ),
       ),
     );
