@@ -420,13 +420,14 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                 maskType:
                                                     EasyLoadingMaskType.black,
                                               );
-                                              await _provider.deleteLoansReques(
-                                                  widget.index ?? 0,
-                                                  FinancialType,
-                                                  ApproveFlag,
-                                                  "");
+                                              dynamic res = await _provider
+                                                  .deleteLoansReques(
+                                                      widget.index ?? 0,
+                                                      FinancialType,
+                                                      ApproveFlag,
+                                                      "");
                                               EasyLoading.dismiss();
-                                              Navigator.pop(context, true);
+                                              Navigator.pop(context, res);
                                             },
                                             child: const Text("تأكيد",
                                                 style: TextStyle(
@@ -438,13 +439,19 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                   );
                                 },
                               ).then((value) {
+                                if (value == null) {
+                                  return;
+                                }
                                 if (value == true) {
                                   Alerts.successAlert(context, "", "تم القبول")
                                       .show()
                                       .then((value) {
                                     Navigator.pop(context);
                                   });
-                                }
+                                } else
+                                  (Alerts.errorAlert(
+                                          context, "خطأ", value.toString())
+                                      .show());
                               });
                             },
                           ),
@@ -490,6 +497,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                     alignLabelWithHint: true,
                                                   ),
                                                   onChanged: (String val) {
+                                                    error = "";
                                                     setState(() {});
                                                   },
                                                 ),
@@ -532,25 +540,31 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                           ),
                                           FlatButton(
                                             color: Colors.green,
-                                            onPressed: () {
+                                            child: const Text("تأكيد",
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                            onPressed: () async {
                                               print(resaon);
-                                              if (error != "" || resaon == "") {
+                                              if (error != "") {
                                                 setState(() {
                                                   error =
                                                       "الرجاء إختيار سبب الرفض";
                                                 });
                                                 return;
                                               }
-                                              _provider.deleteLoansReques(
-                                                  widget.index ?? 0,
-                                                  FinancialType,
-                                                  ApproveFlag,
-                                                  resaon);
-                                              Navigator.pop(context, true);
+                                              EasyLoading.show(
+                                                status: 'جاري المعالجة...',
+                                                maskType:
+                                                    EasyLoadingMaskType.black,
+                                              );
+                                              dynamic res = await _provider
+                                                  .deleteLoansReques(
+                                                      widget.index ?? 0,
+                                                      FinancialType ?? "",
+                                                      ApproveFlag,
+                                                      resaon);
+                                              Navigator.pop(context, res);
                                             },
-                                            child: const Text("تأكيد",
-                                                style: TextStyle(
-                                                    color: Colors.white)),
                                           ),
                                         ],
                                       );
@@ -558,12 +572,20 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                   );
                                 },
                               ).then((value) {
+                                if (value == null) {
+                                  return;
+                                }
                                 if (value == true) {
+                                  print(value);
                                   Alerts.successAlert(context, "", "تم الرفض")
                                       .show()
                                       .then((value) {
                                     Navigator.pop(context);
                                   });
+                                } else {
+                                  Alerts.errorAlert(
+                                          context, "خطأ", value.toString())
+                                      .show();
                                 }
                               });
                             },

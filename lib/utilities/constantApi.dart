@@ -22,11 +22,14 @@ dynamic getAction(String link) async {
 
 dynamic postAction(String link, dynamic body) async {
   SharedPreferences _pref = await SharedPreferences.getInstance();
-  return await http.post(Uri.parse(Url + link),
+
+  var respns = await http.post(Uri.parse(Url + link),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + _pref.getString("AccessToken").toString(),
       },
       body: body);
+  print(respns);
+  return respns;
 }
