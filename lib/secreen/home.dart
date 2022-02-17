@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eamanaapp/model/employeeInfo/EmpInfo.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -10,18 +12,17 @@ import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/exit_popup.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
-import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'EmpInfo/EmpInfoView.dart';
 import 'package:sizer/sizer.dart';
+
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 
 import 'main_home.dart';
 
@@ -97,8 +98,22 @@ class _TabBarDemoState extends State<TabBarDemo>
     setState(() {});
   }
 
+  void cheackNetwork() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+      Alerts.errorAlert(context, "تنبيه", "لا يوجد شبكة").show();
+    }
+  }
+
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) => cheackNetwork());
     getuserinfo();
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -177,7 +192,7 @@ class _TabBarDemoState extends State<TabBarDemo>
               ]),
               _bottomNavIndex == 4
                   ? SlidingUpPanel(
-                      //   //renderPanelSheet: false,
+                      //renderPanelSheet: false,
                       boxShadow: [
                         BoxShadow(
                             blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))
@@ -203,8 +218,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                       borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(4.0),
                           bottomRight: Radius.circular(4.0)),
-                      //    parallaxEnabled: true,
-                      //  parallaxOffset: 0,
+                      parallaxEnabled: true,
+                      parallaxOffset: 0,
                       collapsed: Stack(
                         children: [
                           Container(
@@ -248,16 +263,6 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             margin: EdgeInsets.only(left: 10),
                                             child: Column(
                                               children: [
-                                                // ElevatedButton.icon(
-                                                //     onPressed: () {
-                                                //       showSearch(
-                                                //           context: context,
-                                                //           delegate:
-                                                //               CustomSearchDelegate());
-                                                //     },
-                                                //     icon: Icon(Icons
-                                                //         .notifications_active),
-                                                //     label: Text("test")),
                                                 Icon(
                                                   Icons.notifications_active,
                                                   color: baseColor,
@@ -300,13 +305,6 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                                 "assets/image/avatar.jpg",
                                                           ),
                                                         ),
-
-                                                  //    CircleAvatar(
-                                                  //     radius: responsiveMT(23, 25),
-                                                  //     backgroundImage:  AssetImage(
-                                                  //       "assets/image/avatar.jpg"
-                                                  //         ),
-                                                  //   ),
                                                 ),
                                                 Text(
                                                   ("مرحبا / ") +
@@ -445,20 +443,31 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                 child: Hero(
                                                   tag: "profile",
                                                   child: ClipOval(
-                                                    child: FadeInImage
-                                                        .assetNetwork(
-                                                      fit: BoxFit.cover,
-                                                      width: 100,
+                                                    child: CachedNetworkImage(
                                                       height: 100,
-                                                      image:
+                                                      width: 100,
+                                                      fit: BoxFit.cover,
+                                                      imageUrl:
                                                           "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                               empinfo.ImageURL
                                                                       .toString()
                                                                   .split(
                                                                       "\$")[1],
-                                                      placeholder:
-                                                          "assets/image/avatar.jpg",
                                                     ),
+                                                    // FadeInImage
+                                                    //     .assetNetwork(
+                                                    //   fit: BoxFit.cover,
+                                                    //   width: 100,
+                                                    //   height: 100,
+                                                    //   image:
+                                                    //       "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                    //           empinfo.ImageURL
+                                                    //                   .toString()
+                                                    //               .split(
+                                                    //                   "\$")[1],
+                                                    //   placeholder:
+                                                    //       "assets/image/avatar.jpg",
+                                                    // ),
                                                   ),
                                                 ),
                                                 onTap: () {
@@ -595,86 +604,6 @@ class _TabBarDemoState extends State<TabBarDemo>
                           ],
                         ),
                       ),
-                      // : Container(
-                      //     decoration: containerdecoration(Colors.white),
-                      //     child: Column(
-                      //       mainAxisAlignment: MainAxisAlignment.end,
-                      //       children: [
-                      //         Stack(
-                      //           children: [
-                      //             Container(
-                      //               margin: EdgeInsets.only(top: 10),
-                      //               child: Center(
-                      //                 child: Image(
-                      //                     width: responsiveMT(90, 150),
-                      //                     image: AssetImage(
-                      //                         "assets/image/rakamy-logo-21.png")),
-                      //               ),
-                      //             ),
-                      //             Align(
-                      //               alignment: Alignment.bottomCenter,
-                      //               child: Row(
-                      //                 mainAxisAlignment:
-                      //                     MainAxisAlignment.spaceBetween,
-                      //                 children: [
-                      //                   Container(
-                      //                     margin: EdgeInsets.only(left: 10),
-                      //                     child: Column(
-                      //                       children: [
-                      //                         Icon(
-                      //                           Icons.notifications_active,
-                      //                           color: baseColor,
-                      //                           size: responsiveMT(30, 45),
-                      //                         ),
-                      //                         Text(
-                      //                           "تنبيهات",
-                      //                           style: descTx1(baseColorText),
-                      //                         )
-                      //                       ],
-                      //                     ),
-                      //                   ),
-                      //                   Container(
-                      //                     margin: EdgeInsets.only(right: 10),
-                      //                     child: Column(
-                      //                       children: [
-                      //                         CircleAvatar(
-                      //                           backgroundColor:
-                      //                               Color(0xff274690),
-                      //                           radius: responsiveMT(26, 28),
-                      //                           child: CircleAvatar(
-                      //                             radius:
-                      //                                 responsiveMT(23, 25),
-                      //                             backgroundImage: AssetImage(
-                      //                                 "assets/image/avatar.jpg"),
-                      //                           ),
-                      //                         ),
-                      //                         Text(
-                      //                           "مرحبا / عبدالله",
-                      //                           style: descTx1(baseColorText),
-                      //                         )
-                      //                       ],
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   )
-                      // AnimatedAlign(
-                      //   alignment:
-                      //       isOpen ? Alignment.center : Alignment.bottomCenter,
-                      //   duration: const Duration(milliseconds: 200),
-                      //   child: const Padding(
-                      //     padding: EdgeInsets.all(20.0),
-                      //     child: Text(
-                      //       "This is the sliding Widget",
-                      //       style: TextStyle(color: Colors.black),
-                      //     ),
-                      //   ),
-                      // ),
                     )
                   : Container(),
             ],
@@ -769,7 +698,6 @@ class _TabBarDemoState extends State<TabBarDemo>
                   _bottomNavIndex = index;
                 }),
               ),
-
               AnimatedPositioned(
                 duration: Duration(milliseconds: 500),
                 child: Text(
@@ -796,39 +724,6 @@ class _TabBarDemoState extends State<TabBarDemo>
                 right: isPortrait == true ? (50.w - 21) : (50.h - 21),
                 bottom: _bottomNavIndex == 4 ? -25 : 5,
               ),
-
-              // AnimatedPositioned(
-              //   duration: Duration(seconds: 1),
-              //   child: _bottomNavIndex == 0
-              //       ? Text(
-              //           "بطاقتي",
-              //           style: TextStyle(
-              //               color: Colors.white, fontWeight: FontWeight.bold),
-              //         )
-              //       : Text(
-              //           "رئيسية",
-              //           style: TextStyle(
-              //               color: Colors.white, fontWeight: FontWeight.bold),
-              //         ),
-              //   right: isPortrait == true ? (50.w - 20) : (50.h - 20),
-              //   bottom: animatedPositionedStart ? 5 : -25,
-              // ),
-
-              // Positioned(
-              //   bottom: 5,
-              //   right: isPortrait == true ? (50.w - 20) : (50.h - 20),
-              //   child: _bottomNavIndex == 0
-              //       ? Text(
-              //           "بطاقتي",
-              //           style: TextStyle(
-              //               color: Colors.white, fontWeight: FontWeight.bold),
-              //         )
-              //       : Text(
-              //           "رئيسية",
-              //           style: TextStyle(
-              //               color: Colors.white, fontWeight: FontWeight.bold),
-              //         ),
-              // ),
             ],
           ),
         ),

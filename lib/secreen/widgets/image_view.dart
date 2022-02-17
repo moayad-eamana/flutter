@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:flutter/material.dart';
 
@@ -31,14 +32,22 @@ class _ProfileImageState extends State<ProfileImage> {
             tag: "profile",
             child: empinfo.ImageURL == null
                 ? Container()
-                : FadeInImage.assetNetwork(
-                    fit: BoxFit.cover,
-                    // width: 100,
+                : CachedNetworkImage(
                     // height: 100,
-                    image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                        empinfo.ImageURL.toString().split("\$")[1],
-                    placeholder: "assets/image/avatar.jpg",
+                    // width: 100,
+                    fit: BoxFit.cover,
+                    imageUrl:
+                        "https://archive.eamana.gov.sa/TransactFileUpload" +
+                            empinfo.ImageURL.toString().split("\$")[1],
                   ),
+            //  FadeInImage.assetNetwork(
+            //     fit: BoxFit.cover,
+            //     // width: 100,
+            //     // height: 100,
+            //     image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+            //         empinfo.ImageURL.toString().split("\$")[1],
+            //     placeholder: "",
+            //   ),
           ),
         ),
         onTap: () {

@@ -1,26 +1,8 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
-import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
-import 'package:eamanaapp/secreen/services/servicesView.dart';
-import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
-import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:provider/provider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:syncfusion_flutter_barcodes/barcodes.dart';
-import 'EmpInfo/EmpInfoView.dart';
-import 'mahamme/InboxHedersView.dart';
 import 'package:sizer/sizer.dart';
-import 'package:barcode/barcode.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -81,10 +63,6 @@ class _MainHomeState extends State<MainHome> {
                     labelText: "بحث الخدمات",
                     alignLabelWithHint: true,
                   ),
-                  // onChanged: (String val) {
-                  //   showSearch(
-                  //       context: context, delegate: CustomSearchDelegate());
-                  // },
                   onTap: () {
                     showSearch(
                         context: context,
