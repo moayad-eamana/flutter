@@ -1,10 +1,7 @@
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
