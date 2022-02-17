@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/exit_popup.dart';
+import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
@@ -90,6 +91,7 @@ class _TabBarDemoState extends State<TabBarDemo>
   ];
   String name = "";
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
+
   getuserinfo() async {
     empinfo = await empinfo.getEmployeeProfile();
     setState(() {});
@@ -195,7 +197,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                       },
                       controller: panlC,
                       maxHeight: responsiveMT(380, 500),
-                      minHeight: responsiveMT(80, 120),
+                      minHeight: responsiveMT(90, 120),
                       slideDirection: SlideDirection.DOWN,
                       border: Border.all(color: Color(0xff9F9F9F)),
                       borderRadius: const BorderRadius.only(
@@ -221,8 +223,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                             ),
                           ),
                           Container(
-                            decoration: containerdecoration(
-                                Colors.white.withOpacity(0)),
+                            margin: EdgeInsets.all(8),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -260,12 +261,15 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                 Icon(
                                                   Icons.notifications_active,
                                                   color: baseColor,
-                                                  size: responsiveMT(30, 45),
+                                                  size: responsiveMT(45, 45),
+                                                ),
+                                                SizedBox(
+                                                  height: 0,
                                                 ),
                                                 Text(
                                                   "تنبيهات",
                                                   style: descTx1(baseColorText),
-                                                )
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -305,7 +309,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                   //   ),
                                                 ),
                                                 Text(
-                                                  ("مرحبا/") +
+                                                  ("مرحبا / ") +
                                                       (empinfo.FirstName ?? ""),
                                                   style: descTx1(baseColorText),
                                                 )
@@ -437,20 +441,33 @@ class _TabBarDemoState extends State<TabBarDemo>
                                         child: empinfo.ImageURL == null
                                             ? Image.asset(
                                                 "assets/image/avatar.jpg")
-                                            : ClipOval(
-                                                child: FadeInImage.assetNetwork(
-                                                  fit: BoxFit.cover,
-                                                  width: 100,
-                                                  height: 100,
-                                                  image:
-                                                      "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                          empinfo.ImageURL
-                                                                  .toString()
-                                                              .split("\$")[1],
-                                                  placeholder:
-                                                      "assets/image/avatar.jpg",
+                                            : GestureDetector(
+                                                child: Hero(
+                                                  tag: "profile",
+                                                  child: ClipOval(
+                                                    child: FadeInImage
+                                                        .assetNetwork(
+                                                      fit: BoxFit.cover,
+                                                      width: 100,
+                                                      height: 100,
+                                                      image:
+                                                          "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                              empinfo.ImageURL
+                                                                      .toString()
+                                                                  .split(
+                                                                      "\$")[1],
+                                                      placeholder:
+                                                          "assets/image/avatar.jpg",
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                                onTap: () {
+                                                  Navigator.push(context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) {
+                                                    return ProfileImage();
+                                                  }));
+                                                }),
                                       ),
                                       Text(
                                         empinfo.EmployeeName ?? "",
