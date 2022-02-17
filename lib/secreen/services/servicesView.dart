@@ -1,3 +1,4 @@
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -22,6 +23,19 @@ class ServicesView extends StatefulWidget {
 }
 
 class _ServicesViewState extends State<ServicesView> {
+  int id = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    embId();
+    super.initState();
+  }
+
+  embId() async {
+    id = await EmployeeProfile.getEmplPerm();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     print(SizerUtil.deviceType == DeviceType.mobile);
@@ -59,18 +73,21 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      "مهامي",
-                      style: subtitleTx(baseColor),
-                    ),
-                    widgetsUni.divider(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    mahamme(),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    if (id == 1)
+                      Text(
+                        "مهامي",
+                        style: subtitleTx(baseColor),
+                      ),
+                    if (id == 1) widgetsUni.divider(),
+                    if (id == 1)
+                      SizedBox(
+                        height: 10,
+                      ),
+                    if (id == 1) mahamme(),
+                    if (id == 1)
+                      SizedBox(
+                        height: 10,
+                      ),
                     SizedBox(
                       height: 10,
                     ),
