@@ -56,7 +56,7 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": Icons.not_accessible,
     },
   ];
-
+  //did't use
   final rescntservices = [
     {
       "service_name": "طلب إجازة",
@@ -130,7 +130,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestions = query.isEmpty
-        ? rescntservices
+        ? services2 // replaced with rescntservices
         : services2.where((s) {
             print(s["service_name"]);
 
