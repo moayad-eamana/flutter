@@ -282,21 +282,25 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                           null
                                                       ? Image.asset(
                                                           "assets/image/avatar.jpg")
-                                                      : ClipOval(
-                                                          child: FadeInImage
-                                                              .assetNetwork(
-                                                            fit: BoxFit.cover,
-                                                            width: 50,
-                                                            height: 50,
-                                                            image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                empinfo.ImageURL
-                                                                        .toString()
-                                                                    .split(
-                                                                        "\$")[1],
-                                                            placeholder:
-                                                                "assets/image/avatar.jpg",
-                                                          ),
-                                                        ),
+                                                      : empinfo.ImageURL == ""
+                                                          ? Image.asset(
+                                                              "assets/image/avatar.jpg")
+                                                          : ClipOval(
+                                                              child: FadeInImage
+                                                                  .assetNetwork(
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                width: 50,
+                                                                height: 50,
+                                                                image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                    empinfo.ImageURL
+                                                                            .toString()
+                                                                        .split(
+                                                                            "\$")[1],
+                                                                placeholder:
+                                                                    "assets/image/avatar.jpg",
+                                                              ),
+                                                            ),
                                                 ),
                                                 Text(
                                                   ("مرحبا / ") +
@@ -431,44 +435,47 @@ class _TabBarDemoState extends State<TabBarDemo>
                                         child: empinfo.ImageURL == null
                                             ? Image.asset(
                                                 "assets/image/avatar.jpg")
-                                            : GestureDetector(
-                                                child: Hero(
-                                                  tag: "profile",
-                                                  child: ClipOval(
-                                                    child: CachedNetworkImage(
-                                                      height: 100,
-                                                      width: 100,
-                                                      fit: BoxFit.cover,
-                                                      imageUrl:
-                                                          "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                            : empinfo.ImageURL == ""
+                                                ? Image.asset(
+                                                    "assets/image/avatar.jpg")
+                                                : GestureDetector(
+                                                    child: Hero(
+                                                      tag: "profile",
+                                                      child: ClipOval(
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          height: 100,
+                                                          width: 100,
+                                                          fit: BoxFit.cover,
+                                                          imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                               empinfo.ImageURL
                                                                       .toString()
                                                                   .split(
                                                                       "\$")[1],
+                                                        ),
+                                                        // FadeInImage
+                                                        //     .assetNetwork(
+                                                        //   fit: BoxFit.cover,
+                                                        //   width: 100,
+                                                        //   height: 100,
+                                                        //   image:
+                                                        //       "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                        //           empinfo.ImageURL
+                                                        //                   .toString()
+                                                        //               .split(
+                                                        //                   "\$")[1],
+                                                        //   placeholder:
+                                                        //       "assets/image/avatar.jpg",
+                                                        // ),
+                                                      ),
                                                     ),
-                                                    // FadeInImage
-                                                    //     .assetNetwork(
-                                                    //   fit: BoxFit.cover,
-                                                    //   width: 100,
-                                                    //   height: 100,
-                                                    //   image:
-                                                    //       "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                    //           empinfo.ImageURL
-                                                    //                   .toString()
-                                                    //               .split(
-                                                    //                   "\$")[1],
-                                                    //   placeholder:
-                                                    //       "assets/image/avatar.jpg",
-                                                    // ),
-                                                  ),
-                                                ),
-                                                onTap: () {
-                                                  Navigator.push(context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) {
-                                                    return ProfileImage();
-                                                  }));
-                                                }),
+                                                    onTap: () {
+                                                      Navigator.push(context,
+                                                          MaterialPageRoute(
+                                                              builder: (_) {
+                                                        return ProfileImage();
+                                                      }));
+                                                    }),
                                       ),
                                       Text(
                                         empinfo.EmployeeName ?? "",
@@ -524,8 +531,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                         descTx2(Colors.white),
                                                   ),
                                                   Text(
-                                                    empinfo.empTypeName
-                                                        .toString(),
+                                                    empinfo.JobName.toString(),
                                                     textAlign: TextAlign.right,
                                                     style:
                                                         descTx2(Colors.white),
@@ -611,7 +617,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                       child: AnimatedSwitcher(
                         duration: Duration(seconds: 50),
                         child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
+                          duration: const Duration(milliseconds: 200),
                           child: _bottomNavIndex == 4
                               ? Icon(
                                   Icons.card_membership,
