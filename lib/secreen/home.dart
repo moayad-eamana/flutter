@@ -530,7 +530,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                         descTx2(Colors.white),
                                                   ),
                                                   Text(
-                                                    empinfo.empTypeName
+                                                    empinfo.MainDepartmentName
                                                         .toString(),
                                                     textAlign: TextAlign.right,
                                                     style:

@@ -58,8 +58,7 @@ class LoginProvider extends ChangeNotifier {
         }),
         headers: {"Content-Type": "application/json"});
 
-    if (jsonDecode(respose.body)["IsValid"] == true ||
-        jsonDecode(respose.body)["IsValid"] == false) {
+    if (jsonDecode(respose.body)["IsValid"] == true) {
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
 
       _pref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
