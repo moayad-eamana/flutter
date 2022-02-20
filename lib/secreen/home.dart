@@ -279,28 +279,25 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                       Color(0xff274690),
                                                   radius: responsiveMT(26, 28),
                                                   child: empinfo.ImageURL ==
-                                                          null
+                                                              null ||
+                                                          empinfo.ImageURL == ""
                                                       ? Image.asset(
                                                           "assets/image/avatar.jpg")
-                                                      : empinfo.ImageURL == ""
-                                                          ? Image.asset(
-                                                              "assets/image/avatar.jpg")
-                                                          : ClipOval(
-                                                              child: FadeInImage
-                                                                  .assetNetwork(
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                                width: 50,
-                                                                height: 50,
-                                                                image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                    empinfo.ImageURL
-                                                                            .toString()
-                                                                        .split(
-                                                                            "\$")[1],
-                                                                placeholder:
-                                                                    "assets/image/avatar.jpg",
-                                                              ),
-                                                            ),
+                                                      : ClipOval(
+                                                          child: FadeInImage
+                                                              .assetNetwork(
+                                                            fit: BoxFit.cover,
+                                                            width: 50,
+                                                            height: 50,
+                                                            image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                empinfo.ImageURL
+                                                                        .toString()
+                                                                    .split(
+                                                                        "\$")[1],
+                                                            placeholder:
+                                                                "assets/image/avatar.jpg",
+                                                          ),
+                                                        ),
                                                 ),
                                                 Text(
                                                   ("مرحبا / ") +
@@ -432,57 +429,59 @@ class _TabBarDemoState extends State<TabBarDemo>
                                       CircleAvatar(
                                         radius: responsiveMT(52, 92),
                                         backgroundColor: Color(0xff274690),
-                                        child: empinfo.ImageURL == null
+                                        child: empinfo.ImageURL == null ||
+                                                empinfo.ImageURL == ""
                                             ? Image.asset(
                                                 "assets/image/avatar.jpg")
-                                            : empinfo.ImageURL == ""
-                                                ? Image.asset(
-                                                    "assets/image/avatar.jpg")
-                                                : GestureDetector(
-                                                    child: Hero(
-                                                      tag: "profile",
-                                                      child: ClipOval(
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          height: 100,
-                                                          width: 100,
-                                                          fit: BoxFit.cover,
-                                                          imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                            : GestureDetector(
+                                                child: Hero(
+                                                  tag: "profile",
+                                                  child: ClipOval(
+                                                    child: CachedNetworkImage(
+                                                      height: 100,
+                                                      width: 100,
+                                                      fit: BoxFit.cover,
+                                                      imageUrl:
+                                                          "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                               empinfo.ImageURL
                                                                       .toString()
                                                                   .split(
                                                                       "\$")[1],
-                                                        ),
-                                                        // FadeInImage
-                                                        //     .assetNetwork(
-                                                        //   fit: BoxFit.cover,
-                                                        //   width: 100,
-                                                        //   height: 100,
-                                                        //   image:
-                                                        //       "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                        //           empinfo.ImageURL
-                                                        //                   .toString()
-                                                        //               .split(
-                                                        //                   "\$")[1],
-                                                        //   placeholder:
-                                                        //       "assets/image/avatar.jpg",
-                                                        // ),
-                                                      ),
                                                     ),
-                                                    onTap: () {
-                                                      Navigator.push(context,
-                                                          MaterialPageRoute(
-                                                              builder: (_) {
-                                                        return ProfileImage();
-                                                      }));
-                                                    }),
+                                                    // FadeInImage
+                                                    //     .assetNetwork(
+                                                    //   fit: BoxFit.cover,
+                                                    //   width: 100,
+                                                    //   height: 100,
+                                                    //   image:
+                                                    //       "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                    //           empinfo.ImageURL
+                                                    //                   .toString()
+                                                    //               .split(
+                                                    //                   "\$")[1],
+                                                    //   placeholder:
+                                                    //       "assets/image/avatar.jpg",
+                                                    // ),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  Navigator.push(context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) {
+                                                    return ProfileImage();
+                                                  }));
+                                                }),
                                       ),
                                       Text(
                                         empinfo.EmployeeName ?? "",
                                         style: titleTx(baseColor),
                                         textAlign: TextAlign.center,
                                       ),
-                                      Text(empinfo.Title.toString(),
+                                      Text(
+                                          empinfo.Title == null ||
+                                                  empinfo.Title == ""
+                                              ? empinfo.JobName.toString()
+                                              : empinfo.Title.toString(),
                                           style: descTx2(baseColor)),
                                       Container(
                                         margin: EdgeInsets.all(12),
