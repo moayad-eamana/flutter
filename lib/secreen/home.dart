@@ -482,8 +482,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                         style: titleTx(baseColor),
                                         textAlign: TextAlign.center,
                                       ),
-                                      Text(
-                                          empinfo.MainDepartmentName.toString(),
+                                      Text(empinfo.Title.toString(),
                                           style: descTx2(baseColor)),
                                       Container(
                                         margin: EdgeInsets.all(12),
@@ -531,7 +530,8 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                         descTx2(Colors.white),
                                                   ),
                                                   Text(
-                                                    empinfo.JobName.toString(),
+                                                    empinfo.empTypeName
+                                                        .toString(),
                                                     textAlign: TextAlign.right,
                                                     style:
                                                         descTx2(Colors.white),
