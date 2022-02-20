@@ -63,7 +63,11 @@ class _InboxHedersViewState extends State<InboxHedersView> {
             ),
             AnimationLimiter(
               child: _provider.length == 0
-                  ? Container()
+                  ? Container(
+                      child: Center(
+                        child: Text("لايوجد إعتمادات"),
+                      ),
+                    )
                   : AnimationLimiter(
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),

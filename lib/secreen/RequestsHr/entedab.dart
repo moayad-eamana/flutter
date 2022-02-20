@@ -1,11 +1,11 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
-import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Entedab extends StatefulWidget {
   const Entedab({Key? key}) : super(key: key);
@@ -109,7 +109,7 @@ class _EntedabState extends State<Entedab> {
                                 dropdownSearchDecoration: InputDecoration(
                                   hintText: "نوع الانتداب",
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: responsiveMT(10, 20),
+                                      vertical: responsiveMT(5, 20),
                                       horizontal: responsiveMT(10, 20)),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4.0),
@@ -131,8 +131,9 @@ class _EntedabState extends State<Entedab> {
                                   }
                                 },
                               ),
-                              drop1.drop(["اليابان", "استراليا", "أمريكا"],
-                                  "جهة الانتداب"),
+                              drop1.drop([
+                                {"tt": "eee"}
+                              ], "جهة الانتداب", context),
                               TextFormField(
                                 keyboardType: TextInputType.text,
                                 maxLines: 3,
@@ -145,29 +146,22 @@ class _EntedabState extends State<Entedab> {
                         height: 20,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Validate returns true if the form is valid, or false otherwise.
-                                if (_formKey.currentState!.validate()) {
-                                  Alerts.confirmAlrt(context, "",
-                                          "هل انت متأكد من طلب الانتداب", "نعم")
-                                      .show()
-                                      .then((value) async {
-                                    if (value == true) {
-                                      //call api
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content: Text('Processing Data')),
-                                      );
-                                    }
-                                  });
-                                }
-                              },
-                              child: const Text('إرسال'),
-                            ),
+                          widgetsUni.actionbutton(
+                            'تنفيذ',
+                            Icons.send,
+                            () {
+                              // Validate returns true if the form is valid, or false otherwise.
+                              if (_formKey.currentState!.validate()) {
+                                // If the form is valid, display a snackbar. In the real world,
+                                // you'd often call a server or save the information in a database.
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Processing Data')),
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
