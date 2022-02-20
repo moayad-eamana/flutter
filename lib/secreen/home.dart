@@ -480,7 +480,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                       Text(
                                           empinfo.Title == null ||
                                                   empinfo.Title == "" ||
-                                                  empinfo.Title == "_"
+                                                  empinfo.Title == "-"
                                               ? empinfo.JobName.toString()
                                               : empinfo.Title.toString(),
                                           style: descTx2(baseColor)),
