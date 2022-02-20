@@ -16,11 +16,13 @@ class EatemadatProvider extends ChangeNotifier {
     String empNo = await EmployeeProfile.getEmployeeNumber();
     var respose = await getAction("Inbox/GetInboxHeader/" + empNo);
     print(respose);
-    if (jsonDecode(respose.body)["HeaderList"] != null) {
-      _inboxHeader = (jsonDecode(respose.body)["HeaderList"] as List)
-          .map(((e) => InboxHeader.fromJson(e)))
-          .toList();
-    }
+    try {
+      if (jsonDecode(respose.body)["HeaderList"] != null) {
+        _inboxHeader = (jsonDecode(respose.body)["HeaderList"] as List)
+            .map(((e) => InboxHeader.fromJson(e)))
+            .toList();
+      }
+    } catch (Ex) {}
 
     isLoding = false;
 

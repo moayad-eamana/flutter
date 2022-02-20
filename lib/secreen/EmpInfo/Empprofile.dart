@@ -90,16 +90,21 @@ class _EmpProfileState extends State<EmpProfile> {
                                     child: SizedBox(
                                       height: imageHgit,
                                       width: imageHgit,
-                                      child: FadeInImage.assetNetwork(
-                                        fit: BoxFit.cover,
-                                        image:
-                                            "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                _provider[0]
-                                                    .ImageURL
-                                                    .split("\$")[1],
-                                        placeholder:
-                                            "assets/SVGs/dumyprofile.png",
-                                      ),
+                                      child: _provider[0].ImageURL == ""
+                                          ? Image.asset(
+                                              "assets/SVGs/profileBackground.png",
+                                              fit: BoxFit.fill,
+                                            )
+                                          : FadeInImage.assetNetwork(
+                                              fit: BoxFit.cover,
+                                              image:
+                                                  "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                      _provider[0]
+                                                          .ImageURL
+                                                          .split("\$")[1],
+                                              placeholder:
+                                                  "assets/SVGs/dumyprofile.png",
+                                            ),
                                     ),
                                   ),
                                 ),
