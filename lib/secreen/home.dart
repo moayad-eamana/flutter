@@ -180,16 +180,8 @@ class _TabBarDemoState extends State<TabBarDemo>
             overflow: Overflow.visible,
             clipBehavior: Clip.hardEdge,
             children: [
-              Column(children: [
-                _bottomNavIndex == 4
-                    ? SizedBox(
-                        height: 90,
-                      )
-                    : Container(),
-                Expanded(
-                  child: screen[_bottomNavIndex],
-                ),
-              ]),
+              screen[_bottomNavIndex],
+              //show panel only in home screens
               _bottomNavIndex == 4
                   ? SlidingUpPanel(
                       //renderPanelSheet: false,
@@ -616,17 +608,25 @@ class _TabBarDemoState extends State<TabBarDemo>
                   ? FloatingActionButton(
                       elevation: 8,
                       backgroundColor: Colors.white,
-                      child: _bottomNavIndex == 4
-                          ? Icon(
-                              Icons.card_membership,
-                              color: baseColor,
-                              size: 24,
-                            )
-                          : Icon(
-                              Icons.home,
-                              color: baseColor,
-                              size: 24,
-                            ),
+                      child: AnimatedSwitcher(
+                        duration: Duration(seconds: 50),
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: _bottomNavIndex == 4
+                              ? Icon(
+                                  Icons.card_membership,
+                                  key: ValueKey<int>(0),
+                                  color: baseColor,
+                                  size: 24,
+                                )
+                              : Icon(
+                                  Icons.home,
+                                  key: ValueKey<int>(1),
+                                  color: baseColor,
+                                  size: 24,
+                                ),
+                        ),
+                      ),
                       onPressed: () {
                         openpanel();
                       },

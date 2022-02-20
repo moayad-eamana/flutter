@@ -42,6 +42,9 @@ class _MainHomeState extends State<MainHome> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
+                SizedBox(
+                  height: 90,
+                ),
                 TextField(
                   showCursor: true,
                   readOnly: true,
