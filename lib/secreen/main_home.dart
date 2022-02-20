@@ -22,14 +22,11 @@ class _MainHomeState extends State<MainHome> {
 
   List<dynamic> imageBanner = [
     "assets/image/banner.png",
-    "assets/image/banner.png"
+    "assets/image/banner2.jpeg"
   ];
 
   List<int> selectsilderBanner = [0, 1];
-  List<String> selectsilderTitle = [
-    "اليوم الوطني السعودي 90",
-    "اليوم الوطني السعودي 90 - 2"
-  ];
+  List<String> selectsilderTitle = ["اليوم الوطني السعودي 90", "يوم التأسيس"];
 
   @override
   Widget build(BuildContext context) {
