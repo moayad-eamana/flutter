@@ -1,7 +1,7 @@
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -11,10 +11,23 @@ class Settings extends StatefulWidget {
 }
 
 bool fingerprint = false;
-bool blindness = false;
 bool darkmode = false;
+bool blindness = false;
 
 class _SettingsState extends State<Settings> {
+  void getSettings() async {
+    final blindnessSP = await SharedPreferences.getInstance();
+    blindness = blindnessSP.getBool('blindness')!;
+    print("bbbb = " + blindness.toString());
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSettings();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -99,10 +112,18 @@ class _SettingsState extends State<Settings> {
                                 Spacer(),
                                 Switch(
                                   value: blindness,
-                                  onChanged: (bool newValue) {
+                                  onChanged: (bool newValue) async {
+                                    final blindnessSP =
+                                        await SharedPreferences.getInstance();
+
+                                    blindnessSP.setBool("blindness", newValue);
+
                                     setState(() {
-                                      blindness = newValue;
+                                      blindness =
+                                          blindnessSP.getBool('blindness')!;
                                     });
+                                    print(
+                                        "blindness = " + blindness.toString());
                                   },
                                 ),
                               ],

@@ -54,6 +54,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.6.1
   carousel_slider: ^4.0.0
   toggle_switch: ^1.4.0
+  local_auth: ^1.1.11
   
 
 
