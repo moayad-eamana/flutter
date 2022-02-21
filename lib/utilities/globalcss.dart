@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-bool blindness = false;
+bool blindness = true;
 
 Color blindnesscolor(Color1, Color2) {
   return blindness == true ? Color1 : Color2;
