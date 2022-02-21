@@ -8,6 +8,7 @@ import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
+import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
@@ -160,6 +161,7 @@ class _MyAppState extends State<MyApp> {
           '/entedab': (context) => Entedab(),
           '/OutdutyRequest': (context) => OutdutyRequest(),
           '/Settings': (context) => Settings(),
+          '/AuthenticateBio': (context) => AuthenticateBio(),
         },
       );
     });

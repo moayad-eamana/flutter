@@ -13,7 +13,7 @@ class AuthenticateBio extends StatefulWidget {
 class _AuthenticateBioState extends State<AuthenticateBio> {
   final LocalAuthentication auth = LocalAuthentication();
   _SupportState _supportState = _SupportState.unknown;
-  bool? _canCheckBiometrics;
+  //bool? _canCheckBiometrics;
   // List<BiometricType>? _availableBiometrics;
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
@@ -61,7 +61,15 @@ class _AuthenticateBioState extends State<AuthenticateBio> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("TTTTTTTTT"),
+      child: Column(
+        children: [
+          Text("TTTTTTTTT"),
+          ElevatedButton(
+            onPressed: _authenticate,
+            child: Text("ath"),
+          )
+        ],
+      ),
     );
   }
 }
