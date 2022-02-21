@@ -12,7 +12,6 @@ class DropdownSearchW {
 
     return DropdownSearch<dynamic>(
       items: item,
-
       popupItemBuilder: (context, rr, isSelected) => (Container(
         margin: EdgeInsets.only(top: 10),
         child: Column(
@@ -22,13 +21,16 @@ class DropdownSearchW {
         ),
       )),
       dropdownBuilder: (context, selectedItem) => Container(
-        child: Text(
-          selectedItem == null ? "" : selectedItem["tt"] ?? "",
-          style: subtitleTx(baseColorText),
-        ),
+        decoration: null,
+        child: selectedItem == null
+            ? null
+            : Text(
+                selectedItem == null ? "" : selectedItem["tt"] ?? "",
+                style: subtitleTx(baseColorText),
+              ),
       ),
+      dropdownBuilderSupportsNullItem: true,
       mode: Mode.BOTTOM_SHEET,
-      //  showSelectedItems: true,
       showClearButton: true,
       maxHeight: 400,
       showAsSuffixIcons: true,
@@ -53,6 +55,7 @@ class DropdownSearchW {
       onChanged: (v) {
         print('object');
         print(v);
+        // value = v;
         //value = v ?? "";
       },
       popupTitle: Container(
