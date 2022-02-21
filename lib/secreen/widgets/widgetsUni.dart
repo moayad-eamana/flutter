@@ -35,27 +35,28 @@ class widgetsUni {
 
   static Widget servicebutton(String text, icon, VoidCallback onClicked) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
       height: responsiveMT(60, 120),
       width: responsiveMT(140, 280),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: ElevatedButton(
-          style: cardServiece,
-          onPressed: () {
-            onClicked();
-          },
-          child: Row(
-            children: [
-              Icon(icon, color: baseColor, size: 40),
-              Expanded(
-                child: Text(
-                  text,
-                  style: descTx1(baseColorText),
-                  maxLines: 2,
-                ),
-              )
-            ],
-          ),
+      child: ElevatedButton(
+        style: cardServiece,
+        onPressed: () {
+          onClicked();
+        },
+        child: Row(
+          children: [
+            Icon(icon, color: baseColor, size: 40),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Text(
+                text,
+                style: descTx1(baseColorText),
+                maxLines: 2,
+              ),
+            )
+          ],
         ),
       ),
     );

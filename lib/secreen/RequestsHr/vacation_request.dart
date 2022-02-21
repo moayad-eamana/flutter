@@ -112,7 +112,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                     borderSide: BorderSide(color: bordercolor),
                                   ),
                                 ),
-                                mode: Mode.MENU,
+                                mode: Mode.BOTTOM_SHEET,
                                 showSelectedItems: true,
                                 items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
                                 popupItemDisabled: (String s) =>

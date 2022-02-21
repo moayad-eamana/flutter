@@ -43,7 +43,7 @@ class _MainHomeState extends State<MainHome> {
                   height: 90,
                 ),
                 TextField(
-                  showCursor: true,
+                  showCursor: false,
                   readOnly: true,
                   controller: _search,
                   keyboardType: TextInputType.text,
@@ -56,8 +56,18 @@ class _MainHomeState extends State<MainHome> {
                           size: 35,
                         ),
                         onPressed: () async {}),
-                    border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: bordercolor)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4.0),
+                      borderSide: BorderSide(color: bordercolor),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: bordercolor),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: bordercolor),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                     filled: true,
                     fillColor: Colors.white,
                     labelText: "بحث الخدمات",
