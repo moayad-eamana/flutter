@@ -69,7 +69,7 @@ class _StatisticsState extends State<Statistics> {
             ),
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                   color: baseColor, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(

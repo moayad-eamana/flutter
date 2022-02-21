@@ -50,7 +50,7 @@ class _MainHomeState extends State<MainHome> {
                   maxLines: 1,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.search,
                           color: baseColor,
                           size: 35,

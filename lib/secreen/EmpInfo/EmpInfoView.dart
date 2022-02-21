@@ -12,7 +12,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmpInfoView extends StatefulWidget {
-  const EmpInfoView({Key? key}) : super(key: key);
+  EmpInfoView({Key? key}) : super(key: key);
 
   @override
   _EmpInfoViewState createState() => _EmpInfoViewState();
@@ -58,14 +58,14 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                         EasyLoading.dismiss();
                       },
                       decoration: InputDecoration(
-                          border: const OutlineInputBorder(
+                          border: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black)),
                           filled: true,
                           fillColor: Colors.white,
                           labelText: "بحث عن موظف",
                           alignLabelWithHint: true,
                           suffixIcon: IconButton(
-                            icon: const Icon(Icons.search),
+                            icon: Icon(Icons.search),
                             onPressed: () async {
                               FocusScope.of(context).unfocus();
                               EasyLoading.show(
@@ -85,7 +85,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                   desc: "لايوجد موظفين",
                                   buttons: [
                                     DialogButton(
-                                      child: const Text(
+                                      child: Text(
                                         "حسنا",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 20),
@@ -125,8 +125,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                   itemBuilder: (BuildContext context, index) {
                                     return AnimationConfiguration.staggeredList(
                                       position: index,
-                                      duration:
-                                          const Duration(milliseconds: 375),
+                                      duration: Duration(milliseconds: 375),
                                       child: ScaleAnimation(
                                         curve: Curves.linear,
                                         child: Container(
@@ -142,7 +141,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                     child: Text(
                                                       _provider[index]
                                                           .EmployeeName,
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: baseColor,
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -154,10 +153,10 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                         _provider[index].Title),
                                                   ),
                                                   Container(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 20),
-                                                    child: const Divider(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 20),
+                                                    child: Divider(
                                                       color: Colors.blue,
                                                       thickness: 0.5,
                                                     ),
@@ -168,8 +167,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                       Container(
                                                         width: 100,
                                                         height: 100,
-                                                        margin: const EdgeInsets
-                                                            .only(right: 10),
+                                                        margin: EdgeInsets.only(
+                                                            right: 10),
                                                         child: _provider[index]
                                                                     .ImageURL ==
                                                                 ""
@@ -194,8 +193,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                               ),
                                                       ),
                                                       Container(
-                                                        margin: const EdgeInsets
-                                                            .only(right: 20),
+                                                        margin: EdgeInsets.only(
+                                                            right: 20),
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -236,8 +235,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                               .split(".")[0])
                                                                           .then((value) => print('copied'));
                                                                     },
-                                                                    icon:
-                                                                        const Icon(
+                                                                    icon: Icon(
                                                                       Icons
                                                                           .copy,
                                                                       size: 20,
@@ -251,22 +249,20 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                       )
                                                     ],
                                                   ),
-                                                  const Divider(
+                                                  Divider(
                                                       indent: 20,
                                                       endIndent: 20,
                                                       thickness: 0.5),
                                                   Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
+                                                    margin: EdgeInsets.only(
+                                                        left: 20),
                                                     child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment.end,
                                                       children: [
                                                         ElevatedButton.icon(
-                                                          label: const Text(
-                                                              'واتساب'),
-                                                          icon: const FaIcon(
+                                                          label: Text('واتساب'),
+                                                          icon: FaIcon(
                                                             FontAwesomeIcons
                                                                 .whatsapp,
                                                             color: baseColor,
@@ -288,13 +284,12 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                   }
                                                                 },
                                                         ),
-                                                        const SizedBox(
+                                                        SizedBox(
                                                           width: 10,
                                                         ),
                                                         ElevatedButton.icon(
-                                                          label: const Text(
-                                                              'إتصال'),
-                                                          icon: const Icon(
+                                                          label: Text('إتصال'),
+                                                          icon: Icon(
                                                             Icons.call,
                                                             color: baseColor,
                                                             size: 24.0,

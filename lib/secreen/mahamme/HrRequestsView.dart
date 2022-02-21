@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'HRdetailsView.dart';
 
 class HrRequestsView extends StatefulWidget {
-  const HrRequestsView({Key? key}) : super(key: key);
+  HrRequestsView({Key? key}) : super(key: key);
 
   @override
   _HrRequestsViewState createState() => _HrRequestsViewState();
@@ -55,7 +55,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
               fit: BoxFit.fill,
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
+              margin: EdgeInsets.symmetric(horizontal: 10),
               child: _provider.getHrRequests.length == 0
                   ? Container()
                   : AnimationLimiter(
@@ -69,7 +69,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                           itemBuilder: (BuildContext context, index) {
                             return AnimationConfiguration.staggeredList(
                               position: index,
-                              duration: const Duration(milliseconds: 375),
+                              duration: Duration(milliseconds: 375),
                               child: ScaleAnimation(
                                 curve: Curves.linear,
                                 child: GestureDetector(
@@ -95,14 +95,13 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                                       child: Column(
                                         children: [
                                           Container(
-                                            margin:
-                                                const EdgeInsets.only(top: 10),
+                                            margin: EdgeInsets.only(top: 10),
                                             child: Text(
                                               Provider.of<EatemadatProvider>(
                                                       context)
                                                   .getHrRequests[index]
                                                   .RequesterName,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
                                                   fontFamily: "Cairo",
@@ -110,7 +109,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                                             ),
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.only(
+                                            margin: EdgeInsets.only(
                                                 right: 10, top: 10),
                                             child: Row(
                                               mainAxisAlignment:
@@ -136,19 +135,19 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                                               ],
                                             ),
                                           ),
-                                          const Divider(
+                                          Divider(
                                             thickness: 1,
                                             endIndent: 5,
                                             indent: 5,
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.only(
+                                            margin: EdgeInsets.only(
                                                 right: 10, left: 10, top: 6),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
-                                              children: const [
+                                              children: [
                                                 Text(
                                                   "التفاصيل",
                                                   style: TextStyle(
@@ -177,7 +176,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
   }
 
   Widget dividerW() {
-    return const SizedBox(
+    return SizedBox(
       height: 50,
       child: VerticalDivider(
         thickness: 0.1,
@@ -193,10 +192,10 @@ class _HrRequestsViewState extends State<HrRequestsView> {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 14, fontFamily: "Cairo", fontWeight: FontWeight.bold),
         ),
-        Text(dec, style: const TextStyle(fontSize: 14, fontFamily: "Cairo"))
+        Text(dec, style: TextStyle(fontSize: 14, fontFamily: "Cairo"))
       ],
     );
   }

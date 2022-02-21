@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'LoansRequestsDetailesView.dart';
 
 class LoansRequestsView extends StatefulWidget {
-  const LoansRequestsView({Key? key}) : super(key: key);
+  LoansRequestsView({Key? key}) : super(key: key);
 
   @override
   _LoansRequestsViewState createState() => _LoansRequestsViewState();
@@ -70,7 +70,7 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
                           itemBuilder: (BuildContext context, index) {
                             return AnimationConfiguration.staggeredList(
                               position: index,
-                              duration: const Duration(milliseconds: 375),
+                              duration: Duration(milliseconds: 375),
                               child: ScaleAnimation(
                                 curve: Curves.linear,
                                 child: GestureDetector(
@@ -94,18 +94,18 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
                                       elevation: 1,
                                       child: Column(
                                         children: [
-                                          const SizedBox(
+                                          SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             _provider.LoansRequestList[index]
                                                 .EmployeeName,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 22,
                                                 color: baseColor),
                                           ),
-                                          const SizedBox(
+                                          SizedBox(
                                             height: 10,
                                           ),
                                           Row(
@@ -114,7 +114,7 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
                                             children: [
                                               Column(
                                                 children: [
-                                                  const Text("نوع الطلب",
+                                                  Text("نوع الطلب",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold)),
@@ -125,7 +125,7 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
                                               ),
                                               Column(
                                                 children: [
-                                                  const Text("الاجراء المتخذ",
+                                                  Text("الاجراء المتخذ",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold)),
@@ -136,25 +136,25 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
                                               )
                                             ],
                                           ),
-                                          const SizedBox(
+                                          SizedBox(
                                             height: 10,
                                           ),
-                                          const Divider(
+                                          Divider(
                                             indent: 10,
                                             endIndent: 10,
                                             thickness: 0.5,
                                           ),
-                                          const SizedBox(
+                                          SizedBox(
                                             height: 10,
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.symmetric(
+                                            margin: EdgeInsets.symmetric(
                                                 horizontal: 10),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
-                                              children: const [
+                                              children: [
                                                 Text("التفاصيل"),
                                                 Icon(
                                                   Icons.arrow_back_ios_new,
@@ -163,7 +163,7 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
                                               ],
                                             ),
                                           ),
-                                          const SizedBox(
+                                          SizedBox(
                                             height: 10,
                                           )
                                         ],

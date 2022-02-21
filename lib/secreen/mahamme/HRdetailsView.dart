@@ -60,7 +60,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
               fit: BoxFit.fill,
             ),
             Container(
-              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                         _provider
                                             .getHrRequests[widget.index ?? 0]
                                             .RequestType,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             fontWeight: FontWeight.bold),
                                       )
                                     ],
@@ -103,7 +103,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                               .Days
                                               .toString()
                                               .split(".")[0],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontWeight: FontWeight.bold))
                                     ],
                                   )
@@ -131,7 +131,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                               .getHrRequests[widget.index ?? 0]
                                               .StartDateG
                                               .split("T")[0],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontWeight: FontWeight.bold))
                                     ],
                                   ),
@@ -145,7 +145,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                               .getHrRequests[widget.index ?? 0]
                                               .EndDateG
                                               .split("T")[0],
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontWeight: FontWeight.bold))
                                     ],
                                   )
@@ -156,7 +156,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                         )
                       ],
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
                     Card(
@@ -169,7 +169,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                               Expanded(
                                 child: Container(
                                   height: 200,
-                                  margin: const EdgeInsets.symmetric(
+                                  margin: EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 50),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -191,7 +191,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                   ? null
                                                   : "الرجاء إختيار السبب",
                                               contentPadding:
-                                                  const EdgeInsets.fromLTRB(
+                                                  EdgeInsets.fromLTRB(
                                                       12, 12, 0, 0),
                                               border: OutlineInputBorder(),
                                             ),
@@ -208,13 +208,12 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                               height: 50,
                                               decoration: BoxDecoration(
                                                 color: Colors.blue[100],
-                                                borderRadius:
-                                                    const BorderRadius.only(
+                                                borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(20),
                                                   topRight: Radius.circular(20),
                                                 ),
                                               ),
-                                              child: const Center(
+                                              child: Center(
                                                 child: Text(
                                                   'سبب الرفض',
                                                   style: TextStyle(
@@ -225,8 +224,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                 ),
                                               ),
                                             ),
-                                            popupShape:
-                                                const RoundedRectangleBorder(
+                                            popupShape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(24),
                                                 topRight: Radius.circular(24),
@@ -236,7 +234,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                         ),
                                       ),
                                       Row(
-                                        children: const [
+                                        children: [
                                           Expanded(
                                             child: TextField(
                                               keyboardType: TextInputType.text,
@@ -261,12 +259,12 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                             ],
                           ),
                           Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.only(top: 8),
+                                  margin: EdgeInsets.only(top: 8),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.red, // background
@@ -316,7 +314,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                         }
                                       });
                                     },
-                                    child: const Text('رفض'),
+                                    child: Text('رفض'),
                                   ),
                                 )
                               ],
@@ -329,8 +327,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                       children: [
                         Expanded(
                           child: Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              margin: EdgeInsets.symmetric(horizontal: 10),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.green, // background

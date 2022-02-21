@@ -22,7 +22,7 @@ class AppBarW {
                       ),
                       Text(
                         title,
-                        style: const TextStyle(color: baseColor, fontSize: 18),
+                        style: TextStyle(color: baseColor, fontSize: 18),
                       ),
                     ],
                   ),

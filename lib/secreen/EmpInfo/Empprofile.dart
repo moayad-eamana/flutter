@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class EmpProfile extends StatefulWidget {
-  const EmpProfile({Key? key}) : super(key: key);
+  EmpProfile({Key? key}) : super(key: key);
 
   @override
   _EmpProfileState createState() => _EmpProfileState();
@@ -114,10 +114,10 @@ class _EmpProfileState extends State<EmpProfile> {
                           TextW_size(_provider[0].EmployeeName),
                           TextW(_provider[0].Title),
                           Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            margin: EdgeInsets.symmetric(horizontal: 10),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  side: const BorderSide(
+                                  side: BorderSide(
                                     width: 1,
                                     color: Color(0xFFDDDDDD),
                                   ),
@@ -149,7 +149,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                                   child: pw.Container(
                                             height: 250,
                                             width: 500,
-                                            decoration: const pw.BoxDecoration(
+                                            decoration: pw.BoxDecoration(
                                               color: PdfColors.white,
                                               borderRadius:
                                                   pw.BorderRadius.only(
@@ -174,9 +174,8 @@ class _EmpProfileState extends State<EmpProfile> {
                                                     ),
                                               ],
                                             ),
-                                            margin:
-                                                const pw.EdgeInsets.symmetric(
-                                                    horizontal: 10),
+                                            margin: pw.EdgeInsets.symmetric(
+                                                horizontal: 10),
                                             child: pw.Container(
                                               child: pw.Column(
                                                 mainAxisAlignment:
@@ -336,14 +335,13 @@ class _EmpProfileState extends State<EmpProfile> {
                               child: Container(
                                 height: 250,
                                 width: 500,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                margin: EdgeInsets.symmetric(horizontal: 10),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       _provider[0].EmployeeName,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: baseColor,
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
@@ -351,7 +349,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                     TextW(
                                       _provider[0].Title,
                                     ),
-                                    const SizedBox(
+                                    SizedBox(
                                       height: 10,
                                     ),
                                     Row(

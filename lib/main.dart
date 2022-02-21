@@ -14,6 +14,7 @@ import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/secreen/main_home.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
+import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/home.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +115,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: 'Cairo',
-          tabBarTheme: const TabBarTheme(
+          tabBarTheme: TabBarTheme(
               labelColor: Colors.black,
               labelStyle: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -144,9 +145,9 @@ class _MyAppState extends State<MyApp> {
                 create: (_) => LoginProvider(),
                 child: LoginView(),
               ),
-          '/home': (context) => const TabBarDemo(),
-          '/OTPView': (context) => const OTPView(),
-          '/HrRequestsView': (context) => const HrRequestsView(),
+          '/home': (context) => TabBarDemo(),
+          '/OTPView': (context) => OTPView(),
+          '/HrRequestsView': (context) => HrRequestsView(),
           '/HRdetailsView': (context) => HRdetailsView(),
           '/EditMeetingView': (context) => EditMeetingView(0),
           '/AddMeeting': (context) => AddMeeting(),
@@ -158,6 +159,7 @@ class _MyAppState extends State<MyApp> {
           '/VacationRequest': (context) => VacationRequest(),
           '/entedab': (context) => Entedab(),
           '/OutdutyRequest': (context) => OutdutyRequest(),
+          '/Settings': (context) => Settings(),
         },
       );
     });

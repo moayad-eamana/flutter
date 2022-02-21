@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-const Color baseColor = Color(0xff274690);
-const Color secondryColor = Color(0xff2E8D9A);
-const Color baseColorText = Color(0xff444444);
-const Color secondryColorText = Color(0xff707070);
-const Color bordercolor = Color(0xffDDDDDD);
-const Color lableTextcolor = Color(0xffACC5FF);
+bool blindness = false;
+
+Color blindnesscolor(Color1, Color2) {
+  return blindness == true ? Color1 : Color2;
+}
+
+Color baseColor = blindnesscolor(Color(0xff274690), Color(0xff004D85));
+Color secondryColor = blindnesscolor(Color(0xff2E8D9A), Color(0xff7D7D9E));
+Color baseColorText = blindnesscolor(Color(0xff444444), Color(0xff4C4446));
+Color secondryColorText = blindnesscolor(Color(0xff707070), Color(0xff7A6C71));
+Color bordercolor = blindnesscolor(Color(0xffDDDDDD), Color(0xffF1D5DE));
+Color lableTextcolor = blindnesscolor(Color(0xffACC5FF), Color(0xffB6C1FF));
 
 ButtonStyle mainbtn = ElevatedButton.styleFrom(
-  side: const BorderSide(
+  side: BorderSide(
     width: 1,
     color: bordercolor,
   ),
