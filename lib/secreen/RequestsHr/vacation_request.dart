@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,15 @@ class _VacationRequestState extends State<VacationRequest> {
   TextEditingController _daysNumber = TextEditingController();
   TextEditingController _note = TextEditingController();
   // TextEditingController _date = TextEditingController();
+
+  DropdownSearchW drop1 = new DropdownSearchW();
+
+  List<Map<dynamic, dynamic>> items = [
+    {"tt": "محمد", "id": "11"},
+    {"tt": "مؤيد", "id": "11"},
+    {"tt": "نور الدين", "id": "11"},
+    {"tt": "شريف", "id": "26"}
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +110,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                       locale: LocaleType.ar);
                                 },
                               ),
+                              drop1.drop(items, "الموظف البديل", context),
                               DropdownSearch<String>(
                                 validator: (v) =>
                                     v == null ? "required field" : null,
@@ -112,7 +123,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                     borderSide: BorderSide(color: bordercolor),
                                   ),
                                 ),
-                                mode: Mode.BOTTOM_SHEET,
+                                mode: Mode.MENU,
                                 showSelectedItems: true,
                                 items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
                                 popupItemDisabled: (String s) =>
