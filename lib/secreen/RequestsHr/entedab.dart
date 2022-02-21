@@ -132,7 +132,10 @@ class _EntedabState extends State<Entedab> {
                                 },
                               ),
                               drop1.drop([
-                                {"tt": "eee"}
+                                {"tt": "أمريكا", "id": "11"},
+                                {"tt": "اليابان", "id": "11"},
+                                {"tt": "استراليا", "id": "11"},
+                                {"tt": "افز", "id": "26"}
                               ], "جهة الانتداب", context),
                               TextFormField(
                                 keyboardType: TextInputType.text,

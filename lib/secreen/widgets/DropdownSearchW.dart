@@ -10,17 +10,14 @@ class DropdownSearchW {
     //dynamic values = "";
 
     return DropdownSearch<dynamic>(
-      items: [
-        {"tt": "أمريكا", "id": "11"},
-        {"tt": "اليابان", "id": "11"},
-        {"tt": "استراليا", "id": "11"},
-        {"tt": "افز", "id": "26"}
-      ],
+      items: item,
 
       popupItemBuilder: (context, rr, isSelected) => (Container(
         margin: EdgeInsets.only(top: 10),
         child: Column(
-          children: [Text(rr["tt"], style: subtitleTx(baseColorText))],
+          children: [
+            Text(rr["tt"].toString(), style: subtitleTx(baseColorText))
+          ],
         ),
       )),
       dropdownBuilder: (context, selectedItem) => Container(
@@ -54,7 +51,7 @@ class DropdownSearchW {
       showSearchBox: true,
       onChanged: (v) {
         print('object');
-        // print(v);
+        print(v);
         //value = v ?? "";
       },
       popupTitle: Container(
