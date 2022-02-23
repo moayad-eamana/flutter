@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class OutdutyRequest extends StatefulWidget {
@@ -19,9 +25,67 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
 
   TextEditingController _dateFrom = TextEditingController();
   TextEditingController _dateTo = TextEditingController();
-  TextEditingController _daysNumber = TextEditingController();
+  TextEditingController _HoursNumber = TextEditingController();
   TextEditingController _note = TextEditingController();
   // TextEditingController _date = TextEditingController();
+
+  EmployeeProfile empinfo = new EmployeeProfile();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) => getuserinfo());
+  }
+
+  getuserinfo() async {
+    EasyLoading.show(
+      status: 'جاري المعالجة...',
+      maskType: EasyLoadingMaskType.black,
+    );
+    empinfo = await empinfo.getEmployeeProfile();
+    setState(() {});
+    EasyLoading.dismiss();
+  }
+
+  Future<void> InsertOutDutyRequest() async {
+//rtyrtyer
+    Map data = {
+      "EmployeeNumber": empinfo.EmployeeNumber,
+      "OutDutyHours": _HoursNumber.text,
+      "StartDate": _dateFrom.text,
+      "EndDate": _dateTo.text,
+      "DepartmentID": empinfo.DepartmentID,
+      "Notes": _note.text,
+      "UserNumber": 7
+    };
+    print(data);
+    //encode Map to JSON
+
+    var body = json.encode(data);
+
+    Alerts.confirmAlrt(context, "تأكيد", "هل انت متأكد؟", "نعم")
+        .show()
+        .then((value) async {
+      if (value == true) {
+        EasyLoading.show(
+          status: 'جاري إرسال الطلب...',
+          maskType: EasyLoadingMaskType.black,
+        );
+
+        var respose = await postAction("HR/InsertOutDutyRequest/", body);
+        print(jsonDecode(respose.body));
+        if (jsonDecode(respose.body)["StatusCode"] != 400) {
+          Alerts.errorAlert(
+                  context, "خطأ", jsonDecode(respose.body)["ErrorMessage"])
+              .show();
+        } else {
+          Alerts.successAlert(context, "تم النجاح", "تم ارسال الطلب").show();
+        }
+
+        EasyLoading.dismiss();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +127,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                             crossAxisSpacing: 10,
                             children: [
                               TextFormField(
-                                controller: _daysNumber,
+                                controller: _HoursNumber,
                                 keyboardType: TextInputType.number,
                                 maxLines: 1,
                                 decoration: formlabel1("عدد الساعات"),
@@ -92,10 +156,12 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                       showTitleActions: true,
                                       minTime: DateTime(2021, 3, 5),
                                       onChanged: (date) {
-                                    _dateFrom.text = date.toString();
+                                    _dateFrom.text =
+                                        date.toString().split(" ")[0];
                                     print('change $date');
                                   }, onConfirm: (date) {
-                                    _dateFrom.text = date.toString();
+                                    _dateFrom.text =
+                                        date.toString().split(" ")[0];
                                     print('confirm $date');
                                   },
                                       currentTime: DateTime.now(),
@@ -120,10 +186,12 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                       showTitleActions: true,
                                       minTime: DateTime(2021, 3, 5),
                                       onChanged: (date) {
-                                    _dateTo.text = date.toString();
+                                    _dateTo.text =
+                                        date.toString().split(" ")[0];
                                     print('change $date');
                                   }, onConfirm: (date) {
-                                    _dateTo.text = date.toString();
+                                    _dateTo.text =
+                                        date.toString().split(" ")[0];
                                     print('confirm $date');
                                   },
                                       currentTime: DateTime.now(),
@@ -166,10 +234,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                   if (_formKey.currentState!.validate()) {
                                     // If the form is valid, display a snackbar. In the real world,
                                     // you'd often call a server or save the information in a database.
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text('Processing Data')),
-                                    );
+                                    InsertOutDutyRequest();
                                   }
                                 },
                               ),
