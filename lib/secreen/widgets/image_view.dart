@@ -45,8 +45,9 @@ class _ProfileImageState extends State<ProfileImage> {
                         "https://archive.eamana.gov.sa/TransactFileUpload" +
                             empinfo.ImageURL.toString().split("\$")[1],
                     imageBuilder: (context, imageProvider) => PhotoView(
-                          imageProvider: imageProvider,
-                        )),
+                      imageProvider: imageProvider,
+                    ),
+                  ),
             //  FadeInImage.assetNetwork(
             //     fit: BoxFit.cover,
             //     // width: 100,

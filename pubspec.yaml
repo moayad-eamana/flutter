@@ -109,7 +109,7 @@ flutter:
   - assets/SVGs/Union_1.svg
   - assets/SVGs/Asset_1.svg
   - assets/image/
-
+  - assets/SVGs/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
