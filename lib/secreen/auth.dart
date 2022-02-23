@@ -32,6 +32,7 @@ class _AuthenticateBioState extends State<AuthenticateBio> {
               ? _SupportState.supported
               : _SupportState.unsupported),
         );
+    _authenticate();
   }
 
   Future<void> _authenticate() async {
@@ -49,7 +50,7 @@ class _AuthenticateBioState extends State<AuthenticateBio> {
       setState(() {
         _isAuthenticating = false;
       });
-      if (_isAuthenticating == false) {
+      if (authenticated == true) {
         print("suc 1");
         Navigator.of(context)
             .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);

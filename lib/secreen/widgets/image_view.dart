@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ProfileImage extends StatefulWidget {
   const ProfileImage({Key? key}) : super(key: key);
@@ -32,13 +33,11 @@ class _ProfileImageState extends State<ProfileImage> {
             tag: "profile",
             child: empinfo.ImageURL == null
                 ? Container()
-                : CachedNetworkImage(
-                    // height: 100,
-                    // width: 100,
-                    fit: BoxFit.cover,
-                    imageUrl:
-                        "https://archive.eamana.gov.sa/TransactFileUpload" +
-                            empinfo.ImageURL.toString().split("\$")[1],
+                : PhotoView(
+                    imageProvider: CachedNetworkImageProvider(
+                      "https://archive.eamana.gov.sa/TransactFileUpload" +
+                          empinfo.ImageURL.toString().split("\$")[1],
+                    ),
                   ),
             //  FadeInImage.assetNetwork(
             //     fit: BoxFit.cover,

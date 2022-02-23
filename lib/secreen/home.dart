@@ -286,20 +286,33 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                       ? Image.asset(
                                                           "assets/image/avatar.jpg")
                                                       : ClipOval(
-                                                          child: FadeInImage
-                                                              .assetNetwork(
-                                                            fit: BoxFit.cover,
-                                                            width: 50,
+                                                          child:
+                                                              CachedNetworkImage(
                                                             height: 50,
-                                                            image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                            width: 50,
+                                                            fit: BoxFit.cover,
+                                                            imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                                 empinfo.ImageURL
                                                                         .toString()
                                                                     .split(
                                                                         "\$")[1],
-                                                            placeholder:
-                                                                "assets/image/avatar.jpg",
                                                           ),
                                                         ),
+                                                  // ClipOval(
+                                                  //     child: FadeInImage
+                                                  //         .assetNetwork(
+                                                  //       fit: BoxFit.cover,
+                                                  //       width: 50,
+                                                  //       height: 50,
+                                                  //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                  //           empinfo.ImageURL
+                                                  //                   .toString()
+                                                  //               .split(
+                                                  //                   "\$")[1],
+                                                  //       placeholder:
+                                                  //           "assets/image/avatar.jpg",
+                                                  //     ),
+                                                  //   ),
                                                 ),
                                                 Text(
                                                   ("مرحبا / ") +
