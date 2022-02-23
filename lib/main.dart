@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
 
           // deprecated,
         ),
-        initialRoute: widget.username == null ? "/" : '/home',
+        initialRoute: widget.username == null ? "/" : '/AuthenticateBio',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
