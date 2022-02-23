@@ -33,12 +33,20 @@ class _ProfileImageState extends State<ProfileImage> {
             tag: "profile",
             child: empinfo.ImageURL == null
                 ? Container()
-                : PhotoView(
-                    imageProvider: CachedNetworkImageProvider(
-                      "https://archive.eamana.gov.sa/TransactFileUpload" +
-                          empinfo.ImageURL.toString().split("\$")[1],
-                    ),
-                  ),
+                :
+                //  PhotoView(
+                //     imageProvider: CachedNetworkImageProvider(
+                //       "https://archive.eamana.gov.sa/TransactFileUpload" +
+                //           empinfo.ImageURL.toString().split("\$")[1],
+                //     ),
+                //   ),
+                CachedNetworkImage(
+                    imageUrl:
+                        "https://archive.eamana.gov.sa/TransactFileUpload" +
+                            empinfo.ImageURL.toString().split("\$")[1],
+                    imageBuilder: (context, imageProvider) => PhotoView(
+                          imageProvider: imageProvider,
+                        )),
             //  FadeInImage.assetNetwork(
             //     fit: BoxFit.cover,
             //     // width: 100,

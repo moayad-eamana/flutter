@@ -110,26 +110,107 @@ class _VacationRequestState extends State<VacationRequest> {
                                       locale: LocaleType.ar);
                                 },
                               ),
-                              drop1.drop(items, "الموظف البديل", context),
-                              DropdownSearch<String>(
-                                validator: (v) =>
-                                    v == null ? "required field" : null,
+                              DropdownSearch<dynamic>(
+                                items: items,
+                                popupItemBuilder: (context, rr, isSelected) =>
+                                    (Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Column(
+                                    children: [
+                                      Text(rr["tt"].toString(),
+                                          style: subtitleTx(baseColorText))
+                                    ],
+                                  ),
+                                )),
+                                dropdownBuilder: (context, selectedItem) =>
+                                    Container(
+                                  decoration: null,
+                                  child: selectedItem == null
+                                      ? null
+                                      : Text(
+                                          selectedItem == null
+                                              ? ""
+                                              : selectedItem["tt"] ?? "",
+                                          style: subtitleTx(baseColorText),
+                                        ),
+                                ),
+                                dropdownBuilderSupportsNullItem: true,
+                                mode: Mode.BOTTOM_SHEET,
+                                showClearButton: true,
+                                maxHeight: 400,
+                                showAsSuffixIcons: true,
                                 dropdownSearchDecoration: InputDecoration(
                                   hintText: "الموظف البديل",
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 2.0, horizontal: 20.0),
+                                  helperStyle: TextStyle(color: Colors.amber),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: responsiveMT(10, 30),
+                                      horizontal: responsiveMT(10, 20)),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4.0),
                                     borderSide: BorderSide(color: bordercolor),
                                   ),
                                 ),
-                                mode: Mode.MENU,
-                                showSelectedItems: true,
-                                items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
-                                popupItemDisabled: (String s) =>
-                                    s.startsWith('I'),
-                                onChanged: print,
+                                validator: (value) {
+                                  if (value == "" || value == null) {
+                                    return "hgfef";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                showSearchBox: true,
+                                onChanged: (v) {
+                                  print('object');
+                                  print(v);
+                                  // value = v;
+                                  //value = v ?? "";
+                                },
+                                popupTitle: Container(
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: secondryColor,
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "الموظف البديل",
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                popupShape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(24),
+                                    topRight: Radius.circular(24),
+                                  ),
+                                ),
                               ),
+                              // drop1.drop(items, "الموظف البديل", context),
+                              // DropdownSearch<String>(
+                              //   validator: (v) =>
+                              //       v == null ? "required field" : null,
+                              //   dropdownSearchDecoration: InputDecoration(
+                              //     hintText: "الموظف البديل",
+                              //     contentPadding: const EdgeInsets.symmetric(
+                              //         vertical: 2.0, horizontal: 20.0),
+                              //     border: OutlineInputBorder(
+                              //       borderRadius: BorderRadius.circular(4.0),
+                              //       borderSide: BorderSide(color: bordercolor),
+                              //     ),
+                              //   ),
+                              //   mode: Mode.MENU,
+                              //   showSelectedItems: true,
+                              //   items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
+                              //   popupItemDisabled: (String s) =>
+                              //       s.startsWith('I'),
+                              //   onChanged: print,
+                              // ),
                               DropdownSearch<String>(
                                 validator: (v) =>
                                     v == null ? "required field" : null,
