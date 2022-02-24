@@ -56,22 +56,25 @@ class _SettingsState extends State<Settings> {
 
   Future<void> _authenticate() async {
     bool authenticated = false;
+
     try {
       authenticated = await auth.authenticate(
           localizedReason: 'Let OS determine authentication method',
           useErrorDialogs: true,
           stickyAuth: true);
-
       setState(() {
         _authenticated = authenticated;
       });
     } on PlatformException catch (e) {
       setState(() {
-        _authenticated = authenticated;
+        _authenticated = false;
+        print("kiiiiiaaaaaaaaaaaaaaaaaaaaaaaa = " + _authenticated.toString());
       });
+      Alerts.warningAlert(context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره")
+          .show();
       print(e);
 
-      return;
+      //return;
     }
     if (!mounted) {
       return;
@@ -161,19 +164,20 @@ class _SettingsState extends State<Settings> {
                                                 "لا يمكن تفعيل البصمة, لعدم توفره")
                                             .show();
                                       }
+                                    } else {
+                                      final fingerprintSP =
+                                          await SharedPreferences.getInstance();
+
+                                      fingerprintSP.setBool(
+                                          "fingerprint", newValue);
+
+                                      setState(() {
+                                        fingerprint = fingerprintSP
+                                            .getBool('fingerprint')!;
+                                      });
+                                      print("fingerprint = " +
+                                          fingerprint.toString());
                                     }
-                                    final fingerprintSP =
-                                        await SharedPreferences.getInstance();
-
-                                    fingerprintSP.setBool(
-                                        "fingerprint", newValue);
-
-                                    setState(() {
-                                      fingerprint =
-                                          fingerprintSP.getBool('fingerprint')!;
-                                    });
-                                    print("fingerprint = " +
-                                        fingerprint.toString());
                                   },
                                 ),
                               ],

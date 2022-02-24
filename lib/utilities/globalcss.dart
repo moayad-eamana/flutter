@@ -33,6 +33,16 @@ Color lableTextcolor = blindness == false
     : //
     Color(0xffB6C1FF);
 
+Color redColor = blindness == false
+    ? Colors.red
+    : //
+    Color(0xffA17800);
+
+Color pinkColor = blindness == false
+    ? Colors.pink
+    : //
+    Color(0xff907356);
+
 Future<void> getColorSettings() async {
   final settingSP = await SharedPreferences.getInstance();
 
@@ -66,6 +76,17 @@ Future<void> getColorSettings() async {
       ? Color(0xffACC5FF)
       : //
       Color(0xffB6C1FF);
+
+  redColor = blindness == false
+      ? Colors.red
+      : //
+      Color(0xffA17800);
+
+  pinkColor = blindness == false
+      ? Colors.pink
+      : //
+      Color(0xff907356);
+
   cardServiece = ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(4),

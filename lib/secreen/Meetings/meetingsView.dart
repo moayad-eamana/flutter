@@ -273,7 +273,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                     label: Text('حذف'),
                                                     icon: Icon(
                                                       Icons.close,
-                                                      color: Colors.pink,
+                                                      color: pinkColor,
                                                       size: 24.0,
                                                     ),
                                                     style: mainbtn,
