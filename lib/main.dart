@@ -16,8 +16,8 @@ import 'package:eamanaapp/secreen/main_home.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/secreen/settings.dart';
-import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/home.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +44,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
-  getSettings();
+  setSettings();
+  //Settings.getSettings();
+  getColorSettings();
+  //getfingerprintSettings();
+
   double? username = sharedPref.getDouble("EmployeeNumber");
 //  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 //  await Firebase.initializeApp();
@@ -52,6 +56,22 @@ void main() async {
     MyApp(username),
   );
   configLoading();
+}
+
+void setSettings() async {
+  final settingSP = await SharedPreferences.getInstance();
+
+  if (settingSP.getBool('fingerprint') == null) {
+    settingSP.setBool("fingerprint", false);
+  }
+
+  if (settingSP.getBool('blindness') == null) {
+    settingSP.setBool("blindness", false);
+  }
+
+  if (settingSP.getBool('darkmode') == null) {
+    settingSP.setBool("darkmode", false);
+  }
 }
 
 void configLoading() {
@@ -89,6 +109,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getfingerprintSettings();
     /*
     getToken();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -107,6 +128,15 @@ class _MyAppState extends State<MyApp> {
     String? token = await messaging.getToken();
     print(token);
     */
+  }
+
+  bool fingerprint = false;
+
+  void getfingerprintSettings() async {
+    final settingSP = await SharedPreferences.getInstance();
+
+    fingerprint = settingSP.getBool("fingerprint")!;
+    setState(() {});
   }
 
   @override
@@ -137,7 +167,11 @@ class _MyAppState extends State<MyApp> {
 
           // deprecated,
         ),
-        initialRoute: widget.username == null ? "/" : '/home',
+        initialRoute: widget.username == null
+            ? "/"
+            : fingerprint == false
+                ? '/home'
+                : '/AuthenticateBio',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),

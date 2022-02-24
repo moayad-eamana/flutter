@@ -4,18 +4,10 @@ import 'package:sizer/sizer.dart';
 
 bool blindness = false;
 
-void getSettings() async {
-  final blindnessSP = await SharedPreferences.getInstance();
-  if (blindnessSP.getBool('blindness') == null) {
-    blindnessSP.setBool("blindness", false);
-  } else {
-    blindness = blindnessSP.getBool("blindness")!;
-  }
-}
+Future<void> getColorSettings() async {
+  final settingSP = await SharedPreferences.getInstance();
 
-Color blindnesscolor(Color1, Color2) {
-  getSettings();
-  return blindness == false ? Color1 : Color2;
+  blindness = settingSP.getBool("blindness")!;
 }
 
 Color baseColor = blindness == false
@@ -23,25 +15,30 @@ Color baseColor = blindness == false
     : //
     Color(0xff004D85);
 
-Color secondryColor = blindnesscolor(
-    Color(0xff2E8D9A), //
-    Color(0xff7D7D9E));
+Color secondryColor = blindness == false
+    ? Color(0xff2E8D9A)
+    : //
+    Color(0xff7D7D9E);
 
-Color baseColorText = blindnesscolor(
-    Color(0xff444444), //
-    Color(0xff4C4446));
+Color baseColorText = blindness == false
+    ? Color(0xff444444)
+    : //
+    Color(0xff4C4446);
 
-Color secondryColorText = blindnesscolor(
-    Color(0xff707070), //
-    Color(0xff7A6C71));
+Color secondryColorText = blindness == false
+    ? Color(0xff707070)
+    : //
+    Color(0xff7A6C71);
 
-Color bordercolor = blindnesscolor(
-    Color(0xffDDDDDD), //
-    Color(0xffF1D5DE));
+Color bordercolor = blindness == false
+    ? Color(0xffDDDDDD)
+    : //
+    Color(0xffF1D5DE);
 
-Color lableTextcolor = blindnesscolor(
-    Color(0xffACC5FF), //
-    Color(0xffB6C1FF));
+Color lableTextcolor = blindness == false
+    ? Color(0xffACC5FF)
+    : //
+    Color(0xffB6C1FF);
 
 ButtonStyle mainbtn = ElevatedButton.styleFrom(
   side: BorderSide(

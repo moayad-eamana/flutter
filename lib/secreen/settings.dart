@@ -15,10 +15,16 @@ bool darkmode = false;
 bool blindness = false;
 
 class _SettingsState extends State<Settings> {
+  //
   void getSettings() async {
-    final blindnessSP = await SharedPreferences.getInstance();
-    blindness = blindnessSP.getBool('blindness')!;
-    print("bbbb = " + blindness.toString());
+    final settingSP = await SharedPreferences.getInstance();
+
+    fingerprint = settingSP.getBool("fingerprint")!;
+
+    blindness = settingSP.getBool('blindness')!;
+
+    darkmode = settingSP.getBool("darkmode")!;
+
     setState(() {});
   }
 
@@ -74,10 +80,19 @@ class _SettingsState extends State<Settings> {
                                 Spacer(),
                                 Switch(
                                   value: fingerprint,
-                                  onChanged: (bool newValue) {
+                                  onChanged: (bool newValue) async {
+                                    final fingerprintSP =
+                                        await SharedPreferences.getInstance();
+
+                                    fingerprintSP.setBool(
+                                        "fingerprint", newValue);
+
                                     setState(() {
-                                      fingerprint = newValue;
+                                      fingerprint =
+                                          fingerprintSP.getBool('fingerprint')!;
                                     });
+                                    print("fingerprint = " +
+                                        fingerprint.toString());
                                   },
                                 ),
                               ],
@@ -124,6 +139,7 @@ class _SettingsState extends State<Settings> {
                                     });
                                     print(
                                         "blindness = " + blindness.toString());
+                                    await getColorSettings();
                                   },
                                 ),
                               ],
@@ -135,10 +151,17 @@ class _SettingsState extends State<Settings> {
                                 Spacer(),
                                 Switch(
                                   value: darkmode,
-                                  onChanged: (bool newValue) {
+                                  onChanged: (bool newValue) async {
+                                    final darkmodeSP =
+                                        await SharedPreferences.getInstance();
+
+                                    darkmodeSP.setBool("darkmode", newValue);
+
                                     setState(() {
-                                      darkmode = newValue;
+                                      darkmode =
+                                          darkmodeSP.getBool('darkmode')!;
                                     });
+                                    print("darkmode = " + darkmode.toString());
                                   },
                                 ),
                               ],
