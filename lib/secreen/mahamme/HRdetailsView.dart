@@ -267,7 +267,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                   margin: EdgeInsets.only(top: 8),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.red, // background
+                                      primary: redColor, // background
                                       onPrimary: Colors.white, // foreground
                                     ),
                                     onPressed: () {

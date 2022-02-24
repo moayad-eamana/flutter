@@ -394,7 +394,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                         ),
                                         actions: <Widget>[
                                           FlatButton(
-                                            color: Colors.red,
+                                            color: redColor,
                                             onPressed: () =>
                                                 Navigator.pop(context),
                                             child: const Text(
@@ -463,7 +463,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                           child: ElevatedButton(
                             child: const Text("رفض"),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.red, // background
+                              primary: redColor, // background
                               onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () {
@@ -529,7 +529,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                         ),
                                         actions: <Widget>[
                                           FlatButton(
-                                            color: Colors.red,
+                                            color: redColor,
                                             onPressed: () =>
                                                 Navigator.pop(context),
                                             child: const Text(
