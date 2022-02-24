@@ -51,12 +51,12 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
 //rtyrtyer
     Map data = {
       "EmployeeNumber": empinfo.EmployeeNumber,
-      "OutDutyHours": _HoursNumber.text,
+      "OutDutyHours": double.parse(_HoursNumber.text),
       "StartDate": _dateFrom.text,
       "EndDate": _dateTo.text,
       "DepartmentID": empinfo.DepartmentID,
       "Notes": _note.text,
-      "UserNumber": 7
+      "UserNumber": empinfo.EmployeeNumber,
     };
     print(data);
     //encode Map to JSON
@@ -120,6 +120,9 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                             "فضلاً أدخل بيانات طلب خارج الدوام",
                             style: titleTx(baseColor),
                           ),
+                        ),
+                        SizedBox(
+                          height: 20,
                         ),
                         StaggeredGrid.count(
                             crossAxisCount: responsiveGrid(1, 2),
@@ -203,10 +206,19 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                           height: 10,
                         ),
                         TextFormField(
+                          maxLength: 300,
                           controller: _note,
                           keyboardType: TextInputType.text,
                           maxLines: 3,
                           decoration: formlabel1("ملاحظات"),
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length <= 15) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
                         ),
                         SizedBox(
                           height: 10,

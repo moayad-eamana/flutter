@@ -58,7 +58,7 @@ class _VacationRequestState extends State<VacationRequest> {
     await getuserinfo();
     var respose = await getAction(
         "HR/GetMainDepartmentEmployees/" + empinfo.MainDepartmentID.toString());
-    print(empinfo.MainDepartmentID.toString());
+    // print(empinfo.MainDepartmentID.toString());
     //print("respose = " + respose.toString());
     try {
       if (jsonDecode(respose.body)["EmployeesList"] != null) {
@@ -67,7 +67,7 @@ class _VacationRequestState extends State<VacationRequest> {
                 .map(((e) => MainDepartmentEmployees.fromJson(e)))
                 .toList();
 
-        print(_MainDepartmentEmployees[0].EmployeeName);
+        ///print(_MainDepartmentEmployees[0].EmployeeName);
         setState(() {});
         EasyLoading.dismiss();
       }
@@ -79,8 +79,8 @@ class _VacationRequestState extends State<VacationRequest> {
     Map data = {
       "EmployeeNumber": empinfo.EmployeeNumber,
       "ReplaceEmployeeNumber": _ReplaceEmployeeNumber,
-      "VacationDays": _daysNumber.text,
-      "VacationTypeID": _VacationTypeID.toString().split(".")[0],
+      "VacationDays": int.parse(_daysNumber.text),
+      "VacationTypeID": int.parse(_VacationTypeID.toString().split(".")[0]),
       "StartDate": _date.text,
       //"2022-02-23T13:05:22.2919384+03:00",
       "Notes": _note.text.toString(),

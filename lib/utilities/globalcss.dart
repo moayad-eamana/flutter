@@ -7,7 +7,7 @@ bool blindness = false;
 void getSettings() async {
   final blindnessSP = await SharedPreferences.getInstance();
   if (blindnessSP.getBool('blindness') == null) {
-    blindness = blindnessSP.setBool("blindness", false) as bool;
+    blindnessSP.setBool("blindness", false);
   } else {
     blindness = blindnessSP.getBool("blindness")!;
   }
