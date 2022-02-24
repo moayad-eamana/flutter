@@ -242,7 +242,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                               decoration: InputDecoration(
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                        color: Colors.black)),
+                                                        color: bordercolor)),
                                                 filled: true,
                                                 fillColor: Colors.white,
                                                 labelText: "ملاحظات",

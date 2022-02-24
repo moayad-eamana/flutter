@@ -373,12 +373,11 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                   keyboardType:
                                                       TextInputType.text,
                                                   maxLines: 3,
-                                                  decoration:
-                                                      const InputDecoration(
+                                                  decoration: InputDecoration(
                                                     border: OutlineInputBorder(
                                                         borderSide: BorderSide(
                                                             color:
-                                                                Colors.black)),
+                                                                bordercolor)),
                                                     filled: true,
                                                     fillColor: Colors.white,
                                                     labelText: "ملاحظات",
@@ -485,12 +484,11 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                   keyboardType:
                                                       TextInputType.text,
                                                   maxLines: 1,
-                                                  decoration:
-                                                      const InputDecoration(
+                                                  decoration: InputDecoration(
                                                     border: OutlineInputBorder(
                                                         borderSide: BorderSide(
                                                             color:
-                                                                Colors.black)),
+                                                                bordercolor)),
                                                     filled: true,
                                                     fillColor: Colors.white,
                                                     labelText: "سبب الرفض",
@@ -508,12 +506,11 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                   keyboardType:
                                                       TextInputType.text,
                                                   maxLines: 3,
-                                                  decoration:
-                                                      const InputDecoration(
+                                                  decoration: InputDecoration(
                                                     border: OutlineInputBorder(
                                                         borderSide: BorderSide(
                                                             color:
-                                                                Colors.black)),
+                                                                bordercolor)),
                                                     filled: true,
                                                     fillColor: Colors.white,
                                                     labelText: "ملاحظات",
