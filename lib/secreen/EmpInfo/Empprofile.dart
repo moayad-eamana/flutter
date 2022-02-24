@@ -119,7 +119,7 @@ class _EmpProfileState extends State<EmpProfile> {
                               style: ElevatedButton.styleFrom(
                                   side: BorderSide(
                                     width: 1,
-                                    color: Color(0xFFDDDDDD),
+                                    color: bordercolor,
                                   ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),

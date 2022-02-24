@@ -59,7 +59,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black)),
+                              borderSide: BorderSide(color: bordercolor)),
                           filled: true,
                           fillColor: Colors.white,
                           labelText: "بحث عن موظف",
@@ -157,7 +157,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                         EdgeInsets.symmetric(
                                                             horizontal: 20),
                                                     child: Divider(
-                                                      color: Colors.blue,
+                                                      color: baseColor,
                                                       thickness: 0.5,
                                                     ),
                                                   ),

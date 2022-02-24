@@ -208,7 +208,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                       maxHeight: responsiveMT(380, 500),
                       minHeight: responsiveMT(90, 120),
                       slideDirection: SlideDirection.DOWN,
-                      border: Border.all(color: Color(0xff9F9F9F)),
+                      border: Border.all(color: bordercolor),
                       borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(4.0),
                           bottomRight: Radius.circular(4.0)),
@@ -219,7 +219,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                           Container(
                             decoration: BoxDecoration(
                                 color: Colors.white,
-                                border: Border.all(color: Color(0xFFDDDDDD)),
+                                border: Border.all(color: bordercolor),
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(4.0),
                                     bottomRight: Radius.circular(4.0))),
@@ -277,8 +277,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             child: Column(
                                               children: [
                                                 CircleAvatar(
-                                                  backgroundColor:
-                                                      Color(0xff274690),
+                                                  backgroundColor: baseColor,
                                                   radius: responsiveMT(26, 28),
                                                   child: empinfo.ImageURL ==
                                                               null ||
@@ -340,8 +339,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                 height: 40,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    border:
-                                        Border.all(color: Color(0xFFDDDDDD)),
+                                    border: Border.all(color: bordercolor),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50))),
                                 child: IconButton(
@@ -366,7 +364,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 border: Border.all(
-                                  color: Color(0xFFDDDDDD),
+                                  color: bordercolor,
                                 ),
                                 //  Border(
                                 //   bottom: BorderSide(
@@ -443,7 +441,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                     children: [
                                       CircleAvatar(
                                         radius: responsiveMT(52, 92),
-                                        backgroundColor: Color(0xff274690),
+                                        backgroundColor: baseColor,
                                         child: empinfo.ImageURL == null ||
                                                 empinfo.ImageURL == ""
                                             ? Image.asset(
@@ -609,8 +607,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                   height: 40,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border:
-                                          Border.all(color: Color(0xFFDDDDDD)),
+                                      border: Border.all(color: bordercolor),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(50))),
                                   child: IconButton(

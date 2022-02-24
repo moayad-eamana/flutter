@@ -162,7 +162,7 @@ class _MainHomeState extends State<MainHome> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
-                      color: Color(0xFFDDDDDD),
+                      color: bordercolor,
                     ),
                     //color: baseColor,
                     borderRadius: BorderRadius.all(

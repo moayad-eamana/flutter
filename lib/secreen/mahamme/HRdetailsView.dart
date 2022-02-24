@@ -207,7 +207,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                             popupTitle: Container(
                                               height: 50,
                                               decoration: BoxDecoration(
-                                                color: Colors.blue[100],
+                                                color: secondryColor,
                                                 borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(20),
                                                   topRight: Radius.circular(20),
@@ -330,7 +330,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.green, // background
+                                  primary: baseColor, // background
                                   onPrimary: Colors.white, // foreground
                                 ),
                                 onPressed: () {

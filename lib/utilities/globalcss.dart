@@ -77,7 +77,7 @@ ButtonStyle mainbtn = ElevatedButton.styleFrom(
     borderRadius: BorderRadius.circular(4.0),
   ),
   primary: Colors.white, // background
-  onPrimary: Colors.blue, // foreground
+  onPrimary: baseColor, // foreground
 );
 
 ButtonStyle cardServiece = ElevatedButton.styleFrom(
@@ -87,7 +87,7 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
 
   side: BorderSide(
     width: 0.5,
-    color: Colors.black38,
+    color: bordercolor,
   ),
   elevation: 0,
   primary: Colors.white,

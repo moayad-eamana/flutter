@@ -242,7 +242,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                           child: ElevatedButton(
                             child: const Text("قبول"),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.green, // background
+                              primary: baseColor, // background
                               onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () {
@@ -274,7 +274,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                         val = 1;
                                                       });
                                                     },
-                                                    activeColor: Colors.green,
+                                                    activeColor: baseColor,
                                                   ),
                                                 ),
                                                 ListTile(
@@ -290,7 +290,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                         val = 2;
                                                       });
                                                     },
-                                                    activeColor: Colors.green,
+                                                    activeColor: baseColor,
                                                   ),
                                                 ),
                                                 DropdownSearch<String>(
@@ -333,7 +333,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                   popupTitle: Container(
                                                     height: 50,
                                                     decoration: BoxDecoration(
-                                                      color: Colors.blue[100],
+                                                      color: secondryColor,
                                                       borderRadius:
                                                           const BorderRadius
                                                               .only(
@@ -404,7 +404,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                             ),
                                           ),
                                           FlatButton(
-                                            color: Colors.green,
+                                            color: baseColor,
                                             onPressed: () async {
                                               if (errorval != "" ||
                                                   loan == "") {
@@ -539,7 +539,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                             ),
                                           ),
                                           FlatButton(
-                                            color: Colors.green,
+                                            color: baseColor,
                                             child: const Text("تأكيد",
                                                 style: TextStyle(
                                                     color: Colors.white)),

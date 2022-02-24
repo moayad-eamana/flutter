@@ -30,7 +30,7 @@ class DropdownSearchW {
       // showSelectedItems: true,
       dropdownSearchDecoration: InputDecoration(
         hintText: LableName,
-        helperStyle: TextStyle(color: Colors.amber),
+        helperStyle: TextStyle(color: baseColor),
         contentPadding: EdgeInsets.symmetric(
             vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
         border: OutlineInputBorder(

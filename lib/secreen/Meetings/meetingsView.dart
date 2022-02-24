@@ -23,13 +23,13 @@ class _MeetingViewState extends State<MeetingView> {
   final s = ElevatedButton.styleFrom(
     side: BorderSide(
       width: 1,
-      color: Color(0xFFDDDDDD),
+      color: bordercolor,
     ),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5.0),
     ),
     primary: Colors.white, // background
-    onPrimary: Colors.blue, // foreground
+    onPrimary: baseColor, // foreground
   );
   @override
   void initState() {
@@ -119,7 +119,7 @@ class _MeetingViewState extends State<MeetingView> {
                                         ),
                                         Divider(
                                           thickness: 0.5,
-                                          color: Color(0xff1DDDDD),
+                                          color: bordercolor,
                                         ),
                                         SizedBox(
                                           height: 10,
@@ -134,9 +134,8 @@ class _MeetingViewState extends State<MeetingView> {
                                                   padding: EdgeInsets.all(8),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
-                                                          color: Color(
-                                                              0xff1F9EB9)),
-                                                      color: Color(0xff1F9EB9),
+                                                          color: bordercolor),
+                                                      color: secondryColor,
                                                       borderRadius:
                                                           BorderRadius.all(
                                                               Radius.elliptical(
@@ -239,7 +238,7 @@ class _MeetingViewState extends State<MeetingView> {
                                           color: Colors.white,
                                           child: Divider(
                                             thickness: 0.5,
-                                            color: Color(0xff1DDDDDD),
+                                            color: bordercolor,
                                           ),
                                         ),
                                         Row(
@@ -396,7 +395,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                     label: Text('تعديل'),
                                                     icon: Icon(
                                                       Icons.edit,
-                                                      color: Color(0xff1F9EB9),
+                                                      color: secondryColor,
                                                       size: 24.0,
                                                     ),
                                                     style: mainbtn,

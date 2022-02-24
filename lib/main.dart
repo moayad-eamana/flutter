@@ -81,11 +81,11 @@ void configLoading() {
     ..loadingStyle = EasyLoadingStyle.custom
     ..indicatorSize = 45.0
     ..radius = 10.0
-    ..progressColor = Colors.blue
+    ..progressColor = baseColor
     ..backgroundColor = Colors.white
-    ..indicatorColor = Colors.blue
-    ..textColor = Colors.blue
-    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..indicatorColor = baseColor
+    ..textColor = baseColor
+    ..maskColor = baseColor.withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false;
 }

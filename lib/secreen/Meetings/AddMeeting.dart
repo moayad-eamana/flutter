@@ -3,6 +3,7 @@ import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -201,7 +202,7 @@ class _AddMeetingState extends State<AddMeeting> {
                     popupTitle: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.blue[100],
+                        color: secondryColor,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
@@ -256,7 +257,7 @@ class _AddMeetingState extends State<AddMeeting> {
                     popupTitle: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.blue[100],
+                        color: secondryColor,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
@@ -376,7 +377,7 @@ class _AddMeetingState extends State<AddMeeting> {
                   Container(),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue, // background
+                      primary: baseColor, // background
                       onPrimary: Colors.white, // foreground
                     ),
                     onPressed: () {

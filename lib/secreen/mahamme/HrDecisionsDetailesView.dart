@@ -209,7 +209,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.green, // background
+                              primary: baseColor, // background
                               onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () async {

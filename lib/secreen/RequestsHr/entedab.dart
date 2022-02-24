@@ -49,7 +49,7 @@ class _EntedabState extends State<Entedab> {
                 //color: Colors.amber,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Color(0xFFDDDDDD)),
+                    border: Border.all(color: bordercolor),
                     borderRadius: BorderRadius.all(Radius.circular(4))),
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Container(
