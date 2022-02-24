@@ -1,7 +1,11 @@
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
@@ -27,6 +31,51 @@ class _SettingsState extends State<Settings> {
     darkmode = settingSP.getBool("darkmode")!;
 
     setState(() {});
+  }
+
+  final LocalAuthentication auth = LocalAuthentication();
+  bool? _canCheckBiometrics;
+
+  bool? _authenticated;
+
+  Future<void> _checkBiometrics() async {
+    late bool canCheckBiometrics;
+    try {
+      canCheckBiometrics = await auth.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      canCheckBiometrics = false;
+      print(e);
+    }
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _canCheckBiometrics = canCheckBiometrics;
+    });
+  }
+
+  Future<void> _authenticate() async {
+    bool authenticated = false;
+    try {
+      authenticated = await auth.authenticate(
+          localizedReason: 'Let OS determine authentication method',
+          useErrorDialogs: true,
+          stickyAuth: true);
+
+      setState(() {
+        _authenticated = authenticated;
+      });
+    } on PlatformException catch (e) {
+      setState(() {
+        _authenticated = authenticated;
+      });
+      print(e);
+
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
   }
 
   @override
@@ -82,6 +131,37 @@ class _SettingsState extends State<Settings> {
                                 Switch(
                                   value: fingerprint,
                                   onChanged: (bool newValue) async {
+                                    if (fingerprint == false) {
+                                      EasyLoading.show(
+                                        status: 'جاري المعالجة...',
+                                        maskType: EasyLoadingMaskType.black,
+                                      );
+
+                                      await _checkBiometrics();
+                                      EasyLoading.dismiss();
+
+                                      if (_canCheckBiometrics == true) {
+                                        await _authenticate();
+                                      } else if (_authenticated == true) {
+                                        final fingerprintSP =
+                                            await SharedPreferences
+                                                .getInstance();
+
+                                        fingerprintSP.setBool(
+                                            "fingerprint", newValue);
+
+                                        setState(() {
+                                          fingerprint = fingerprintSP
+                                              .getBool('fingerprint')!;
+                                        });
+                                        print("fingerprint = " +
+                                            fingerprint.toString());
+                                      } else {
+                                        Alerts.warningAlert(context, "تنبيه",
+                                                "لا يمكن تفعيل البصمة, لعدم توفره")
+                                            .show();
+                                      }
+                                    }
                                     final fingerprintSP =
                                         await SharedPreferences.getInstance();
 
