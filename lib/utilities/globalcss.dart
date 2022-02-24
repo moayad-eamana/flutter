@@ -66,6 +66,19 @@ Future<void> getColorSettings() async {
       ? Color(0xffACC5FF)
       : //
       Color(0xffB6C1FF);
+  cardServiece = ElevatedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4),
+    ),
+
+    side: BorderSide(
+      width: 0.5,
+      color: bordercolor,
+    ),
+    elevation: 0,
+    primary: Colors.white,
+    onPrimary: Colors.grey, // foregroundjjjkl
+  );
 }
 
 ButtonStyle mainbtn = ElevatedButton.styleFrom(
