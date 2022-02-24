@@ -1,6 +1,7 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
+//NEW
 class AppBarHome {
   static PreferredSize appBarW(String title, BuildContext context) {
     return PreferredSize(
@@ -22,7 +23,7 @@ class AppBarHome {
                       ),
                       Text(
                         title,
-                        style: const TextStyle(color: baseColor, fontSize: 18),
+                        style: TextStyle(color: baseColor, fontSize: 18),
                       ),
                     ],
                   ),

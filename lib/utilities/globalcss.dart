@@ -18,9 +18,10 @@ Color blindnesscolor(Color1, Color2) {
   return blindness == false ? Color1 : Color2;
 }
 
-Color baseColor = blindnesscolor(
-    Color(0xff274690), //
-    Color(0xff004D85));
+Color baseColor = blindness == false
+    ? Color(0xff274690)
+    : //
+    Color(0xff004D85);
 
 Color secondryColor = blindnesscolor(
     Color(0xff2E8D9A), //

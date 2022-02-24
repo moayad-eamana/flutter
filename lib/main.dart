@@ -43,6 +43,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+  getSettings();
   double? username = sharedPref.getDouble("EmployeeNumber");
 //  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 //  await Firebase.initializeApp();
