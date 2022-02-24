@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +24,7 @@ dynamic getAction(String link) async {
     'Authorization': 'Bearer ' + _pref.getString("AccessToken").toString()
   });
   if (respns.statusCode == 401) {
+    EasyLoading.dismiss();
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     return;
@@ -42,6 +44,7 @@ dynamic postAction(String link, dynamic body) async {
       },
       body: body);
   if (respns.statusCode == 401) {
+    EasyLoading.dismiss();
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     return;

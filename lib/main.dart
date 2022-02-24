@@ -48,8 +48,11 @@ void main() async {
   //Settings.getSettings();
   getColorSettings();
   //getfingerprintSettings();
+  double? username;
+  try {
+    username = sharedPref.getDouble("EmployeeNumber");
+  } catch (e) {}
 
-  double? username = sharedPref.getDouble("EmployeeNumber");
 //  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 //  await Firebase.initializeApp();
   runApp(
@@ -167,7 +170,7 @@ class _MyAppState extends State<MyApp> {
 
           // deprecated,
         ),
-        initialRoute: widget.username == null
+        initialRoute: widget.username == null || widget.username == ""
             ? "/"
             : fingerprint == false
                 ? '/home'
