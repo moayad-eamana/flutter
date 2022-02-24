@@ -12,7 +12,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MeetingView extends StatefulWidget {
-  const MeetingView({Key? key}) : super(key: key);
+  MeetingView({Key? key}) : super(key: key);
 
   @override
   _MeetingViewState createState() => _MeetingViewState();
@@ -21,7 +21,7 @@ class MeetingView extends StatefulWidget {
 class _MeetingViewState extends State<MeetingView> {
   final GlobalKey<AnimatedListState> _key = GlobalKey();
   final s = ElevatedButton.styleFrom(
-    side: const BorderSide(
+    side: BorderSide(
       width: 1,
       color: Color(0xFFDDDDDD),
     ),
@@ -81,7 +81,7 @@ class _MeetingViewState extends State<MeetingView> {
 
                           return AnimationConfiguration.staggeredList(
                             position: index,
-                            duration: const Duration(milliseconds: 375),
+                            duration: Duration(milliseconds: 375),
                             child: ScaleAnimation(
                               //  verticalOffset: 50.0,
                               curve: Curves.easeInOut,
@@ -89,7 +89,7 @@ class _MeetingViewState extends State<MeetingView> {
                               child: Container(
                                 //margin: EdgeInsets.symmetric(vertical: 250),
                                 height: 280,
-                                margin: const EdgeInsets.symmetric(
+                                margin: EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
                                 child: Card(
                                   elevation: 1,
@@ -97,31 +97,31 @@ class _MeetingViewState extends State<MeetingView> {
 
                                   color: Colors.white.withOpacity(1),
                                   child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 10),
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       // mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        const SizedBox(
+                                        SizedBox(
                                           height: 10,
                                         ),
                                         Center(
                                           child: Text(
                                             _provider
                                                 .meetingList[index].Appwith,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
                                                 color: baseColor),
                                           ),
                                         ),
-                                        const Divider(
+                                        Divider(
                                           thickness: 0.5,
                                           color: Color(0xff1DDDDD),
                                         ),
-                                        const SizedBox(
+                                        SizedBox(
                                           height: 10,
                                         ),
                                         Row(
@@ -131,24 +131,21 @@ class _MeetingViewState extends State<MeetingView> {
                                             Column(
                                               children: [
                                                 Container(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
+                                                  padding: EdgeInsets.all(8),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
-                                                          color: const Color(
+                                                          color: Color(
                                                               0xff1F9EB9)),
-                                                      color: const Color(
-                                                          0xff1F9EB9),
+                                                      color: Color(0xff1F9EB9),
                                                       borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
+                                                          BorderRadius.all(
                                                               Radius.elliptical(
                                                                   5, 5))),
                                                   child: Text(
                                                     getmonth(_provider
                                                         .meetingList[index]
                                                         .Date),
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontFamily: "Cairo",
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -167,18 +164,18 @@ class _MeetingViewState extends State<MeetingView> {
                                                 Text(
                                                   _provider.meetingList[index]
                                                       .Subject,
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                       fontFamily: "Cairo",
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
                                                 Row(
                                                   children: [
-                                                    const Icon(
+                                                    Icon(
                                                       Icons.date_range,
                                                       color: baseColor,
                                                     ),
-                                                    const SizedBox(
+                                                    SizedBox(
                                                       width: 5,
                                                     ),
                                                     TextW("يوم " +
@@ -193,11 +190,11 @@ class _MeetingViewState extends State<MeetingView> {
                                                 ),
                                                 Row(
                                                   children: [
-                                                    const Icon(
+                                                    Icon(
                                                       Icons.timelapse,
                                                       color: baseColor,
                                                     ),
-                                                    const SizedBox(
+                                                    SizedBox(
                                                       width: 5,
                                                     ),
                                                     TextW("الساعه من " +
@@ -212,10 +209,9 @@ class _MeetingViewState extends State<MeetingView> {
                                                             .split(":")[1] +
                                                         "إلى " +
                                                         (parsedDate
-                                                                .add(
-                                                                    const Duration(
-                                                                        minutes:
-                                                                            30))
+                                                                .add(Duration(
+                                                                    minutes:
+                                                                        30))
                                                                 .toString())
                                                             .split(" ")[1]
                                                             .substring(0, 5)),
@@ -223,11 +219,11 @@ class _MeetingViewState extends State<MeetingView> {
                                                 ),
                                                 Row(
                                                   children: [
-                                                    const Icon(
+                                                    Icon(
                                                       Icons.chair_alt_sharp,
                                                       color: baseColor,
                                                     ),
-                                                    const SizedBox(
+                                                    SizedBox(
                                                       width: 5,
                                                     ),
                                                     TextW(_provider
@@ -241,7 +237,7 @@ class _MeetingViewState extends State<MeetingView> {
                                         ),
                                         Container(
                                           color: Colors.white,
-                                          child: const Divider(
+                                          child: Divider(
                                             thickness: 0.5,
                                             color: Color(0xff1DDDDDD),
                                           ),
@@ -257,7 +253,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                     launch(
                                                         "https://wa.me/+966${_provider.meetingList[index].Appwithmobile}/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
                                                   },
-                                                  icon: const Icon(
+                                                  icon: Icon(
                                                     Icons.phone_android,
                                                     color: baseColor,
                                                   ),
@@ -272,11 +268,11 @@ class _MeetingViewState extends State<MeetingView> {
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 Container(
-                                                  margin: const EdgeInsets.only(
-                                                      top: 10),
+                                                  margin:
+                                                      EdgeInsets.only(top: 10),
                                                   child: ElevatedButton.icon(
-                                                    label: const Text('حذف'),
-                                                    icon: const Icon(
+                                                    label: Text('حذف'),
+                                                    icon: Icon(
                                                       Icons.close,
                                                       color: Colors.pink,
                                                       size: 24.0,
@@ -291,7 +287,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                         desc: "تأكيد الحذف",
                                                         buttons: [
                                                           DialogButton(
-                                                            child: const Text(
+                                                            child: Text(
                                                               "حذف",
                                                               style: TextStyle(
                                                                   color: Colors
@@ -306,7 +302,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                             width: 120,
                                                           ),
                                                           DialogButton(
-                                                            child: const Text(
+                                                            child: Text(
                                                               "إلغاء",
                                                               style: TextStyle(
                                                                   color: Colors
@@ -346,8 +342,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                                 "تم حذف الموعد",
                                                             buttons: [
                                                               DialogButton(
-                                                                child:
-                                                                    const Text(
+                                                                child: Text(
                                                                   "حسننا",
                                                                   style: TextStyle(
                                                                       color: Colors
@@ -391,15 +386,15 @@ class _MeetingViewState extends State<MeetingView> {
                                                     },
                                                   ),
                                                 ),
-                                                const SizedBox(
+                                                SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
-                                                  margin: const EdgeInsets.only(
-                                                      top: 10),
+                                                  margin:
+                                                      EdgeInsets.only(top: 10),
                                                   child: ElevatedButton.icon(
-                                                    label: const Text('تعديل'),
-                                                    icon: const Icon(
+                                                    label: Text('تعديل'),
+                                                    icon: Icon(
                                                       Icons.edit,
                                                       color: Color(0xff1F9EB9),
                                                       size: 24.0,
@@ -438,7 +433,7 @@ class _MeetingViewState extends State<MeetingView> {
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
-                margin: const EdgeInsets.only(right: 10, bottom: 10),
+                margin: EdgeInsets.only(right: 10, bottom: 10),
                 child: FloatingActionButton(
                   onPressed: () {
                     Navigator.push(
@@ -450,7 +445,7 @@ class _MeetingViewState extends State<MeetingView> {
                     );
                   },
                   // backgroundColor: Colors.green,
-                  child: const Icon(Icons.add),
+                  child: Icon(Icons.add),
                 ),
               ),
             ),

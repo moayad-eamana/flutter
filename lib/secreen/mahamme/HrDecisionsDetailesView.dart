@@ -65,7 +65,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                                     _provider[widget.index]
                                         .EmplyeeNumber
                                         .toString()),
-                                const SizedBox(
+                                SizedBox(
                                   height: 50,
                                   child: VerticalDivider(
                                     indent: 10,
@@ -79,7 +79,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                                         .split("T")[0]),
                               ],
                             ),
-                            const Divider(
+                            Divider(
                               endIndent: 8,
                               indent: 8,
                               thickness: 0.5,
@@ -105,14 +105,14 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text("نوع الطلب"),
+                                  Text("نوع الطلب"),
                                   Text(_provider[widget.index].TransactionName)
                                 ],
                               ),
                             ),
                           ),
                         ),
-                        const Icon(Icons.forward),
+                        Icon(Icons.forward),
                         Expanded(
                           child: Container(
                             height: 75,
@@ -139,7 +139,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text("الادارة السابقة"),
+                                  Text("الادارة السابقة"),
                                   Text(
                                       _provider[widget.index].OldDepartmentName)
                                 ],
@@ -147,7 +147,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                             ),
                           ),
                         ),
-                        const Icon(Icons.forward),
+                        Icon(Icons.forward),
                         Expanded(
                           child: Container(
                             height: 120,
@@ -155,7 +155,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text("الادارة الحالية"),
+                                  Text("الادارة الحالية"),
                                   Text(
                                       _provider[widget.index].NewDepartmentName)
                                 ],
@@ -175,7 +175,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text("المرتبة السابقة"),
+                                  Text("المرتبة السابقة"),
                                   Text(_provider[widget.index]
                                       .OldClass
                                       .toString())
@@ -184,7 +184,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                             ),
                           ),
                         ),
-                        const Icon(Icons.forward),
+                        Icon(Icons.forward),
                         Expanded(
                           child: Container(
                             height: 75,
@@ -192,7 +192,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text("المرتبة الحالية"),
+                                  Text("المرتبة الحالية"),
                                   Text(_provider[widget.index]
                                       .NewClass
                                       .toString())
@@ -206,7 +206,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Expanded(
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          margin: EdgeInsets.symmetric(horizontal: 10),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: Colors.green, // background
@@ -243,7 +243,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                                 }
                               });
                             },
-                            child: const Text("قبول"),
+                            child: Text("قبول"),
                           ),
                         ),
                       )

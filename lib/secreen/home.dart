@@ -9,6 +9,7 @@ import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
+import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/exit_popup.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
@@ -68,11 +69,12 @@ class _TabBarDemoState extends State<TabBarDemo>
   List<String> list = ['الاعدادات', 'دعم الفني', 'الخدمات', 'تواصل'];
   List<dynamic> screen = [
     //page 1
-    ChangeNotifierProvider(
-      create: (_) => MettingsProvider(),
-      // ignore: prefer_const_constructors
-      child: MeetingView(),
-    ),
+    Settings(),
+    // ChangeNotifierProvider(
+    //   create: (_) => MettingsProvider(),
+    //   // ignore: prefer_const_constructors
+    //   child: MeetingView(),
+    // ),
     // page 2
     ChangeNotifierProvider(
       create: (_) => EmpInfoProvider(),
@@ -284,20 +286,33 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                       ? Image.asset(
                                                           "assets/image/avatar.jpg")
                                                       : ClipOval(
-                                                          child: FadeInImage
-                                                              .assetNetwork(
-                                                            fit: BoxFit.cover,
-                                                            width: 50,
+                                                          child:
+                                                              CachedNetworkImage(
                                                             height: 50,
-                                                            image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                            width: 50,
+                                                            fit: BoxFit.cover,
+                                                            imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                                 empinfo.ImageURL
                                                                         .toString()
                                                                     .split(
                                                                         "\$")[1],
-                                                            placeholder:
-                                                                "assets/image/avatar.jpg",
                                                           ),
                                                         ),
+                                                  // ClipOval(
+                                                  //     child: FadeInImage
+                                                  //         .assetNetwork(
+                                                  //       fit: BoxFit.cover,
+                                                  //       width: 50,
+                                                  //       height: 50,
+                                                  //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                  //           empinfo.ImageURL
+                                                  //                   .toString()
+                                                  //               .split(
+                                                  //                   "\$")[1],
+                                                  //       placeholder:
+                                                  //           "assets/image/avatar.jpg",
+                                                  //     ),
+                                                  //   ),
                                                 ),
                                                 Text(
                                                   ("مرحبا / ") +

@@ -2,6 +2,7 @@ import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -50,7 +51,7 @@ class _MainHomeState extends State<MainHome> {
                   maxLines: 1,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.search,
                           color: baseColor,
                           size: 35,
@@ -315,7 +316,11 @@ class _MainHomeState extends State<MainHome> {
                       ),
                     ],
                   ),
-                )
+                ),
+                // SvgPicture.asset(
+                //   'assets/SVGs/dalel-emp.svg',
+                //   width: 150,
+                // ),
               ],
             ),
           ),
