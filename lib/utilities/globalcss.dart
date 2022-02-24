@@ -3,13 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 bool blindness = false;
-
-Future<void> getColorSettings() async {
-  final settingSP = await SharedPreferences.getInstance();
-
-  blindness = settingSP.getBool("blindness")!;
-}
-
 Color baseColor = blindness == false
     ? Color(0xff274690)
     : //
@@ -39,6 +32,41 @@ Color lableTextcolor = blindness == false
     ? Color(0xffACC5FF)
     : //
     Color(0xffB6C1FF);
+
+Future<void> getColorSettings() async {
+  final settingSP = await SharedPreferences.getInstance();
+
+  blindness = settingSP.getBool("blindness")!;
+  baseColor = blindness == false
+      ? Color(0xff274690)
+      : //
+      Color(0xff004D85);
+
+  secondryColor = blindness == false
+      ? Color(0xff2E8D9A)
+      : //
+      Color(0xff7D7D9E);
+
+  baseColorText = blindness == false
+      ? Color(0xff444444)
+      : //
+      Color(0xff4C4446);
+
+  secondryColorText = blindness == false
+      ? Color(0xff707070)
+      : //
+      Color(0xff7A6C71);
+
+  bordercolor = blindness == false
+      ? Color(0xffDDDDDD)
+      : //
+      Color(0xffF1D5DE);
+
+  lableTextcolor = blindness == false
+      ? Color(0xffACC5FF)
+      : //
+      Color(0xffB6C1FF);
+}
 
 ButtonStyle mainbtn = ElevatedButton.styleFrom(
   side: BorderSide(
