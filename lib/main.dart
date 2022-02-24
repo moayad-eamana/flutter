@@ -40,7 +40,7 @@ void main() async {
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
   //   statusBarColor: baseColor,
   // ));
-  //new
+  //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
