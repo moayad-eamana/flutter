@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
+import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -42,7 +43,7 @@ class _ServicesViewState extends State<ServicesView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("جميع الخدمات", context),
+        appBar: AppBarHome.appBarW("جميع الخدمات", context),
         body: Stack(
           children: [
             Image.asset(

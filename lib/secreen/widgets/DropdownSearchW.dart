@@ -20,20 +20,14 @@ class DropdownSearchW {
           ],
         ),
       )),
-      dropdownBuilder: (context, selectedItem) => Container(
-        decoration: null,
-        child: selectedItem == null
-            ? null
-            : Text(
-                selectedItem == null ? "" : selectedItem["tt"] ?? "",
-                style: subtitleTx(baseColorText),
-              ),
-      ),
-      dropdownBuilderSupportsNullItem: true,
+
+      showSelectedItems: false,
       mode: Mode.BOTTOM_SHEET,
       showClearButton: true,
       maxHeight: 400,
       showAsSuffixIcons: true,
+      itemAsString: (item) => item["tt"],
+      // showSelectedItems: true,
       dropdownSearchDecoration: InputDecoration(
         hintText: LableName,
         helperStyle: TextStyle(color: Colors.amber),
@@ -55,7 +49,8 @@ class DropdownSearchW {
       onChanged: (v) {
         print('object');
         print(v);
-        // value = v;
+
+        value = v.toString();
         //value = v ?? "";
       },
       popupTitle: Container(

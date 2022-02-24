@@ -1,9 +1,14 @@
+import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
@@ -19,8 +24,10 @@ class _EntedabState extends State<Entedab> {
   TextEditingController _dayNumber = TextEditingController();
   TextEditingController _Note = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  List<MandateLocations> mandateLocations = [];
   DropdownSearchW drop1 = new DropdownSearchW();
+  double locationId = 0;
+  String MandateTypeID = "";
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +88,7 @@ class _EntedabState extends State<Entedab> {
                                       showTitleActions: true,
                                       minTime: DateTime(2021, 3, 5),
                                       onChanged: (date) {
-                                    print('change $date');
+                                    //  print('change $date');
                                   }, onConfirm: (date) {
                                     setState(() {
                                       _date.text =
@@ -105,38 +112,10 @@ class _EntedabState extends State<Entedab> {
                                   }
                                 },
                               ),
-                              DropdownSearch<String>(
-                                dropdownSearchDecoration: InputDecoration(
-                                  hintText: "نوع الانتداب",
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: responsiveMT(5, 20),
-                                      horizontal: responsiveMT(10, 20)),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                    borderSide: BorderSide(color: bordercolor),
-                                  ),
-                                ),
-                                mode: Mode.MENU,
-                                showSelectedItems: true,
-                                items: ["داخلي", "خارجي"],
-                                showClearButton: true,
-                                popupItemDisabled: (String s) =>
-                                    s.startsWith('I'),
-                                onChanged: print,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "الرجاء إدختيار نوع الانتداب";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                              ),
-                              drop1.drop([
-                                {"tt": "أمريكا", "id": "11"},
-                                {"tt": "اليابان", "id": "11"},
-                                {"tt": "استراليا", "id": "11"},
-                                {"tt": "افز", "id": "26"}
-                              ], "جهة الانتداب", context),
+                              EntedabTypes(),
+                              mandateLocations.length == 0
+                                  ? location()
+                                  : location(),
                               TextFormField(
                                 keyboardType: TextInputType.text,
                                 maxLines: 3,
@@ -159,10 +138,71 @@ class _EntedabState extends State<Entedab> {
                               if (_formKey.currentState!.validate()) {
                                 // If the form is valid, display a snackbar. In the real world,
                                 // you'd often call a server or save the information in a database.
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Processing Data')),
-                                );
+
+                                Alerts.confirmAlrt(
+                                        context, "", "هل أنت متأكد", "نعم")
+                                    .show()
+                                    .then((value) async {
+                                  if (value == true) {
+                                    double emNo = await EmployeeProfile
+                                        .getEmployeeNumberasDouble();
+                                    int DepartmentID =
+                                        await EmployeeProfile.getDepartmentID();
+                                    // print(double.parse(
+                                    //     DepartmentID.toStringAsFixed(1)));
+                                    // print({
+                                    //   "EmployeeNumber": emNo,
+                                    //   "MandateTypeID": MandateTypeID,
+                                    //   "MandateDays": int.parse(_dayNumber.text),
+                                    //   "StartDate": _date.text,
+                                    //   "EndDate": "",
+                                    //   "MandateLocationID": locationId,
+                                    //   "DepartmentID": double.parse(
+                                    //       DepartmentID.toStringAsFixed(1)),
+                                    //   "Notes": _Note.text
+                                    // });
+                                    EasyLoading.show(
+                                      status: 'جاري المعالجة...',
+                                      maskType: EasyLoadingMaskType.black,
+                                    );
+                                    var response = await postAction(
+                                        "HR/InsertMandateRequest",
+                                        jsonEncode({
+                                          "EmployeeNumber": emNo,
+                                          "MandateTypeID": MandateTypeID,
+                                          "MandateDays":
+                                              int.parse(_dayNumber.text),
+                                          "StartDate": _date.text,
+                                          "EndDate": "",
+                                          "MandateLocationID": locationId,
+                                          "DepartmentID": double.parse(
+                                              DepartmentID.toStringAsFixed(1)),
+                                          "Notes": _Note.text
+                                        }));
+                                    EasyLoading.dismiss();
+                                    if (jsonDecode(
+                                            response.body)["StatusCode"] !=
+                                        400) {
+                                      Alerts.errorAlert(
+                                              context,
+                                              "خطأ",
+                                              jsonDecode(response.body)[
+                                                  "ErrorMessage"])
+                                          .show();
+                                      return;
+                                    } else {
+                                      Alerts.successAlert(
+                                              context, "", "تمت الاضافة بنجاح")
+                                          .show();
+                                    }
+                                    // print(response);
+                                  }
+                                });
+
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //       content: Text('Processing Data')),
+                                // );
                               }
                             },
                           ),
@@ -176,6 +216,194 @@ class _EntedabState extends State<Entedab> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget EntedabTypes() {
+    return DropdownSearch<dynamic>(
+      items: [
+        {"typeId": "1", "name": "داخلي"},
+        {"typeId": "2", "name": "خارجي"}
+      ],
+      popupItemBuilder: (context, rr, isSelected) => (Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+          children: [
+            Text(rr["name"].toString(), style: subtitleTx(baseColorText))
+          ],
+        ),
+      )),
+
+      showSelectedItems: false,
+      mode: Mode.BOTTOM_SHEET,
+      showClearButton: MandateTypeID == "" ? false : true,
+      maxHeight: 400,
+      showAsSuffixIcons: true,
+      itemAsString: (item) => item["name"],
+      // showSelectedItems: true,
+      dropdownSearchDecoration: InputDecoration(
+        hintText: "نوع الانتداب",
+        helperStyle: TextStyle(color: Colors.amber),
+        contentPadding: EdgeInsets.symmetric(
+            vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.0),
+          borderSide: BorderSide(color: bordercolor),
+        ),
+      ),
+      validator: (value) {
+        if (value == "" || value == null) {
+          return "hgfef";
+        } else {
+          return null;
+        }
+      },
+      showSearchBox: true,
+      onChanged: (v) async {
+        setState(() {
+          locationId = 0;
+          mandateLocations = [];
+        });
+        String emNo = await EmployeeProfile.getEmployeeNumber();
+        try {
+          MandateTypeID = v["typeId"].toString();
+          EasyLoading.show(
+            status: 'جاري المعالجة...',
+            maskType: EasyLoadingMaskType.black,
+          );
+          var respose = await getAction("HR/GetMandateLocationListByTypeId/" +
+              v["typeId"].toString() +
+              "/" +
+              emNo);
+          EasyLoading.dismiss();
+          setState(() {
+            mandateLocations =
+                (jsonDecode(respose.body)["MandateLocationsList"] as List)
+                    .map(((e) => MandateLocations.fromJson(e)))
+                    .toList();
+          });
+          //     print(mandateLocations);
+        } catch (e) {}
+        //value = v ?? "";
+      },
+      popupTitle: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: secondryColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            "نوع الانتداب",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      popupShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+    );
+  }
+
+  Widget location() {
+    return DropdownSearch<dynamic>(
+      key: UniqueKey(),
+      items: mandateLocations,
+      popupItemBuilder: (context, rr, isSelected) => (Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Column(
+          children: [
+            Text(rr.MandateLocationName, style: subtitleTx(baseColorText))
+          ],
+        ),
+      )),
+
+      showSelectedItems: false,
+      mode: Mode.BOTTOM_SHEET,
+      showClearButton: locationId == 0 || locationId == 0.0 ? false : true,
+      maxHeight: 400,
+      showAsSuffixIcons: true,
+      itemAsString: (item) => item.MandateLocationName,
+      // showSelectedItems: true,
+      dropdownSearchDecoration: InputDecoration(
+        hintText: "جهة الانتداب",
+        helperStyle: TextStyle(color: Colors.amber),
+        contentPadding: EdgeInsets.symmetric(
+            vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.0),
+          borderSide: BorderSide(color: bordercolor),
+        ),
+      ),
+      validator: (value) {
+        if (value == "" || value == null) {
+          return "hgfef";
+        } else {
+          return null;
+        }
+      },
+      showSearchBox: true,
+      onChanged: (v) async {
+        //   print('object');
+        //  print(v.MandateLocationID);
+        if (v != null) {
+          locationId = v.MandateLocationID;
+        }
+
+        //   print(locationId);
+
+        //value = v ?? "";
+      },
+      popupTitle: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: secondryColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            "جهة الانتداب",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      popupShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+    );
+  }
+}
+
+class MandateLocations {
+  double MandateLocationID;
+  String MandateLocationName;
+
+  MandateLocations(this.MandateLocationID, this.MandateLocationName);
+
+  factory MandateLocations.fromJson(dynamic json) {
+    return MandateLocations(
+      json["MandateLocationID"],
+      json["MandateLocationName"],
     );
   }
 }

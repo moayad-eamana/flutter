@@ -32,6 +32,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
 */
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
   //   statusBarColor: baseColor,
@@ -108,6 +110,7 @@ class _MyAppState extends State<MyApp> {
     return Sizer(builder: (context, orientation, deviceType) {
       print(SizerUtil.deviceType);
       return MaterialApp(
+        navigatorKey: navigatorKey,
         builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
         title: 'رقمي',
@@ -161,5 +164,10 @@ class _MyAppState extends State<MyApp> {
         },
       );
     });
+  }
+
+  Future<dynamic> navigateTo(String routeName) {
+    return navigatorKey.currentState!
+        .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 }

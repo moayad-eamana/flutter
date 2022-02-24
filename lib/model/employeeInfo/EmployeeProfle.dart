@@ -77,6 +77,20 @@ class EmployeeProfile {
     return (_pref.getDouble("EmployeeNumber")).toString().split(".")[0];
   }
 
+  static Future<double> getEmployeeNumberasDouble() async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    return _pref.getDouble("EmployeeNumber") ?? 2.22;
+  }
+
+  static Future<int> getDepartmentID() async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    return _pref.getInt("DepartmentID") ?? 0;
+  }
+
   static Future<int> getEmplPerm() async {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     SharedPreferences _pref = await SharedPreferences.getInstance();
