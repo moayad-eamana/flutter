@@ -94,11 +94,20 @@ class _OTPViewState extends State<OTPView> {
         keyboardType: TextInputType.text,
         maxLines: 1,
         textAlign: TextAlign.right,
-        decoration: const InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            borderSide: BorderSide(color: bordercolor),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: bordercolor),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: bordercolor),
+            borderRadius: BorderRadius.circular(4),
+          ),
           labelText: "أدخل كلمة السر المؤقتة",
           alignLabelWithHint: true,
         ),

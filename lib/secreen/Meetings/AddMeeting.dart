@@ -354,9 +354,21 @@ class _AddMeetingState extends State<AddMeeting> {
                   TextField(
                     keyboardType: TextInputType.text,
                     maxLines: 3,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: responsiveMT(12, 30), horizontal: 10.0),
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black)),
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(color: bordercolor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: bordercolor),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: bordercolor),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       filled: true,
                       fillColor: Colors.white,
                       labelText: "ملاحظات",
@@ -457,8 +469,20 @@ class _AddMeetingState extends State<AddMeeting> {
   decoration(String val, int i) {
     return InputDecoration(
       errorText: error[i].text == "" ? null : error[i].text,
-      border:
-          const OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+      contentPadding: EdgeInsets.symmetric(
+          vertical: responsiveMT(12, 30), horizontal: 10.0),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4.0),
+        borderSide: BorderSide(color: bordercolor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ),
       filled: true,
       fillColor: Colors.white,
       labelText: val,

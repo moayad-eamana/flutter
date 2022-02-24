@@ -109,7 +109,18 @@ class _LoginViewState extends State<LoginView> {
         maxLines: 1,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-          border: OutlineInputBorder(borderSide: BorderSide(color: baseColor)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            borderSide: BorderSide(color: bordercolor),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: bordercolor),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: bordercolor),
+            borderRadius: BorderRadius.circular(4),
+          ),
           filled: true,
           fillColor: Colors.white,
           errorText: _usernameError ? "الرجاء إدخال الرقم الوضيفي" : null,
@@ -143,8 +154,18 @@ class _LoginViewState extends State<LoginView> {
         textAlign: TextAlign.right,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+            borderSide: BorderSide(color: bordercolor),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: bordercolor),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: bordercolor),
+            borderRadius: BorderRadius.circular(4),
+          ),
           filled: true,
           fillColor: Colors.white,
           labelText: "الرقم السري",

@@ -110,9 +110,9 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
 InputDecoration formlabel1(String lableName) {
   return InputDecoration(
       // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      labelText: lableName,
       contentPadding: EdgeInsets.symmetric(
           vertical: responsiveMT(12, 30), horizontal: 10.0),
-      labelText: lableName,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4.0),
         borderSide: BorderSide(color: bordercolor),

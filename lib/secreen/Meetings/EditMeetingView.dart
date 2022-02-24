@@ -489,8 +489,20 @@ class _EditMeetingViewState extends State<EditMeetingView> {
 
   decoration(String val, int i) {
     return InputDecoration(
-      border:
-          const OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+      contentPadding: EdgeInsets.symmetric(
+          vertical: responsiveMT(12, 30), horizontal: 10.0),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4.0),
+        borderSide: BorderSide(color: bordercolor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ),
       filled: true,
       fillColor: Colors.white,
       labelText: val,
