@@ -1,9 +1,12 @@
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -133,7 +136,18 @@ class _MainHomeState extends State<MainHome> {
                                   "مواعيد",
                                   Icons.calendar_today,
                                   () {
-                                    print("ee");
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChangeNotifierProvider(
+                                          create: (context) =>
+                                              MettingsProvider(),
+                                          // ignore: prefer_const_constructors
+                                          child: MeetingView(),
+                                        ),
+                                      ),
+                                    );
                                   },
                                 ),
                               widgetsUni.servicebutton(
@@ -150,13 +164,13 @@ class _MainHomeState extends State<MainHome> {
                                   print("ee");
                                 },
                               ),
-                              widgetsUni.servicebutton(
-                                "طلب استيكر",
-                                Icons.directions_car,
-                                () {
-                                  print("ee");
-                                },
-                              ),
+                              // widgetsUni.servicebutton(
+                              //   "طلب استيكر",
+                              //   Icons.directions_car,
+                              //   () {
+                              //     print("ee");
+                              //   },
+                              // ),
                               widgetsUni.servicebutton(
                                 "تعريف بالراتب",
                                 Icons.money,
