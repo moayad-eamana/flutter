@@ -1,3 +1,4 @@
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -18,6 +19,7 @@ class _MainHomeState extends State<MainHome> {
   TextEditingController _search = TextEditingController();
   var _currentIndex = 0;
   var _currentIndexBanner = 0;
+  dynamic id;
 
   List<int> selectsilder = [0, 1];
 
@@ -28,6 +30,18 @@ class _MainHomeState extends State<MainHome> {
 
   List<int> selectsilderBanner = [0, 1];
   List<String> selectsilderTitle = ["اليوم الوطني السعودي 90", "يوم التأسيس"];
+
+  embId() async {
+    id = await EmployeeProfile.getEmplPerm();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    embId();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +211,7 @@ class _MainHomeState extends State<MainHome> {
                                 );
                               },
                             ),
-                            items: SliderWidget.sliderw(context),
+                            items: SliderWidget.sliderw(context, id),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

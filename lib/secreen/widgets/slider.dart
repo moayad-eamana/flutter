@@ -8,7 +8,7 @@ import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class SliderWidget {
-  static List<Widget> sliderw(BuildContext context) {
+  static List<Widget> sliderw(BuildContext context, dynamic id) {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 250;
 
     return [
@@ -17,7 +17,8 @@ class SliderWidget {
         mainAxisSpacing: 15,
         crossAxisSpacing: 10,
         children: [
-          StaggeredGridTile.extent(
+          if (id == 1)
+            StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
               child: ElevatedButton(
@@ -35,7 +36,8 @@ class SliderWidget {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "إعتماداتي"))),
+                      'assets/SVGs/dalel-emp.svg', "إعتماداتي")),
+            ),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
