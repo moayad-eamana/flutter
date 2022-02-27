@@ -128,13 +128,14 @@ class _MainHomeState extends State<MainHome> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              widgetsUni.servicebutton(
-                                "مواعيد",
-                                Icons.calendar_today,
-                                () {
-                                  print("ee");
-                                },
-                              ),
+                              if (id == 1)
+                                widgetsUni.servicebutton(
+                                  "مواعيد",
+                                  Icons.calendar_today,
+                                  () {
+                                    print("ee");
+                                  },
+                                ),
                               widgetsUni.servicebutton(
                                 "بياناتي",
                                 Icons.data_saver_off_outlined,
