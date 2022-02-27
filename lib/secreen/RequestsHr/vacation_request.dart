@@ -224,20 +224,26 @@ class _VacationRequestState extends State<VacationRequest> {
                                 ),
                                 dropdownBuilderSupportsNullItem: true,
                                 mode: Mode.BOTTOM_SHEET,
-                                showClearButton: true,
+                                showClearButton: _ReplaceEmployeeNumber == null
+                                    ? false
+                                    : true,
+                                itemAsString: (item) => item.EmployeeName,
                                 maxHeight: 400,
                                 showAsSuffixIcons: true,
-                                dropdownSearchDecoration: InputDecoration(
-                                  hintText: "الموظف البديل",
-                                  helperStyle: TextStyle(color: Colors.amber),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: responsiveMT(10, 30),
-                                      horizontal: responsiveMT(10, 20)),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                    borderSide: BorderSide(color: bordercolor),
-                                  ),
-                                ),
+                                dropdownSearchDecoration:
+                                    formlabel1("الموظف البديل"),
+                                //  InputDecoration(
+                                //   hintText: "الموظف البديل",
+                                //   //helperStyle: TextStyle(color: Colors.amber),
+                                //   contentPadding: EdgeInsets.symmetric(
+                                //       vertical: responsiveMT(10, 30),
+                                //       horizontal: responsiveMT(10, 20)),
+                                //   border: OutlineInputBorder(
+                                //     borderRadius: BorderRadius.circular(4.0),
+
+                                //     borderSide: BorderSide(color: bordercolor),
+                                //   ),
+                                // ),
                                 validator: (value) {
                                   if (value == "" || value == null) {
                                     return "hgfef";
@@ -247,13 +253,16 @@ class _VacationRequestState extends State<VacationRequest> {
                                 },
                                 showSearchBox: true,
                                 onChanged: (v) {
-                                  setState(() {
-                                    _ReplaceEmployeeNumber = v.EmployeeNumber;
-                                  });
-                                  print('object');
-                                  print(v.EmployeeNumber.toString());
-                                  // value = v;
-                                  //value = v ?? "";
+                                  try {
+                                    setState(() {
+                                      _ReplaceEmployeeNumber = v.EmployeeNumber;
+                                    });
+                                    print('object');
+                                    print(v.EmployeeNumber.toString());
+                                    // value = v;
+                                    //value = v ?? "";
+
+                                  } catch (e) {}
                                 },
                                 popupTitle: Container(
                                   height: 60,
@@ -330,20 +339,23 @@ class _VacationRequestState extends State<VacationRequest> {
                                 ),
                                 dropdownBuilderSupportsNullItem: true,
                                 mode: Mode.BOTTOM_SHEET,
-                                showClearButton: true,
+                                showClearButton:
+                                    _VacationTypeID == null ? false : true,
                                 maxHeight: 400,
                                 showAsSuffixIcons: true,
-                                dropdownSearchDecoration: InputDecoration(
-                                  hintText: "نوع الاجازة",
-                                  helperStyle: TextStyle(color: Colors.amber),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: responsiveMT(10, 30),
-                                      horizontal: responsiveMT(10, 20)),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                    borderSide: BorderSide(color: bordercolor),
-                                  ),
-                                ),
+                                dropdownSearchDecoration:
+                                    formlabel1("نوع الاجازة"),
+                                // InputDecoration(
+                                //   hintText: "نوع الاجازة",
+                                //   helperStyle: TextStyle(color: Colors.amber),
+                                //   contentPadding: EdgeInsets.symmetric(
+                                //       vertical: responsiveMT(10, 30),
+                                //       horizontal: responsiveMT(10, 20)),
+                                //   border: OutlineInputBorder(
+                                //     borderRadius: BorderRadius.circular(4.0),
+                                //     borderSide: BorderSide(color: bordercolor),
+                                //   ),
+                                // ),
                                 validator: (value) {
                                   if (value == "" || value == null) {
                                     return "hgfef";
@@ -353,13 +365,15 @@ class _VacationRequestState extends State<VacationRequest> {
                                 },
                                 showSearchBox: true,
                                 onChanged: (v) {
-                                  setState(() {
-                                    _VacationTypeID = v["VacationID"];
-                                  });
-                                  print('object');
-                                  print(v["VacationID"]);
-                                  // value = v;
-                                  //value = v ?? "";
+                                  try {
+                                    setState(() {
+                                      _VacationTypeID = v["VacationID"];
+                                    });
+                                    print('object');
+                                    print(v["VacationID"]);
+                                    // value = v;
+                                    //value = v ?? "";
+                                  } catch (e) {}
                                 },
                                 popupTitle: Container(
                                   height: 60,

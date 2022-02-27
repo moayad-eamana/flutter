@@ -241,16 +241,17 @@ class _EntedabState extends State<Entedab> {
       showAsSuffixIcons: true,
       itemAsString: (item) => item["name"],
       // showSelectedItems: true,
-      dropdownSearchDecoration: InputDecoration(
-        hintText: "نوع الانتداب",
-        helperStyle: TextStyle(color: Colors.amber),
-        contentPadding: EdgeInsets.symmetric(
-            vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.0),
-          borderSide: BorderSide(color: bordercolor),
-        ),
-      ),
+      dropdownSearchDecoration: formlabel1("نوع الانتداب"),
+      //  InputDecoration(
+      //   hintText: "نوع الانتداب",
+      //   helperStyle: TextStyle(color: Colors.amber),
+      //   contentPadding: EdgeInsets.symmetric(
+      //       vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
+      //   border: OutlineInputBorder(
+      //     borderRadius: BorderRadius.circular(4.0),
+      //     borderSide: BorderSide(color: bordercolor),
+      //   ),
+      // ),
       validator: (value) {
         if (value == "" || value == null) {
           return "hgfef";
@@ -335,16 +336,17 @@ class _EntedabState extends State<Entedab> {
       showAsSuffixIcons: true,
       itemAsString: (item) => item.MandateLocationName,
       // showSelectedItems: true,
-      dropdownSearchDecoration: InputDecoration(
-        hintText: "جهة الانتداب",
-        helperStyle: TextStyle(color: Colors.amber),
-        contentPadding: EdgeInsets.symmetric(
-            vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.0),
-          borderSide: BorderSide(color: bordercolor),
-        ),
-      ),
+      dropdownSearchDecoration: formlabel1("جهة الانتداب"),
+      // InputDecoration(
+      //   hintText: "جهة الانتداب",
+      //   helperStyle: TextStyle(color: Colors.amber),
+      //   contentPadding: EdgeInsets.symmetric(
+      //       vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
+      //   border: OutlineInputBorder(
+      //     borderRadius: BorderRadius.circular(4.0),
+      //     borderSide: BorderSide(color: bordercolor),
+      //   ),
+      // ),
       validator: (value) {
         if (value == "" || value == null) {
           return "hgfef";
