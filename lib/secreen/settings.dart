@@ -121,18 +121,27 @@ class _SettingsState extends State<Settings> {
                                     style: descTx1(baseColorText)),
                                 Spacer(),
                                 Switch(
-                                  value: fingerprint,
-                                  onChanged: (bool newValue) async {
-                                    if (fingerprint == false) {
+                                    value: fingerprint,
+                                    onChanged: (bool newValue) async {
+                                      //if (fingerprint == false) {
                                       EasyLoading.show(
                                         status: 'جاري المعالجة...',
                                         maskType: EasyLoadingMaskType.black,
                                       );
                                       await _checkBiometrics();
-                                      EasyLoading.dismiss();
+
                                       if (_canCheckBiometrics == true) {
                                         await _authenticate();
-                                      } else if (_authenticated == true) {
+                                      } else {
+                                        setState(() {
+                                          _authenticated = false;
+                                        });
+                                        Alerts.warningAlert(context, "تنبيه",
+                                                "لا يمكن تفعيل البصمة, لعدم توفره")
+                                            .show();
+                                      }
+
+                                      if (_authenticated == true) {
                                         final fingerprintSP =
                                             await SharedPreferences
                                                 .getInstance();
@@ -145,23 +154,22 @@ class _SettingsState extends State<Settings> {
                                         print("fingerprint = " +
                                             fingerprint.toString());
                                       } else {
-                                        Alerts.warningAlert(context, "تنبيه",
-                                                "لا يمكن تفعيل البصمة, لعدم توفره")
-                                            .show();
+                                        //if canceleds
                                       }
+                                      EasyLoading.dismiss();
                                     }
-                                    final fingerprintSP =
-                                        await SharedPreferences.getInstance();
-                                    fingerprintSP.setBool(
-                                        "fingerprint", newValue);
-                                    setState(() {
-                                      fingerprint =
-                                          fingerprintSP.getBool('fingerprint')!;
-                                    });
-                                    print("fingerprint = " +
-                                        fingerprint.toString());
-                                  },
-                                ),
+                                    //   final fingerprintSP =
+                                    //       await SharedPreferences.getInstance();
+                                    //   fingerprintSP.setBool(
+                                    //       "fingerprint", newValue);
+                                    //   setState(() {
+                                    //     fingerprint =
+                                    //         fingerprintSP.getBool('fingerprint')!;
+                                    //   });
+                                    //   print("fingerprint = " +
+                                    //       fingerprint.toString());
+                                    // },
+                                    ),
                               ],
                             )
                           ],
