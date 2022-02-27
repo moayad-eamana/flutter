@@ -1,6 +1,7 @@
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 
@@ -12,37 +13,37 @@ class CustomSearchDelegate extends SearchDelegate {
     {
       "service_name": "طلب إجازة",
       "Navigation": "/VacationRequest",
-      "icon": Icons.request_page,
+      "icon": 'assets/SVGs/tadreb.svg',
     },
     {
       "service_name": "طلب خارج دوام",
       "Navigation": "/OutdutyRequest",
-      "icon": Icons.note_add,
+      "icon": 'assets/SVGs/tadreb.svg',
     },
     {
       "service_name": "رصيد إجازات",
       "Navigation": "/entedab",
-      "icon": Icons.ac_unit
+      "icon": 'assets/SVGs/tadreb.svg'
     },
     {
       "service_name": "طلب إنتداب",
       "Navigation": "",
-      "icon": Icons.note_add,
+      "icon": 'assets/SVGs/tadreb.svg',
     },
     {
       "service_name": "طلب إعارة",
       "Navigation": "",
-      "icon": Icons.note_add,
+      "icon": 'assets/SVGs/tadreb.svg',
     },
     {
       "service_name": "طلب ترقية",
       "Navigation": "",
-      "icon": Icons.note_add,
+      "icon": 'assets/SVGs/tadreb.svg',
     },
     {
       "service_name": "تعريف بالراتب",
       "Navigation": "",
-      "icon": Icons.note_add,
+      "icon": 'assets/SVGs/tadreb.svg',
     },
     {
       "service_name": "إعتماداتي",
@@ -53,7 +54,7 @@ class CustomSearchDelegate extends SearchDelegate {
           child: InboxHedersView(),
         ),
       ),
-      "icon": Icons.not_accessible,
+      "icon": 'assets/SVGs/tadreb.svg',
     },
   ];
   //did't use
@@ -132,7 +133,7 @@ class CustomSearchDelegate extends SearchDelegate {
     final suggestions = query.isEmpty
         ? services2 // replaced with rescntservices
         : services2.where((s) {
-            print(s["service_name"]);
+            //   print(s["service_name"]);
 
             return s["service_name"].toString().contains(query);
           }).toList();
@@ -146,10 +147,14 @@ class CustomSearchDelegate extends SearchDelegate {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: ListTile(
-            leading: Icon(
+            leading: SvgPicture.asset(
               suggestions[index]["icon"],
-              color: baseColor,
+              width: responsiveMT(30, 35),
             ),
+            // Icon(
+            //   suggestions[index]["icon"],
+            //   color: baseColor,
+            // ),
             title: Text(
               suggestions[index]["service_name"],
               style: descTx1(baseColorText),

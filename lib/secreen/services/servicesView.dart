@@ -127,15 +127,24 @@ class _ServicesViewState extends State<ServicesView> {
         crossAxisSpacing: 10,
         children: [
           StaggeredGridTileW(
-              1,
-              hi,
-              widgetsUni.servicebutton2(
-                "طلب إجازة",
-                Icons.request_page,
-                () {
-                  Navigator.pushNamed(context, "/VacationRequest");
-                },
-              )),
+            1,
+            hi,
+            ElevatedButton(
+              style: cardServiece,
+              onPressed: () {
+                Navigator.pushNamed(context, "/VacationRequest");
+              },
+              child: widgetsUni.cardcontentService(
+                  'assets/SVGs/ejaza.svg', "طلب إجازة"),
+            ),
+          ),
+          // widgetsUni.cardcontentService(
+          //   "طلب إجازة",
+          //   'assets/SVGs/khareg-dawam.svg',
+          //   () {
+          //     Navigator.pushNamed(context, "/VacationRequest");
+          //   },
+          // ),),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -145,7 +154,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/OutdutyRequest");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "طلب خارج دوام"))),
+                      'assets/SVGs/khareg-dawam.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -153,7 +162,7 @@ class _ServicesViewState extends State<ServicesView> {
                   style: cardServiece,
                   onPressed: () {},
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "رصيد إجازات"))),
+                      'assets/SVGs/rased-ajaza.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -163,7 +172,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/entedab");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "طلب إنتداب"))),
+                      'assets/SVGs/entdab.svg', "طلب إنتداب"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -171,7 +180,7 @@ class _ServicesViewState extends State<ServicesView> {
                   style: cardServiece,
                   onPressed: () {},
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "طلب إعارة"))),
+                      'assets/SVGs/dalel-emp.svg', "طلب إعارة"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -181,7 +190,7 @@ class _ServicesViewState extends State<ServicesView> {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "طلب ترقية"))),
+                      'assets/SVGs/dalel-emp.svg', "طلب ترقية"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -191,7 +200,7 @@ class _ServicesViewState extends State<ServicesView> {
                     ViewFile.open(testbase64Pfd, "pdf");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "تعريف بالراتب"))),
+                      'assets/SVGs/dalel-emp.svg', "تعريف بالراتب"))),
         ],
       ),
     );
@@ -224,7 +233,7 @@ class _ServicesViewState extends State<ServicesView> {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.not_accessible, "إعتماداتي"))),
+                      'assets/SVGs/dalel-emp.svg', "إعتماداتي"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -242,8 +251,8 @@ class _ServicesViewState extends State<ServicesView> {
                       ),
                     );
                   },
-                  child:
-                      widgetsUni.cardcontentService(Icons.note_add, "مواعيدي")))
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/dalel-emp.svg', "مواعيدي")))
         ],
       ),
     );
@@ -267,7 +276,7 @@ class _ServicesViewState extends State<ServicesView> {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.not_accessible, "طلب تدريب"))),
+                      'assets/SVGs/tadreb.svg', "طلب تدريب"))),
         ],
       ),
     );
@@ -291,7 +300,7 @@ class _ServicesViewState extends State<ServicesView> {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.not_accessible, "الفعاليات"))),
+                      'assets/SVGs/event.svg', "الفعاليات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -301,7 +310,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/EamanaDiscount");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.not_accessible, "عروض الموظفين"))),
+                      'assets/SVGs/offers.svg', "عروض الموظفين"))),
           StaggeredGridTile.extent(
             crossAxisCellCount: 1,
             mainAxisExtent: hi,
@@ -311,7 +320,7 @@ class _ServicesViewState extends State<ServicesView> {
                   print("object");
                 },
                 child: widgetsUni.cardcontentService(
-                    Icons.not_accessible, "طلب استيكر")),
+                    'assets/SVGs/dalel-emp.svg', "طلب استيكر")),
           ),
           StaggeredGridTileW(
               1,

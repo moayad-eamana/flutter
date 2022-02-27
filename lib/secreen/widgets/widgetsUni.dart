@@ -1,5 +1,6 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 class widgetsUni {
@@ -10,15 +11,19 @@ class widgetsUni {
     );
   }
 
-  static Column cardcontentService(icon, String title) {
+  static Column cardcontentService(String icon, String title) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
+        SvgPicture.asset(
           icon,
-          size: SizerUtil.deviceType == DeviceType.mobile ? 30 : 35,
-          color: baseColor,
+          width: responsiveMT(30, 35),
         ),
+        // Icon(
+        //   icon,
+        //   size: SizerUtil.deviceType == DeviceType.mobile ? 30 : 35,
+        //   color: baseColor,
+        // ),
         SizedBox(
           height: 5,
         ),
@@ -66,7 +71,8 @@ class widgetsUni {
     return ElevatedButton(
         style: cardServiece,
         onPressed: onClicked,
-        child: widgetsUni.cardcontentService(Icons.request_page, text));
+        child:
+            widgetsUni.cardcontentService('assets/SVGs/dalel-emp.svg', text));
   }
 
   static Widget actionbutton(String text, icon, VoidCallback onClicked) {

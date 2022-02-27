@@ -34,16 +34,18 @@ class SliderWidget {
                       ),
                     );
                   },
-                  child:
-                      widgetsUni.cardcontentService(Icons.task, "إعتماداتي"))),
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/dalel-emp.svg', "إعتماداتي"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/OutdutyRequest');
+                  },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "طلب خارج دوام"))),
+                      'assets/SVGs/dalel-emp.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -53,7 +55,7 @@ class SliderWidget {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "رصيد إجازات"))),
+                      'assets/SVGs/rased-ajaza.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -63,7 +65,7 @@ class SliderWidget {
                     Navigator.pushNamed(context, '/EamanaDiscount');
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.local_offer_rounded, "عروض الموظفين"))),
+                      'assets/SVGs/offers.svg', "عروض الموظفين"))),
         ],
       ),
       StaggeredGrid.count(
@@ -80,7 +82,7 @@ class SliderWidget {
                     Navigator.pushNamed(context, '/VacationRequest');
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.not_accessible, "طلب إجازة"))),
+                      'assets/SVGs/ejaza.svg', "طلب إجازة"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -90,7 +92,7 @@ class SliderWidget {
                     Navigator.pushNamed(context, '/EamanaDiscount');
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "طلب خارج دوام"))),
+                      'assets/SVGs/khareg-dawam.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -100,7 +102,7 @@ class SliderWidget {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "رصيد إجازات"))),
+                      'assets/SVGs/dalel-emp.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -110,7 +112,7 @@ class SliderWidget {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      Icons.note_add, "طلب إنتداب"))),
+                      'assets/SVGs/entdab.svg', "طلب إنتداب"))),
         ],
       )
     ];
