@@ -34,8 +34,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
-	<key>NSFaceIDUsageDescription</key>
-<string>Why is my app authenticating using face id?</string>
+
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
@@ -50,5 +49,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	 <key>NSFaceIDUsageDescription</key>
+<string>Why is my app authenticating using face id?</string>
 </dict>
 </plist>
