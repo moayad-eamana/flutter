@@ -10,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
-
   @override
   State<Settings> createState() => _SettingsState();
 }
@@ -23,19 +22,14 @@ class _SettingsState extends State<Settings> {
   //
   void getSettings() async {
     final settingSP = await SharedPreferences.getInstance();
-
     fingerprint = settingSP.getBool("fingerprint")!;
-
     blindness = settingSP.getBool('blindness')!;
-
     darkmode = settingSP.getBool("darkmode")!;
-
     setState(() {});
   }
 
   final LocalAuthentication auth = LocalAuthentication();
   bool? _canCheckBiometrics;
-
   bool? _authenticated;
 
   Future<void> _checkBiometrics() async {
@@ -56,7 +50,6 @@ class _SettingsState extends State<Settings> {
 
   Future<void> _authenticate() async {
     bool authenticated = false;
-
     try {
       authenticated = await auth.authenticate(
           localizedReason: 'Let OS determine authentication method',
@@ -67,14 +60,10 @@ class _SettingsState extends State<Settings> {
       });
     } on PlatformException catch (e) {
       setState(() {
-        _authenticated = false;
-        print("kiiiiiaaaaaaaaaaaaaaaaaaaaaaaa = " + _authenticated.toString());
+        _authenticated = authenticated;
       });
-      Alerts.warningAlert(context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره")
-          .show();
       print(e);
-
-      //return;
+      return;
     }
     if (!mounted) {
       return;
@@ -139,20 +128,16 @@ class _SettingsState extends State<Settings> {
                                         status: 'جاري المعالجة...',
                                         maskType: EasyLoadingMaskType.black,
                                       );
-
                                       await _checkBiometrics();
                                       EasyLoading.dismiss();
-
                                       if (_canCheckBiometrics == true) {
                                         await _authenticate();
                                       } else if (_authenticated == true) {
                                         final fingerprintSP =
                                             await SharedPreferences
                                                 .getInstance();
-
                                         fingerprintSP.setBool(
                                             "fingerprint", newValue);
-
                                         setState(() {
                                           fingerprint = fingerprintSP
                                               .getBool('fingerprint')!;
@@ -164,20 +149,17 @@ class _SettingsState extends State<Settings> {
                                                 "لا يمكن تفعيل البصمة, لعدم توفره")
                                             .show();
                                       }
-                                    } else {
-                                      final fingerprintSP =
-                                          await SharedPreferences.getInstance();
-
-                                      fingerprintSP.setBool(
-                                          "fingerprint", newValue);
-
-                                      setState(() {
-                                        fingerprint = fingerprintSP
-                                            .getBool('fingerprint')!;
-                                      });
-                                      print("fingerprint = " +
-                                          fingerprint.toString());
                                     }
+                                    final fingerprintSP =
+                                        await SharedPreferences.getInstance();
+                                    fingerprintSP.setBool(
+                                        "fingerprint", newValue);
+                                    setState(() {
+                                      fingerprint =
+                                          fingerprintSP.getBool('fingerprint')!;
+                                    });
+                                    print("fingerprint = " +
+                                        fingerprint.toString());
                                   },
                                 ),
                               ],
@@ -215,9 +197,7 @@ class _SettingsState extends State<Settings> {
                                   onChanged: (bool newValue) async {
                                     final blindnessSP =
                                         await SharedPreferences.getInstance();
-
                                     blindnessSP.setBool("blindness", newValue);
-
                                     setState(() {
                                       blindness =
                                           blindnessSP.getBool('blindness')!;
@@ -239,9 +219,7 @@ class _SettingsState extends State<Settings> {
                                   onChanged: (bool newValue) async {
                                     final darkmodeSP =
                                         await SharedPreferences.getInstance();
-
                                     darkmodeSP.setBool("darkmode", newValue);
-
                                     setState(() {
                                       darkmode =
                                           darkmodeSP.getBool('darkmode')!;
@@ -291,7 +269,6 @@ class _SettingsState extends State<Settings> {
                           //width: responsiveMT(90, 150),
                           alignment: Alignment.center,
                           width: 150,
-
                           image: AssetImage("assets/image/rakamy-logo-2.png"),
                         ),
                         Text("الإصدار الأول 1.20.22")
