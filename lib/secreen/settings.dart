@@ -123,25 +123,41 @@ class _SettingsState extends State<Settings> {
                                 Switch(
                                     value: fingerprint,
                                     onChanged: (bool newValue) async {
-                                      //if (fingerprint == false) {
                                       EasyLoading.show(
                                         status: 'جاري المعالجة...',
                                         maskType: EasyLoadingMaskType.black,
                                       );
-                                      await _checkBiometrics();
 
-                                      if (_canCheckBiometrics == true) {
-                                        await _authenticate();
+                                      if (fingerprint == false) {
+                                        await _checkBiometrics();
+
+                                        if (_canCheckBiometrics == true) {
+                                          await _authenticate();
+                                        } else {
+                                          setState(() {
+                                            _authenticated = false;
+                                          });
+                                          Alerts.warningAlert(context, "تنبيه",
+                                                  "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
+                                              .show();
+                                        }
+
+                                        if (_authenticated == true) {
+                                          final fingerprintSP =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          fingerprintSP.setBool(
+                                              "fingerprint", newValue);
+                                          setState(() {
+                                            fingerprint = fingerprintSP
+                                                .getBool('fingerprint')!;
+                                          });
+                                          print("fingerprint = " +
+                                              fingerprint.toString());
+                                        } else {
+                                          //if canceleds
+                                        }
                                       } else {
-                                        setState(() {
-                                          _authenticated = false;
-                                        });
-                                        Alerts.warningAlert(context, "تنبيه",
-                                                "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
-                                            .show();
-                                      }
-
-                                      if (_authenticated == true) {
                                         final fingerprintSP =
                                             await SharedPreferences
                                                 .getInstance();
@@ -153,11 +169,10 @@ class _SettingsState extends State<Settings> {
                                         });
                                         print("fingerprint = " +
                                             fingerprint.toString());
-                                      } else {
-                                        //if canceleds
                                       }
                                       EasyLoading.dismiss();
                                     }
+
                                     //   final fingerprintSP =
                                     //       await SharedPreferences.getInstance();
                                     //   fingerprintSP.setBool(
