@@ -137,7 +137,7 @@ class _SettingsState extends State<Settings> {
                                           _authenticated = false;
                                         });
                                         Alerts.warningAlert(context, "تنبيه",
-                                                "لا يمكن تفعيل البصمة, لعدم توفره")
+                                                "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
                                             .show();
                                       }
 

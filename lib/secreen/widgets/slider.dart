@@ -99,10 +99,10 @@ class SliderWidget {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    print("object");
+                    Navigator.pushNamed(context, '/auhad');
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "رصيد إجازات"))),
+                      'assets/SVGs/dalel-emp.svg', "العهد"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
