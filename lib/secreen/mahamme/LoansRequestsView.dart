@@ -45,7 +45,7 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("الاعارات", context),
+        appBar: AppBarW.appBarW("الاعارات", context, null),
         body: _provider.LoansRequestList.length == 0
             ? Container()
             : Stack(

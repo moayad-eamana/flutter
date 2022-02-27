@@ -15,7 +15,7 @@ class _AuhadState extends State<Auhad> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("العهد", context),
+        appBar: AppBarW.appBarW("العهد", context, null),
         body: SingleChildScrollView(
           child: Container(
             //color: Colors.amber,

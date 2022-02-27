@@ -117,7 +117,7 @@ class _TabBarDemoState extends State<TabBarDemo> {
                     ChangeNotifierProvider(
                       create: (_) => EmpInfoProvider(),
                       // ignore: prefer_const_constructors
-                      child: EmpProfile(),
+                      child: EmpProfile(null),
                     ),
                     Statistics(),
                     ChangeNotifierProvider(
@@ -130,13 +130,13 @@ class _TabBarDemoState extends State<TabBarDemo> {
                     ChangeNotifierProvider(
                       create: (_) => EmpInfoProvider(),
                       // ignore: prefer_const_constructors
-                      child: EmpProfile(),
+                      child: EmpProfile(null),
                     ),
                     Statistics(),
                     ChangeNotifierProvider(
                       create: (_) => EmpInfoProvider(),
                       // ignore: prefer_const_constructors
-                      child: EmpInfoView(),
+                      child: EmpInfoView(null),
                     ),
                     ChangeNotifierProvider(
                       create: (context) => EatemadatProvider(),

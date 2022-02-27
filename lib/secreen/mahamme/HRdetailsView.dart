@@ -49,7 +49,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("تفاصيل الطلب", context),
+        appBar: AppBarW.appBarW("تفاصيل الطلب", context, null),
         body: Stack(
           children: [
             Image.asset(

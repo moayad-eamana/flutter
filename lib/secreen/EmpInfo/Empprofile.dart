@@ -14,7 +14,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class EmpProfile extends StatefulWidget {
-  EmpProfile({Key? key}) : super(key: key);
+  bool? showBack;
+  EmpProfile(this.showBack);
 
   @override
   _EmpProfileState createState() => _EmpProfileState();
@@ -56,7 +57,8 @@ class _EmpProfileState extends State<EmpProfile> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("بياناتي", context),
+        appBar: AppBarW.appBarW(
+            "بياناتي", context, widget.showBack == null ? null : true),
         body: Stack(
           children: [
             Image.asset(

@@ -92,7 +92,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("طلب خارج الدوام", context),
+          appBar: AppBarW.appBarW("طلب خارج الدوام", context, null),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),

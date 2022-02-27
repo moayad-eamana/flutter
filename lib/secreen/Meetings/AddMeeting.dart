@@ -72,7 +72,7 @@ class _AddMeetingState extends State<AddMeeting> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("إضافة موعد", context),
+        appBar: AppBarW.appBarW("إضافة موعد", context, null),
         body: Stack(
           children: [
             Image.asset(

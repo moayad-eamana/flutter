@@ -125,7 +125,7 @@ class _VacationRequestState extends State<VacationRequest> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("طلب إجازة", context),
+          appBar: AppBarW.appBarW("طلب إجازة", context, null),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),

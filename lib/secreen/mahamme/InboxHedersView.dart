@@ -51,7 +51,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("إعتماداتي", context),
+        appBar: AppBarW.appBarW("إعتماداتي", context, null),
         body: Stack(
           children: [
             Image.asset(

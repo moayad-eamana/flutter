@@ -12,7 +12,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmpInfoView extends StatefulWidget {
-  EmpInfoView({Key? key}) : super(key: key);
+  bool? showback;
+  EmpInfoView(this.showback);
 
   @override
   _EmpInfoViewState createState() => _EmpInfoViewState();
@@ -28,7 +29,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("دليل الموظفين", context),
+          appBar: AppBarW.appBarW(
+              "دليل الموظفين", context, widget.showback == null ? null : true),
           body: Stack(
             children: [
               Image.asset(

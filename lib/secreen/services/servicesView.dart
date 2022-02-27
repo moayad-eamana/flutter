@@ -92,15 +92,7 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("خدمات التدريب", style: subtitleTx(baseColor)),
-                    widgetsUni.divider(),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    trainning(),
-                    SizedBox(
-                      height: 10,
-                    ),
+
                     Text("خدمات أخرى", style: subtitleTx(baseColor)),
                     widgetsUni.divider(),
                     SizedBox(
@@ -173,24 +165,7 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/entdab.svg', "طلب إنتداب"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {},
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "طلب إعارة"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    print("object");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "طلب ترقية"))),
+
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -258,30 +233,6 @@ class _ServicesViewState extends State<ServicesView> {
     );
   }
 
-  Widget trainning() {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-    return Container(
-      //   margin: EdgeInsets.symmetric(horizontal: 20),
-      child: StaggeredGrid.count(
-        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-        mainAxisSpacing: 6,
-        crossAxisSpacing: 10,
-        children: [
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    print("object");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/tadreb.svg', "طلب تدريب"))),
-        ],
-      ),
-    );
-  }
-
   Widget otherServices() {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return Container(
@@ -311,17 +262,17 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/offers.svg', "عروض الموظفين"))),
-          StaggeredGridTile.extent(
-            crossAxisCellCount: 1,
-            mainAxisExtent: hi,
-            child: ElevatedButton(
-                style: cardServiece,
-                onPressed: () {
-                  print("object");
-                },
-                child: widgetsUni.cardcontentService(
-                    'assets/SVGs/dalel-emp.svg', "طلب استيكر")),
-          ),
+          // StaggeredGridTile.extent(
+          //   crossAxisCellCount: 1,
+          //   mainAxisExtent: hi,
+          //   child: ElevatedButton(
+          //       style: cardServiece,
+          //       onPressed: () {
+          //         print("object");
+          //       },
+          //       child: widgetsUni.cardcontentService(
+          //           'assets/SVGs/dalel-emp.svg', "طلب استيكر")),
+          // ),
           StaggeredGridTileW(
               1,
               hi,
@@ -335,7 +286,7 @@ class _ServicesViewState extends State<ServicesView> {
                         builder: (context) => ChangeNotifierProvider(
                           create: (context) => EmpInfoProvider(),
                           // ignore: prefer_const_constructors
-                          child: EmpInfoView(),
+                          child: EmpInfoView(null),
                         ),
                       ));
                 },
@@ -353,7 +304,7 @@ class _ServicesViewState extends State<ServicesView> {
                         builder: (context) => ChangeNotifierProvider(
                           create: (context) => EmpInfoProvider(),
                           // ignore: prefer_const_constructors
-                          child: EmpProfile(),
+                          child: EmpProfile(null),
                         ),
                       ));
                 },

@@ -2,7 +2,8 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
 class AppBarW {
-  static PreferredSize appBarW(String title, BuildContext context) {
+  static PreferredSize appBarW(
+      String title, BuildContext context, bool? showBack) {
     return PreferredSize(
       preferredSize: Size.fromHeight(90.0),
       child: AppBar(
@@ -28,35 +29,36 @@ class AppBarW {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(right: 25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_back),
-                            color: Colors.black,
-                            onPressed: () {
+              if (showBack == null)
+                Container(
+                  margin: EdgeInsets.only(right: 25),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            child: IconButton(
+                              icon: const Icon(Icons.arrow_back),
+                              color: Colors.black,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
                               Navigator.pop(context);
                             },
+                            child: Container(
+                                margin: EdgeInsets.only(right: 10, top: 30),
+                                child: Text("رجوع")),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                              margin: EdgeInsets.only(right: 10, top: 30),
-                              child: Text("رجوع")),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),

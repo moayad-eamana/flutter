@@ -33,7 +33,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("الاعارات", context),
+        appBar: AppBarW.appBarW("الاعارات", context, null),
         body: SingleChildScrollView(
           child: Stack(
             children: [

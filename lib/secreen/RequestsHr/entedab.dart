@@ -34,7 +34,7 @@ class _EntedabState extends State<Entedab> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("طلب إنتداب", context),
+        appBar: AppBarW.appBarW("طلب إنتداب", context, null),
         body: Stack(
           children: [
             Image.asset(

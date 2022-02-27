@@ -54,7 +54,7 @@ class _MeetingViewState extends State<MeetingView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("مواعيدي", context),
+        appBar: AppBarW.appBarW("مواعيدي", context, null),
         body: Stack(
           children: [
             Image.asset(
