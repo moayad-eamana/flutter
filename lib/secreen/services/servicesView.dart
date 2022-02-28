@@ -74,6 +74,15 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
+                    Text(
+                      "الرواتب",
+                      style: subtitleTx(baseColor),
+                    ),
+                    widgetsUni.divider(),
+                    salary(),
+                    SizedBox(
+                      height: 10,
+                    ),
                     if (id == 1)
                       Text(
                         "مهامي",
@@ -165,17 +174,6 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/entdab.svg', "طلب إنتداب"))),
-
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    ViewFile.open(testbase64Pfd, "pdf");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "تعريف بالراتب"))),
         ],
       ),
     );
@@ -309,6 +307,45 @@ class _ServicesViewState extends State<ServicesView> {
                       ));
                 },
               )),
+        ],
+      ),
+    );
+  }
+
+  Widget salary() {
+    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
+
+    return Container(
+      //    margin: EdgeInsets.symmetric(horizontal: 20),
+      child: StaggeredGrid.count(
+        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
+        mainAxisSpacing: 6,
+        crossAxisSpacing: 8,
+        children: [
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/SalaryHistory");
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/event.svg', "سجل الرواتب"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/auth_secreen").then((value) {
+                      if (value == true) {
+                        ViewFile.open(testbase64Pfd, "pdf");
+                      }
+                    });
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/dalel-emp.svg', "تعريف بالراتب"))),
         ],
       ),
     );

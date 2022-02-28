@@ -1,3 +1,4 @@
+import 'package:eamanaapp/auth_secreen.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
@@ -15,6 +16,7 @@ import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/secreen/main_home.dart';
+import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/secreen/settings.dart';
@@ -215,7 +217,8 @@ class _MyAppState extends State<MyApp> {
           '/Settings': (context) => Settings(),
           '/AuthenticateBio': (context) => AuthenticateBio(),
           '/auhad': (context) => Auhad(),
-          '/Community': (context) => Community(),
+          '/auth_secreen': (context) => AuthenticateBioSecreen(),
+          '/SalaryHistory': (context) => SalaryHistory(),
         },
       );
     });
