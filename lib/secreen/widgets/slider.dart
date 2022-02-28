@@ -91,7 +91,7 @@ class SliderWidget {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/EamanaDiscount');
+                    Navigator.pushNamed(context, "/OutdutyRequest");
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/khareg-dawam.svg', "طلب خارج دوام"))),
@@ -111,7 +111,7 @@ class SliderWidget {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    print("object");
+                    Navigator.pushNamed(context, "/entedab");
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/entdab.svg', "طلب إنتداب"))),

@@ -7,9 +7,10 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
+  dynamic id;
   CustomSearchDelegate(this.context);
 
-  final services2 = [
+  final dynamic services2 = [
     {
       "service_name": "طلب إجازة",
       "Navigation": "/VacationRequest",
@@ -76,7 +77,7 @@ class CustomSearchDelegate extends SearchDelegate {
     },
     {
       "service_name": "طلب إنتداب",
-      "Navigation": "",
+      "Navigation": "/entedab",
       "icon": Icons.note_add,
     },
     {
