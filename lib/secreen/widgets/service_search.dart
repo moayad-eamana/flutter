@@ -5,6 +5,8 @@ import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/utilities/ViewFile.dart';
+import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +39,15 @@ class CustomSearchDelegate extends SearchDelegate {
       "Navigation": "/entedab",
       "icon": 'assets/SVGs/tadreb.svg',
     },
+    //الرواتب
+    {
+      "service_name": "سجل الرواتب",
+      "Navigation": "/SalaryHistory",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
     {
       "service_name": "تعريف بالراتب",
-      "Navigation": "",
+      "Navigation": "/auth_secreen",
       "icon": 'assets/SVGs/tadreb.svg',
     },
     //مهامي
@@ -84,27 +92,33 @@ class CustomSearchDelegate extends SearchDelegate {
     {
       "service_name": "طلب إجازة",
       "Navigation": "/VacationRequest",
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/ejaza.svg',
     },
     {
       "service_name": "طلب خارج دوام",
       "Navigation": "/OutdutyRequest",
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/khareg-dawam.svg',
     },
     {
       "service_name": "رصيد إجازات",
       "Navigation": "",
-      "icon": 'assets/SVGs/tadreb.svg'
+      "icon": 'assets/SVGs/rased-ajaza.svg'
     },
     {
       "service_name": "طلب إنتداب",
       "Navigation": "/entedab",
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/entdab.svg',
+    },
+    //الرواتب
+    {
+      "service_name": "سجل الرواتب",
+      "Navigation": "/SalaryHistory",
+      "icon": 'assets/SVGs/event.svg',
     },
     {
       "service_name": "تعريف بالراتب",
-      "Navigation": "",
-      "icon": 'assets/SVGs/tadreb.svg',
+      "Navigation": "/auth_secreen",
+      "icon": 'assets/SVGs/dalel-emp.svg',
     },
     //مهامي
     {
@@ -116,7 +130,7 @@ class CustomSearchDelegate extends SearchDelegate {
           child: InboxHedersView(),
         ),
       ),
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/dalel-emp.svg',
     },
     {
       "service_name": "مواعيدي",
@@ -127,18 +141,18 @@ class CustomSearchDelegate extends SearchDelegate {
           child: MeetingView(),
         ),
       ),
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/dalel-emp.svg',
     },
     //خدمات أخرى
     {
       "service_name": "الفعاليات",
       "Navigation": "",
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/event.svg',
     },
     {
       "service_name": "عروض الموظفين",
       "Navigation": "/EamanaDiscount",
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/offers.svg',
     },
     {
       "service_name": "دليل الموظفين",
@@ -237,13 +251,21 @@ class CustomSearchDelegate extends SearchDelegate {
                   ? suggestions[index]["Navigation"]
                   : '/home';
 
-              navi.runtimeType == String
-                  ? Navigator.pushNamed(context, navi).then((value) {
-                      close(this.context, null);
+              print(query == "تعريف بالراتب");
+
+              query == "تعريف بالراتب"
+                  ? Navigator.pushNamed(context, "/auth_secreen").then((value) {
+                      if (value == true) {
+                        ViewFile.open(testbase64Pfd, "pdf");
+                      }
                     })
-                  : Navigator.push(context, navi).then((value) {
-                      close(this.context, null);
-                    });
+                  : navi.runtimeType == String
+                      ? Navigator.pushNamed(context, navi).then((value) {
+                          close(this.context, null);
+                        })
+                      : Navigator.push(context, navi).then((value) {
+                          close(this.context, null);
+                        });
             },
           ),
         );
