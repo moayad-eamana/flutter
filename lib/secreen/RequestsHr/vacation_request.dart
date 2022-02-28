@@ -32,6 +32,7 @@ class _VacationRequestState extends State<VacationRequest> {
   // TextEditingController _date = TextEditingController();
   var _ReplaceEmployeeNumber;
   var _VacationTypeID;
+  var _SignatureApproval;
 
   DropdownSearchW drop1 = new DropdownSearchW();
   EmployeeProfile empinfo = new EmployeeProfile();
@@ -84,6 +85,7 @@ class _VacationRequestState extends State<VacationRequest> {
       "StartDate": _date.text,
       //"2022-02-23T13:05:22.2919384+03:00",
       "Notes": _note.text.toString(),
+      "SignatureApprovalFlag": _SignatureApproval,
     };
     print(data);
     //encode Map to JSON
@@ -118,6 +120,11 @@ class _VacationRequestState extends State<VacationRequest> {
     {"VacationTypeName": "إجازة اعتيادية", "VacationID": 116.0},
     {"VacationTypeName": "إجازة اضطرارية", "VacationID": 122.0},
     {"VacationTypeName": "تمديد إجازة اعتيادية", "VacationID": 124.0},
+  ];
+
+  List<Map<dynamic, dynamic>> _SignatureApprovalFlag = [
+    {"Flag": "نعم", "SignatureApprovalFlag": true},
+    {"Flag": "لا", "SignatureApprovalFlag": false},
   ];
 
   @override
@@ -387,6 +394,98 @@ class _VacationRequestState extends State<VacationRequest> {
                                   child: Center(
                                     child: Text(
                                       "الموظف البديل",
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                popupShape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(24),
+                                    topRight: Radius.circular(24),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "هل ترغب بمنح البديل صلاحية التوقيع بالإنابة في النظام المعاملات الإلكترونية ؟",
+                              ),
+                              DropdownSearch<dynamic>(
+                                items: _SignatureApprovalFlag,
+                                popupItemBuilder: (context, rr, isSelected) =>
+                                    (Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Column(
+                                    children: [
+                                      Text(rr["Flag"].toString(),
+                                          style: subtitleTx(baseColorText))
+                                    ],
+                                  ),
+                                )),
+                                dropdownBuilder: (context, selectedItem) =>
+                                    Container(
+                                  decoration: null,
+                                  child: selectedItem == null
+                                      ? null
+                                      : Text(
+                                          selectedItem == null
+                                              ? ""
+                                              : selectedItem["Flag"] ?? "",
+                                          style: subtitleTx(baseColorText),
+                                        ),
+                                ),
+                                dropdownBuilderSupportsNullItem: true,
+                                mode: Mode.BOTTOM_SHEET,
+                                showClearButton:
+                                    _SignatureApproval == null ? false : true,
+                                maxHeight: 400,
+                                showAsSuffixIcons: true,
+                                dropdownSearchDecoration: formlabel1("اختر"),
+                                // InputDecoration(
+                                //   hintText: "نوع الاجازة",
+                                //   helperStyle: TextStyle(color: Colors.amber),
+                                //   contentPadding: EdgeInsets.symmetric(
+                                //       vertical: responsiveMT(10, 30),
+                                //       horizontal: responsiveMT(10, 20)),
+                                //   border: OutlineInputBorder(
+                                //     borderRadius: BorderRadius.circular(4.0),
+                                //     borderSide: BorderSide(color: bordercolor),
+                                //   ),
+                                // ),
+                                validator: (value) {
+                                  if (value == "" || value == null) {
+                                    return "hgfef";
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                showSearchBox: true,
+                                onChanged: (v) {
+                                  try {
+                                    setState(() {
+                                      _SignatureApproval =
+                                          v["SignatureApprovalFlag"];
+                                    });
+                                    print('object');
+                                    print(v["SignatureApprovalFlag"]);
+                                    // value = v;
+                                    //value = v ?? "";
+                                  } catch (e) {}
+                                },
+                                popupTitle: Container(
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: secondryColor,
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "اختر",
                                       style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,

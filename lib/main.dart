@@ -159,6 +159,9 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'رقمي',
         theme: ThemeData(
+          //dark mode
+
+          //brightness: Brightness.light,
           primarySwatch: Colors.blue,
           fontFamily: 'Cairo',
           tabBarTheme: TabBarTheme(
@@ -169,19 +172,14 @@ class _MyAppState extends State<MyApp> {
               indicator: UnderlineTabIndicator(
                   // color for indicator (underline)
                   borderSide: BorderSide(color: baseColor))),
-          primaryColor:
-              Colors.green[800], // outdated and has no effect to Tabbar
-          accentColor: Colors.cyan[600],
-          bottomAppBarColor: Colors.amber,
-          buttonColor: Colors.amber,
 
+          // primaryColor:
+          //     Colors.green[800], // outdated and has no effect to Tabbar
+          // accentColor: Colors.cyan[600],
+          // bottomAppBarColor: Colors.amber,
+          // buttonColor: Colors.amber,
           // deprecated,
         ),
-        // darkTheme: ThemeData(
-        //   brightness: Brightness.dark,
-        //   /* dark theme settings */
-        // ),
-        // themeMode: ThemeMode.dark,
         initialRoute: widget.username == null || widget.username == ""
             ? "/"
             : fingerprint == false

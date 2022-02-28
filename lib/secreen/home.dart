@@ -175,6 +175,7 @@ class _TabBarDemoState extends State<TabBarDemo>
           return false;
         },
         child: Scaffold(
+          backgroundColor: BackGColor,
           body: Stack(
             fit: StackFit.loose,
             overflow: Overflow.visible,

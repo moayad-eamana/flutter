@@ -3,6 +3,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 bool blindness = false;
+bool darkmode = false;
+
+Color BackGWhiteColor = darkmode == false
+    ? Colors.white
+    : //
+    Color(0xff121212);
+
+Color BackGColor = darkmode == false
+    ? Color(0xfffcfcfc)
+    : //
+    Colors.black;
+
 Color baseColor = blindness == false
     ? Color(0xff274690)
     : //
@@ -47,6 +59,19 @@ Future<void> getColorSettings() async {
   final settingSP = await SharedPreferences.getInstance();
 
   blindness = settingSP.getBool("blindness")!;
+
+  darkmode = settingSP.getBool("darkmode")!;
+
+  BackGColor = darkmode == false
+      ? Color(0xfffcfcfc)
+      : //
+      Colors.grey.shade700;
+
+  BackGWhiteColor = darkmode == false
+      ? Colors.white
+      : //
+      Colors.grey.shade800;
+
   baseColor = blindness == false
       ? Color(0xff274690)
       : //

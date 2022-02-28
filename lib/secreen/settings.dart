@@ -81,6 +81,7 @@ class _SettingsState extends State<Settings> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+          backgroundColor: BackGColor,
           appBar: AppBarHome.appBarW("الاعدادات", context),
           body: SingleChildScrollView(
             child: Container(
@@ -103,7 +104,7 @@ class _SettingsState extends State<Settings> {
                   Container(
                       height: 100,
                       //margin: EdgeInsets.all(20),
-                      decoration: containerdecoration(Colors.white),
+                      decoration: containerdecoration(BackGWhiteColor),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -248,6 +249,7 @@ class _SettingsState extends State<Settings> {
                                           darkmodeSP.getBool('darkmode')!;
                                     });
                                     print("darkmode = " + darkmode.toString());
+                                    await getColorSettings();
                                   },
                                 ),
                               ],

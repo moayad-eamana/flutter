@@ -216,7 +216,7 @@ class _MainHomeState extends State<MainHome> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: BackGWhiteColor,
                     border: Border.all(
                       color: bordercolor,
                     ),
