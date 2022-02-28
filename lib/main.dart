@@ -115,6 +115,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     getfingerprintSettings();
+
     /*
     getToken();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -136,11 +137,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   bool fingerprint = false;
+  bool darkmode = false;
 
   void getfingerprintSettings() async {
     final settingSP = await SharedPreferences.getInstance();
 
     fingerprint = settingSP.getBool("fingerprint")!;
+    darkmode = settingSP.getBool("darkmode")!;
     setState(() {});
   }
 
@@ -172,6 +175,11 @@ class _MyAppState extends State<MyApp> {
 
           // deprecated,
         ),
+        // darkTheme: ThemeData(
+        //   brightness: Brightness.dark,
+        //   /* dark theme settings */
+        // ),
+        // themeMode: ThemeMode.dark,
         initialRoute: widget.username == null || widget.username == ""
             ? "/"
             : fingerprint == false
