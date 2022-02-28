@@ -8,6 +8,7 @@ import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
+import 'package:eamanaapp/secreen/community.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
@@ -84,11 +85,7 @@ class _TabBarDemoState extends State<TabBarDemo>
     //page 3
     ServicesView(),
     //page 4
-    ChangeNotifierProvider(
-      create: (_) => EmpInfoProvider(),
-      // ignore: prefer_const_constructors
-      child: EmpProfile(false),
-    ),
+    Community(),
     //home page
     MainHome(),
   ];

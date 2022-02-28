@@ -1,9 +1,14 @@
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
+import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
+import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -154,14 +159,34 @@ class _MainHomeState extends State<MainHome> {
                                 "بياناتي",
                                 Icons.data_saver_off_outlined,
                                 () {
-                                  print("ee");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChangeNotifierProvider(
+                                          create: (context) =>
+                                              EmpInfoProvider(),
+                                          // ignore: prefer_const_constructors
+                                          child: EmpProfile(null),
+                                        ),
+                                      ));
                                 },
                               ),
                               widgetsUni.servicebutton(
                                 "دليل الموظفين",
                                 Icons.people_alt,
                                 () {
-                                  print("ee");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ChangeNotifierProvider(
+                                          create: (context) =>
+                                              EmpInfoProvider(),
+                                          // ignore: prefer_const_constructors
+                                          child: EmpInfoView(null),
+                                        ),
+                                      ));
                                 },
                               ),
                               // widgetsUni.servicebutton(
@@ -175,7 +200,7 @@ class _MainHomeState extends State<MainHome> {
                                 "تعريف بالراتب",
                                 Icons.money,
                                 () {
-                                  print("ee");
+                                  ViewFile.open(testbase64Pfd, "pdf");
                                 },
                               ),
                             ],
