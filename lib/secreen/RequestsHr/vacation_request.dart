@@ -411,6 +411,10 @@ class _VacationRequestState extends State<VacationRequest> {
                               ),
                               Text(
                                 "هل ترغب بمنح البديل صلاحية التوقيع بالإنابة في النظام المعاملات الإلكترونية ؟",
+                                style: descTx1(baseColorText),
+                              ),
+                              SizedBox(
+                                height: 5,
                               ),
                               DropdownSearch<dynamic>(
                                 items: _SignatureApprovalFlag,
