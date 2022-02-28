@@ -1,4 +1,9 @@
+import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
+import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,9 +13,10 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
   dynamic id;
-  CustomSearchDelegate(this.context);
+  CustomSearchDelegate(this.context, this.id);
 
-  final dynamic services2 = [
+  final services1 = [
+    ////شؤون الموظفين
     {
       "service_name": "طلب إجازة",
       "Navigation": "/VacationRequest",
@@ -23,22 +29,12 @@ class CustomSearchDelegate extends SearchDelegate {
     },
     {
       "service_name": "رصيد إجازات",
-      "Navigation": "/entedab",
+      "Navigation": "",
       "icon": 'assets/SVGs/tadreb.svg'
     },
     {
       "service_name": "طلب إنتداب",
-      "Navigation": "",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "طلب إعارة",
-      "Navigation": "",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "طلب ترقية",
-      "Navigation": "",
+      "Navigation": "/entedab",
       "icon": 'assets/SVGs/tadreb.svg',
     },
     {
@@ -46,6 +42,71 @@ class CustomSearchDelegate extends SearchDelegate {
       "Navigation": "",
       "icon": 'assets/SVGs/tadreb.svg',
     },
+    //مهامي
+
+    //خدمات أخرى
+    {
+      "service_name": "الفعاليات",
+      "Navigation": "",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "عروض الموظفين",
+      "Navigation": "/EamanaDiscount",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "دليل الموظفين",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EmpInfoProvider(),
+          // ignore: prefer_const_constructors
+          child: EmpInfoView(null),
+        ),
+      ),
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "بيانات",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EmpInfoProvider(),
+          // ignore: prefer_const_constructors
+          child: EmpProfile(null),
+        ),
+      ),
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+  ];
+
+  final services2 = [
+    ////شؤون الموظفين
+    {
+      "service_name": "طلب إجازة",
+      "Navigation": "/VacationRequest",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "طلب خارج دوام",
+      "Navigation": "/OutdutyRequest",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "رصيد إجازات",
+      "Navigation": "",
+      "icon": 'assets/SVGs/tadreb.svg'
+    },
+    {
+      "service_name": "طلب إنتداب",
+      "Navigation": "/entedab",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "تعريف بالراتب",
+      "Navigation": "",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    //مهامي
     {
       "service_name": "إعتماداتي",
       "Navigation": MaterialPageRoute(
@@ -57,45 +118,53 @@ class CustomSearchDelegate extends SearchDelegate {
       ),
       "icon": 'assets/SVGs/tadreb.svg',
     },
+    {
+      "service_name": "مواعيدي",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => MettingsProvider(),
+          // ignore: prefer_const_constructors
+          child: MeetingView(),
+        ),
+      ),
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    //خدمات أخرى
+    {
+      "service_name": "الفعاليات",
+      "Navigation": "",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "عروض الموظفين",
+      "Navigation": "/EamanaDiscount",
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "دليل الموظفين",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EmpInfoProvider(),
+          // ignore: prefer_const_constructors
+          child: EmpInfoView(null),
+        ),
+      ),
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
+    {
+      "service_name": "بيانات",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EmpInfoProvider(),
+          // ignore: prefer_const_constructors
+          child: EmpProfile(null),
+        ),
+      ),
+      "icon": 'assets/SVGs/tadreb.svg',
+    },
   ];
   //did't use
-  final rescntservices = [
-    {
-      "service_name": "طلب إجازة",
-      "Navigation": "/VacationRequest",
-      "icon": Icons.request_page,
-    },
-    {
-      "service_name": "طلب خارج دوام",
-      "Navigation": "/OutdutyRequest",
-      "icon": Icons.note_add,
-    },
-    {
-      "service_name": "رصيد إجازات",
-      "Navigation": "/entedab",
-      "icon": Icons.ac_unit
-    },
-    {
-      "service_name": "طلب إنتداب",
-      "Navigation": "/entedab",
-      "icon": Icons.note_add,
-    },
-    {
-      "service_name": "طلب إعارة",
-      "Navigation": "",
-      "icon": Icons.note_add,
-    },
-    {
-      "service_name": "طلب ترقية",
-      "Navigation": "",
-      "icon": Icons.note_add,
-    },
-    {
-      "service_name": "تعريف بالراتب",
-      "Navigation": "",
-      "icon": Icons.note_add,
-    },
-  ];
+  final rescntservices = [];
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -131,9 +200,10 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    var services = id == 1 ? services2 : services1;
     final suggestions = query.isEmpty
-        ? services2 // replaced with rescntservices
-        : services2.where((s) {
+        ? services // replaced with rescntservices
+        : services.where((s) {
             //   print(s["service_name"]);
 
             return s["service_name"].toString().contains(query);

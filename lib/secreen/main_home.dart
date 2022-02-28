@@ -99,7 +99,7 @@ class _MainHomeState extends State<MainHome> {
                   onTap: () {
                     showSearch(
                         context: context,
-                        delegate: CustomSearchDelegate(context));
+                        delegate: CustomSearchDelegate(context, id));
                     //
                     FocusScope.of(context).unfocus();
                   },

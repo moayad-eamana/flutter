@@ -78,10 +78,11 @@ class _TabBarDemoState extends State<TabBarDemo>
     // ),
     // page 2
     ChangeNotifierProvider(
-      create: (_) => EmpInfoProvider(),
+      create: (context) => EmpInfoProvider(),
       // ignore: prefer_const_constructors
-      child: EmpInfoView(false),
+      child: EmpProfile(true),
     ),
+
     //page 3
     ServicesView(),
     //page 4
