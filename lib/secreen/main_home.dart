@@ -92,7 +92,7 @@ class _MainHomeState extends State<MainHome> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: BackGWhiteColor,
                     labelText: "بحث الخدمات",
                     alignLabelWithHint: true,
                   ),

@@ -38,7 +38,7 @@ class _EntedabState extends State<Entedab> {
         body: Stack(
           children: [
             Image.asset(
-              'assets/image/Union_1.png',
+              imageBG,
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,
@@ -48,7 +48,7 @@ class _EntedabState extends State<Entedab> {
               child: Container(
                 //color: Colors.amber,
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: BackGWhiteColor,
                     border: Border.all(color: bordercolor),
                     borderRadius: BorderRadius.all(Radius.circular(4))),
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),

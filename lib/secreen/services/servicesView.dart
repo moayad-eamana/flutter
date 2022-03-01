@@ -47,7 +47,7 @@ class _ServicesViewState extends State<ServicesView> {
         body: Stack(
           children: [
             Image.asset(
-              'assets/image/Union_1.png',
+              imageBG,
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,

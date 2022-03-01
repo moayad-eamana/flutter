@@ -187,7 +187,7 @@ class _LoginViewState extends State<LoginView> {
 
   Widget background() {
     return Image.asset(
-      'assets/image/Union_1.png',
+      imageBG,
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
       //height: MediaQuery.of(context).size.height,

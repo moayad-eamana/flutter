@@ -12,7 +12,7 @@ class AppBarHome {
           child: Stack(
             children: [
               Container(
-                decoration: const BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(color: BackGWhiteColor),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

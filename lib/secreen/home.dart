@@ -227,7 +227,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                               alignment: Alignment.center,
                               width: MediaQuery.of(context).size.width,
                               fit: BoxFit.fitWidth,
-                              image: AssetImage("assets/image/Union_1.png"),
+                              image: AssetImage(imageBG),
                             ),
                           ),
                           Container(
@@ -398,7 +398,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                   alignment: Alignment.center,
                                   width: MediaQuery.of(context).size.width,
                                   fit: BoxFit.fitWidth,
-                                  image: AssetImage("assets/image/Union_1.png"),
+                                  image: AssetImage(imageBG),
                                 ),
                               ),
                             ),
@@ -632,7 +632,7 @@ class _TabBarDemoState extends State<TabBarDemo>
               child: SizerUtil.deviceType == DeviceType.mobile
                   ? FloatingActionButton(
                       elevation: 8,
-                      backgroundColor: Colors.white,
+                      backgroundColor: BackGWhiteColor,
                       child: AnimatedSwitcher(
                         duration: Duration(seconds: 50),
                         child: AnimatedSwitcher(
@@ -683,7 +683,7 @@ class _TabBarDemoState extends State<TabBarDemo>
               AnimatedBottomNavigationBar.builder(
                 itemCount: iconList.length,
                 tabBuilder: (int index, bool isActive) {
-                  final color = isActive ? secondryColor : Colors.white;
+                  final color = isActive ? secondryColor : BackGWhiteColor;
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -728,7 +728,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                 child: Text(
                   "بطاقتي",
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                      color: BackGWhiteColor, fontWeight: FontWeight.bold),
                 ),
                 right: isPortrait == true ? (50.w - 21) : (50.h - 21),
                 bottom: _bottomNavIndex == 4
@@ -744,7 +744,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                 child: Text(
                   "الرئيسية",
                   style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                      color: BackGWhiteColor, fontWeight: FontWeight.bold),
                 ),
                 right: isPortrait == true ? (50.w - 21) : (50.h - 21),
                 bottom: _bottomNavIndex == 4 ? -25 : 5,

@@ -2,6 +2,7 @@ import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -55,7 +56,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
         body: Stack(
           children: [
             Image.asset(
-              'assets/image/Union_1.png',
+              imageBG,
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,

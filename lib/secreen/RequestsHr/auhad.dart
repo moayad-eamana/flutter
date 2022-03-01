@@ -6,6 +6,7 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Auhad extends StatefulWidget {
   Auhad({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class _AuhadState extends State<Auhad> {
         body: Stack(
           children: [
             Image.asset(
-              'assets/image/Union_1.png',
+              imageBG,
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,
@@ -92,6 +93,7 @@ class _AuhadState extends State<Auhad> {
                         ),
                       ],
                     ),
+                    widgetsUni.divider(),
                     _GetEmployeeCustodies == null
                         ? Center(
                             child: Container(
@@ -112,7 +114,8 @@ class _AuhadState extends State<Auhad> {
                             ..._GetEmployeeCustodies.map((e) => Container(
                                   height: 115,
                                   margin: EdgeInsets.symmetric(vertical: 10),
-                                  decoration: containerdecoration(Colors.white),
+                                  decoration:
+                                      containerdecoration(BackGWhiteColor),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -136,20 +139,11 @@ class _AuhadState extends State<Auhad> {
                                                 "الكمية : " +
                                                     e["Balance"].toString(),
                                                 style: subtitleTx(baseColor),
-                                              )
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        Container(
-                                            height: 2,
-                                            // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                                            child: Divider(
-                                              color: baseColorText,
-                                              height: 10,
-                                              thickness: 1,
-                                              indent: 5,
-                                              endIndent: 5,
-                                            )),
+                                        widgetsUni.divider(),
                                         SizedBox(
                                           height: 3,
                                         ),

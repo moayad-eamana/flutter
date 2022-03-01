@@ -81,12 +81,12 @@ class _SettingsState extends State<Settings> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: BackGColor,
+          // backgroundColor: BackGColor,
           appBar: AppBarHome.appBarW("الاعدادات", context),
           body: Stack(
             children: [
               Image.asset(
-                'assets/image/Union_1.png',
+                imageBG,
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 //height: MediaQuery.of(context).size.height,
@@ -215,7 +215,7 @@ class _SettingsState extends State<Settings> {
                       ),
                       Container(
                           //margin: EdgeInsets.all(20),
-                          decoration: containerdecoration(Colors.white),
+                          decoration: containerdecoration(BackGWhiteColor),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -286,7 +286,7 @@ class _SettingsState extends State<Settings> {
                       ),
                       Container(
                           //margin: EdgeInsets.all(20),
-                          decoration: containerdecoration(Colors.white),
+                          decoration: containerdecoration(BackGWhiteColor),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(

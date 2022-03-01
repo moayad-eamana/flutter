@@ -5,112 +5,97 @@ import 'package:sizer/sizer.dart';
 bool blindness = false;
 bool darkmode = false;
 
-Color BackGWhiteColor = darkmode == false
-    ? Colors.white
-    : //
-    Color(0xff121212);
+String imageBG = "assets/image/Union_1.png";
 
-Color BackGColor = darkmode == false
-    ? Color(0xfffcfcfc)
-    : //
-    Colors.black;
+late Color BackGWhiteColor;
 
-Color baseColor = blindness == false
-    ? Color(0xff274690)
-    : //
-    Color(0xff004D85);
+Color BackGColor = Color(0xfffcfcfc);
 
-Color secondryColor = blindness == false
-    ? Color(0xff2E8D9A)
-    : //
-    Color(0xff7D7D9E);
+Color baseColor = Color(0xff274690);
 
-Color baseColorText = blindness == false
-    ? Color(0xff444444)
-    : //
-    Color(0xff4C4446);
+Color secondryColor = Color(0xff2E8D9A);
 
-Color secondryColorText = blindness == false
-    ? Color(0xff707070)
-    : //
-    Color(0xff7A6C71);
+Color baseColorText = Color(0xff444444);
 
-Color bordercolor = blindness == false
-    ? Color(0xffDDDDDD)
-    : //
-    Color(0xffF1D5DE);
+Color secondryColorText = Color(0xff707070);
 
-Color lableTextcolor = blindness == false
-    ? Color(0xffACC5FF)
-    : //
-    Color(0xffB6C1FF);
+Color bordercolor = Color(0xffDDDDDD);
 
-Color redColor = blindness == false
-    ? Colors.red
-    : //
-    Color(0xffA17800);
+Color lableTextcolor = Color(0xffACC5FF);
 
-Color pinkColor = blindness == false
-    ? Colors.pink
-    : //
-    Color(0xff907356);
+Color redColor = Colors.red;
+
+Color pinkColor = Colors.pink;
 
 Future<void> getColorSettings() async {
+  imageBG = "assets/image/Union_1.png";
+
+  BackGWhiteColor = Colors.white;
+
+  BackGColor = Color(0xfffcfcfc);
+
+  baseColor = Color(0xff274690);
+
+  secondryColor = Color(0xff2E8D9A);
+
+  baseColorText = Color(0xff444444);
+
+  secondryColorText = Color(0xff707070);
+
+  bordercolor = Color(0xffDDDDDD);
+
+  lableTextcolor = Color(0xffACC5FF);
+
+  redColor = Colors.red;
+
+  pinkColor = Colors.pink;
+
   final settingSP = await SharedPreferences.getInstance();
 
   blindness = settingSP.getBool("blindness")!;
 
   darkmode = settingSP.getBool("darkmode")!;
 
-  BackGColor = darkmode == false
-      ? Color(0xfffcfcfc)
-      : //
-      Colors.grey.shade700;
+  if (blindness == true) {
+    baseColor = Color(0xff004D85);
 
-  BackGWhiteColor = darkmode == false
-      ? Colors.white
-      : //
-      Colors.grey.shade800;
+    secondryColor = Color(0xff7D7D9E);
 
-  baseColor = blindness == false
-      ? Color(0xff274690)
-      : //
-      Color(0xff004D85);
+    baseColorText = Color(0xff4C4446);
 
-  secondryColor = blindness == false
-      ? Color(0xff2E8D9A)
-      : //
-      Color(0xff7D7D9E);
+    secondryColorText = Color(0xff7A6C71);
 
-  baseColorText = blindness == false
-      ? Color(0xff444444)
-      : //
-      Color(0xff4C4446);
+    bordercolor = Color(0xffF1D5DE);
 
-  secondryColorText = blindness == false
-      ? Color(0xff707070)
-      : //
-      Color(0xff7A6C71);
+    lableTextcolor = Color(0xffB6C1FF);
 
-  bordercolor = blindness == false
-      ? Color(0xffDDDDDD)
-      : //
-      Color(0xffF1D5DE);
+    redColor = Color(0xffA17800);
 
-  lableTextcolor = blindness == false
-      ? Color(0xffACC5FF)
-      : //
-      Color(0xffB6C1FF);
+    pinkColor = Color(0xff907356);
+  }
+  if (darkmode == true) {
+    imageBG = "assets/image/Union_2.png";
 
-  redColor = blindness == false
-      ? Colors.red
-      : //
-      Color(0xffA17800);
+    BackGColor = Colors.grey.shade700;
 
-  pinkColor = blindness == false
-      ? Colors.pink
-      : //
-      Color(0xff907356);
+    BackGWhiteColor = Colors.grey.shade800;
+
+    baseColor = Colors.blueGrey.shade400;
+
+    secondryColor = Color(0xff2E8D9A);
+
+    baseColorText = Colors.white70;
+
+    secondryColorText = Color(0xff707070);
+
+    bordercolor = Color(0xffDDDDDD);
+
+    lableTextcolor = Color(0xffACC5FF);
+
+    redColor = Colors.red;
+
+    pinkColor = Colors.pink;
+  }
 
   cardServiece = ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
@@ -122,7 +107,7 @@ Future<void> getColorSettings() async {
       color: bordercolor,
     ),
     elevation: 0,
-    primary: Colors.white,
+    primary: BackGWhiteColor,
     onPrimary: Colors.grey, // foregroundjjjkl
   );
 }
@@ -135,7 +120,7 @@ ButtonStyle mainbtn = ElevatedButton.styleFrom(
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(4.0),
   ),
-  primary: Colors.white, // background
+  primary: BackGWhiteColor, // background
   onPrimary: baseColor, // foreground
 );
 
@@ -149,7 +134,7 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
     color: bordercolor,
   ),
   elevation: 0,
-  primary: Colors.white,
+  primary: BackGWhiteColor,
   onPrimary: Colors.grey, // foregroundjjjkl
 );
 

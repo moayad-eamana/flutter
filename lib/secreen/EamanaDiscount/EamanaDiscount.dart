@@ -21,7 +21,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
           body: Stack(
             children: [
               Image.asset(
-                'assets/image/Union_1.png',
+                imageBG,
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 //height: MediaQuery.of(context).size.height,
@@ -37,7 +37,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                           height: 100,
                           margin:
                               EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          decoration: containerdecoration(Colors.white),
+                          decoration: containerdecoration(BackGWhiteColor),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,

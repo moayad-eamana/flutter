@@ -58,7 +58,7 @@ class _MeetingViewState extends State<MeetingView> {
         body: Stack(
           children: [
             Image.asset(
-              'assets/image/Union_1.png',
+              imageBG,
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,
@@ -95,7 +95,7 @@ class _MeetingViewState extends State<MeetingView> {
                                   elevation: 1,
                                   //shadowColor: Colors.white,
 
-                                  color: Colors.white.withOpacity(1),
+                                  color: BackGWhiteColor,
                                   child: Container(
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 10),
@@ -235,7 +235,7 @@ class _MeetingViewState extends State<MeetingView> {
                                           ],
                                         ),
                                         Container(
-                                          color: Colors.white,
+                                          //color: Colors.white,
                                           child: Divider(
                                             thickness: 0.5,
                                             color: bordercolor,
@@ -434,6 +434,7 @@ class _MeetingViewState extends State<MeetingView> {
               child: Container(
                 margin: EdgeInsets.only(right: 10, bottom: 10),
                 child: FloatingActionButton(
+                  backgroundColor: baseColor,
                   onPressed: () {
                     Navigator.push(
                       context,

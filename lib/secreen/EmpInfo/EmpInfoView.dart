@@ -34,7 +34,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
           body: Stack(
             children: [
               Image.asset(
-                'assets/image/Union_1.png',
+                imageBG,
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 //height: MediaQuery.of(context).size.height,
@@ -63,7 +63,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                           border: OutlineInputBorder(
                               borderSide: BorderSide(color: bordercolor)),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: BackGWhiteColor,
                           labelText: "بحث عن موظف",
                           alignLabelWithHint: true,
                           suffixIcon: IconButton(
@@ -133,6 +133,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                         child: Container(
                                           height: 295,
                                           child: Card(
+                                            color: BackGWhiteColor,
                                             elevation: 5,
                                             child: Container(
                                               margin: EdgeInsets.symmetric(
