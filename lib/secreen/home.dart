@@ -62,12 +62,12 @@ class _TabBarDemoState extends State<TabBarDemo>
 
   final iconList = <IconData>[
     Icons.settings,
-    Icons.support_rounded,
-    Icons.grid_4x4,
-    Icons.star_outline
+    Icons.data_usage,
+    Icons.design_services,
+    Icons.comment_bank
   ];
 
-  List<String> list = ['الاعدادات', 'دعم الفني', 'الخدمات', 'تواصل'];
+  List<String> list = ['الاعدادات', 'بياناتي', 'الخدمات', 'تواصل'];
   List<dynamic> screen = [
     //page 1
     Settings(),

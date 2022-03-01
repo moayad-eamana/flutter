@@ -1,6 +1,8 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
+import 'package:eamanaapp/utilities/globalcss.dart';
+
 class AppBarW {
   static PreferredSize appBarW(
       String title, BuildContext context, bool? showBack) {
@@ -12,7 +14,7 @@ class AppBarW {
           child: Stack(
             children: [
               Container(
-                decoration: const BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(color: BackGWhiteColor),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

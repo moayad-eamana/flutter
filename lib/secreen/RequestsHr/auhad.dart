@@ -38,15 +38,16 @@ class _AuhadState extends State<Auhad> {
     );
     await getuserinfo();
 
-    print(empinfo.EmployeeNumber..toString().split(".")[0]);
+    // print(empinfo.EmployeeNumber..toString().split(".")[0]);
+
     var respose = await getAction("HR/GetEmployeeCustodies/" +
         empinfo.EmployeeNumber.toString().split(".")[0]);
 
     setState(() {
       _GetEmployeeCustodies = (jsonDecode(respose.body)["CustodiesList"]);
       ItemsCount = (jsonDecode(respose.body)["ItemsCount"]);
-      print(_GetEmployeeCustodies);
-      print(ItemsCount);
+      // print(_GetEmployeeCustodies);
+      // print(ItemsCount);
     });
     EasyLoading.dismiss();
   }
@@ -100,8 +101,8 @@ class _AuhadState extends State<Auhad> {
                       )
                     : Column(children: [
                         ..._GetEmployeeCustodies.map((e) => Container(
-                              height: 110,
-                              margin: EdgeInsets.symmetric(vertical: 20),
+                              height: 115,
+                              margin: EdgeInsets.symmetric(vertical: 10),
                               decoration: containerdecoration(Colors.white),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -138,6 +139,9 @@ class _AuhadState extends State<Auhad> {
                                           indent: 5,
                                           endIndent: 5,
                                         )),
+                                    SizedBox(
+                                      height: 3,
+                                    ),
                                     Text(
                                       e["Title"],
                                       style: subtitleTx(secondryColorText),

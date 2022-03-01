@@ -174,6 +174,16 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/entdab.svg', "طلب إنتداب"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/auhad");
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/entdab.svg', "العهد"))),
         ],
       ),
     );

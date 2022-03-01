@@ -15,6 +15,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class VacationRequest extends StatefulWidget {
   const VacationRequest({Key? key}) : super(key: key);
@@ -127,457 +128,521 @@ class _VacationRequestState extends State<VacationRequest> {
     {"Flag": "لا", "SignatureApprovalFlag": false},
   ];
 
+  bool errormessege = false;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
           appBar: AppBarW.appBarW("طلب إجازة", context, null),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  //color: Colors.amber,
-                  border: Border.all(
-                    color: bordercolor,
-                  ),
-                  //color: baseColor,
-                  borderRadius: BorderRadius.all(
-                    new Radius.circular(4),
-                  ),
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Text(
-                            "فضلاً أدخل بيانات طلب إجازة",
-                            style: titleTx(baseColor),
-                          ),
-                        ),
-                        StaggeredGrid.count(
-                            crossAxisCount: responsiveGrid(1, 2),
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            children: [
-                              TextFormField(
-                                controller: _daysNumber,
-                                keyboardType: TextInputType.number,
-                                maxLines: 1,
-                                decoration: formlabel1("عدد الايام"),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
+          body: Stack(
+            children: [
+              Image.asset(
+                'assets/image/Union_1.png',
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                //height: MediaQuery.of(context).size.height,
+                fit: BoxFit.fill,
+              ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: BackGWhiteColor,
+                      border: Border.all(
+                        color: bordercolor,
+                      ),
+                      //color: baseColor,
+                      borderRadius: BorderRadius.all(
+                        new Radius.circular(4),
+                      ),
+                    ),
+                    child: Form(
+                      key: _formKey,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text(
+                                "فضلاً أدخل بيانات طلب إجازة",
+                                style: titleTx(baseColor),
                               ),
-                              TextFormField(
-                                controller: _date,
-                                readOnly: true,
-                                // keyboardType: TextInputType.datetime,
-                                maxLines: 1,
-                                decoration: formlabel1("تاريخ الإجازة"),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
-                                  }
-                                  return null;
-                                },
-                                onTap: () {
-                                  DatePicker.showDatePicker(context,
-                                      showTitleActions: true,
-                                      minTime: DateTime(2021, 3, 5),
-                                      onChanged: (date) {
-                                    _date.text = date.toString().split(" ")[0];
-                                    print('change $date');
-                                  }, onConfirm: (date) {
-                                    _date.text = date.toString().split(" ")[0];
-                                    print('confirm $date');
-                                  },
-                                      currentTime: DateTime.now(),
-                                      locale: LocaleType.ar);
-                                },
-                              ),
-                              DropdownSearch<dynamic>(
-                                items: _MainDepartmentEmployees,
-                                popupItemBuilder:
-                                    (context, index, isSelected) => (Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Column(
-                                    children: [
-                                      Text(index.EmployeeName,
-                                          style: subtitleTx(baseColorText))
-                                    ],
+                            ),
+                            StaggeredGrid.count(
+                                crossAxisCount: responsiveGrid(1, 2),
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                children: [
+                                  TextFormField(
+                                    controller: _daysNumber,
+                                    keyboardType: TextInputType.number,
+                                    maxLines: 1,
+                                    decoration: formlabel1("عدد الايام"),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter some text';
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                )),
-                                dropdownBuilder: (context, selectedItem) =>
-                                    Container(
-                                  decoration: null,
-                                  child: selectedItem == null
-                                      ? null
-                                      : Text(
-                                          selectedItem == null
-                                              ? ""
-                                              : selectedItem.EmployeeName ?? "",
-                                          style: subtitleTx(baseColorText),
-                                        ),
-                                ),
-                                dropdownBuilderSupportsNullItem: true,
-                                mode: Mode.BOTTOM_SHEET,
-                                showClearButton: _ReplaceEmployeeNumber == null
-                                    ? false
-                                    : true,
-                                itemAsString: (item) => item.EmployeeName,
-                                maxHeight: 400,
-                                showAsSuffixIcons: true,
-                                dropdownSearchDecoration:
-                                    formlabel1("الموظف البديل"),
-                                //  InputDecoration(
-                                //   hintText: "الموظف البديل",
-                                //   //helperStyle: TextStyle(color: Colors.amber),
-                                //   contentPadding: EdgeInsets.symmetric(
-                                //       vertical: responsiveMT(10, 30),
-                                //       horizontal: responsiveMT(10, 20)),
-                                //   border: OutlineInputBorder(
-                                //     borderRadius: BorderRadius.circular(4.0),
-
-                                //     borderSide: BorderSide(color: bordercolor),
-                                //   ),
-                                // ),
-                                validator: (value) {
-                                  if (value == "" || value == null) {
-                                    return "hgfef";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                showSearchBox: true,
-                                onChanged: (v) {
-                                  try {
-                                    setState(() {
-                                      _ReplaceEmployeeNumber = v.EmployeeNumber;
-                                    });
-                                    print('object');
-                                    print(v.EmployeeNumber.toString());
-                                    // value = v;
-                                    //value = v ?? "";
-
-                                  } catch (e) {}
-                                },
-                                popupTitle: Container(
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    color: secondryColor,
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
+                                  TextFormField(
+                                    controller: _date,
+                                    readOnly: true,
+                                    // keyboardType: TextInputType.datetime,
+                                    maxLines: 1,
+                                    decoration: formlabel1("تاريخ الإجازة"),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter some text';
+                                      }
+                                      return null;
+                                    },
+                                    onTap: () {
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          minTime: DateTime(2021, 3, 5),
+                                          onChanged: (date) {
+                                        _date.text =
+                                            date.toString().split(" ")[0];
+                                        print('change $date');
+                                      }, onConfirm: (date) {
+                                        _date.text =
+                                            date.toString().split(" ")[0];
+                                        print('confirm $date');
+                                      },
+                                          currentTime: DateTime.now(),
+                                          locale: LocaleType.ar);
+                                    },
+                                  ),
+                                  DropdownSearch<dynamic>(
+                                    items: _MainDepartmentEmployees,
+                                    popupItemBuilder:
+                                        (context, index, isSelected) =>
+                                            (Container(
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: Column(
+                                        children: [
+                                          Text(index.EmployeeName,
+                                              style: subtitleTx(baseColorText))
+                                        ],
+                                      ),
+                                    )),
+                                    dropdownBuilder: (context, selectedItem) =>
+                                        Container(
+                                      decoration: null,
+                                      child: selectedItem == null
+                                          ? null
+                                          : Text(
+                                              selectedItem == null
+                                                  ? ""
+                                                  : selectedItem.EmployeeName ??
+                                                      "",
+                                              style: subtitleTx(baseColorText),
+                                            ),
                                     ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "الموظف البديل",
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                    dropdownBuilderSupportsNullItem: true,
+                                    mode: Mode.BOTTOM_SHEET,
+                                    showClearButton:
+                                        _ReplaceEmployeeNumber == null
+                                            ? false
+                                            : true,
+                                    itemAsString: (item) => item.EmployeeName,
+                                    maxHeight: 400,
+                                    showAsSuffixIcons: true,
+                                    dropdownSearchDecoration:
+                                        formlabel1("الموظف البديل"),
+                                    //  InputDecoration(
+                                    //   hintText: "الموظف البديل",
+                                    //   //helperStyle: TextStyle(color: Colors.amber),
+                                    //   contentPadding: EdgeInsets.symmetric(
+                                    //       vertical: responsiveMT(10, 30),
+                                    //       horizontal: responsiveMT(10, 20)),
+                                    //   border: OutlineInputBorder(
+                                    //     borderRadius: BorderRadius.circular(4.0),
+
+                                    //     borderSide: BorderSide(color: bordercolor),
+                                    //   ),
+                                    // ),
+                                    validator: (value) {
+                                      if (value == "" || value == null) {
+                                        return "hgfef";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    showSearchBox: true,
+                                    onChanged: (v) {
+                                      try {
+                                        setState(() {
+                                          _ReplaceEmployeeNumber =
+                                              v.EmployeeNumber;
+                                        });
+                                        print('object');
+                                        print(v.EmployeeNumber.toString());
+                                        // value = v;
+                                        //value = v ?? "";
+
+                                      } catch (e) {}
+                                    },
+                                    popupTitle: Container(
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        color: secondryColor,
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "الموظف البديل",
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    popupShape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(24),
+                                        topRight: Radius.circular(24),
                                       ),
                                     ),
                                   ),
-                                ),
-                                popupShape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(24),
-                                    topRight: Radius.circular(24),
-                                  ),
-                                ),
-                              ),
-                              // drop1.drop(items, "الموظف البديل", context),
-                              // DropdownSearch<String>(
-                              //   validator: (v) =>
-                              //       v == null ? "required field" : null,
-                              //   dropdownSearchDecoration: InputDecoration(
-                              //     hintText: "الموظف البديل",
-                              //     contentPadding: const EdgeInsets.symmetric(
-                              //         vertical: 2.0, horizontal: 20.0),
-                              //     border: OutlineInputBorder(
-                              //       borderRadius: BorderRadius.circular(4.0),
-                              //       borderSide: BorderSide(color: bordercolor),
-                              //     ),
-                              //   ),
-                              //   mode: Mode.MENU,
-                              //   showSelectedItems: true,
-                              //   items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
-                              //   popupItemDisabled: (String s) =>
-                              //       s.startsWith('I'),
-                              //   onChanged: print,
-                              // ),
-                              DropdownSearch<dynamic>(
-                                items: vacationTypes,
-                                popupItemBuilder: (context, rr, isSelected) =>
-                                    (Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Column(
-                                    children: [
-                                      Text(rr["VacationTypeName"].toString(),
-                                          style: subtitleTx(baseColorText))
-                                    ],
-                                  ),
-                                )),
-                                dropdownBuilder: (context, selectedItem) =>
-                                    Container(
-                                  decoration: null,
-                                  child: selectedItem == null
-                                      ? null
-                                      : Text(
-                                          selectedItem == null
-                                              ? ""
-                                              : selectedItem[
-                                                      "VacationTypeName"] ??
-                                                  "",
-                                          style: subtitleTx(baseColorText),
-                                        ),
-                                ),
-                                dropdownBuilderSupportsNullItem: true,
-                                mode: Mode.BOTTOM_SHEET,
-                                showClearButton:
-                                    _VacationTypeID == null ? false : true,
-                                maxHeight: 400,
-                                showAsSuffixIcons: true,
-                                dropdownSearchDecoration:
-                                    formlabel1("نوع الاجازة"),
-                                // InputDecoration(
-                                //   hintText: "نوع الاجازة",
-                                //   helperStyle: TextStyle(color: Colors.amber),
-                                //   contentPadding: EdgeInsets.symmetric(
-                                //       vertical: responsiveMT(10, 30),
-                                //       horizontal: responsiveMT(10, 20)),
-                                //   border: OutlineInputBorder(
-                                //     borderRadius: BorderRadius.circular(4.0),
-                                //     borderSide: BorderSide(color: bordercolor),
-                                //   ),
-                                // ),
-                                validator: (value) {
-                                  if (value == "" || value == null) {
-                                    return "hgfef";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                showSearchBox: true,
-                                onChanged: (v) {
-                                  try {
-                                    setState(() {
-                                      _VacationTypeID = v["VacationID"];
-                                    });
-                                    print('object');
-                                    print(v["VacationID"]);
-                                    // value = v;
-                                    //value = v ?? "";
-                                  } catch (e) {}
-                                },
-                                popupTitle: Container(
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    color: secondryColor,
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
+                                  // drop1.drop(items, "الموظف البديل", context),
+                                  // DropdownSearch<String>(
+                                  //   validator: (v) =>
+                                  //       v == null ? "required field" : null,
+                                  //   dropdownSearchDecoration: InputDecoration(
+                                  //     hintText: "الموظف البديل",
+                                  //     contentPadding: const EdgeInsets.symmetric(
+                                  //         vertical: 2.0, horizontal: 20.0),
+                                  //     border: OutlineInputBorder(
+                                  //       borderRadius: BorderRadius.circular(4.0),
+                                  //       borderSide: BorderSide(color: bordercolor),
+                                  //     ),
+                                  //   ),
+                                  //   mode: Mode.MENU,
+                                  //   showSelectedItems: true,
+                                  //   items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
+                                  //   popupItemDisabled: (String s) =>
+                                  //       s.startsWith('I'),
+                                  //   onChanged: print,
+                                  // ),
+                                  DropdownSearch<dynamic>(
+                                    items: vacationTypes,
+                                    popupItemBuilder:
+                                        (context, rr, isSelected) => (Container(
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                              rr["VacationTypeName"].toString(),
+                                              style: subtitleTx(baseColorText))
+                                        ],
+                                      ),
+                                    )),
+                                    dropdownBuilder: (context, selectedItem) =>
+                                        Container(
+                                      decoration: null,
+                                      child: selectedItem == null
+                                          ? null
+                                          : Text(
+                                              selectedItem == null
+                                                  ? ""
+                                                  : selectedItem[
+                                                          "VacationTypeName"] ??
+                                                      "",
+                                              style: subtitleTx(baseColorText),
+                                            ),
                                     ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "الموظف البديل",
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                    dropdownBuilderSupportsNullItem: true,
+                                    mode: Mode.BOTTOM_SHEET,
+                                    showClearButton:
+                                        _VacationTypeID == null ? false : true,
+                                    maxHeight: 400,
+                                    showAsSuffixIcons: true,
+                                    dropdownSearchDecoration:
+                                        formlabel1("نوع الاجازة"),
+                                    // InputDecoration(
+                                    //   hintText: "نوع الاجازة",
+                                    //   helperStyle: TextStyle(color: Colors.amber),
+                                    //   contentPadding: EdgeInsets.symmetric(
+                                    //       vertical: responsiveMT(10, 30),
+                                    //       horizontal: responsiveMT(10, 20)),
+                                    //   border: OutlineInputBorder(
+                                    //     borderRadius: BorderRadius.circular(4.0),
+                                    //     borderSide: BorderSide(color: bordercolor),
+                                    //   ),
+                                    // ),
+                                    validator: (value) {
+                                      if (value == "" || value == null) {
+                                        return "hgfef";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    showSearchBox: true,
+                                    onChanged: (v) {
+                                      try {
+                                        setState(() {
+                                          _VacationTypeID = v["VacationID"];
+                                        });
+                                        print('object');
+                                        print(v["VacationID"]);
+                                        // value = v;
+                                        //value = v ?? "";
+                                      } catch (e) {}
+                                    },
+                                    popupTitle: Container(
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        color: secondryColor,
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "الموظف البديل",
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    popupShape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(24),
+                                        topRight: Radius.circular(24),
                                       ),
                                     ),
                                   ),
-                                ),
-                                popupShape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(24),
-                                    topRight: Radius.circular(24),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "هل ترغب بمنح البديل صلاحية التوقيع بالإنابة في النظام المعاملات الإلكترونية ؟",
-                                style: descTx1(baseColorText),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              DropdownSearch<dynamic>(
-                                items: _SignatureApprovalFlag,
-                                popupItemBuilder: (context, rr, isSelected) =>
-                                    (Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Column(
+                                  Row(
                                     children: [
-                                      Text(rr["Flag"].toString(),
-                                          style: subtitleTx(baseColorText))
-                                    ],
-                                  ),
-                                )),
-                                dropdownBuilder: (context, selectedItem) =>
-                                    Container(
-                                  decoration: null,
-                                  child: selectedItem == null
-                                      ? null
-                                      : Text(
-                                          selectedItem == null
-                                              ? ""
-                                              : selectedItem["Flag"] ?? "",
-                                          style: subtitleTx(baseColorText),
+                                      Expanded(
+                                        child: Text(
+                                          "هل ترغب بمنح البديل صلاحية التوقيع بالإنابة في النظام المعاملات الإلكترونية ؟",
+                                          style: descTx1(baseColorText),
+                                          maxLines: 2,
                                         ),
-                                ),
-                                dropdownBuilderSupportsNullItem: true,
-                                mode: Mode.BOTTOM_SHEET,
-                                showClearButton:
-                                    _SignatureApproval == null ? false : true,
-                                maxHeight: 400,
-                                showAsSuffixIcons: true,
-                                dropdownSearchDecoration: formlabel1("اختر"),
-                                // InputDecoration(
-                                //   hintText: "نوع الاجازة",
-                                //   helperStyle: TextStyle(color: Colors.amber),
-                                //   contentPadding: EdgeInsets.symmetric(
-                                //       vertical: responsiveMT(10, 30),
-                                //       horizontal: responsiveMT(10, 20)),
-                                //   border: OutlineInputBorder(
-                                //     borderRadius: BorderRadius.circular(4.0),
-                                //     borderSide: BorderSide(color: bordercolor),
-                                //   ),
-                                // ),
-                                validator: (value) {
-                                  if (value == "" || value == null) {
-                                    return "hgfef";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                showSearchBox: true,
-                                onChanged: (v) {
-                                  try {
-                                    setState(() {
-                                      _SignatureApproval =
-                                          v["SignatureApprovalFlag"];
-                                    });
-                                    print('object');
-                                    print(v["SignatureApprovalFlag"]);
-                                    // value = v;
-                                    //value = v ?? "";
-                                  } catch (e) {}
-                                },
-                                popupTitle: Container(
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    color: secondryColor,
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "اختر",
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
                                       ),
-                                    ),
-                                  ),
-                                ),
-                                popupShape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(24),
-                                    topRight: Radius.circular(24),
-                                  ),
-                                ),
-                              ),
+                                      ToggleSwitch(
+                                        inactiveBgColor: Colors.grey,
+                                        inactiveFgColor: Colors.white,
+                                        minWidth: 50.0,
+                                        minHeight: 35,
+                                        initialLabelIndex: null,
+                                        activeBgColor: [baseColor],
+                                        totalSwitches: 2,
+                                        labels: ['نعم', 'لا'],
+                                        onToggle: (index) {
+                                          int indexS = index as int;
+                                          _SignatureApproval =
+                                              _SignatureApprovalFlag[indexS]
+                                                  ["SignatureApprovalFlag"];
 
-                              //   DropdownSearch<String>(
-                              //     validator: (v) =>
-                              //         v == null ? "required field" : null,
-                              //     dropdownSearchDecoration: InputDecoration(
-                              //       hintText: "نوع الإجازة",
-                              //       contentPadding: const EdgeInsets.symmetric(
-                              //           vertical: 2.0, horizontal: 20.0),
-                              //       border: OutlineInputBorder(
-                              //         borderRadius: BorderRadius.circular(4.0),
-                              //         borderSide: BorderSide(color: bordercolor),
-                              //       ),
-                              //     ),
-                              //     mode: Mode.MENU,
-                              //     showSelectedItems: true,
-                              //     items: [
-                              //       "إجازة اضطرارية",
-                              //       "إجازة اعتيادية",
-                              //       "تمديد إجازة اعتيادية",
-                              //     ],
-                              //     popupItemDisabled: (String s) =>
-                              //         s.startsWith('I'),
-                              //     onChanged: print,
-                              //   ),
-                            ]),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: _note,
-                          keyboardType: TextInputType.text,
-                          maxLines: 3,
-                          decoration: formlabel1("ملاحظات"),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              widgetsUni.actionbutton(
-                                "الطلبات السابقة",
-                                Icons.local_attraction_sharp,
-                                () {
-                                  print("ee");
-                                },
+                                          print(
+                                              'switched to: $_SignatureApproval');
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  // errormessege == true
+                                  //     ? Text(
+                                  //         "الرجاء الاختيار",
+                                  //         style: TextStyle(
+                                  //           fontSize: 10,
+                                  //           color: Colors.red,
+                                  //         ),
+                                  //       )
+                                  //     : Container(),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+
+                                  // DropdownSearch<dynamic>(
+                                  //   items: _SignatureApprovalFlag,
+                                  //   popupItemBuilder:
+                                  //       (context, rr, isSelected) => (Container(
+                                  //     margin: EdgeInsets.only(top: 10),
+                                  //     child: Column(
+                                  //       children: [
+                                  //         Text(rr["Flag"].toString(),
+                                  //             style: subtitleTx(baseColorText))
+                                  //       ],
+                                  //     ),
+                                  //   )),
+                                  //   dropdownBuilder: (context, selectedItem) =>
+                                  //       Container(
+                                  //     decoration: null,
+                                  //     child: selectedItem == null
+                                  //         ? null
+                                  //         : Text(
+                                  //             selectedItem == null
+                                  //                 ? ""
+                                  //                 : selectedItem["Flag"] ?? "",
+                                  //             style: subtitleTx(baseColorText),
+                                  //           ),
+                                  //   ),
+                                  //   dropdownBuilderSupportsNullItem: true,
+                                  //   mode: Mode.BOTTOM_SHEET,
+                                  //   showClearButton: _SignatureApproval == null
+                                  //       ? false
+                                  //       : true,
+                                  //   maxHeight: 400,
+                                  //   showAsSuffixIcons: true,
+                                  //   dropdownSearchDecoration:
+                                  //       formlabel1("اختر"),
+                                  //   // InputDecoration(
+                                  //   //   hintText: "نوع الاجازة",
+                                  //   //   helperStyle: TextStyle(color: Colors.amber),
+                                  //   //   contentPadding: EdgeInsets.symmetric(
+                                  //   //       vertical: responsiveMT(10, 30),
+                                  //   //       horizontal: responsiveMT(10, 20)),
+                                  //   //   border: OutlineInputBorder(
+                                  //   //     borderRadius: BorderRadius.circular(4.0),
+                                  //   //     borderSide: BorderSide(color: bordercolor),
+                                  //   //   ),
+                                  //   // ),
+                                  //   validator: (value) {
+                                  //     if (value == "" || value == null) {
+                                  //       return "hgfef";
+                                  //     } else {
+                                  //       return null;
+                                  //     }
+                                  //   },
+                                  //   showSearchBox: true,
+                                  //   onChanged: (v) {
+                                  //     try {
+                                  //       setState(() {
+                                  //         _SignatureApproval =
+                                  //             v["SignatureApprovalFlag"];
+                                  //       });
+                                  //       print('object');
+                                  //       print(v["SignatureApprovalFlag"]);
+                                  //       // value = v;
+                                  //       //value = v ?? "";
+                                  //     } catch (e) {}
+                                  //   },
+                                  //   popupTitle: Container(
+                                  //     height: 60,
+                                  //     decoration: BoxDecoration(
+                                  //       color: secondryColor,
+                                  //       borderRadius: const BorderRadius.only(
+                                  //         topLeft: Radius.circular(20),
+                                  //         topRight: Radius.circular(20),
+                                  //       ),
+                                  //     ),
+                                  //     child: Center(
+                                  //       child: Text(
+                                  //         "اختر",
+                                  //         style: TextStyle(
+                                  //           fontSize: 24,
+                                  //           fontWeight: FontWeight.bold,
+                                  //           color: Colors.white,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  //   popupShape: const RoundedRectangleBorder(
+                                  //     borderRadius: BorderRadius.only(
+                                  //       topLeft: Radius.circular(24),
+                                  //       topRight: Radius.circular(24),
+                                  //     ),
+                                  //   ),
+                                  // ),
+
+                                  //   DropdownSearch<String>(
+                                  //     validator: (v) =>
+                                  //         v == null ? "required field" : null,
+                                  //     dropdownSearchDecoration: InputDecoration(
+                                  //       hintText: "نوع الإجازة",
+                                  //       contentPadding: const EdgeInsets.symmetric(
+                                  //           vertical: 2.0, horizontal: 20.0),
+                                  //       border: OutlineInputBorder(
+                                  //         borderRadius: BorderRadius.circular(4.0),
+                                  //         borderSide: BorderSide(color: bordercolor),
+                                  //       ),
+                                  //     ),
+                                  //     mode: Mode.MENU,
+                                  //     showSelectedItems: true,
+                                  //     items: [
+                                  //       "إجازة اضطرارية",
+                                  //       "إجازة اعتيادية",
+                                  //       "تمديد إجازة اعتيادية",
+                                  //     ],
+                                  //     popupItemDisabled: (String s) =>
+                                  //         s.startsWith('I'),
+                                  //     onChanged: print,
+                                  //   ),
+                                ]),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _note,
+                              keyboardType: TextInputType.text,
+                              maxLines: 3,
+                              decoration: formlabel1("ملاحظات"),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  widgetsUni.actionbutton(
+                                    "الطلبات السابقة",
+                                    Icons.local_attraction_sharp,
+                                    () {
+                                      print("ee");
+                                    },
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  widgetsUni.actionbutton(
+                                    'تنفيذ',
+                                    Icons.send,
+                                    () {
+                                      // Validate returns true if the form is valid, or false otherwise.
+                                      if (_SignatureApproval == null) {
+                                        Alerts.errorAlert(context, "خطأ",
+                                                "يرجى الاختيار ")
+                                            .show();
+                                      }
+                                      if (_formKey.currentState!.validate() &&
+                                          _SignatureApproval != null) {
+                                        // If the form is valid, display a snackbar. In the real world,
+                                        // you'd often call a server or save the information in a database.
+                                        InsertVacationRequest();
+                                      }
+                                    },
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              widgetsUni.actionbutton(
-                                'تنفيذ',
-                                Icons.send,
-                                () {
-                                  // Validate returns true if the form is valid, or false otherwise.
-                                  if (_formKey.currentState!.validate()) {
-                                    // If the form is valid, display a snackbar. In the real world,
-                                    // you'd often call a server or save the information in a database.
-                                    InsertVacationRequest();
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+            ],
           )),
     );
   }
