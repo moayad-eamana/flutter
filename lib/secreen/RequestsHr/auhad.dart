@@ -58,116 +58,129 @@ class _AuhadState extends State<Auhad> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW("العهد", context, null),
-        body: SingleChildScrollView(
-          child: Container(
-            //color: Colors.amber,
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              //mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: Stack(
+          children: [
+            Image.asset(
+              'assets/image/Union_1.png',
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              //height: MediaQuery.of(context).size.height,
+              fit: BoxFit.fill,
+            ),
+            SingleChildScrollView(
+              child: Container(
+                //color: Colors.amber,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      "العهد",
-                      style: titleTx(baseColor),
+                    SizedBox(
+                      height: 10,
                     ),
-                    Text(
-                      "اجمالي العهد : " + ItemsCount.toString(),
-                      style: titleTx(secondryColorText),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "العهد",
+                          style: titleTx(baseColor),
+                        ),
+                        Text(
+                          "اجمالي العهد : " + ItemsCount.toString(),
+                          style: titleTx(secondryColorText),
+                        ),
+                      ],
                     ),
+                    _GetEmployeeCustodies == null
+                        ? Center(
+                            child: Container(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  Text(
+                                    "لا يوجد عهد",
+                                    style: subtitleTx(secondryColorText),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : Column(children: [
+                            ..._GetEmployeeCustodies.map((e) => Container(
+                                  height: 115,
+                                  margin: EdgeInsets.symmetric(vertical: 10),
+                                  decoration: containerdecoration(Colors.white),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "رقم العهدة : " + e["ItemCode"],
+                                                style: subtitleTx(baseColor),
+                                              ),
+                                              Text(
+                                                "الكمية : " +
+                                                    e["Balance"].toString(),
+                                                style: subtitleTx(baseColor),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                            height: 2,
+                                            // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                                            child: Divider(
+                                              color: baseColorText,
+                                              height: 10,
+                                              thickness: 1,
+                                              indent: 5,
+                                              endIndent: 5,
+                                            )),
+                                        SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                          e["Title"],
+                                          style: subtitleTx(secondryColorText),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )).toList()
+                          ]),
+
+                    // Expanded(
+                    //   child: Container(
+                    //       // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                    //       child: Divider(
+                    //     color: baseColorText,
+                    //     height: 20,
+                    //     thickness: 1,
+                    //     indent: 5,
+                    //     endIndent: 5,
+                    //   )),
+                    // ),
                   ],
                 ),
-                _GetEmployeeCustodies == null
-                    ? Center(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Text(
-                                "لا يوجد عهد",
-                                style: subtitleTx(secondryColorText),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : Column(children: [
-                        ..._GetEmployeeCustodies.map((e) => Container(
-                              height: 115,
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              decoration: containerdecoration(Colors.white),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "رقم العهدة : " + e["ItemCode"],
-                                            style: subtitleTx(baseColor),
-                                          ),
-                                          Text(
-                                            "الكمية : " +
-                                                e["Balance"].toString(),
-                                            style: subtitleTx(baseColor),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                        height: 2,
-                                        // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                                        child: Divider(
-                                          color: baseColorText,
-                                          height: 10,
-                                          thickness: 1,
-                                          indent: 5,
-                                          endIndent: 5,
-                                        )),
-                                    SizedBox(
-                                      height: 3,
-                                    ),
-                                    Text(
-                                      e["Title"],
-                                      style: subtitleTx(secondryColorText),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )).toList()
-                      ]),
-
-                // Expanded(
-                //   child: Container(
-                //       // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                //       child: Divider(
-                //     color: baseColorText,
-                //     height: 20,
-                //     thickness: 1,
-                //     indent: 5,
-                //     endIndent: 5,
-                //   )),
-                // ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

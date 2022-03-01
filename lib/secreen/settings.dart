@@ -83,226 +83,245 @@ class _SettingsState extends State<Settings> {
         child: Scaffold(
           backgroundColor: BackGColor,
           appBar: AppBarHome.appBarW("الاعدادات", context),
-          body: SingleChildScrollView(
-            child: Container(
-              //color: Colors.amber,
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "إعدادات الحساب",
-                    style: titleTx(baseColor),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                      height: 100,
-                      //margin: EdgeInsets.all(20),
-                      decoration: containerdecoration(BackGWhiteColor),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: Text("تغيير كلمة المرور",
-                                  style: descTx1(baseColorText)),
-                            ),
-                            Row(
+          body: Stack(
+            children: [
+              Image.asset(
+                'assets/image/Union_1.png',
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                //height: MediaQuery.of(context).size.height,
+                fit: BoxFit.fill,
+              ),
+              SingleChildScrollView(
+                child: Container(
+                  //color: Colors.amber,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "إعدادات الحساب",
+                        style: titleTx(baseColor),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                          height: 100,
+                          //margin: EdgeInsets.all(20),
+                          decoration: containerdecoration(BackGWhiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("الدخول عن طريق البصمة",
-                                    style: descTx1(baseColorText)),
-                                Spacer(),
-                                Switch(
-                                    value: fingerprint,
-                                    onChanged: (bool newValue) async {
-                                      EasyLoading.show(
-                                        status: 'جاري المعالجة...',
-                                        maskType: EasyLoadingMaskType.black,
-                                      );
+                                InkWell(
+                                  onTap: () {},
+                                  child: Text("تغيير كلمة المرور",
+                                      style: descTx1(baseColorText)),
+                                ),
+                                Row(
+                                  children: [
+                                    Text("الدخول عن طريق البصمة",
+                                        style: descTx1(baseColorText)),
+                                    Spacer(),
+                                    Switch(
+                                        value: fingerprint,
+                                        onChanged: (bool newValue) async {
+                                          EasyLoading.show(
+                                            status: 'جاري المعالجة...',
+                                            maskType: EasyLoadingMaskType.black,
+                                          );
 
-                                      if (fingerprint == false) {
-                                        await _checkBiometrics();
+                                          if (fingerprint == false) {
+                                            await _checkBiometrics();
 
-                                        if (_canCheckBiometrics == true) {
-                                          await _authenticate();
-                                        } else {
-                                          setState(() {
-                                            _authenticated = false;
-                                          });
-                                          Alerts.warningAlert(context, "تنبيه",
-                                                  "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
-                                              .show();
+                                            if (_canCheckBiometrics == true) {
+                                              await _authenticate();
+                                            } else {
+                                              setState(() {
+                                                _authenticated = false;
+                                              });
+                                              Alerts.warningAlert(
+                                                      context,
+                                                      "تنبيه",
+                                                      "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
+                                                  .show();
+                                            }
+
+                                            if (_authenticated == true) {
+                                              final fingerprintSP =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              fingerprintSP.setBool(
+                                                  "fingerprint", newValue);
+                                              setState(() {
+                                                fingerprint = fingerprintSP
+                                                    .getBool('fingerprint')!;
+                                              });
+                                              print("fingerprint = " +
+                                                  fingerprint.toString());
+                                            } else {
+                                              //if canceleds
+                                            }
+                                          } else {
+                                            final fingerprintSP =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            fingerprintSP.setBool(
+                                                "fingerprint", newValue);
+                                            setState(() {
+                                              fingerprint = fingerprintSP
+                                                  .getBool('fingerprint')!;
+                                            });
+                                            print("fingerprint = " +
+                                                fingerprint.toString());
+                                          }
+                                          EasyLoading.dismiss();
                                         }
 
-                                        if (_authenticated == true) {
-                                          final fingerprintSP =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          fingerprintSP.setBool(
-                                              "fingerprint", newValue);
-                                          setState(() {
-                                            fingerprint = fingerprintSP
-                                                .getBool('fingerprint')!;
-                                          });
-                                          print("fingerprint = " +
-                                              fingerprint.toString());
-                                        } else {
-                                          //if canceleds
-                                        }
-                                      } else {
-                                        final fingerprintSP =
+                                        //   final fingerprintSP =
+                                        //       await SharedPreferences.getInstance();
+                                        //   fingerprintSP.setBool(
+                                        //       "fingerprint", newValue);
+                                        //   setState(() {
+                                        //     fingerprint =
+                                        //         fingerprintSP.getBool('fingerprint')!;
+                                        //   });
+                                        //   print("fingerprint = " +
+                                        //       fingerprint.toString());
+                                        // },
+                                        ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "إعدادات ذوي الهمم",
+                        style: titleTx(baseColor),
+                        textAlign: TextAlign.right,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                          //margin: EdgeInsets.all(20),
+                          decoration: containerdecoration(Colors.white),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text("عمى الألوان",
+                                        style: descTx1(baseColorText)),
+                                    Spacer(),
+                                    Switch(
+                                      value: blindness,
+                                      onChanged: (bool newValue) async {
+                                        final blindnessSP =
                                             await SharedPreferences
                                                 .getInstance();
-                                        fingerprintSP.setBool(
-                                            "fingerprint", newValue);
+                                        blindnessSP.setBool(
+                                            "blindness", newValue);
                                         setState(() {
-                                          fingerprint = fingerprintSP
-                                              .getBool('fingerprint')!;
+                                          blindness =
+                                              blindnessSP.getBool('blindness')!;
                                         });
-                                        print("fingerprint = " +
-                                            fingerprint.toString());
-                                      }
-                                      EasyLoading.dismiss();
-                                    }
-
-                                    //   final fingerprintSP =
-                                    //       await SharedPreferences.getInstance();
-                                    //   fingerprintSP.setBool(
-                                    //       "fingerprint", newValue);
-                                    //   setState(() {
-                                    //     fingerprint =
-                                    //         fingerprintSP.getBool('fingerprint')!;
-                                    //   });
-                                    //   print("fingerprint = " +
-                                    //       fingerprint.toString());
-                                    // },
+                                        print("blindness = " +
+                                            blindness.toString());
+                                        await getColorSettings();
+                                      },
                                     ),
-                              ],
-                            )
-                          ],
-                        ),
-                      )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "إعدادات ذوي الهمم",
-                    style: titleTx(baseColor),
-                    textAlign: TextAlign.right,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                      //margin: EdgeInsets.all(20),
-                      decoration: containerdecoration(Colors.white),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Row(
-                              children: [
-                                Text("عمى الألوان",
-                                    style: descTx1(baseColorText)),
-                                Spacer(),
-                                Switch(
-                                  value: blindness,
-                                  onChanged: (bool newValue) async {
-                                    final blindnessSP =
-                                        await SharedPreferences.getInstance();
-                                    blindnessSP.setBool("blindness", newValue);
-                                    setState(() {
-                                      blindness =
-                                          blindnessSP.getBool('blindness')!;
-                                    });
-                                    print(
-                                        "blindness = " + blindness.toString());
-                                    await getColorSettings();
-                                  },
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text("النظام الليلي",
+                                        style: descTx1(baseColorText)),
+                                    Spacer(),
+                                    Switch(
+                                      value: darkmode,
+                                      onChanged: (bool newValue) async {
+                                        final darkmodeSP =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        darkmodeSP.setBool(
+                                            "darkmode", newValue);
+                                        setState(() {
+                                          darkmode =
+                                              darkmodeSP.getBool('darkmode')!;
+                                        });
+                                        print("darkmode = " +
+                                            darkmode.toString());
+                                        await getColorSettings();
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            Row(
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "تواصلل معنا",
+                        style: titleTx(baseColor),
+                        textAlign: TextAlign.right,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                          //margin: EdgeInsets.all(20),
+                          decoration: containerdecoration(Colors.white),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text("النظام الليلي",
-                                    style: descTx1(baseColorText)),
-                                Spacer(),
-                                Switch(
-                                  value: darkmode,
-                                  onChanged: (bool newValue) async {
-                                    final darkmodeSP =
-                                        await SharedPreferences.getInstance();
-                                    darkmodeSP.setBool("darkmode", newValue);
-                                    setState(() {
-                                      darkmode =
-                                          darkmodeSP.getBool('darkmode')!;
-                                    });
-                                    print("darkmode = " + darkmode.toString());
-                                    await getColorSettings();
-                                  },
-                                ),
+                                Container(
+                                  height: 100,
+                                  width: 800,
+                                )
                               ],
                             ),
-                          ],
-                        ),
-                      )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "تواصلل معنا",
-                    style: titleTx(baseColor),
-                    textAlign: TextAlign.right,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                      //margin: EdgeInsets.all(20),
-                      decoration: containerdecoration(Colors.white),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Container(
-                              height: 100,
-                              width: 800,
-                            )
+                            Image(
+                              //width: responsiveMT(90, 150),
+                              alignment: Alignment.center,
+                              width: 150,
+                              image:
+                                  AssetImage("assets/image/rakamy-logo-2.png"),
+                            ),
+                            Text("الإصدار الأول 1.20.22")
                           ],
                         ),
-                      )),
-                  SizedBox(
-                    height: 10,
+                      ),
+                    ],
                   ),
-                  Center(
-                    child: Column(
-                      children: [
-                        Image(
-                          //width: responsiveMT(90, 150),
-                          alignment: Alignment.center,
-                          width: 150,
-                          image: AssetImage("assets/image/rakamy-logo-2.png"),
-                        ),
-                        Text("الإصدار الأول 1.20.22")
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ));
   }
