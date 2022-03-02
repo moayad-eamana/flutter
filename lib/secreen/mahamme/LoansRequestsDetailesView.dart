@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,23 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
   String error = "";
   var FinancialType = null;
   var ApproveFlag = "A";
+  String DurationCode = "";
+  TextEditingController _Note = TextEditingController();
+  TextEditingController _rejectReason = TextEditingController();
+  dynamic item = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    getDuration();
+    super.initState();
+  }
+
+  getDuration() async {
+    item = await getAction("Inbox/GetDurationsList");
+    setState(() {
+      item = jsonDecode(item.body)["DurationsList"];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -261,115 +281,150 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                           child: SingleChildScrollView(
                                             child: Column(
                                               children: [
-                                                ListTile(
-                                                  title: const Text(
-                                                      "تتكفل الجهة الاصلية"),
-                                                  leading: Radio(
-                                                    value: 1,
-                                                    groupValue: val,
-                                                    toggleable: true,
-                                                    onChanged: (s) {
-                                                      FinancialType = "A";
-                                                      setState(() {
-                                                        val = 1;
-                                                      });
-                                                    },
-                                                    activeColor: baseColor,
+                                                if (_list.StatusID == 7)
+                                                  ListTile(
+                                                    title: const Text(
+                                                        "تتكفل الجهة الاصلية"),
+                                                    leading: Radio(
+                                                      value: 1,
+                                                      groupValue: val,
+                                                      toggleable: true,
+                                                      onChanged: (s) {
+                                                        FinancialType = "A";
+                                                        setState(() {
+                                                          val = 1;
+                                                        });
+                                                      },
+                                                      activeColor: baseColor,
+                                                    ),
                                                   ),
-                                                ),
-                                                ListTile(
-                                                  title: const Text(
-                                                      "تتكفل الجهة المعارة"),
-                                                  leading: Radio(
-                                                    value: 2,
-                                                    groupValue: val,
-                                                    toggleable: true,
-                                                    onChanged: (s) {
-                                                      FinancialType = "S";
-                                                      setState(() {
-                                                        val = 2;
-                                                      });
-                                                    },
-                                                    activeColor: baseColor,
+                                                if (_list.StatusID == 7)
+                                                  ListTile(
+                                                    title: const Text(
+                                                        "تتكفل الجهة المعارة"),
+                                                    leading: Radio(
+                                                      value: 2,
+                                                      groupValue: val,
+                                                      toggleable: true,
+                                                      onChanged: (s) {
+                                                        FinancialType = "S";
+                                                        setState(() {
+                                                          val = 2;
+                                                        });
+                                                      },
+                                                      activeColor: baseColor,
+                                                    ),
                                                   ),
-                                                ),
-                                                DropdownSearch<String>(
-                                                  items: const [
-                                                    "سنة",
-                                                    "ثلاثة أشهر",
-                                                    "ثلاث سنوات",
-                                                    "ستة أشهر"
-                                                  ],
-                                                  maxHeight: 300,
-                                                  mode: Mode.BOTTOM_SHEET,
-                                                  showClearButton: true,
-                                                  showAsSuffixIcons: true,
-                                                  dropdownSearchDecoration:
-                                                      InputDecoration(
-                                                    labelText: "مدة الاعارة",
-                                                    errorText: errorval == ""
-                                                        ? null
-                                                        : errorval,
-                                                    contentPadding:
-                                                        const EdgeInsets
-                                                                .fromLTRB(
-                                                            12, 12, 0, 0),
-                                                    border:
-                                                        OutlineInputBorder(),
-                                                  ),
-                                                  showSearchBox: true,
-                                                  onChanged: (String? v) {
-                                                    setState(() {
-                                                      if (v == null) {
-                                                        loan = "";
-                                                        errorval =
-                                                            "الرجاء إختيار مدة الاعارة";
-                                                      } else {
-                                                        loan = v;
-                                                        errorval = "";
-                                                      }
-                                                    });
-                                                  },
-                                                  popupTitle: Container(
-                                                    height: 50,
-                                                    decoration: BoxDecoration(
-                                                      color: secondryColor,
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .only(
-                                                        topLeft:
-                                                            Radius.circular(20),
-                                                        topRight:
-                                                            Radius.circular(20),
+                                                if (_list.StatusID == 7)
+                                                  DropdownSearch<dynamic>(
+                                                    items: item,
+                                                    popupItemBuilder: (context,
+                                                            rr, isSelected) =>
+                                                        (Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 10),
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                              rr["DurationNameAr"]
+                                                                  .toString(),
+                                                              style: subtitleTx(
+                                                                  baseColorText))
+                                                        ],
+                                                      ),
+                                                    )),
+
+                                                    showSelectedItems: false,
+                                                    mode: Mode.BOTTOM_SHEET,
+                                                    showClearButton: true,
+                                                    maxHeight: 400,
+                                                    showAsSuffixIcons: true,
+                                                    itemAsString: (item) =>
+                                                        item["DurationNameAr"],
+                                                    // showSelectedItems: true,
+                                                    dropdownSearchDecoration:
+                                                        InputDecoration(
+                                                      hintText: "مدة الاعارة",
+                                                      helperStyle: TextStyle(
+                                                          color: baseColor),
+                                                      contentPadding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical:
+                                                                  responsiveMT(
+                                                                      10, 30),
+                                                              horizontal:
+                                                                  responsiveMT(
+                                                                      10, 20)),
+                                                      border:
+                                                          OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4.0),
+                                                        borderSide: BorderSide(
+                                                            color: bordercolor),
                                                       ),
                                                     ),
-                                                    child: const Center(
-                                                      child: Text(
-                                                        'مدة الاعارة',
-                                                        style: TextStyle(
-                                                          fontSize: 24,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white,
+                                                    validator: (value) {
+                                                      if (value == "" ||
+                                                          value == null) {
+                                                        return "hgfef";
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                    showSearchBox: true,
+                                                    onChanged: (v) {
+                                                      print('object');
+                                                      print(v);
+
+                                                      DurationCode =
+                                                          v["DurationCode"]
+                                                              .toString();
+                                                      //value = v ?? "";
+                                                    },
+                                                    popupTitle: Container(
+                                                      height: 60,
+                                                      decoration: BoxDecoration(
+                                                        color: secondryColor,
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  20),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  20),
+                                                        ),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "مدة الاعارة",
+                                                          style: TextStyle(
+                                                            fontSize: 24,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.white,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  popupShape:
-                                                      const RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(24),
-                                                      topRight:
-                                                          Radius.circular(24),
+                                                    popupShape:
+                                                        const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(24),
+                                                        topRight:
+                                                            Radius.circular(24),
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
                                                 TextField(
+                                                  controller: _Note,
                                                   keyboardType:
                                                       TextInputType.text,
                                                   maxLines: 3,
@@ -405,15 +460,18 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                           FlatButton(
                                             color: baseColor,
                                             onPressed: () async {
-                                              if (errorval != "" ||
-                                                  loan == "") {
-                                                setState(() {
-                                                  errorval =
-                                                      "الرجاء إختيار مدة الاعارة";
-                                                });
+                                              if (_list.StatusID == 7) {
+                                                if (errorval != "" ||
+                                                    loan == "") {
+                                                  setState(() {
+                                                    errorval =
+                                                        "الرجاء إختيار مدة الاعارة";
+                                                  });
 
-                                                return;
+                                                  return;
+                                                }
                                               }
+
                                               EasyLoading.show(
                                                 status: 'جاري المعالجة...',
                                                 maskType:
@@ -424,7 +482,9 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                       widget.index ?? 0,
                                                       FinancialType,
                                                       ApproveFlag,
-                                                      "");
+                                                      _Note.text,
+                                                      "",
+                                                      DurationCode);
                                               EasyLoading.dismiss();
                                               Navigator.pop(context, res);
                                             },
@@ -456,139 +516,148 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
-                          child: ElevatedButton(
-                            child: const Text("رفض"),
-                            style: ElevatedButton.styleFrom(
-                              primary: redColor, // background
-                              onPrimary: Colors.white, // foreground
-                            ),
-                            onPressed: () {
-                              String resaon = "";
-                              FinancialType = null;
-                              ApproveFlag = "R";
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return StatefulBuilder(
-                                    builder: (context, setState) {
-                                      return AlertDialog(
-                                        content: SizedBox(
-                                          height: 220,
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              children: [
-                                                TextField(
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  maxLines: 1,
-                                                  decoration: InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                bordercolor)),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    labelText: "سبب الرفض",
-                                                    alignLabelWithHint: true,
+                      if (_list.StatusID != 6)
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            child: ElevatedButton(
+                              child: const Text("رفض"),
+                              style: ElevatedButton.styleFrom(
+                                primary: redColor, // background
+                                onPrimary: Colors.white, // foreground
+                              ),
+                              onPressed: () {
+                                String resaon = "";
+                                FinancialType = null;
+                                ApproveFlag = "R";
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return StatefulBuilder(
+                                      builder: (context, setState) {
+                                        return AlertDialog(
+                                          content: SizedBox(
+                                            height: 220,
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  if (_list.StatusID == 7)
+                                                    TextField(
+                                                      controller: _rejectReason,
+                                                      keyboardType:
+                                                          TextInputType.text,
+                                                      maxLines: 1,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        border: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                color:
+                                                                    bordercolor)),
+                                                        filled: true,
+                                                        fillColor: Colors.white,
+                                                        labelText: "سبب الرفض",
+                                                        alignLabelWithHint:
+                                                            true,
+                                                      ),
+                                                      onChanged: (String val) {
+                                                        error = "";
+                                                        setState(() {});
+                                                      },
+                                                    ),
+                                                  const SizedBox(
+                                                    height: 10,
                                                   ),
-                                                  onChanged: (String val) {
-                                                    error = "";
-                                                    setState(() {});
-                                                  },
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                TextField(
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  maxLines: 3,
-                                                  decoration: InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                bordercolor)),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    labelText: "ملاحظات",
-                                                    alignLabelWithHint: true,
+                                                  TextField(
+                                                    controller: _Note,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    maxLines: 3,
+                                                    decoration: InputDecoration(
+                                                      border: OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color:
+                                                                  bordercolor)),
+                                                      filled: true,
+                                                      fillColor: Colors.white,
+                                                      labelText: "ملاحظات",
+                                                      alignLabelWithHint: true,
+                                                    ),
+                                                    onChanged: (String val) {
+                                                      setState(() {});
+                                                    },
                                                   ),
-                                                  onChanged: (String val) {
-                                                    setState(() {});
-                                                  },
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            color: redColor,
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                            child: const Text(
-                                              "إلغاء",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                          FlatButton(
-                                            color: baseColor,
-                                            child: const Text("تأكيد",
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              color: redColor,
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: const Text(
+                                                "إلغاء",
                                                 style: TextStyle(
-                                                    color: Colors.white)),
-                                            onPressed: () async {
-                                              print(resaon);
-                                              if (error != "") {
-                                                setState(() {
-                                                  error =
-                                                      "الرجاء إختيار سبب الرفض";
-                                                });
-                                                return;
-                                              }
-                                              EasyLoading.show(
-                                                status: 'جاري المعالجة...',
-                                                maskType:
-                                                    EasyLoadingMaskType.black,
-                                              );
-                                              dynamic res = await _provider
-                                                  .deleteLoansReques(
-                                                      widget.index ?? 0,
-                                                      FinancialType ?? "",
-                                                      ApproveFlag,
-                                                      resaon);
-                                              Navigator.pop(context, res);
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                              ).then((value) {
-                                if (value == null) {
-                                  return;
-                                }
-                                if (value == true) {
-                                  print(value);
-                                  Alerts.successAlert(context, "", "تم الرفض")
-                                      .show()
-                                      .then((value) {
-                                    Navigator.pop(context);
-                                  });
-                                } else {
-                                  Alerts.errorAlert(
-                                          context, "خطأ", value.toString())
-                                      .show();
-                                }
-                              });
-                            },
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            FlatButton(
+                                              color: baseColor,
+                                              child: const Text("تأكيد",
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              onPressed: () async {
+                                                print(resaon);
+                                                if (error != "") {
+                                                  setState(() {
+                                                    error =
+                                                        "الرجاء إختيار سبب الرفض";
+                                                  });
+                                                  return;
+                                                }
+                                                EasyLoading.show(
+                                                  status: 'جاري المعالجة...',
+                                                  maskType:
+                                                      EasyLoadingMaskType.black,
+                                                );
+                                                dynamic res = await _provider
+                                                    .deleteLoansReques(
+                                                        widget.index ?? 0,
+                                                        FinancialType ?? "",
+                                                        ApproveFlag,
+                                                        _Note.text,
+                                                        _rejectReason.text,
+                                                        DurationCode);
+                                                EasyLoading.dismiss();
+                                                Navigator.pop(context, res);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ).then((value) {
+                                  if (value == null) {
+                                    return;
+                                  }
+                                  if (value == true) {
+                                    print(value);
+                                    Alerts.successAlert(context, "", "تم الرفض")
+                                        .show()
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                    });
+                                  } else {
+                                    Alerts.errorAlert(
+                                            context, "خطأ", value.toString())
+                                        .show();
+                                  }
+                                });
+                              },
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   )
                 ],

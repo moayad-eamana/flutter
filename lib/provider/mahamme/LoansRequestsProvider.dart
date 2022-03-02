@@ -24,11 +24,11 @@ class LoansRequestsProvider extends ChangeNotifier {
     return List.from(_LoanRequest);
   }
 
-  Future<dynamic> deleteLoansReques(
-      int index, String FinancialType, ApproveFlag, String res) async {
+  Future<dynamic> deleteLoansReques(int index, String FinancialType,
+      ApproveFlag, String Note, String _rejectReason, String Duration) async {
     print(FinancialType);
     print(ApproveFlag);
-    print(res);
+    print(Note);
 
     String empNo = await EmployeeProfile.getEmployeeNumber();
     var respose = await postAction(
@@ -38,11 +38,11 @@ class LoansRequestsProvider extends ChangeNotifier {
           "EmployeeNumber": _LoanRequest[index].EmployeeNumber,
           "RequestNumber": _LoanRequest[index].RequestNumber,
           "RequestTypeID": _LoanRequest[index].RequestTypeID,
-          "Duration": "1Y",
+          "Duration": Duration,
           "LocationCode": _LoanRequest[index].LocationCode,
           "ApprovedBy": empNo,
           "FinancialType": FinancialType,
-          "Notes": "kkkk",
+          "Notes": Note,
           "ApproveFlag": ApproveFlag,
           "StatusID": _LoanRequest[index].StatusID
         }));
