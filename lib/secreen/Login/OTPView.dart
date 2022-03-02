@@ -59,19 +59,19 @@ class _OTPViewState extends State<OTPView> {
   }
 
   Widget background() {
-    return SvgPicture.asset(
-      'assets/SVGs/background.svg',
+    return Image.asset(
+      imageBG,
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
-      //  height: MediaQuery.of(context).size.height,
+      //height: MediaQuery.of(context).size.height,
       fit: BoxFit.fill,
     );
   }
 
   Widget logo() {
-    return SvgPicture.asset(
-      'assets/SVGs/brand-logo.svg',
-      alignment: Alignment.center,
+    return Image.asset(
+      "assets/image/rakamy-logo-21.png",
+      width: 150,
     );
   }
 
@@ -120,7 +120,7 @@ class _OTPViewState extends State<OTPView> {
       margin: const EdgeInsets.only(top: 10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.blue, // background
+          primary: baseColor, // background
           onPrimary: Colors.white, // foreground
         ),
         onPressed: () async {

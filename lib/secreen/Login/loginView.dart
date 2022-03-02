@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -24,78 +25,121 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
     return Scaffold(
-      body: Stack(
-        children: [
-          background(),
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Center(
-              child: SingleChildScrollView(
-                  child: Column(
-                children: [
-                  logo(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  //    const Text("تسجيل الدخول"),
-                  //   const Text("فضلا أدخل معلومات التسجيل"),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
-                          padding: EdgeInsets.symmetric(vertical: 25),
-                          decoration: containerdecoration(Colors.white),
-                          child: Column(
-                            //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "تسجيل دخول موظف أمانة",
-                                style: titleTx(baseColor),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              userName(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              password(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+      body: SingleChildScrollView(
+        child: Container(
+          height: 100.h,
+          child: Stack(
+            children: [
+              background(),
+              Positioned(
+                bottom: 0,
+                child: Row(
+                  //  mainAxisAlignment: Ma,
+                  children: [
+                    Container(
+                      width: 40.w,
+                      height: 65,
+                      child: Container(
+                        //  height: 50,
+                        padding: EdgeInsets.all(8),
+                        child: Image.asset(
+                          'assets/image/rakamy-logo-2.png',
+                          alignment: Alignment.center,
+                          // width: MediaQuery.of(context).size.width,
+                          //height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 60.w,
+                      height: 65,
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      child: Center(
+                        child: Text(
+                          "أمانة المنطقة الشرقية - إدارة تقنية المعلومات",
+                          style: descTx1(Colors.white),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: baseColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Center(
+                  child: SingleChildScrollView(
+                      child: Column(
+                    children: [
+                      logo(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      //    const Text("تسجيل الدخول"),
+                      //   const Text("فضلا أدخل معلومات التسجيل"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              padding: EdgeInsets.symmetric(vertical: 25),
+                              decoration: containerdecoration(Colors.white),
+                              child: Column(
+                                //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                                    "تغير كلمة المرور",
-                                    style: subtitleTx(baseColor),
+                                  SizedBox(
+                                    height: 20,
                                   ),
-                                  loginBtn(_provider),
+                                  Text(
+                                    "تسجيل دخول موظف أمانة",
+                                    style: titleTx(baseColor),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  userName(),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  password(),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        "تغير كلمة المرور",
+                                        style: subtitleTx(baseColor),
+                                      ),
+                                      loginBtn(_provider),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                 ],
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
-            ),
+                      ),
+                    ],
+                  )),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
