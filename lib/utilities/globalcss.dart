@@ -76,17 +76,17 @@ Future<void> getColorSettings() async {
   if (darkmode == true) {
     imageBG = "assets/image/Union_2.png";
 
-    BackGColor = Colors.grey.shade700;
+    BackGColor = Colors.grey.shade800;
 
-    BackGWhiteColor = Colors.grey.shade800;
+    BackGWhiteColor = Colors.grey.shade700;
 
-    baseColor = Colors.blueGrey.shade400;
+    baseColor = Colors.blueGrey.shade200;
 
     secondryColor = Color(0xff2E8D9A);
 
-    baseColorText = Colors.white70;
+    baseColorText = Colors.white;
 
-    secondryColorText = Color(0xff707070);
+    secondryColorText = Color(0xffd2d2d2);
 
     bordercolor = Color(0xffDDDDDD);
 

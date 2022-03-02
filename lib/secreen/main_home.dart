@@ -307,7 +307,7 @@ class _MainHomeState extends State<MainHome> {
                   ],
                 ),
                 Container(
-                  decoration: containerdecoration(Colors.white),
+                  decoration: containerdecoration(BackGWhiteColor),
                   child: Column(
                     children: [
                       CarouselSlider(
@@ -347,8 +347,10 @@ class _MainHomeState extends State<MainHome> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(selectsilderTitle
-                                .elementAt(_currentIndexBanner)),
+                            Text(
+                              selectsilderTitle.elementAt(_currentIndexBanner),
+                              style: descTx2(secondryColorText),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: selectsilderBanner.map((urlOfItem2) {
