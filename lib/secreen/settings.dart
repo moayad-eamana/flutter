@@ -313,7 +313,8 @@ class _SettingsState extends State<Settings> {
                               image:
                                   AssetImage("assets/image/rakamy-logo-2.png"),
                             ),
-                            Text("الإصدار الأول 1.20.22")
+                            Text("الإصدار الأول 1.20.22",
+                                style: descTx1(baseColorText)),
                           ],
                         ),
                       ),
