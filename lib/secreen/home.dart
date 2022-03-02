@@ -130,11 +130,9 @@ class _TabBarDemoState extends State<TabBarDemo>
   Widget build(BuildContext context) {
     List<dynamic> screen = [
       //page 1
-      Settings(
-        onClicked: () {
-          setState(() {});
-        },
-      ),
+      Settings(() {
+        setState(() {});
+      }),
       // ChangeNotifierProvider(
       //   create: (_) => MettingsProvider(),
       //   // ignore: prefer_const_constructors

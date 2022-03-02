@@ -213,7 +213,7 @@ class _MyAppState extends State<MyApp> {
           '/entedab': (context) => Entedab(),
           '/OutdutyRequest': (context) => OutdutyRequest(),
           '/Settings': (context) => Settings(
-                onClicked: () {},
+                () {},
               ),
           '/AuthenticateBio': (context) => AuthenticateBio(),
           '/auhad': (context) => Auhad(),
