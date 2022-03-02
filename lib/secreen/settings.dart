@@ -9,7 +9,8 @@ import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+  const Settings({required this.onClicked, Key? key}) : super(key: key);
+  final VoidCallback onClicked;
   @override
   State<Settings> createState() => _SettingsState();
 }
@@ -266,6 +267,7 @@ class _SettingsState extends State<Settings> {
                                         print("darkmode = " +
                                             darkmode.toString());
                                         await getColorSettings();
+                                        widget.onClicked();
                                       },
                                     ),
                                   ],

@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
 /// Shows a full screen search page and returns the search result selected by
@@ -228,7 +229,7 @@ abstract class SearchDelegate<T> {
         brightness: colorScheme.brightness,
         backgroundColor: colorScheme.brightness == Brightness.dark
             ? Colors.grey[900]
-            : Colors.white,
+            : BackGColor,
         iconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
         textTheme: theme.textTheme,
       ),
@@ -575,6 +576,7 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
         child: Directionality(
           textDirection: TextDirection.rtl,
           child: Scaffold(
+            backgroundColor: BackGWhiteColor,
             appBar: AppBar(
               leading: widget.delegate.buildLeading(context),
               title: TextField(

@@ -53,6 +53,10 @@ class _TabBarDemoState extends State<TabBarDemo>
           });
   }
 
+  void setstate() {
+    setState(() {});
+  }
+
   late AnimationController _animationController;
   late Animation<double> animation;
   late CurvedAnimation curve;
@@ -68,28 +72,7 @@ class _TabBarDemoState extends State<TabBarDemo>
   ];
 
   List<String> list = ['الاعدادات', 'بياناتي', 'الخدمات', 'تواصل'];
-  List<dynamic> screen = [
-    //page 1
-    Settings(),
-    // ChangeNotifierProvider(
-    //   create: (_) => MettingsProvider(),
-    //   // ignore: prefer_const_constructors
-    //   child: MeetingView(),
-    // ),
-    // page 2
-    ChangeNotifierProvider(
-      create: (context) => EmpInfoProvider(),
-      // ignore: prefer_const_constructors
-      child: EmpProfile(true),
-    ),
 
-    //page 3
-    ServicesView(),
-    //page 4
-    Community(),
-    //home page
-    MainHome(),
-  ];
   String name = "";
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
 
@@ -145,6 +128,33 @@ class _TabBarDemoState extends State<TabBarDemo>
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> screen = [
+      //page 1
+      Settings(
+        onClicked: () {
+          setState(() {});
+        },
+      ),
+      // ChangeNotifierProvider(
+      //   create: (_) => MettingsProvider(),
+      //   // ignore: prefer_const_constructors
+      //   child: MeetingView(),
+      // ),
+      // page 2
+      ChangeNotifierProvider(
+        create: (context) => EmpInfoProvider(),
+        // ignore: prefer_const_constructors
+        child: EmpProfile(true),
+      ),
+
+      //page 3
+      ServicesView(),
+      //page 4
+      Community(),
+      //home page
+      MainHome(),
+    ];
+
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     var isMobile = Responsive.isMobile(context);
@@ -658,7 +668,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                     )
                   : FloatingActionButton.large(
                       elevation: 8,
-                      backgroundColor: Colors.white,
+                      backgroundColor: BackGWhiteColor,
                       child: _bottomNavIndex == 4
                           ? Icon(
                               Icons.card_membership,
@@ -682,8 +692,11 @@ class _TabBarDemoState extends State<TabBarDemo>
             children: [
               AnimatedBottomNavigationBar.builder(
                 itemCount: iconList.length,
-                tabBuilder: (int index, bool isActive) {
-                  final color = isActive ? secondryColor : BackGWhiteColor;
+                tabBuilder: (
+                  int index,
+                  bool isActive,
+                ) {
+                  Color color = isActive ? secondryColor : BackGWhiteColor;
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
