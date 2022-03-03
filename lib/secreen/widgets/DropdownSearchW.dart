@@ -11,6 +11,7 @@ class DropdownSearchW {
     //dynamic values = "";
 
     return DropdownSearch<dynamic>(
+      popupBackgroundColor: BackGWhiteColor,
       items: item,
       popupItemBuilder: (context, rr, isSelected) => (Container(
         margin: EdgeInsets.only(top: 10),

@@ -290,6 +290,7 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Container(
+                          height: 150,
                           //margin: EdgeInsets.all(20),
                           decoration: containerdecoration(BackGWhiteColor),
                           child: Padding(
@@ -298,9 +299,78 @@ class _SettingsState extends State<Settings> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Container(
-                                  height: 100,
-                                  width: 800,
+                                Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.chat_bubble,
+                                          color: secondryColor,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "للبلاغات 940",
+                                          style: descTx1(baseColorText),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.email_rounded,
+                                          color: secondryColor,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "للمساعدة : help@eamana.gov.sa",
+                                          style: descTx1(baseColorText),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.home,
+                                          color: secondryColor,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("الدعم الفني : 0138046333",
+                                            style: descTx1(baseColorText)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.local_phone,
+                                          color: secondryColor,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("العلافا العامة : 013 - 8046000",
+                                            style: descTx1(baseColorText)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.whatshot,
+                                          color: secondryColor,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("واتساب : 0530245555",
+                                            style: descTx1(baseColorText)),
+                                      ],
+                                    ),
+                                  ],
                                 )
                               ],
                             ),

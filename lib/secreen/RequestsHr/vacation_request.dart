@@ -69,7 +69,7 @@ class _VacationRequestState extends State<VacationRequest> {
                 .map(((e) => MainDepartmentEmployees.fromJson(e)))
                 .toList();
 
-        ///print(_MainDepartmentEmployees[0].EmployeeName);
+        print(_MainDepartmentEmployees[0].EmployeeName);
         setState(() {});
         EasyLoading.dismiss();
       }
@@ -221,6 +221,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                   ),
                                   DropdownSearch<dynamic>(
                                     items: _MainDepartmentEmployees,
+                                    popupBackgroundColor: BackGWhiteColor,
                                     popupItemBuilder:
                                         (context, index, isSelected) =>
                                             (Container(
@@ -338,6 +339,8 @@ class _VacationRequestState extends State<VacationRequest> {
                                   // ),
                                   DropdownSearch<dynamic>(
                                     items: vacationTypes,
+
+                                    popupBackgroundColor: BackGWhiteColor,
                                     popupItemBuilder:
                                         (context, rr, isSelected) => (Container(
                                       margin: EdgeInsets.only(top: 10),

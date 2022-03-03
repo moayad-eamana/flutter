@@ -316,6 +316,8 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                   ),
                                                 if (_list.StatusID == 7)
                                                   DropdownSearch<dynamic>(
+                                                    popupBackgroundColor:
+                                                        BackGWhiteColor,
                                                     items: item,
                                                     popupItemBuilder: (context,
                                                             rr, isSelected) =>
