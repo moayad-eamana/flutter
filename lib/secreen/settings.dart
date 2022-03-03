@@ -282,7 +282,7 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Text(
-                        "تواصلل معنا",
+                        "تواصل معنا",
                         style: titleTx(baseColor),
                         textAlign: TextAlign.right,
                       ),
