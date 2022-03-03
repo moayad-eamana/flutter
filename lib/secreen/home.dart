@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
@@ -51,10 +52,6 @@ class _TabBarDemoState extends State<TabBarDemo>
         : setState(() {
             _bottomNavIndex = 4;
           });
-  }
-
-  void setstate() {
-    setState(() {});
   }
 
   late AnimationController _animationController;
@@ -124,6 +121,23 @@ class _TabBarDemoState extends State<TabBarDemo>
         return _animationController.forward();
       },
     );
+  }
+
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.detached) return;
+
+    final isBackground = state == AppLifecycleState.paused;
+
+    if (isBackground) {
+      print("isBackground");
+    }
+
+    /* if (isBackground) {
+      // service.stop();
+    } else {
+      // service.start();
+    }*/
   }
 
   @override
@@ -264,10 +278,18 @@ class _TabBarDemoState extends State<TabBarDemo>
                                             margin: EdgeInsets.only(left: 10),
                                             child: Column(
                                               children: [
-                                                Icon(
-                                                  Icons.notifications_active,
-                                                  color: baseColor,
-                                                  size: responsiveMT(45, 45),
+                                                Badge(
+                                                  badgeColor: secondryColor,
+                                                  badgeContent: Text(
+                                                    '3',
+                                                    style:
+                                                        descTx2(Colors.white),
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.notifications_active,
+                                                    color: baseColor,
+                                                    size: responsiveMT(45, 45),
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   height: 0,
