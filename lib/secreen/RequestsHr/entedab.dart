@@ -221,6 +221,7 @@ class _EntedabState extends State<Entedab> {
 
   Widget EntedabTypes() {
     return DropdownSearch<dynamic>(
+      popupBackgroundColor: BackGWhiteColor,
       items: [
         {"typeId": "1", "name": "داخلي"},
         {"typeId": "2", "name": "خارجي"}
@@ -318,6 +319,7 @@ class _EntedabState extends State<Entedab> {
 
   Widget location() {
     return DropdownSearch<dynamic>(
+      popupBackgroundColor: BackGWhiteColor,
       key: UniqueKey(),
       items: mandateLocations,
       popupItemBuilder: (context, rr, isSelected) => (Container(
