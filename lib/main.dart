@@ -212,9 +212,7 @@ class _MyAppState extends State<MyApp> {
           '/VacationRequest': (context) => VacationRequest(),
           '/entedab': (context) => Entedab(),
           '/OutdutyRequest': (context) => OutdutyRequest(),
-          '/Settings': (context) => Settings(
-                () {},
-              ),
+          '/Settings': (context) => Settings(null),
           '/AuthenticateBio': (context) => AuthenticateBio(),
           '/auhad': (context) => Auhad(),
           '/auth_secreen': (context) => AuthenticateBioSecreen(),

@@ -95,6 +95,7 @@ class _MainHomeState extends State<MainHome> {
                     fillColor: BackGWhiteColor,
                     labelText: "بحث الخدمات",
                     alignLabelWithHint: true,
+                    labelStyle: subtitleTx(baseColorText),
                   ),
                   onTap: () {
                     showSearch(

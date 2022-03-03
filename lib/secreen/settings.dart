@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   Settings(this.update);
-  final Function update;
+  final Function? update;
   @override
   State<Settings> createState() => _SettingsState();
 }
@@ -132,6 +132,7 @@ class _SettingsState extends State<Settings> {
                                         style: descTx1(baseColorText)),
                                     Spacer(),
                                     Switch(
+                                        activeColor: baseColor,
                                         value: fingerprint,
                                         onChanged: (bool newValue) async {
                                           EasyLoading.show(
@@ -229,6 +230,7 @@ class _SettingsState extends State<Settings> {
                                         style: descTx1(baseColorText)),
                                     Spacer(),
                                     Switch(
+                                      activeColor: baseColor,
                                       value: blindness,
                                       onChanged: (bool newValue) async {
                                         final blindnessSP =
@@ -253,6 +255,7 @@ class _SettingsState extends State<Settings> {
                                         style: descTx1(baseColorText)),
                                     Spacer(),
                                     Switch(
+                                      activeColor: baseColor,
                                       value: darkmode,
                                       onChanged: (bool newValue) async {
                                         final darkmodeSP =
@@ -267,7 +270,7 @@ class _SettingsState extends State<Settings> {
                                         print("darkmode = " +
                                             darkmode.toString());
                                         await getColorSettings();
-                                        widget.update();
+                                        widget.update!();
                                       },
                                     ),
                                   ],

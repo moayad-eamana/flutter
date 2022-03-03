@@ -2,8 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import 'package:eamanaapp/utilities/globalcss.dart';
 
 /// Shows a full screen search page and returns the search result selected by
 /// the user when the page is closed.
@@ -582,13 +584,15 @@ class _SearchPageState<T> extends State<_SearchPage<T>> {
               title: TextField(
                 controller: widget.delegate._queryTextController,
                 focusNode: focusNode,
-                style: theme.textTheme.headline6,
+                style: subtitleTx(baseColorText),
                 textInputAction: widget.delegate.textInputAction,
                 keyboardType: widget.delegate.keyboardType,
                 onSubmitted: (String _) {
                   widget.delegate.showResults(context);
                 },
-                decoration: InputDecoration(hintText: "بحث الخدمات"),
+                decoration: InputDecoration(
+                    hintText: "بحث الخدمات",
+                    hintStyle: subtitleTx(baseColorText)),
               ),
               actions: widget.delegate.buildActions(context),
               bottom: widget.delegate.buildBottom(context),
