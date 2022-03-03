@@ -185,7 +185,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                     decoration: formlabel1("عدد الايام"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إدخال عدد الايام';
                                       }
                                       return null;
                                     },
@@ -198,7 +198,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                     decoration: formlabel1("تاريخ الإجازة"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إدخال تاريخ الإجازة';
                                       }
                                       return null;
                                     },
@@ -271,7 +271,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                     // ),
                                     validator: (value) {
                                       if (value == "" || value == null) {
-                                        return "hgfef";
+                                        return "يرجى إختيار الموظف البديل";
                                       } else {
                                         return null;
                                       }
@@ -387,12 +387,13 @@ class _VacationRequestState extends State<VacationRequest> {
                                     // ),
                                     validator: (value) {
                                       if (value == "" || value == null) {
-                                        return "hgfef";
+                                        return "يرجى إختيار نوع الإجازة";
                                       } else {
                                         return null;
                                       }
                                     },
                                     showSearchBox: true,
+
                                     onChanged: (v) {
                                       try {
                                         setState(() {
@@ -624,7 +625,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                       // Validate returns true if the form is valid, or false otherwise.
                                       if (_SignatureApproval == null) {
                                         Alerts.errorAlert(context, "خطأ",
-                                                "يرجى الاختيار ")
+                                                "يرجى الاختيار الرغبة بإعطاء الموظف البديل صلاحية")
                                             .show();
                                       }
                                       if (_formKey.currentState!.validate() &&

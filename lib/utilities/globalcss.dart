@@ -92,7 +92,7 @@ Future<void> getColorSettings() async {
 
     lableTextcolor = Color(0xffACC5FF);
 
-    redColor = Colors.red;
+    redColor = Colors.red.shade100;
 
     pinkColor = Colors.pink;
   }
@@ -142,6 +142,7 @@ InputDecoration formlabel1(String lableName) {
   return InputDecoration(
       // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       labelText: lableName,
+      errorStyle: TextStyle(color: redColor),
       contentPadding: EdgeInsets.symmetric(
           vertical: responsiveMT(12, 30), horizontal: 10.0),
       border: OutlineInputBorder(

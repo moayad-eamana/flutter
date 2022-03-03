@@ -145,7 +145,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                     decoration: formlabel1("عدد الساعات"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إدخال عدد الساعات';
                                       }
                                       return null;
                                     },
@@ -159,7 +159,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                         formlabel1("تاريخ بداية خارج الدوام"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إختيار تاريخ المحدد';
                                       }
                                       return null;
                                     },
@@ -189,7 +189,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                         formlabel1("تاريخ نهاية خارج الدوام"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إختيار تاريخ المحدد';
                                       }
                                       return null;
                                     },
@@ -224,7 +224,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 if (value == null ||
                                     value.isEmpty ||
                                     value.length <= 15) {
-                                  return 'Please enter some text';
+                                  return 'يرجى كتابة ملاحظة';
                                 }
                                 return null;
                               },

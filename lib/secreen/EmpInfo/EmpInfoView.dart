@@ -64,6 +64,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                               borderSide: BorderSide(color: bordercolor)),
                           filled: true,
                           fillColor: BackGWhiteColor,
+                          labelStyle: subtitleTx(baseColorText),
                           labelText: "بحث عن موظف",
                           alignLabelWithHint: true,
                           suffixIcon: IconButton(
