@@ -28,14 +28,9 @@ class HrDecisionsProvider extends ChangeNotifier {
     var respose = await postAction(
         "Inbox/ApproveDecisionRequest",
         jsonEncode({
-          "BossNumber": int.parse(empNo),
-          "EmplyeeNumber": _hrDecisions[index].EmplyeeNumber,
+          "RequestNumber": _hrDecisions[index].Seq,
           "SignTypeID": _hrDecisions[index].SignTypeID,
-          "Seq": _hrDecisions[index].Seq,
-          "NewClass": _hrDecisions[index].NewClass,
-          "TrnsactionTypeID": _hrDecisions[index].TrnsactionTypeID,
-          "ExecutionDateH": _hrDecisions[index].ExecutionDateH,
-          "ExexutionDateG": _hrDecisions[index].ExexutionDateG
+          "BossNumber": int.parse(empNo)
         }));
     if (jsonDecode(respose.body)["StatusCode"] != 400) {
       return jsonDecode(respose.body)["ErrorMessage"];
