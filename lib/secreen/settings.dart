@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Settings extends StatefulWidget {
   Settings(this.update);
@@ -390,6 +391,35 @@ class _SettingsState extends State<Settings> {
                             ),
                             Text("الإصدار الأول 1.20.22",
                                 style: descTx1(baseColorText)),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: widgetsUni.actionbutton(
+                                "تسجيل خروج",
+                                Icons.logout,
+                                () async {
+                                  Alerts.confirmAlrt(context, "تسجيل خروج",
+                                          "هل تريد الخروج من التطبيق", "نعم")
+                                      .show()
+                                      .then((value) async {
+                                    if (value == true) {
+                                      SharedPreferences _pref =
+                                          await SharedPreferences.getInstance();
+                                      _pref.setString("EmployeeNumber", "");
+
+                                      Navigator.pushReplacementNamed(
+                                          context, '/loginView');
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
                           ],
                         ),
                       ),
