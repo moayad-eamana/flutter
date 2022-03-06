@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -139,7 +140,11 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 crossAxisSpacing: 10,
                                 children: [
                                   TextFormField(
+                                    //style: subtitleTx(Colors.white),
                                     controller: _HoursNumber,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     keyboardType: TextInputType.number,
                                     maxLines: 1,
                                     decoration: formlabel1("عدد الساعات"),
