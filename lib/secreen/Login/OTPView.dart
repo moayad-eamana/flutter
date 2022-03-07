@@ -134,9 +134,9 @@ class _OTPViewState extends State<OTPView> {
           EasyLoading.dismiss();
           if (isValid) {
             //here to make initialRoute is /home
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                '/home', (Route<dynamic> route) => false);
-            //Navigator.pushReplacementNamed(context, "/home");
+            // Navigator.of(context).pushNamedAndRemoveUntil(
+            //     '/home', (Route<dynamic> route) => false);
+            Navigator.pushReplacementNamed(context, "/home");
           } else {
             Alerts.errorAlert(context, "خطأ", "خطأ في الرمز").show();
           }
