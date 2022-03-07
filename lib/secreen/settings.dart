@@ -292,7 +292,7 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Container(
-                          height: 150,
+                          height: 190,
                           //margin: EdgeInsets.all(20),
                           decoration: containerdecoration(BackGWhiteColor),
                           child: Padding(
@@ -323,6 +323,9 @@ class _SettingsState extends State<Settings> {
                                         launch("tel://940");
                                       },
                                     ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     InkWell(
                                       child: Row(
                                         children: [
@@ -340,9 +343,11 @@ class _SettingsState extends State<Settings> {
                                         ],
                                       ),
                                       onTap: () {
-                                        launch(
-                                            "mailto:help@eamana.gov.sa?subject=رسالة");
+                                        launch("mailto:help@eamana.gov.sa");
                                       },
+                                    ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
                                     InkWell(
                                       child: Row(
@@ -361,6 +366,9 @@ class _SettingsState extends State<Settings> {
                                       onTap: () {
                                         launch("tel://0138046333");
                                       },
+                                    ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
                                     InkWell(
                                       child: Row(
@@ -381,6 +389,9 @@ class _SettingsState extends State<Settings> {
                                         launch("tel://0138046000");
                                       },
                                     ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     InkWell(
                                       child: Row(
                                         children: [
@@ -396,8 +407,7 @@ class _SettingsState extends State<Settings> {
                                         ],
                                       ),
                                       onTap: () {
-                                        launch(
-                                            "https://wa.me/+966530245555/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
+                                        launch("https://wa.me/+966530245555/");
                                       },
                                     ),
                                   ],
