@@ -47,97 +47,115 @@ class _SalaryHistoryState extends State<SalaryHistory> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW("سجل الرواتب", context, null),
-        body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: Stack(
+          children: [
+            Image.asset(
+              imageBG,
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              //height: MediaQuery.of(context).size.height,
+              fit: BoxFit.fill,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    Text(
-                      "سجل الرواتب لاخر ستة أشهر",
-                      style: titleTx(baseColor),
+                    SizedBox(
+                      height: 20,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "الترتيب",
-                          style: titleTx(secondryColorText),
+                          "سجل الرواتب لاخر ستة أشهر",
+                          style: titleTx(baseColor),
                         ),
-                        SizedBox(width: 10),
-                        Icon(Icons.filter)
-                      ],
-                    ),
-                  ],
-                ),
-                widgetsUni.divider(),
-                if (listOfSalary.length == 0 && isLoading == false)
-                  Center(
-                    child: Text(
-                      "لايوجد رواتب",
-                      style: titleTx(baseColor),
-                    ),
-                  ),
-                if (listOfSalary.length > 0)
-                  ...listOfSalary.map((value) {
-                    return Card(
-                      margin: EdgeInsets.only(top: 20),
-                      elevation: 2,
-                      child: Container(
-                        height: 109,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.black26),
-                            borderRadius: BorderRadius.all(Radius.circular(4))),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
+                        Row(
                           children: [
-                            SizedBox(
-                              height: 5,
-                            ),
                             Text(
-                              "التاريخ : " +
-                                  value["SalaryDate"].toString().split("T")[0],
-                              style: subtitleTx(baseColor),
+                              "الترتيب",
+                              style: titleTx(secondryColorText),
                             ),
-                            SizedBox(height: 5),
-                            Expanded(
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Expanded(
-                                        child: buildStack("إجمالي",
-                                            value["TotalDues"], baseColor)),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                        child: buildStack("صافي",
-                                            value["NetValue"], secondryColor)),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                        child: buildStack("حسميات",
-                                            value["Deductions"], Colors.red))
-                                  ],
-                                ),
-                              ),
-                            )
+                            SizedBox(width: 10),
+                            Icon(Icons.filter)
                           ],
                         ),
+                      ],
+                    ),
+                    widgetsUni.divider(),
+                    if (listOfSalary.length == 0 && isLoading == false)
+                      Center(
+                        child: Text(
+                          "لايوجد رواتب",
+                          style: titleTx(baseColor),
+                        ),
                       ),
-                    );
-                  }).toList(),
-              ],
+                    if (listOfSalary.length > 0)
+                      ...listOfSalary.map((value) {
+                        return Card(
+                          margin: EdgeInsets.only(top: 20),
+                          elevation: 2,
+                          child: Container(
+                            height: 109,
+                            decoration: BoxDecoration(
+                                color: BackGWhiteColor,
+                                border: Border.all(color: bordercolor),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4))),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "التاريخ : " +
+                                      value["SalaryDate"]
+                                          .toString()
+                                          .split("T")[0],
+                                  style: subtitleTx(baseColor),
+                                ),
+                                SizedBox(height: 5),
+                                Expanded(
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Expanded(
+                                            child: buildStack("إجمالي",
+                                                value["TotalDues"], baseColor)),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                            child: buildStack(
+                                                "صافي",
+                                                value["NetValue"],
+                                                secondryColor)),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                            child: buildStack(
+                                                "حسميات",
+                                                value["Deductions"],
+                                                Colors.red))
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                  ],
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -152,7 +170,7 @@ class _SalaryHistoryState extends State<SalaryHistory> {
         Container(
           height: 50,
           //   width: 120,
-          decoration: containerdecoration(Colors.white),
+          decoration: containerdecoration(BackGWhiteColor),
           child: Center(
             child: Text(
               salary.toString(),

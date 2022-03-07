@@ -89,7 +89,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                                   },
                                   child: Card(
                                       elevation: 1,
-                                      color: Colors.white,
+                                      color: BackGWhiteColor,
                                       //  color: Colors.white,
                                       //elevation: 3,
                                       child: Column(

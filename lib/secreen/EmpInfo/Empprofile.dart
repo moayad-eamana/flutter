@@ -126,7 +126,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
-                                  primary: Colors.white, // background
+                                  primary: BackGWhiteColor, // background
                                   onPrimary: Colors.black, // foreground
 
                                   elevation: 2),
