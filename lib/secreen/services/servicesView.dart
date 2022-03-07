@@ -338,7 +338,11 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    Navigator.pushNamed(context, "/SalaryHistory");
+                    Navigator.pushNamed(context, "/auth_secreen").then((value) {
+                      if (value == true) {
+                        Navigator.pushNamed(context, "/SalaryHistory");
+                      }
+                    });
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/event.svg', "سجل الرواتب"))),
