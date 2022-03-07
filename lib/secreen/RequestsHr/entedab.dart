@@ -255,7 +255,7 @@ class _EntedabState extends State<Entedab> {
       // ),
       validator: (value) {
         if (value == "" || value == null) {
-          return "hgfef";
+          return "الرجاء إدخال نوع الانتداب";
         } else {
           return null;
         }
@@ -351,7 +351,7 @@ class _EntedabState extends State<Entedab> {
       // ),
       validator: (value) {
         if (value == "" || value == null) {
-          return "hgfef";
+          return "الرجاء إدخال جهة الانتداب";
         } else {
           return null;
         }

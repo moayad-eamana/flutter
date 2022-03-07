@@ -1,4 +1,5 @@
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
 class Community extends StatefulWidget {
@@ -14,9 +15,17 @@ class _CommunityState extends State<Community> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        backgroundColor: BackGColor,
         appBar: AppBarHome.appBarW("التواصل", context),
         body: SingleChildScrollView(
-          child: Container(),
+          child: Container(
+            child: Center(
+              child: Text(
+                "قريباً",
+                style: titleTx(baseColor),
+              ),
+            ),
+          ),
         ),
       ),
     );

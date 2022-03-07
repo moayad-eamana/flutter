@@ -281,7 +281,7 @@ class _TabBarDemoState extends State<TabBarDemo>
                                                 Badge(
                                                   badgeColor: secondryColor,
                                                   badgeContent: Text(
-                                                    '3',
+                                                    '0',
                                                     style:
                                                         descTx2(Colors.white),
                                                   ),

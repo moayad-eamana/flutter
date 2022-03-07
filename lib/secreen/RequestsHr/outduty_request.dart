@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -139,13 +140,17 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 crossAxisSpacing: 10,
                                 children: [
                                   TextFormField(
+                                    //style: subtitleTx(Colors.white),
                                     controller: _HoursNumber,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
                                     keyboardType: TextInputType.number,
                                     maxLines: 1,
                                     decoration: formlabel1("عدد الساعات"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إدخال عدد الساعات';
                                       }
                                       return null;
                                     },
@@ -159,7 +164,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                         formlabel1("تاريخ بداية خارج الدوام"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إختيار تاريخ المحدد';
                                       }
                                       return null;
                                     },
@@ -189,7 +194,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                         formlabel1("تاريخ نهاية خارج الدوام"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter some text';
+                                        return 'يرجى إختيار تاريخ المحدد';
                                       }
                                       return null;
                                     },
@@ -224,7 +229,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 if (value == null ||
                                     value.isEmpty ||
                                     value.length <= 15) {
-                                  return 'Please enter some text';
+                                  return 'يرجى كتابة ملاحظة';
                                 }
                                 return null;
                               },
