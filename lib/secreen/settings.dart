@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatefulWidget {
   Settings(this.update);
@@ -291,7 +292,7 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Container(
-                          height: 150,
+                          height: 190,
                           //margin: EdgeInsets.all(20),
                           decoration: containerdecoration(BackGWhiteColor),
                           child: Padding(
@@ -302,74 +303,112 @@ class _SettingsState extends State<Settings> {
                               children: [
                                 Column(
                                   children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.chat_bubble,
-                                          color: secondryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "للبلاغات 940",
-                                          style: descTx1(baseColorText),
-                                        ),
-                                      ],
+                                    InkWell(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.chat_bubble,
+                                            color: secondryColor,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "للبلاغات 940",
+                                            style: descTx1(baseColorText),
+                                          ),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        launch("tel://940");
+                                      },
                                     ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.email_rounded,
-                                          color: secondryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "للمساعدة : help@eamana.gov.sa",
-                                          style: descTx1(baseColorText),
-                                        ),
-                                      ],
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.home,
-                                          color: secondryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text("الدعم الفني : 0138046333",
-                                            style: descTx1(baseColorText)),
-                                      ],
+                                    InkWell(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.email_rounded,
+                                            color: secondryColor,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "للمساعدة : help@eamana.gov.sa",
+                                            style: descTx1(baseColorText),
+                                          ),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        launch("mailto:help@eamana.gov.sa");
+                                      },
                                     ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.local_phone,
-                                          color: secondryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text("العلافا العامة : 013 - 8046000",
-                                            style: descTx1(baseColorText)),
-                                      ],
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.whatshot,
-                                          color: secondryColor,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text("واتساب : 0530245555",
-                                            style: descTx1(baseColorText)),
-                                      ],
+                                    InkWell(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.home,
+                                            color: secondryColor,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text("الدعم الفني : 8046333 - 013",
+                                              style: descTx1(baseColorText)),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        launch("tel://0138046333");
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    InkWell(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.local_phone,
+                                            color: secondryColor,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                              "العلاقات العامة : 8046000 - 013",
+                                              style: descTx1(baseColorText)),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        launch("tel://0138046000");
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    InkWell(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.whatshot,
+                                            color: secondryColor,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text("واتساب : 0530245555",
+                                              style: descTx1(baseColorText)),
+                                        ],
+                                      ),
+                                      onTap: () {
+                                        launch("https://wa.me/+966530245555/");
+                                      },
                                     ),
                                   ],
                                 )

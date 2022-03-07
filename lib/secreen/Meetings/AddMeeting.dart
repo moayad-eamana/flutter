@@ -370,6 +370,7 @@ class _AddMeetingState extends State<AddMeeting> {
                             ),
                           TextField(
                             keyboardType: TextInputType.text,
+                            controller: _notes,
                             maxLines: 3,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(

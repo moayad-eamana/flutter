@@ -87,6 +87,7 @@ class _EditMeetingViewState extends State<EditMeetingView> {
         _url.text = _provider.meetingList[widget.index ?? 0].Meeting_url;
         _pass.text = _provider.meetingList[widget.index ?? 0].Meeting_pswd;
         _meetingId.text = _provider.meetingList[widget.index ?? 0].Meeting_id;
+        _notes.text = _provider.meetingList[widget.index ?? 0].Notes;
         isLoaded = true;
       }
     }
@@ -373,6 +374,7 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                           ),
                     TextField(
                       keyboardType: TextInputType.text,
+                      controller: _notes,
                       maxLines: 3,
                       decoration: decoration("ملاحظات", 8),
                       onChanged: (String val) {
