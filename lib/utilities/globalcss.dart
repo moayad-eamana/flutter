@@ -143,8 +143,8 @@ InputDecoration formlabel1(String lableName) {
       // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       labelText: lableName,
       errorStyle: TextStyle(color: redColor),
-      contentPadding: EdgeInsets.symmetric(
-          vertical: responsiveMT(12, 30), horizontal: 10.0),
+      contentPadding:
+          EdgeInsets.symmetric(vertical: responsiveMT(8, 30), horizontal: 10.0),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4.0),
         borderSide: BorderSide(color: bordercolor),
