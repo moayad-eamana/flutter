@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:eamanaapp/utilities/globalcss.dart';
 
 Future<bool> showExitPopup(context) async {
   return await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: BackGWhiteColor,
           content: Container(
             height: 90,
             child: Column(
@@ -39,7 +39,8 @@ Future<bool> showExitPopup(context) async {
                           print('yes selected');
                           exit(0);
                         },
-                        child: Text("نعم"),
+                        child:
+                            Text("نعم", style: TextStyle(color: Colors.black)),
                         style: ElevatedButton.styleFrom(primary: baseColor),
                       ),
                     ),

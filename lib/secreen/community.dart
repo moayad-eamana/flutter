@@ -28,7 +28,7 @@ class _CommunityState extends State<Community> {
               Center(
                 child: Text(
                   "قريباً",
-                  style: titleTx(baseColor),
+                  style: titleTx(baseColorText),
                 ),
               ),
             ],
