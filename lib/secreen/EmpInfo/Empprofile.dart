@@ -399,23 +399,23 @@ class _EmpProfileState extends State<EmpProfile> {
                               ),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              widgetsUni.actionbutton(
-                                "تسجيل خروج",
-                                Icons.logout,
-                                () async {
-                                  SharedPreferences _pref =
-                                      await SharedPreferences.getInstance();
-                                  _pref.setString("EmployeeNumber", "");
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     widgetsUni.actionbutton(
+                          //       "تسجيل خروج",
+                          //       Icons.logout,
+                          //       () async {
+                          //         SharedPreferences _pref =
+                          //             await SharedPreferences.getInstance();
+                          //         _pref.setString("EmployeeNumber", "");
 
-                                  Navigator.pushReplacementNamed(
-                                      context, '/loginView');
-                                },
-                              ),
-                            ],
-                          )
+                          //         Navigator.pushReplacementNamed(
+                          //             context, '/loginView');
+                          //       },
+                          //     ),
+                          //   ],
+                          // )
                         ],
                       ),
                     ),

@@ -18,13 +18,20 @@ class _CommunityState extends State<Community> {
         backgroundColor: BackGColor,
         appBar: AppBarHome.appBarW("التواصل", context),
         body: SingleChildScrollView(
-          child: Container(
-            child: Center(
-              child: Text(
-                "قريباً",
-                style: titleTx(baseColor),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 30,
               ),
-            ),
+              Center(
+                child: Text(
+                  "قريباً",
+                  style: titleTx(baseColor),
+                ),
+              ),
+            ],
           ),
         ),
       ),

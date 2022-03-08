@@ -192,13 +192,13 @@ class _MyAppState extends State<MyApp> {
               ),
           '/TabBarDemo': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
-                child: TabBarDemo(),
+                child: HomePanel(),
               ),
           '/loginView': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
                 child: LoginView(),
               ),
-          '/home': (context) => TabBarDemo(),
+          '/home': (context) => HomePanel(),
           '/OTPView': (context) => OTPView(),
           '/HrRequestsView': (context) => HrRequestsView(),
           '/HRdetailsView': (context) => HRdetailsView(),
