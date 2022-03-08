@@ -6,14 +6,12 @@ import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/community/community.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
-import 'package:eamanaapp/secreen/widgets/exit_popup.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
@@ -22,7 +20,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
-import 'EmpInfo/EmpInfoView.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -189,7 +186,16 @@ class _HomPanelState extends State<HomePanel>
       child: WillPopScope(
         onWillPop: () async {
           if (_bottomNavIndex == 4) {
-            return showExitPopup(context);
+            //return showExitPopup(context);
+
+            Alerts.confirmAlrt(
+                    context, "خروج", "هل تريد الخروج من التطبيق", "نعم")
+                .show()
+                .then((value) async {
+              if (value == true) {
+                exit(0);
+              }
+            });
           }
           setState(() {
             _bottomNavIndex = 4;

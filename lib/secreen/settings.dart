@@ -446,7 +446,7 @@ class _SettingsState extends State<Settings> {
                                     color: bordercolor,
                                   ),
                                   elevation: 0,
-                                  primary: redColor,
+                                  primary: baseColor,
                                 ),
                                 onPressed: () async {
                                   Alerts.confirmAlrt(context, "تسجيل خروج",
