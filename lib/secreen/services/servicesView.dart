@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
@@ -10,12 +12,15 @@ import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class ServicesView extends StatefulWidget {
@@ -161,7 +166,41 @@ class _ServicesViewState extends State<ServicesView> {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {},
+                  onPressed: () async {
+                    EasyLoading.show(
+                      status: 'جاري المعالجة...',
+                      maskType: EasyLoadingMaskType.black,
+                    );
+                    String emNo = await EmployeeProfile.getEmployeeNumber();
+                    var respose =
+                        await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+                    EasyLoading.dismiss();
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: AlertDialog(
+                          title: Builder(builder: (context) {
+                            return Center(child: const Text('رصيد الاجازات'));
+                          }),
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(jsonDecode(respose.body)["EmpInfo"]
+                                      ["VacationBalance"]
+                                  .toString()),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('حسنا'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/rased-ajaza.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
@@ -351,12 +390,31 @@ class _ServicesViewState extends State<ServicesView> {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/auth_secreen").then((value) {
-                      if (value == true) {
-                        ViewFile.open(testbase64Pfd, "pdf");
-                      }
-                    });
+                  onPressed: () async {
+                    final fingerprintSP = await SharedPreferences.getInstance();
+                    bool fingerprint = fingerprintSP.getBool('fingerprint')!;
+                    EasyLoading.show(
+                      status: 'جاري المعالجة...',
+                      maskType: EasyLoadingMaskType.black,
+                    );
+                    String emNo = await EmployeeProfile.getEmployeeNumber();
+                    var respons =
+                        await getAction("HR/GetEmployeeSalaryReport/" + emNo);
+                    EasyLoading.dismiss();
+                    if (fingerprint) {
+                      Navigator.pushNamed(context, "/auth_secreen")
+                          .then((value) async {
+                        if (value == true) {
+                          //      print(jsonDecode(respons.body)["salaryPdf"]);
+
+                          ViewFile.open(
+                              jsonDecode(respons.body)["salaryPdf"], "pdf");
+                        }
+                      });
+                    } else {
+                      ViewFile.open(
+                          jsonDecode(respons.body)["salaryPdf"], "pdf");
+                    }
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/dalel-emp.svg', "تعريف بالراتب"))),
