@@ -92,7 +92,7 @@ Future<void> getColorSettings() async {
 
     lableTextcolor = Color(0xffACC5FF);
 
-    redColor = Colors.red.shade100;
+    redColor = Colors.red.shade300;
 
     pinkColor = Colors.pink;
   }

@@ -29,14 +29,14 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 
 import 'main_home.dart';
 
-class TabBarDemo extends StatefulWidget {
-  const TabBarDemo({Key? key}) : super(key: key);
+class HomePanel extends StatefulWidget {
+  const HomePanel({Key? key}) : super(key: key);
 
   @override
-  State<TabBarDemo> createState() => _TabBarDemoState();
+  State<HomePanel> createState() => _HomPanelState();
 }
 
-class _TabBarDemoState extends State<TabBarDemo>
+class _HomPanelState extends State<HomePanel>
     with SingleTickerProviderStateMixin {
   String usernam = "drefr";
   final PanelController panlC = PanelController();
