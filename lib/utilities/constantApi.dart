@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
 
-//4341012 old https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/
+//4341012  https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/
 String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
 
 Future<String> Bearer() async {
