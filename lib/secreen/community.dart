@@ -25,10 +25,17 @@ class _CommunityState extends State<Community> {
               SizedBox(
                 height: 30,
               ),
-              Center(
-                child: Text(
-                  "قريباً",
-                  style: titleTx(baseColorText),
+              InteractiveViewer(
+                boundaryMargin: EdgeInsets.all(double.infinity),
+                child: Container(
+                  height: 500,
+                  width: 500,
+                  child: Center(
+                    child: Text(
+                      "قريباً",
+                      style: titleTx(baseColorText),
+                    ),
+                  ),
                 ),
               ),
             ],
