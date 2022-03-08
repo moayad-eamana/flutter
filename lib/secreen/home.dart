@@ -192,7 +192,7 @@ class _HomPanelState extends State<HomePanel>
                 .show()
                 .then((value) async {
               if (value == true) {
-                Navigator.of(context).pop();
+                exit(0);
               }
             });
           }
