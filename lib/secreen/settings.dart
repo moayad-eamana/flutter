@@ -433,13 +433,22 @@ class _SettingsState extends State<Settings> {
                             SizedBox(
                               height: 15,
                             ),
-                            SizedBox(
+                            Container(
                               height: 50,
                               width: 150,
-                              child: widgetsUni.actionbutton(
-                                "تسجيل خروج",
-                                Icons.logout,
-                                () async {
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  side: BorderSide(
+                                    width: 0.5,
+                                    color: bordercolor,
+                                  ),
+                                  elevation: 0,
+                                  primary: redColor,
+                                ),
+                                onPressed: () async {
                                   Alerts.confirmAlrt(context, "تسجيل خروج",
                                           "هل تريد الخروج من التطبيق", "نعم")
                                       .show()
@@ -454,7 +463,39 @@ class _SettingsState extends State<Settings> {
                                     }
                                   });
                                 },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Icon(Icons.logout,
+                                        color: Colors.white, size: 18),
+                                    Text(
+                                      "تسجيل خروج",
+                                      style: descTx1(Colors.white),
+                                      maxLines: 2,
+                                    )
+                                  ],
+                                ),
                               ),
+                              // widgetsUni.actionbutton(
+                              //   "تسجيل خروج",
+                              //   Icons.logout,
+                              //   () async {
+                              //     Alerts.confirmAlrt(context, "تسجيل خروج",
+                              //             "هل تريد الخروج من التطبيق", "نعم")
+                              //         .show()
+                              //         .then((value) async {
+                              //       if (value == true) {
+                              //         SharedPreferences _pref =
+                              //             await SharedPreferences.getInstance();
+                              //         _pref.setString("EmployeeNumber", "");
+
+                              //         Navigator.pushReplacementNamed(
+                              //             context, '/loginView');
+                              //       }
+                              //     });
+                              //   },
+                              // ),
                             ),
                             SizedBox(
                               height: 30,
