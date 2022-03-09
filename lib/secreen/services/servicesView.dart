@@ -180,21 +180,33 @@ class _ServicesViewState extends State<ServicesView> {
                       builder: (BuildContext context) => Directionality(
                         textDirection: TextDirection.rtl,
                         child: AlertDialog(
+                          backgroundColor: BackGWhiteColor,
                           title: Builder(builder: (context) {
-                            return Center(child: const Text('رصيد الاجازات'));
+                            return Center(
+                              child: Text(
+                                'رصيد الاجازات',
+                                style: titleTx(baseColor),
+                              ),
+                            );
                           }),
                           content: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(jsonDecode(respose.body)["EmpInfo"]
-                                      ["VacationBalance"]
-                                  .toString()),
+                              Text(
+                                jsonDecode(respose.body)["EmpInfo"]
+                                        ["VacationBalance"]
+                                    .toString(),
+                                style: subtitleTx(secondryColor),
+                              ),
                             ],
                           ),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text('حسنا'),
+                              child: Text(
+                                'حسنا',
+                                style: subtitleTx(baseColor),
+                              ),
                             ),
                           ],
                         ),

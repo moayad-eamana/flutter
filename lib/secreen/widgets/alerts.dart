@@ -24,7 +24,7 @@ class Alerts {
       content: Column(
         children: [
           Icon(
-            Icons.done_rounded,
+            Icons.done,
             size: 100,
             color: Colors.green.shade800,
           ),
@@ -73,7 +73,7 @@ class Alerts {
       content: Column(
         children: [
           Icon(
-            Icons.warning_rounded,
+            Icons.warning,
             size: 100,
             color: Colors.yellow.shade800,
           ),
@@ -126,7 +126,7 @@ class Alerts {
       content: Column(
         children: [
           Icon(
-            Icons.error_rounded,
+            Icons.error,
             size: 100,
             color: Colors.red.shade800,
           ),
@@ -182,7 +182,7 @@ class Alerts {
       content: Column(
         children: [
           Icon(
-            Icons.warning_rounded,
+            Icons.warning,
             size: 100,
             color: Colors.yellow.shade800,
           ),
