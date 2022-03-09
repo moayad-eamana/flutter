@@ -41,6 +41,7 @@ class _HomPanelState extends State<HomePanel>
   final autoSizeGroup = AutoSizeGroup();
   var _bottomNavIndex = 4;
   EmployeeProfile empinfo = new EmployeeProfile();
+
   void openpanel() {
     _bottomNavIndex == 4
         ? panlC.isPanelOpen
@@ -186,16 +187,18 @@ class _HomPanelState extends State<HomePanel>
       child: WillPopScope(
         onWillPop: () async {
           if (_bottomNavIndex == 4) {
-            //return showExitPopup(context);
-
-            Alerts.confirmAlrt(
-                    context, "خروج", "هل تريد الخروج من التطبيق", "نعم")
-                .show()
-                .then((value) async {
-              if (value == true) {
-                exit(0);
-              }
-            });
+            if (isOpen == true) {
+              panlC.close();
+            } else {
+              Alerts.confirmAlrt(
+                      context, "خروج", "هل تريد الخروج من التطبيق", "نعم")
+                  .show()
+                  .then((value) async {
+                if (value == true) {
+                  exit(0);
+                }
+              });
+            }
           }
           setState(() {
             _bottomNavIndex = 4;

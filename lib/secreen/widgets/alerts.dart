@@ -41,6 +41,7 @@ class Alerts {
       ),
       buttons: [
         DialogButton(
+          radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: const Text(
             "حسنا",
@@ -93,6 +94,7 @@ class Alerts {
       // desc: desc,
       buttons: [
         DialogButton(
+          radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: const Text(
             "حسنا",
@@ -145,6 +147,7 @@ class Alerts {
       // desc: desc,
       buttons: [
         DialogButton(
+          radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: const Text(
             "حسنا",
@@ -196,6 +199,7 @@ class Alerts {
       ),
       buttons: [
         DialogButton(
+          radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: Text(
             confirmMsg,
@@ -207,6 +211,7 @@ class Alerts {
           width: 120,
         ),
         DialogButton(
+          radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: const Text(
             "إلغاء",
