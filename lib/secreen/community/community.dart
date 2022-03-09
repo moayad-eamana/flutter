@@ -34,7 +34,7 @@ class _CommunityState extends State<Community> {
                 Column(
                   children: [
                     Container(
-                      height: 380,
+                      height: 400,
                       decoration: containerdecoration(Colors.white),
                       margin:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -135,6 +135,7 @@ class _CommunityState extends State<Community> {
       child: Container(
         width: double.maxFinite,
         color: Colors.amber,
+        margin: EdgeInsets.symmetric(horizontal: 20),
         child: Stack(
           children: [
             Image.asset(

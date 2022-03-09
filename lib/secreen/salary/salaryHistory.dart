@@ -88,7 +88,7 @@ class _SalaryHistoryState extends State<SalaryHistory> {
                                         List.from(listOfSalary.reversed);
                                   });
                                 },
-                                child: Icon(Icons.filter))
+                                child: Icon(Icons.filter_list_rounded))
                           ],
                         ),
                       ],

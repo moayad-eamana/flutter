@@ -43,7 +43,7 @@ class LoginProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> checkUserOTP(String otp) async {
+  Future<dynamic> checkUserOTP(String otp) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
     var respose = await http.post(
         Uri.parse(
@@ -98,6 +98,6 @@ class LoginProvider extends ChangeNotifier {
 
       return true;
     }
-    return false;
+    return jsonDecode(respose.body)["ErrorMessage"];
   }
 }

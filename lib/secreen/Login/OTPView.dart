@@ -128,17 +128,17 @@ class _OTPViewState extends State<OTPView> {
             status: 'جاري المعالجة...',
             maskType: EasyLoadingMaskType.black,
           );
-          bool isValid =
+          dynamic isValid =
               await Provider.of<LoginProvider>(context, listen: false)
                   .checkUserOTP(_otp.text);
           EasyLoading.dismiss();
-          if (isValid) {
+          if (isValid is bool) {
             //here to make initialRoute is /home
             // Navigator.of(context).pushNamedAndRemoveUntil(
             //     '/home', (Route<dynamic> route) => false);
             Navigator.pushReplacementNamed(context, "/home");
           } else {
-            Alerts.errorAlert(context, "خطأ", "خطأ في الرمز").show();
+            Alerts.errorAlert(context, "خطأ", isValid).show();
           }
         },
         child: const Text('إستمرار'),
