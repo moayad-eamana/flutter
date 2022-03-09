@@ -224,8 +224,13 @@ class _VacationRequestState extends State<VacationRequest> {
                                     },
                                   ),
                                   DropdownSearch<dynamic>(
+                                    key: UniqueKey(),
                                     items: _MainDepartmentEmployees,
                                     popupBackgroundColor: BackGWhiteColor,
+                                    showSearchBox: true,
+                                    itemAsString: (item) => item.EmployeeName,
+                                    maxHeight: 400,
+                                    showAsSuffixIcons: true,
                                     popupItemBuilder:
                                         (context, index, isSelected) =>
                                             (Container(
@@ -237,6 +242,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                         ],
                                       ),
                                     )),
+                                    showSelectedItems: false,
                                     dropdownBuilder: (context, selectedItem) =>
                                         Container(
                                       decoration: null,
@@ -256,9 +262,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                         _ReplaceEmployeeNumber == null
                                             ? false
                                             : true,
-                                    itemAsString: (item) => item.EmployeeName,
-                                    maxHeight: 400,
-                                    showAsSuffixIcons: true,
+
                                     dropdownSearchDecoration:
                                         formlabel1("الموظف البديل"),
                                     //  InputDecoration(
@@ -280,15 +284,15 @@ class _VacationRequestState extends State<VacationRequest> {
                                         return null;
                                       }
                                     },
-                                    showSearchBox: true,
+
                                     onChanged: (v) {
                                       try {
                                         setState(() {
                                           _ReplaceEmployeeNumber =
                                               v.EmployeeNumber;
                                         });
-                                        print('object');
-                                        print(v.EmployeeNumber.toString());
+                                        // print('object');
+                                        // print(v.EmployeeNumber.toString());
                                         // value = v;
                                         //value = v ?? "";
 
@@ -314,7 +318,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                         ),
                                       ),
                                     ),
-                                    popupShape: const RoundedRectangleBorder(
+                                    popupShape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(24),
                                         topRight: Radius.circular(24),
@@ -449,7 +453,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                         width: 2,
                                       ),
                                       ToggleSwitch(
-                                        cornerRadius: 4,
+                                        radiusStyle: true,
                                         borderWidth: 1,
                                         borderColor: [bordercolor],
                                         inactiveBgColor: BackGColor,
