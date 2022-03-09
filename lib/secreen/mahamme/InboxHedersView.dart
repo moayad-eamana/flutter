@@ -98,7 +98,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                                       child: _provider[index].TypeID == 1
                                           ? widgetsUni.servicebutton2(
                                               "شؤون الموظفين",
-                                              Icons.request_page,
+                                              "assets/SVGs/dalelalmowzafen.svg", //later
                                               () {
                                                 Navigator.push(
                                                   context,
@@ -117,7 +117,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                                           : (_provider[index].TypeID == 38
                                               ? widgetsUni.servicebutton2(
                                                   "القرارات الالكترونية",
-                                                  Icons.request_page,
+                                                  "assets/SVGs/dalelalmowzafen.svg", //later
                                                   () {
                                                     Navigator.push(
                                                       context,
@@ -134,7 +134,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                                                 )
                                               : widgetsUni.servicebutton2(
                                                   "الاعارة",
-                                                  Icons.request_page,
+                                                  "assets/SVGs/dalelalmowzafen.svg", //later
                                                   () {
                                                     Navigator.push(
                                                       context,

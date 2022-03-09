@@ -247,6 +247,7 @@ class _SettingsState extends State<Settings> {
                                         print("blindness = " +
                                             blindness.toString());
                                         await getColorSettings();
+                                        widget.update!();
                                       },
                                     ),
                                   ],

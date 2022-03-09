@@ -160,7 +160,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/OutdutyRequest");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/khareg-dawam.svg', "طلب خارج دوام"))),
+                      'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -214,7 +214,7 @@ class _ServicesViewState extends State<ServicesView> {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/rased-ajaza.svg', "رصيد إجازات"))),
+                      'assets/SVGs/ejaza.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -234,7 +234,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/auhad");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/entdab.svg', "العهد"))),
+                      'assets/SVGs/3ohad.svg', "العهد"))),
         ],
       ),
     );
@@ -267,7 +267,7 @@ class _ServicesViewState extends State<ServicesView> {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "إعتماداتي"))),
+                      'assets/SVGs/e3tmadaty.svg', "إعتماداتي"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -286,7 +286,7 @@ class _ServicesViewState extends State<ServicesView> {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "مواعيدي")))
+                      'assets/SVGs/mawa3idi.svg', "مواعيدي")))
         ],
       ),
     );
@@ -310,7 +310,7 @@ class _ServicesViewState extends State<ServicesView> {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/event.svg', "الفعاليات"))),
+                      'assets/SVGs/events.svg', "الفعاليات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -320,7 +320,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/EamanaDiscount");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/offers.svg', "عروض الموظفين"))),
+                      'assets/SVGs/offers.svg', "عروض"))),
           // StaggeredGridTile.extent(
           //   crossAxisCellCount: 1,
           //   mainAxisExtent: hi,
@@ -337,7 +337,7 @@ class _ServicesViewState extends State<ServicesView> {
               hi,
               widgetsUni.servicebutton2(
                 "دليل الموظفين",
-                Icons.request_page,
+                "assets/SVGs/dalelalmowzafen.svg",
                 () {
                   Navigator.push(
                       context,
@@ -355,7 +355,7 @@ class _ServicesViewState extends State<ServicesView> {
               hi,
               widgetsUni.servicebutton2(
                 "بياناتي",
-                Icons.request_page,
+                "assets/SVGs/baynaty.svg",
                 () {
                   Navigator.push(
                       context,
@@ -396,7 +396,7 @@ class _ServicesViewState extends State<ServicesView> {
                     });
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/event.svg', "سجل الرواتب"))),
+                      'assets/SVGs/sejelalrawatb.svg', "سجل الرواتب"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -429,7 +429,7 @@ class _ServicesViewState extends State<ServicesView> {
                     }
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "تعريف بالراتب"))),
+                      'assets/SVGs/ta3refalratb.svg', "تعريف بالراتب"))),
         ],
       ),
     );

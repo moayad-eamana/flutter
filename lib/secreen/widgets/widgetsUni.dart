@@ -18,7 +18,7 @@ class widgetsUni {
         SvgPicture.asset(
           icon,
           //color: Colors.white,
-          height: responsiveMT(30, 35),
+          width: responsiveMT(42, 48),
         ),
         // Icon(
         //   icon,
@@ -31,6 +31,7 @@ class widgetsUni {
         Center(
           child: Text(
             title,
+            maxLines: 1,
             textAlign: TextAlign.center,
             style: descTx1(baseColor),
           ),
@@ -68,12 +69,12 @@ class widgetsUni {
     );
   }
 
-  static Widget servicebutton2(String text, icon, VoidCallback onClicked) {
+  static Widget servicebutton2(
+      String text, String icon, VoidCallback onClicked) {
     return ElevatedButton(
         style: cardServiece,
         onPressed: onClicked,
-        child:
-            widgetsUni.cardcontentService('assets/SVGs/dalel-emp.svg', text));
+        child: widgetsUni.cardcontentService(icon, text));
   }
 
   static Widget actionbutton(String text, icon, VoidCallback onClicked) {
