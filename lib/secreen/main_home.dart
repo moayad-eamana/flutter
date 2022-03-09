@@ -140,7 +140,7 @@ class _MainHomeState extends State<MainHome> {
                               if (id == 1)
                                 widgetsUni.servicebutton(
                                   "مواعيد",
-                                  Icons.calendar_today,
+                                  'assets/SVGs/mawa3idi.svg',
                                   () {
                                     Navigator.push(
                                       context,
@@ -158,7 +158,7 @@ class _MainHomeState extends State<MainHome> {
                                 ),
                               widgetsUni.servicebutton(
                                 "بياناتي",
-                                Icons.data_saver_off_outlined,
+                                'assets/SVGs/baynaty.svg',
                                 () {
                                   Navigator.push(
                                       context,
@@ -175,7 +175,7 @@ class _MainHomeState extends State<MainHome> {
                               ),
                               widgetsUni.servicebutton(
                                 "دليل الموظفين",
-                                Icons.people_alt,
+                                'assets/SVGs/dalelalmowzafen.svg',
                                 () {
                                   Navigator.push(
                                       context,
@@ -199,7 +199,7 @@ class _MainHomeState extends State<MainHome> {
                               // ),
                               widgetsUni.servicebutton(
                                 "تعريف بالراتب",
-                                Icons.money,
+                                'assets/SVGs/ta3refalratb.svg',
                                 () {
                                   ViewFile.open(testbase64Pfd, "pdf");
                                 },

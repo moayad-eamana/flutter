@@ -40,7 +40,8 @@ class widgetsUni {
     );
   }
 
-  static Widget servicebutton(String text, icon, VoidCallback onClicked) {
+  static Widget servicebutton(
+      String text, String icon, VoidCallback onClicked) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
       height: responsiveMT(60, 120),
@@ -52,7 +53,11 @@ class widgetsUni {
         },
         child: Row(
           children: [
-            Icon(icon, color: baseColor, size: 40),
+            SvgPicture.asset(
+              icon,
+              //color: Colors.white,
+              width: responsiveMT(42, 48),
+            ),
             SizedBox(
               width: 10,
             ),

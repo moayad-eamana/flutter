@@ -23,87 +23,17 @@ class CustomSearchDelegate extends SearchDelegate {
     {
       "service_name": "طلب إجازة",
       "Navigation": "/VacationRequest",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "طلب خارج دوام",
-      "Navigation": "/OutdutyRequest",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "رصيد إجازات",
-      "Navigation": "",
-      "icon": 'assets/SVGs/tadreb.svg'
-    },
-    {
-      "service_name": "طلب إنتداب",
-      "Navigation": "/entedab",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    //الرواتب
-    {
-      "service_name": "سجل الرواتب",
-      "Navigation": "/SalaryHistory",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "تعريف بالراتب",
-      "Navigation": "/auth_secreen",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    //مهامي
-
-    //خدمات أخرى
-    {
-      "service_name": "الفعاليات",
-      "Navigation": "",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "عروض الموظفين",
-      "Navigation": "/EamanaDiscount",
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "دليل الموظفين",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpInfoView(null),
-        ),
-      ),
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-    {
-      "service_name": "بيانات",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
-      "icon": 'assets/SVGs/tadreb.svg',
-    },
-  ];
-
-  final services2 = [
-    ////شؤون الموظفين
-    {
-      "service_name": "طلب إجازة",
-      "Navigation": "/VacationRequest",
       "icon": 'assets/SVGs/ejaza.svg',
     },
     {
       "service_name": "طلب خارج دوام",
       "Navigation": "/OutdutyRequest",
-      "icon": 'assets/SVGs/khareg-dawam.svg',
+      "icon": 'assets/SVGs/kharejdawam.svg',
     },
     {
       "service_name": "رصيد إجازات",
       "Navigation": "",
-      "icon": 'assets/SVGs/rased-ajaza.svg'
+      "icon": 'assets/SVGs/ejaza.svg'
     },
     {
       "service_name": "طلب إنتداب",
@@ -114,41 +44,20 @@ class CustomSearchDelegate extends SearchDelegate {
     {
       "service_name": "سجل الرواتب",
       "Navigation": "/SalaryHistory",
-      "icon": 'assets/SVGs/event.svg',
+      "icon": 'assets/SVGs/sejelalrawatb.svg',
     },
     {
       "service_name": "تعريف بالراتب",
       "Navigation": "/auth_secreen",
-      "icon": 'assets/SVGs/dalel-emp.svg',
+      "icon": 'assets/SVGs/ta3refalratb.svg',
     },
     //مهامي
-    {
-      "service_name": "إعتماداتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EatemadatProvider(),
-          // ignore: prefer_const_constructors
-          child: InboxHedersView(),
-        ),
-      ),
-      "icon": 'assets/SVGs/dalel-emp.svg',
-    },
-    {
-      "service_name": "مواعيدي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => MettingsProvider(),
-          // ignore: prefer_const_constructors
-          child: MeetingView(),
-        ),
-      ),
-      "icon": 'assets/SVGs/dalel-emp.svg',
-    },
+
     //خدمات أخرى
     {
       "service_name": "الفعاليات",
       "Navigation": "",
-      "icon": 'assets/SVGs/event.svg',
+      "icon": 'assets/SVGs/events.svg',
     },
     {
       "service_name": "عروض الموظفين",
@@ -164,7 +73,7 @@ class CustomSearchDelegate extends SearchDelegate {
           child: EmpInfoView(null),
         ),
       ),
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/dalelalmowzafen.svg',
     },
     {
       "service_name": "بيانات",
@@ -175,7 +84,99 @@ class CustomSearchDelegate extends SearchDelegate {
           child: EmpProfile(null),
         ),
       ),
-      "icon": 'assets/SVGs/tadreb.svg',
+      "icon": 'assets/SVGs/baynaty.svg',
+    },
+  ];
+
+  final services2 = [
+    ////شؤون الموظفين
+    ////شؤون الموظفين
+    {
+      "service_name": "طلب إجازة",
+      "Navigation": "/VacationRequest",
+      "icon": 'assets/SVGs/ejaza.svg',
+    },
+    {
+      "service_name": "طلب خارج دوام",
+      "Navigation": "/OutdutyRequest",
+      "icon": 'assets/SVGs/kharejdawam.svg',
+    },
+    {
+      "service_name": "رصيد إجازات",
+      "Navigation": "",
+      "icon": 'assets/SVGs/ejaza.svg'
+    },
+    {
+      "service_name": "طلب إنتداب",
+      "Navigation": "/entedab",
+      "icon": 'assets/SVGs/entdab.svg',
+    },
+    //الرواتب
+    {
+      "service_name": "سجل الرواتب",
+      "Navigation": "/SalaryHistory",
+      "icon": 'assets/SVGs/sejelalrawatb.svg',
+    },
+    {
+      "service_name": "تعريف بالراتب",
+      "Navigation": "/auth_secreen",
+      "icon": 'assets/SVGs/ta3refalratb.svg',
+    },
+    //مهامي
+    {
+      "service_name": "إعتماداتي",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EatemadatProvider(),
+          // ignore: prefer_const_constructors
+          child: InboxHedersView(),
+        ),
+      ),
+      "icon": 'assets/SVGs/e3tmadaty.svg',
+    },
+    {
+      "service_name": "مواعيدي",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => MettingsProvider(),
+          // ignore: prefer_const_constructors
+          child: MeetingView(),
+        ),
+      ),
+      "icon": 'assets/SVGs/mawa3idi.svg',
+    },
+    //خدمات أخرى
+    {
+      "service_name": "الفعاليات",
+      "Navigation": "",
+      "icon": 'assets/SVGs/events.svg',
+    },
+    {
+      "service_name": "عروض الموظفين",
+      "Navigation": "/EamanaDiscount",
+      "icon": 'assets/SVGs/offers.svg',
+    },
+    {
+      "service_name": "دليل الموظفين",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EmpInfoProvider(),
+          // ignore: prefer_const_constructors
+          child: EmpInfoView(null),
+        ),
+      ),
+      "icon": 'assets/SVGs/dalelalmowzafen.svg',
+    },
+    {
+      "service_name": "بيانات",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EmpInfoProvider(),
+          // ignore: prefer_const_constructors
+          child: EmpProfile(null),
+        ),
+      ),
+      "icon": 'assets/SVGs/baynaty.svg',
     },
   ];
   //did't use

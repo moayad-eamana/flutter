@@ -36,7 +36,7 @@ class SliderWidget {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "إعتماداتي")),
+                      'assets/SVGs/e3tmadaty.svg', "إعتماداتي")),
             ),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
@@ -47,7 +47,7 @@ class SliderWidget {
                     Navigator.pushNamed(context, '/OutdutyRequest');
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "طلب خارج دوام"))),
+                      'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -57,7 +57,7 @@ class SliderWidget {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/rased-ajaza.svg', "رصيد إجازات"))),
+                      'assets/SVGs/ejaza.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -94,7 +94,7 @@ class SliderWidget {
                     Navigator.pushNamed(context, "/OutdutyRequest");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/khareg-dawam.svg', "طلب خارج دوام"))),
+                      'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -104,7 +104,7 @@ class SliderWidget {
                     Navigator.pushNamed(context, '/auhad');
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/dalel-emp.svg', "العهد"))),
+                      'assets/SVGs/3ohad.svg', "العهد"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
