@@ -11,6 +11,7 @@ import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
 import 'package:eamanaapp/secreen/auth.dart';
+import 'package:eamanaapp/secreen/community/comments.dart';
 import 'package:eamanaapp/secreen/community/community.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
@@ -217,6 +218,7 @@ class _MyAppState extends State<MyApp> {
           '/auhad': (context) => Auhad(),
           '/auth_secreen': (context) => AuthenticateBioSecreen(),
           '/SalaryHistory': (context) => SalaryHistory(),
+          '/comments': (context) => Comments(),
         },
       );
     });

@@ -1,5 +1,6 @@
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -110,9 +111,15 @@ class _CommunityState extends State<Community> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "إضافة تعليق",
-            style: descTx1(baseColor),
+          GestureDetector(
+            onTap: () {
+              print("qwdqw");
+              Navigator.pushNamed(context, "/comments");
+            },
+            child: Text(
+              "التعليقات",
+              style: descTx1(baseColor),
+            ),
           ),
           ElevatedButton(
             style: cardServiece,
