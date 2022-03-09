@@ -5,6 +5,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -308,7 +309,7 @@ class _SettingsState extends State<Settings> {
                                       child: Row(
                                         children: [
                                           Icon(
-                                            Icons.chat_bubble,
+                                            Icons.chat_bubble_outline,
                                             color: secondryColor,
                                           ),
                                           SizedBox(
@@ -331,7 +332,7 @@ class _SettingsState extends State<Settings> {
                                       child: Row(
                                         children: [
                                           Icon(
-                                            Icons.email_rounded,
+                                            Icons.email_outlined,
                                             color: secondryColor,
                                           ),
                                           SizedBox(
@@ -354,7 +355,7 @@ class _SettingsState extends State<Settings> {
                                       child: Row(
                                         children: [
                                           Icon(
-                                            Icons.home,
+                                            Icons.home_outlined,
                                             color: secondryColor,
                                           ),
                                           SizedBox(
@@ -375,7 +376,7 @@ class _SettingsState extends State<Settings> {
                                       child: Row(
                                         children: [
                                           Icon(
-                                            Icons.local_phone,
+                                            Icons.local_phone_outlined,
                                             color: secondryColor,
                                           ),
                                           SizedBox(
@@ -396,9 +397,10 @@ class _SettingsState extends State<Settings> {
                                     InkWell(
                                       child: Row(
                                         children: [
-                                          Icon(
-                                            Icons.whatshot,
+                                          FaIcon(
+                                            FontAwesomeIcons.whatsapp,
                                             color: secondryColor,
+                                            size: 24.0,
                                           ),
                                           SizedBox(
                                             width: 10,
