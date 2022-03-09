@@ -73,6 +73,7 @@ class _EntedabState extends State<Entedab> {
                             children: [
                               TextFormField(
                                 keyboardType: TextInputType.text,
+                                readOnly: true,
                                 maxLines: 1,
                                 controller: _date,
                                 decoration: formlabel1("تاريخ الانتداب"),

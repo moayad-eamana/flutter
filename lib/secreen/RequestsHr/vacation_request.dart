@@ -70,7 +70,7 @@ class _VacationRequestState extends State<VacationRequest> {
                 .map(((e) => MainDepartmentEmployees.fromJson(e)))
                 .toList();
 
-        print(_MainDepartmentEmployees[0].EmployeeName);
+        //print(_MainDepartmentEmployees[0].EmployeeName);
         setState(() {});
         EasyLoading.dismiss();
       }
@@ -442,12 +442,18 @@ class _VacationRequestState extends State<VacationRequest> {
                                         child: Text(
                                           "هل ترغب بمنح البديل صلاحية التوقيع بالإنابة في النظام المعاملات الإلكترونية ؟",
                                           style: descTx1(baseColorText),
-                                          maxLines: 2,
+                                          maxLines: 3,
                                         ),
                                       ),
+                                      SizedBox(
+                                        width: 2,
+                                      ),
                                       ToggleSwitch(
-                                        inactiveBgColor: Colors.grey,
-                                        inactiveFgColor: Colors.white,
+                                        cornerRadius: 4,
+                                        borderWidth: 1,
+                                        borderColor: [bordercolor],
+                                        inactiveBgColor: BackGColor,
+                                        inactiveFgColor: baseColorText,
                                         minWidth: 50.0,
                                         minHeight: 35,
                                         initialLabelIndex: null,
@@ -466,15 +472,15 @@ class _VacationRequestState extends State<VacationRequest> {
                                       ),
                                     ],
                                   ),
-                                  // errormessege == true
-                                  //     ? Text(
-                                  //         "الرجاء الاختيار",
-                                  //         style: TextStyle(
-                                  //           fontSize: 10,
-                                  //           color: Colors.red,
-                                  //         ),
-                                  //       )
-                                  //     : Container(),
+                                  errormessege == true
+                                      ? Text(
+                                          "الرجاء الاختيار",
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.red,
+                                          ),
+                                        )
+                                      : Container(),
                                   SizedBox(
                                     height: 5,
                                   ),
@@ -628,9 +634,16 @@ class _VacationRequestState extends State<VacationRequest> {
                                     () {
                                       // Validate returns true if the form is valid, or false otherwise.
                                       if (_SignatureApproval == null) {
+                                        setState(() {
+                                          errormessege = true;
+                                        });
                                         Alerts.errorAlert(context, "خطأ",
                                                 "يرجى الاختيار الرغبة بإعطاء الموظف البديل صلاحية")
                                             .show();
+                                      } else {
+                                        setState(() {
+                                          errormessege = false;
+                                        });
                                       }
                                       if (_formKey.currentState!.validate() &&
                                           _SignatureApproval != null) {
