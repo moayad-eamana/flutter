@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -7,10 +9,13 @@ import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -202,8 +207,38 @@ class _MainHomeState extends State<MainHome> {
                                 widgetsUni.servicebutton(
                                   "تعريف بالراتب",
                                   'assets/SVGs/ta3refalratb.svg',
-                                  () {
-                                    ViewFile.open(testbase64Pfd, "pdf");
+                                  () async {
+                                    final fingerprintSP =
+                                        await SharedPreferences.getInstance();
+                                    bool fingerprint =
+                                        fingerprintSP.getBool('fingerprint')!;
+                                    EasyLoading.show(
+                                      status: 'جاري المعالجة...',
+                                      maskType: EasyLoadingMaskType.black,
+                                    );
+                                    String emNo = await EmployeeProfile
+                                        .getEmployeeNumber();
+                                    var respons = await getAction(
+                                        "HR/GetEmployeeSalaryReport/" + emNo);
+                                    EasyLoading.dismiss();
+                                    if (fingerprint) {
+                                      Navigator.pushNamed(
+                                              context, "/auth_secreen")
+                                          .then((value) async {
+                                        if (value == true) {
+                                          //      print(jsonDecode(respons.body)["salaryPdf"]);
+
+                                          ViewFile.open(
+                                              jsonDecode(
+                                                  respons.body)["salaryPdf"],
+                                              "pdf");
+                                        }
+                                      });
+                                    } else {
+                                      ViewFile.open(
+                                          jsonDecode(respons.body)["salaryPdf"],
+                                          "pdf");
+                                    }
                                   },
                                 ),
                               ],
