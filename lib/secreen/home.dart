@@ -266,103 +266,110 @@ class _HomPanelState extends State<HomePanel>
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Stack(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: Center(
-                                        child: Image(
-                                            width: responsiveMT(90, 150),
-                                            image: AssetImage(
-                                                "assets/image/rakamy-logo-21.png")),
+                                Expanded(
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        child: Center(
+                                          child: Image(
+                                              width: responsiveMT(90, 150),
+                                              image: AssetImage(
+                                                  "assets/image/rakamy-logo-21.png")),
+                                        ),
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(left: 10),
-                                            child: Column(
-                                              children: [
-                                                Badge(
-                                                  badgeColor: secondryColor,
-                                                  badgeContent: Text(
-                                                    '0',
-                                                    style:
-                                                        descTx2(Colors.white),
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.notifications_active,
-                                                    color: baseColor,
-                                                    size: responsiveMT(45, 45),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 0,
-                                                ),
-                                                Text(
-                                                  "تنبيهات",
-                                                  style: descTx1(baseColorText),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(right: 10),
-                                            child: Column(
-                                              children: [
-                                                CircleAvatar(
-                                                  backgroundColor: baseColor,
-                                                  radius: responsiveMT(26, 28),
-                                                  child: empinfo.ImageURL ==
-                                                              null ||
-                                                          empinfo.ImageURL == ""
-                                                      ? Image.asset(
-                                                          "assets/image/avatar.jpg")
-                                                      : ClipOval(
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 50,
-                                                            fit: BoxFit.cover,
-                                                            imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                empinfo.ImageURL
-                                                                        .toString()
-                                                                    .split(
-                                                                        "\$")[1],
+                                      Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            // Container(
+                                            //   margin: EdgeInsets.only(left: 10),
+                                            //   child:
+                                            //   Column(
+                                            //     children: [
+                                            //       Badge(
+                                            //         badgeColor: secondryColor,
+                                            //         badgeContent: Text(
+                                            //           '0',
+                                            //           style:
+                                            //               descTx2(Colors.white),
+                                            //         ),
+                                            //         child: Icon(
+                                            //           Icons.notifications_active,
+                                            //           color: baseColor,
+                                            //           size: responsiveMT(45, 45),
+                                            //         ),
+                                            //       ),
+                                            //       SizedBox(
+                                            //         height: 0,
+                                            //       ),
+                                            //       Text(
+                                            //         "تنبيهات",
+                                            //         style: descTx1(baseColorText),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            // ),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 10),
+                                              child: Column(
+                                                children: [
+                                                  CircleAvatar(
+                                                    backgroundColor: baseColor,
+                                                    radius:
+                                                        responsiveMT(26, 28),
+                                                    child: empinfo.ImageURL ==
+                                                                null ||
+                                                            empinfo.ImageURL ==
+                                                                ""
+                                                        ? Image.asset(
+                                                            "assets/image/avatar.jpg")
+                                                        : ClipOval(
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              height: 50,
+                                                              width: 50,
+                                                              fit: BoxFit.cover,
+                                                              imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                  empinfo.ImageURL
+                                                                          .toString()
+                                                                      .split(
+                                                                          "\$")[1],
+                                                            ),
                                                           ),
-                                                        ),
-                                                  // ClipOval(
-                                                  //     child: FadeInImage
-                                                  //         .assetNetwork(
-                                                  //       fit: BoxFit.cover,
-                                                  //       width: 50,
-                                                  //       height: 50,
-                                                  //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                  //           empinfo.ImageURL
-                                                  //                   .toString()
-                                                  //               .split(
-                                                  //                   "\$")[1],
-                                                  //       placeholder:
-                                                  //           "assets/image/avatar.jpg",
-                                                  //     ),
-                                                  //   ),
-                                                ),
-                                                Text(
-                                                  ("مرحبا / ") +
-                                                      (empinfo.FirstName ?? ""),
-                                                  style: descTx1(baseColorText),
-                                                )
-                                              ],
+                                                    // ClipOval(
+                                                    //     child: FadeInImage
+                                                    //         .assetNetwork(
+                                                    //       fit: BoxFit.cover,
+                                                    //       width: 50,
+                                                    //       height: 50,
+                                                    //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                    //           empinfo.ImageURL
+                                                    //                   .toString()
+                                                    //               .split(
+                                                    //                   "\$")[1],
+                                                    //       placeholder:
+                                                    //           "assets/image/avatar.jpg",
+                                                    //     ),
+                                                    //   ),
+                                                  ),
+                                                  Text(
+                                                    ("مرحبا / ") +
+                                                        (empinfo.FirstName ??
+                                                            ""),
+                                                    style:
+                                                        descTx1(baseColorText),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

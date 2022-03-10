@@ -31,7 +31,7 @@ class widgetsUni {
         Center(
           child: Text(
             title,
-            maxLines: 1,
+            //maxLines: 1,
             textAlign: TextAlign.center,
             style: descTx1(baseColor),
           ),
