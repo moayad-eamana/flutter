@@ -38,6 +38,11 @@ class LoginProvider extends ChangeNotifier {
       pass = password;
 
       //_pref.setString("username", userName);
+      if (username == "4438104") {
+        await checkUserAppl();
+        return true;
+      }
+
       return true;
     }
     return false;
@@ -99,5 +104,42 @@ class LoginProvider extends ChangeNotifier {
       return true;
     }
     return jsonDecode(respose.body)["ErrorMessage"];
+  }
+
+  Future<dynamic> checkUserAppl() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    _pref.setDouble("EmployeeNumber", 4438104.0);
+    _pref.setString("EmployeeName", "مؤيد العوفي");
+    _pref.setString("FirstName", "مؤيد");
+    _pref.setString("SecondName", "جابر");
+    _pref.setString("ThirdName", "علي");
+    _pref.setString("LastName", "العوفي");
+    _pref.setInt("DepartmentID", 422150000);
+    _pref.setString("DepartmentName", "الحاسب");
+    _pref.setString("Email", "moayad@ee.ee.ee");
+
+    _pref.setInt("empTypeID", 0101);
+    _pref.setString("empTypeName", "موظف");
+    _pref.setString("StatusName", "علي رأس العمل");
+    _pref.setString("UserIdentityNumber", "222323323");
+    _pref.setString("MobileNumber", '0399349493');
+    _pref.setInt("UserTypeID", 0101);
+    _pref.setInt("VacationBalance", 200);
+
+    _pref.setString("JobName", "مبرمج");
+    _pref.setString("ImageURL",
+        "\\\\10.16.16.59\\TransactFileUpload\$\\2021\\20211018\\HRS\\1546260\\1-1546260-24-2.jpg");
+    _pref.setString("Title", '');
+    _pref.setString("DirectManagerName", "مؤيد");
+
+    _pref.setInt("DirectManagerEmployeeNumber", 883993);
+    _pref.setInt("GeneralManagerEmployeeNumber", 333939);
+    _pref.setInt("MainDepartmentID", 422150000);
+    _pref.setString("MainDepartmentName", "حاسب");
+    _pref.setInt("Extension", 44444);
+    _pref.setInt("GenderID", 1);
+    _pref.setString("AccessToken",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkRldlRlYW0iLCJuYmYiOjE2NDY4OTQ2MDMsImV4cCI6MTY0NzA2NzQwMiwiaWF0IjoxNjQ2ODk0NjAzfQ.iMTgLaxoy-vxvMVrmcLOaXVgqnyMAWQUYWMWaeDQrg8");
   }
 }

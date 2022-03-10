@@ -108,110 +108,112 @@ class _MainHomeState extends State<MainHome> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "خدمة سريعة",
-                      style: titleTx(baseColorText),
-                    ),
-                    Expanded(
-                      child: Container(
-                          // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                          child: Divider(
-                        color: baseColorText,
-                        height: 20,
-                        thickness: 1,
-                        indent: 5,
-                        endIndent: 5,
-                      )),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
+                if (id != 0101)
+                  Row(
+                    children: [
+                      Text(
+                        "خدمة سريعة",
+                        style: titleTx(baseColorText),
+                      ),
+                      Expanded(
                         child: Container(
-                          height: 65,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              if (id == 1)
+                            // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                            child: Divider(
+                          color: baseColorText,
+                          height: 20,
+                          thickness: 1,
+                          indent: 5,
+                          endIndent: 5,
+                        )),
+                      ),
+                    ],
+                  ),
+                if (id != 0101)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Container(
+                            height: 65,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                if (id == 1)
+                                  widgetsUni.servicebutton(
+                                    "مواعيد",
+                                    'assets/SVGs/mawa3idi.svg',
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChangeNotifierProvider(
+                                            create: (context) =>
+                                                MettingsProvider(),
+                                            // ignore: prefer_const_constructors
+                                            child: MeetingView(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 widgetsUni.servicebutton(
-                                  "مواعيد",
-                                  'assets/SVGs/mawa3idi.svg',
+                                  "بياناتي",
+                                  'assets/SVGs/baynaty.svg',
                                   () {
                                     Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ChangeNotifierProvider(
-                                          create: (context) =>
-                                              MettingsProvider(),
-                                          // ignore: prefer_const_constructors
-                                          child: MeetingView(),
-                                        ),
-                                      ),
-                                    );
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChangeNotifierProvider(
+                                            create: (context) =>
+                                                EmpInfoProvider(),
+                                            // ignore: prefer_const_constructors
+                                            child: EmpProfile(null),
+                                          ),
+                                        ));
                                   },
                                 ),
-                              widgetsUni.servicebutton(
-                                "بياناتي",
-                                'assets/SVGs/baynaty.svg',
-                                () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ChangeNotifierProvider(
-                                          create: (context) =>
-                                              EmpInfoProvider(),
-                                          // ignore: prefer_const_constructors
-                                          child: EmpProfile(null),
-                                        ),
-                                      ));
-                                },
-                              ),
-                              widgetsUni.servicebutton(
-                                "دليل الموظفين",
-                                'assets/SVGs/dalelalmowzafen.svg',
-                                () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ChangeNotifierProvider(
-                                          create: (context) =>
-                                              EmpInfoProvider(),
-                                          // ignore: prefer_const_constructors
-                                          child: EmpInfoView(null),
-                                        ),
-                                      ));
-                                },
-                              ),
-                              // widgetsUni.servicebutton(
-                              //   "طلب استيكر",
-                              //   Icons.directions_car,
-                              //   () {
-                              //     print("ee");
-                              //   },
-                              // ),
-                              widgetsUni.servicebutton(
-                                "تعريف بالراتب",
-                                'assets/SVGs/ta3refalratb.svg',
-                                () {
-                                  ViewFile.open(testbase64Pfd, "pdf");
-                                },
-                              ),
-                            ],
+                                widgetsUni.servicebutton(
+                                  "دليل الموظفين",
+                                  'assets/SVGs/dalelalmowzafen.svg',
+                                  () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ChangeNotifierProvider(
+                                            create: (context) =>
+                                                EmpInfoProvider(),
+                                            // ignore: prefer_const_constructors
+                                            child: EmpInfoView(null),
+                                          ),
+                                        ));
+                                  },
+                                ),
+                                // widgetsUni.servicebutton(
+                                //   "طلب استيكر",
+                                //   Icons.directions_car,
+                                //   () {
+                                //     print("ee");
+                                //   },
+                                // ),
+                                widgetsUni.servicebutton(
+                                  "تعريف بالراتب",
+                                  'assets/SVGs/ta3refalratb.svg',
+                                  () {
+                                    ViewFile.open(testbase64Pfd, "pdf");
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Icon(Icons.arrow_forward_ios_rounded),
-                  ],
-                ),
+                      Icon(Icons.arrow_forward_ios_rounded),
+                    ],
+                  ),
                 SizedBox(
                   height: 2.h,
                 ),

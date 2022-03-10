@@ -30,6 +30,7 @@ class ServicesView extends StatefulWidget {
 
 class _ServicesViewState extends State<ServicesView> {
   int id = 0;
+  String empNo = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -39,6 +40,7 @@ class _ServicesViewState extends State<ServicesView> {
 
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
+    empNo = await EmployeeProfile.getEmployeeNumber();
     setState(() {});
   }
 
@@ -79,12 +81,13 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      "الرواتب",
-                      style: subtitleTx(baseColor),
-                    ),
-                    widgetsUni.divider(),
-                    salary(),
+                    if (empNo != "4438104")
+                      Text(
+                        "الرواتب",
+                        style: subtitleTx(baseColor),
+                      ),
+                    if (empNo != "4438104") widgetsUni.divider(),
+                    if (empNo != "4438104") salary(),
                     SizedBox(
                       height: 10,
                     ),
@@ -301,16 +304,17 @@ class _ServicesViewState extends State<ServicesView> {
         mainAxisSpacing: 6,
         crossAxisSpacing: 8,
         children: [
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    print("object");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/events.svg', "الفعاليات"))),
+          if (empNo != "4438104")
+            StaggeredGridTile.extent(
+                crossAxisCellCount: 1,
+                mainAxisExtent: hi,
+                child: ElevatedButton(
+                    style: cardServiece,
+                    onPressed: () {
+                      print("object");
+                    },
+                    child: widgetsUni.cardcontentService(
+                        'assets/SVGs/events.svg', "الفعاليات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -332,24 +336,25 @@ class _ServicesViewState extends State<ServicesView> {
           //       child: widgetsUni.cardcontentService(
           //           'assets/SVGs/dalel-emp.svg', "طلب استيكر")),
           // ),
-          StaggeredGridTileW(
-              1,
-              hi,
-              widgetsUni.servicebutton2(
-                "دليل الموظفين",
-                "assets/SVGs/dalelalmowzafen.svg",
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => EmpInfoProvider(),
-                          // ignore: prefer_const_constructors
-                          child: EmpInfoView(null),
-                        ),
-                      ));
-                },
-              )),
+          if (empNo != "4438104")
+            StaggeredGridTileW(
+                1,
+                hi,
+                widgetsUni.servicebutton2(
+                  "دليل الموظفين",
+                  "assets/SVGs/dalelalmowzafen.svg",
+                  () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider(
+                            create: (context) => EmpInfoProvider(),
+                            // ignore: prefer_const_constructors
+                            child: EmpInfoView(null),
+                          ),
+                        ));
+                  },
+                )),
           StaggeredGridTileW(
               1,
               hi,

@@ -1,7 +1,12 @@
+import 'dart:convert';
+
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -53,7 +58,52 @@ class SliderWidget {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {
+                  onPressed: () async {
+                    EasyLoading.show(
+                      status: 'جاري المعالجة...',
+                      maskType: EasyLoadingMaskType.black,
+                    );
+                    String emNo = await EmployeeProfile.getEmployeeNumber();
+                    var respose =
+                        await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+                    EasyLoading.dismiss();
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: AlertDialog(
+                          backgroundColor: BackGWhiteColor,
+                          title: Builder(builder: (context) {
+                            return Center(
+                              child: Text(
+                                'رصيد الاجازات',
+                                style: titleTx(baseColor),
+                              ),
+                            );
+                          }),
+                          content: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                jsonDecode(respose.body)["EmpInfo"]
+                                        ["VacationBalance"]
+                                    .toString(),
+                                style: subtitleTx(secondryColor),
+                              ),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: Text(
+                                'حسنا',
+                                style: subtitleTx(baseColor),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
