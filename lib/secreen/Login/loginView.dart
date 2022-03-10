@@ -117,10 +117,10 @@ class _LoginViewState extends State<LoginView> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text(
-                                        "تغير كلمة المرور",
-                                        style: subtitleTx(baseColor),
-                                      ),
+                                      // Text(
+                                      //   "تغير كلمة المرور",
+                                      //   style: subtitleTx(baseColor),
+                                      // ),
                                       loginBtn(_provider),
                                     ],
                                   ),

@@ -124,11 +124,11 @@ class _SettingsState extends State<Settings> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InkWell(
-                                  onTap: () {},
-                                  child: Text("تغيير كلمة المرور",
-                                      style: descTx1(baseColorText)),
-                                ),
+                                // InkWell(
+                                //   onTap: () {},
+                                //   child: Text("تغيير كلمة المرور",
+                                //       style: descTx1(baseColorText)),
+                                // ),
                                 Row(
                                   children: [
                                     Text("الدخول عن طريق البصمة",
