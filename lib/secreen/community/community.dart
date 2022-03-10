@@ -46,7 +46,7 @@ class _CommunityState extends State<Community> {
                           SizedBox(
                             height: 5,
                           ),
-                          buildBody(),
+                          buildBody("assets/image/Rectangle 238.jpg"),
                           SizedBox(
                             height: 5,
                           ),
@@ -70,7 +70,7 @@ class _CommunityState extends State<Community> {
                           SizedBox(
                             height: 5,
                           ),
-                          buildBody(),
+                          buildBody("assets/image/Rectangle 238 2.jpg"),
                           SizedBox(
                             height: 5,
                           ),
@@ -137,7 +137,7 @@ class _CommunityState extends State<Community> {
     );
   }
 
-  Widget buildBody() {
+  Widget buildBody(String imgpath) {
     return Expanded(
       child: Container(
         width: double.maxFinite,
@@ -146,8 +146,9 @@ class _CommunityState extends State<Community> {
         child: Stack(
           children: [
             Image.asset(
-              "assets/SVGs/appstore.png",
-              fit: BoxFit.fill,
+              imgpath,
+              fit: BoxFit.cover,
+              height: double.maxFinite,
               width: double.maxFinite,
             ),
             Align(
@@ -160,7 +161,7 @@ class _CommunityState extends State<Community> {
                     child: Text(
                   "حصول الادارة على شهادة الايزو",
                   textAlign: TextAlign.center,
-                  style: subtitleTx(baseColor),
+                  style: subtitleTx(Colors.white),
                 )),
               ),
             )
