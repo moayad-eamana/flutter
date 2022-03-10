@@ -10,7 +10,23 @@ class Comments extends StatefulWidget {
 }
 
 class _CommentsState extends State<Comments> {
-  dynamic commints = ["ماشاءالله", "كفو عليك مؤيد"];
+  dynamic commints = [
+    {
+      "name": "مؤيد العوفي",
+      "des":
+          "ألف مبروك ، الله يتمم علي خير باذن الله الف مبروك ، والله يتمم علي خير باذن الله",
+      "time": "1h ago"
+    },
+    {"name": "نور الدين", "des": "ألف مبروك", "time": "1h ago"},
+    {"name": "محمد آل سعيد", "des": "مبارك عليكم", "time": "1h ago"},
+    {
+      "name": "عبدالله آل كبيش",
+      "des":
+          "ألف مبروك ، الله يتمم علي خير باذن الله الف مبروك ، والله يتمم علي خير باذن الله ألف مبروك ، الله يتمم علي خير باذن الله الف مبروك ، والله يتمم علي خير باذن الله",
+      "time": "1h ago"
+    },
+    {"name": "أنا", "des": "الله يبارك فيكم", "time": "1h ago"},
+  ];
   TextEditingController _newComment = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -20,32 +36,58 @@ class _CommentsState extends State<Comments> {
           appBar: AppBarW.appBarW("التعليقات", context, null),
           body: Container(
             height: 100.h,
+            color: Colors.white,
             child: Stack(
               children: [
-                Image.asset(
-                  imageBG,
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  //height: MediaQuery.of(context).size.height,
-                  fit: BoxFit.fill,
-                ),
                 Container(
-                    margin: EdgeInsets.only(bottom: 45),
+                    margin: EdgeInsets.only(bottom: 70, top: 20),
                     width: 100.w,
                     child: ListView.separated(
                       itemCount: commints.length,
                       separatorBuilder: (BuildContext context, int index) =>
-                          widgetsUni.divider(),
+                          SizedBox(
+                        height: 10,
+                      ),
                       itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          title: Text(commints[index]),
+                        return Card(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          elevation: 1,
+                          color: Color(0xffF8F8F8),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                                color: Color(0xffF8F8F8),
+                                border: Border.all(color: Color(0xffF8F8F8)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25))),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      commints[index]["name"],
+                                      style: subtitleTx(baseColorText),
+                                    ),
+                                    Text(commints[index]["time"],
+                                        style: descTx2(secondryColorText))
+                                  ],
+                                ),
+                                Text(commints[index]["des"],
+                                    style: descTx2(secondryColorText))
+                              ],
+                            ),
+                          ),
                         );
                       },
                     )),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    color: Colors.white,
+                    color: Colors.blue[50],
                     height: 100,
                     child: Container(
                       margin:
@@ -60,7 +102,11 @@ class _CommentsState extends State<Comments> {
                               suffixIcon: GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      commints.add(_newComment.text);
+                                      commints.add({
+                                        "name": "مؤيد العوفي",
+                                        "des": _newComment.text,
+                                        "time": "just now"
+                                      });
                                     });
                                   },
                                   child: Icon(Icons.send)),
