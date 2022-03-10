@@ -14,7 +14,7 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class SliderWidget {
   static List<Widget> sliderw(BuildContext context, dynamic id) {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 250;
+    double hi = SizerUtil.deviceType == DeviceType.mobile ? 120 : 250;
 
     return [
       StaggeredGrid.count(
