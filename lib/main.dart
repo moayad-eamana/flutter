@@ -42,9 +42,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarColor: baseColor,
-  // ));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: baseColor,
+  ));
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
 
