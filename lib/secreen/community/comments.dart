@@ -40,8 +40,8 @@ class _CommentsState extends State<Comments> {
             child: Stack(
               children: [
                 Container(
-                    margin: EdgeInsets.only(bottom: 70, top: 20),
                     width: 100.w,
+                    margin: EdgeInsets.only(bottom: 100, top: 20),
                     child: ListView.separated(
                       itemCount: commints.length,
                       separatorBuilder: (BuildContext context, int index) =>
@@ -101,6 +101,10 @@ class _CommentsState extends State<Comments> {
                           decoration: InputDecoration(
                               suffixIcon: GestureDetector(
                                   onTap: () {
+                                    FocusScopeNode currentFocus =
+                                        FocusScope.of(context);
+
+                                    currentFocus.unfocus();
                                     setState(() {
                                       commints.add({
                                         "name": "مؤيد العوفي",
