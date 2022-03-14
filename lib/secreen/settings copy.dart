@@ -11,18 +11,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Settings extends StatefulWidget {
-  Settings(this.update);
+class Settings2 extends StatefulWidget {
+  Settings2(this.update);
   final Function? update;
   @override
-  State<Settings> createState() => _SettingsState();
+  State<Settings2> createState() => _Settings2State();
 }
 
 bool fingerprint = false;
 bool darkmode = false;
 bool blindness = false;
 
-class _SettingsState extends State<Settings> {
+class _Settings2State extends State<Settings2> {
   //
   void getSettings() async {
     final settingSP = await SharedPreferences.getInstance();

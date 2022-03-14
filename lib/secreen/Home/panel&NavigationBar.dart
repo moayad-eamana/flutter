@@ -10,6 +10,7 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/community/community.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
+import 'package:eamanaapp/secreen/settings%20copy.dart';
 import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
@@ -142,8 +143,21 @@ class _HomPanelState extends State<HomePanel>
   Widget build(BuildContext context) {
     List<dynamic> screen = [
       //page 1
+
       Settings(() {
-        setState(() {});
+        setState(() {
+          _animationController.reverse();
+
+          Future.delayed(
+            const Duration(seconds: 1),
+            () {
+              setState(() {
+                animatedPositionedStart = true;
+              });
+              return _animationController.forward();
+            },
+          );
+        });
       }),
       // ChangeNotifierProvider(
       //   create: (_) => MettingsProvider(),
@@ -602,7 +616,6 @@ class _HomPanelState extends State<HomePanel>
                                                     style:
                                                         descTx2(Colors.white),
                                                   ),
-
                                                   // AutoSizeText(
                                                   //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
                                                   //   maxLines: 1,
@@ -795,7 +808,7 @@ class _HomPanelState extends State<HomePanel>
                   style: TextStyle(
                       color: BackGWhiteColor, fontWeight: FontWeight.bold),
                 ),
-                right: isPortrait == true ? (50.w - 21) : (50.h - 21),
+                right: isPortrait == true ? (50.w - 23) : (50.h - 23),
                 bottom: _bottomNavIndex == 4 ? -25 : 5,
               ),
             ],
