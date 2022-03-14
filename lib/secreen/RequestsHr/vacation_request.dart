@@ -134,6 +134,7 @@ class _VacationRequestState extends State<VacationRequest> {
   ];
 
   bool errormessege = false;
+  bool errormessege2 = false;
 
   final _openDropDownProgKey = GlobalKey<DropdownSearchState<String>>();
 
@@ -318,11 +319,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                   ///
                                   DropdownSearch<dynamic>(
                                     popupBackgroundColor: BackGWhiteColor,
-                                    key: ValueKey(2),
+                                    key: UniqueKey(),
                                     items: _MainDepartmentEmployees,
                                     popupItemBuilder:
                                         (context, rr, isSelected) => (Container(
-                                      key: _UniqueKey,
                                       margin: EdgeInsets.only(top: 10),
                                       child: Column(
                                         children: [
@@ -402,6 +402,20 @@ class _VacationRequestState extends State<VacationRequest> {
                                         topRight: Radius.circular(24),
                                       ),
                                     ),
+                                  ),
+
+                                  errormessege2 == true
+                                      ? Text(
+                                          "الرجاء الاختيار الموظف البديل",
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: Colors.red,
+                                          ),
+                                        )
+                                      : Container(),
+
+                                  SizedBox(
+                                    height: 5,
                                   ),
 
                                   ///////////
@@ -708,8 +722,19 @@ class _VacationRequestState extends State<VacationRequest> {
                                           errormessege = false;
                                         });
                                       }
+                                      ////
+                                      if (_ReplaceEmployeeNumber == null) {
+                                        setState(() {
+                                          errormessege2 = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          errormessege2 = false;
+                                        });
+                                      }
                                       if (_formKey.currentState!.validate() &&
-                                          _SignatureApproval != null) {
+                                          _SignatureApproval != null &&
+                                          _ReplaceEmployeeNumber != null) {
                                         // If the form is valid, display a snackbar. In the real world,
                                         // you'd often call a server or save the information in a database.
                                         InsertVacationRequest();
