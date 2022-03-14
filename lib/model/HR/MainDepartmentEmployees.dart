@@ -23,6 +23,14 @@ class MainDepartmentEmployees {
       this.MainDepartmentName,
       this.Email);
 
+  String getEmployeeName() {
+    return this.EmployeeName;
+  }
+
+  double getEmployeeNumber() {
+    return this.EmployeeNumber;
+  }
+
   factory MainDepartmentEmployees.fromJson(dynamic json) {
     return MainDepartmentEmployees(
       json["EmployeeNumber"],
