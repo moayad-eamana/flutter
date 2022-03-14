@@ -28,6 +28,7 @@ class _EntedabState extends State<Entedab> {
   DropdownSearchW drop1 = new DropdownSearchW();
   double locationId = 0;
   String MandateTypeID = "";
+  String? selecteditem = null;
 
   @override
   Widget build(BuildContext context) {
@@ -266,6 +267,7 @@ class _EntedabState extends State<Entedab> {
         setState(() {
           locationId = 0;
           mandateLocations = [];
+          selecteditem = null;
         });
         String emNo = await EmployeeProfile.getEmployeeNumber();
         try {
@@ -331,8 +333,18 @@ class _EntedabState extends State<Entedab> {
           ],
         ),
       )),
+      dropdownBuilder: (context, selectedItem) => Container(
+        child: selectedItem == null
+            ? null
+            : Text(
+                selectedItem == null ? "" : selectedItem ?? "",
+                style: subtitleTx(baseColorText),
+              ),
+      ),
+      selectedItem: selecteditem == null ? null : selecteditem,
 
-      showSelectedItems: false,
+      dropdownBuilderSupportsNullItem: true,
+      //  showSelectedItems: true,
       mode: Mode.BOTTOM_SHEET,
       showClearButton: locationId == 0 || locationId == 0.0 ? false : true,
       maxHeight: 400,
@@ -363,6 +375,10 @@ class _EntedabState extends State<Entedab> {
         //  print(v.MandateLocationID);
         if (v != null) {
           locationId = v.MandateLocationID;
+
+          selecteditem = v.MandateLocationName;
+        } else {
+          selecteditem = null;
         }
 
         //   print(locationId);
