@@ -56,6 +56,8 @@ class _MainHomeState extends State<MainHome> {
     super.initState();
   }
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -138,6 +140,7 @@ class _MainHomeState extends State<MainHome> {
                     children: [
                       Expanded(
                         child: SingleChildScrollView(
+                          controller: _scrollController,
                           scrollDirection: Axis.horizontal,
                           child: Container(
                             height: 65,
@@ -246,7 +249,15 @@ class _MainHomeState extends State<MainHome> {
                           ),
                         ),
                       ),
-                      Icon(Icons.arrow_forward_ios_rounded),
+                      IconButton(
+                        icon: Icon(Icons.arrow_forward_ios_rounded),
+                        onPressed: () {
+                          _scrollController.animateTo(
+                              _scrollController.position.maxScrollExtent,
+                              duration: Duration(milliseconds: 1000),
+                              curve: Curves.ease);
+                        },
+                      ),
                     ],
                   ),
                 SizedBox(

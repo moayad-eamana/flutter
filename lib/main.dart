@@ -3,6 +3,7 @@ import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
@@ -12,16 +13,14 @@ import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
 import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/community/comments.dart';
-import 'package:eamanaapp/secreen/community/community.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
-import 'package:eamanaapp/secreen/main_home.dart';
 import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
+import 'package:eamanaapp/secreen/settings%20copy.dart';
 import 'package:eamanaapp/secreen/settings.dart';
-import 'package:eamanaapp/secreen/home.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,9 +41,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarColor: baseColor,
-  // ));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: baseColor,
+  ));
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -219,6 +218,7 @@ class _MyAppState extends State<MyApp> {
           '/auth_secreen': (context) => AuthenticateBioSecreen(),
           '/SalaryHistory': (context) => SalaryHistory(),
           '/comments': (context) => Comments(),
+          '/Settings2': (context) => Settings2(null), //for test animation
         },
       );
     });

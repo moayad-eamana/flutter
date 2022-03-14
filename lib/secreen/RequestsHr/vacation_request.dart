@@ -41,6 +41,8 @@ class _VacationRequestState extends State<VacationRequest> {
 
   late List<MainDepartmentEmployees> _MainDepartmentEmployees = [];
 
+  int ToggleSwitchindex = -1;
+
   @override
   void initState() {
     super.initState();
@@ -125,8 +127,8 @@ class _VacationRequestState extends State<VacationRequest> {
   ];
 
   List<Map<dynamic, dynamic>> _SignatureApprovalFlag = [
-    {"Flag": "نعم", "SignatureApprovalFlag": true},
-    {"Flag": "لا", "SignatureApprovalFlag": false},
+    {"index": 0, "Flag": "نعم", "SignatureApprovalFlag": true},
+    {"index": 1, "Flag": "لا", "SignatureApprovalFlag": false},
   ];
 
   bool errormessege = false;
@@ -224,7 +226,89 @@ class _VacationRequestState extends State<VacationRequest> {
                                     },
                                   ),
                                   DropdownSearch<dynamic>(
-                                    key: UniqueKey(),
+                                    items: vacationTypes,
+                                    popupBackgroundColor: BackGWhiteColor,
+                                    popupItemBuilder:
+                                        (context, rr, isSelected) => (Container(
+                                      margin: EdgeInsets.only(top: 10),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                              rr["VacationTypeName"].toString(),
+                                              style: subtitleTx(baseColorText))
+                                        ],
+                                      ),
+                                    )),
+                                    dropdownBuilder: (context, selectedItem) =>
+                                        Container(
+                                      decoration: null,
+                                      child: selectedItem == null
+                                          ? null
+                                          : Text(
+                                              selectedItem == null
+                                                  ? ""
+                                                  : selectedItem[
+                                                          "VacationTypeName"] ??
+                                                      "",
+                                              style: subtitleTx(baseColorText),
+                                            ),
+                                    ),
+                                    dropdownBuilderSupportsNullItem: true,
+                                    mode: Mode.BOTTOM_SHEET,
+                                    showClearButton:
+                                        _VacationTypeID == null ? false : true,
+                                    maxHeight: 400,
+                                    showAsSuffixIcons: true,
+                                    dropdownSearchDecoration:
+                                        formlabel1("نوع الاجازة"),
+                                    validator: (value) {
+                                      if (value == "" || value == null) {
+                                        return "يرجى إختيار نوع الإجازة";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    showSearchBox: true,
+                                    onChanged: (v) {
+                                      try {
+                                        setState(() {
+                                          _VacationTypeID = v["VacationID"];
+                                        });
+                                        print('object');
+                                        print(v["VacationID"]);
+                                        // value = v;
+                                        //value = v ?? "";
+                                      } catch (e) {}
+                                    },
+                                    popupTitle: Container(
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        color: secondryColor,
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "نوع الإجازة",
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    popupShape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(24),
+                                        topRight: Radius.circular(24),
+                                      ),
+                                    ),
+                                  ),
+                                  DropdownSearch<dynamic>(
+                                    key: ValueKey(1),
                                     items: _MainDepartmentEmployees,
                                     popupBackgroundColor: BackGWhiteColor,
                                     showSearchBox: true,
@@ -262,21 +346,8 @@ class _VacationRequestState extends State<VacationRequest> {
                                         _ReplaceEmployeeNumber == null
                                             ? false
                                             : true,
-
                                     dropdownSearchDecoration:
                                         formlabel1("الموظف البديل"),
-                                    //  InputDecoration(
-                                    //   hintText: "الموظف البديل",
-                                    //   //helperStyle: TextStyle(color: Colors.amber),
-                                    //   contentPadding: EdgeInsets.symmetric(
-                                    //       vertical: responsiveMT(10, 30),
-                                    //       horizontal: responsiveMT(10, 20)),
-                                    //   border: OutlineInputBorder(
-                                    //     borderRadius: BorderRadius.circular(4.0),
-
-                                    //     borderSide: BorderSide(color: bordercolor),
-                                    //   ),
-                                    // ),
                                     validator: (value) {
                                       if (value == "" || value == null) {
                                         return "يرجى إختيار الموظف البديل";
@@ -284,18 +355,13 @@ class _VacationRequestState extends State<VacationRequest> {
                                         return null;
                                       }
                                     },
-
                                     onChanged: (v) {
                                       try {
                                         setState(() {
                                           _ReplaceEmployeeNumber =
                                               v.EmployeeNumber;
                                         });
-                                        // print('object');
-                                        // print(v.EmployeeNumber.toString());
-                                        // value = v;
-                                        //value = v ?? "";
-
+                                        print(v.EmployeeNumber.toString());
                                       } catch (e) {}
                                     },
                                     popupTitle: Container(
@@ -325,121 +391,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                       ),
                                     ),
                                   ),
-                                  // drop1.drop(items, "الموظف البديل", context),
-                                  // DropdownSearch<String>(
-                                  //   validator: (v) =>
-                                  //       v == null ? "required field" : null,
-                                  //   dropdownSearchDecoration: InputDecoration(
-                                  //     hintText: "الموظف البديل",
-                                  //     contentPadding: const EdgeInsets.symmetric(
-                                  //         vertical: 2.0, horizontal: 20.0),
-                                  //     border: OutlineInputBorder(
-                                  //       borderRadius: BorderRadius.circular(4.0),
-                                  //       borderSide: BorderSide(color: bordercolor),
-                                  //     ),
-                                  //   ),
-                                  //   mode: Mode.MENU,
-                                  //   showSelectedItems: true,
-                                  //   items: ["نور الدين", "مؤيد", "محمد", 'شريف'],
-                                  //   popupItemDisabled: (String s) =>
-                                  //       s.startsWith('I'),
-                                  //   onChanged: print,
-                                  // ),
-                                  DropdownSearch<dynamic>(
-                                    items: vacationTypes,
 
-                                    popupBackgroundColor: BackGWhiteColor,
-                                    popupItemBuilder:
-                                        (context, rr, isSelected) => (Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                              rr["VacationTypeName"].toString(),
-                                              style: subtitleTx(baseColorText))
-                                        ],
-                                      ),
-                                    )),
-                                    dropdownBuilder: (context, selectedItem) =>
-                                        Container(
-                                      decoration: null,
-                                      child: selectedItem == null
-                                          ? null
-                                          : Text(
-                                              selectedItem == null
-                                                  ? ""
-                                                  : selectedItem[
-                                                          "VacationTypeName"] ??
-                                                      "",
-                                              style: subtitleTx(baseColorText),
-                                            ),
-                                    ),
-                                    dropdownBuilderSupportsNullItem: true,
-                                    mode: Mode.BOTTOM_SHEET,
-                                    showClearButton:
-                                        _VacationTypeID == null ? false : true,
-                                    maxHeight: 400,
-                                    showAsSuffixIcons: true,
-                                    dropdownSearchDecoration:
-                                        formlabel1("نوع الاجازة"),
-                                    // InputDecoration(
-                                    //   hintText: "نوع الاجازة",
-                                    //   helperStyle: TextStyle(color: Colors.amber),
-                                    //   contentPadding: EdgeInsets.symmetric(
-                                    //       vertical: responsiveMT(10, 30),
-                                    //       horizontal: responsiveMT(10, 20)),
-                                    //   border: OutlineInputBorder(
-                                    //     borderRadius: BorderRadius.circular(4.0),
-                                    //     borderSide: BorderSide(color: bordercolor),
-                                    //   ),
-                                    // ),
-                                    validator: (value) {
-                                      if (value == "" || value == null) {
-                                        return "يرجى إختيار نوع الإجازة";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
-                                    showSearchBox: true,
-
-                                    onChanged: (v) {
-                                      try {
-                                        setState(() {
-                                          _VacationTypeID = v["VacationID"];
-                                        });
-                                        print('object');
-                                        print(v["VacationID"]);
-                                        // value = v;
-                                        //value = v ?? "";
-                                      } catch (e) {}
-                                    },
-                                    popupTitle: Container(
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                        color: secondryColor,
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          "الموظف البديل",
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    popupShape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(24),
-                                        topRight: Radius.circular(24),
-                                      ),
-                                    ),
-                                  ),
                                   Row(
                                     children: [
                                       Expanded(
@@ -460,7 +412,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                         inactiveFgColor: baseColorText,
                                         minWidth: 50.0,
                                         minHeight: 35,
-                                        initialLabelIndex: null,
+                                        initialLabelIndex:
+                                            ToggleSwitchindex == -1
+                                                ? null
+                                                : ToggleSwitchindex,
                                         activeBgColor: [baseColor],
                                         totalSwitches: 2,
                                         labels: ['نعم', 'لا'],
@@ -469,6 +424,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                           _SignatureApproval =
                                               _SignatureApprovalFlag[indexS]
                                                   ["SignatureApprovalFlag"];
+
+                                          ToggleSwitchindex =
+                                              _SignatureApprovalFlag[indexS]
+                                                  ["index"];
 
                                           print(
                                               'switched to: $_SignatureApproval');
