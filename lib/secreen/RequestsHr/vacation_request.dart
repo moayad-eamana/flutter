@@ -43,6 +43,8 @@ class _VacationRequestState extends State<VacationRequest> {
 
   int ToggleSwitchindex = -1;
 
+  String? selecteditem = null;
+
   @override
   void initState() {
     super.initState();
@@ -133,6 +135,8 @@ class _VacationRequestState extends State<VacationRequest> {
 
   bool errormessege = false;
 
+  final _openDropDownProgKey = GlobalKey<DropdownSearchState<String>>();
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -150,7 +154,7 @@ class _VacationRequestState extends State<VacationRequest> {
               ),
               SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(20.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: BackGWhiteColor,
@@ -165,7 +169,7 @@ class _VacationRequestState extends State<VacationRequest> {
                     child: Form(
                       key: _formKey,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +288,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                       height: 60,
                                       decoration: BoxDecoration(
                                         color: secondryColor,
-                                        borderRadius: const BorderRadius.only(
+                                        borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(20),
                                           topRight: Radius.circular(20),
                                         ),
@@ -300,69 +304,72 @@ class _VacationRequestState extends State<VacationRequest> {
                                         ),
                                       ),
                                     ),
-                                    popupShape: const RoundedRectangleBorder(
+                                    popupShape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(24),
                                         topRight: Radius.circular(24),
                                       ),
                                     ),
                                   ),
+                                  //////////
+                                  ///
+                                  ///
                                   DropdownSearch<dynamic>(
-                                    key: ValueKey(1),
-                                    items: _MainDepartmentEmployees,
                                     popupBackgroundColor: BackGWhiteColor,
-                                    showSearchBox: true,
-                                    itemAsString: (item) => item.EmployeeName,
-                                    maxHeight: 400,
-                                    showAsSuffixIcons: true,
+                                    key: UniqueKey(),
+                                    items: _MainDepartmentEmployees,
                                     popupItemBuilder:
-                                        (context, index, isSelected) =>
-                                            (Container(
+                                        (context, rr, isSelected) => (Container(
                                       margin: EdgeInsets.only(top: 10),
                                       child: Column(
                                         children: [
-                                          Text(index.EmployeeName,
+                                          Text(rr.EmployeeName,
                                               style: subtitleTx(baseColorText))
                                         ],
                                       ),
                                     )),
-                                    showSelectedItems: false,
                                     dropdownBuilder: (context, selectedItem) =>
                                         Container(
-                                      decoration: null,
                                       child: selectedItem == null
                                           ? null
                                           : Text(
-                                              selectedItem == null
+                                              selecteditem == null
                                                   ? ""
-                                                  : selectedItem.EmployeeName ??
-                                                      "",
+                                                  : selecteditem ?? "",
                                               style: subtitleTx(baseColorText),
                                             ),
                                     ),
                                     dropdownBuilderSupportsNullItem: true,
+                                    selectedItem: selecteditem == null
+                                        ? null
+                                        : selecteditem,
+                                    showSelectedItems: false,
                                     mode: Mode.BOTTOM_SHEET,
                                     showClearButton:
                                         _ReplaceEmployeeNumber == null
                                             ? false
                                             : true,
+                                    maxHeight: 400,
+                                    showAsSuffixIcons: true,
+                                    itemAsString: (item) =>
+                                        item?.EmployeeName ?? "",
                                     dropdownSearchDecoration:
                                         formlabel1("الموظف البديل"),
                                     validator: (value) {
                                       if (value == "" || value == null) {
-                                        return "يرجى إختيار الموظف البديل";
+                                        return "الرجاء إختيار الموظف البديل";
                                       } else {
                                         return null;
                                       }
                                     },
+                                    showSearchBox: true,
                                     onChanged: (v) {
-                                      try {
-                                        setState(() {
-                                          _ReplaceEmployeeNumber =
-                                              v.EmployeeNumber;
-                                        });
-                                        print(v.EmployeeNumber.toString());
-                                      } catch (e) {}
+                                      _ReplaceEmployeeNumber =
+                                          v?.EmployeeNumber;
+
+                                      print(v?.EmployeeNumber.toString());
+                                      selecteditem = v.EmployeeName;
+                                      setState(() {});
                                     },
                                     popupTitle: Container(
                                       height: 60,
@@ -384,13 +391,100 @@ class _VacationRequestState extends State<VacationRequest> {
                                         ),
                                       ),
                                     ),
-                                    popupShape: RoundedRectangleBorder(
+                                    popupShape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(24),
                                         topRight: Radius.circular(24),
                                       ),
                                     ),
                                   ),
+                                  ///////////
+                                  // DropdownSearch<MainDepartmentEmployees>(
+                                  //   // key: UniqueKey(),
+                                  //   items: _MainDepartmentEmployees,
+                                  //   popupBackgroundColor: BackGWhiteColor,
+                                  //   showSearchBox: true,
+                                  //   itemAsString:
+                                  //       (MainDepartmentEmployees? u) =>
+                                  //           u?.getEmployeeName() ?? "",
+                                  //   maxHeight: 400,
+                                  //   showAsSuffixIcons: true,
+                                  //   popupItemBuilder:
+                                  //       (context, index, isSelected) =>
+                                  //           (Container(
+                                  //     margin: EdgeInsets.only(top: 10),
+                                  //     child: Column(
+                                  //       children: [
+                                  //         Text(index.getEmployeeName(),
+                                  //             style: subtitleTx(baseColorText))
+                                  //       ],
+                                  //     ),
+                                  //   )),
+                                  //   showSelectedItems: false,
+                                  //   // dropdownBuilder: (context, selectedItem) =>
+                                  //   //     Container(
+                                  //   //   decoration: null,
+                                  //   //   child: selectedItem == null
+                                  //   //       ? null
+                                  //   //       : Text(
+                                  //   //           selectedItem == null
+                                  //   //               ? ""
+                                  //   //               : selectedItem.EmployeeName ??
+                                  //   //                   "",
+                                  //   //           style: subtitleTx(baseColorText),
+                                  //   //         ),
+                                  //   // ),
+                                  //   //dropdownBuilderSupportsNullItem: true,
+                                  //   mode: Mode.BOTTOM_SHEET,
+                                  //   showClearButton:
+                                  //       _ReplaceEmployeeNumber == null
+                                  //           ? false
+                                  //           : true,
+                                  //   dropdownSearchDecoration:
+                                  //       formlabel1("الموظف البديل"),
+                                  //   validator: (value) {
+                                  //     if (value == "" || value == null) {
+                                  //       return "يرجى إختيار الموظف البديل";
+                                  //     } else {
+                                  //       return null;
+                                  //     }
+                                  //   },
+                                  //   onChanged: (v) {
+                                  //     try {
+                                  //       _ReplaceEmployeeNumber =
+                                  //           v?.getEmployeeNumber();
+
+                                  //       print(
+                                  //           v?.getEmployeeNumber().toString());
+                                  //     } catch (e) {}
+                                  //   },
+                                  //   popupTitle: Container(
+                                  //     height: 60,
+                                  //     decoration: BoxDecoration(
+                                  //       color: secondryColor,
+                                  //       borderRadius: BorderRadius.only(
+                                  //         topLeft: Radius.circular(20),
+                                  //         topRight: Radius.circular(20),
+                                  //       ),
+                                  //     ),
+                                  //     child: Center(
+                                  //       child: Text(
+                                  //         "الموظف البديل",
+                                  //         style: TextStyle(
+                                  //           fontSize: 24,
+                                  //           fontWeight: FontWeight.bold,
+                                  //           color: Colors.white,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  //   popupShape: RoundedRectangleBorder(
+                                  //     borderRadius: BorderRadius.only(
+                                  //       topLeft: Radius.circular(24),
+                                  //       topRight: Radius.circular(24),
+                                  //     ),
+                                  //   ),
+                                  // ),
 
                                   Row(
                                     children: [
