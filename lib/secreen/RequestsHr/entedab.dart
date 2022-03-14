@@ -265,10 +265,14 @@ class _EntedabState extends State<Entedab> {
       showSearchBox: true,
       onChanged: (v) async {
         setState(() {
+          selecteditem = null;
+
           locationId = 0;
           mandateLocations = [];
-          selecteditem = null;
         });
+
+        //
+
         String emNo = await EmployeeProfile.getEmployeeNumber();
         try {
           MandateTypeID = v["typeId"].toString();
@@ -338,7 +342,7 @@ class _EntedabState extends State<Entedab> {
         child: selectedItem == null
             ? null
             : Text(
-                selectedItem == null ? "" : selectedItem ?? "",
+                selecteditem == null ? "" : selecteditem ?? "",
                 style: subtitleTx(baseColorText),
               ),
       ),
