@@ -137,6 +137,8 @@ class _VacationRequestState extends State<VacationRequest> {
 
   final _openDropDownProgKey = GlobalKey<DropdownSearchState<String>>();
 
+  UniqueKey _UniqueKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -316,10 +318,11 @@ class _VacationRequestState extends State<VacationRequest> {
                                   ///
                                   DropdownSearch<dynamic>(
                                     popupBackgroundColor: BackGWhiteColor,
-                                    key: UniqueKey(),
+                                    key: ValueKey(2),
                                     items: _MainDepartmentEmployees,
                                     popupItemBuilder:
                                         (context, rr, isSelected) => (Container(
+                                      key: _UniqueKey,
                                       margin: EdgeInsets.only(top: 10),
                                       child: Column(
                                         children: [
@@ -364,12 +367,14 @@ class _VacationRequestState extends State<VacationRequest> {
                                     },
                                     showSearchBox: true,
                                     onChanged: (v) {
-                                      _ReplaceEmployeeNumber =
-                                          v?.EmployeeNumber;
+                                      try {
+                                        _ReplaceEmployeeNumber =
+                                            v?.EmployeeNumber;
 
-                                      print(v?.EmployeeNumber.toString());
-                                      selecteditem = v.EmployeeName;
-                                      setState(() {});
+                                        print(v?.EmployeeNumber.toString());
+                                        selecteditem = v.EmployeeName;
+                                        //setState(() {});
+                                      } catch (e) {}
                                     },
                                     popupTitle: Container(
                                       height: 60,
@@ -398,6 +403,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                       ),
                                     ),
                                   ),
+
                                   ///////////
                                   // DropdownSearch<MainDepartmentEmployees>(
                                   //   // key: UniqueKey(),
