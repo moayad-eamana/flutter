@@ -329,7 +329,9 @@ class _EntedabState extends State<Entedab> {
     return DropdownSearch<dynamic>(
       popupBackgroundColor: BackGWhiteColor,
       key: UniqueKey(),
+
       items: mandateLocations,
+      itemAsString: (item) => item.MandateLocationName,
       popupItemBuilder: (context, rr, isSelected) => (Container(
         margin: EdgeInsets.only(top: 10),
         child: Column(
@@ -354,7 +356,7 @@ class _EntedabState extends State<Entedab> {
       showClearButton: locationId == 0 || locationId == 0.0 ? false : true,
       maxHeight: 400,
       showAsSuffixIcons: true,
-      itemAsString: (item) => item.MandateLocationName,
+
       // showSelectedItems: true,
       dropdownSearchDecoration: formlabel1("جهة الانتداب"),
       // InputDecoration(
@@ -374,6 +376,7 @@ class _EntedabState extends State<Entedab> {
           return null;
         }
       },
+
       showSearchBox: true,
       onChanged: (v) async {
         //   print('object');
