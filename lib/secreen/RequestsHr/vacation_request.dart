@@ -356,8 +356,38 @@ class _VacationRequestState extends State<VacationRequest> {
                                     showAsSuffixIcons: true,
                                     itemAsString: (item) =>
                                         item?.EmployeeName ?? "",
-                                    dropdownSearchDecoration:
-                                        formlabel1("الموظف البديل"),
+                                    dropdownSearchDecoration: InputDecoration(
+                                      // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                                      labelText: "الموظف البديل",
+                                      labelStyle:
+                                          TextStyle(color: secondryColorText),
+                                      errorStyle: TextStyle(color: redColor),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          vertical: responsiveMT(8, 30),
+                                          horizontal: 10.0),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        borderSide: BorderSide(
+                                            color: errormessege2
+                                                ? redColor
+                                                : bordercolor),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: errormessege2
+                                                ? redColor
+                                                : bordercolor),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: errormessege2
+                                                ? redColor
+                                                : bordercolor),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                    ),
                                     validator: (value) {
                                       if (value == "" || value == null) {
                                         return "الرجاء إختيار الموظف البديل";
