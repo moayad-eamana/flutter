@@ -70,7 +70,7 @@ class _MainHomeState extends State<MainHome> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 90,
+                  height: 95,
                 ),
                 TextField(
                   showCursor: false,
@@ -98,11 +98,12 @@ class _MainHomeState extends State<MainHome> {
                       borderSide: BorderSide(color: bordercolor),
                       borderRadius: BorderRadius.circular(4),
                     ),
+                    contentPadding: EdgeInsets.all(10),
                     filled: true,
                     fillColor: BackGWhiteColor,
-                    labelText: "بحث الخدمات",
+                    labelText: "تبحث عن خدمة محددة ؟",
                     alignLabelWithHint: true,
-                    labelStyle: subtitleTx(baseColorText),
+                    labelStyle: subtitleTx(lableTextcolor),
                   ),
                   onTap: () {
                     showSearch(
@@ -113,7 +114,7 @@ class _MainHomeState extends State<MainHome> {
                   },
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 if (id != 0101)
                   Row(
@@ -135,6 +136,9 @@ class _MainHomeState extends State<MainHome> {
                       ),
                     ],
                   ),
+                SizedBox(
+                  height: 10,
+                ),
                 if (id != 0101)
                   Row(
                     children: [
@@ -275,7 +279,7 @@ class _MainHomeState extends State<MainHome> {
                     ),
                   ),
                   //color: Colors.red,
-                  height: responsiveMT(300, 500),
+                  height: responsiveMT(320, 500),
                   width: 100.w,
                   child: Stack(
                     children: [
@@ -283,8 +287,11 @@ class _MainHomeState extends State<MainHome> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         //   crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            height: 5,
+                          ),
                           Text(
-                            "الخدمات الاكثر أستخداماً",
+                            "الخدمات الرئیسیة",
                             style: titleTx(baseColor),
                           ),
                           CarouselSlider(
@@ -315,15 +322,15 @@ class _MainHomeState extends State<MainHome> {
                                     shape: BoxShape.circle,
                                     color: _currentIndex == index
                                         ? baseColor
-                                        : secondryColorText),
+                                        : secondryColor),
                               );
                             }).toList(),
                           ),
                         ],
                       ),
                       Positioned(
-                        left: 5,
-                        bottom: 5,
+                        left: 10,
+                        bottom: 10,
                         child: Image(
                             width: responsiveMT(60, 120),
                             //height: responsiveMT(30, 100),
@@ -334,12 +341,12 @@ class _MainHomeState extends State<MainHome> {
                   ),
                 ),
                 SizedBox(
-                  height: 2.h,
+                  height: 20,
                 ),
                 Row(
                   children: [
                     Text(
-                      "الفعاليات",
+                      "الفعالیات و المناسبات",
                       style: titleTx(baseColorText),
                     ),
                     Expanded(
@@ -354,6 +361,9 @@ class _MainHomeState extends State<MainHome> {
                       )),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Container(
                   decoration: containerdecoration(BackGWhiteColor),
@@ -414,7 +424,7 @@ class _MainHomeState extends State<MainHome> {
                                       shape: BoxShape.circle,
                                       color: _currentIndexBanner == index
                                           ? baseColor
-                                          : secondryColorText),
+                                          : secondryColor),
                                 );
                               }).toList(),
                             ),
@@ -424,10 +434,6 @@ class _MainHomeState extends State<MainHome> {
                     ],
                   ),
                 ),
-                // SvgPicture.asset(
-                //   'assets/SVGs/dalel-emp.svg',
-                //   width: 150,
-                // ),
               ],
             ),
           ),

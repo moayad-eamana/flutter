@@ -99,7 +99,9 @@ class _LoginViewState extends State<LoginView> {
                                     height: 20,
                                   ),
                                   Text(
-                                    "تسجيل دخول موظف أمانة",
+                                    "أھلا بك في رقمي جوال\n من فضلك نحتاج معلومات الدخول",
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
                                     style: titleTx(baseColor),
                                   ),
                                   SizedBox(

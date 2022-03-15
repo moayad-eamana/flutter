@@ -2,6 +2,7 @@ import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,9 @@ class OTPView extends StatefulWidget {
 
 class _OTPViewState extends State<OTPView> {
   TextEditingController _otp = TextEditingController();
+
+  bool errorM = false;
+
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<LoginProvider>(context);
@@ -87,30 +91,49 @@ class _OTPViewState extends State<OTPView> {
 
   Widget smsTxt() {
     return Container(
-      height: 60,
       margin: const EdgeInsets.only(left: 100, right: 100),
-      child: TextField(
-        controller: _otp,
-        keyboardType: TextInputType.text,
-        maxLines: 1,
-        textAlign: TextAlign.right,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: BorderSide(color: bordercolor),
+      child: Column(
+        children: [
+          TextField(
+            controller: _otp,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            keyboardType: TextInputType.number,
+            maxLines: 1,
+            textAlign: TextAlign.right,
+            decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+                borderSide: BorderSide(color: bordercolor),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: bordercolor),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: bordercolor),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              labelText: "الرمز المؤقت",
+              alignLabelWithHint: true,
+            ),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: bordercolor),
-            borderRadius: BorderRadius.circular(4),
+          SizedBox(
+            height: 5,
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: bordercolor),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          labelText: "أدخل كلمة السر المؤقتة",
-          alignLabelWithHint: true,
-        ),
+          errorM == false
+              ? Container()
+              : Text(
+                  "فضلا ادخل الرمز المؤقت",
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: redColor,
+                  ),
+                )
+        ],
       ),
     );
   }
@@ -124,21 +147,30 @@ class _OTPViewState extends State<OTPView> {
           onPrimary: Colors.white, // foreground
         ),
         onPressed: () async {
-          EasyLoading.show(
-            status: 'جاري المعالجة...',
-            maskType: EasyLoadingMaskType.black,
-          );
-          dynamic isValid =
-              await Provider.of<LoginProvider>(context, listen: false)
-                  .checkUserOTP(_otp.text);
-          EasyLoading.dismiss();
-          if (isValid is bool) {
-            //here to make initialRoute is /home
-            // Navigator.of(context).pushNamedAndRemoveUntil(
-            //     '/home', (Route<dynamic> route) => false);
-            Navigator.pushReplacementNamed(context, "/home");
+          if (_otp.text == "") {
+            setState(() {
+              errorM = true;
+            });
           } else {
-            Alerts.errorAlert(context, "خطأ", isValid).show();
+            setState(() {
+              errorM = false;
+            });
+            EasyLoading.show(
+              status: 'جاري المعالجة...',
+              maskType: EasyLoadingMaskType.black,
+            );
+            dynamic isValid =
+                await Provider.of<LoginProvider>(context, listen: false)
+                    .checkUserOTP(_otp.text);
+            EasyLoading.dismiss();
+            if (isValid is bool) {
+              //here to make initialRoute is /home
+              // Navigator.of(context).pushNamedAndRemoveUntil(
+              //     '/home', (Route<dynamic> route) => false);
+              Navigator.pushReplacementNamed(context, "/home");
+            } else {
+              Alerts.errorAlert(context, "خطأ", isValid).show();
+            }
           }
         },
         child: const Text('إستمرار'),

@@ -33,10 +33,10 @@ class _CommentsState extends State<Comments> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("التعليقات", context, null),
+          appBar: AppBarW.appBarW("جمیع التعلیقات", context, null),
           body: Container(
             height: 100.h,
-            color: Colors.white,
+            color: BackGColor,
             child: Stack(
               children: [
                 Container(
@@ -115,23 +115,23 @@ class _CommentsState extends State<Comments> {
                                   },
                                   child: Icon(Icons.send)),
                               // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                              labelText: "إضافة تعليق",
+                              labelText: "شاركنا تعليقاتك",
                               labelStyle: TextStyle(color: secondryColorText),
                               errorStyle: TextStyle(color: redColor),
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: responsiveMT(8, 30),
                                   horizontal: 10.0),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(4),
                                 borderSide: BorderSide(color: bordercolor),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: bordercolor),
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(4),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: bordercolor),
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(4),
                               )),
                           onTap: () {},
                         ),
