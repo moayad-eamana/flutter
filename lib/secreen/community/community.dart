@@ -108,6 +108,7 @@ class _CommunityState extends State<Community> {
                           SizedBox(
                             height: 5,
                           ),
+
                           BuildFotter(),
                           SizedBox(
                             height: 5,
@@ -169,11 +170,10 @@ class _CommunityState extends State<Community> {
                 padding: EdgeInsets.zero),
             child: LikeButton(
               size: responsiveMT(25, 40),
-              circleColor:
-                  CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+              circleColor: CircleColor(start: secondryColor, end: baseColor),
               bubblesColor: BubblesColor(
-                dotPrimaryColor: Color(0xff33b5e5),
-                dotSecondaryColor: Color(0xff0099cc),
+                dotPrimaryColor: secondryColor,
+                dotSecondaryColor: baseColor,
               ),
               likeBuilder: (_isLiked) {
                 return Icon(
@@ -196,7 +196,7 @@ class _CommunityState extends State<Community> {
                 this._isLiked = !_isLiked;
                 _likeCount += this._isLiked ? 1 : -1;
 
-                Future.delayed(const Duration(milliseconds: 500))
+                Future.delayed(Duration(milliseconds: 500))
                     .then((value) => setState(() {}));
 
                 return !_isLiked;

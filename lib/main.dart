@@ -160,8 +160,7 @@ class _MyAppState extends State<MyApp> {
         title: 'رقمي',
         theme: ThemeData(
           //dark mode
-
-          //brightness: Brightness.light,
+          //brightness: Brightness.dark,
           primarySwatch: Colors.blue,
           fontFamily: 'Cairo',
           tabBarTheme: TabBarTheme(

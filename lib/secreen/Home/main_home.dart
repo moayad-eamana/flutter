@@ -70,7 +70,7 @@ class _MainHomeState extends State<MainHome> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 95,
+                  height: responsiveMT(95, 130),
                 ),
                 TextField(
                   showCursor: false,
