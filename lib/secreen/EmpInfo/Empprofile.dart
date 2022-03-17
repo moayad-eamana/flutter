@@ -12,6 +12,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:rive/rive.dart';
 
 class EmpProfile extends StatefulWidget {
   bool? showBack;
@@ -25,6 +26,10 @@ class _EmpProfileState extends State<EmpProfile> {
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       EasyLoading.show(
+        // indicator: Container(
+        //     width: 100,
+        //     height: 100,
+        //     child: RiveAnimation.asset("assets/image/new_file.riv")),
         status: 'جاري المعالجة...',
         maskType: EasyLoadingMaskType.black,
       );
