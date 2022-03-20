@@ -26,7 +26,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -95,10 +94,9 @@ void configLoading() {
     ..textColor = baseColor
     ..maskColor = baseColor.withOpacity(0.5)
     ..userInteractions = true
-    // ..indicatorWidget = Container(
-    //     width: 100,
-    //     height: 100,
-    //     child: RiveAnimation.asset("assets/image/new_file2.riv"))
+    ..indicatorWidget = Image(
+        width: responsiveMT(90, 150),
+        image: AssetImage("assets/image/rakamy-logo-21.png"))
     ..dismissOnTap = false;
 }
 

@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -425,13 +424,6 @@ class _SettingsState extends State<Settings> {
                       Center(
                         child: Column(
                           children: [
-                            // Container(
-                            //     width: 100,
-                            //     height: 100,
-                            //     child: RiveAnimation.asset(
-                            //       "assets/image/new_file2.riv",
-
-                            //     )),
                             Image(
                               //width: responsiveMT(90, 150),
                               alignment: Alignment.center,
