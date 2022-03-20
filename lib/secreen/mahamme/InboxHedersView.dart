@@ -86,73 +86,15 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                             itemCount: _provider.length,
                             itemBuilder: (BuildContext context, index) {
                               return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 375),
-                                child: FlipAnimation(
-                                  curve: Curves.linear,
-                                  child: Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 20),
-                                      child: _provider[index].TypeID == 1
-                                          ? widgetsUni.servicebutton2(
-                                              "شؤون الموظفين",
-                                              "assets/SVGs/dalelalmowzafen.svg", //later
-                                              () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ChangeNotifierProvider
-                                                            .value(
-                                                                value:
-                                                                    _provider2,
-                                                                child:
-                                                                    HrRequestsView()),
-                                                  ),
-                                                );
-                                              },
-                                            )
-                                          : (_provider[index].TypeID == 38
-                                              ? widgetsUni.servicebutton2(
-                                                  "القرارات الالكترونية",
-                                                  "assets/SVGs/dalelalmowzafen.svg", //later
-                                                  () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ChangeNotifierProvider(
-                                                                create: (_) =>
-                                                                    HrDecisionsProvider(),
-                                                                child:
-                                                                    HrDecisionsView()),
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                              : widgetsUni.servicebutton2(
-                                                  "الاعارة",
-                                                  "assets/SVGs/dalelalmowzafen.svg", //later
-                                                  () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ChangeNotifierProvider(
-                                                                create: (_) =>
-                                                                    LoansRequestsProvider(),
-                                                                child:
-                                                                    LoansRequestsView()),
-                                                      ),
-                                                    );
-                                                  },
-                                                )),
+                                  position: index,
+                                  duration: const Duration(milliseconds: 375),
+                                  child: FlipAnimation(
+                                    curve: Curves.linear,
+                                    child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: ListWidgit(_provider[index]),
                                     ),
-                                  ),
-                                ),
-                              );
+                                  ));
                             }),
                       ),
                     ),
@@ -161,5 +103,64 @@ class _InboxHedersViewState extends State<InboxHedersView> {
         ),
       ),
     );
+  }
+
+  Widget ListWidgit(var _provider) {
+    var _provider2 = Provider.of<EatemadatProvider>(context);
+    if (_provider.TypeID == 1) {
+      return caerdContent(
+        "شؤون الموظفين",
+        "assets/SVGs/dalelalmowzafen.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider.value(
+                  value: _provider2, child: HrRequestsView()),
+            ),
+          );
+        },
+      );
+    } else if (_provider.TypeID == 38) {
+      return caerdContent(
+        "القرارات الالكترونية",
+        "assets/SVGs/dalelalmowzafen.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                  create: (_) => HrDecisionsProvider(),
+                  child: HrDecisionsView()),
+            ),
+          );
+        },
+      );
+    } else {
+      return caerdContent(
+        "الاعارة",
+        "assets/SVGs/dalelalmowzafen.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                  create: (_) => LoansRequestsProvider(),
+                  child: LoansRequestsView()),
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  Widget caerdContent(String Title, String iconPath, VoidCallback function) {
+    return Container(
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        child: widgetsUni.servicebutton2(
+          Title,
+          iconPath, //later
+          function,
+        ));
   }
 }
