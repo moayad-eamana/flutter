@@ -157,6 +157,7 @@ class _HomPanelState extends State<HomePanel>
         identify: "onboarding3",
         keyTarget: onboarding3,
         alignSkip: Alignment.bottomLeft,
+        color: baseColor,
         contents: [
           TargetContent(
             align: ContentAlign.top,
@@ -874,6 +875,7 @@ class _HomPanelState extends State<HomePanel>
                     ) {
                       Color color = isActive ? secondryColor : BackGWhiteColor;
                       return Column(
+                        key: index == 2 ? onboarding3 : null,
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -887,7 +889,6 @@ class _HomPanelState extends State<HomePanel>
                                   ))
                               : Icon(
                                   iconList[index],
-                                  key: index == 2 ? onboarding3 : null,
                                   size: responsiveMT(25, 45),
                                   color: color,
                                 ),
