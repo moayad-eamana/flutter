@@ -332,7 +332,7 @@ class _MainHomeState extends State<MainHome> {
                         left: 10,
                         bottom: 10,
                         child: Image(
-                            width: responsiveMT(60, 120),
+                            width: responsiveMT(40, 120),
                             //height: responsiveMT(30, 100),
                             image:
                                 AssetImage("assets/image/rakamy-logo-21.png")),

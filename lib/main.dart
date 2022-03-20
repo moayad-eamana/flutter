@@ -94,9 +94,11 @@ void configLoading() {
     ..textColor = baseColor
     ..maskColor = baseColor.withOpacity(0.5)
     ..userInteractions = true
-    ..indicatorWidget = Image(
-        width: responsiveMT(90, 150),
-        image: AssetImage("assets/image/rakamy-logo-21.png"))
+    ..indicatorWidget = Container(
+      height: 80,
+      width: 100,
+      child: Image(image: AssetImage("assets/image/rakamy-logo-21.png")),
+    )
     ..dismissOnTap = false;
 }
 
