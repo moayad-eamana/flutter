@@ -27,6 +27,8 @@ Color redColor = Colors.red;
 
 Color pinkColor = Colors.pink;
 
+Color chatColor = Color(0xffF8F8F8);
+
 Future<void> getColorSettings() async {
   imageBG = "assets/image/Union_1.png";
 
@@ -50,6 +52,8 @@ Future<void> getColorSettings() async {
 
   pinkColor = Colors.pink;
 
+  chatColor = Color(0xffF8F8F8);
+
   final settingSP = await SharedPreferences.getInstance();
 
   blindness = settingSP.getBool("blindness")!;
@@ -72,6 +76,8 @@ Future<void> getColorSettings() async {
     redColor = Color(0xffA17800);
 
     pinkColor = Color(0xff907356);
+
+    chatColor = Color(0xffF8F8F8);
   }
   if (darkmode == true) {
     imageBG = "assets/image/Union_2.png";
@@ -95,6 +101,8 @@ Future<void> getColorSettings() async {
     redColor = Colors.red.shade300;
 
     pinkColor = Colors.pink;
+
+    chatColor = Colors.blueGrey.shade800;
   }
 
   cardServiece = ElevatedButton.styleFrom(

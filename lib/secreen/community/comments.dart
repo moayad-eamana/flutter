@@ -33,10 +33,10 @@ class _CommentsState extends State<Comments> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("التعليقات", context, null),
+          appBar: AppBarW.appBarW("جمیع التعلیقات", context, null),
           body: Container(
             height: 100.h,
-            color: Colors.white,
+            color: BackGColor,
             child: Stack(
               children: [
                 Container(
@@ -52,13 +52,13 @@ class _CommentsState extends State<Comments> {
                         return Card(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           elevation: 1,
-                          color: Color(0xffF8F8F8),
+                          color: chatColor,
                           child: Container(
                             padding: EdgeInsets.all(10),
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                                color: Color(0xffF8F8F8),
-                                border: Border.all(color: Color(0xffF8F8F8)),
+                                color: chatColor,
+                                border: Border.all(color: chatColor),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(25))),
                             child: Column(
@@ -99,40 +99,42 @@ class _CommentsState extends State<Comments> {
                           keyboardType: TextInputType.text,
                           maxLines: 1,
                           decoration: InputDecoration(
-                              suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    FocusScopeNode currentFocus =
-                                        FocusScope.of(context);
+                            suffixIcon: GestureDetector(
+                                onTap: () {
+                                  FocusScopeNode currentFocus =
+                                      FocusScope.of(context);
 
-                                    currentFocus.unfocus();
-                                    setState(() {
-                                      commints.add({
-                                        "name": "مؤيد العوفي",
-                                        "des": _newComment.text,
-                                        "time": "just now"
-                                      });
+                                  currentFocus.unfocus();
+                                  setState(() {
+                                    commints.add({
+                                      "name": "مؤيد العوفي",
+                                      "des": _newComment.text,
+                                      "time": "just now"
                                     });
-                                  },
-                                  child: Icon(Icons.send)),
-                              // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                              labelText: "إضافة تعليق",
-                              labelStyle: TextStyle(color: secondryColorText),
-                              errorStyle: TextStyle(color: redColor),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: responsiveMT(8, 30),
-                                  horizontal: 10.0),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                borderSide: BorderSide(color: bordercolor),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: bordercolor),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: bordercolor),
-                                borderRadius: BorderRadius.circular(25),
-                              )),
+                                  });
+                                },
+                                child: Icon(Icons.send)),
+                            // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                            labelText: "شاركنا تعليقاتك",
+                            labelStyle: TextStyle(color: secondryColorText),
+
+                            errorStyle: TextStyle(color: redColor),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: responsiveMT(8, 30),
+                                horizontal: 10.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: BorderSide(color: bordercolor),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: bordercolor),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: bordercolor),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
                           onTap: () {},
                         ),
                       ),

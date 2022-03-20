@@ -11,6 +11,8 @@ import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
+import 'package:eamanaapp/secreen/Settings/settings%20copy.dart';
+import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/community/comments.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
@@ -19,13 +21,12 @@ import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
-import 'package:eamanaapp/secreen/settings%20copy.dart';
-import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:rive/rive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -94,6 +95,10 @@ void configLoading() {
     ..textColor = baseColor
     ..maskColor = baseColor.withOpacity(0.5)
     ..userInteractions = true
+    // ..indicatorWidget = Container(
+    //     width: 100,
+    //     height: 100,
+    //     child: RiveAnimation.asset("assets/image/new_file2.riv"))
     ..dismissOnTap = false;
 }
 
@@ -160,8 +165,7 @@ class _MyAppState extends State<MyApp> {
         title: 'رقمي',
         theme: ThemeData(
           //dark mode
-
-          //brightness: Brightness.light,
+          //brightness: Brightness.dark,
           primarySwatch: Colors.blue,
           fontFamily: 'Cairo',
           tabBarTheme: TabBarTheme(

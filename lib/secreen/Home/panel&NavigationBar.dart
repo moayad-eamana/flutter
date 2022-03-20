@@ -2,16 +2,13 @@ import 'dart:io';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
+import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/community/community.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
-import 'package:eamanaapp/secreen/settings%20copy.dart';
-import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -43,6 +40,8 @@ class _HomPanelState extends State<HomePanel>
   var _bottomNavIndex = 4;
   EmployeeProfile empinfo = new EmployeeProfile();
 
+  int key = 1;
+
   void openpanel() {
     _bottomNavIndex == 4
         ? panlC.isPanelOpen
@@ -62,9 +61,9 @@ class _HomPanelState extends State<HomePanel>
 
   final iconList = <IconData>[
     Icons.settings,
-    Icons.data_usage,
-    Icons.design_services,
-    Icons.comment_bank
+    Icons.person,
+    Icons.view_module,
+    Icons.comment_bank //here replaced with raqmy logo
   ];
 
   List<String> list = ['الاعدادات', 'بياناتي', 'الخدمات', 'تواصل'];
@@ -146,17 +145,7 @@ class _HomPanelState extends State<HomePanel>
 
       Settings(() {
         setState(() {
-          _animationController.reverse();
-
-          Future.delayed(
-            const Duration(seconds: 1),
-            () {
-              setState(() {
-                animatedPositionedStart = true;
-              });
-              return _animationController.forward();
-            },
-          );
+          // key++;
         });
       }),
       // ChangeNotifierProvider(
@@ -370,7 +359,7 @@ class _HomPanelState extends State<HomePanel>
                                                     //   ),
                                                   ),
                                                   Text(
-                                                    ("مرحبا / ") +
+                                                    ("هلا / ") +
                                                         (empinfo.FirstName ??
                                                             ""),
                                                     style:
@@ -601,21 +590,22 @@ class _HomPanelState extends State<HomePanel>
                                                     style:
                                                         descTx2(Colors.white),
                                                   ),
-                                                  Text(
-                                                    empinfo.JobName == null ||
-                                                            empinfo.JobName ==
-                                                                ""
-                                                        ? empinfo.empTypeName
-                                                            .toString()
-                                                        : empinfo.JobName
-                                                                .toString() +
-                                                            " - " +
-                                                            empinfo.empTypeName
-                                                                .toString(),
-                                                    textAlign: TextAlign.right,
-                                                    style:
-                                                        descTx2(Colors.white),
-                                                  ),
+                                                  // Text(
+                                                  //   empinfo.JobName == null ||
+                                                  //           empinfo.JobName ==
+                                                  //               ""
+                                                  //       ? empinfo.empTypeName
+                                                  //           .toString()
+                                                  //       : empinfo.JobName
+                                                  //               .toString() +
+                                                  //           " - " +
+                                                  //           empinfo.empTypeName
+                                                  //               .toString(),
+                                                  //   textAlign: TextAlign.right,
+                                                  //   style:
+                                                  //       descTx2(Colors.white),
+                                                  // ),
+                                                  ///////////////////////////
                                                   // AutoSizeText(
                                                   //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
                                                   //   maxLines: 1,
@@ -689,31 +679,37 @@ class _HomPanelState extends State<HomePanel>
             child: Visibility(
               visible: !keyboardIsOpen,
               child: SizerUtil.deviceType == DeviceType.mobile
-                  ? FloatingActionButton(
-                      elevation: 8,
-                      backgroundColor: BackGWhiteColor,
-                      child: AnimatedSwitcher(
-                        duration: Duration(seconds: 50),
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
-                          child: _bottomNavIndex == 4
-                              ? Icon(
-                                  Icons.card_membership,
-                                  key: ValueKey<int>(0),
-                                  color: baseColor,
-                                  size: 24,
-                                )
-                              : Icon(
-                                  Icons.home,
-                                  key: ValueKey<int>(1),
-                                  color: baseColor,
-                                  size: 24,
-                                ),
+                  ? AnimatedSwitcher(
+                      duration: Duration(milliseconds: 1000),
+                      child: Container(
+                        key: ValueKey(key),
+                        child: FloatingActionButton(
+                          elevation: 8,
+                          backgroundColor: BackGWhiteColor,
+                          child: AnimatedSwitcher(
+                            duration: Duration(seconds: 50),
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 200),
+                              child: _bottomNavIndex == 4
+                                  ? Icon(
+                                      Icons.card_membership,
+                                      key: ValueKey<int>(0),
+                                      color: baseColor,
+                                      size: 24,
+                                    )
+                                  : Icon(
+                                      Icons.home,
+                                      key: ValueKey<int>(1),
+                                      color: baseColor,
+                                      size: 24,
+                                    ),
+                            ),
+                          ),
+                          onPressed: () {
+                            openpanel();
+                          },
                         ),
                       ),
-                      onPressed: () {
-                        openpanel();
-                      },
                     )
                   : FloatingActionButton.large(
                       elevation: 8,
@@ -739,51 +735,64 @@ class _HomPanelState extends State<HomePanel>
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: Stack(
             children: [
-              AnimatedBottomNavigationBar.builder(
-                itemCount: iconList.length,
-                tabBuilder: (
-                  int index,
-                  bool isActive,
-                ) {
-                  Color color = isActive ? secondryColor : BackGWhiteColor;
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        iconList[index],
-                        size: responsiveMT(25, 45),
-                        color: color,
-                      ),
-                      const SizedBox(height: 4),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: AutoSizeText(
-                          list[index],
-                          maxLines: 1,
-                          style: TextStyle(color: color),
-                          group: autoSizeGroup,
-                        ),
-                      )
-                    ],
-                  );
-                },
-                splashRadius: 0,
-                notchMargin: 0,
-                height: responsiveMT(70, 90),
-                backgroundColor: baseColor,
-                activeIndex: _bottomNavIndex,
-                splashColor: secondryColor,
-                notchAndCornersAnimation: animation,
-                splashSpeedInMilliseconds: 300,
-                notchSmoothness: NotchSmoothness.defaultEdge,
-                gapLocation: GapLocation.center,
-                leftCornerRadius: 0,
-                rightCornerRadius: 0,
-                onTap: (index) => setState(() {
-                  Statistics();
-                  _bottomNavIndex = index;
-                }),
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 1000),
+                child: Container(
+                  key: ValueKey(key),
+                  child: AnimatedBottomNavigationBar.builder(
+                    itemCount: iconList.length,
+                    tabBuilder: (
+                      int index,
+                      bool isActive,
+                    ) {
+                      Color color = isActive ? secondryColor : BackGWhiteColor;
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          index == 3
+                              ? Image(
+                                  height: responsiveMT(18, 45),
+                                  color: color,
+                                  //height: responsiveMT(30, 100),
+                                  image: AssetImage(
+                                      "assets/image/rakamy-logo-21.png"))
+                              : Icon(
+                                  iconList[index],
+                                  size: responsiveMT(25, 45),
+                                  color: color,
+                                ),
+                          const SizedBox(height: 4),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: AutoSizeText(
+                              list[index],
+                              maxLines: 1,
+                              style: TextStyle(color: color),
+                              group: autoSizeGroup,
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                    splashRadius: 0,
+                    notchMargin: 0,
+                    height: responsiveMT(70, 90),
+                    backgroundColor: baseColor,
+                    activeIndex: _bottomNavIndex,
+                    splashColor: secondryColor,
+                    notchAndCornersAnimation: animation,
+                    splashSpeedInMilliseconds: 300,
+                    notchSmoothness: NotchSmoothness.defaultEdge,
+                    gapLocation: GapLocation.center,
+                    leftCornerRadius: 0,
+                    rightCornerRadius: 0,
+                    onTap: (index) => setState(() {
+                      Statistics();
+                      _bottomNavIndex = index;
+                    }),
+                  ),
+                ),
               ),
               AnimatedPositioned(
                 duration: Duration(milliseconds: 500),

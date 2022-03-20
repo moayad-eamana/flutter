@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/secreen/settings.dart';
 import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -145,7 +144,7 @@ class _VacationRequestState extends State<VacationRequest> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("طلب إجازة", context, null),
+          appBar: AppBarW.appBarW("تقدیم طلب إجازة", context, null),
           body: Stack(
             children: [
               Image.asset(
@@ -179,9 +178,18 @@ class _VacationRequestState extends State<VacationRequest> {
                           children: [
                             Center(
                               child: Text(
-                                "فضلاً أدخل بيانات طلب إجازة",
+                                "إجازة سعیدة",
                                 style: titleTx(baseColor),
                               ),
+                            ),
+                            Center(
+                              child: Text(
+                                "نحتاج بس البیانات التالیة لاستكمال طلب الإجازة",
+                                style: descTx1(secondryColorText),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
                             ),
                             StaggeredGrid.count(
                                 crossAxisCount: responsiveGrid(1, 2),
@@ -195,10 +203,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                     ],
                                     keyboardType: TextInputType.number,
                                     maxLines: 1,
-                                    decoration: formlabel1("عدد الايام"),
+                                    decoration: formlabel1("مدة الإجازة"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'يرجى إدخال عدد الايام';
+                                        return 'لابد من إدخال مدة الإجازة بالارقام';
                                       }
                                       return null;
                                     },
@@ -208,10 +216,11 @@ class _VacationRequestState extends State<VacationRequest> {
                                     readOnly: true,
                                     // keyboardType: TextInputType.datetime,
                                     maxLines: 1,
-                                    decoration: formlabel1("تاريخ الإجازة"),
+                                    decoration:
+                                        formlabel1("تاریخ بدایة الإجازة"),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'يرجى إدخال تاريخ الإجازة';
+                                        return 'فضلاً أدخل تاریخ بدایة الإجازة';
                                       }
                                       return null;
                                     },
@@ -439,7 +448,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                           "الرجاء الاختيار الموظف البديل",
                                           style: TextStyle(
                                             fontSize: 10,
-                                            color: Colors.red,
+                                            color: redColor,
                                           ),
                                         )
                                       : Container(),
@@ -540,7 +549,7 @@ class _VacationRequestState extends State<VacationRequest> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          "هل ترغب بمنح البديل صلاحية التوقيع بالإنابة في النظام المعاملات الإلكترونية ؟",
+                                          "إعطاء البدیل صلاحیات التوقیع بالانابة في نظام المعاملات ؟",
                                           style: descTx1(baseColorText),
                                           maxLines: 3,
                                         ),
@@ -581,10 +590,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                   ),
                                   errormessege == true
                                       ? Text(
-                                          "الرجاء الاختيار",
+                                          "هل توافق أم لا؟... الرجاء الاختيار",
                                           style: TextStyle(
                                             fontSize: 10,
-                                            color: Colors.red,
+                                            color: redColor,
                                           ),
                                         )
                                       : Container(),
@@ -729,6 +738,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                     "الطلبات السابقة",
                                     Icons.local_attraction_sharp,
                                     () {
+                                      //
+                                      Alerts.warningAlert(context, "تنبيه",
+                                              "لا توجد طلبات سابقة في حالتھا")
+                                          .show();
                                       print("ee");
                                     },
                                   ),

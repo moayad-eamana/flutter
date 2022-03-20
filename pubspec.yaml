@@ -57,6 +57,8 @@ dependencies:
   local_auth: ^1.1.11
   photo_view: ^0.13.0
   badges: ^2.0.2
+  like_button: ^2.0.4
+  rive: ^0.8.4
 
 
 dev_dependencies:

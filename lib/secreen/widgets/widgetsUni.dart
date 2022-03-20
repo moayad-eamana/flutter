@@ -33,7 +33,7 @@ class widgetsUni {
             title,
             //maxLines: 1,
             textAlign: TextAlign.center,
-            style: descTx1(baseColor),
+            style: descTx1(baseColorText),
           ),
         )
       ],
