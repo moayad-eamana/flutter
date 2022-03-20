@@ -177,6 +177,7 @@ class _CommunityState extends State<Community> {
               ),
               likeBuilder: (_isLiked) {
                 return Icon(
+                  //_isLiked ? Icons.exposure_neg_1_outlined : Icons.plus_one, // +1 or -1
                   Icons.plus_one,
                   color: _isLiked ? baseColor : Colors.grey,
                   size: responsiveMT(23, 40),
