@@ -79,6 +79,10 @@ void setSettings() async {
   if (settingSP.getBool('darkmode') == null) {
     settingSP.setBool("darkmode", false);
   }
+
+  if (settingSP.getBool('onboarding') == null) {
+    settingSP.setBool("onboarding", false);
+  }
 }
 
 void configLoading() {

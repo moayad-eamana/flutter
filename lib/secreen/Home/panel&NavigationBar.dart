@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:sizer/sizer.dart';
@@ -91,6 +92,20 @@ class _HomPanelState extends State<HomePanel>
     }
   }
 
+  bool onboarding = false;
+
+  void getOnboardingSettings() async {
+    final onboardingSP = await SharedPreferences.getInstance();
+
+    onboarding = onboardingSP.getBool("onboarding")!;
+    print("be4 tt = " + onboarding.toString());
+    if (onboarding == false) {
+      showTutorial();
+    }
+
+    // setState(() {});
+  }
+
   List<TargetFocus> targets = <TargetFocus>[];
 
   GlobalKey onboarding1 = GlobalKey();
@@ -106,7 +121,6 @@ class _HomPanelState extends State<HomePanel>
       TargetFocus(
         identify: "onboarding1",
         keyTarget: onboarding1,
-        color: baseColor,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
@@ -157,7 +171,6 @@ class _HomPanelState extends State<HomePanel>
         identify: "onboarding3",
         keyTarget: onboarding3,
         alignSkip: Alignment.bottomLeft,
-        color: baseColor,
         contents: [
           TargetContent(
             align: ContentAlign.top,
@@ -179,7 +192,9 @@ class _HomPanelState extends State<HomePanel>
     );
   }
 
-  void showTutorial() {
+  void showTutorial() async {
+    print("show tt = " + onboarding.toString());
+
     initTargets();
     TutorialCoachMark tutorial = TutorialCoachMark(context,
         targets: targets, // List<TargetFocus>
@@ -203,13 +218,20 @@ class _HomPanelState extends State<HomePanel>
     // tutorial.finish();
     // tutorial.next(); // call next target programmatically
     // tutorial.previous(); // call previous target programmatically
+    final onboardingSP = await SharedPreferences.getInstance();
+    onboardingSP.setBool("onboarding", true);
+    //for test
+    onboarding = onboardingSP.getBool("onboarding")!;
+    print("after tt = " + onboarding.toString());
   }
 
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) => cheackNetwork());
-    getuserinfo();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      cheackNetwork();
+      getuserinfo();
+    });
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -236,26 +258,25 @@ class _HomPanelState extends State<HomePanel>
         return _animationController.forward();
       },
     );
-
-    showTutorial();
+    getOnboardingSettings();
   }
 
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.detached) return;
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.inactive ||
+  //       state == AppLifecycleState.detached) return;
 
-    final isBackground = state == AppLifecycleState.paused;
+  //   final isBackground = state == AppLifecycleState.paused;
 
-    if (isBackground) {
-      print("isBackground");
-    }
+  //   if (isBackground) {
+  //     print("isBackground");
+  //   }
 
-    /* if (isBackground) {
-      // service.stop();
-    } else {
-      // service.start();
-    }*/
-  }
+  //   /* if (isBackground) {
+  //     // service.stop();
+  //   } else {
+  //     // service.start();
+  //   }*/
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -344,13 +365,18 @@ class _HomPanelState extends State<HomePanel>
                             blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))
                       ],
                       margin: EdgeInsets.symmetric(horizontal: 20),
-                      onPanelClosed: () => setState(() {
-                        isOpen = false;
-                        showpanel = false;
-                      }),
-                      onPanelOpened: () => setState(() {
-                        isOpen = true;
-                      }),
+                      onPanelClosed: () {
+                        setState(() {
+                          isOpen = false;
+                          showpanel = false;
+                        });
+                      },
+                      onPanelOpened: () {
+                        setState(() {
+                          isOpen = true;
+                          showpanel = true;
+                        });
+                      },
                       onPanelSlide: (position) {
                         setState(() {
                           showpanel = true;
