@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
@@ -15,12 +16,15 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import 'main_home.dart';
 
@@ -88,11 +92,146 @@ class _HomPanelState extends State<HomePanel>
     }
   }
 
+  bool onboarding = false;
+
+  void getOnboardingSettings() async {
+    final onboardingSP = await SharedPreferences.getInstance();
+
+    onboarding = onboardingSP.getBool("onboarding")!;
+    print("be4 tt = " + onboarding.toString());
+    if (onboarding == false) {
+      showTutorial();
+    }
+
+    // setState(() {});
+  }
+
+  List<TargetFocus> targets = <TargetFocus>[];
+
+  GlobalKey onboarding1 = GlobalKey();
+
+  GlobalKey onboarding2 = GlobalKey();
+
+  GlobalKey onboarding3 = GlobalKey();
+
+  void initTargets() {
+    targets.clear();
+
+    targets.add(
+      TargetFocus(
+        identify: "onboarding1",
+        keyTarget: onboarding1,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/SVGs/swipe_down_white_24dp.svg',
+                      width: 50,
+                    ),
+                    Text(
+                      "لعرض بطاقة العمل اسحب للاسفل",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20.0,
+                      ),
+                    ),
+
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 10.0),
+                    //   child: Text(
+                    //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                    //     style: TextStyle(color: Colors.white),
+                    //   ),
+                    // ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     controller.previous();
+                    //   },
+                    //   child: Icon(Icons.chevron_left),
+                    // ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
+        shape: ShapeLightFocus.RRect,
+        radius: 4,
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "onboarding3",
+        keyTarget: onboarding3,
+        alignSkip: Alignment.bottomLeft,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("أضغط هنا لعرض جميع الخدمات",
+                        style: titleTx(Colors.white)),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void showTutorial() async {
+    print("show tt = " + onboarding.toString());
+
+    initTargets();
+    TutorialCoachMark tutorial = TutorialCoachMark(context,
+        targets: targets, // List<TargetFocus>
+        colorShadow: baseColor, // DEFAULT Colors.black
+        // alignSkip: Alignment.bottomRight,
+        textSkip: "تخطي",
+        // paddingFocus: 10,
+        // focusAnimationDuration: Duration(milliseconds: 500),
+        // pulseAnimationDuration: Duration(milliseconds: 500),
+        // pulseVariation: Tween(begin: 1.0, end: 0.99),
+        onFinish: () {
+      print("إنهاء");
+    }, onClickTarget: (target) {
+      print(target);
+    }, onSkip: () {
+      print("تخطي");
+    })
+      ..show();
+
+    // tutorial.skip();
+    // tutorial.finish();
+    // tutorial.next(); // call next target programmatically
+    // tutorial.previous(); // call previous target programmatically
+    final onboardingSP = await SharedPreferences.getInstance();
+    onboardingSP.setBool("onboarding", true);
+    //for test
+    onboarding = onboardingSP.getBool("onboarding")!;
+    print("after tt = " + onboarding.toString());
+  }
+
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) => cheackNetwork());
-    getuserinfo();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      cheackNetwork();
+      getuserinfo();
+    });
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -119,24 +258,25 @@ class _HomPanelState extends State<HomePanel>
         return _animationController.forward();
       },
     );
+    getOnboardingSettings();
   }
 
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.detached) return;
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.inactive ||
+  //       state == AppLifecycleState.detached) return;
 
-    final isBackground = state == AppLifecycleState.paused;
+  //   final isBackground = state == AppLifecycleState.paused;
 
-    if (isBackground) {
-      print("isBackground");
-    }
+  //   if (isBackground) {
+  //     print("isBackground");
+  //   }
 
-    /* if (isBackground) {
-      // service.stop();
-    } else {
-      // service.start();
-    }*/
-  }
+  //   /* if (isBackground) {
+  //     // service.stop();
+  //   } else {
+  //     // service.start();
+  //   }*/
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -225,13 +365,18 @@ class _HomPanelState extends State<HomePanel>
                             blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))
                       ],
                       margin: EdgeInsets.symmetric(horizontal: 20),
-                      onPanelClosed: () => setState(() {
-                        isOpen = false;
-                        showpanel = false;
-                      }),
-                      onPanelOpened: () => setState(() {
-                        isOpen = true;
-                      }),
+                      onPanelClosed: () {
+                        setState(() {
+                          isOpen = false;
+                          showpanel = false;
+                        });
+                      },
+                      onPanelOpened: () {
+                        setState(() {
+                          isOpen = true;
+                          showpanel = true;
+                        });
+                      },
                       onPanelSlide: (position) {
                         setState(() {
                           showpanel = true;
@@ -265,6 +410,7 @@ class _HomPanelState extends State<HomePanel>
                             ),
                           ),
                           Container(
+                            key: onboarding1,
                             margin: EdgeInsets.all(8),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -451,198 +597,206 @@ class _HomPanelState extends State<HomePanel>
                                 ),
                               ),
                             ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: baseColor,
-                                      borderRadius: BorderRadius.only(
-                                        bottomRight: new Radius.circular(20),
-                                        topRight: new Radius.circular(20),
+                            Container(
+                              key: onboarding2,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: baseColor,
+                                        borderRadius: BorderRadius.only(
+                                          bottomRight: new Radius.circular(20),
+                                          topRight: new Radius.circular(20),
+                                        ),
                                       ),
-                                    ),
-                                    width: 100,
-                                    // color: Colors.blue.shade900,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      child: Text(
-                                        empinfo.StatusName.toString(),
-                                        textAlign: TextAlign.right,
-                                        style: descTx1(Colors.white),
+                                      width: 100,
+                                      // color: Colors.blue.shade900,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Text(
+                                          empinfo.StatusName.toString(),
+                                          textAlign: TextAlign.right,
+                                          style: descTx1(Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: responsiveMT(52, 92),
-                                        backgroundColor: baseColor,
-                                        child: empinfo.ImageURL == null ||
-                                                empinfo.ImageURL == ""
-                                            ? Image.asset(
-                                                "assets/image/avatar.jpg")
-                                            : GestureDetector(
-                                                child: Hero(
-                                                  tag: "profile",
-                                                  child: ClipOval(
-                                                    child: CachedNetworkImage(
-                                                      height: 100,
-                                                      width: 100,
-                                                      fit: BoxFit.cover,
-                                                      imageUrl:
-                                                          "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                              empinfo.ImageURL
-                                                                      .toString()
-                                                                  .split(
-                                                                      "\$")[1],
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: responsiveMT(52, 92),
+                                          backgroundColor: baseColor,
+                                          child: empinfo.ImageURL == null ||
+                                                  empinfo.ImageURL == ""
+                                              ? Image.asset(
+                                                  "assets/image/avatar.jpg")
+                                              : GestureDetector(
+                                                  child: Hero(
+                                                    tag: "profile",
+                                                    child: ClipOval(
+                                                      child: CachedNetworkImage(
+                                                        height: 100,
+                                                        width: 100,
+                                                        fit: BoxFit.cover,
+                                                        imageUrl:
+                                                            "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                empinfo.ImageURL
+                                                                        .toString()
+                                                                    .split(
+                                                                        "\$")[1],
+                                                      ),
+                                                      // FadeInImage
+                                                      //     .assetNetwork(
+                                                      //   fit: BoxFit.cover,
+                                                      //   width: 100,
+                                                      //   height: 100,
+                                                      //   image:
+                                                      //       "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                      //           empinfo.ImageURL
+                                                      //                   .toString()
+                                                      //               .split(
+                                                      //                   "\$")[1],
+                                                      //   placeholder:
+                                                      //       "assets/image/avatar.jpg",
+                                                      // ),
                                                     ),
-                                                    // FadeInImage
-                                                    //     .assetNetwork(
-                                                    //   fit: BoxFit.cover,
-                                                    //   width: 100,
-                                                    //   height: 100,
-                                                    //   image:
-                                                    //       "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                    //           empinfo.ImageURL
-                                                    //                   .toString()
-                                                    //               .split(
-                                                    //                   "\$")[1],
-                                                    //   placeholder:
-                                                    //       "assets/image/avatar.jpg",
-                                                    // ),
                                                   ),
+                                                  onTap: () {
+                                                    Navigator.push(context,
+                                                        MaterialPageRoute(
+                                                            builder: (_) {
+                                                      return ProfileImage();
+                                                    }));
+                                                  }),
+                                        ),
+                                        Text(
+                                          empinfo.EmployeeName ?? "",
+                                          style: titleTx(baseColor),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                            empinfo.Title == null ||
+                                                    empinfo.Title == "" ||
+                                                    empinfo.Title == "-"
+                                                ? empinfo.JobName.toString()
+                                                : empinfo.Title.toString(),
+                                            style: descTx2(baseColor)),
+                                        Container(
+                                          margin: EdgeInsets.all(12),
+                                          height: 125,
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                baseColor,
+                                                secondryColor,
+                                              ],
+                                            ),
+                                            border: Border.all(
+                                              color: Colors.white,
+                                              width: 2.0,
+                                              style: BorderStyle.solid,
+                                            ),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(8.0)),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 10),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      "بطاقة تسجيل الدخول",
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      style:
+                                                          titleTx(Colors.white),
+                                                    ),
+                                                    Text(
+                                                      "أمانة المنطقة الشرقية",
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      style:
+                                                          descTx2(Colors.white),
+                                                    ),
+                                                    // Text(
+                                                    //   empinfo.JobName == null ||
+                                                    //           empinfo.JobName ==
+                                                    //               ""
+                                                    //       ? empinfo.empTypeName
+                                                    //           .toString()
+                                                    //       : empinfo.JobName
+                                                    //               .toString() +
+                                                    //           " - " +
+                                                    //           empinfo.empTypeName
+                                                    //               .toString(),
+                                                    //   textAlign: TextAlign.right,
+                                                    //   style:
+                                                    //       descTx2(Colors.white),
+                                                    // ),
+                                                    ///////////////////////////
+                                                    // AutoSizeText(
+                                                    //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                    //   maxLines: 1,
+                                                    //   style: TextStyle(
+                                                    //       color: Colors.white),
+                                                    //   group: autoSizeGroup,
+                                                    // ),
+                                                    Text(
+                                                      "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      style: TextStyle(
+                                                          fontSize: 10,
+                                                          color: Colors.white),
+                                                    )
+                                                  ],
                                                 ),
-                                                onTap: () {
-                                                  Navigator.push(context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) {
-                                                    return ProfileImage();
-                                                  }));
-                                                }),
-                                      ),
-                                      Text(
-                                        empinfo.EmployeeName ?? "",
-                                        style: titleTx(baseColor),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                          empinfo.Title == null ||
-                                                  empinfo.Title == "" ||
-                                                  empinfo.Title == "-"
-                                              ? empinfo.JobName.toString()
-                                              : empinfo.Title.toString(),
-                                          style: descTx2(baseColor)),
-                                      Container(
-                                        margin: EdgeInsets.all(12),
-                                        height: 125,
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              baseColor,
-                                              secondryColor,
+                                              ),
+                                              Container(
+                                                margin:
+                                                    EdgeInsets.only(right: 18),
+                                                width: 90,
+                                                height: 90,
+                                                child: SfBarcodeGenerator(
+                                                  backgroundColor: Colors.white,
+                                                  value:
+                                                      (empinfo.EmployeeNumber)
+                                                          .toString()
+                                                          .split(".")[0],
+                                                  symbology: QRCode(),
+                                                ),
+                                              ),
                                             ],
                                           ),
-                                          border: Border.all(
-                                            color: Colors.white,
-                                            width: 2.0,
-                                            style: BorderStyle.solid,
-                                          ),
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(8.0)),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 10),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    "بطاقة تسجيل الدخول",
-                                                    textAlign: TextAlign.right,
-                                                    style:
-                                                        titleTx(Colors.white),
-                                                  ),
-                                                  Text(
-                                                    "أمانة المنطقة الشرقية",
-                                                    textAlign: TextAlign.right,
-                                                    style:
-                                                        descTx2(Colors.white),
-                                                  ),
-                                                  // Text(
-                                                  //   empinfo.JobName == null ||
-                                                  //           empinfo.JobName ==
-                                                  //               ""
-                                                  //       ? empinfo.empTypeName
-                                                  //           .toString()
-                                                  //       : empinfo.JobName
-                                                  //               .toString() +
-                                                  //           " - " +
-                                                  //           empinfo.empTypeName
-                                                  //               .toString(),
-                                                  //   textAlign: TextAlign.right,
-                                                  //   style:
-                                                  //       descTx2(Colors.white),
-                                                  // ),
-                                                  ///////////////////////////
-                                                  // AutoSizeText(
-                                                  //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                  //   maxLines: 1,
-                                                  //   style: TextStyle(
-                                                  //       color: Colors.white),
-                                                  //   group: autoSizeGroup,
-                                                  // ),
-                                                  Text(
-                                                    "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                    textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                        fontSize: 10,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              margin:
-                                                  EdgeInsets.only(right: 18),
-                                              width: 90,
-                                              height: 90,
-                                              child: SfBarcodeGenerator(
-                                                backgroundColor: Colors.white,
-                                                value: (empinfo.EmployeeNumber)
-                                                    .toString()
-                                                    .split(".")[0],
-                                                symbology: QRCode(),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             Visibility(
                               visible: showpanel,
@@ -747,6 +901,7 @@ class _HomPanelState extends State<HomePanel>
                     ) {
                       Color color = isActive ? secondryColor : BackGWhiteColor;
                       return Column(
+                        key: index == 2 ? onboarding3 : null,
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -756,7 +911,8 @@ class _HomPanelState extends State<HomePanel>
                                   color: color,
                                   //height: responsiveMT(30, 100),
                                   image: AssetImage(
-                                      "assets/image/rakamy-logo-21.png"))
+                                    "assets/image/rakamy-logo-21.png",
+                                  ))
                               : Icon(
                                   iconList[index],
                                   size: responsiveMT(25, 45),
