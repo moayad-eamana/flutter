@@ -99,7 +99,7 @@ class _HomPanelState extends State<HomePanel>
 
     onboarding = onboardingSP.getBool("onboarding")!;
     print("be4 tt = " + onboarding.toString());
-    if (onboarding == false) {
+    if (onboarding == true) {
       showTutorial();
     }
 
@@ -121,27 +121,45 @@ class _HomPanelState extends State<HomePanel>
       TargetFocus(
         identify: "onboarding1",
         keyTarget: onboarding1,
+        alignSkip: Alignment.centerLeft,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
             builder: (context, controller) {
               return Container(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  //mainAxisSize: MainAxisSize.min,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      'assets/SVGs/swipe_down_white_24dp.svg',
-                      width: 50,
+                    Center(
+                      child: SvgPicture.asset(
+                        'assets/SVGs/swipe_down_white_24dp.svg',
+                        width: 50,
+                      ),
                     ),
                     Text(
                       "لعرض بطاقة العمل اسحب للاسفل",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontSize: 20.0,
                       ),
                     ),
+                    InkWell(
+                      child: Text(
+                        "تالي",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20.0,
+                        ),
+                      ),
+                      onTap: () {
+                        controller.next();
+                      },
+                    )
 
                     // Padding(
                     //   padding: const EdgeInsets.only(top: 10.0),
@@ -195,12 +213,13 @@ class _HomPanelState extends State<HomePanel>
   void showTutorial() async {
     print("show tt = " + onboarding.toString());
 
-    initTargets();
     TutorialCoachMark tutorial = TutorialCoachMark(context,
         targets: targets, // List<TargetFocus>
         colorShadow: baseColor, // DEFAULT Colors.black
         // alignSkip: Alignment.bottomRight,
         textSkip: "تخطي",
+        hideSkip: true,
+
         // paddingFocus: 10,
         // focusAnimationDuration: Duration(milliseconds: 500),
         // pulseAnimationDuration: Duration(milliseconds: 500),
@@ -227,7 +246,8 @@ class _HomPanelState extends State<HomePanel>
 
   void initState() {
     super.initState();
-
+    initTargets();
+    Future.delayed(Duration(microseconds: 3), getOnboardingSettings);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       cheackNetwork();
       getuserinfo();
@@ -250,7 +270,7 @@ class _HomPanelState extends State<HomePanel>
     ).animate(curve);
 
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(microseconds: 500),
       () {
         setState(() {
           animatedPositionedStart = true;
@@ -258,7 +278,6 @@ class _HomPanelState extends State<HomePanel>
         return _animationController.forward();
       },
     );
-    Future.delayed(Duration(seconds: 1), getOnboardingSettings);
   }
 
   // void didChangeAppLifecycleState(AppLifecycleState state) {
