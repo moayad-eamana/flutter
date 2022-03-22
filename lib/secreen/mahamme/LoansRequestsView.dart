@@ -47,7 +47,9 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
       child: Scaffold(
         appBar: AppBarW.appBarW("الاعارات", context, null),
         body: _provider.LoansRequestList.length == 0
-            ? Container()
+            ? Center(
+                child: Text("لايوجد إعتمادات"),
+              )
             : Stack(
                 children: [
                   Image.asset(

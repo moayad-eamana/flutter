@@ -91,21 +91,18 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    if (id == 1)
-                      Text(
-                        "مهامي",
-                        style: subtitleTx(baseColor),
-                      ),
-                    if (id == 1) widgetsUni.divider(),
-                    if (id == 1)
-                      SizedBox(
-                        height: 10,
-                      ),
-                    if (id == 1) mahamme(),
-                    if (id == 1)
-                      SizedBox(
-                        height: 10,
-                      ),
+
+                    Text(
+                      "مهامي",
+                      style: subtitleTx(baseColor),
+                    ),
+                    widgetsUni.divider(),
+
+                    SizedBox(
+                      height: 10,
+                    ),
+                    mahamme(),
+
                     SizedBox(
                       height: 10,
                     ),
@@ -393,12 +390,19 @@ class _ServicesViewState extends State<ServicesView> {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/auth_secreen").then((value) {
-                      if (value == true) {
-                        Navigator.pushNamed(context, "/SalaryHistory");
-                      }
-                    });
+                  onPressed: () async {
+                    final fingerprintSP = await SharedPreferences.getInstance();
+                    bool fingerprint = fingerprintSP.getBool('fingerprint')!;
+                    if (fingerprint) {
+                      Navigator.pushNamed(context, "/auth_secreen")
+                          .then((value) {
+                        if (value == true) {
+                          Navigator.pushNamed(context, "/SalaryHistory");
+                        }
+                      });
+                    } else {
+                      Navigator.pushNamed(context, "/SalaryHistory");
+                    }
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/sejelalrawatb.svg', "سجل الرواتب"))),

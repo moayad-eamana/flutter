@@ -13,9 +13,12 @@ class LoansRequestsProvider extends ChangeNotifier {
 
     var respose = await getAction("Inbox/GetLoansRequests" + "/" + empNo);
     print(respose);
-    _LoanRequest = (jsonDecode(respose.body)["LoansList"] as List)
-        .map(((e) => LoansRequest.fromJson(e)))
-        .toList();
+    if (jsonDecode(respose.body)["LoansList"] != null) {
+      _LoanRequest = (jsonDecode(respose.body)["LoansList"] as List)
+          .map(((e) => LoansRequest.fromJson(e)))
+          .toList();
+    }
+
     print(_LoanRequest);
     notifyListeners();
   }

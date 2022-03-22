@@ -1,6 +1,8 @@
 import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
+import 'package:eamanaapp/provider/mahamme/MobasharaProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/secreen/mahamme/Mobashara.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -41,12 +43,8 @@ class _InboxHedersViewState extends State<InboxHedersView> {
 
   @override
   Widget build(BuildContext context) {
-    var _provider = Provider.of<EatemadatProvider>(context)
-        .inboxHeaderList
-        .where((element) => (element.TypeID == 1 ||
-            element.TypeID == 38 ||
-            element.TypeID == 120))
-        .toList();
+    var _provider =
+        Provider.of<EatemadatProvider>(context).inboxHeaderList.toList();
     double width = MediaQuery.of(context).size.width;
     var _provider2 = Provider.of<EatemadatProvider>(context);
     return Directionality(
@@ -132,6 +130,21 @@ class _InboxHedersViewState extends State<InboxHedersView> {
               builder: (context) => ChangeNotifierProvider(
                   create: (_) => HrDecisionsProvider(),
                   child: HrDecisionsView()),
+            ),
+          );
+        },
+      );
+    } else if (_provider.TypeID == 39 || _provider.TypeID == 40) {
+      return caerdContent(
+        "مباشرة عمل",
+        "assets/SVGs/dalelalmowzafen.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                  create: (_) => MobasharaProvider(),
+                  child: Mobashara(_provider.TypeID)),
             ),
           );
         },
