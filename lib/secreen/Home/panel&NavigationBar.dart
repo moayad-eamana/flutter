@@ -121,15 +121,14 @@ class _HomPanelState extends State<HomePanel>
       TargetFocus(
         identify: "onboarding1",
         keyTarget: onboarding1,
-        alignSkip: Alignment.centerLeft,
+        //alignSkip: Alignment.centerLeft,
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
             builder: (context, controller) {
               return Container(
+                alignment: Alignment.bottomCenter,
                 child: Column(
-                  //mainAxisSize: MainAxisSize.min,
-                  //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Center(
                       child: SvgPicture.asset(
@@ -146,20 +145,23 @@ class _HomPanelState extends State<HomePanel>
                         fontSize: 20.0,
                       ),
                     ),
-                    InkWell(
-                      child: Text(
-                        "تالي",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 20.0,
+                    Container(
+                      width: 90.w,
+                      child: InkWell(
+                        child: Text(
+                          "التالي",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 20.0,
+                          ),
                         ),
+                        onTap: () {
+                          controller.next();
+                        },
                       ),
-                      onTap: () {
-                        controller.next();
-                      },
-                    )
+                    ),
 
                     // Padding(
                     //   padding: const EdgeInsets.only(top: 10.0),
@@ -270,7 +272,7 @@ class _HomPanelState extends State<HomePanel>
     ).animate(curve);
 
     Future.delayed(
-      const Duration(microseconds: 500),
+      const Duration(milliseconds: 2),
       () {
         setState(() {
           animatedPositionedStart = true;
@@ -375,6 +377,15 @@ class _HomPanelState extends State<HomePanel>
             clipBehavior: Clip.hardEdge,
             children: [
               screen[_bottomNavIndex],
+              Container(
+                // margin: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  key: onboarding1,
+                  height: responsiveMT(90, 120),
+                ),
+                //  width: 100.w,
+              ),
               //show panel only in home screens
               _bottomNavIndex == 4
                   ? SlidingUpPanel(
@@ -412,7 +423,7 @@ class _HomPanelState extends State<HomePanel>
                       parallaxEnabled: true,
                       parallaxOffset: 0,
                       collapsed: Stack(
-                        key: onboarding1,
+                        // key: onboarding1,
                         children: [
                           Container(
                             decoration: BoxDecoration(
