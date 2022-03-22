@@ -258,7 +258,7 @@ class _HomPanelState extends State<HomePanel>
         return _animationController.forward();
       },
     );
-    getOnboardingSettings();
+    Future.delayed(Duration(seconds: 1), getOnboardingSettings);
   }
 
   // void didChangeAppLifecycleState(AppLifecycleState state) {
