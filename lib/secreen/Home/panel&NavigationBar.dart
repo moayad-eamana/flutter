@@ -906,13 +906,18 @@ class _HomPanelState extends State<HomePanel>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           index == 3
-                              ? Image(
-                                  height: responsiveMT(18, 45),
-                                  color: color,
-                                  //height: responsiveMT(30, 100),
-                                  image: AssetImage(
-                                    "assets/image/rakamy-logo-21.png",
-                                  ))
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Image(
+                                      height: responsiveMT(18, 45),
+                                      color: color,
+                                      //width: ,
+                                      //height: responsiveMT(30, 100),
+                                      image: AssetImage(
+                                        "assets/image/rakamy-logo-21.png",
+                                      )),
+                                )
                               : Icon(
                                   iconList[index],
                                   size: responsiveMT(25, 45),
