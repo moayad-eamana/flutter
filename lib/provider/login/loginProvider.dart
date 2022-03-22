@@ -140,6 +140,6 @@ class LoginProvider extends ChangeNotifier {
     _pref.setInt("Extension", 44444);
     _pref.setInt("GenderID", 1);
     _pref.setString("AccessToken",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkRldlRlYW0iLCJuYmYiOjE2NDc3NTQ2NjUsImV4cCI6MTY0NzkyNzQ2NSwiaWF0IjoxNjQ3NzU0NjY1fQ.7DCVqXxrUKsMj8u-eJT7Eb7rpxFWLxqDDxBCyFWwKIY");
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkRldlRlYW0iLCJuYmYiOjE2NDc5MjgwNjMsImV4cCI6MTY0ODEwMDg2MywiaWF0IjoxNjQ3OTI4MDYzfQ.P_TLRJ8NjMVyqXVvdGfy4WfurjHZawjejD4umkYO_4U");
   }
 }

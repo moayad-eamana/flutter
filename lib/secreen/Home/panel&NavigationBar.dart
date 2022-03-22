@@ -393,6 +393,7 @@ class _HomPanelState extends State<HomePanel>
                       parallaxEnabled: true,
                       parallaxOffset: 0,
                       collapsed: Stack(
+                        key: onboarding1,
                         children: [
                           Container(
                             decoration: BoxDecoration(
@@ -410,7 +411,6 @@ class _HomPanelState extends State<HomePanel>
                             ),
                           ),
                           Container(
-                            key: onboarding1,
                             margin: EdgeInsets.all(8),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
