@@ -90,7 +90,6 @@ class CustomSearchDelegate extends SearchDelegate {
 
   final services2 = [
     ////شؤون الموظفين
-    ////شؤون الموظفين
     {
       "service_name": "طلب إجازة",
       "Navigation": "/VacationRequest",
@@ -111,6 +110,12 @@ class CustomSearchDelegate extends SearchDelegate {
       "Navigation": "/entedab",
       "icon": 'assets/SVGs/entdab.svg',
     },
+    {
+      "service_name": "العهد", /////////
+      "Navigation": "/auhad",
+      "icon": 'assets/SVGs/3ohad.svg',
+    },
+
     //الرواتب
     {
       "service_name": "سجل الرواتب",
@@ -152,7 +157,7 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": 'assets/SVGs/events.svg',
     },
     {
-      "service_name": "عروض الموظفين",
+      "service_name": "عروض",
       "Navigation": "/EamanaDiscount",
       "icon": 'assets/SVGs/offers.svg',
     },
@@ -168,7 +173,7 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": 'assets/SVGs/dalelalmowzafen.svg',
     },
     {
-      "service_name": "بيانات",
+      "service_name": "بياناتي",
       "Navigation": MaterialPageRoute(
         builder: (context) => ChangeNotifierProvider(
           create: (context) => EmpInfoProvider(),
