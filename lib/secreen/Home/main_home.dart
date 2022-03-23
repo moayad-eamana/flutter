@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
+import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
@@ -22,8 +25,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eamanaapp/secreen/old/search.dart';
 
 class MainHome extends StatefulWidget {
-  MainHome({Key? key}) : super(key: key);
-
+  final Function goto;
+  MainHome(this.goto);
   @override
   State<MainHome> createState() => _MainHomeState();
 }
@@ -171,7 +174,7 @@ class _MainHomeState extends State<MainHome> {
                                     },
                                   ),
                                 widgetsUni.servicebutton(
-                                  "بياناتي",
+                                  "معلوماتي",
                                   'assets/SVGs/baynaty.svg',
                                   () {
                                     Navigator.push(
@@ -337,6 +340,18 @@ class _MainHomeState extends State<MainHome> {
                             image:
                                 AssetImage("assets/image/rakamy-logo-21.png")),
                       ),
+                      Positioned(
+                          right: 10,
+                          bottom: 10,
+                          child: InkWell(
+                            onTap: () {
+                              widget.goto();
+                            },
+                            child: Text(
+                              "> عرض جميع الخدمات",
+                              style: descTx2(baseColor),
+                            ),
+                          )),
                     ],
                   ),
                 ),

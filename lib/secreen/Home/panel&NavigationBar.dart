@@ -70,7 +70,7 @@ class _HomPanelState extends State<HomePanel>
     Icons.comment_bank //here replaced with raqmy logo
   ];
 
-  List<String> list = ['الاعدادات', 'بياناتي', 'الخدمات', 'تواصل'];
+  List<String> list = ['الاعدادات', 'معلوماتي', 'الخدمات', 'تواصل'];
 
   String name = "";
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
@@ -324,7 +324,11 @@ class _HomPanelState extends State<HomePanel>
       //page 4
       Community(),
       //home page
-      MainHome(),
+      MainHome(() {
+        setState(() {
+          _bottomNavIndex = 2;
+        });
+      }),
     ];
 
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;

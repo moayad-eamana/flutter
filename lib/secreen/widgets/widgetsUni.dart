@@ -84,19 +84,29 @@ class widgetsUni {
 
   static Widget actionbutton(String text, icon, VoidCallback onClicked) {
     return ElevatedButton(
-      style: cardServiece,
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        side: BorderSide(
+          width: 0.5,
+          color: bordercolor,
+        ),
+        elevation: 0,
+        primary: baseColor,
+      ),
       onPressed: () {
         onClicked();
       },
       child: Row(
         children: [
-          Icon(icon, color: secondryColor, size: 18),
+          Icon(icon, color: BackGWhiteColor, size: 18),
           SizedBox(
             width: 10,
           ),
           Text(
             text,
-            style: descTx1(baseColorText),
+            style: descTx1(BackGWhiteColor),
             maxLines: 2,
           )
         ],

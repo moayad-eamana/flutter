@@ -76,7 +76,7 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": 'assets/SVGs/dalelalmowzafen.svg',
     },
     {
-      "service_name": "بيانات",
+      "service_name": "معلوماتي",
       "Navigation": MaterialPageRoute(
         builder: (context) => ChangeNotifierProvider(
           create: (context) => EmpInfoProvider(),
@@ -173,7 +173,7 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": 'assets/SVGs/dalelalmowzafen.svg',
     },
     {
-      "service_name": "بياناتي",
+      "service_name": "معلوماتي",
       "Navigation": MaterialPageRoute(
         builder: (context) => ChangeNotifierProvider(
           create: (context) => EmpInfoProvider(),
@@ -188,7 +188,7 @@ class CustomSearchDelegate extends SearchDelegate {
   //did't use
   final rescntservices = [
     {
-      "service_name": "بيانات",
+      "service_name": "معلوماتي",
       "Navigation": MaterialPageRoute(
         builder: (context) => ChangeNotifierProvider(
           create: (context) => EmpInfoProvider(),
