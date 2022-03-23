@@ -384,37 +384,40 @@ class _MainHomeState extends State<MainHome> {
                   decoration: containerdecoration(BackGWhiteColor),
                   child: Column(
                     children: [
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          // aspectRatio: 3 / 4,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          autoPlay: true,
-                          height: responsiveMT(100, 200),
-                          onPageChanged: (index, reason) {
-                            setState(
-                              () {
-                                _currentIndexBanner = index;
-                              },
-                            );
-                          },
-                        ),
-                        items: imageBanner
-                            .map(
-                              (e) => Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Image(
-                                      height: responsiveMT(100, 200),
-                                      fit: BoxFit.fitWidth,
-                                      image: AssetImage(e),
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, "/events"),
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            // aspectRatio: 3 / 4,
+                            viewportFraction: 1.0,
+                            enlargeCenterPage: false,
+                            autoPlay: true,
+                            height: responsiveMT(100, 200),
+                            onPageChanged: (index, reason) {
+                              setState(
+                                () {
+                                  _currentIndexBanner = index;
+                                },
+                              );
+                            },
+                          ),
+                          items: imageBanner
+                              .map(
+                                (e) => Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Image(
+                                        height: responsiveMT(100, 200),
+                                        fit: BoxFit.fitWidth,
+                                        image: AssetImage(e),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )
-                            .toList(),
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),

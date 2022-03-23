@@ -1,4 +1,5 @@
 import 'package:eamanaapp/auth_secreen.dart';
+import 'package:eamanaapp/events.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
@@ -226,6 +227,7 @@ class _MyAppState extends State<MyApp> {
           '/auth_secreen': (context) => AuthenticateBioSecreen(),
           '/SalaryHistory': (context) => SalaryHistory(),
           '/comments': (context) => Comments(),
+          '/events': (context) => Events(),
           '/Settings2': (context) => Settings2(null), //for test animation
         },
       );

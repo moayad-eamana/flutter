@@ -22,27 +22,27 @@ class SliderWidget {
         mainAxisSpacing: 15,
         crossAxisSpacing: 10,
         children: [
-          if (id == 1)
-            StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => EatemadatProvider(),
-                          // ignore: prefer_const_constructors
-                          child: InboxHedersView(),
-                        ),
+          // if (id == 1)
+          StaggeredGridTile.extent(
+            crossAxisCellCount: 1,
+            mainAxisExtent: hi,
+            child: ElevatedButton(
+                style: cardServiece,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider(
+                        create: (context) => EatemadatProvider(),
+                        // ignore: prefer_const_constructors
+                        child: InboxHedersView(),
                       ),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/e3tmadaty.svg', "إعتماداتي")),
-            ),
+                    ),
+                  );
+                },
+                child: widgetsUni.cardcontentService(
+                    'assets/SVGs/e3tmadaty.svg', "إعتماداتي")),
+          ),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,

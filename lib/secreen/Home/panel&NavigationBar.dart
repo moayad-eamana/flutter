@@ -990,6 +990,7 @@ class _HomPanelState extends State<HomePanel>
                               list[index],
                               maxLines: 1,
                               style: TextStyle(color: color),
+                              textAlign: TextAlign.center,
                               group: autoSizeGroup,
                             ),
                           )

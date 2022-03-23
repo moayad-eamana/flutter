@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -6,12 +9,15 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/old/search.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
@@ -264,7 +270,19 @@ class CustomSearchDelegate extends SearchDelegate {
               suggestions[index]["service_name"],
               style: descTx1(baseColorText),
             ),
-            onTap: () {
+            onTap: () async {
+              final fingerprintSP = await SharedPreferences.getInstance();
+              bool fingerprint = fingerprintSP.getBool('fingerprint')!;
+              // if (fingerprint == true) {
+              //   Navigator.pushNamed(context, "/auth_secreen").then((value) {
+              //     if (value == true) {
+              //       Navigator.pushNamed(context, "/SalaryHistory");
+              //     }
+              //   });
+              // } else {
+              //   Navigator.pushNamed(context, "/SalaryHistory");
+              // }
+
               query = suggestions[index]["service_name"];
 
               var navi = suggestions[index]["Navigation"].toString().isNotEmpty
@@ -273,21 +291,133 @@ class CustomSearchDelegate extends SearchDelegate {
 
               print(query == "تعريف بالراتب");
 
-              query == "تعريف بالراتب"
-                  ? Navigator.pushNamed(context, "/auth_secreen").then((value) {
-                      if (value == true) {
-                        ViewFile.open(testbase64Pfd, "pdf");
-                      }
-                    })
-                  : navi.runtimeType == String
-                      ? Navigator.pushNamed(context, navi).then((value) {
-                          close(this.context, null);
-                        })
-                      : Navigator.push(context, navi).then((value) {
-                          close(this.context, null);
-                        });
+              if (query == "رصيد إجازات") {
+                rseed();
+              } else if (query == "تعريف بالراتب") {
+                fingerprint == true
+                    ? Navigator.pushNamed(context, "/auth_secreen")
+                        .then((value) {
+                        if (value == true) {
+                          ViewFile.open(testbase64Pfd, "pdf").then((value) {
+                            close(this.context, null);
+                          });
+                        }
+                      })
+                    : ViewFile.open(testbase64Pfd, "pdf").then((value) {
+                        close(this.context, null);
+                      });
+              } else if (query == "سجل الرواتب") {
+                fingerprint == true
+                    ? Navigator.pushNamed(context, "/auth_secreen")
+                        .then((value) {
+                        if (value == true) {
+                          Navigator.pushNamed(context, navi).then((value) {
+                            close(this.context, null);
+                          });
+                        }
+                      })
+                    : Navigator.pushNamed(context, navi).then((value) {
+                        close(this.context, null);
+                      });
+              } else {
+                navi.runtimeType == String
+                    ? Navigator.pushNamed(context, navi).then((value) {
+                        close(this.context, null);
+                      })
+                    : Navigator.push(context, navi).then((value) {
+                        close(this.context, null);
+                      });
+              }
+
+              // query == "رصيد إجازات"
+              //     ? rseed()
+              //     : query == "تعريف بالراتب"
+              //         ? fingerprint == true
+              //             ? Navigator.pushNamed(context, "/auth_secreen")
+              //                 .then((value) {
+              //                 if (value == true) {
+              //                   ViewFile.open(testbase64Pfd, "pdf")
+              //                       .then((value) {
+              //                     close(this.context, null);
+              //                   });
+              //                 }
+              //               })
+              //             : ViewFile.open(testbase64Pfd, "pdf").then((value) {
+              //                 close(this.context, null);
+              //               })
+              //         : query == "سجل الرواتب"
+              //             ? fingerprint == true
+              //                 ? Navigator.pushNamed(context, "/auth_secreen")
+              //                     .then((value) {
+              //                     if (value == true) {
+              //                       Navigator.pushNamed(context, navi)
+              //                           .then((value) {
+              //                         close(this.context, null);
+              //                       });
+              //                     }
+              //                   })
+              //                 : Navigator.pushNamed(context, navi)
+              //                     .then((value) {
+              //                     close(this.context, null);
+              //                   })
+              //             : navi.runtimeType == String
+              //                 ? Navigator.pushNamed(context, navi)
+              //                     .then((value) {
+              //                     close(this.context, null);
+              //                   })
+              //                 : Navigator.push(context, navi).then((value) {
+              //                     close(this.context, null);
+              //                   });
             },
           ),
         );
       });
+  Future<void> rseed() async {
+    EasyLoading.show(
+      status: 'جاري المعالجة...',
+      maskType: EasyLoadingMaskType.black,
+    );
+    String emNo = await EmployeeProfile.getEmployeeNumber();
+    var respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+    EasyLoading.dismiss();
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          backgroundColor: BackGWhiteColor,
+          title: Builder(builder: (context) {
+            return Center(
+              child: Text(
+                'رصيد الاجازات',
+                style: titleTx(baseColor),
+              ),
+            );
+          }),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                jsonDecode(respose.body)["EmpInfo"]["VacationBalance"]
+                    .toString(),
+                style: TextStyle(
+                    fontSize: 38,
+                    fontWeight: FontWeight.bold,
+                    color: secondryColor),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: Text(
+                'إغلاق',
+                style: subtitleTx(baseColor),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ).then((value) => close(this.context, null));
+  }
 }

@@ -311,7 +311,7 @@ class _ServicesViewState extends State<ServicesView> {
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
-                      print("object");
+                      Navigator.pushNamed(context, "/events");
                     },
                     child: widgetsUni.cardcontentService(
                         'assets/SVGs/events.svg', "الفعاليات"))),
