@@ -393,7 +393,7 @@ class _ServicesViewState extends State<ServicesView> {
                   onPressed: () async {
                     final fingerprintSP = await SharedPreferences.getInstance();
                     bool fingerprint = fingerprintSP.getBool('fingerprint')!;
-                    if (fingerprint) {
+                    if (fingerprint == true) {
                       Navigator.pushNamed(context, "/auth_secreen")
                           .then((value) {
                         if (value == true) {
@@ -422,7 +422,7 @@ class _ServicesViewState extends State<ServicesView> {
                     var respons =
                         await getAction("HR/GetEmployeeSalaryReport/" + emNo);
                     EasyLoading.dismiss();
-                    if (fingerprint) {
+                    if (fingerprint == true) {
                       Navigator.pushNamed(context, "/auth_secreen")
                           .then((value) async {
                         if (value == true) {

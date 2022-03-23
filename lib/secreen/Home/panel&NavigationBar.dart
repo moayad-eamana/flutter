@@ -99,7 +99,7 @@ class _HomPanelState extends State<HomePanel>
 
     onboarding = onboardingSP.getBool("onboarding")!;
     print("be4 tt = " + onboarding.toString());
-    if (onboarding == true) {
+    if (onboarding == false) {
       showTutorial();
     }
 
@@ -111,8 +111,6 @@ class _HomPanelState extends State<HomePanel>
   GlobalKey onboarding1 = GlobalKey();
 
   GlobalKey onboarding2 = GlobalKey();
-
-  GlobalKey onboarding3 = GlobalKey();
 
   void initTargets() {
     targets.clear();
@@ -188,8 +186,8 @@ class _HomPanelState extends State<HomePanel>
     );
     targets.add(
       TargetFocus(
-        identify: "onboarding3",
-        keyTarget: onboarding3,
+        identify: "onboarding2",
+        keyTarget: onboarding2,
         alignSkip: Alignment.bottomLeft,
         contents: [
           TargetContent(
@@ -628,7 +626,6 @@ class _HomPanelState extends State<HomePanel>
                               ),
                             ),
                             Container(
-                              key: onboarding2,
                               child: Column(
                                 children: [
                                   SizedBox(
@@ -931,7 +928,7 @@ class _HomPanelState extends State<HomePanel>
                     ) {
                       Color color = isActive ? secondryColor : BackGWhiteColor;
                       return Column(
-                        key: index == 2 ? onboarding3 : null,
+                        key: index == 2 ? onboarding2 : null,
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
