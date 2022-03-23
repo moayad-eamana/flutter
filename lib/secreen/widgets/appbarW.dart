@@ -20,9 +20,14 @@ class AppBarW {
                       SizedBox(
                         height: 10,
                       ),
-                      Image.asset(
-                        'assets/image/rakamy-logo-21.png',
-                        width: 65,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(context, "/home");
+                        },
+                        child: Image.asset(
+                          'assets/image/rakamy-logo-21.png',
+                          width: 65,
+                        ),
                       ),
                       Text(
                         title,

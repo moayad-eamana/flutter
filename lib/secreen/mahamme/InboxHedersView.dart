@@ -1,8 +1,10 @@
 import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/MobasharaProvider.dart';
+import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/mahamme/Mobashara.dart';
+import 'package:eamanaapp/secreen/mahamme/PurchaseRequests.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -145,6 +147,21 @@ class _InboxHedersViewState extends State<InboxHedersView> {
               builder: (context) => ChangeNotifierProvider(
                   create: (_) => MobasharaProvider(),
                   child: Mobashara(_provider.TypeID)),
+            ),
+          );
+        },
+      );
+    } else if (_provider.TypeID == 6) {
+      return caerdContent(
+        "طلبات مشتريــات",
+        "assets/SVGs/dalelalmowzafen.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                  create: (_) => PurchaseRequestsProvider(),
+                  child: PurchaseRequests()),
             ),
           );
         },

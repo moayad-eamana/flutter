@@ -15,7 +15,7 @@ class PurchaseRequestsProvider extends ChangeNotifier {
       maskType: EasyLoadingMaskType.black,
     );
     var EmNo = await EmployeeProfile.getEmployeeNumber();
-    var respose = await getAction("Inbox/GetPurchaseRequests/" + EmNo);
+    var respose = await getAction("Inbox/GetPurchaseRequests/" + EmNo + "/6");
 
     if (jsonDecode(respose.body)["RequestsList"] != null) {
       _PurchaseRequestsList = (jsonDecode(respose.body)["RequestsList"] as List)
@@ -23,7 +23,11 @@ class PurchaseRequestsProvider extends ChangeNotifier {
           .toList();
       notifyListeners();
     }
-
+    notifyListeners();
     EasyLoading.dismiss();
+  }
+
+  List<PurchaseRequestsmodel> get PurchaseRequestsList {
+    return List.from(_PurchaseRequestsList);
   }
 }

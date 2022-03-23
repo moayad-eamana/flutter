@@ -1,18 +1,19 @@
 class PurchaseRequestsmodel {
   int RequestNumber;
   String RequestDate;
-  String RequestStatusID;
+  int RequestStatusID;
   String RequestStatus;
-  String RequestTypeID;
+  int RequestTypeID;
   String RequestType;
   String SendFlag;
   String SendFlagDescription;
-  String EmployeeNumber;
+  int EmployeeNumber;
   String EmployeeName;
   String MobileNumber;
   String ItemName;
   String Subject;
   int TransactionTypeID;
+  String Department;
 
   PurchaseRequestsmodel(
       this.RequestNumber,
@@ -28,7 +29,8 @@ class PurchaseRequestsmodel {
       this.MobileNumber,
       this.ItemName,
       this.Subject,
-      this.TransactionTypeID);
+      this.TransactionTypeID,
+      this.Department);
   factory PurchaseRequestsmodel.fromJson(dynamic json) {
     return PurchaseRequestsmodel(
       json["RequestNumber"],
@@ -45,6 +47,7 @@ class PurchaseRequestsmodel {
       json["ItemName"],
       json["Subject"],
       json["TransactionTypeID"],
+      json["Department"],
     );
   }
 }
