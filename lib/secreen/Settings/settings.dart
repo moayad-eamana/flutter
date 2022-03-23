@@ -436,7 +436,7 @@ class _SettingsState extends State<Settings> {
                                       child: Row(
                                         children: [
                                           Icon(
-                                            Icons.home_outlined,
+                                            Icons.contact_support_outlined,
                                             color: secondryColor,
                                           ),
                                           SizedBox(

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
@@ -462,79 +463,107 @@ class _HomPanelState extends State<HomePanel>
                                         alignment: Alignment.bottomCenter,
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            // Container(
-                                            //   margin: EdgeInsets.only(left: 10),
-                                            //   child:
-                                            //   Column(
-                                            //     children: [
-                                            //       Badge(
-                                            //         badgeColor: secondryColor,
-                                            //         badgeContent: Text(
-                                            //           '0',
-                                            //           style:
-                                            //               descTx2(Colors.white),
-                                            //         ),
-                                            //         child: Icon(
-                                            //           Icons.notifications_active,
-                                            //           color: baseColor,
-                                            //           size: responsiveMT(45, 45),
-                                            //         ),
-                                            //       ),
-                                            //       SizedBox(
-                                            //         height: 0,
-                                            //       ),
-                                            //       Text(
-                                            //         "تنبيهات",
-                                            //         style: descTx1(baseColorText),
-                                            //       ),
-                                            //     ],
-                                            //   ),
-                                            // ),
+                                            Container(
+                                              margin: EdgeInsets.only(left: 10),
+                                              child: Column(
+                                                children: [
+                                                  IconButton(
+                                                    iconSize:
+                                                        responsiveMT(30, 30),
+                                                    icon: Icon(
+                                                        Icons.logout_outlined),
+                                                    color: baseColor,
+                                                    //size: responsiveMT(45, 45),
+                                                    onPressed: () async {
+                                                      Alerts.confirmAlrt(
+                                                              context,
+                                                              "تسجيل خروج",
+                                                              "هل تريد الخروج من التطبيق",
+                                                              "نعم")
+                                                          .show()
+                                                          .then((value) async {
+                                                        if (value == true) {
+                                                          SharedPreferences
+                                                              _pref =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          _pref.setString(
+                                                              "EmployeeNumber",
+                                                              "");
+
+                                                          Navigator
+                                                              .pushReplacementNamed(
+                                                                  context,
+                                                                  '/loginView');
+                                                        }
+                                                      });
+                                                    },
+                                                  ),
+                                                  SizedBox(
+                                                    height: 0,
+                                                  ),
+                                                  Text(
+                                                    "تسجيل خروج",
+                                                    style:
+                                                        descTx1(baseColorText),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                             Container(
                                               margin:
                                                   EdgeInsets.only(right: 10),
                                               child: Column(
                                                 children: [
-                                                  CircleAvatar(
-                                                    backgroundColor: baseColor,
-                                                    radius:
-                                                        responsiveMT(26, 28),
-                                                    child: empinfo.ImageURL ==
-                                                                null ||
-                                                            empinfo.ImageURL ==
-                                                                ""
-                                                        ? Image.asset(
-                                                            "assets/image/avatar.jpg")
-                                                        : ClipOval(
-                                                            child:
-                                                                CachedNetworkImage(
-                                                              height: 50,
-                                                              width: 50,
-                                                              fit: BoxFit.cover,
-                                                              imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                  empinfo.ImageURL
-                                                                          .toString()
-                                                                      .split(
-                                                                          "\$")[1],
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _bottomNavIndex = 1;
+                                                      });
+                                                    },
+                                                    child: CircleAvatar(
+                                                      backgroundColor:
+                                                          baseColor,
+                                                      radius:
+                                                          responsiveMT(26, 28),
+                                                      child: empinfo.ImageURL ==
+                                                                  null ||
+                                                              empinfo.ImageURL ==
+                                                                  ""
+                                                          ? Image.asset(
+                                                              "assets/image/avatar.jpg")
+                                                          : ClipOval(
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                height: 50,
+                                                                width: 50,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                    empinfo.ImageURL
+                                                                            .toString()
+                                                                        .split(
+                                                                            "\$")[1],
+                                                              ),
                                                             ),
-                                                          ),
-                                                    // ClipOval(
-                                                    //     child: FadeInImage
-                                                    //         .assetNetwork(
-                                                    //       fit: BoxFit.cover,
-                                                    //       width: 50,
-                                                    //       height: 50,
-                                                    //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                    //           empinfo.ImageURL
-                                                    //                   .toString()
-                                                    //               .split(
-                                                    //                   "\$")[1],
-                                                    //       placeholder:
-                                                    //           "assets/image/avatar.jpg",
-                                                    //     ),
-                                                    //   ),
+                                                      // ClipOval(
+                                                      //     child: FadeInImage
+                                                      //         .assetNetwork(
+                                                      //       fit: BoxFit.cover,
+                                                      //       width: 50,
+                                                      //       height: 50,
+                                                      //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                      //           empinfo.ImageURL
+                                                      //                   .toString()
+                                                      //               .split(
+                                                      //                   "\$")[1],
+                                                      //       placeholder:
+                                                      //           "assets/image/avatar.jpg",
+                                                      //     ),
+                                                      //   ),
+                                                    ),
                                                   ),
                                                   Text(
                                                     ("هلا / ") +

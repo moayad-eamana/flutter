@@ -70,7 +70,7 @@ class _ServicesViewState extends State<ServicesView> {
                     // شؤون الموظفين
                     //hr
                     Text(
-                      "شؤون الموظفين",
+                      "خدمات الموظفين",
                       style: subtitleTx(baseColor),
                     ),
                     widgetsUni.divider(),
@@ -196,7 +196,10 @@ class _ServicesViewState extends State<ServicesView> {
                                 jsonDecode(respose.body)["EmpInfo"]
                                         ["VacationBalance"]
                                     .toString(),
-                                style: subtitleTx(secondryColor),
+                                style: TextStyle(
+                                    fontSize: 38,
+                                    fontWeight: FontWeight.bold,
+                                    color: secondryColor),
                               ),
                             ],
                           ),
@@ -204,7 +207,7 @@ class _ServicesViewState extends State<ServicesView> {
                             TextButton(
                               onPressed: () => Navigator.pop(context, 'OK'),
                               child: Text(
-                                'حسنا',
+                                'إغلاق',
                                 style: subtitleTx(baseColor),
                               ),
                             ),

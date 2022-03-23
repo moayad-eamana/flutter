@@ -88,7 +88,10 @@ class SliderWidget {
                                 jsonDecode(respose.body)["EmpInfo"]
                                         ["VacationBalance"]
                                     .toString(),
-                                style: subtitleTx(secondryColor),
+                                style: TextStyle(
+                                    fontSize: 38,
+                                    fontWeight: FontWeight.bold,
+                                    color: secondryColor),
                               ),
                             ],
                           ),
@@ -96,7 +99,7 @@ class SliderWidget {
                             TextButton(
                               onPressed: () => Navigator.pop(context, 'OK'),
                               child: Text(
-                                'حسنا',
+                                'إغلاق',
                                 style: subtitleTx(baseColor),
                               ),
                             ),

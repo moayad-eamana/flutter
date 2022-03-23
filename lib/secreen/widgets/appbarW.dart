@@ -19,13 +19,19 @@ class AppBarW {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        height: 10,
+                      ),
                       Image.asset(
                         'assets/image/rakamy-logo-21.png',
-                        width: 80,
+                        width: 65,
                       ),
                       Text(
                         title,
-                        style: TextStyle(color: baseColor, fontSize: 18),
+                        style: TextStyle(
+                            color: secondryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
                       ),
                     ],
                   ),
