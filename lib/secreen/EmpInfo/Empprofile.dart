@@ -58,7 +58,7 @@ class _EmpProfileState extends State<EmpProfile> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW(
-            "بياناتي", context, widget.showBack == null ? null : true),
+            "معلوماتي", context, widget.showBack == null ? null : true),
         body: Stack(
           children: [
             Image.asset(

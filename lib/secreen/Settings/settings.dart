@@ -12,8 +12,8 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatefulWidget {
-  Settings(this.update);
   final Function? update;
+  Settings(this.update);
   @override
   State<Settings> createState() => _SettingsState();
 }

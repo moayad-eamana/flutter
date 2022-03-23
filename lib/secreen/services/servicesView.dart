@@ -356,7 +356,7 @@ class _ServicesViewState extends State<ServicesView> {
               1,
               hi,
               widgetsUni.servicebutton2(
-                "بياناتي",
+                "معلوماتي",
                 "assets/SVGs/baynaty.svg",
                 () {
                   Navigator.push(
