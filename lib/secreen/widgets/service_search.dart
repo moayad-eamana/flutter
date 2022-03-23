@@ -291,45 +291,83 @@ class CustomSearchDelegate extends SearchDelegate {
 
               print(query == "تعريف بالراتب");
 
-              query == "رصيد إجازات"
-                  ? rseed()
-                  : query == "تعريف بالراتب"
-                      ? fingerprint == true
-                          ? Navigator.pushNamed(context, "/auth_secreen")
-                              .then((value) {
-                              if (value == true) {
-                                ViewFile.open(testbase64Pfd, "pdf")
-                                    .then((value) {
-                                  close(this.context, null);
-                                });
-                              }
-                            })
-                          : ViewFile.open(testbase64Pfd, "pdf").then((value) {
-                              close(this.context, null);
-                            })
-                      : query == "سجل الرواتب"
-                          ? fingerprint == true
-                              ? Navigator.pushNamed(context, "/auth_secreen")
-                                  .then((value) {
-                                  if (value == true) {
-                                    Navigator.pushNamed(context, navi)
-                                        .then((value) {
-                                      close(this.context, null);
-                                    });
-                                  }
-                                })
-                              : Navigator.pushNamed(context, navi)
-                                  .then((value) {
-                                  close(this.context, null);
-                                })
-                          : navi.runtimeType == String
-                              ? Navigator.pushNamed(context, navi)
-                                  .then((value) {
-                                  close(this.context, null);
-                                })
-                              : Navigator.push(context, navi).then((value) {
-                                  close(this.context, null);
-                                });
+              if (query == "رصيد إجازات") {
+                rseed();
+              } else if (query == "تعريف بالراتب") {
+                fingerprint == true
+                    ? Navigator.pushNamed(context, "/auth_secreen")
+                        .then((value) {
+                        if (value == true) {
+                          ViewFile.open(testbase64Pfd, "pdf").then((value) {
+                            close(this.context, null);
+                          });
+                        }
+                      })
+                    : ViewFile.open(testbase64Pfd, "pdf").then((value) {
+                        close(this.context, null);
+                      });
+              } else if (query == "سجل الرواتب") {
+                fingerprint == true
+                    ? Navigator.pushNamed(context, "/auth_secreen")
+                        .then((value) {
+                        if (value == true) {
+                          Navigator.pushNamed(context, navi).then((value) {
+                            close(this.context, null);
+                          });
+                        }
+                      })
+                    : Navigator.pushNamed(context, navi).then((value) {
+                        close(this.context, null);
+                      });
+              } else {
+                navi.runtimeType == String
+                    ? Navigator.pushNamed(context, navi).then((value) {
+                        close(this.context, null);
+                      })
+                    : Navigator.push(context, navi).then((value) {
+                        close(this.context, null);
+                      });
+              }
+
+              // query == "رصيد إجازات"
+              //     ? rseed()
+              //     : query == "تعريف بالراتب"
+              //         ? fingerprint == true
+              //             ? Navigator.pushNamed(context, "/auth_secreen")
+              //                 .then((value) {
+              //                 if (value == true) {
+              //                   ViewFile.open(testbase64Pfd, "pdf")
+              //                       .then((value) {
+              //                     close(this.context, null);
+              //                   });
+              //                 }
+              //               })
+              //             : ViewFile.open(testbase64Pfd, "pdf").then((value) {
+              //                 close(this.context, null);
+              //               })
+              //         : query == "سجل الرواتب"
+              //             ? fingerprint == true
+              //                 ? Navigator.pushNamed(context, "/auth_secreen")
+              //                     .then((value) {
+              //                     if (value == true) {
+              //                       Navigator.pushNamed(context, navi)
+              //                           .then((value) {
+              //                         close(this.context, null);
+              //                       });
+              //                     }
+              //                   })
+              //                 : Navigator.pushNamed(context, navi)
+              //                     .then((value) {
+              //                     close(this.context, null);
+              //                   })
+              //             : navi.runtimeType == String
+              //                 ? Navigator.pushNamed(context, navi)
+              //                     .then((value) {
+              //                     close(this.context, null);
+              //                   })
+              //                 : Navigator.push(context, navi).then((value) {
+              //                     close(this.context, null);
+              //                   });
             },
           ),
         );
