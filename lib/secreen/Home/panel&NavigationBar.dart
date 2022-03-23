@@ -249,7 +249,7 @@ class _HomPanelState extends State<HomePanel>
   void initState() {
     super.initState();
     initTargets();
-    Future.delayed(Duration(microseconds: 3), getOnboardingSettings);
+    Future.delayed(Duration(milliseconds: 250), getOnboardingSettings);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       cheackNetwork();
       getuserinfo();
