@@ -1,8 +1,6 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eamanaapp/utilities/globalcss.dart';
-
 class AppBarW {
   static PreferredSize appBarW(
       String title, BuildContext context, bool? showBack) {
