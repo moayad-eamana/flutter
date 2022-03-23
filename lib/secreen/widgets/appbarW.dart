@@ -1,8 +1,6 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eamanaapp/utilities/globalcss.dart';
-
 class AppBarW {
   static PreferredSize appBarW(
       String title, BuildContext context, bool? showBack) {
@@ -19,9 +17,14 @@ class AppBarW {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/image/rakamy-logo-21.png',
-                        width: 80,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(context, "/home");
+                        },
+                        child: Image.asset(
+                          'assets/image/rakamy-logo-21.png',
+                          width: 80,
+                        ),
                       ),
                       Text(
                         title,

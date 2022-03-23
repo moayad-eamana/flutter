@@ -99,7 +99,7 @@ class _HomPanelState extends State<HomePanel>
 
     onboarding = onboardingSP.getBool("onboarding")!;
     print("be4 tt = " + onboarding.toString());
-    if (onboarding == true) {
+    if (onboarding == false) {
       showTutorial();
     }
 
