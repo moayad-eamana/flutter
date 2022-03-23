@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/mahamme/PurchaseRequestItems.dart';
 import 'package:eamanaapp/model/mahamme/PurchaseRequestsmodel.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
@@ -29,5 +30,31 @@ class PurchaseRequestsProvider extends ChangeNotifier {
 
   List<PurchaseRequestsmodel> get PurchaseRequestsList {
     return List.from(_PurchaseRequestsList);
+  }
+
+  late List<PurchaseRequestItems> _PurchaseRequestItems = [];
+  Future<dynamic> fetchPurchaseRequestItemst(int RequestNumber) async {
+    _PurchaseRequestItems = [];
+    notifyListeners();
+    EasyLoading.show(
+      status: 'جاري المعالجة...',
+      maskType: EasyLoadingMaskType.black,
+    );
+    var EmNo = await EmployeeProfile.getEmployeeNumber();
+    var respose = await getAction(
+        "Inbox/GetPurchaseRequestItems/" + RequestNumber.toString());
+
+    if (jsonDecode(respose.body)["RequestItems"] != null) {
+      _PurchaseRequestItems = (jsonDecode(respose.body)["RequestItems"] as List)
+          .map(((e) => PurchaseRequestItems.fromJson(e)))
+          .toList();
+      notifyListeners();
+    }
+    notifyListeners();
+    EasyLoading.dismiss();
+  }
+
+  List<PurchaseRequestItems> get PurchaseRequestItemsList {
+    return List.from(_PurchaseRequestItems);
   }
 }
