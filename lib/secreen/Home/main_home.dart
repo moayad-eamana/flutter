@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/employeeInfo/EmpInfo.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -24,6 +25,7 @@ import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eamanaapp/secreen/old/search.dart';
+import 'package:http/http.dart' as http;
 
 class MainHome extends StatefulWidget {
   final Function goto;
@@ -58,6 +60,27 @@ class _MainHomeState extends State<MainHome> {
     // TODO: implement initState
     embId();
     super.initState();
+    //hasPermission();
+  }
+
+  EmployeeProfile empinfo = new EmployeeProfile();
+
+  Future<void> hasPermission() async {
+    if (hasePerm == null) {
+      empinfo = await empinfo.getEmployeeProfile();
+      var respose = await http.post(
+          Uri.parse(
+              "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
+          body: jsonEncode({
+            "token": "RETTErhyty45ythTRH45y45y",
+            "username": empinfo.Email
+          }));
+      hasePerm = jsonDecode(respose.body)["message"];
+      hasePerm = hasePerm;
+      print("rr" + hasePerm.toString());
+      SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+      hasePerm = sharedPref.setBool("hasePerm", hasePerm);
+    }
   }
 
   ScrollController _scrollController = ScrollController();

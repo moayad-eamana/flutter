@@ -238,6 +238,7 @@ class _SettingsState extends State<Settings> {
                                                     .getInstance();
                                             _pref.setString(
                                                 "EmployeeNumber", "");
+                                            _pref.clear();
 
                                             Navigator.pushReplacementNamed(
                                                 context, '/loginView');

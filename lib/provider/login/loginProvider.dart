@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -100,7 +101,7 @@ class LoginProvider extends ChangeNotifier {
       _pref.setInt("GenderID", empinfo["GenderID"]);
       _pref.setString(
           "AccessToken", jsonDecode(respose.body)["AccessToken"] ?? "");
-
+      await hasPermission();
       return true;
     }
     return jsonDecode(respose.body)["ErrorMessage"];
@@ -141,5 +142,24 @@ class LoginProvider extends ChangeNotifier {
     _pref.setInt("GenderID", 1);
     _pref.setString("AccessToken",
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkRldlRlYW0iLCJuYmYiOjE2NDc5MjgwNjMsImV4cCI6MTY0ODEwMDg2MywiaWF0IjoxNjQ3OTI4MDYzfQ.P_TLRJ8NjMVyqXVvdGfy4WfurjHZawjejD4umkYO_4U");
+  }
+
+  Future<void> hasPermission() async {
+    EmployeeProfile empinfo = await EmployeeProfile();
+    if (hasePerm == null) {
+      empinfo = await empinfo.getEmployeeProfile();
+      var respose = await http.post(
+          Uri.parse(
+              "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
+          body: jsonEncode({
+            "token": "RETTErhyty45ythTRH45y45y",
+            "username": empinfo.Email
+          }));
+      hasePerm = jsonDecode(respose.body)["message"];
+      //hasePerm = hasePerm;
+      print("rr == " + hasePerm.toString());
+      SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+      hasePerm = sharedPref.setBool("hasePerm", hasePerm);
+    }
   }
 }
