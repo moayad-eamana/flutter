@@ -153,7 +153,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
       );
     } else if (_provider.TypeID == 6) {
       return caerdContent(
-        "طلب مشتريــات",
+        "إعتماد مشتريــات",
         "assets/SVGs/dalelalmowzafen.svg",
         () {
           Navigator.push(
@@ -168,7 +168,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
       );
     } else {
       return caerdContent(
-        "الاعارة",
+        "إعتماد إعارة",
         "assets/SVGs/dalelalmowzafen.svg",
         () {
           Navigator.push(
