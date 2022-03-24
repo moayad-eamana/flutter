@@ -1,9 +1,11 @@
 import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class PurchaseRequestsDetails extends StatefulWidget {
   int index;
@@ -176,7 +178,24 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                             "إعتماد",
                             Icons.check,
                             () async {
-                              if (_formKey.currentState!.validate()) {}
+                              if (_formKey.currentState!.validate()) {
+                                dynamic res =
+                                    await _provider.ApprovePurchasesRequest(
+                                        widget.index, _note.text, true);
+
+                                if (res == true) {
+                                  Alerts.successAlert(
+                                          context, "", "تم الإعتماد بنجاح")
+                                      .show()
+                                      .then((value) {
+                                    Navigator.pop(context);
+                                  });
+                                } else {
+                                  Alerts.errorAlert(
+                                          context, "خطأ", res.toString())
+                                      .show();
+                                }
+                              }
                             },
                           ),
                           widgetsUni.actionbutton(
@@ -184,7 +203,24 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                             Icons.close,
                             () async {
                               if (_formKey.currentState!.validate()) {
-                                return;
+                                if (_formKey.currentState!.validate()) {
+                                  dynamic res =
+                                      await _provider.ApprovePurchasesRequest(
+                                          widget.index, _note.text, false);
+
+                                  if (res == true) {
+                                    Alerts.successAlert(
+                                            context, "", "تم الرفض بنجاح")
+                                        .show()
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                    });
+                                  } else {
+                                    Alerts.errorAlert(
+                                            context, "خطأ", res.toString())
+                                        .show();
+                                  }
+                                }
                               }
                             },
                           ),

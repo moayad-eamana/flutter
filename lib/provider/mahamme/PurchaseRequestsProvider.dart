@@ -57,4 +57,30 @@ class PurchaseRequestsProvider extends ChangeNotifier {
   List<PurchaseRequestItems> get PurchaseRequestItemsList {
     return List.from(_PurchaseRequestItems);
   }
+
+  Future<dynamic> ApprovePurchasesRequest(
+      int index, String Note, bool isAproved) async {
+    EasyLoading.show(
+      status: 'جاري المعالجة...',
+      maskType: EasyLoadingMaskType.black,
+    );
+    String emNo = await EmployeeProfile.getEmployeeNumber();
+    var data = {
+      "RequestNumber": _PurchaseRequestsList[index].RequestNumber,
+      "ApprovedBy": int.parse(emNo),
+      "TransactionTypeID": 6,
+      "Notes": Note,
+      "IsApproved": isAproved
+    };
+    var respose =
+        await postAction("Inbox/ApprovePurchasesRequest", jsonEncode(data));
+
+    if (jsonDecode(respose.body)["StatusCode"] != 400) {
+      return jsonDecode(respose.body)["ErrorMessage"];
+    }
+    _PurchaseRequestsList.removeAt(index);
+    notifyListeners();
+    EasyLoading.dismiss();
+    return true;
+  }
 }
