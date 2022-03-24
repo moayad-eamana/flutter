@@ -40,7 +40,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 */
 final navigatorKey = GlobalKey<NavigatorState>();
-
+bool hasePerm = true;
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: baseColor,
@@ -49,6 +49,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+  hasePerm = sharedPref.getBool("hasePerm") ?? true;
   setSettings();
   //Settings.getSettings();
   getColorSettings();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -154,7 +155,7 @@ class _MainHomeState extends State<MainHome> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                if (id == 1)
+                                if (hasePerm)
                                   widgetsUni.servicebutton(
                                     "مواعيد",
                                     'assets/SVGs/mawa3idi.svg',
