@@ -295,16 +295,28 @@ class CustomSearchDelegate extends SearchDelegate {
               if (query == "رصيد إجازات") {
                 rseed();
               } else if (query == "تعريف بالراتب") {
+                EasyLoading.show(
+                  status: 'جاري المعالجة...',
+                  maskType: EasyLoadingMaskType.black,
+                );
+                String emNo = await EmployeeProfile.getEmployeeNumber();
+                var respons =
+                    await getAction("HR/GetEmployeeSalaryReport/" + emNo);
+                EasyLoading.dismiss();
                 fingerprint == true
                     ? Navigator.pushNamed(context, "/auth_secreen")
                         .then((value) {
                         if (value == true) {
-                          ViewFile.open(testbase64Pfd, "pdf").then((value) {
+                          ViewFile.open(
+                                  jsonDecode(respons.body)["salaryPdf"], "pdf")
+                              .then((value) {
                             close(this.context, null);
                           });
                         }
                       })
-                    : ViewFile.open(testbase64Pfd, "pdf").then((value) {
+                    : ViewFile.open(
+                            jsonDecode(respons.body)["salaryPdf"], "pdf")
+                        .then((value) {
                         close(this.context, null);
                       });
               } else if (query == "سجل الرواتب") {
