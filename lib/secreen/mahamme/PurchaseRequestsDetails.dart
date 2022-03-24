@@ -54,8 +54,9 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                   child: Column(
                     children: [
                       Container(
-                        height: 180,
+                        height: 250,
                         child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           primary: false,
                           itemCount: _provider.PurchaseRequestItemsList.length,
@@ -88,6 +89,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                           // ),
                                           Table(
                                             //       defaultColumnWidth: FixedColumnWidth(120.0),
+
                                             border: TableBorder.all(
                                                 color: Colors.black,
                                                 //  style: BorderStyle.solid,
@@ -137,6 +139,9 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                             );
                           },
                         ),
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
@@ -237,18 +242,24 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
 
   TableRow TableRows(String title, String dec) {
     return TableRow(children: [
-      Column(children: [
-        Text(
-          title,
-          style: descTx1(baseColor),
-        )
-      ]),
-      Column(children: [
-        Text(
-          dec,
-          style: descTx1(baseColor),
-        )
-      ]),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Text(
+            title,
+            style: descTx1(baseColor),
+          )
+        ]),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(children: [
+          Text(
+            dec,
+            style: descTx1(baseColor),
+          )
+        ]),
+      ),
     ]);
   }
 }

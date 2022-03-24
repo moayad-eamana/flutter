@@ -153,7 +153,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
       );
     } else if (_provider.TypeID == 6) {
       return caerdContent(
-        "طلبات مشتريــات",
+        "طلب مشتريــات",
         "assets/SVGs/dalelalmowzafen.svg",
         () {
           Navigator.push(
@@ -186,7 +186,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
 
   Widget caerdContent(String Title, String iconPath, VoidCallback function) {
     return Container(
-        margin: const EdgeInsets.symmetric(vertical: 20),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         child: widgetsUni.servicebutton2(
           Title,
           iconPath, //later

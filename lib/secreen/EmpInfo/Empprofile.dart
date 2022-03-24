@@ -22,6 +22,8 @@ class EmpProfile extends StatefulWidget {
 }
 
 class _EmpProfileState extends State<EmpProfile> {
+  final _formKey = GlobalKey<FormState>();
+
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       EasyLoading.show(
@@ -118,6 +120,7 @@ class _EmpProfileState extends State<EmpProfile> {
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             child: ElevatedButton(
+                              key: _formKey,
                               style: ElevatedButton.styleFrom(
                                   side: BorderSide(
                                     width: 1,
@@ -399,23 +402,18 @@ class _EmpProfileState extends State<EmpProfile> {
                               ),
                             ),
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     widgetsUni.actionbutton(
-                          //       "تسجيل خروج",
-                          //       Icons.logout,
-                          //       () async {
-                          //         SharedPreferences _pref =
-                          //             await SharedPreferences.getInstance();
-                          //         _pref.setString("EmployeeNumber", "");
-
-                          //         Navigator.pushReplacementNamed(
-                          //             context, '/loginView');
-                          //       },
-                          //     ),
-                          //   ],
-                          // )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              widgetsUni.actionbutton(
+                                "مشاركة معلوماتي",
+                                Icons.share,
+                                () async {
+                                  //   _formKey.currentState!.activate.call;
+                                },
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ),

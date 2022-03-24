@@ -3,8 +3,10 @@ import 'package:eamanaapp/secreen/mahamme/PurchaseRequestsDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PurchaseRequests extends StatefulWidget {
   @override
@@ -81,13 +83,38 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
                                         style: descTx1(baseColor),
                                         textAlign: TextAlign.right,
                                       ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.call,
-                                          color: baseColor,
-                                        ),
-                                        onPressed: () {},
-                                      )
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: Icon(
+                                              Icons.call,
+                                              color: baseColor,
+                                            ),
+                                            onPressed: () {
+                                              launch("tel://" +
+                                                  _provider
+                                                      .PurchaseRequestsList[
+                                                          index]
+                                                      .MobileNumber
+                                                      .toString());
+                                            },
+                                          ),
+                                          IconButton(
+                                              icon: FaIcon(
+                                                FontAwesomeIcons.whatsapp,
+                                                color: baseColor,
+                                                size: 24.0,
+                                              ),
+                                              onPressed: () {
+                                                launch("https://wa.me/+966" +
+                                                    _provider
+                                                        .PurchaseRequestsList[
+                                                            index]
+                                                        .MobileNumber +
+                                                    "/");
+                                              }),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                   widgetsUni.divider(),
@@ -118,24 +145,35 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
                                                   .RequestType),
                                         ],
                                       ),
-                                      Column(
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         children: [
-                                          Text(
-                                            "حالة الطلب",
-                                            style: subtitleTx(secondryColor),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                "حالة الطلب",
+                                                style:
+                                                    subtitleTx(secondryColor),
+                                              ),
+                                              Text(
+                                                _provider
+                                                    .PurchaseRequestsList[index]
+                                                    .RequestStatus,
+                                                style:
+                                                    descTx1(secondryColorText),
+                                              )
+                                            ],
                                           ),
-                                          Text(
-                                            _provider
-                                                .PurchaseRequestsList[index]
-                                                .RequestStatus,
-                                            style: descTx1(secondryColorText),
+                                          SizedBox(
+                                            width: 7,
+                                          ),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 15,
                                           )
                                         ],
                                       ),
-                                      Icon(
-                                        Icons.arrow_forward_ios,
-                                        size: 15,
-                                      )
                                     ],
                                   ),
                                   Text(
