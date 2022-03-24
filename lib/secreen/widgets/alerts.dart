@@ -44,7 +44,7 @@ class Alerts {
           radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: const Text(
-            "حسنا",
+            "إغلاق",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
@@ -150,7 +150,7 @@ class Alerts {
           radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: const Text(
-            "حسنا",
+            "إغلاق",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () => Navigator.pop(context),
@@ -214,7 +214,7 @@ class Alerts {
           radius: BorderRadius.all(Radius.circular(4)),
           color: baseColor,
           child: const Text(
-            "إلغاء",
+            "إغلاق",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
