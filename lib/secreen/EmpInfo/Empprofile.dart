@@ -22,7 +22,7 @@ class EmpProfile extends StatefulWidget {
 }
 
 class _EmpProfileState extends State<EmpProfile> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey();
 
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
@@ -134,208 +134,7 @@ class _EmpProfileState extends State<EmpProfile> {
 
                                   elevation: 2),
                               onPressed: () async {
-                                final pdf = pw.Document();
-                                var imag = pw.MemoryImage((await rootBundle
-                                        .load('assets/SVGs/amanah-v.png'))
-                                    .buffer
-                                    .asUint8List());
-                                final fontData = await rootBundle
-                                    .load("assets/Cairo-Regular.ttf");
-                                final ttf =
-                                    pw.Font.ttf(fontData.buffer.asByteData());
-                                pdf.addPage(pw.Page(
-                                    pageFormat: PdfPageFormat.a4,
-                                    textDirection: pw.TextDirection.rtl,
-                                    build: (pw.Context context) {
-                                      return pw.Directionality(
-                                          textDirection: pw.TextDirection.rtl,
-                                          child: pw.Container(
-                                              child: pw.Center(
-                                                  child: pw.Container(
-                                            height: 250,
-                                            width: 500,
-                                            decoration: pw.BoxDecoration(
-                                              color: PdfColors.white,
-                                              borderRadius:
-                                                  pw.BorderRadius.only(
-                                                      topLeft:
-                                                          pw.Radius.circular(
-                                                              10),
-                                                      topRight:
-                                                          pw.Radius.circular(
-                                                              10),
-                                                      bottomLeft:
-                                                          pw.Radius.circular(
-                                                              10),
-                                                      bottomRight: pw.Radius
-                                                          .circular(10)),
-                                              boxShadow: [
-                                                pw.BoxShadow(
-                                                    color: PdfColorGrey(0.1),
-                                                    spreadRadius: 18,
-                                                    blurRadius: 18,
-                                                    offset: PdfPoint(0, 3)
-                                                    // changes position of shadow
-                                                    ),
-                                              ],
-                                            ),
-                                            margin: pw.EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            child: pw.Container(
-                                              child: pw.Column(
-                                                mainAxisAlignment:
-                                                    pw.MainAxisAlignment.center,
-                                                children: [
-                                                  pw.Text(
-                                                    _provider[0].EmployeeName,
-                                                    textDirection:
-                                                        pw.TextDirection.rtl,
-                                                    style: pw.TextStyle(
-                                                        color: PdfColor.fromHex(
-                                                            '#1F9EB9'),
-                                                        fontSize: 18,
-                                                        font: ttf,
-                                                        fontWeight:
-                                                            pw.FontWeight.bold),
-                                                  ),
-                                                  pw.Text(
-                                                    _provider[0].Title,
-                                                    textDirection:
-                                                        pw.TextDirection.rtl,
-                                                    style:
-                                                        pw.TextStyle(font: ttf),
-                                                  ),
-                                                  pw.SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  pw.Directionality(
-                                                    textDirection:
-                                                        pw.TextDirection.rtl,
-                                                    child: pw.Row(
-                                                      mainAxisAlignment: pw
-                                                          .MainAxisAlignment
-                                                          .spaceAround,
-                                                      children: [
-                                                        pw.Container(
-                                                          width: 150,
-                                                          height: 130,
-                                                          child: pw.Image(
-                                                            imag,
-                                                            alignment: pw
-                                                                .Alignment
-                                                                .center,
-                                                            //width:
-                                                            //    pw. MediaQuery.of(context).size.width,
-                                                            //height: MediaQuery.of(context).size.height,
-                                                            fit:
-                                                                pw.BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                        pw.Column(
-                                                          crossAxisAlignment: pw
-                                                              .CrossAxisAlignment
-                                                              .end,
-                                                          mainAxisAlignment: pw
-                                                              .MainAxisAlignment
-                                                              .center,
-                                                          children: [
-                                                            pw.Row(
-                                                                mainAxisAlignment:
-                                                                    pw.MainAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  pw.Text(
-                                                                      _provider[
-                                                                              0]
-                                                                          .MobileNumber,
-                                                                      style: pw.TextStyle(
-                                                                          font:
-                                                                              ttf)),
-                                                                  pw.Text(
-                                                                      "رقم الجوال : ",
-                                                                      style: pw.TextStyle(
-                                                                          font:
-                                                                              ttf)),
-                                                                ]),
-                                                            pw.Container(
-                                                              child: pw.Row(
-                                                                  mainAxisAlignment:
-                                                                      pw.MainAxisAlignment
-                                                                          .end,
-                                                                  children: [
-                                                                    pw.Text(
-                                                                        _provider[0]
-                                                                            .Extension
-                                                                            .toString(),
-                                                                        style: pw.TextStyle(
-                                                                            font:
-                                                                                ttf)),
-                                                                    pw.Text(
-                                                                        "رقم التحويلة : ",
-                                                                        style: pw.TextStyle(
-                                                                            font:
-                                                                                ttf)),
-                                                                  ]),
-                                                            ),
-                                                            pw.Row(children: [
-                                                              pw.Text(
-                                                                  _provider[0]
-                                                                          .Email
-                                                                          .toString() +
-                                                                      "@eamana.gov.sa",
-                                                                  style: pw
-                                                                      .TextStyle(
-                                                                          font:
-                                                                              ttf)),
-                                                              pw.Text(
-                                                                  "البريد الالكتروني : ",
-                                                                  style: pw
-                                                                      .TextStyle(
-                                                                          font:
-                                                                              ttf)),
-                                                            ]),
-                                                            pw.Row(children: [
-                                                              pw.Text(
-                                                                  _provider[0]
-                                                                          .EmployeeNumber
-                                                                          .toString()
-                                                                          .split(
-                                                                              ".")[
-                                                                      0],
-                                                                  style: pw
-                                                                      .TextStyle(
-                                                                          font:
-                                                                              ttf)),
-                                                              pw.Text(
-                                                                  "الرقم الوظيفي : ",
-                                                                  style: pw
-                                                                      .TextStyle(
-                                                                          font:
-                                                                              ttf)),
-                                                            ]),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                                  // Center
-                                                  )));
-                                    }));
-
-                                final bytes = await pdf.save();
-
-                                final dir =
-                                    await getApplicationDocumentsDirectory();
-                                final file = File('${dir.path}/my_example.pdf');
-
-                                await file.writeAsBytes(bytes);
-                                final url = file.path;
-
-                                await OpenFile.open(url);
+                                getPdfasync(_provider);
                               },
                               child: Container(
                                 height: 250,
@@ -409,7 +208,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                 "مشاركة معلوماتي",
                                 Icons.share,
                                 () async {
-                                  //   _formKey.currentState!.activate.call;
+                                  getPdfasync(_provider);
                                 },
                               ),
                             ],
@@ -437,5 +236,146 @@ class _EmpProfileState extends State<EmpProfile> {
       style: TextStyle(
           fontFamily: "Cairo", fontSize: 18, fontWeight: FontWeight.bold),
     );
+  }
+
+  Future getPdfasync(_provider) async {
+    final pdf = pw.Document();
+    var imag = pw.MemoryImage(
+        (await rootBundle.load('assets/SVGs/amanah-v.png'))
+            .buffer
+            .asUint8List());
+    final fontData = await rootBundle.load("assets/Cairo-Regular.ttf");
+    final ttf = pw.Font.ttf(fontData.buffer.asByteData());
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        textDirection: pw.TextDirection.rtl,
+        build: (pw.Context context) {
+          return pw.Directionality(
+              textDirection: pw.TextDirection.rtl,
+              child: pw.Container(
+                  child: pw.Center(
+                      child: pw.Container(
+                height: 250,
+                width: 500,
+                decoration: pw.BoxDecoration(
+                  color: PdfColors.white,
+                  borderRadius: pw.BorderRadius.only(
+                      topLeft: pw.Radius.circular(10),
+                      topRight: pw.Radius.circular(10),
+                      bottomLeft: pw.Radius.circular(10),
+                      bottomRight: pw.Radius.circular(10)),
+                  boxShadow: [
+                    pw.BoxShadow(
+                        color: PdfColorGrey(0.1),
+                        spreadRadius: 18,
+                        blurRadius: 18,
+                        offset: PdfPoint(0, 3)
+                        // changes position of shadow
+                        ),
+                  ],
+                ),
+                margin: pw.EdgeInsets.symmetric(horizontal: 10),
+                child: pw.Container(
+                  child: pw.Column(
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      pw.Text(
+                        _provider[0].EmployeeName,
+                        textDirection: pw.TextDirection.rtl,
+                        style: pw.TextStyle(
+                            color: PdfColor.fromHex('#1F9EB9'),
+                            fontSize: 18,
+                            font: ttf,
+                            fontWeight: pw.FontWeight.bold),
+                      ),
+                      pw.Text(
+                        _provider[0].Title,
+                        textDirection: pw.TextDirection.rtl,
+                        style: pw.TextStyle(font: ttf),
+                      ),
+                      pw.SizedBox(
+                        height: 10,
+                      ),
+                      pw.Directionality(
+                        textDirection: pw.TextDirection.rtl,
+                        child: pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+                          children: [
+                            pw.Container(
+                              width: 150,
+                              height: 130,
+                              child: pw.Image(
+                                imag,
+                                alignment: pw.Alignment.center,
+                                //width:
+                                //    pw. MediaQuery.of(context).size.width,
+                                //height: MediaQuery.of(context).size.height,
+                                fit: pw.BoxFit.cover,
+                              ),
+                            ),
+                            pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.end,
+                              mainAxisAlignment: pw.MainAxisAlignment.center,
+                              children: [
+                                pw.Row(
+                                    mainAxisAlignment: pw.MainAxisAlignment.end,
+                                    children: [
+                                      pw.Text(_provider[0].MobileNumber,
+                                          style: pw.TextStyle(font: ttf)),
+                                      pw.Text("رقم الجوال : ",
+                                          style: pw.TextStyle(font: ttf)),
+                                    ]),
+                                pw.Container(
+                                  child: pw.Row(
+                                      mainAxisAlignment:
+                                          pw.MainAxisAlignment.end,
+                                      children: [
+                                        pw.Text(
+                                            _provider[0].Extension.toString(),
+                                            style: pw.TextStyle(font: ttf)),
+                                        pw.Text("رقم التحويلة : ",
+                                            style: pw.TextStyle(font: ttf)),
+                                      ]),
+                                ),
+                                pw.Row(children: [
+                                  pw.Text(
+                                      _provider[0].Email.toString() +
+                                          "@eamana.gov.sa",
+                                      style: pw.TextStyle(font: ttf)),
+                                  pw.Text("البريد الالكتروني : ",
+                                      style: pw.TextStyle(font: ttf)),
+                                ]),
+                                pw.Row(children: [
+                                  pw.Text(
+                                      _provider[0]
+                                          .EmployeeNumber
+                                          .toString()
+                                          .split(".")[0],
+                                      style: pw.TextStyle(font: ttf)),
+                                  pw.Text("الرقم الوظيفي : ",
+                                      style: pw.TextStyle(font: ttf)),
+                                ]),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+                      // Center
+                      )));
+        }));
+
+    final bytes = await pdf.save();
+
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/my_example.pdf');
+
+    await file.writeAsBytes(bytes);
+    final url = file.path;
+
+    await OpenFile.open(url);
   }
 }
