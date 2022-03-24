@@ -12,6 +12,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class OutdutyRequest extends StatefulWidget {
@@ -31,6 +32,8 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
   // TextEditingController _date = TextEditingController();
 
   EmployeeProfile empinfo = new EmployeeProfile();
+
+  double _HoursNumberC = 0.5;
 
   @override
   void initState() {
@@ -52,7 +55,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
 //rtyrtyer
     Map data = {
       "EmployeeNumber": empinfo.EmployeeNumber,
-      "OutDutyHours": double.parse(_HoursNumber.text),
+      "OutDutyHours": _HoursNumberC,
       "StartDate": _dateFrom.text,
       "EndDate": _dateTo.text,
       "DepartmentID": empinfo.DepartmentID,
@@ -139,22 +142,43 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
                                 children: [
-                                  TextFormField(
-                                    //style: subtitleTx(Colors.white),
-                                    controller: _HoursNumber,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    keyboardType: TextInputType.number,
-                                    maxLines: 1,
-                                    decoration: formlabel1("عدد الساعات"),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'يرجى إدخال عدد الساعات';
-                                      }
-                                      return null;
-                                    },
+                                  Container(
+                                    decoration:
+                                        containerdecoration(BackGWhiteColor),
+                                    child: SpinBox(
+                                      max: 3.5,
+                                      min: 0.5,
+                                      value: 0.5,
+                                      decimals: 1,
+                                      readOnly: true,
+                                      step: 0.5,
+                                      decoration: InputDecoration(
+                                        labelText: 'ادخل عدد الساعات',
+                                      ),
+                                      textStyle: subtitleTx(secondryColorText),
+                                      // iconColor: ,
+                                      onChanged: (value) {
+                                        _HoursNumberC = value;
+                                        print(_HoursNumberC);
+                                      },
+                                    ),
                                   ),
+                                  // TextFormField(
+                                  //   //style: subtitleTx(Colors.white),
+                                  //   controller: _HoursNumber,
+                                  //   inputFormatters: <TextInputFormatter>[
+                                  //     FilteringTextInputFormatter.digitsOnly
+                                  //   ],
+                                  //   keyboardType: TextInputType.number,
+                                  //   maxLines: 1,
+                                  //   decoration: formlabel1("عدد الساعات"),
+                                  //   validator: (value) {
+                                  //     if (value == null || value.isEmpty) {
+                                  //       return 'يرجى إدخال عدد الساعات';
+                                  //     }
+                                  //     return null;
+                                  //   },
+                                  // ),
                                   TextFormField(
                                     controller: _dateFrom,
                                     readOnly: true,

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:badges/badges.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';

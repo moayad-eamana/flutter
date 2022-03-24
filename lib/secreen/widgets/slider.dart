@@ -96,12 +96,27 @@ class SliderWidget {
                             ],
                           ),
                           actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: Text(
-                                'إغلاق',
-                                style: subtitleTx(baseColor),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                widgetsUni.actionbutton(
+                                  'طلب إجازة',
+                                  Icons.send,
+                                  () {
+                                    Navigator.pushNamed(
+                                            context, "/VacationRequest")
+                                        .then(
+                                            (value) => Navigator.pop(context));
+                                  },
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: Text(
+                                    'إغلاق',
+                                    style: subtitleTx(baseColor),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

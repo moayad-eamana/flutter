@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/old/search.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
@@ -307,18 +308,20 @@ class CustomSearchDelegate extends SearchDelegate {
                         close(this.context, null);
                       });
               } else if (query == "سجل الرواتب") {
-                fingerprint == true
-                    ? Navigator.pushNamed(context, "/auth_secreen")
-                        .then((value) {
-                        if (value == true) {
-                          Navigator.pushNamed(context, navi).then((value) {
-                            close(this.context, null);
-                          });
-                        }
-                      })
-                    : Navigator.pushNamed(context, navi).then((value) {
+                if (fingerprint == true) {
+                  Navigator.pushNamed(context, "/auth_secreen").then((value) {
+                    if (value == true) {
+                      Navigator.pushNamed(context, "/SalaryHistory")
+                          .then((value) {
                         close(this.context, null);
                       });
+                    }
+                  });
+                } else {
+                  Navigator.pushNamed(context, "/SalaryHistory").then((value) {
+                    close(this.context, null);
+                  });
+                }
               } else {
                 navi.runtimeType == String
                     ? Navigator.pushNamed(context, navi).then((value) {
@@ -408,12 +411,25 @@ class CustomSearchDelegate extends SearchDelegate {
             ],
           ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: Text(
-                'إغلاق',
-                style: subtitleTx(baseColor),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                widgetsUni.actionbutton(
+                  'طلب إجازة',
+                  Icons.send,
+                  () {
+                    Navigator.pushNamed(context, "/VacationRequest")
+                        .then((value) => Navigator.pop(context));
+                  },
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'OK'),
+                  child: Text(
+                    'إغلاق',
+                    style: subtitleTx(baseColor),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
