@@ -323,15 +323,15 @@ class CustomSearchDelegate extends SearchDelegate {
                 if (fingerprint == true) {
                   Navigator.pushNamed(context, "/auth_secreen").then((value) {
                     if (value == true) {
-                      Navigator.pushNamed(context, "/SalaryHistory")
+                      Navigator.pushNamed(this.context, "/SalaryHistory")
                           .then((value) {
-                        close(this.context, null);
+                        //   close(this.context, null);
                       });
                     }
                   });
                 } else {
                   Navigator.pushNamed(context, "/SalaryHistory").then((value) {
-                    close(this.context, null);
+                    close(this.context, true);
                   });
                 }
               } else {
