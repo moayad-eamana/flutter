@@ -234,12 +234,10 @@ class _SettingsState extends State<Settings> {
                                             .show()
                                             .then((value) async {
                                           if (value == true) {
-                                            SharedPreferences _pref =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            _pref.setString(
+                                            sharedPref.setString(
                                                 "EmployeeNumber", "");
-                                            _pref.setString("hasePerm", "");
+                                            sharedPref.setString(
+                                                "hasePerm", "");
                                             hasePerm = "";
                                             //_pref.clear();
                                             //setSettings();
