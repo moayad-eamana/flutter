@@ -99,39 +99,7 @@ class _MainHomeState extends State<MainHome> {
                 SizedBox(
                   height: responsiveMT(95, 130),
                 ),
-                TextField(
-                  showCursor: false,
-                  readOnly: true,
-                  controller: _search,
-                  keyboardType: TextInputType.text,
-                  maxLines: 1,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: baseColor,
-                          size: 35,
-                        ),
-                        onPressed: () async {}),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: BorderSide(color: bordercolor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: bordercolor),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: bordercolor),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    contentPadding: EdgeInsets.all(10),
-                    filled: true,
-                    fillColor: BackGWhiteColor,
-                    labelText: "تبحث عن خدمة محددة ؟",
-                    alignLabelWithHint: true,
-                    labelStyle: subtitleTx(lableTextcolor),
-                  ),
+                GestureDetector(
                   onTap: () {
                     showSearch(
                         context: context,
@@ -139,6 +107,55 @@ class _MainHomeState extends State<MainHome> {
 
                     FocusScope.of(context).unfocus();
                   },
+                  child: TextField(
+                    showCursor: false,
+                    enabled: false,
+                    readOnly: true,
+                    controller: _search,
+                    keyboardType: TextInputType.text,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      //   floatingLabelBehavior: FloatingLabelBehavior.never,
+                      suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.search,
+                            color: baseColor,
+                            size: 35,
+                          ),
+                          onPressed: () {
+                            showSearch(
+                                context: context,
+                                delegate: CustomSearchDelegate(context, id));
+
+                            FocusScope.of(context).unfocus();
+                          }),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4.0),
+                        borderSide: BorderSide(color: bordercolor),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: bordercolor),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: bordercolor),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      contentPadding: EdgeInsets.all(10),
+                      filled: true,
+                      fillColor: BackGWhiteColor,
+                      labelText: "تبحث عن خدمة محددة ؟",
+                      alignLabelWithHint: true,
+                      labelStyle: subtitleTx(lableTextcolor),
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+
+                      showSearch(
+                          context: context,
+                          delegate: CustomSearchDelegate(context, id));
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: 10,
