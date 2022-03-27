@@ -476,6 +476,7 @@ class _HomPanelState extends State<HomePanel>
                                                         Icons.logout_outlined),
                                                     color: baseColor,
                                                     //size: responsiveMT(45, 45),
+                                                    //
                                                     onPressed: () async {
                                                       Alerts.confirmAlrt(
                                                               context,
