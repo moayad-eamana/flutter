@@ -60,7 +60,17 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": 'assets/SVGs/ta3refalratb.svg',
     },
     //مهامي
-
+    {
+      "service_name": "إعتماداتي",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EatemadatProvider(),
+          // ignore: prefer_const_constructors
+          child: InboxHedersView(),
+        ),
+      ),
+      "icon": 'assets/SVGs/e3tmadaty.svg',
+    },
     //خدمات أخرى
     {
       "service_name": "الفعاليات",
@@ -242,7 +252,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var services = id == 1 ? services2 : services1;
+    var services = hasePerm == "true" ? services2 : services1;
     final suggestions = query.isEmpty
         ? services // replaced with rescntservices
         : services.where((s) {
