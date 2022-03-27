@@ -30,7 +30,7 @@ Color pinkColor = Colors.pink;
 
 Color chatColor = Color(0xffF8F8F8);
 
-Future<void> getColorSettings() async {
+void getColorSettings() {
   imageBG = "assets/image/Union_1.png";
 
   BackGWhiteColor = Colors.white;
@@ -81,7 +81,7 @@ Future<void> getColorSettings() async {
     chatColor = Color(0xffF8F8F8);
   }
   if (darkmode == true) {
-    imageBG = "assets/image/Union_2.png";
+    imageBG = "assets/image/Union_2.png"; //
 
     BackGColor = Colors.grey.shade800;
 

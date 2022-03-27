@@ -320,7 +320,7 @@ class _Settings2State extends State<Settings2> {
                                           });
                                           print("blindness = " +
                                               blindness.toString());
-                                          await getColorSettings();
+                                          getColorSettings();
                                           widget.update!();
                                         },
                                       ),
@@ -347,7 +347,7 @@ class _Settings2State extends State<Settings2> {
                                           print("darkmode = " +
                                               darkmode.toString());
 
-                                          await getColorSettings();
+                                          getColorSettings();
                                           setState(() {
                                             dark++;
                                           });

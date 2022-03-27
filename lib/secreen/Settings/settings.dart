@@ -25,12 +25,12 @@ bool blindness = false;
 
 class _SettingsState extends State<Settings> {
   //
-  void getSettings() async {
+  void getSettings() {
     //final settingSP = await SharedPreferences.getInstance();
     fingerprint = sharedPref.getBool("fingerprint") ?? false;
     blindness = sharedPref.getBool('blindness') ?? false;
     darkmode = sharedPref.getBool("darkmode") ?? false;
-    setState(() {});
+    // setState(() {});
   }
 
   final LocalAuthentication auth = LocalAuthentication();
@@ -75,10 +75,16 @@ class _SettingsState extends State<Settings> {
     }
   }
 
+  void didChangeDependencies() {
+    precacheImage(AssetImage("assets/image/Union_2.png"), context);
+    super.didChangeDependencies();
+  }
+
   @override
   void initState() {
-    super.initState();
     getSettings();
+
+    super.initState();
   }
 
   @override
@@ -316,7 +322,7 @@ class _SettingsState extends State<Settings> {
                                     Switch(
                                       activeColor: baseColor,
                                       value: blindness,
-                                      onChanged: (bool newValue) async {
+                                      onChanged: (bool newValue) {
                                         // final blindnessSP =
                                         //     await SharedPreferences
                                         //         .getInstance();
@@ -328,7 +334,7 @@ class _SettingsState extends State<Settings> {
                                         });
                                         print("blindness = " +
                                             blindness.toString());
-                                        await getColorSettings();
+                                        getColorSettings();
                                         widget.update!();
                                       },
                                     ),
@@ -357,7 +363,8 @@ class _SettingsState extends State<Settings> {
                                         });
                                         print("darkmode = " +
                                             darkmode.toString());
-                                        await getColorSettings();
+                                        getColorSettings();
+
                                         widget.update!();
                                       },
                                     ),
