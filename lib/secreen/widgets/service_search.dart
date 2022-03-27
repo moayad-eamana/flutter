@@ -48,6 +48,11 @@ class CustomSearchDelegate extends SearchDelegate {
       "Navigation": "/entedab",
       "icon": 'assets/SVGs/entdab.svg',
     },
+    {
+      "service_name": "العهد", /////////
+      "Navigation": "/auhad",
+      "icon": 'assets/SVGs/3ohad.svg',
+    },
     //الرواتب
     {
       "service_name": "سجل الرواتب",
