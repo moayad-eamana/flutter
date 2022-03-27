@@ -13,15 +13,11 @@ class ProfileImage extends StatefulWidget {
 class _ProfileImageState extends State<ProfileImage> {
   EmployeeProfile empinfo = new EmployeeProfile();
 
-  getuserinfo() async {
-    empinfo = await empinfo.getEmployeeProfile();
-    setState(() {});
-  }
-
   @override
   void initState() {
+    empinfo = empinfo.getEmployeeProfile();
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) => getuserinfo());
+    //  WidgetsBinding.instance?.addPostFrameCallback((_) => getuserinfo());
   }
 
   @override
@@ -31,9 +27,7 @@ class _ProfileImageState extends State<ProfileImage> {
         child: Center(
           child: Hero(
             tag: "profile",
-            child: empinfo.ImageURL == null
-                ? Container()
-                :
+            child:
                 //  PhotoView(
                 //     imageProvider: CachedNetworkImageProvider(
                 //       "https://archive.eamana.gov.sa/TransactFileUpload" +
@@ -41,13 +35,12 @@ class _ProfileImageState extends State<ProfileImage> {
                 //     ),
                 //   ),
                 CachedNetworkImage(
-                    imageUrl:
-                        "https://archive.eamana.gov.sa/TransactFileUpload" +
-                            empinfo.ImageURL.toString().split("\$")[1],
-                    imageBuilder: (context, imageProvider) => PhotoView(
-                      imageProvider: imageProvider,
-                    ),
-                  ),
+              imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                  empinfo.ImageURL.toString().split("\$")[1],
+              imageBuilder: (context, imageProvider) => PhotoView(
+                imageProvider: imageProvider,
+              ),
+            ),
             //  FadeInImage.assetNetwork(
             //     fit: BoxFit.cover,
             //     // width: 100,
