@@ -146,7 +146,7 @@ class LoginProvider extends ChangeNotifier {
 
   Future<void> hasPermission() async {
     EmployeeProfile empinfo = await EmployeeProfile();
-    if (hasePerm == null) {
+    if (hasePerm == null || hasePerm == "") {
       empinfo = await empinfo.getEmployeeProfile();
       var respose = await http.post(
           Uri.parse(
@@ -159,7 +159,8 @@ class LoginProvider extends ChangeNotifier {
       //hasePerm = hasePerm;
       print("rr == " + hasePerm.toString());
       SharedPreferences? sharedPref = await SharedPreferences.getInstance();
-      hasePerm = sharedPref.setBool("hasePerm", hasePerm);
+      sharedPref.setString("hasePerm", hasePerm.toString());
+      hasePerm = hasePerm.toString();
     }
   }
 }

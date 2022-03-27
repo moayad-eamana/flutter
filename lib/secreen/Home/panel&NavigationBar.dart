@@ -5,6 +5,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
@@ -98,7 +99,7 @@ class _HomPanelState extends State<HomePanel>
   void getOnboardingSettings() async {
     final onboardingSP = await SharedPreferences.getInstance();
 
-    onboarding = onboardingSP.getBool("onboarding")!;
+    onboarding = onboardingSP.getBool("onboarding") ?? false;
     print("be4 tt = " + onboarding.toString());
     if (onboarding == false) {
       showTutorial();
@@ -492,6 +493,11 @@ class _HomPanelState extends State<HomePanel>
                                                           _pref.setString(
                                                               "EmployeeNumber",
                                                               "");
+                                                          _pref.setString(
+                                                              "hasePerm", "");
+                                                          hasePerm = "";
+                                                          //_pref.clear();
+                                                          //setSettings();
 
                                                           Navigator
                                                               .pushReplacementNamed(

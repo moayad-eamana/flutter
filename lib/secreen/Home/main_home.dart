@@ -178,7 +178,7 @@ class _MainHomeState extends State<MainHome> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                if (hasePerm)
+                                if (hasePerm == "true")
                                   widgetsUni.servicebutton(
                                     "مواعيد",
                                     'assets/SVGs/mawa3idi.svg',

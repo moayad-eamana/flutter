@@ -1,3 +1,4 @@
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -26,9 +27,9 @@ class _SettingsState extends State<Settings> {
   //
   void getSettings() async {
     final settingSP = await SharedPreferences.getInstance();
-    fingerprint = settingSP.getBool("fingerprint")!;
-    blindness = settingSP.getBool('blindness')!;
-    darkmode = settingSP.getBool("darkmode")!;
+    fingerprint = settingSP.getBool("fingerprint") ?? false;
+    blindness = settingSP.getBool('blindness') ?? false;
+    darkmode = settingSP.getBool("darkmode") ?? false;
     setState(() {});
   }
 
@@ -238,7 +239,10 @@ class _SettingsState extends State<Settings> {
                                                     .getInstance();
                                             _pref.setString(
                                                 "EmployeeNumber", "");
-                                            _pref.clear();
+                                            _pref.setString("hasePerm", "");
+                                            hasePerm = "";
+                                            //_pref.clear();
+                                            //setSettings();
 
                                             Navigator.pushReplacementNamed(
                                                 context, '/loginView');

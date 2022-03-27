@@ -56,9 +56,9 @@ Future<void> getColorSettings() async {
 
   final settingSP = await SharedPreferences.getInstance();
 
-  blindness = settingSP.getBool("blindness")!;
+  blindness = settingSP.getBool("blindness") ?? false;
 
-  darkmode = settingSP.getBool("darkmode")!;
+  darkmode = settingSP.getBool("darkmode") ?? false;
 
   if (blindness == true) {
     baseColor = Color(0xff004D85);
