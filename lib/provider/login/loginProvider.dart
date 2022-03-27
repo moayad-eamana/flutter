@@ -25,7 +25,6 @@ class LoginProvider extends ChangeNotifier {
   // EmployeeProfile employeeProfile = EmployeeProfile(0, "", "", "");
 
   Future<bool> checkUser(String userName, String password) async {
-    SharedPreferences _pref = await SharedPreferences.getInstance();
     var respose = await http.post(
         Uri.parse(
             "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/CheckUserForMobile"),
@@ -34,7 +33,8 @@ class LoginProvider extends ChangeNotifier {
 
     if (jsonDecode(respose.body)["IsAuthenticated"] == true) {
       PrivateToken = jsonDecode(respose.body)["PrivateToken"];
-      _pref.setString("PrivateToken", jsonDecode(respose.body)["PrivateToken"]);
+      sharedPref.setString(
+          "PrivateToken", jsonDecode(respose.body)["PrivateToken"]);
       username = userName;
       pass = password;
 
@@ -50,7 +50,7 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future<dynamic> checkUserOTP(String otp) async {
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    //  SharedPreferences _pref = await SharedPreferences.getInstance();
     var respose = await http.post(
         Uri.parse(
           "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/IsValidOTP",
@@ -67,39 +67,40 @@ class LoginProvider extends ChangeNotifier {
     if (jsonDecode(respose.body)["IsValid"] == true) {
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
 
-      _pref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
-      _pref.setString("EmployeeName", empinfo["EmployeeName"].toString());
-      _pref.setString("FirstName", empinfo["FirstName"].toString());
-      _pref.setString("SecondName", empinfo["SecondName"].toString());
-      _pref.setString("ThirdName", empinfo["ThirdName"].toString());
-      _pref.setString("LastName", empinfo["LastName"].toString());
-      _pref.setInt("DepartmentID", empinfo["DepartmentID"]);
-      _pref.setString("DepartmentName", empinfo["DepartmentName"].toString());
-      _pref.setString("Email", empinfo["Email"].toString());
+      sharedPref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
+      sharedPref.setString("EmployeeName", empinfo["EmployeeName"].toString());
+      sharedPref.setString("FirstName", empinfo["FirstName"].toString());
+      sharedPref.setString("SecondName", empinfo["SecondName"].toString());
+      sharedPref.setString("ThirdName", empinfo["ThirdName"].toString());
+      sharedPref.setString("LastName", empinfo["LastName"].toString());
+      sharedPref.setInt("DepartmentID", empinfo["DepartmentID"]);
+      sharedPref.setString(
+          "DepartmentName", empinfo["DepartmentName"].toString());
+      sharedPref.setString("Email", empinfo["Email"].toString());
 
-      _pref.setInt("empTypeID", empinfo["empTypeID"]);
-      _pref.setString("empTypeName", empinfo["empTypeName"].toString());
-      _pref.setString("StatusName", empinfo["StatusName"].toString());
-      _pref.setString(
+      sharedPref.setInt("empTypeID", empinfo["empTypeID"]);
+      sharedPref.setString("empTypeName", empinfo["empTypeName"].toString());
+      sharedPref.setString("StatusName", empinfo["StatusName"].toString());
+      sharedPref.setString(
           "UserIdentityNumber", empinfo["UserIdentityNumber"].toString());
-      _pref.setString("MobileNumber", empinfo["MobileNumber"].toString());
-      _pref.setInt("UserTypeID", empinfo["UserTypeID"]);
-      _pref.setInt("VacationBalance", empinfo["VacationBalance"]);
+      sharedPref.setString("MobileNumber", empinfo["MobileNumber"].toString());
+      sharedPref.setInt("UserTypeID", empinfo["UserTypeID"]);
+      sharedPref.setInt("VacationBalance", empinfo["VacationBalance"]);
 
-      _pref.setString("JobName", empinfo["JobName"]);
-      _pref.setString("ImageURL", empinfo["ImageURL"]);
-      _pref.setString("Title", empinfo["Title"]);
-      _pref.setString("DirectManagerName", empinfo["DirectManagerName"]);
+      sharedPref.setString("JobName", empinfo["JobName"]);
+      sharedPref.setString("ImageURL", empinfo["ImageURL"]);
+      sharedPref.setString("Title", empinfo["Title"]);
+      sharedPref.setString("DirectManagerName", empinfo["DirectManagerName"]);
 
-      _pref.setInt("DirectManagerEmployeeNumber",
+      sharedPref.setInt("DirectManagerEmployeeNumber",
           empinfo["DirectManagerEmployeeNumber"]);
-      _pref.setInt("GeneralManagerEmployeeNumber",
+      sharedPref.setInt("GeneralManagerEmployeeNumber",
           empinfo["GeneralManagerEmployeeNumber"]);
-      _pref.setInt("MainDepartmentID", empinfo["MainDepartmentID"]);
-      _pref.setString("MainDepartmentName", empinfo["MainDepartmentName"]);
-      _pref.setInt("Extension", empinfo["Extension"]);
-      _pref.setInt("GenderID", empinfo["GenderID"]);
-      _pref.setString(
+      sharedPref.setInt("MainDepartmentID", empinfo["MainDepartmentID"]);
+      sharedPref.setString("MainDepartmentName", empinfo["MainDepartmentName"]);
+      sharedPref.setInt("Extension", empinfo["Extension"]);
+      sharedPref.setInt("GenderID", empinfo["GenderID"]);
+      sharedPref.setString(
           "AccessToken", jsonDecode(respose.body)["AccessToken"] ?? "");
       await hasPermission();
       return true;
@@ -108,39 +109,37 @@ class LoginProvider extends ChangeNotifier {
   }
 
   Future<dynamic> checkUserAppl() async {
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    sharedPref.setDouble("EmployeeNumber", 4438104.0);
+    sharedPref.setString("EmployeeName", "مؤيد العوفي");
+    sharedPref.setString("FirstName", "مؤيد");
+    sharedPref.setString("SecondName", "جابر");
+    sharedPref.setString("ThirdName", "علي");
+    sharedPref.setString("LastName", "العوفي");
+    sharedPref.setInt("DepartmentID", 422150000);
+    sharedPref.setString("DepartmentName", "الحاسب");
+    sharedPref.setString("Email", "moayad@ee.ee.ee");
 
-    _pref.setDouble("EmployeeNumber", 4438104.0);
-    _pref.setString("EmployeeName", "مؤيد العوفي");
-    _pref.setString("FirstName", "مؤيد");
-    _pref.setString("SecondName", "جابر");
-    _pref.setString("ThirdName", "علي");
-    _pref.setString("LastName", "العوفي");
-    _pref.setInt("DepartmentID", 422150000);
-    _pref.setString("DepartmentName", "الحاسب");
-    _pref.setString("Email", "moayad@ee.ee.ee");
+    sharedPref.setInt("empTypeID", 0101);
+    sharedPref.setString("empTypeName", "موظف");
+    sharedPref.setString("StatusName", "علي رأس العمل");
+    sharedPref.setString("UserIdentityNumber", "222323323");
+    sharedPref.setString("MobileNumber", '0399349493');
+    sharedPref.setInt("UserTypeID", 0101);
+    sharedPref.setInt("VacationBalance", 200);
 
-    _pref.setInt("empTypeID", 0101);
-    _pref.setString("empTypeName", "موظف");
-    _pref.setString("StatusName", "علي رأس العمل");
-    _pref.setString("UserIdentityNumber", "222323323");
-    _pref.setString("MobileNumber", '0399349493');
-    _pref.setInt("UserTypeID", 0101);
-    _pref.setInt("VacationBalance", 200);
-
-    _pref.setString("JobName", "مبرمج");
-    _pref.setString("ImageURL",
+    sharedPref.setString("JobName", "مبرمج");
+    sharedPref.setString("ImageURL",
         "\\\\10.16.16.59\\TransactFileUpload\$\\2021\\20211018\\HRS\\1546260\\1-1546260-24-2.jpg");
-    _pref.setString("Title", '');
-    _pref.setString("DirectManagerName", "مؤيد");
+    sharedPref.setString("Title", '');
+    sharedPref.setString("DirectManagerName", "مؤيد");
 
-    _pref.setInt("DirectManagerEmployeeNumber", 883993);
-    _pref.setInt("GeneralManagerEmployeeNumber", 333939);
-    _pref.setInt("MainDepartmentID", 422150000);
-    _pref.setString("MainDepartmentName", "حاسب");
-    _pref.setInt("Extension", 44444);
-    _pref.setInt("GenderID", 1);
-    _pref.setString("AccessToken",
+    sharedPref.setInt("DirectManagerEmployeeNumber", 883993);
+    sharedPref.setInt("GeneralManagerEmployeeNumber", 333939);
+    sharedPref.setInt("MainDepartmentID", 422150000);
+    sharedPref.setString("MainDepartmentName", "حاسب");
+    sharedPref.setInt("Extension", 44444);
+    sharedPref.setInt("GenderID", 1);
+    sharedPref.setString("AccessToken",
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkRldlRlYW0iLCJuYmYiOjE2NDc5MjgwNjMsImV4cCI6MTY0ODEwMDg2MywiaWF0IjoxNjQ3OTI4MDYzfQ.P_TLRJ8NjMVyqXVvdGfy4WfurjHZawjejD4umkYO_4U");
   }
 

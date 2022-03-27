@@ -41,6 +41,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 */
 final navigatorKey = GlobalKey<NavigatorState>();
 dynamic hasePerm = "";
+late SharedPreferences sharedPref;
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: baseColor,
@@ -48,8 +49,9 @@ void main() async {
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
 
-  SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+  sharedPref = await SharedPreferences.getInstance();
   hasePerm = sharedPref.getString("hasePerm");
+
   //Settings.getSettings();
   setSettings();
   getColorSettings();

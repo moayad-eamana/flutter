@@ -1,3 +1,4 @@
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -551,12 +552,10 @@ class _Settings2State extends State<Settings2> {
                                               "هل تريد الخروج من التطبيق",
                                               "نعم")
                                           .show()
-                                          .then((value) async {
+                                          .then((value) {
                                         if (value == true) {
-                                          SharedPreferences _pref =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          _pref.setString("EmployeeNumber", "");
+                                          sharedPref.setString(
+                                              "EmployeeNumber", "");
 
                                           Navigator.pushReplacementNamed(
                                               context, '/loginView');

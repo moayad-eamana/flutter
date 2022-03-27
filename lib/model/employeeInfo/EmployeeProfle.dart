@@ -1,4 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:eamanaapp/main.dart';
 
 class EmployeeProfile {
   double? EmployeeNumber;
@@ -30,71 +30,75 @@ class EmployeeProfile {
   int? Extension;
   int? GenderID;
 
-  Future<EmployeeProfile> getEmployeeProfile() async {
+  EmployeeProfile getEmployeeProfile() {
     EmployeeProfile employeeProfile = new EmployeeProfile();
-    SharedPreferences _pref = await SharedPreferences.getInstance();
-    employeeProfile.EmployeeNumber = _pref.getDouble("EmployeeNumber");
-    employeeProfile.EmployeeName = _pref.getString("EmployeeName").toString();
-    employeeProfile.FirstName = _pref.getString("FirstName");
-    employeeProfile.SecondName = _pref.getString("SecondName");
-    employeeProfile.ThirdName = _pref.getString("ThirdName");
-    employeeProfile.LastName = _pref.getString("LastName");
-    employeeProfile.DepartmentID = _pref.getInt("DepartmentID");
-    employeeProfile.DepartmentName = _pref.getString("DepartmentName");
-    employeeProfile.Email = _pref.getString("Email");
+    // SharedPreferences _pref = await SharedPreferences.getInstance();
+    employeeProfile.EmployeeNumber = sharedPref.getDouble("EmployeeNumber");
+    employeeProfile.EmployeeName =
+        sharedPref.getString("EmployeeName").toString();
+    employeeProfile.FirstName = sharedPref.getString("FirstName");
+    employeeProfile.SecondName = sharedPref.getString("SecondName");
+    employeeProfile.ThirdName = sharedPref.getString("ThirdName");
+    employeeProfile.LastName = sharedPref.getString("LastName");
+    employeeProfile.DepartmentID = sharedPref.getInt("DepartmentID");
+    employeeProfile.DepartmentName = sharedPref.getString("DepartmentName");
+    employeeProfile.Email = sharedPref.getString("Email");
 
-    employeeProfile.empTypeID = _pref.getInt("empTypeID");
-    employeeProfile.empTypeName = _pref.getString("empTypeName");
-    employeeProfile.StatusName = _pref.getString("StatusName");
-    employeeProfile.UserIdentityNumber = _pref.getString("UserIdentityNumber");
-    employeeProfile.MobileNumber = _pref.getString("MobileNumber");
-    employeeProfile.UserTypeID = _pref.getInt("UserTypeID");
-    employeeProfile.VacationBalance = _pref.getInt("VacationBalance");
+    employeeProfile.empTypeID = sharedPref.getInt("empTypeID");
+    employeeProfile.empTypeName = sharedPref.getString("empTypeName");
+    employeeProfile.StatusName = sharedPref.getString("StatusName");
+    employeeProfile.UserIdentityNumber =
+        sharedPref.getString("UserIdentityNumber");
+    employeeProfile.MobileNumber = sharedPref.getString("MobileNumber");
+    employeeProfile.UserTypeID = sharedPref.getInt("UserTypeID");
+    employeeProfile.VacationBalance = sharedPref.getInt("VacationBalance");
 
-    employeeProfile.JobName = _pref.getString("JobName");
-    employeeProfile.ImageURL = _pref.getString("ImageURL");
-    employeeProfile.Title = _pref.getString("Title");
-    employeeProfile.DirectManagerName = _pref.getString("DirectManagerName");
+    employeeProfile.JobName = sharedPref.getString("JobName");
+    employeeProfile.ImageURL = sharedPref.getString("ImageURL");
+    employeeProfile.Title = sharedPref.getString("Title");
+    employeeProfile.DirectManagerName =
+        sharedPref.getString("DirectManagerName");
 
     employeeProfile.DirectManagerEmployeeNumber =
-        _pref.getInt("DirectManagerEmployeeNumber");
+        sharedPref.getInt("DirectManagerEmployeeNumber");
 
     employeeProfile.GeneralManagerEmployeeNumber =
-        _pref.getInt("GeneralManagerEmployeeNumber");
-    employeeProfile.MainDepartmentID = _pref.getInt("MainDepartmentID");
-    employeeProfile.MainDepartmentName = _pref.getString("MainDepartmentName");
-    employeeProfile.Extension = _pref.getInt("Extension");
-    employeeProfile.GenderID = _pref.getInt("GenderID");
+        sharedPref.getInt("GeneralManagerEmployeeNumber");
+    employeeProfile.MainDepartmentID = sharedPref.getInt("MainDepartmentID");
+    employeeProfile.MainDepartmentName =
+        sharedPref.getString("MainDepartmentName");
+    employeeProfile.Extension = sharedPref.getInt("Extension");
+    employeeProfile.GenderID = sharedPref.getInt("GenderID");
 
     //notifyListeners();
     return employeeProfile;
   }
 
   static Future<String> getEmployeeNumber() async {
-    EmployeeProfile employeeProfile = new EmployeeProfile();
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    // EmployeeProfile employeeProfile = new EmployeeProfile();
+    // SharedPreferences _pref = await SharedPreferences.getInstance();
 
-    return (_pref.getDouble("EmployeeNumber")).toString().split(".")[0];
+    return (sharedPref.getDouble("EmployeeNumber")).toString().split(".")[0];
   }
 
   static Future<double> getEmployeeNumberasDouble() async {
-    EmployeeProfile employeeProfile = new EmployeeProfile();
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    // EmployeeProfile employeeProfile = new EmployeeProfile();
+    // SharedPreferences _pref = await SharedPreferences.getInstance();
 
-    return _pref.getDouble("EmployeeNumber") ?? 2.22;
+    return sharedPref.getDouble("EmployeeNumber") ?? 2.22;
   }
 
   static Future<int> getDepartmentID() async {
-    EmployeeProfile employeeProfile = new EmployeeProfile();
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    // EmployeeProfile employeeProfile = new EmployeeProfile();
+    // SharedPreferences _pref = await SharedPreferences.getInstance();
 
-    return _pref.getInt("DepartmentID") ?? 0;
+    return sharedPref.getInt("DepartmentID") ?? 0;
   }
 
   static Future<int> getEmplPerm() async {
-    EmployeeProfile employeeProfile = new EmployeeProfile();
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    // EmployeeProfile employeeProfile = new EmployeeProfile();
+    // SharedPreferences _pref = await SharedPreferences.getInstance();
 
-    return (_pref.getInt("empTypeID") ?? 0);
+    return (sharedPref.getInt("empTypeID") ?? 0);
   }
 }

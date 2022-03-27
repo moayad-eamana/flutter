@@ -77,9 +77,8 @@ class _HomPanelState extends State<HomePanel>
   String name = "";
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
 
-  getuserinfo() async {
-    empinfo = await empinfo.getEmployeeProfile();
-    setState(() {});
+  getuserinfo() {
+    empinfo = empinfo.getEmployeeProfile();
   }
 
   void cheackNetwork() async {
@@ -484,16 +483,12 @@ class _HomPanelState extends State<HomePanel>
                                                               "هل تريد الخروج من التطبيق",
                                                               "نعم")
                                                           .show()
-                                                          .then((value) async {
+                                                          .then((value) {
                                                         if (value == true) {
-                                                          SharedPreferences
-                                                              _pref =
-                                                              await SharedPreferences
-                                                                  .getInstance();
-                                                          _pref.setString(
+                                                          sharedPref.setString(
                                                               "EmployeeNumber",
                                                               "");
-                                                          _pref.setString(
+                                                          sharedPref.setString(
                                                               "hasePerm", "");
                                                           hasePerm = "";
                                                           //_pref.clear();

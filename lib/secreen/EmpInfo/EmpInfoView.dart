@@ -174,8 +174,11 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                         margin: EdgeInsets.only(
                                                             right: 10),
                                                         child: _provider[index]
-                                                                    .ImageURL ==
-                                                                ""
+                                                                        .ImageURL ==
+                                                                    "" ||
+                                                                _provider[index]
+                                                                        .GenderID ==
+                                                                    2
                                                             ? Image.asset(
                                                                 "assets/SVGs/dumyprofile.png")
                                                             : ClipOval(
