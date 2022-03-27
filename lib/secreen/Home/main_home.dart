@@ -65,23 +65,23 @@ class _MainHomeState extends State<MainHome> {
 
   EmployeeProfile empinfo = new EmployeeProfile();
 
-  Future<void> hasPermission() async {
-    if (hasePerm == null) {
-      empinfo = await empinfo.getEmployeeProfile();
-      var respose = await http.post(
-          Uri.parse(
-              "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
-          body: jsonEncode({
-            "token": "RETTErhyty45ythTRH45y45y",
-            "username": empinfo.Email
-          }));
-      hasePerm = jsonDecode(respose.body)["message"];
-      hasePerm = hasePerm;
-      print("rr" + hasePerm.toString());
-      SharedPreferences? sharedPref = await SharedPreferences.getInstance();
-      hasePerm = sharedPref.setBool("hasePerm", hasePerm);
-    }
-  }
+  // Future<void> hasPermission() async {
+  //   if (hasePerm == null) {
+  //     empinfo = await empinfo.getEmployeeProfile();
+  //     var respose = await http.post(
+  //         Uri.parse(
+  //             "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
+  //         body: jsonEncode({
+  //           "token": "RETTErhyty45ythTRH45y45y",
+  //           "username": empinfo.Email
+  //         }));
+  //     hasePerm = jsonDecode(respose.body)["message"];
+  //     hasePerm = hasePerm;
+  //     print("rr" + hasePerm.toString());
+  //     SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+  //     hasePerm = sharedPref.setBool("hasePerm", hasePerm);
+  //   }
+  // }
 
   ScrollController _scrollController = ScrollController();
 
@@ -259,10 +259,10 @@ class _MainHomeState extends State<MainHome> {
                                   "تعريف بالراتب",
                                   'assets/SVGs/ta3refalratb.svg',
                                   () async {
-                                    final fingerprintSP =
-                                        await SharedPreferences.getInstance();
+                                    // final fingerprintSP =
+                                    //     await SharedPreferences.getInstance();
                                     bool fingerprint =
-                                        fingerprintSP.getBool('fingerprint')!;
+                                        sharedPref.getBool('fingerprint')!;
                                     EasyLoading.show(
                                       status: 'جاري المعالجة...',
                                       maskType: EasyLoadingMaskType.black,

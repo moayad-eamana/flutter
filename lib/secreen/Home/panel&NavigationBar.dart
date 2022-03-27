@@ -96,9 +96,9 @@ class _HomPanelState extends State<HomePanel>
   bool onboarding = false;
 
   void getOnboardingSettings() async {
-    final onboardingSP = await SharedPreferences.getInstance();
+    // onboardingSP = await SharedPreferences.getInstance();
 
-    onboarding = onboardingSP.getBool("onboarding") ?? false;
+    onboarding = sharedPref.getBool("onboarding") ?? false;
     print("be4 tt = " + onboarding.toString());
     if (onboarding == false) {
       showTutorial();
@@ -238,10 +238,10 @@ class _HomPanelState extends State<HomePanel>
     // tutorial.finish();
     // tutorial.next(); // call next target programmatically
     // tutorial.previous(); // call previous target programmatically
-    final onboardingSP = await SharedPreferences.getInstance();
-    onboardingSP.setBool("onboarding", true);
+    //final onboardingSP = await SharedPreferences.getInstance();
+    sharedPref.setBool("onboarding", true);
     //for test
-    onboarding = onboardingSP.getBool("onboarding")!;
+    onboarding = sharedPref.getBool("onboarding")!;
     print("after tt = " + onboarding.toString());
   }
 

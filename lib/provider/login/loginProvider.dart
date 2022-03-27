@@ -157,7 +157,7 @@ class LoginProvider extends ChangeNotifier {
       hasePerm = jsonDecode(respose.body)["message"];
       //hasePerm = hasePerm;
       print("rr == " + hasePerm.toString());
-      SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+      //SharedPreferences? sharedPref = await SharedPreferences.getInstance();
       sharedPref.setString("hasePerm", hasePerm.toString());
       hasePerm = hasePerm.toString();
     }

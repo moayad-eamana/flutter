@@ -411,8 +411,8 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () async {
-                    final fingerprintSP = await SharedPreferences.getInstance();
-                    bool fingerprint = fingerprintSP.getBool('fingerprint')!;
+                    //final fingerprintSP = await SharedPreferences.getInstance();
+                    bool fingerprint = sharedPref.getBool('fingerprint')!;
                     if (fingerprint == true) {
                       Navigator.pushNamed(context, "/auth_secreen")
                           .then((value) {
@@ -432,8 +432,8 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () async {
-                    final fingerprintSP = await SharedPreferences.getInstance();
-                    bool fingerprint = fingerprintSP.getBool('fingerprint')!;
+                    //final fingerprintSP = await SharedPreferences.getInstance();
+                    bool fingerprint = sharedPref.getBool('fingerprint')!;
                     EasyLoading.show(
                       status: 'جاري المعالجة...',
                       maskType: EasyLoadingMaskType.black,

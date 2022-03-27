@@ -1,3 +1,4 @@
+import 'package:eamanaapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -54,11 +55,11 @@ Future<void> getColorSettings() async {
 
   chatColor = Color(0xffF8F8F8);
 
-  final settingSP = await SharedPreferences.getInstance();
+  //final settingSP = await SharedPreferences.getInstance();
 
-  blindness = settingSP.getBool("blindness") ?? false;
+  blindness = sharedPref.getBool("blindness") ?? false;
 
-  darkmode = settingSP.getBool("darkmode") ?? false;
+  darkmode = sharedPref.getBool("darkmode") ?? false;
 
   if (blindness == true) {
     baseColor = Color(0xff004D85);

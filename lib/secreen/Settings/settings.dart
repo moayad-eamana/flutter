@@ -26,10 +26,10 @@ bool blindness = false;
 class _SettingsState extends State<Settings> {
   //
   void getSettings() async {
-    final settingSP = await SharedPreferences.getInstance();
-    fingerprint = settingSP.getBool("fingerprint") ?? false;
-    blindness = settingSP.getBool('blindness') ?? false;
-    darkmode = settingSP.getBool("darkmode") ?? false;
+    //final settingSP = await SharedPreferences.getInstance();
+    fingerprint = sharedPref.getBool("fingerprint") ?? false;
+    blindness = sharedPref.getBool('blindness') ?? false;
+    darkmode = sharedPref.getBool("darkmode") ?? false;
     setState(() {});
   }
 
@@ -161,13 +161,13 @@ class _SettingsState extends State<Settings> {
                                             }
 
                                             if (_authenticated == true) {
-                                              final fingerprintSP =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              fingerprintSP.setBool(
+                                              // final fingerprintSP =
+                                              //     await SharedPreferences
+                                              //         .getInstance();
+                                              sharedPref.setBool(
                                                   "fingerprint", newValue);
                                               setState(() {
-                                                fingerprint = fingerprintSP
+                                                fingerprint = sharedPref
                                                     .getBool('fingerprint')!;
                                               });
                                               print("fingerprint = " +
@@ -176,13 +176,13 @@ class _SettingsState extends State<Settings> {
                                               //if canceleds
                                             }
                                           } else {
-                                            final fingerprintSP =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            fingerprintSP.setBool(
+                                            // final fingerprintSP =
+                                            //     await SharedPreferences
+                                            //         .getInstance();
+                                            sharedPref.setBool(
                                                 "fingerprint", newValue);
                                             setState(() {
-                                              fingerprint = fingerprintSP
+                                              fingerprint = sharedPref
                                                   .getBool('fingerprint')!;
                                             });
                                             print("fingerprint = " +
@@ -317,14 +317,14 @@ class _SettingsState extends State<Settings> {
                                       activeColor: baseColor,
                                       value: blindness,
                                       onChanged: (bool newValue) async {
-                                        final blindnessSP =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        blindnessSP.setBool(
+                                        // final blindnessSP =
+                                        //     await SharedPreferences
+                                        //         .getInstance();
+                                        sharedPref.setBool(
                                             "blindness", newValue);
                                         setState(() {
                                           blindness =
-                                              blindnessSP.getBool('blindness')!;
+                                              sharedPref.getBool('blindness')!;
                                         });
                                         print("blindness = " +
                                             blindness.toString());
@@ -346,14 +346,14 @@ class _SettingsState extends State<Settings> {
                                       activeColor: baseColor,
                                       value: darkmode,
                                       onChanged: (bool newValue) async {
-                                        final darkmodeSP =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        darkmodeSP.setBool(
+                                        // final darkmodeSP =
+                                        //     await SharedPreferences
+                                        //         .getInstance();
+                                        sharedPref.setBool(
                                             "darkmode", newValue);
                                         setState(() {
                                           darkmode =
-                                              darkmodeSP.getBool('darkmode')!;
+                                              sharedPref.getBool('darkmode')!;
                                         });
                                         print("darkmode = " +
                                             darkmode.toString());

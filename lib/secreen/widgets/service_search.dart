@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
@@ -272,8 +273,8 @@ class CustomSearchDelegate extends SearchDelegate {
               style: descTx1(baseColorText),
             ),
             onTap: () async {
-              final fingerprintSP = await SharedPreferences.getInstance();
-              bool fingerprint = fingerprintSP.getBool('fingerprint')!;
+              //final fingerprintSP = await SharedPreferences.getInstance();
+              bool fingerprint = sharedPref.getBool('fingerprint')!;
               // if (fingerprint == true) {
               //   Navigator.pushNamed(context, "/auth_secreen").then((value) {
               //     if (value == true) {

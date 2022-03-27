@@ -70,22 +70,22 @@ void main() async {
 }
 
 void setSettings() async {
-  final settingSP = await SharedPreferences.getInstance();
+  //final settingSP = await SharedPreferences.getInstance();
 
-  if (settingSP.getBool('fingerprint') == null) {
-    settingSP.setBool("fingerprint", false);
+  if (sharedPref.getBool('fingerprint') == null) {
+    sharedPref.setBool("fingerprint", false);
   }
 
-  if (settingSP.getBool('blindness') == null) {
-    settingSP.setBool("blindness", false);
+  if (sharedPref.getBool('blindness') == null) {
+    sharedPref.setBool("blindness", false);
   }
 
-  if (settingSP.getBool('darkmode') == null) {
-    settingSP.setBool("darkmode", false);
+  if (sharedPref.getBool('darkmode') == null) {
+    sharedPref.setBool("darkmode", false);
   }
 
-  if (settingSP.getBool('onboarding') == null) {
-    settingSP.setBool("onboarding", false);
+  if (sharedPref.getBool('onboarding') == null) {
+    sharedPref.setBool("onboarding", false);
   }
 }
 
@@ -155,10 +155,10 @@ class _MyAppState extends State<MyApp> {
   bool darkmode = false;
 
   void getfingerprintSettings() async {
-    final settingSP = await SharedPreferences.getInstance();
+    //final settingSP = await SharedPreferences.getInstance();
 
-    fingerprint = settingSP.getBool("fingerprint")!;
-    darkmode = settingSP.getBool("darkmode")!;
+    fingerprint = sharedPref.getBool("fingerprint")!;
+    darkmode = sharedPref.getBool("darkmode")!;
     setState(() {});
   }
 
