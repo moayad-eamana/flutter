@@ -9,21 +9,18 @@ import '../main.dart';
 String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
 
 Future<String> Bearer() async {
-  SharedPreferences _pref = await SharedPreferences.getInstance();
-
-  return _pref.getString("AccessToken") ?? "";
+  return sharedPref.getString("AccessToken") ?? "";
 }
 
 dynamic getAction(String link) async {
-  SharedPreferences _pref = await SharedPreferences.getInstance();
   dynamic respns = await http.get(Uri.parse(Url + link), headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer ' + _pref.getString("AccessToken").toString()
+    'Authorization': 'Bearer ' + sharedPref.getString("AccessToken").toString()
   });
   if (respns.statusCode == 401) {
     EasyLoading.dismiss();
-    _pref.setString("hasePerm", "");
+    sharedPref.setString("hasePerm", "");
     hasePerm = "";
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
@@ -34,18 +31,17 @@ dynamic getAction(String link) async {
 
 //EE
 dynamic postAction(String link, dynamic body) async {
-  SharedPreferences _pref = await SharedPreferences.getInstance();
-
   dynamic respns = await http.post(Uri.parse(Url + link),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer ' + _pref.getString("AccessToken").toString(),
+        'Authorization':
+            'Bearer ' + sharedPref.getString("AccessToken").toString(),
       },
       body: body);
   if (respns.statusCode == 401) {
     EasyLoading.dismiss();
-    _pref.setString("hasePerm", "");
+    sharedPref.setString("hasePerm", "");
     hasePerm = "";
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
