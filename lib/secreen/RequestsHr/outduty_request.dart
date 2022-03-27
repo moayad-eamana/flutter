@@ -146,7 +146,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                     decoration:
                                         containerdecoration(BackGWhiteColor),
                                     child: SpinBox(
-                                      max: 3.5,
+                                      max: 7,
                                       min: 0.5,
                                       value: 0.5,
                                       decimals: 1,
