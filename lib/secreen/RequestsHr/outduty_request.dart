@@ -252,7 +252,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                               validator: (value) {
                                 if (value == null ||
                                     value.isEmpty ||
-                                    value.length <= 15) {
+                                    value.length < 15) {
                                   return 'يرجى كتابة ملاحظة';
                                 }
                                 return null;
