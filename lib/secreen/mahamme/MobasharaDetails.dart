@@ -230,37 +230,38 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        color: Colors.white,
-                        child: TextFormField(
-                          keyboardType: TextInputType.text,
-                          readOnly: true,
-                          maxLines: 1,
-                          controller: _date,
-                          decoration: formlabel1("فضلا أدخل تاريخ المباشرة"),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "فضلا أدخل تاريخ المباشرة";
-                            } else {
-                              return null;
-                            }
-                          },
-                          onTap: () {
-                            DatePicker.showDatePicker(context,
-                                showTitleActions: true,
-                                minTime: DateTime(2021, 3, 5),
-                                onChanged: (date) {
-                              //  print('change $date');
-                            }, onConfirm: (date) {
-                              setState(() {
-                                _date.text = date.toString().split(" ")[0];
-                              });
+                      if (_mobasharaList[widget.index].OrderTypeID == 39)
+                        Container(
+                          color: Colors.white,
+                          child: TextFormField(
+                            keyboardType: TextInputType.text,
+                            readOnly: true,
+                            maxLines: 1,
+                            controller: _date,
+                            decoration: formlabel1("فضلا أدخل تاريخ المباشرة"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "فضلا أدخل تاريخ المباشرة";
+                              } else {
+                                return null;
+                              }
                             },
-                                currentTime: DateTime.now(),
-                                locale: LocaleType.ar);
-                          },
+                            onTap: () {
+                              DatePicker.showDatePicker(context,
+                                  showTitleActions: true,
+                                  minTime: DateTime(2021, 3, 5),
+                                  onChanged: (date) {
+                                //  print('change $date');
+                              }, onConfirm: (date) {
+                                setState(() {
+                                  _date.text = date.toString().split(" ")[0];
+                                });
+                              },
+                                  currentTime: DateTime.now(),
+                                  locale: LocaleType.ar);
+                            },
+                          ),
                         ),
-                      ),
                       Container(
                         width: 180,
                         child: widgetsUni.actionbutton(
