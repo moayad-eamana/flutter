@@ -538,8 +538,17 @@ class _HomPanelState extends State<HomePanel>
                                                                   null ||
                                                               empinfo.ImageURL ==
                                                                   ""
-                                                          ? Image.asset(
-                                                              "assets/image/avatar.jpg")
+                                                          ? CircleAvatar(
+                                                              radius:
+                                                                  responsiveMT(
+                                                                      24, 26),
+                                                              child: ClipOval(
+                                                                child:
+                                                                    Image.asset(
+                                                                  "assets/image/avatar.jpg",
+                                                                ),
+                                                              ),
+                                                            )
                                                           : ClipOval(
                                                               child:
                                                                   CachedNetworkImage(
@@ -706,8 +715,14 @@ class _HomPanelState extends State<HomePanel>
                                           backgroundColor: baseColor,
                                           child: empinfo.ImageURL == null ||
                                                   empinfo.ImageURL == ""
-                                              ? Image.asset(
-                                                  "assets/image/avatar.jpg")
+                                              ? CircleAvatar(
+                                                  radius: responsiveMT(50, 90),
+                                                  child: ClipOval(
+                                                    child: Image.asset(
+                                                      "assets/image/avatar.jpg",
+                                                    ),
+                                                  ),
+                                                )
                                               : GestureDetector(
                                                   child: Hero(
                                                     tag: "profile",
