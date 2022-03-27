@@ -23,6 +23,8 @@ dynamic getAction(String link) async {
   });
   if (respns.statusCode == 401) {
     EasyLoading.dismiss();
+    _pref.setString("hasePerm", "");
+    hasePerm = "";
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     return;
@@ -43,6 +45,8 @@ dynamic postAction(String link, dynamic body) async {
       body: body);
   if (respns.statusCode == 401) {
     EasyLoading.dismiss();
+    _pref.setString("hasePerm", "");
+    hasePerm = "";
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     return;
