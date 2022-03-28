@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/model/meeting/meetingsTime.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,16 @@ class MettingsProvider extends ChangeNotifier {
 
   late List<Meetings> _meetings = [];
   Future<void> fetchMeetings() async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    employeeProfile = employeeProfile.getEmployeeProfile();
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
             "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsByEmail.php"),
-        body: jsonEncode(
-            {"token": "RETTErhyty45ythTRH45y45y", "username": "akubaish"}));
+        body: jsonEncode({
+          "token": "RETTErhyty45ythTRH45y45y",
+          "username": employeeProfile.Email
+        }));
     _meetings = (jsonDecode(respose.body) as List)
         .map(((e) => Meetings.fromJson(e)))
         .toList();
@@ -27,12 +32,16 @@ class MettingsProvider extends ChangeNotifier {
 
   late List<MeetingsTime> _meetingsTime = [];
   Future<void> fetchMeetingsTime() async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    employeeProfile = employeeProfile.getEmployeeProfile();
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
             "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsToken.php"),
-        body: jsonEncode(
-            {"token": "RETTErhyty45ythTRH45y45y", "username": "akubaish"}));
+        body: jsonEncode({
+          "token": "RETTErhyty45ythTRH45y45y",
+          "username": employeeProfile.Email
+        }));
     _meetingsTime = (jsonDecode(respose.body) as List)
         .map(((e) => MeetingsTime.fromJson(e)))
         .toList();
@@ -57,12 +66,14 @@ class MettingsProvider extends ChangeNotifier {
       String meeting_url,
       String meeting_id,
       String meeting_pswd) async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
             "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/editAppointment.php"),
         body: jsonEncode({
           "token": "RETTErhyty45ythTRH45y45y",
-          "username": "akubaish",
+          "username": employeeProfile.Email,
           "app_id": app_id,
           "appDate": appDate,
           "appDow": appDow,
@@ -92,12 +103,14 @@ class MettingsProvider extends ChangeNotifier {
   }
 
   Future<void> addApp(Meetings meetings, String p) async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
             "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/createAppointments.php"),
         body: jsonEncode({
           "token": "RETTErhyty45ythTRH45y45y",
-          "username": "akubaish",
+          "username": employeeProfile.Email,
           "appDate": meetings.Date,
           "hdate": "1443-5-20",
           "appDow": p,
@@ -162,12 +175,14 @@ class MettingsProvider extends ChangeNotifier {
   }
 
   Future<void> deletApp(int id) async {
+    EmployeeProfile employeeProfile = new EmployeeProfile();
+    employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
             "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/deleteAppointments.php"),
         body: jsonEncode({
           "token": "RETTErhyty45ythTRH45y45y",
-          "username": "akubaish",
+          "username": employeeProfile.Email,
           "app_id": id
         }));
 
