@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -96,18 +97,21 @@ class _EmpProfileState extends State<EmpProfile> {
                                       width: imageHgit,
                                       child: _provider[0].ImageURL == ""
                                           ? Image.asset(
-                                              "assets/SVGs/profileBackground.png",
+                                              "assets/image/avatar.jpg",
                                               fit: BoxFit.fill,
                                             )
-                                          : FadeInImage.assetNetwork(
-                                              fit: BoxFit.cover,
-                                              image:
-                                                  "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                      _provider[0]
-                                                          .ImageURL
-                                                          .split("\$")[1],
-                                              placeholder:
-                                                  "assets/SVGs/dumyprofile.png",
+                                          : ClipOval(
+                                              child: CachedNetworkImage(
+                                                height: 50,
+                                                width: 50,
+                                                fit: BoxFit.cover,
+                                                imageUrl:
+                                                    "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                        _provider[0]
+                                                            .ImageURL
+                                                            .toString()
+                                                            .split("\$")[1],
+                                              ),
                                             ),
                                     ),
                                   ),
