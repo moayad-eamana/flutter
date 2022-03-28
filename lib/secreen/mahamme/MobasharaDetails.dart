@@ -66,22 +66,20 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  RichText(
-                                      text: TextSpan(
-                                          text: "الرقم الوظيفي: ",
-                                          style: descTx2(secondryColorText),
-                                          children: [
+                                  Text.rich(TextSpan(
+                                      text: "الرقم الوظيفي: ",
+                                      style: descTx2(secondryColorText),
+                                      children: [
                                         TextSpan(
                                             style: descTx1(baseColorText),
                                             text: _mobasharaList[widget.index]
                                                 .EmployeeNumber
                                                 .toString())
                                       ])),
-                                  RichText(
-                                      text: TextSpan(
-                                          text: "تاريخ الحركة: ",
-                                          style: descTx2(secondryColorText),
-                                          children: [
+                                  Text.rich(TextSpan(
+                                      text: "تاريخ الحركة: ",
+                                      style: descTx2(secondryColorText),
+                                      children: [
                                         TextSpan(
                                             style: descTx1(baseColorText),
                                             text: _mobasharaList[widget.index]

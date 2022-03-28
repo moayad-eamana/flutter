@@ -204,11 +204,8 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
   }
 
   Widget getText(String tex1, String text2) {
-    return RichText(
-        //     textAlign: TextAlign.right,
-
-        text:
-            TextSpan(text: tex1, style: descTx1(secondryColorText), children: [
+    return Text.rich(
+        TextSpan(text: tex1, style: descTx1(secondryColorText), children: [
       TextSpan(
         style: subtitleTx(baseColorText),
         text: text2,

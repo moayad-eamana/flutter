@@ -67,6 +67,7 @@ class _MobasharaState extends State<Mobashara> {
                                 child: Card(
                                   elevation: 1,
                                   child: Container(
+                                    color: BackGWhiteColor,
                                     padding: EdgeInsets.symmetric(vertical: 10),
                                     child: Column(
                                       children: [
