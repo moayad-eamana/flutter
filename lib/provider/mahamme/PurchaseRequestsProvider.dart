@@ -10,13 +10,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 class PurchaseRequestsProvider extends ChangeNotifier {
   late List<PurchaseRequestsmodel> _PurchaseRequestsList = [];
 
-  Future<dynamic> fetchPurchaseRequests() async {
+  Future<dynamic> fetchPurchaseRequests(int id) async {
     EasyLoading.show(
       status: 'جاري المعالجة...',
       maskType: EasyLoadingMaskType.black,
     );
     var EmNo = await EmployeeProfile.getEmployeeNumber();
-    var respose = await getAction("Inbox/GetPurchaseRequests/" + EmNo + "/6");
+    var respose = await getAction(
+        "Inbox/GetPurchaseRequests/" + EmNo + "/" + id.toString());
 
     if (jsonDecode(respose.body)["RequestsList"] != null) {
       _PurchaseRequestsList = (jsonDecode(respose.body)["RequestsList"] as List)
@@ -59,7 +60,7 @@ class PurchaseRequestsProvider extends ChangeNotifier {
   }
 
   Future<dynamic> ApprovePurchasesRequest(
-      int index, String Note, bool isAproved) async {
+      int index, String Note, bool isAproved, int TransactionTypeID) async {
     EasyLoading.show(
       status: 'جاري المعالجة...',
       maskType: EasyLoadingMaskType.black,
@@ -68,7 +69,7 @@ class PurchaseRequestsProvider extends ChangeNotifier {
     var data = {
       "RequestNumber": _PurchaseRequestsList[index].RequestNumber,
       "ApprovedBy": int.parse(emNo),
-      "TransactionTypeID": 6,
+      "TransactionTypeID": TransactionTypeID,
       "Notes": Note,
       "IsApproved": isAproved
     };

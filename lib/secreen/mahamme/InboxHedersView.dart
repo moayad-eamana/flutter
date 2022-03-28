@@ -151,7 +151,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
-    } else if (_provider.TypeID == 6) {
+    } else if (_provider.TypeID == 6 || _provider.TypeID == 4) {
       return caerdContent(
         "إعتماد مشتريــات",
         "assets/SVGs/dalelalmowzafen.svg",
@@ -161,12 +161,12 @@ class _InboxHedersViewState extends State<InboxHedersView> {
             MaterialPageRoute(
               builder: (context) => ChangeNotifierProvider(
                   create: (_) => PurchaseRequestsProvider(),
-                  child: PurchaseRequests()),
+                  child: PurchaseRequests(_provider.TypeID)),
             ),
           );
         },
       );
-    } else {
+    } else if (_provider.TypeID == 120) {
       return caerdContent(
         "إعتماد إعارة",
         "assets/SVGs/dalelalmowzafen.svg",
@@ -181,6 +181,8 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
+    } else {
+      return Container();
     }
   }
 

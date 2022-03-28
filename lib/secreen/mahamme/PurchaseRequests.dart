@@ -9,6 +9,8 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PurchaseRequests extends StatefulWidget {
+  int id;
+  PurchaseRequests(this.id);
   @override
   State<PurchaseRequests> createState() => _PurchaseRequestsState();
 }
@@ -19,7 +21,7 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
     // TODO: implement initState
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       Provider.of<PurchaseRequestsProvider>(context, listen: false)
-          .fetchPurchaseRequests();
+          .fetchPurchaseRequests(widget.id);
     });
     super.initState();
   }
@@ -60,8 +62,7 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
                                     ChangeNotifierProvider.value(
                                         value: _provider,
                                         child: PurchaseRequestsDetails(
-                                          index,
-                                        )),
+                                            index, widget.id)),
                               ),
                             );
                           },

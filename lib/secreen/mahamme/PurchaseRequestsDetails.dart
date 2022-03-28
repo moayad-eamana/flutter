@@ -9,7 +9,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class PurchaseRequestsDetails extends StatefulWidget {
   int index;
-  PurchaseRequestsDetails(this.index);
+  int id;
+  PurchaseRequestsDetails(this.index, this.id);
   @override
   State<PurchaseRequestsDetails> createState() =>
       _PurchaseRequestsDetailsState();
@@ -186,7 +187,10 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                               if (_formKey.currentState!.validate()) {
                                 dynamic res =
                                     await _provider.ApprovePurchasesRequest(
-                                        widget.index, _note.text, true);
+                                        widget.index,
+                                        _note.text,
+                                        true,
+                                        widget.id);
 
                                 if (res == true) {
                                   Alerts.successAlert(
@@ -211,7 +215,10 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                 if (_formKey.currentState!.validate()) {
                                   dynamic res =
                                       await _provider.ApprovePurchasesRequest(
-                                          widget.index, _note.text, false);
+                                          widget.index,
+                                          _note.text,
+                                          false,
+                                          widget.id);
 
                                   if (res == true) {
                                     Alerts.successAlert(
