@@ -180,7 +180,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                         .GenderID ==
                                                                     2
                                                             ? Image.asset(
-                                                                "assets/SVGs/dumyprofile.png")
+                                                                "assets/image/avatar.jpg",
+                                                              )
                                                             : ClipOval(
                                                                 child: FadeInImage
                                                                     .assetNetwork(
