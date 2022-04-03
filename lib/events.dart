@@ -1,4 +1,5 @@
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
 class Events extends StatefulWidget {
@@ -15,7 +16,23 @@ class _EventsState extends State<Events> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW("الفعاليات", context, null),
-        body: Container(),
+        body: Stack(
+          children: [
+            Image.asset(
+              imageBG,
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              //height: MediaQuery.of(context).size.height,
+              fit: BoxFit.fill,
+            ),
+            Center(
+              child: Text(
+                "الفعاليات",
+                style: titleTx(baseColorText),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
