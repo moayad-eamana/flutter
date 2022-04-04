@@ -197,7 +197,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     getfingerprintSettings();
-    if (widget.username != null || widget.username != "") {
+     
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
@@ -218,7 +218,7 @@ class _MyAppState extends State<MyApp> {
           );
         }
       });
-    }
+    
 
     getToken();
   }
