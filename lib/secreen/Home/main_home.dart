@@ -43,12 +43,12 @@ class _MainHomeState extends State<MainHome> {
   List<int> selectsilder = [0, 1];
 
   List<dynamic> imageBanner = [
-    "assets/image/banner.png",
-    "assets/image/banner2.jpeg"
+    "assets/image/Ramdan_kreem.jpg",
+    "assets/image/banner2.jpeg",
   ];
 
   List<int> selectsilderBanner = [0, 1];
-  List<String> selectsilderTitle = ["اليوم الوطني السعودي 90", "يوم التأسيس"];
+  List<String> selectsilderTitle = ["رمضان كريم", "اليوم الوطني السعودي 90"];
 
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
