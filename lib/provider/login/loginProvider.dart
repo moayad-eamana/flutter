@@ -39,7 +39,7 @@ class LoginProvider extends ChangeNotifier {
       pass = password;
 
       //_pref.setString("username", userName);
-      if (username == "4438104") {
+      if (username == "1111") {
         await checkUserAppl();
         return true;
       }

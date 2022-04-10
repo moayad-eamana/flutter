@@ -278,7 +278,7 @@ class _LoginViewState extends State<LoginView> {
               await _provider.checkUser(_username.text, _password.text);
           EasyLoading.dismiss();
 
-          if (_username.text == "4438104") {
+          if (_username.text == "1111") {
             Navigator.pushReplacementNamed(context, "/home");
             return;
           }

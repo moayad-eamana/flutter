@@ -82,13 +82,13 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    if (empNo != "4438104")
+                    if (empNo != "1111")
                       Text(
                         "الرواتب",
                         style: subtitleTx(baseColor),
                       ),
-                    if (empNo != "4438104") widgetsUni.divider(),
-                    if (empNo != "4438104") salary(),
+                    if (empNo != "1111") widgetsUni.divider(),
+                    if (empNo != "1111") salary(),
                     SizedBox(
                       height: 10,
                     ),
@@ -321,7 +321,7 @@ class _ServicesViewState extends State<ServicesView> {
         mainAxisSpacing: 6,
         crossAxisSpacing: 8,
         children: [
-          if (empNo != "4438104")
+          if (empNo != "1111")
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
                 mainAxisExtent: hi,
@@ -353,7 +353,7 @@ class _ServicesViewState extends State<ServicesView> {
           //       child: widgetsUni.cardcontentService(
           //           'assets/SVGs/dalel-emp.svg', "طلب استيكر")),
           // ),
-          if (empNo != "4438104")
+          if (empNo != "1111")
             StaggeredGridTileW(
                 1,
                 hi,
