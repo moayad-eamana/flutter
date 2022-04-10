@@ -43,7 +43,7 @@ class _HrDecisionsViewState extends State<HrDecisionsView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("الإعتمادات", context, null),
+        appBar: AppBarW.appBarW("القرارت الإلكترونية", context, null),
         body: Stack(
           children: [
             Image.asset(

@@ -33,7 +33,7 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("طلب شراء", context, null),
+        appBar: AppBarW.appBarW("إعتماد شراء", context, null),
         body: Stack(
           children: [
             Image.asset(

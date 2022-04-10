@@ -392,7 +392,7 @@ class _HomPanelState extends State<HomePanel>
               //show panel only in home screens
               _bottomNavIndex == 4
                   ? SlidingUpPanel(
-                      //renderPanelSheet: false,
+                      renderPanelSheet: false,
                       boxShadow: [
                         BoxShadow(
                             blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))

@@ -267,37 +267,46 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                           Icons.check,
                           () async {
                             if (_formKey.currentState!.validate()) {
-                              EasyLoading.show(
-                                status: 'جاري المعالجة...',
-                                maskType: EasyLoadingMaskType.black,
-                              );
-                              String emNo =
-                                  await EmployeeProfile.getEmployeeNumber();
-                              var response =
-                                  await _provider.ApproveStartWorkRequest({
-                                "EmployeeNumber":
-                                    _mobasharaList[widget.index].EmployeeNumber,
-                                "StartDate": _date.text,
-                                "TransactionDate":
-                                    _mobasharaList[widget.index].StartDate,
-                                "ApprovalBy": int.parse(emNo),
-                                "TransactionTypeID":
-                                    _mobasharaList[widget.index]
-                                        .TransactionTypeID
-                              }, widget.index);
-                              EasyLoading.dismiss();
+                              Alerts.confirmAlrt(context, "",
+                                      "هل انت متأكد من الموفقة", "نعم")
+                                  .show()
+                                  .then((value) async {
+                                if (value == true) {
+                                  EasyLoading.show(
+                                    status: 'جاري المعالجة...',
+                                    maskType: EasyLoadingMaskType.black,
+                                  );
+                                  String emNo =
+                                      await EmployeeProfile.getEmployeeNumber();
+                                  var response =
+                                      await _provider.ApproveStartWorkRequest({
+                                    "EmployeeNumber":
+                                        _mobasharaList[widget.index]
+                                            .EmployeeNumber,
+                                    "StartDate": _date.text,
+                                    "TransactionDate":
+                                        _mobasharaList[widget.index].StartDate,
+                                    "ApprovalBy": int.parse(emNo),
+                                    "TransactionTypeID":
+                                        _mobasharaList[widget.index]
+                                            .TransactionTypeID
+                                  }, widget.index);
+                                  EasyLoading.dismiss();
 
-                              if (response == true) {
-                                Alerts.successAlert(
-                                        context, "", "تمت الموافقة بنجاح")
-                                    .show()
-                                    .then((value) {
-                                  Navigator.pop(context);
-                                });
-                              } else {
-                                Alerts.errorAlert(context, "خطأ", response)
-                                    .show();
-                              }
+                                  if (response == true) {
+                                    Alerts.successAlert(
+                                            context, "", "تمت الموافقة ")
+                                        .show()
+                                        .then((value) {
+                                      Navigator.pop(context);
+                                    });
+                                  } else {
+                                    EasyLoading.dismiss();
+                                    Alerts.errorAlert(context, "خطأ", response)
+                                        .show();
+                                  }
+                                }
+                              });
                             }
                           },
                         ),

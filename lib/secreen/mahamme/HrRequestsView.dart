@@ -44,7 +44,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("إعتماد شؤون الموضفين", context, null),
+        appBar: AppBarW.appBarW("إعتماد شؤون الموظفين", context, null),
         body: Stack(
           children: [
             Image.asset(
