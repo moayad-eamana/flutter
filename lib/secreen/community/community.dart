@@ -31,7 +31,7 @@ class _CommunityState extends State<Community> {
     getuserinfo();
   }
 
-  int _likeCount = 300;
+  int _likeCount = 299;
   bool _isLiked = false;
 
   Future<bool> onLikeButtonTapped(bool isLiked) async {

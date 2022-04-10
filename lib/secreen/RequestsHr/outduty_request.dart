@@ -156,7 +156,16 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                         labelText: 'ادخل عدد الساعات',
                                       ),
                                       textStyle: subtitleTx(secondryColorText),
-                                      // iconColor: ,
+                                      incrementIcon: Icon(
+                                        Icons.add_box_outlined,
+                                        size: 30,
+                                        color: baseColor,
+                                      ),
+                                      decrementIcon: Icon(
+                                        Icons.indeterminate_check_box_outlined,
+                                        size: 30,
+                                        color: baseColor,
+                                      ),
                                       onChanged: (value) {
                                         _HoursNumberC = value;
                                         print(_HoursNumberC);
