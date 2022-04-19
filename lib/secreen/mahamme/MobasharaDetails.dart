@@ -31,7 +31,7 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("مباشرة عمل", context, null),
+        appBar: AppBarW.appBarW("تفاصيل الطلب", context, null),
         body: Stack(
           children: [
             Image.asset(
@@ -268,7 +268,7 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                           () async {
                             if (_formKey.currentState!.validate()) {
                               Alerts.confirmAlrt(context, "",
-                                      "هل انت متأكد من الموفقة", "نعم")
+                                      "هل انت متأكد من الموافقة", "نعم")
                                   .show()
                                   .then((value) async {
                                 if (value == true) {

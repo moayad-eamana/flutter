@@ -29,7 +29,7 @@ class _MobasharaState extends State<Mobashara> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("مباشرة عمل", context, null),
+        appBar: AppBarW.appBarW("إعتماد مباشرة عمل", context, null),
         body: Stack(
           children: [
             Image.asset(

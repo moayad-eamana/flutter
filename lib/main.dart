@@ -224,7 +224,7 @@ class _MyAppState extends State<MyApp> {
 
   getToken() async {
     String? token = await messaging.getToken();
-    print(token);
+    // print(token);
   }
 
   bool fingerprint = false;

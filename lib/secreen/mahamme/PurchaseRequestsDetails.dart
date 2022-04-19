@@ -194,7 +194,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
 
                                 if (res == true) {
                                   Alerts.successAlert(
-                                          context, "", "تم الإعتماد بنجاح")
+                                          context, "", "تم الإعتماد ")
                                       .show()
                                       .then((value) {
                                     Navigator.pop(context);
@@ -222,7 +222,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
 
                                   if (res == true) {
                                     Alerts.successAlert(
-                                            context, "", "تم الرفض بنجاح")
+                                            context, "", "تم الرفض ")
                                         .show()
                                         .then((value) {
                                       Navigator.pop(context);
