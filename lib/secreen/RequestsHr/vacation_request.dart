@@ -113,7 +113,7 @@ class _VacationRequestState extends State<VacationRequest> {
                   context, "خطأ", jsonDecode(respose.body)["ErrorMessage"])
               .show();
         } else {
-          Alerts.successAlert(context, "تم النجاح", "تم ارسال الطلب").show();
+          Alerts.successAlert(context, "", "تم ارسال الطلب").show();
         }
 
         EasyLoading.dismiss();
@@ -745,6 +745,17 @@ class _VacationRequestState extends State<VacationRequest> {
                                   //     print("ee");
                                   //   },
                                   // ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  widgetsUni.actionbutton(
+                                    'الطلبات السابقة',
+                                    Icons.history,
+                                    () {
+                                      Navigator.pushNamed(
+                                          context, "/vacation_old_request");
+                                    },
+                                  ),
                                   SizedBox(
                                     width: 10,
                                   ),

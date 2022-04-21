@@ -83,7 +83,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                   context, "خطأ", jsonDecode(respose.body)["ErrorMessage"])
               .show();
         } else {
-          Alerts.successAlert(context, "تم النجاح", "تم ارسال الطلب").show();
+          Alerts.successAlert(context, "", "تم ارسال الطلب").show();
         }
 
         EasyLoading.dismiss();
@@ -259,10 +259,10 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                               maxLines: 3,
                               decoration: formlabel1("ملاحظات"),
                               validator: (value) {
-                                if (value == null ||
-                                    value.isEmpty ||
-                                    value.length < 15) {
+                                if (value == null || value.isEmpty) {
                                   return 'يرجى كتابة ملاحظة';
+                                } else if (value.length < 15) {
+                                  return 'الرجاء إدخال أكثر من ١٥ حرف';
                                 }
                                 return null;
                               },
@@ -282,6 +282,17 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                   //     print("ee");
                                   //   },
                                   // ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  widgetsUni.actionbutton(
+                                    'الطلبات السابقة',
+                                    Icons.history,
+                                    () {
+                                      Navigator.pushNamed(
+                                          context, "/OutDuties_hostiry");
+                                    },
+                                  ),
                                   SizedBox(
                                     width: 10,
                                   ),

@@ -12,6 +12,8 @@ import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/OutDuties_history.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/vacation_history_request.dart';
 import 'package:eamanaapp/secreen/Settings/settings%20copy.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/auth.dart';
@@ -308,6 +310,8 @@ class _MyAppState extends State<MyApp> {
           '/comments': (context) => Comments(),
           '/events': (context) => Events(),
           '/Settings2': (context) => Settings2(null), //for test animation
+          '/vacation_old_request': (context) => vacation_old_request(),
+          '/OutDuties_hostiry': (context) => OutDuties_hostiry(),
         },
       );
     });

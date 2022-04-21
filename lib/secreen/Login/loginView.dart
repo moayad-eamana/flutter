@@ -4,9 +4,10 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -20,7 +21,22 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController _password = TextEditingController();
   bool _usernameError = false;
   bool passError = false;
+  bool rememperMe = false;
   var _provider;
+  void initState() {
+    if (sharedPref.getBool("rememberMe") == true) {
+      rememperMe = true;
+
+      _username.text = sharedPref.getString("emNoPref") ?? "";
+      _password.text = sharedPref.getString("PassPref") ?? "";
+      setState(() {});
+    } else {
+      rememperMe = false;
+      setState(() {});
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
@@ -113,7 +129,39 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                   password(),
                                   const SizedBox(
-                                    height: 20,
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 30),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "تذكرني",
+                                          style: subtitleTx(baseColorText),
+                                        ),
+                                        Checkbox(
+                                            value: rememperMe,
+                                            onChanged: (bool? val) {
+                                              setState(() {
+                                                sharedPref.setString(
+                                                    "emNoPref", _username.text);
+                                                sharedPref.setString(
+                                                    "PassPref", _password.text);
+
+                                                rememperMe = val ?? false;
+
+                                                if (val == true) {
+                                                  sharedPref.setBool(
+                                                      "rememberMe", true);
+                                                } else {
+                                                  sharedPref.setBool(
+                                                      "rememberMe", false);
+                                                }
+                                              });
+                                            }),
+                                      ],
+                                    ),
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -175,6 +223,8 @@ class _LoginViewState extends State<LoginView> {
           alignLabelWithHint: true,
         ),
         onChanged: (String val) {
+          sharedPref.setString("emNoPref", _username.text);
+
           setState(() {
             if (val.isEmpty) {
               _usernameError = true;
@@ -219,6 +269,7 @@ class _LoginViewState extends State<LoginView> {
           errorText: (passError ? "الرجاء إدخال الرقم السري" : null),
         ),
         onChanged: (String val) {
+          sharedPref.setString("PassPref", _password.text);
           setState(() {
             if (val.isEmpty) {
               passError = true;
