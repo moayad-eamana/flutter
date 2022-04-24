@@ -133,6 +133,16 @@ class _EntedabState extends State<Entedab> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           widgetsUni.actionbutton(
+                            'الطلبات السابقة',
+                            Icons.history,
+                            () {
+                              Navigator.pushNamed(context, "/Mandates_history");
+                            },
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          widgetsUni.actionbutton(
                             'تنفيذ',
                             Icons.send,
                             () {
@@ -176,7 +186,10 @@ class _EntedabState extends State<Entedab> {
                                               int.parse(_dayNumber.text),
                                           "StartDate": _date.text,
                                           "EndDate": "",
-                                          "MandateLocationID": locationId,
+                                          "MandateLocationID": int.parse(
+                                              locationId
+                                                  .toString()
+                                                  .split(".")[0]),
                                           "DepartmentID": double.parse(
                                               DepartmentID.toStringAsFixed(1)),
                                           "Notes": _Note.text

@@ -555,8 +555,8 @@ class _Settings2State extends State<Settings2> {
                                           .show()
                                           .then((value) {
                                         if (value == true) {
-                                          sharedPref.setString(
-                                              "EmployeeNumber", "");
+                                          sharedPref.setDouble(
+                                              "EmployeeNumber", 0);
 
                                           Navigator.pushReplacementNamed(
                                               context, '/loginView');

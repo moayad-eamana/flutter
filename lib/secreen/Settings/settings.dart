@@ -240,8 +240,8 @@ class _SettingsState extends State<Settings> {
                                             .show()
                                             .then((value) async {
                                           if (value == true) {
-                                            sharedPref.setString(
-                                                "EmployeeNumber", "");
+                                            sharedPref.setDouble(
+                                                "EmployeeNumber", 0);
                                             sharedPref.setString(
                                                 "hasePerm", "");
                                             hasePerm = "";

@@ -66,7 +66,6 @@ class LoginProvider extends ChangeNotifier {
 
     if (jsonDecode(respose.body)["IsValid"] == true) {
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
-
       sharedPref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
       sharedPref.setString("EmployeeName", empinfo["EmployeeName"].toString());
       sharedPref.setString("FirstName", empinfo["FirstName"].toString());
@@ -102,6 +101,8 @@ class LoginProvider extends ChangeNotifier {
       sharedPref.setInt("GenderID", empinfo["GenderID"]);
       sharedPref.setString(
           "AccessToken", jsonDecode(respose.body)["AccessToken"] ?? "");
+      sharedPref.setString(
+          "tokenTime", (DateTime.now().add(Duration(days: 3))).toString());
       await hasPermission();
       return true;
     }

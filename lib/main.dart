@@ -12,6 +12,7 @@ import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/Mandates_history.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/OutDuties_history.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/vacation_history_request.dart';
 import 'package:eamanaapp/secreen/Settings/settings%20copy.dart';
@@ -69,6 +70,7 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: baseColor,
   ));
+
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -199,7 +201,16 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     getfingerprintSettings();
-
+    if (widget.username != null && widget.username != 0) {
+      DateTime time = DateTime.parse(sharedPref.getString("tokenTime") ?? "");
+      print(time);
+      print(DateTime.now());
+      if (time.compareTo(DateTime.now()) == 0 ||
+          time.compareTo(DateTime.now()) < 0) {
+        widget.username = null;
+      }
+    }
+    print(widget.username);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
@@ -270,7 +281,7 @@ class _MyAppState extends State<MyApp> {
           // buttonColor: Colors.amber,
           // deprecated,
         ),
-        initialRoute: widget.username == null || widget.username == ""
+        initialRoute: widget.username == null || widget.username == 0
             ? "/"
             : fingerprint == false
                 ? '/home'
@@ -312,6 +323,7 @@ class _MyAppState extends State<MyApp> {
           '/Settings2': (context) => Settings2(null), //for test animation
           '/vacation_old_request': (context) => vacation_old_request(),
           '/OutDuties_hostiry': (context) => OutDuties_hostiry(),
+          '/Mandates_history': (context) => Mandates_history(),
         },
       );
     });

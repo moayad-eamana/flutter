@@ -486,9 +486,9 @@ class _HomPanelState extends State<HomePanel>
                                                           .show()
                                                           .then((value) {
                                                         if (value == true) {
-                                                          sharedPref.setString(
+                                                          sharedPref.setDouble(
                                                               "EmployeeNumber",
-                                                              "");
+                                                              0);
                                                           sharedPref.setString(
                                                               "hasePerm", "");
                                                           hasePerm = "";
