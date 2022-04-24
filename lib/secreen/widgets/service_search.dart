@@ -409,7 +409,8 @@ class CustomSearchDelegate extends SearchDelegate {
       maskType: EasyLoadingMaskType.black,
     );
     String emNo = await EmployeeProfile.getEmployeeNumber();
-    var respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+    dynamic respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+    respose = jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
     EasyLoading.dismiss();
     showDialog<String>(
       context: context,
@@ -429,8 +430,7 @@ class CustomSearchDelegate extends SearchDelegate {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                jsonDecode(respose.body)["EmpInfo"]["VacationBalance"]
-                    .toString(),
+                respose.toString(),
                 style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.bold,

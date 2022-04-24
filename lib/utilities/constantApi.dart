@@ -25,7 +25,7 @@ dynamic getAction(String link) async {
     hasePerm = "";
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-    return;
+    return null;
   }
   return respns;
 }
@@ -47,7 +47,7 @@ dynamic postAction(String link, dynamic body) async {
     hasePerm = "";
     navigatorKey.currentState
         ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-    return;
+    return null;
   }
   return respns;
 }

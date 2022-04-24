@@ -64,8 +64,11 @@ class SliderWidget {
                       maskType: EasyLoadingMaskType.black,
                     );
                     String emNo = await EmployeeProfile.getEmployeeNumber();
-                    var respose =
+                    dynamic respose =
                         await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+                    print(respose);
+                    respose =
+                        jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
                     EasyLoading.dismiss();
                     showDialog<String>(
                       context: context,
@@ -85,9 +88,7 @@ class SliderWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                jsonDecode(respose.body)["EmpInfo"]
-                                        ["VacationBalance"]
-                                    .toString(),
+                                respose.toString(),
                                 style: TextStyle(
                                     fontSize: 38,
                                     fontWeight: FontWeight.bold,
