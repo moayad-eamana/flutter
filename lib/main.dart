@@ -56,6 +56,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       ),
     );
   }
+
   print("Handling a background message: ${message.messageId}");
 }
 
@@ -76,6 +77,7 @@ Future<void> main() async {
 
   sharedPref = await SharedPreferences.getInstance();
   hasePerm = sharedPref.getString("hasePerm");
+
   channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -203,14 +205,15 @@ class _MyAppState extends State<MyApp> {
     getfingerprintSettings();
     if (widget.username != null && widget.username != 0) {
       DateTime time = DateTime.parse(sharedPref.getString("tokenTime") ?? "");
-      print(time);
+
       print(DateTime.now());
       if (time.compareTo(DateTime.now()) == 0 ||
           time.compareTo(DateTime.now()) < 0) {
+        unsubscribeFromNotofication();
         widget.username = null;
       }
     }
-    print(widget.username);
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
@@ -231,13 +234,16 @@ class _MyAppState extends State<MyApp> {
         );
       }
     });
-
     getToken();
   }
 
   getToken() async {
     String? token = await messaging.getToken();
-    // print(token);
+    print(token);
+  }
+
+  unsubscribeFromNotofication() async {
+    await FirebaseMessaging.instance.unsubscribeFromTopic('raqame_eamana');
   }
 
   bool fingerprint = false;

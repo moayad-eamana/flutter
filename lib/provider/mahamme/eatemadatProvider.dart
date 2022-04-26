@@ -6,6 +6,8 @@ import 'package:eamanaapp/model/RequestRejectReasons.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class EatemadatProvider extends ChangeNotifier {
   bool isLoding = false;
 
@@ -52,8 +54,8 @@ class EatemadatProvider extends ChangeNotifier {
     return List.from(_hrRequestsList);
   }
 
-  Future<dynamic> deleteEtmad(
-      int index, bool IsRecjcted, String resondID) async {
+  Future<dynamic> deleteEtmad(int index, bool IsRecjcted, String resondID,
+      var _ReplaceEmployeeNumber, int RequestTypeID) async {
     double id = 0;
     for (int i = 0; i < _RequestRejectReasons.length; i++) {
       if (resondID == _RequestRejectReasons[i].RejectReasonName) {
@@ -62,7 +64,7 @@ class EatemadatProvider extends ChangeNotifier {
       }
     }
     String empNo = await EmployeeProfile.getEmployeeNumber();
-
+    _ReplaceEmployeeNumber = _ReplaceEmployeeNumber ?? 0.0;
     var respose = await postAction(
         "Inbox/HrRequestApprove",
         jsonEncode({
@@ -72,7 +74,10 @@ class EatemadatProvider extends ChangeNotifier {
           "IsApproved": IsRecjcted,
           "RejectReasonID": IsRecjcted ? 0.0 : id,
           "RequestTypeID": _hrRequestsList[index].RequestTypeID,
-          "ApprovedBy": int.parse(empNo)
+          "ApprovedBy": int.parse(empNo),
+          "ReplacementEmployee": RequestTypeID == 3
+              ? int.parse(_ReplaceEmployeeNumber.toString().split(".")[0])
+              : 0
         }));
 
     print(respose.body);
@@ -83,6 +88,15 @@ class EatemadatProvider extends ChangeNotifier {
     _hrRequestsList.removeAt(index);
 
     notifyListeners();
+    return true;
+  }
+
+  Future<dynamic> UpdateOutDutyRequest(var _data) async {
+    var respose = await postAction("HR/UpdateOutDutyRequest", _data);
+    if (jsonDecode(respose.body)["StatusCode"] != 400) {
+      return jsonDecode(respose.body)["ErrorMessage"];
+    }
+
     return true;
   }
 

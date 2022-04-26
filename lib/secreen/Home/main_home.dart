@@ -17,6 +17,7 @@ import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/testbase64.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +62,11 @@ class _MainHomeState extends State<MainHome> {
     embId();
     super.initState();
     //hasPermission();
+    subscribeToNotification();
+  }
+
+  subscribeToNotification() async {
+    await FirebaseMessaging.instance.subscribeToTopic('raqame_eamana');
   }
 
   EmployeeProfile empinfo = new EmployeeProfile();

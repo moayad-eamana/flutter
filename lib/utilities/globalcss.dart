@@ -169,6 +169,33 @@ InputDecoration formlabel1(String lableName) {
       ));
 }
 
+InputDecoration formlabelClearText1(String lableName, VoidCallback onClicked) {
+  return InputDecoration(
+      // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      labelText: lableName,
+      labelStyle: TextStyle(color: secondryColorText),
+      errorStyle: TextStyle(color: redColor),
+      suffixIcon: GestureDetector(
+          onTap: () {
+            onClicked();
+          },
+          child: Icon(Icons.close)),
+      contentPadding:
+          EdgeInsets.symmetric(vertical: responsiveMT(8, 30), horizontal: 10.0),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4.0),
+        borderSide: BorderSide(color: bordercolor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ));
+}
+
 BoxDecoration containerdecoration(Color color) {
   return BoxDecoration(
       color: color,

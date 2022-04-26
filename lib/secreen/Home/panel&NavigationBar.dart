@@ -16,6 +16,7 @@ import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -484,8 +485,12 @@ class _HomPanelState extends State<HomePanel>
                                                               "هل تريد الخروج من التطبيق",
                                                               "نعم")
                                                           .show()
-                                                          .then((value) {
+                                                          .then((value) async {
                                                         if (value == true) {
+                                                          await FirebaseMessaging
+                                                              .instance
+                                                              .unsubscribeFromTopic(
+                                                                  'raqame_eamana');
                                                           sharedPref.setDouble(
                                                               "EmployeeNumber",
                                                               0);

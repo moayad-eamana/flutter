@@ -37,13 +37,13 @@ class MainDepartmentEmployees {
       json["Department"] ?? "",
       json["DepartmentID"],
       json["VacationBalance"],
-      json["JobName"],
+      json["JobName"] ?? "",
       json["JoinDatehH"] ?? "",
       json["EmployeeName"],
-      json["JoinDateG"],
+      json["JoinDateG"] ?? "",
       json["MainDepartmentID"],
       json["MainDepartmentName"] ?? "",
-      json["Email"],
+      json["Email"] ?? "",
     );
   }
 }

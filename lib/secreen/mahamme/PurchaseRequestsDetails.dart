@@ -5,7 +5,6 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class PurchaseRequestsDetails extends StatefulWidget {
   int index;

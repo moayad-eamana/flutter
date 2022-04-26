@@ -62,8 +62,8 @@ class _VacationRequestState extends State<VacationRequest> {
       maskType: EasyLoadingMaskType.black,
     );
     await getuserinfo();
-    var respose = await getAction(
-        "HR/GetMainDepartmentEmployees/" + empinfo.MainDepartmentID.toString());
+    var respose = await getAction("HR/GetEmployeeReplacments/" +
+        empinfo.EmployeeNumber.toString().split(".")[0]);
     // print(empinfo.MainDepartmentID.toString());
     //print("respose = " + respose.toString());
     try {

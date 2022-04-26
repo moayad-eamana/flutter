@@ -3,6 +3,7 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -553,8 +554,11 @@ class _Settings2State extends State<Settings2> {
                                               "هل تريد الخروج من التطبيق",
                                               "نعم")
                                           .show()
-                                          .then((value) {
+                                          .then((value) async {
                                         if (value == true) {
+                                          await FirebaseMessaging.instance
+                                              .unsubscribeFromTopic(
+                                                  'raqame_eamana');
                                           sharedPref.setDouble(
                                               "EmployeeNumber", 0);
 
