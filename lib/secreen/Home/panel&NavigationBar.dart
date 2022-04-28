@@ -487,10 +487,10 @@ class _HomPanelState extends State<HomePanel>
                                                           .show()
                                                           .then((value) async {
                                                         if (value == true) {
-                                                          await FirebaseMessaging
+                                                          FirebaseMessaging
                                                               .instance
-                                                              .unsubscribeFromTopic(
-                                                                  'raqame_eamana');
+                                                              .deleteToken();
+
                                                           sharedPref.setDouble(
                                                               "EmployeeNumber",
                                                               0);

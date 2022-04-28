@@ -556,9 +556,9 @@ class _Settings2State extends State<Settings2> {
                                           .show()
                                           .then((value) async {
                                         if (value == true) {
-                                          await FirebaseMessaging.instance
-                                              .unsubscribeFromTopic(
-                                                  'raqame_eamana');
+                                          FirebaseMessaging.instance
+                                              .deleteToken();
+
                                           sharedPref.setDouble(
                                               "EmployeeNumber", 0);
 

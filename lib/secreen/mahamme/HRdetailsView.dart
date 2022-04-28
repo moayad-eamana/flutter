@@ -188,7 +188,6 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                         widget.index ?? 0]
                                                     .OverTimeHours
                                                     .toString()
-                                                    .split(".")[0]
                                                 : _provider
                                                     .getHrRequests[
                                                         widget.index ?? 0]

@@ -243,6 +243,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   unsubscribeFromNotofication() async {
+    await FirebaseMessaging.instance.deleteToken();
     await FirebaseMessaging.instance.unsubscribeFromTopic('raqame_eamana');
   }
 
