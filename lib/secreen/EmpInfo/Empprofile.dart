@@ -119,7 +119,9 @@ class _EmpProfileState extends State<EmpProfile> {
                               ],
                             ),
                           ),
-                          TextW_size(_provider[0].EmployeeName),
+                          TextW_size(
+                            _provider[0].EmployeeName,
+                          ),
                           TextW(_provider[0].Title),
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 10),
@@ -230,7 +232,7 @@ class _EmpProfileState extends State<EmpProfile> {
   Widget TextW(String val) {
     return Text(
       val,
-      style: TextStyle(fontFamily: "Cairo"),
+      style: TextStyle(fontFamily: "Cairo", color: baseColorText),
     );
   }
 
@@ -238,7 +240,10 @@ class _EmpProfileState extends State<EmpProfile> {
     return Text(
       val,
       style: TextStyle(
-          fontFamily: "Cairo", fontSize: 18, fontWeight: FontWeight.bold),
+          fontFamily: "Cairo",
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: baseColor),
     );
   }
 

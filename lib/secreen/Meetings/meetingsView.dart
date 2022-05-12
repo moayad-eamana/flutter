@@ -164,6 +164,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                   _provider.meetingList[index]
                                                       .Subject,
                                                   style: TextStyle(
+                                                      color: baseColorText,
                                                       fontFamily: "Cairo",
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -458,7 +459,7 @@ class _MeetingViewState extends State<MeetingView> {
   Widget TextW(String v) {
     return Text(
       v,
-      style: TextStyle(fontFamily: "Cairo"),
+      style: TextStyle(fontFamily: "Cairo", color: baseColorText),
     );
   }
 

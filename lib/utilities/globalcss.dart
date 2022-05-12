@@ -149,24 +149,26 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
 
 InputDecoration formlabel1(String lableName) {
   return InputDecoration(
-      // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-      labelText: lableName,
-      labelStyle: TextStyle(color: secondryColorText),
-      errorStyle: TextStyle(color: redColor),
-      contentPadding:
-          EdgeInsets.symmetric(vertical: responsiveMT(8, 30), horizontal: 10.0),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4.0),
-        borderSide: BorderSide(color: bordercolor),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: bordercolor),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: bordercolor),
-        borderRadius: BorderRadius.circular(4),
-      ));
+    // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+    counterStyle: TextStyle(color: baseColorText),
+    labelText: lableName,
+    labelStyle: TextStyle(color: secondryColorText),
+    errorStyle: TextStyle(color: redColor),
+    contentPadding:
+        EdgeInsets.symmetric(vertical: responsiveMT(8, 30), horizontal: 10.0),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(4.0),
+      borderSide: BorderSide(color: bordercolor),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: bordercolor),
+      borderRadius: BorderRadius.circular(4),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: bordercolor),
+      borderRadius: BorderRadius.circular(4),
+    ),
+  );
 }
 
 InputDecoration formlabelClearText1(String lableName, VoidCallback onClicked) {

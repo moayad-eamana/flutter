@@ -198,6 +198,9 @@ class _VacationRequestState extends State<VacationRequest> {
                                 children: [
                                   TextFormField(
                                     controller: _daysNumber,
+                                    style: TextStyle(
+                                      color: baseColorText,
+                                    ),
                                     inputFormatters: <TextInputFormatter>[
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
@@ -213,6 +216,9 @@ class _VacationRequestState extends State<VacationRequest> {
                                   ),
                                   TextFormField(
                                     controller: _date,
+                                    style: TextStyle(
+                                      color: baseColorText,
+                                    ),
                                     readOnly: true,
                                     // keyboardType: TextInputType.datetime,
                                     maxLines: 1,
@@ -266,8 +272,9 @@ class _VacationRequestState extends State<VacationRequest> {
                                                   : selectedItem[
                                                           "VacationTypeName"] ??
                                                       "",
-                                              style: subtitleTx(baseColorText),
-                                            ),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: baseColorText)),
                                     ),
                                     dropdownBuilderSupportsNullItem: true,
                                     mode: Mode.BOTTOM_SHEET,
@@ -348,8 +355,9 @@ class _VacationRequestState extends State<VacationRequest> {
                                               selecteditem == null
                                                   ? ""
                                                   : selecteditem ?? "",
-                                              style: subtitleTx(baseColorText),
-                                            ),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: baseColorText)),
                                     ),
                                     dropdownBuilderSupportsNullItem: true,
                                     selectedItem: selecteditem == null
@@ -724,6 +732,7 @@ class _VacationRequestState extends State<VacationRequest> {
                               controller: _note,
                               keyboardType: TextInputType.text,
                               maxLines: 3,
+                              style: TextStyle(color: baseColorText),
                               decoration: formlabel1("ملاحظات"),
                             ),
                             SizedBox(

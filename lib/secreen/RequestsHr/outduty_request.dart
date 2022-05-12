@@ -190,6 +190,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                   // ),
                                   TextFormField(
                                     controller: _dateFrom,
+                                    style: TextStyle(color: baseColorText),
                                     readOnly: true,
                                     // keyboardType: TextInputType.datetime,
                                     maxLines: 1,
@@ -220,6 +221,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                   ),
                                   TextFormField(
                                     controller: _dateTo,
+                                    style: TextStyle(color: baseColorText),
                                     readOnly: true,
                                     // keyboardType: TextInputType.datetime,
                                     maxLines: 1,
@@ -254,6 +256,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                             ),
                             TextFormField(
                               maxLength: 300,
+                              style: TextStyle(color: baseColorText),
                               controller: _note,
                               keyboardType: TextInputType.text,
                               maxLines: 3,
