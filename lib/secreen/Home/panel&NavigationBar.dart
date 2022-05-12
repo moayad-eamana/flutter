@@ -1023,7 +1023,7 @@ class _HomPanelState extends State<HomePanel>
                                 ),
                           const SizedBox(height: 4),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
                             child: AutoSizeText(
                               list[index],
                               maxLines: 1,
