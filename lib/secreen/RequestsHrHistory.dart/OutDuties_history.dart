@@ -71,6 +71,7 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
                               elevation: 1,
                               child: Container(
                                 padding: EdgeInsets.all(10),
+                                color: BackGWhiteColor,
                                 child: Column(
                                   children: [
                                     Text(

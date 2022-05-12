@@ -35,10 +35,12 @@ class _OutDuties_history_detailesState
                   child: Column(
                     children: [
                       Card(
+                        color: BackGWhiteColor,
                         elevation: 1,
                         child: Container(
                           width: 95.w,
                           padding: EdgeInsets.all(10),
+                          // color: BackGWhiteColor,
                           child: Column(
                             children: [
                               Text(
@@ -65,6 +67,7 @@ class _OutDuties_history_detailesState
                         children: [
                           Expanded(
                             child: Card(
+                              color: BackGWhiteColor,
                               elevation: 1,
                               child: Container(
                                 padding: EdgeInsets.all(10),
@@ -90,6 +93,7 @@ class _OutDuties_history_detailesState
                           ),
                           Expanded(
                             child: Card(
+                              color: BackGWhiteColor,
                               elevation: 1,
                               child: Container(
                                 padding: EdgeInsets.all(10),
@@ -120,6 +124,7 @@ class _OutDuties_history_detailesState
                         children: [
                           Expanded(
                             child: Card(
+                              color: BackGWhiteColor,
                               elevation: 1,
                               child: Container(
                                 padding: EdgeInsets.all(10),
@@ -145,6 +150,7 @@ class _OutDuties_history_detailesState
                           ),
                           Expanded(
                             child: Card(
+                              color: BackGWhiteColor,
                               elevation: 1,
                               child: Container(
                                 padding: EdgeInsets.all(10),
@@ -174,6 +180,7 @@ class _OutDuties_history_detailesState
                         height: 10,
                       ),
                       Card(
+                        color: BackGWhiteColor,
                         elevation: 1,
                         child: Container(
                           width: 95.w,
@@ -199,6 +206,7 @@ class _OutDuties_history_detailesState
                         height: 10,
                       ),
                       Card(
+                        color: BackGWhiteColor,
                         elevation: 1,
                         child: Container(
                           width: 95.w,
