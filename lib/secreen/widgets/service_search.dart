@@ -77,16 +77,16 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": 'assets/SVGs/e3tmadaty.svg',
     },
     //خدمات أخرى
-    {
-      "service_name": "الفعاليات",
-      "Navigation": "",
-      "icon": 'assets/SVGs/events.svg',
-    },
-    {
-      "service_name": "عروض الموظفين",
-      "Navigation": "/EamanaDiscount",
-      "icon": 'assets/SVGs/offers.svg',
-    },
+    // {
+    //   "service_name": "الفعاليات",
+    //   "Navigation": "",
+    //   "icon": 'assets/SVGs/events.svg',
+    // },
+    // {
+    //   "service_name": "عروض الموظفين",
+    //   "Navigation": "/EamanaDiscount",
+    //   "icon": 'assets/SVGs/offers.svg',
+    // },
     {
       "service_name": "دليل الموظفين",
       "Navigation": MaterialPageRoute(
@@ -174,16 +174,16 @@ class CustomSearchDelegate extends SearchDelegate {
       "icon": 'assets/SVGs/mawa3idi.svg',
     },
     //خدمات أخرى
-    {
-      "service_name": "الفعاليات",
-      "Navigation": "",
-      "icon": 'assets/SVGs/events.svg',
-    },
-    {
-      "service_name": "عروض",
-      "Navigation": "/EamanaDiscount",
-      "icon": 'assets/SVGs/offers.svg',
-    },
+    // {
+    //   "service_name": "الفعاليات",
+    //   "Navigation": "",
+    //   "icon": 'assets/SVGs/events.svg',
+    // },
+    // {
+    //   "service_name": "عروض",
+    //   "Navigation": "/EamanaDiscount",
+    //   "icon": 'assets/SVGs/offers.svg',
+    // },
     {
       "service_name": "دليل الموظفين",
       "Navigation": MaterialPageRoute(

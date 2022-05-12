@@ -107,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),
                               padding: EdgeInsets.symmetric(vertical: 25),
-                              decoration: containerdecoration(Colors.white),
+                              decoration: containerdecoration(BackGWhiteColor),
                               child: Column(
                                 //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [

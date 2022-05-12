@@ -132,10 +132,20 @@ class SliderWidget {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/EamanaDiscount');
+                    Navigator.pushNamed(context, '/auhad');
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/offers.svg', "عروض الموظفين"))),
+                      'assets/SVGs/3ohad.svg', "العهد"))),
+          // StaggeredGridTile.extent(
+          //     crossAxisCellCount: 1,
+          //     mainAxisExtent: hi,
+          //     child: ElevatedButton(
+          //         style: cardServiece,
+          //         onPressed: () {
+          //           Navigator.pushNamed(context, '/EamanaDiscount');
+          //         },
+          //         child: widgetsUni.cardcontentService(
+          //             'assets/SVGs/offers.svg', "عروض الموظفين"))),
         ],
       ),
       StaggeredGrid.count(
@@ -154,25 +164,17 @@ class SliderWidget {
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/ejaza.svg', "طلب إجازة"))),
           StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/OutdutyRequest");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/auhad');
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/3ohad.svg', "العهد"))),
+              crossAxisCellCount: 1, mainAxisExtent: hi, child: Container()),
+          // StaggeredGridTile.extent(
+          //     crossAxisCellCount: 1,
+          //     mainAxisExtent: hi,
+          //     child: ElevatedButton(
+          //         style: cardServiece,
+          //         onPressed: () {
+          //           Navigator.pushNamed(context, "/OutdutyRequest");
+          //         },
+          //         child: widgetsUni.cardcontentService(
+          //             'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,

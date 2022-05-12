@@ -221,6 +221,43 @@ class _MainHomeState extends State<MainHome> {
                                     },
                                   ),
                                 widgetsUni.servicebutton(
+                                  "تعريف بالراتب",
+                                  'assets/SVGs/ta3refalratb.svg',
+                                  () async {
+                                    // final fingerprintSP =
+                                    //     await SharedPreferences.getInstance();
+                                    bool fingerprint =
+                                        sharedPref.getBool('fingerprint')!;
+                                    EasyLoading.show(
+                                      status: 'جاري المعالجة...',
+                                      maskType: EasyLoadingMaskType.black,
+                                    );
+                                    String emNo = await EmployeeProfile
+                                        .getEmployeeNumber();
+                                    var respons = await getAction(
+                                        "HR/GetEmployeeSalaryReport/" + emNo);
+                                    EasyLoading.dismiss();
+                                    if (fingerprint) {
+                                      Navigator.pushNamed(
+                                              context, "/auth_secreen")
+                                          .then((value) async {
+                                        if (value == true) {
+                                          //      print(jsonDecode(respons.body)["salaryPdf"]);
+
+                                          ViewFile.open(
+                                              jsonDecode(
+                                                  respons.body)["salaryPdf"],
+                                              "pdf");
+                                        }
+                                      });
+                                    } else {
+                                      ViewFile.open(
+                                          jsonDecode(respons.body)["salaryPdf"],
+                                          "pdf");
+                                    }
+                                  },
+                                ),
+                                widgetsUni.servicebutton(
                                   "معلوماتي",
                                   'assets/SVGs/baynaty.svg',
                                   () {
@@ -261,43 +298,6 @@ class _MainHomeState extends State<MainHome> {
                                 //     print("ee");
                                 //   },
                                 // ),
-                                widgetsUni.servicebutton(
-                                  "تعريف بالراتب",
-                                  'assets/SVGs/ta3refalratb.svg',
-                                  () async {
-                                    // final fingerprintSP =
-                                    //     await SharedPreferences.getInstance();
-                                    bool fingerprint =
-                                        sharedPref.getBool('fingerprint')!;
-                                    EasyLoading.show(
-                                      status: 'جاري المعالجة...',
-                                      maskType: EasyLoadingMaskType.black,
-                                    );
-                                    String emNo = await EmployeeProfile
-                                        .getEmployeeNumber();
-                                    var respons = await getAction(
-                                        "HR/GetEmployeeSalaryReport/" + emNo);
-                                    EasyLoading.dismiss();
-                                    if (fingerprint) {
-                                      Navigator.pushNamed(
-                                              context, "/auth_secreen")
-                                          .then((value) async {
-                                        if (value == true) {
-                                          //      print(jsonDecode(respons.body)["salaryPdf"]);
-
-                                          ViewFile.open(
-                                              jsonDecode(
-                                                  respons.body)["salaryPdf"],
-                                              "pdf");
-                                        }
-                                      });
-                                    } else {
-                                      ViewFile.open(
-                                          jsonDecode(respons.body)["salaryPdf"],
-                                          "pdf");
-                                    }
-                                  },
-                                ),
                               ],
                             ),
                           ),
@@ -405,100 +405,100 @@ class _MainHomeState extends State<MainHome> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "الفعالیات و المناسبات",
-                      style: titleTx(baseColorText),
-                    ),
-                    Expanded(
-                      child: Container(
-                          // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                          child: Divider(
-                        color: baseColorText,
-                        height: 20,
-                        thickness: 1,
-                        indent: 5,
-                        endIndent: 5,
-                      )),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: containerdecoration(BackGWhiteColor),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, "/events"),
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            // aspectRatio: 3 / 4,
-                            viewportFraction: 1.0,
-                            enlargeCenterPage: false,
-                            autoPlay: true,
-                            height: responsiveMT(100, 200),
-                            onPageChanged: (index, reason) {
-                              setState(
-                                () {
-                                  _currentIndexBanner = index;
-                                },
-                              );
-                            },
-                          ),
-                          items: imageBanner
-                              .map(
-                                (e) => Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Image(
-                                        height: responsiveMT(100, 200),
-                                        fit: BoxFit.fitWidth,
-                                        image: AssetImage(e),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              selectsilderTitle.elementAt(_currentIndexBanner),
-                              style: descTx2(secondryColorText),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: selectsilderBanner.map((urlOfItem2) {
-                                int index =
-                                    selectsilderBanner.indexOf(urlOfItem2);
-                                return Container(
-                                  width: 10.0,
-                                  height: 10.0,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 2.0),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: _currentIndexBanner == index
-                                          ? baseColor
-                                          : secondryColor),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Row(
+                //   children: [
+                //     Text(
+                //       "الفعالیات و المناسبات",
+                //       style: titleTx(baseColorText),
+                //     ),
+                //     Expanded(
+                //       child: Container(
+                //           // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                //           child: Divider(
+                //         color: baseColorText,
+                //         height: 20,
+                //         thickness: 1,
+                //         indent: 5,
+                //         endIndent: 5,
+                //       )),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   decoration: containerdecoration(BackGWhiteColor),
+                //   child: Column(
+                //     children: [
+                //       GestureDetector(
+                //         onTap: () => Navigator.pushNamed(context, "/events"),
+                //         child: CarouselSlider(
+                //           options: CarouselOptions(
+                //             // aspectRatio: 3 / 4,
+                //             viewportFraction: 1.0,
+                //             enlargeCenterPage: false,
+                //             autoPlay: true,
+                //             height: responsiveMT(100, 200),
+                //             onPageChanged: (index, reason) {
+                //               setState(
+                //                 () {
+                //                   _currentIndexBanner = index;
+                //                 },
+                //               );
+                //             },
+                //           ),
+                //           items: imageBanner
+                //               .map(
+                //                 (e) => Row(
+                //                   mainAxisSize: MainAxisSize.max,
+                //                   children: [
+                //                     Expanded(
+                //                       child: Image(
+                //                         height: responsiveMT(100, 200),
+                //                         fit: BoxFit.fitWidth,
+                //                         image: AssetImage(e),
+                //                       ),
+                //                     ),
+                //                   ],
+                //                 ),
+                //               )
+                //               .toList(),
+                //         ),
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.symmetric(horizontal: 20),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               selectsilderTitle.elementAt(_currentIndexBanner),
+                //               style: descTx2(secondryColorText),
+                //             ),
+                //             Row(
+                //               mainAxisAlignment: MainAxisAlignment.end,
+                //               children: selectsilderBanner.map((urlOfItem2) {
+                //                 int index =
+                //                     selectsilderBanner.indexOf(urlOfItem2);
+                //                 return Container(
+                //                   width: 10.0,
+                //                   height: 10.0,
+                //                   margin: EdgeInsets.symmetric(
+                //                       vertical: 10.0, horizontal: 2.0),
+                //                   decoration: BoxDecoration(
+                //                       shape: BoxShape.circle,
+                //                       color: _currentIndexBanner == index
+                //                           ? baseColor
+                //                           : secondryColor),
+                //                 );
+                //               }).toList(),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

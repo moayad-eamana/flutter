@@ -36,8 +36,6 @@ class _OTPViewState extends State<OTPView> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text("تسجيل الدخول"),
-                  const Text("فضلا أدخل الرمز المرسل على الجوال"),
                   const SizedBox(
                     height: 20,
                   ),
@@ -48,7 +46,17 @@ class _OTPViewState extends State<OTPView> {
                         banalPag(),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [smsTxt(), submitBtn()],
+                          children: [
+                            Text("تسجيل الدخول",
+                                style: titleTx(secondryColorText)),
+                            Text("فضلا أدخل الرمز المرسل على الجوال",
+                                style: titleTx(secondryColorText)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            smsTxt(),
+                            submitBtn()
+                          ],
                         ),
                       ],
                     ),
@@ -83,7 +91,7 @@ class _OTPViewState extends State<OTPView> {
     return Center(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: containerdecoration(Colors.white),
+        decoration: containerdecoration(BackGWhiteColor),
         width: MediaQuery.of(context).size.width,
       ),
     );

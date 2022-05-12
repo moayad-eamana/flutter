@@ -321,27 +321,27 @@ class _ServicesViewState extends State<ServicesView> {
         mainAxisSpacing: 6,
         crossAxisSpacing: 8,
         children: [
-          if (empNo != "1111")
-            StaggeredGridTile.extent(
-                crossAxisCellCount: 1,
-                mainAxisExtent: hi,
-                child: ElevatedButton(
-                    style: cardServiece,
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/events");
-                    },
-                    child: widgetsUni.cardcontentService(
-                        'assets/SVGs/events.svg', "الفعاليات"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/EamanaDiscount");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/offers.svg', "عروض"))),
+          // if (empNo != "1111")
+          //   StaggeredGridTile.extent(
+          //       crossAxisCellCount: 1,
+          //       mainAxisExtent: hi,
+          //       child: ElevatedButton(
+          //           style: cardServiece,
+          //           onPressed: () {
+          //             Navigator.pushNamed(context, "/events");
+          //           },
+          //           child: widgetsUni.cardcontentService(
+          //               'assets/SVGs/events.svg', "الفعاليات"))),
+          // StaggeredGridTile.extent(
+          //     crossAxisCellCount: 1,
+          //     mainAxisExtent: hi,
+          //     child: ElevatedButton(
+          //         style: cardServiece,
+          //         onPressed: () {
+          //           Navigator.pushNamed(context, "/EamanaDiscount");
+          //         },
+          //         child: widgetsUni.cardcontentService(
+          //             'assets/SVGs/offers.svg', "عروض"))),
           // StaggeredGridTile.extent(
           //   crossAxisCellCount: 1,
           //   mainAxisExtent: hi,
@@ -353,25 +353,25 @@ class _ServicesViewState extends State<ServicesView> {
           //       child: widgetsUni.cardcontentService(
           //           'assets/SVGs/dalel-emp.svg', "طلب استيكر")),
           // ),
-          if (empNo != "1111")
-            StaggeredGridTileW(
-                1,
-                hi,
-                widgetsUni.servicebutton2(
-                  "دليل الموظفين",
-                  "assets/SVGs/dalelalmowzafen.svg",
-                  () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-                            create: (context) => EmpInfoProvider(),
-                            // ignore: prefer_const_constructors
-                            child: EmpInfoView(null),
-                          ),
-                        ));
-                  },
-                )),
+
+          StaggeredGridTileW(
+              1,
+              hi,
+              widgetsUni.servicebutton2(
+                "دليل الموظفين",
+                "assets/SVGs/dalelalmowzafen.svg",
+                () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => EmpInfoProvider(),
+                          // ignore: prefer_const_constructors
+                          child: EmpInfoView(null),
+                        ),
+                      ));
+                },
+              )),
           StaggeredGridTileW(
               1,
               hi,
