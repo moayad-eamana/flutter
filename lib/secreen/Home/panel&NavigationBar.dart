@@ -18,6 +18,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -733,8 +734,10 @@ class _HomPanelState extends State<HomePanel>
                                                     tag: "profile",
                                                     child: ClipOval(
                                                       child: CachedNetworkImage(
-                                                        height: 100,
-                                                        width: 100,
+                                                        height: responsiveMT(
+                                                            100, 180),
+                                                        width: responsiveMT(
+                                                            100, 180),
                                                         fit: BoxFit.cover,
                                                         imageUrl:
                                                             "https://archive.eamana.gov.sa/TransactFileUpload" +
@@ -779,6 +782,15 @@ class _HomPanelState extends State<HomePanel>
                                                 ? empinfo.JobName.toString()
                                                 : empinfo.Title.toString(),
                                             style: descTx2(baseColor)),
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 20),
+                                          child: Image.asset(
+                                            "assets/image/rakamy-logo-2.png",
+                                            fit: BoxFit.fill,
+                                            width: responsiveMT(250, 300),
+                                          ),
+                                        )
                                         // Container(
                                         //   margin: EdgeInsets.all(12),
                                         //   height: 125,
