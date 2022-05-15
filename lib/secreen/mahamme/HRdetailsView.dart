@@ -162,7 +162,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                               .getHrRequests[widget.index ?? 0]
                                               .RequestType,
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: baseColorText),
                                         )
                                       ],
                                     ),
@@ -195,7 +196,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                     .toString()
                                                     .split(".")[0],
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold))
+                                                fontWeight: FontWeight.bold,
+                                                color: baseColorText))
                                       ],
                                     )
                                   ],
@@ -224,7 +226,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                 .StartDateG
                                                 .split("T")[0],
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold))
+                                                fontWeight: FontWeight.bold,
+                                                color: baseColorText))
                                       ],
                                     ),
                                     Row(
@@ -239,7 +242,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                 .EndDateG
                                                 .split("T")[0],
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold))
+                                                fontWeight: FontWeight.bold,
+                                                color: baseColorText))
                                       ],
                                     )
                                   ],
@@ -363,9 +367,10 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                 height: 10,
                               ),
                               Directionality(
-                                textDirection: TextDirection.ltr,
+                                textDirection: TextDirection.rtl,
                                 child: DropdownSearch<String>(
                                   items: _provider.resonsSrtings,
+                                  popupBackgroundColor: BackGWhiteColor,
                                   maxHeight: 300,
                                   key: key,
                                   mode: Mode.BOTTOM_SHEET,
@@ -373,12 +378,33 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                   showAsSuffixIcons: true,
                                   dropdownSearchDecoration: InputDecoration(
                                     labelText: "سبب الرفض",
+                                    labelStyle:
+                                        TextStyle(color: secondryColorText),
+                                    errorStyle: TextStyle(color: redColor),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: responsiveMT(8, 30),
+                                        horizontal: 10.0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      borderSide:
+                                          BorderSide(color: bordercolor),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: bordercolor),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: bordercolor),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
                                     errorText: isValied == true
                                         ? null
                                         : "الرجاء إختيار السبب",
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(12, 12, 0, 0),
-                                    border: OutlineInputBorder(),
+                                    // contentPadding:
+                                    //     EdgeInsets.fromLTRB(12, 12, 0, 0),
+                                    // border: OutlineInputBorder(),
                                   ),
                                   showSearchBox: true,
                                   onChanged: (String? v) {
@@ -389,6 +415,30 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                       }
                                     });
                                   },
+                                  dropdownBuilder: (context, selectedItem) =>
+                                      Container(
+                                    decoration: null,
+                                    child: selectedItem == null
+                                        ? null
+                                        : Text(
+                                            selectedItem == null
+                                                ? ""
+                                                : selectedItem ?? "",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: baseColorText)),
+                                  ),
+                                  dropdownBuilderSupportsNullItem: true,
+                                  popupItemBuilder: (context, rr, isSelected) =>
+                                      (Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Column(
+                                      children: [
+                                        Text(rr.toString(),
+                                            style: subtitleTx(baseColorText))
+                                      ],
+                                    ),
+                                  )),
                                   popupTitle: Container(
                                     height: 50,
                                     decoration: BoxDecoration(
@@ -423,15 +473,10 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                               TextField(
                                 keyboardType: TextInputType.text,
                                 maxLines: 3,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: bordercolor)),
-                                  filled: true,
-                                  fillColor: BackGWhiteColor,
-                                  labelText: "ملاحظات",
-                                  alignLabelWithHint: true,
+                                style: TextStyle(
+                                  color: baseColorText,
                                 ),
+                                decoration: formlabel1("ملاحظات"),
                               ),
                               Container(
                                 margin: EdgeInsets.symmetric(horizontal: 20),
@@ -619,11 +664,13 @@ class _HRdetailsViewState extends State<HRdetailsView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                TextW("الرقم الوظيفي : " +
-                    _provider.getHrRequests[widget.index ?? 0]
-                        .RequesterEmployeeNumber
-                        .toString()
-                        .split(".")[0]),
+                TextW(
+                  "الرقم الوظيفي : " +
+                      _provider.getHrRequests[widget.index ?? 0]
+                          .RequesterEmployeeNumber
+                          .toString()
+                          .split(".")[0],
+                ),
                 TextW("رقم الطلب : " +
                     _provider.getHrRequests[widget.index ?? 0].RequestNumber
                         .toString()
@@ -641,7 +688,10 @@ class _HRdetailsViewState extends State<HRdetailsView> {
 
     return Text(
       txt,
-      style: TextStyle(fontFamily: "Cairo", fontSize: width >= 768.0 ? 18 : 14),
+      style: TextStyle(
+          fontFamily: "Cairo",
+          fontSize: width >= 768.0 ? 18 : 14,
+          color: baseColorText),
     );
   }
 

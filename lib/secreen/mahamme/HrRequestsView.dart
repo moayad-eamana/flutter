@@ -152,11 +152,13 @@ class _HrRequestsViewState extends State<HrRequestsView> {
                                                   "التفاصيل",
                                                   style: TextStyle(
                                                       fontSize: 14,
-                                                      fontFamily: "Cairo"),
+                                                      fontFamily: "Cairo",
+                                                      color: baseColorText),
                                                 ),
                                                 Icon(
                                                   Icons.arrow_back_ios_new,
                                                   size: 15,
+                                                  color: baseColor,
                                                 )
                                               ],
                                             ),
@@ -193,9 +195,14 @@ class _HrRequestsViewState extends State<HrRequestsView> {
         Text(
           title,
           style: TextStyle(
-              fontSize: 14, fontFamily: "Cairo", fontWeight: FontWeight.bold),
+              fontSize: 14,
+              fontFamily: "Cairo",
+              fontWeight: FontWeight.bold,
+              color: baseColorText),
         ),
-        Text(dec, style: TextStyle(fontSize: 14, fontFamily: "Cairo"))
+        Text(dec,
+            style: TextStyle(
+                fontSize: 14, fontFamily: "Cairo", color: baseColorText))
       ],
     );
   }
