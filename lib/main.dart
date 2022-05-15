@@ -170,7 +170,7 @@ void configLoading() {
     ..indicatorSize = 45.0
     ..radius = 10.0
     ..progressColor = baseColor
-    ..backgroundColor = Colors.white
+    ..backgroundColor = BackGWhiteColor
     ..indicatorColor = baseColor
     ..textColor = baseColor
     ..maskColor = baseColor.withOpacity(0.5)

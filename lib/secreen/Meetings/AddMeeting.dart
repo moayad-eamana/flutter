@@ -6,6 +6,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -92,6 +93,16 @@ class _AddMeetingState extends State<AddMeeting> {
                     border: Border.all(color: bordercolor)),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "بيانات الموعد",
+                      style: subtitleTx(secondryColorText),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       color: BackGWhiteColor,
                       margin: const EdgeInsets.symmetric(
@@ -108,6 +119,9 @@ class _AddMeetingState extends State<AddMeeting> {
                             keyboardType: TextInputType.text,
                             maxLines: 1,
                             controller: _appWith,
+                            style: TextStyle(
+                              color: baseColorText,
+                            ),
                             decoration: decoration("الموعد مع", 0),
                             onChanged: (String val) {
                               if (val == "") {
@@ -122,9 +136,15 @@ class _AddMeetingState extends State<AddMeeting> {
                             },
                           ),
                           TextField(
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.number,
                             maxLines: 1,
                             controller: _mobile,
+                            style: TextStyle(
+                              color: baseColorText,
+                            ),
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             decoration: decoration("رقم الجوال", 6),
                             onChanged: (String val) {
                               if (val == "") {
@@ -142,6 +162,9 @@ class _AddMeetingState extends State<AddMeeting> {
                             keyboardType: TextInputType.text,
                             maxLines: 1,
                             controller: _subject,
+                            style: TextStyle(
+                              color: baseColorText,
+                            ),
                             decoration: decoration("الموضوع", 1),
                             onChanged: (String val) {
                               if (val == "") {
@@ -159,6 +182,10 @@ class _AddMeetingState extends State<AddMeeting> {
                             keyboardType: TextInputType.text,
                             maxLines: 1,
                             controller: _date,
+                            style: TextStyle(
+                              color: baseColorText,
+                            ),
+                            readOnly: true,
                             decoration: decoration("التاريخ", 2),
                             onChanged: (String val) {
                               if (val == "") {
@@ -173,6 +200,12 @@ class _AddMeetingState extends State<AddMeeting> {
                             },
                             onTap: () {
                               DatePicker.showDatePicker(context,
+                                  theme: DatePickerTheme(
+                                    backgroundColor: BackGWhiteColor,
+                                    itemStyle: TextStyle(
+                                      color: baseColorText,
+                                    ),
+                                  ),
                                   showTitleActions: true,
                                   minTime: DateTime(2021, 3, 5),
                                   onChanged: (date) {
@@ -191,6 +224,7 @@ class _AddMeetingState extends State<AddMeeting> {
                             },
                           ),
                           DropdownSearch<String>(
+                            popupBackgroundColor: BackGWhiteColor,
                             items: TimsAvilable.length == 0 ? [] : TimsAvilable,
                             //maxHeight: 300,
                             selectedItem: _Time.text,
@@ -198,6 +232,18 @@ class _AddMeetingState extends State<AddMeeting> {
                             showClearButton: true,
                             showAsSuffixIcons: true,
 
+                            dropdownBuilder: (context, selectedItem) =>
+                                Container(
+                              decoration: null,
+                              child: selectedItem == null
+                                  ? null
+                                  : Text(
+                                      selectedItem == null
+                                          ? ""
+                                          : selectedItem ?? "",
+                                      style: TextStyle(
+                                          fontSize: 16, color: baseColorText)),
+                            ),
                             dropdownSearchDecoration:
                                 decoration("الاوقات المتاحة", 7),
                             showSearchBox: true,
@@ -234,18 +280,30 @@ class _AddMeetingState extends State<AddMeeting> {
                                 ),
                               ),
                             ),
+                            dropdownBuilderSupportsNullItem: true,
                             popupShape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(24),
                                 topRight: Radius.circular(24),
                               ),
                             ),
+                            popupItemBuilder: (context, rr, isSelected) =>
+                                (Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Column(
+                                children: [
+                                  Text(rr, style: subtitleTx(baseColorText))
+                                ],
+                              ),
+                            )),
                           ),
                           DropdownSearch<String>(
+                            popupBackgroundColor: BackGWhiteColor,
                             items: ["حضوري", "إفتراضي"],
                             //maxHeight: 300,
                             selectedItem:
                                 _tpeApp.text == "" ? "" : _tpeApp.text,
+
                             mode: Mode.BOTTOM_SHEET,
                             showClearButton: true,
                             showAsSuffixIcons: true,
@@ -270,6 +328,19 @@ class _AddMeetingState extends State<AddMeeting> {
                                 });
                               }
                             },
+
+                            dropdownBuilder: (context, selectedItem) =>
+                                Container(
+                              decoration: null,
+                              child: selectedItem == null
+                                  ? null
+                                  : Text(
+                                      selectedItem == null
+                                          ? ""
+                                          : selectedItem ?? "",
+                                      style: TextStyle(
+                                          fontSize: 16, color: baseColorText)),
+                            ),
 
                             popupTitle: Container(
                               height: 50,
@@ -297,12 +368,25 @@ class _AddMeetingState extends State<AddMeeting> {
                                 topRight: Radius.circular(24),
                               ),
                             ),
+                            dropdownBuilderSupportsNullItem: true,
+                            popupItemBuilder: (context, rr, isSelected) =>
+                                (Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Column(
+                                children: [
+                                  Text(rr, style: subtitleTx(baseColorText))
+                                ],
+                              ),
+                            )),
                           ),
                           if (_tpeApp.text == "إفتراضي")
                             TextField(
                               keyboardType: TextInputType.text,
                               maxLines: 1,
                               controller: _url,
+                              style: TextStyle(
+                                color: baseColorText,
+                              ),
                               decoration: decoration("رابط الإجتماع", 3),
                               onChanged: (String val) {
                                 if (_tpeApp.text == "إفتراضي") {
@@ -328,6 +412,9 @@ class _AddMeetingState extends State<AddMeeting> {
                                     controller: _meetingId,
                                     keyboardType: TextInputType.text,
                                     maxLines: 1,
+                                    style: TextStyle(
+                                      color: baseColorText,
+                                    ),
                                     decoration: decoration("الرقم المعرف", 4),
                                     onChanged: (String val) {
                                       if (_tpeApp.text == "إفتراضي") {
@@ -350,6 +437,9 @@ class _AddMeetingState extends State<AddMeeting> {
                                     keyboardType: TextInputType.text,
                                     maxLines: 1,
                                     controller: _pass,
+                                    style: TextStyle(
+                                      color: baseColorText,
+                                    ),
                                     decoration: decoration("كلمة السر", 5),
                                     onChanged: (String val) {
                                       if (_tpeApp.text == "إفتراضي") {
@@ -372,7 +462,13 @@ class _AddMeetingState extends State<AddMeeting> {
                             keyboardType: TextInputType.text,
                             controller: _notes,
                             maxLines: 3,
+                            style: TextStyle(
+                              color: baseColorText,
+                            ),
                             decoration: InputDecoration(
+                              labelStyle: TextStyle(color: secondryColorText),
+                              errorStyle: TextStyle(color: redColor),
+
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: responsiveMT(12, 30),
                                   horizontal: 10.0),
@@ -388,8 +484,8 @@ class _AddMeetingState extends State<AddMeeting> {
                                 borderSide: BorderSide(color: bordercolor),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              filled: true,
-                              fillColor: Colors.white,
+                              // filled: true,
+                              // fillColor: Colors.white,
                               labelText: "ملاحظات",
                               alignLabelWithHint: true,
                             ),
@@ -496,6 +592,9 @@ class _AddMeetingState extends State<AddMeeting> {
   decoration(String val, int i) {
     return InputDecoration(
       errorText: error[i].text == "" ? null : error[i].text,
+      labelStyle: TextStyle(color: secondryColorText),
+      errorStyle: TextStyle(color: redColor),
+
       contentPadding: EdgeInsets.symmetric(
           vertical: responsiveMT(12, 30), horizontal: 10.0),
       border: OutlineInputBorder(
@@ -510,8 +609,8 @@ class _AddMeetingState extends State<AddMeeting> {
         borderSide: BorderSide(color: bordercolor),
         borderRadius: BorderRadius.circular(4),
       ),
-      filled: true,
-      fillColor: Colors.white,
+      // filled: true,
+      // fillColor: Colors.white,
       labelText: val,
       alignLabelWithHint: true,
     );

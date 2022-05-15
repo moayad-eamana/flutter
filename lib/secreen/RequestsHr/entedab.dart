@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -74,6 +75,7 @@ class _EntedabState extends State<Entedab> {
                             children: [
                               TextFormField(
                                 keyboardType: TextInputType.text,
+                                style: TextStyle(color: baseColorText),
                                 readOnly: true,
                                 maxLines: 1,
                                 controller: _date,
@@ -87,6 +89,12 @@ class _EntedabState extends State<Entedab> {
                                 },
                                 onTap: () {
                                   DatePicker.showDatePicker(context,
+                                      theme: DatePickerTheme(
+                                        backgroundColor: BackGWhiteColor,
+                                        itemStyle: TextStyle(
+                                          color: baseColorText,
+                                        ),
+                                      ),
                                       showTitleActions: true,
                                       minTime: DateTime(2021, 3, 5),
                                       onChanged: (date) {
@@ -103,6 +111,10 @@ class _EntedabState extends State<Entedab> {
                               ),
                               TextFormField(
                                 keyboardType: TextInputType.number,
+                                style: TextStyle(color: baseColorText),
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
                                 maxLines: 1,
                                 controller: _dayNumber,
                                 decoration: formlabel1("عدد الايام"),
@@ -121,6 +133,7 @@ class _EntedabState extends State<Entedab> {
                               TextFormField(
                                 keyboardType: TextInputType.text,
                                 maxLines: 3,
+                                style: TextStyle(color: baseColorText),
                                 controller: _Note,
                                 decoration: formlabel1("ملاحظات"),
                               ),
@@ -258,6 +271,16 @@ class _EntedabState extends State<Entedab> {
       itemAsString: (item) => item["name"],
       // showSelectedItems: true,
       dropdownSearchDecoration: formlabel1("نوع الانتداب"),
+      //added in last update
+      dropdownBuilder: (context, selectedItem) => Container(
+        decoration: null,
+        child: selectedItem == null
+            ? null
+            : Text(
+                selectedItem['name'] == null ? "" : selectedItem['name'] ?? "",
+                style: TextStyle(fontSize: 16, color: baseColorText)),
+      ),
+      dropdownBuilderSupportsNullItem: true,
       //  InputDecoration(
       //   hintText: "نوع الانتداب",
       //   helperStyle: TextStyle(color: Colors.amber),
@@ -323,11 +346,12 @@ class _EntedabState extends State<Entedab> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: baseColorText,
             ),
           ),
         ),
       ),
+
       popupShape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24),
@@ -358,7 +382,7 @@ class _EntedabState extends State<Entedab> {
             ? null
             : Text(
                 selecteditem == null ? "" : selecteditem ?? "",
-                style: subtitleTx(baseColorText),
+                style: TextStyle(fontSize: 16, color: baseColorText),
               ),
       ),
       selectedItem: selecteditem == null ? null : selecteditem,
