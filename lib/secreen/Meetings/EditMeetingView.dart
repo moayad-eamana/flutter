@@ -196,6 +196,12 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                         },
                         onTap: () {
                           DatePicker.showDatePicker(context,
+                              theme: DatePickerTheme(
+                                backgroundColor: BackGWhiteColor,
+                                itemStyle: TextStyle(
+                                  color: baseColorText,
+                                ),
+                              ),
                               showTitleActions: true,
                               minTime: DateTime(2021, 3, 5), onChanged: (date) {
                             //  _date.text = date.toString().split(" ")[0];

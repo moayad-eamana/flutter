@@ -232,6 +232,12 @@ class _VacationRequestState extends State<VacationRequest> {
                                     },
                                     onTap: () {
                                       DatePicker.showDatePicker(context,
+                                          theme: DatePickerTheme(
+                                            backgroundColor: BackGWhiteColor,
+                                            itemStyle: TextStyle(
+                                              color: baseColorText,
+                                            ),
+                                          ),
                                           showTitleActions: true,
                                           minTime: DateTime(2021, 3, 5),
                                           onChanged: (date) {

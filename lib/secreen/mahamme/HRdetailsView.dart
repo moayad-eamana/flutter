@@ -686,6 +686,12 @@ class _HRdetailsViewState extends State<HRdetailsView> {
           decoration: formlabel1("تاريخ البداية"),
           onTap: () {
             DatePicker.showDatePicker(context,
+                theme: DatePickerTheme(
+                  backgroundColor: BackGWhiteColor,
+                  itemStyle: TextStyle(
+                    color: baseColorText,
+                  ),
+                ),
                 showTitleActions: true,
                 minTime: DateTime(2020, 3, 5), onChanged: (date) {
               print('change $date');
@@ -708,6 +714,12 @@ class _HRdetailsViewState extends State<HRdetailsView> {
 
           onTap: () {
             DatePicker.showDatePicker(context,
+                theme: DatePickerTheme(
+                  backgroundColor: BackGWhiteColor,
+                  itemStyle: TextStyle(
+                    color: baseColorText,
+                  ),
+                ),
                 showTitleActions: true,
                 minTime: DateTime(2020, 3, 5), onChanged: (date) {
               print('change $date');
