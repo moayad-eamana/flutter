@@ -54,7 +54,6 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                   child: Column(
                     children: [
                       Container(
-                        height: 250,
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -68,12 +67,12 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                               padding: EdgeInsets.all(10),
                               child: Column(
                                 children: [
-                                  Card(
-                                    elevation: 1,
-                                    child: Container(
-                                      color: BackGWhiteColor,
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 20, horizontal: 20),
+                                  Container(
+                                    color: BackGWhiteColor,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 20),
+                                    child: Card(
+                                      elevation: 1,
                                       child: Column(
                                         children: [
                                           // Row(
