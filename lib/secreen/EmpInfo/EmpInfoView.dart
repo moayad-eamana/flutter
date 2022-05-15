@@ -45,6 +45,9 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                     child: TextField(
+                      style: TextStyle(
+                        color: baseColorText,
+                      ),
                       keyboardType: TextInputType.text,
                       maxLines: 1,
                       controller: _search,
@@ -60,15 +63,30 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                         EasyLoading.dismiss();
                       },
                       decoration: InputDecoration(
+                          // contentPadding: EdgeInsets.symmetric(
+                          //     vertical: responsiveMT(8, 30), horizontal: 10.0),
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(color: bordercolor)),
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(color: bordercolor),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: bordercolor),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: bordercolor),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                           filled: true,
                           fillColor: BackGWhiteColor,
                           labelStyle: subtitleTx(baseColorText),
                           labelText: "بحث عن موظف",
                           alignLabelWithHint: true,
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.search),
+                            icon: Icon(
+                              Icons.search,
+                              color: baseColor,
+                            ),
                             onPressed: () async {
                               FocusScope.of(context).unfocus();
                               EasyLoading.show(
@@ -154,7 +172,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                   ),
                                                   Center(
                                                     child: TexrW(
-                                                        _provider[index].Title),
+                                                      _provider[index].Title,
+                                                    ),
                                                   ),
                                                   Container(
                                                     margin:
@@ -173,32 +192,40 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                         height: 100,
                                                         margin: EdgeInsets.only(
                                                             right: 10),
-                                                        child: _provider[index]
-                                                                        .ImageURL ==
-                                                                    "" ||
-                                                                _provider[index]
-                                                                        .GenderID ==
-                                                                    2
-                                                            ? Image.asset(
-                                                                "assets/image/avatar.jpg",
-                                                              )
-                                                            : ClipOval(
-                                                                child: FadeInImage
-                                                                    .assetNetwork(
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  width: 50,
-                                                                  height: 50,
-                                                                  image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                      _provider[
-                                                                              index]
-                                                                          .ImageURL
-                                                                          .split(
-                                                                              "\$")[1],
-                                                                  placeholder:
-                                                                      "assets/SVGs/dumyprofile.png",
-                                                                ),
-                                                              ),
+                                                        child: CircleAvatar(
+                                                          backgroundColor:
+                                                              baseColor,
+                                                          radius: responsiveMT(
+                                                              24, 26),
+                                                          child: ClipOval(
+                                                            child: _provider[index]
+                                                                            .ImageURL ==
+                                                                        "" ||
+                                                                    _provider[index]
+                                                                            .GenderID ==
+                                                                        2
+                                                                ? Image.asset(
+                                                                    "assets/image/avatar.jpg",
+                                                                  )
+                                                                : ClipOval(
+                                                                    child: FadeInImage
+                                                                        .assetNetwork(
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      width:
+                                                                          100,
+                                                                      height:
+                                                                          100,
+                                                                      image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                          _provider[index]
+                                                                              .ImageURL
+                                                                              .split("\$")[1],
+                                                                      placeholder:
+                                                                          "assets/SVGs/dumyprofile.png",
+                                                                    ),
+                                                                  ),
+                                                          ),
+                                                        ),
                                                       ),
                                                       Container(
                                                         margin: EdgeInsets.only(
@@ -210,12 +237,17 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                SelectableText("رقم الجوال : " +
-                                                                    (_provider[index].GenderID ==
-                                                                            2
-                                                                        ? "0"
-                                                                        : _provider[index]
-                                                                            .MobileNumber)),
+                                                                SelectableText(
+                                                                  "رقم الجوال : " +
+                                                                      (_provider[index].GenderID ==
+                                                                              2
+                                                                          ? "0"
+                                                                          : _provider[index]
+                                                                              .MobileNumber),
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          baseColorText),
+                                                                ),
                                                               ],
                                                             ),
                                                             TexrW("البريد الالكتروني : " +
@@ -339,7 +371,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
   Widget TexrW(String val) {
     return Text(
       val,
-      style: TextStyle(fontFamily: "Cairo"),
+      style: TextStyle(fontFamily: "Cairo", color: baseColorText),
     );
   }
 }
