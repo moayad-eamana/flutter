@@ -786,9 +786,10 @@ class _HomPanelState extends State<HomePanel>
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 20),
                                           child: Image.asset(
-                                            "assets/image/rakamy-logo-2.png",
+                                            "assets/image/logo.png",
                                             fit: BoxFit.fill,
-                                            width: responsiveMT(250, 300),
+                                            width: responsiveMT(300, 300),
+                                            height: 100,
                                           ),
                                         )
                                         // Container(

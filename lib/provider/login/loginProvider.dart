@@ -148,14 +148,17 @@ class LoginProvider extends ChangeNotifier {
     EmployeeProfile empinfo = await EmployeeProfile();
     if (hasePerm == null || hasePerm == "") {
       empinfo = await empinfo.getEmployeeProfile();
-      var respose = await http.post(
-          Uri.parse(
-              "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
-          body: jsonEncode({
-            "token": "RETTErhyty45ythTRH45y45y",
-            "username": empinfo.Email
-          }));
-      hasePerm = jsonDecode(respose.body)["message"];
+      try {
+        var respose = await http.post(
+            Uri.parse(
+                "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
+            body: jsonEncode({
+              "token": "RETTErhyty45ythTRH45y45y",
+              "username": empinfo.Email
+            }));
+        hasePerm = jsonDecode(respose.body)["message"];
+      } catch (e) {}
+
       //hasePerm = hasePerm;
       print("rr == " + hasePerm.toString());
       //SharedPreferences? sharedPref = await SharedPreferences.getInstance();
