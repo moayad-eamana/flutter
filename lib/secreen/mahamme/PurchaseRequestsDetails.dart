@@ -72,6 +72,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                     padding: EdgeInsets.symmetric(
                                         vertical: 20, horizontal: 20),
                                     child: Card(
+                                      color: BackGWhiteColor,
                                       elevation: 1,
                                       child: Column(
                                         children: [
@@ -90,7 +91,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                             //       defaultColumnWidth: FixedColumnWidth(120.0),
 
                                             border: TableBorder.all(
-                                                color: Colors.black,
+                                                color: bordercolor,
                                                 //  style: BorderStyle.solid,
                                                 width: 0.5),
                                             children: [
@@ -161,16 +162,8 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                               controller: _note,
                               keyboardType: TextInputType.text,
                               maxLines: 3,
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: bordercolor)),
-                                filled: true,
-                                fillColor: BackGWhiteColor,
-                                labelText: "ملاحظات",
-                                alignLabelWithHint: true,
-                              ),
+                              style: TextStyle(color: baseColorText),
+                              decoration: formlabel1("ملاحظات"),
                             ),
                           ),
                         ),
