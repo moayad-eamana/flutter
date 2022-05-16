@@ -212,7 +212,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                             .GenderID ==
                                                                         2
                                                                 ? Image.asset(
-                                                                    "assets/image/avatar.jpg",
+                                                                    "assets/image/blank-profile.png",
                                                                   )
                                                                 : ClipOval(
                                                                     child: FadeInImage
@@ -228,7 +228,14 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                               .ImageURL
                                                                               .split("\$")[1],
                                                                       placeholder:
-                                                                          "assets/SVGs/dumyprofile.png",
+                                                                          "assets/image/blank-profile.png",
+                                                                      imageErrorBuilder: (context,
+                                                                              error,
+                                                                              stackTrace) =>
+                                                                          Image
+                                                                              .asset(
+                                                                        "assets/image/blank-profile.png",
+                                                                      ),
                                                                     ),
                                                                   ),
                                                           ),

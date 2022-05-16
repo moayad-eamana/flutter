@@ -725,7 +725,7 @@ class _HomPanelState extends State<HomePanel>
                                                   radius: responsiveMT(50, 90),
                                                   child: ClipOval(
                                                     child: Image.asset(
-                                                      "assets/image/avatar.jpg",
+                                                      "assets/image/blank-profile.png",
                                                     ),
                                                   ),
                                                 )

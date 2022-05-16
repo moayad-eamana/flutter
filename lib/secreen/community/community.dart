@@ -285,7 +285,7 @@ class _CommunityState extends State<Community> {
             backgroundColor: baseColor,
             radius: responsiveMT(26, 28),
             child: empinfo.ImageURL == null || empinfo.ImageURL == ""
-                ? Image.asset("assets/image/avatar.jpg")
+                ? Image.asset("assets/image/blank-profile.png")
                 : ClipOval(
                     child: CachedNetworkImage(
                       height: 50,

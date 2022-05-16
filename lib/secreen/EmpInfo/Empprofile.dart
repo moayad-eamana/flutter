@@ -106,7 +106,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                       width: imageHgit,
                                       child: _provider[0].ImageURL == ""
                                           ? Image.asset(
-                                              "assets/image/avatar.jpg",
+                                              "assets/image/blank-profile.png",
                                               fit: BoxFit.fill,
                                             )
                                           : ClipOval(
