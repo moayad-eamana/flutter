@@ -123,28 +123,30 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          getText(
-                                              "رقم الطلب :",
-                                              _provider
-                                                  .PurchaseRequestsList[index]
-                                                  .RequestNumber
-                                                  .toString()),
-                                          getText(
-                                              "تاريخ الطلب :",
-                                              _provider
-                                                  .PurchaseRequestsList[index]
-                                                  .RequestDate
-                                                  .split("T")[0]),
-                                          getText(
-                                              "نوع الطلب :",
-                                              _provider
-                                                  .PurchaseRequestsList[index]
-                                                  .RequestType),
-                                        ],
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            getText(
+                                                "رقم الطلب :",
+                                                _provider
+                                                    .PurchaseRequestsList[index]
+                                                    .RequestNumber
+                                                    .toString()),
+                                            getText(
+                                                "تاريخ الطلب :",
+                                                _provider
+                                                    .PurchaseRequestsList[index]
+                                                    .RequestDate
+                                                    .split("T")[0]),
+                                            getText(
+                                                "نوع الطلب :",
+                                                _provider
+                                                    .PurchaseRequestsList[index]
+                                                    .RequestType),
+                                          ],
+                                        ),
                                       ),
                                       Row(
                                         mainAxisAlignment:
