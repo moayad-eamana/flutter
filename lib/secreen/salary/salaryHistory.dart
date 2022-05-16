@@ -14,13 +14,26 @@ class SalaryHistory extends StatefulWidget {
   _SalaryHistoryState createState() => _SalaryHistoryState();
 }
 
-class _SalaryHistoryState extends State<SalaryHistory> {
+class _SalaryHistoryState extends State<SalaryHistory>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  bool _expanded = true;
   dynamic listOfSalary = [];
   bool isLoading = true;
   @override
   void initState() {
     getData();
     super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 300),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   getData() async {
@@ -81,14 +94,34 @@ class _SalaryHistoryState extends State<SalaryHistory> {
                               style: titleTx(secondryColorText),
                             ),
                             SizedBox(width: 10),
-                            GestureDetector(
-                                onTap: () {
+                            RotationTransition(
+                              turns: Tween(begin: 0.0, end: 0.5)
+                                  .animate(_controller),
+                              child: IconButton(
+                                icon: Icon(Icons.filter_list_rounded),
+                                onPressed: () {
                                   setState(() {
+                                    if (_expanded) {
+                                      _controller..reverse(from: 0.5);
+                                    } else {
+                                      _controller..forward(from: 0.0);
+                                    }
+                                    _expanded = !_expanded;
+                                    print(_expanded);
                                     listOfSalary =
                                         List.from(listOfSalary.reversed);
                                   });
                                 },
-                                child: Icon(Icons.filter_list_rounded))
+                              ),
+                            ),
+                            // GestureDetector(
+                            //     onTap: () {
+                            //       setState(() {
+                            //         listOfSalary =
+                            //             List.from(listOfSalary.reversed);
+                            //       });
+                            //     },
+                            //     child: Icon(Icons.filter_list_rounded))
                           ],
                         ),
                       ],
