@@ -22,6 +22,13 @@ class EmpInfoView extends StatefulWidget {
 class _EmpInfoViewState extends State<EmpInfoView> {
   TextEditingController _search = TextEditingController();
   @override
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     var _provider = Provider.of<EmpInfoProvider>(context).empinfoList;
     double width = MediaQuery.of(context).size.width;

@@ -71,6 +71,13 @@ class _EditMeetingViewState extends State<EditMeetingView> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<MettingsProvider>(context);
 

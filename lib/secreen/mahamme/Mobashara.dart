@@ -3,6 +3,7 @@ import 'package:eamanaapp/secreen/mahamme/MobasharaDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 class Mobashara extends StatefulWidget {
@@ -21,6 +22,13 @@ class _MobasharaState extends State<Mobashara> {
           .fetchMobashara(widget.TypeID);
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:eamanaapp/secreen/mahamme/PurchaseRequestsDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -24,6 +25,13 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
           .fetchPurchaseRequests(widget.id);
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
   }
 
   @override

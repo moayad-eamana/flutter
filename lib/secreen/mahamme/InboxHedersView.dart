@@ -44,6 +44,13 @@ class _InboxHedersViewState extends State<InboxHedersView> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _provider =
         Provider.of<EatemadatProvider>(context).inboxHeaderList.toList();

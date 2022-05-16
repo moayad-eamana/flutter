@@ -7,21 +7,24 @@ class EmpInfoProvider extends ChangeNotifier {
   late List<EmpInfo> _empinfo = [];
 
   Future<bool> fetchEmpInfo(String name) async {
-    _empinfo = [];
-    notifyListeners();
-    var respose = await getAction("HR/GetEmployees/" + name);
+    try {
+      _empinfo = [];
+      notifyListeners();
+      var respose = await getAction("HR/GetEmployees/" + name);
 
-    _empinfo.clear();
-    if (jsonDecode(respose.body)["EmpInfo"] != null) {
-      _empinfo = (jsonDecode(respose.body)["EmpInfo"] as List)
-          .map(((e) => EmpInfo.fromJson(e)))
-          .toList();
-    }
-    print(_empinfo);
-    notifyListeners();
-    if (_empinfo.length == 0) {
-      return false;
-    }
+      _empinfo.clear();
+      if (jsonDecode(respose.body)["EmpInfo"] != null) {
+        _empinfo = (jsonDecode(respose.body)["EmpInfo"] as List)
+            .map(((e) => EmpInfo.fromJson(e)))
+            .toList();
+      }
+      print(_empinfo);
+      notifyListeners();
+      if (_empinfo.length == 0) {
+        return false;
+      }
+    } catch (e) {}
+
     return true;
   }
 

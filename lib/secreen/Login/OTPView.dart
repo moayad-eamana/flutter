@@ -18,6 +18,12 @@ class _OTPViewState extends State<OTPView> {
   TextEditingController _otp = TextEditingController();
 
   bool errorM = false;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

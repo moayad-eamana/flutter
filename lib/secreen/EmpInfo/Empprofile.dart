@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
@@ -37,7 +38,15 @@ class _EmpProfileState extends State<EmpProfile> {
 
       EasyLoading.dismiss();
     });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
   }
 
   @override

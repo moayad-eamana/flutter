@@ -38,6 +38,13 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<LoansRequestsProvider>(context);
     double width = MediaQuery.of(context).size.width;

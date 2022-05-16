@@ -51,6 +51,13 @@ class _VacationRequestState extends State<VacationRequest> {
         ?.addPostFrameCallback((_) => getMainDepartmentEmployees());
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   getuserinfo() async {
     empinfo = await empinfo.getEmployeeProfile();
     setState(() {});

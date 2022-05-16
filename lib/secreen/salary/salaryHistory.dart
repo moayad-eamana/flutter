@@ -32,6 +32,7 @@ class _SalaryHistoryState extends State<SalaryHistory>
 
   @override
   void dispose() {
+    EasyLoading.dismiss();
     super.dispose();
     _controller.dispose();
   }

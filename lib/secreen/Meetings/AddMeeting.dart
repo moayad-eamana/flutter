@@ -67,6 +67,13 @@ class _AddMeetingState extends State<AddMeeting> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<MettingsProvider>(context);
     double width = MediaQuery.of(context).size.width;

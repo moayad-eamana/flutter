@@ -36,6 +36,13 @@ class _HrDecisionsViewState extends State<HrDecisionsView> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<HrDecisionsProvider>(context);
     double width = MediaQuery.of(context).size.width;

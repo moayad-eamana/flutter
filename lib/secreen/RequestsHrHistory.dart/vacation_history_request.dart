@@ -22,6 +22,13 @@ class _vacation_old_requestState extends State<vacation_old_request> {
     getInfo();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   getInfo() async {
     String Empno =
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];

@@ -23,6 +23,13 @@ class _Mandates_historyState extends State<Mandates_history> {
     getInfo();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   getInfo() async {
     String Empno =
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];

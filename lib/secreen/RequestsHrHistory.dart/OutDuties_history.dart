@@ -23,6 +23,13 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
     getInfo();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   getInfo() async {
     String Empno =
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
