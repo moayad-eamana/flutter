@@ -551,7 +551,7 @@ class _HomPanelState extends State<HomePanel>
                                                               child: ClipOval(
                                                                 child:
                                                                     Image.asset(
-                                                                  "assets/image/avatar.jpg",
+                                                                  "assets/image/blank-profile.png",
                                                                 ),
                                                               ),
                                                             )

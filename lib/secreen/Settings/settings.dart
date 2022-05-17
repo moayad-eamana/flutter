@@ -146,10 +146,10 @@ class _SettingsState extends State<Settings> {
                                         activeColor: baseColor,
                                         value: fingerprint,
                                         onChanged: (bool newValue) async {
-                                          EasyLoading.show(
-                                            status: 'جاري المعالجة...',
-                                            maskType: EasyLoadingMaskType.black,
-                                          );
+                                          // EasyLoading.show(
+                                          //   status: 'جاري المعالجة...',
+                                          //   maskType: EasyLoadingMaskType.black,
+                                          // );
 
                                           if (fingerprint == false) {
                                             await _checkBiometrics();
@@ -195,7 +195,7 @@ class _SettingsState extends State<Settings> {
                                             print("fingerprint = " +
                                                 fingerprint.toString());
                                           }
-                                          EasyLoading.dismiss();
+                                          // EasyLoading.dismiss();
                                         }
 
                                         //   final fingerprintSP =
@@ -370,6 +370,7 @@ class _SettingsState extends State<Settings> {
                                         getColorSettings();
 
                                         widget.update!();
+                                        configLoading();
                                       },
                                     ),
                                   ],

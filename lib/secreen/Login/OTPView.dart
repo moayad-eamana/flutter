@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class OTPView extends StatefulWidget {
   const OTPView({Key? key}) : super(key: key);
@@ -29,49 +30,54 @@ class _OTPViewState extends State<OTPView> {
   Widget build(BuildContext context) {
     var _provider = Provider.of<LoginProvider>(context);
     return Scaffold(
-      body: Stack(
-        children: [
-          background(),
-          Directionality(
-            textDirection: TextDirection.rtl,
-            child: Center(
-              child: SingleChildScrollView(
-                  child: Column(
-                children: [
-                  logo(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 250,
-                    child: Stack(
-                      children: [
-                        banalPag(),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Container(
+          height: 100.h,
+          child: Stack(
+            children: [
+              background(),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Center(
+                  child: SingleChildScrollView(
+                      child: Column(
+                    children: [
+                      logo(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        height: 250,
+                        child: Stack(
                           children: [
-                            Text("تسجيل الدخول",
-                                style: titleTx(secondryColorText)),
-                            Text("فضلا أدخل الرمز المرسل على الجوال",
-                                style: titleTx(secondryColorText)),
-                            SizedBox(
-                              height: 10,
+                            banalPag(),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("تسجيل الدخول",
+                                    style: titleTx(secondryColorText)),
+                                Text("فضلا أدخل الرمز المرسل على الجوال",
+                                    style: titleTx(secondryColorText)),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                smsTxt(),
+                                submitBtn()
+                              ],
                             ),
-                            smsTxt(),
-                            submitBtn()
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              )),
-            ),
+                      ),
+                    ],
+                  )),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -115,10 +121,15 @@ class _OTPViewState extends State<OTPView> {
             ],
             keyboardType: TextInputType.number,
             maxLines: 1,
+            style: TextStyle(
+              color: baseColorText,
+            ),
             textAlign: TextAlign.right,
             decoration: InputDecoration(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+              labelStyle: TextStyle(color: secondryColorText),
+              errorStyle: TextStyle(color: redColor),
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: responsiveMT(8, 30), horizontal: 10.0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4.0),
                 borderSide: BorderSide(color: bordercolor),

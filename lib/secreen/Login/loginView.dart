@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Center(
                         child: Text(
                           "أمانة المنطقة الشرقية - إدارة تقنية المعلومات",
-                          style: descTx1(Colors.white),
+                          style: descTx1(baseColorText),
                           textAlign: TextAlign.right,
                         ),
                       ),
@@ -208,8 +208,14 @@ class _LoginViewState extends State<LoginView> {
         controller: _username,
         keyboardType: TextInputType.text,
         maxLines: 1,
+        style: TextStyle(
+          color: baseColorText,
+        ),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+          labelStyle: TextStyle(color: secondryColorText),
+          errorStyle: TextStyle(color: redColor),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: responsiveMT(8, 30), horizontal: 10.0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),
             borderSide: BorderSide(color: bordercolor),
@@ -222,11 +228,11 @@ class _LoginViewState extends State<LoginView> {
             borderSide: BorderSide(color: bordercolor),
             borderRadius: BorderRadius.circular(4),
           ),
-          filled: true,
-          fillColor: Colors.white,
+          // filled: true,
+          // fillColor: Colors.white,
           errorText: _usernameError ? "الرجاء إدخال الرقم الوضيفي" : null,
           labelText: "رقم الوضيفي",
-          labelStyle: TextStyle(color: lableTextcolor),
+          // labelStyle: TextStyle(color: lableTextcolor),
           alignLabelWithHint: true,
         ),
         onChanged: (String val) {
@@ -254,9 +260,15 @@ class _LoginViewState extends State<LoginView> {
         enableSuggestions: false,
         autocorrect: false,
         maxLines: 1,
+        style: TextStyle(
+          color: baseColorText,
+        ),
         textAlign: TextAlign.right,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+          labelStyle: TextStyle(color: secondryColorText),
+          errorStyle: TextStyle(color: redColor),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: responsiveMT(8, 30), horizontal: 10.0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),
             borderSide: BorderSide(color: bordercolor),
@@ -269,10 +281,10 @@ class _LoginViewState extends State<LoginView> {
             borderSide: BorderSide(color: bordercolor),
             borderRadius: BorderRadius.circular(4),
           ),
-          filled: true,
-          fillColor: Colors.white,
+          // filled: true,
+          // fillColor: Colors.white,
           labelText: "الرقم السري",
-          labelStyle: TextStyle(color: lableTextcolor),
+          // labelStyle: TextStyle(color: lableTextcolor),
           errorText: (passError ? "الرجاء إدخال الرقم السري" : null),
         ),
         onChanged: (String val) {
