@@ -1,4 +1,4 @@
-package com.example.eamanaapp
+package com.eamana.eamanaapp.gov.sa
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine

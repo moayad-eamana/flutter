@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/model/meeting/meetingsTime.dart';
@@ -6,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class MettingsProvider extends ChangeNotifier {
-  String url = "https://srv.eamana.gov.sa/AmanaAPI_Test/API/HR/";
-
   late List<Meetings> _meetings = [];
   Future<void> fetchMeetings() async {
     EmployeeProfile employeeProfile = new EmployeeProfile();
@@ -15,12 +14,19 @@ class MettingsProvider extends ChangeNotifier {
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsByEmail.php"),
+            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsByEmail.php"),
         body: jsonEncode({
-          "token": "RETTErhyty45ythTRH45y45y",
+          "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email
         }));
-    _meetings = (jsonDecode(respose.body) as List)
+
+    print((jsonDecode(respose.body)));
+    if (jsonDecode(respose.body)["httpcode"] == 401) {
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      return;
+    }
+    _meetings = (jsonDecode(respose.body)["data"] as List)
         .map(((e) => Meetings.fromJson(e)))
         .toList();
     notifyListeners();
@@ -37,12 +43,17 @@ class MettingsProvider extends ChangeNotifier {
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsToken.php"),
+            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsToken.php"),
         body: jsonEncode({
-          "token": "RETTErhyty45ythTRH45y45y",
+          "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email
         }));
-    _meetingsTime = (jsonDecode(respose.body) as List)
+    if (jsonDecode(respose.body)["httpcode"] == 401) {
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      return;
+    }
+    _meetingsTime = (jsonDecode(respose.body)["data"] as List)
         .map(((e) => MeetingsTime.fromJson(e)))
         .toList();
     notifyListeners();
@@ -70,9 +81,9 @@ class MettingsProvider extends ChangeNotifier {
     employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/editAppointment.php"),
+            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/editAppointment.php"),
         body: jsonEncode({
-          "token": "RETTErhyty45ythTRH45y45y",
+          "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email,
           "app_id": app_id,
           "appDate": appDate,
@@ -87,6 +98,11 @@ class MettingsProvider extends ChangeNotifier {
           "meeting_id": meeting_id,
           "meeting_pswd": meeting_pswd
         }));
+    if (jsonDecode(respose.body)["httpcode"] == 401) {
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      return false;
+    }
     _meetings[index].Date = appDate;
     _meetings[index].Appwith = app_with;
     _meetings[index].Appwithmobile = mobile;
@@ -107,9 +123,9 @@ class MettingsProvider extends ChangeNotifier {
     employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/createAppointments.php"),
+            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/createAppointments.php"),
         body: jsonEncode({
-          "token": "RETTErhyty45ythTRH45y45y",
+          "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email,
           "appDate": meetings.Date,
           "hdate": "1443-5-20",
@@ -125,6 +141,11 @@ class MettingsProvider extends ChangeNotifier {
           "meeting_pswd": meetings.Meeting_pswd
         }));
     print(respose.body);
+    if (jsonDecode(respose.body)["httpcode"] == 401) {
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      return;
+    }
     meetings.Id = "55555";
     meetings.MeetingDetails =
         meetings.MeetingDetails == "p" ? "حضوري" : "إفتراضي";
@@ -179,18 +200,18 @@ class MettingsProvider extends ChangeNotifier {
     employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/deleteAppointments.php"),
+            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/deleteAppointments.php"),
         body: jsonEncode({
-          "token": "RETTErhyty45ythTRH45y45y",
+          "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email,
           "app_id": id
         }));
-
+    if (jsonDecode(respose.body)["httpcode"] == 401) {
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      return;
+    }
     _meetings.removeWhere((element) => element.Id == id.toString());
     notifyListeners();
   }
-}
-
-String basicAuthenticationHeader(String username, String password) {
-  return 'Basic ' + base64Encode(utf8.encode('$username:$password'));
 }

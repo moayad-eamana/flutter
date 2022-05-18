@@ -40,7 +40,6 @@ class LoginProvider extends ChangeNotifier {
 
       //_pref.setString("username", userName);
       if (username == "1111") {
-        await checkUserAppl();
         return true;
       }
 
@@ -109,41 +108,6 @@ class LoginProvider extends ChangeNotifier {
     return jsonDecode(respose.body)["ErrorMessage"];
   }
 
-  Future<dynamic> checkUserAppl() async {
-    sharedPref.setDouble("EmployeeNumber", 4438104.0);
-    sharedPref.setString("EmployeeName", "مؤيد العوفي");
-    sharedPref.setString("FirstName", "مؤيد");
-    sharedPref.setString("SecondName", "جابر");
-    sharedPref.setString("ThirdName", "علي");
-    sharedPref.setString("LastName", "العوفي");
-    sharedPref.setInt("DepartmentID", 422150000);
-    sharedPref.setString("DepartmentName", "الحاسب");
-    sharedPref.setString("Email", "moayad@ee.ee.ee");
-
-    sharedPref.setInt("empTypeID", 0101);
-    sharedPref.setString("empTypeName", "موظف");
-    sharedPref.setString("StatusName", "علي رأس العمل");
-    sharedPref.setString("UserIdentityNumber", "222323323");
-    sharedPref.setString("MobileNumber", '0399349493');
-    sharedPref.setInt("UserTypeID", 0101);
-    sharedPref.setInt("VacationBalance", 200);
-
-    sharedPref.setString("JobName", "مبرمج");
-    sharedPref.setString("ImageURL",
-        "\\\\10.16.16.59\\TransactFileUpload\$\\2021\\20211018\\HRS\\1546260\\1-1546260-24-2.jpg");
-    sharedPref.setString("Title", '');
-    sharedPref.setString("DirectManagerName", "مؤيد");
-
-    sharedPref.setInt("DirectManagerEmployeeNumber", 883993);
-    sharedPref.setInt("GeneralManagerEmployeeNumber", 333939);
-    sharedPref.setInt("MainDepartmentID", 422150000);
-    sharedPref.setString("MainDepartmentName", "حاسب");
-    sharedPref.setInt("Extension", 44444);
-    sharedPref.setInt("GenderID", 1);
-    sharedPref.setString("AccessToken",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkRldlRlYW0iLCJuYmYiOjE2NDc5MjgwNjMsImV4cCI6MTY0ODEwMDg2MywiaWF0IjoxNjQ3OTI4MDYzfQ.P_TLRJ8NjMVyqXVvdGfy4WfurjHZawjejD4umkYO_4U");
-  }
-
   Future<void> hasPermission() async {
     EmployeeProfile empinfo = await EmployeeProfile();
     if (hasePerm == null || hasePerm == "") {
@@ -151,9 +115,9 @@ class LoginProvider extends ChangeNotifier {
       try {
         var respose = await http.post(
             Uri.parse(
-                "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
+                "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
             body: jsonEncode({
-              "token": "RETTErhyty45ythTRH45y45y",
+              "token": sharedPref.getString("AccessToken"),
               "username": empinfo.Email
             }));
         hasePerm = jsonDecode(respose.body)["message"];
