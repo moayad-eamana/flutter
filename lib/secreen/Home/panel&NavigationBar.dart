@@ -379,6 +379,7 @@ class _HomPanelState extends State<HomePanel>
           return false;
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
           body: Stack(
             fit: StackFit.loose,
@@ -492,9 +493,9 @@ class _HomPanelState extends State<HomePanel>
                                                           .show()
                                                           .then((value) async {
                                                         if (value == true) {
-                                                          FirebaseMessaging
-                                                              .instance
-                                                              .deleteToken();
+                                                          // FirebaseMessaging
+                                                          //     .instance
+                                                          //     .deleteToken();
 
                                                           sharedPref.setDouble(
                                                               "EmployeeNumber",

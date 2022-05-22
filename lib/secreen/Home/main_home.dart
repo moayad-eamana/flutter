@@ -62,12 +62,12 @@ class _MainHomeState extends State<MainHome> {
     embId();
     super.initState();
     //hasPermission();
-    subscribeToNotification();
+    // subscribeToNotification();
   }
 
-  subscribeToNotification() async {
-    await FirebaseMessaging.instance.subscribeToTopic('raqame_eamana');
-  }
+  // subscribeToNotification() async {
+  //   // await FirebaseMessaging.instance.subscribeToTopic('raqame_eamana');
+  // }
 
   EmployeeProfile empinfo = new EmployeeProfile();
 

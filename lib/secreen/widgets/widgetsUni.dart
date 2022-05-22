@@ -18,7 +18,7 @@ class widgetsUni {
         SvgPicture.asset(
           icon,
           //color: Colors.white,
-          width: responsiveMT(42, 48),
+          width: responsiveMT(50, 48),
         ),
         // Icon(
         //   icon,

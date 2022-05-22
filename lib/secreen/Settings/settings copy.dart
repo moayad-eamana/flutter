@@ -556,8 +556,8 @@ class _Settings2State extends State<Settings2> {
                                           .show()
                                           .then((value) async {
                                         if (value == true) {
-                                          FirebaseMessaging.instance
-                                              .deleteToken();
+                                          // FirebaseMessaging.instance
+                                          //     .deleteToken();
 
                                           sharedPref.setDouble(
                                               "EmployeeNumber", 0);

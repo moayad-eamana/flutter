@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Center(
                         child: Text(
                           "أمانة المنطقة الشرقية - إدارة تقنية المعلومات",
-                          style: descTx1(baseColorText),
+                          style: descTx1(Colors.black),
                           textAlign: TextAlign.right,
                         ),
                       ),

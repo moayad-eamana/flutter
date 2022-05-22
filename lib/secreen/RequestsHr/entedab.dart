@@ -36,18 +36,19 @@ class _EntedabState extends State<Entedab> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBarW.appBarW("طلب إنتداب", context, null),
-        body: Stack(
-          children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
-            SingleChildScrollView(
-              child: Container(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Image.asset(
+                imageBG,
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                //height: MediaQuery.of(context).size.height,
+                fit: BoxFit.fill,
+              ),
+              Container(
                 //color: Colors.amber,
                 decoration: BoxDecoration(
                     color: BackGWhiteColor,
@@ -240,8 +241,8 @@ class _EntedabState extends State<Entedab> {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
