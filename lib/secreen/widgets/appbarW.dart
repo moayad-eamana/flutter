@@ -51,7 +51,7 @@ class AppBarW {
                           Container(
                             child: IconButton(
                               icon: const Icon(Icons.arrow_back),
-                              color: Colors.black,
+                              color: baseColorText,
                               onPressed: () {
                                 Navigator.pop(context);
                               },
@@ -63,7 +63,10 @@ class AppBarW {
                             },
                             child: Container(
                                 margin: EdgeInsets.only(right: 10, top: 30),
-                                child: Text("رجوع")),
+                                child: Text(
+                                  "رجوع",
+                                  style: TextStyle(color: baseColorText),
+                                )),
                           ),
                         ],
                       ),
