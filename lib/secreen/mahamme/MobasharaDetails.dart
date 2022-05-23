@@ -228,42 +228,49 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                       SizedBox(
                         height: 10,
                       ),
-                      if (_mobasharaList[widget.index].OrderTypeID == 39)
-                        Container(
-                          color: Colors.white,
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            readOnly: true,
-                            maxLines: 1,
-                            controller: _date,
-                            decoration: formlabel1("فضلا أدخل تاريخ المباشرة"),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "فضلا أدخل تاريخ المباشرة";
-                              } else {
-                                return null;
-                              }
-                            },
-                            onTap: () {
-                              DatePicker.showDatePicker(context,
-                                  theme: DatePickerTheme(
-                                    backgroundColor: BackGWhiteColor,
-                                    itemStyle: TextStyle(
-                                      color: baseColorText,
-                                    ),
-                                  ),
-                                  showTitleActions: true,
-                                  minTime: DateTime(2021, 3, 5),
-                                  onChanged: (date) {
-                                //  print('change $date');
-                              }, onConfirm: (date) {
-                                setState(() {
-                                  _date.text = date.toString().split(" ")[0];
-                                });
+                      if (_mobasharaList[widget.index].TransactionTypeID ==
+                              39 &&
+                          _mobasharaList[widget.index].OrderTypeID == 3)
+                        Card(
+                          elevation: 5,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            color: Colors.white,
+                            child: TextFormField(
+                              keyboardType: TextInputType.text,
+                              readOnly: true,
+                              maxLines: 1,
+                              controller: _date,
+                              decoration:
+                                  formlabel1("فضلا أدخل تاريخ المباشرة"),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "فضلا أدخل تاريخ المباشرة";
+                                } else {
+                                  return null;
+                                }
                               },
-                                  currentTime: DateTime.now(),
-                                  locale: LocaleType.ar);
-                            },
+                              onTap: () {
+                                DatePicker.showDatePicker(context,
+                                    theme: DatePickerTheme(
+                                      backgroundColor: BackGWhiteColor,
+                                      itemStyle: TextStyle(
+                                        color: baseColorText,
+                                      ),
+                                    ),
+                                    showTitleActions: true,
+                                    minTime: DateTime(2021, 3, 5),
+                                    onChanged: (date) {
+                                  //  print('change $date');
+                                }, onConfirm: (date) {
+                                  setState(() {
+                                    _date.text = date.toString().split(" ")[0];
+                                  });
+                                },
+                                    currentTime: DateTime.now(),
+                                    locale: LocaleType.ar);
+                              },
+                            ),
                           ),
                         ),
                       Container(

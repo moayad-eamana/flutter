@@ -34,7 +34,8 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
   @override
   Widget build(BuildContext context) {
     var _provider =
-        Provider.of<PurchaseRequestsProvider>(context, listen: true);
+        Provider.of<PurchaseRequestsProvider>(context, listen: false);
+    print(_provider.PurchaseRequestsList[0].TransactionTypeID);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

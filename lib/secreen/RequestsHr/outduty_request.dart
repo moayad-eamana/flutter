@@ -100,6 +100,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
           resizeToAvoidBottomInset: false,
           appBar: AppBarW.appBarW("طلب خارج الدوام", context, null),
           body: Container(
+            height: 100.h,
             child: SingleChildScrollView(
               child: Stack(
                 children: [
