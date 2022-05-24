@@ -53,7 +53,7 @@ android {
         applicationId "com.eamana.eamanaapp.gov.sa"
         minSdkVersion 30
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 4
+        versionCode 5
         versionName flutterVersionName
     }
 
