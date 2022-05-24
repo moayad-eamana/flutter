@@ -379,7 +379,7 @@ class _HomPanelState extends State<HomePanel>
           return false;
         },
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
           body: Stack(
             fit: StackFit.loose,

@@ -37,17 +37,16 @@ class _EmpInfoViewState extends State<EmpInfoView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          resizeToAvoidBottomInset: false,
           appBar: AppBarW.appBarW(
               "دليل الموظفين", context, widget.showback == null ? null : true),
           body: Stack(
             children: [
-              Image.asset(
-                imageBG,
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                fit: BoxFit.fill,
+              SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: Image.asset(
+                  imageBG,
+                  fit: BoxFit.fill,
+                ),
               ),
               Container(
                 margin:
