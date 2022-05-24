@@ -51,12 +51,12 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
         appBar: AppBarW.appBarW("طلبات خارج دوام", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
+              ),
             ),
             list.length == 0
                 ? Center(

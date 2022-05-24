@@ -38,186 +38,158 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
     print(_provider.PurchaseRequestsList[0].TransactionTypeID);
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fitWidth,
-            image: Image.asset(imageBG).image,
-          ),
-        ),
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBarW.appBarW("إعتماد طلب مشتريات", context, null),
-            body: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 20),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: _provider.PurchaseRequestItemsList.length == 0
-                            ? Container()
-                            : ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                //   primary: false,
-                                itemCount:
-                                    _provider.PurchaseRequestItemsList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    // margin:
-                                    //     EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: Scaffold(
+          appBar: AppBarW.appBarW("إعتماد طلب مشتريات", context, null),
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: Image.asset(
+                  imageBG,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: _provider.PurchaseRequestItemsList.length == 0
+                              ? Container()
+                              : ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  //   primary: false,
+                                  itemCount:
+                                      _provider.PurchaseRequestItemsList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Container(
+                                      // margin:
+                                      //     EdgeInsets.symmetric(vertical: 10, horizontal: 10),
 
-                                    padding: EdgeInsets.all(10),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          color: BackGWhiteColor,
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 20, horizontal: 20),
-                                          child: Card(
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                        children: [
+                                          Container(
                                             color: BackGWhiteColor,
-                                            elevation: 1,
-                                            child: Column(
-                                              children: [
-                                                // Row(
-                                                //   children: [
-                                                //     Text(
-                                                //       "موضوع الطلب : " +
-                                                //           _provider
-                                                //               .PurchaseRequestsList[widget.index]
-                                                //               .Subject,
-                                                //       style: descTx2(secondryColorText),
-                                                //     )
-                                                //   ],
-                                                // ),
-                                                Table(
-                                                  //       defaultColumnWidth: FixedColumnWidth(120.0),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 20, horizontal: 20),
+                                            child: Card(
+                                              color: BackGWhiteColor,
+                                              elevation: 1,
+                                              child: Column(
+                                                children: [
+                                                  // Row(
+                                                  //   children: [
+                                                  //     Text(
+                                                  //       "موضوع الطلب : " +
+                                                  //           _provider
+                                                  //               .PurchaseRequestsList[widget.index]
+                                                  //               .Subject,
+                                                  //       style: descTx2(secondryColorText),
+                                                  //     )
+                                                  //   ],
+                                                  // ),
+                                                  Table(
+                                                    //       defaultColumnWidth: FixedColumnWidth(120.0),
 
-                                                  border: TableBorder.all(
-                                                      color: bordercolor,
-                                                      //  style: BorderStyle.solid,
-                                                      width: 0.5),
-                                                  children: [
-                                                    TableRows(
-                                                        "الكمية المطلوبة",
-                                                        _provider
-                                                            .PurchaseRequestItemsList[
-                                                                index]
-                                                            .RequiredQuantity
-                                                            .toString()),
-                                                    TableRows(
-                                                        "إسم الصنف",
-                                                        _provider
-                                                            .PurchaseRequestItemsList[
-                                                                index]
-                                                            .ItemName
-                                                            .toString()),
-                                                    TableRows(
-                                                        "كود الصنف",
-                                                        _provider
-                                                            .PurchaseRequestItemsList[
-                                                                index]
-                                                            .ItemCode),
-                                                    TableRows(
-                                                        "الوحدة",
-                                                        _provider
-                                                            .PurchaseRequestItemsList[
-                                                                index]
-                                                            .UnitDescription),
-                                                    TableRows(
-                                                        "المتوفر في المخزون",
-                                                        _provider
-                                                            .PurchaseRequestItemsList[
-                                                                index]
-                                                            .StockAvaliableQuantity
-                                                            .toString()),
-                                                  ],
-                                                ),
-                                              ],
+                                                    border: TableBorder.all(
+                                                        color: bordercolor,
+                                                        //  style: BorderStyle.solid,
+                                                        width: 0.5),
+                                                    children: [
+                                                      TableRows(
+                                                          "الكمية المطلوبة",
+                                                          _provider
+                                                              .PurchaseRequestItemsList[
+                                                                  index]
+                                                              .RequiredQuantity
+                                                              .toString()),
+                                                      TableRows(
+                                                          "إسم الصنف",
+                                                          _provider
+                                                              .PurchaseRequestItemsList[
+                                                                  index]
+                                                              .ItemName
+                                                              .toString()),
+                                                      TableRows(
+                                                          "كود الصنف",
+                                                          _provider
+                                                              .PurchaseRequestItemsList[
+                                                                  index]
+                                                              .ItemCode),
+                                                      TableRows(
+                                                          "الوحدة",
+                                                          _provider
+                                                              .PurchaseRequestItemsList[
+                                                                  index]
+                                                              .UnitDescription),
+                                                      TableRows(
+                                                          "المتوفر في المخزون",
+                                                          _provider
+                                                              .PurchaseRequestItemsList[
+                                                                  index]
+                                                              .StockAvaliableQuantity
+                                                              .toString()),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: Card(
+                            elevation: 1,
+                            child: Container(
+                              color: BackGWhiteColor,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "فضلا أدخل الملاحظات";
+                                  } else {
+                                    return null;
+                                  }
                                 },
+                                controller: _note,
+                                keyboardType: TextInputType.text,
+                                maxLines: 3,
+                                style: TextStyle(color: baseColorText),
+                                decoration: formlabel1("ملاحظات"),
                               ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Card(
-                          elevation: 1,
-                          child: Container(
-                            color: BackGWhiteColor,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "فضلا أدخل الملاحظات";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              controller: _note,
-                              keyboardType: TextInputType.text,
-                              maxLines: 3,
-                              style: TextStyle(color: baseColorText),
-                              decoration: formlabel1("ملاحظات"),
                             ),
                           ),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          widgetsUni.actionbutton(
-                            "إعتماد",
-                            Icons.check,
-                            () async {
-                              if (_formKey.currentState!.validate()) {
-                                dynamic res =
-                                    await _provider.ApprovePurchasesRequest(
-                                        widget.index,
-                                        _note.text,
-                                        true,
-                                        widget.id);
-
-                                if (res == true) {
-                                  Alerts.successAlert(
-                                          context, "", "تم الإعتماد ")
-                                      .show()
-                                      .then((value) {
-                                    Navigator.pop(context);
-                                  });
-                                } else {
-                                  Alerts.errorAlert(
-                                          context, "خطأ", res.toString())
-                                      .show();
-                                }
-                              }
-                            },
-                          ),
-                          widgetsUni.actionbutton(
-                            "رفض",
-                            Icons.close,
-                            () async {
-                              if (_formKey.currentState!.validate()) {
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            widgetsUni.actionbutton(
+                              "إعتماد",
+                              Icons.check,
+                              () async {
                                 if (_formKey.currentState!.validate()) {
                                   dynamic res =
                                       await _provider.ApprovePurchasesRequest(
                                           widget.index,
                                           _note.text,
-                                          false,
+                                          true,
                                           widget.id);
 
                                   if (res == true) {
                                     Alerts.successAlert(
-                                            context, "", "تم الرفض ")
+                                            context, "", "تم الإعتماد ")
                                         .show()
                                         .then((value) {
                                       Navigator.pop(context);
@@ -228,17 +200,46 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                         .show();
                                   }
                                 }
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
+                              },
+                            ),
+                            widgetsUni.actionbutton(
+                              "رفض",
+                              Icons.close,
+                              () async {
+                                if (_formKey.currentState!.validate()) {
+                                  if (_formKey.currentState!.validate()) {
+                                    dynamic res =
+                                        await _provider.ApprovePurchasesRequest(
+                                            widget.index,
+                                            _note.text,
+                                            false,
+                                            widget.id);
+
+                                    if (res == true) {
+                                      Alerts.successAlert(
+                                              context, "", "تم الرفض ")
+                                          .show()
+                                          .then((value) {
+                                        Navigator.pop(context);
+                                      });
+                                    } else {
+                                      Alerts.errorAlert(
+                                              context, "خطأ", res.toString())
+                                          .show();
+                                    }
+                                  }
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            )),
-      ),
+            ],
+          )),
     );
   }
 

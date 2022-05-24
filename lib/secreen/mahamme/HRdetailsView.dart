@@ -120,226 +120,330 @@ class _HRdetailsViewState extends State<HRdetailsView> {
     var _provider = Provider.of<EatemadatProvider>(context, listen: false);
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fitWidth,
-            image: Image.asset(imageBG).image,
-          ),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBarW.appBarW("تفاصيل الطلب", context, null),
-          body: SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  employeeName(_provider),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 90,
-                          child: Card(
-                            color: BackGWhiteColor,
-                            elevation: 1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextW("نوع الطلب"),
-                                    Text(
-                                      _provider.getHrRequests[widget.index ?? 0]
-                                          .RequestType,
-                                      style: TextStyle(
+      child: Scaffold(
+        appBar: AppBarW.appBarW("تفاصيل الطلب", context, null),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
+              ),
+            ),
+            SingleChildScrollView(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    employeeName(_provider),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 90,
+                            child: Card(
+                              color: BackGWhiteColor,
+                              elevation: 1,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextW("نوع الطلب"),
+                                      Text(
+                                        _provider
+                                            .getHrRequests[widget.index ?? 0]
+                                            .RequestType,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: baseColorText),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextW(_provider
+                                                  .getHrRequests[
+                                                      widget.index ?? 0]
+                                                  .RequestTypeID ==
+                                              2
+                                          ? "عدد الساعات"
+                                          : "عدد الأيام"),
+                                      Text(
+                                          _provider
+                                                      .getHrRequests[
+                                                          widget.index ?? 0]
+                                                      .RequestTypeID ==
+                                                  2
+                                              ? _provider
+                                                  .getHrRequests[
+                                                      widget.index ?? 0]
+                                                  .OverTimeHours
+                                                  .toString()
+                                              : _provider
+                                                  .getHrRequests[
+                                                      widget.index ?? 0]
+                                                  .Days
+                                                  .toString()
+                                                  .split(".")[0],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: baseColorText))
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 90,
+                            child: Card(
+                              elevation: 1,
+                              color: BackGWhiteColor,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextW("البداية"),
+                                      Text(
+                                          _provider
+                                              .getHrRequests[widget.index ?? 0]
+                                              .StartDateG
+                                              .split("T")[0],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: baseColorText))
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextW("النهاية"),
+                                      Text(
+                                          _provider
+                                              .getHrRequests[widget.index ?? 0]
+                                              .EndDateG
+                                              .split("T")[0],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: baseColorText))
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      elevation: 1,
+                      color: BackGWhiteColor,
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            if (_provider.getHrRequests[widget.index ?? 0]
+                                    .RequestTypeID ==
+                                2)
+                              OutofDuties(),
+                            if (_provider.getHrRequests[widget.index ?? 0]
+                                    .RequestTypeID ==
+                                3)
+                              Directionality(
+                                textDirection: TextDirection.rtl,
+                                child: DropdownSearch<dynamic>(
+                                  popupBackgroundColor: BackGWhiteColor,
+                                  key: UniqueKey(),
+                                  items: _MainDepartmentEmployees,
+                                  popupItemBuilder: (context, rr, isSelected) =>
+                                      (Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Column(
+                                      children: [
+                                        Text(rr.EmployeeName,
+                                            style: subtitleTx(baseColorText))
+                                      ],
+                                    ),
+                                  )),
+                                  dropdownBuilder: (context, selectedItem) =>
+                                      Container(
+                                    child: selectedItem == null
+                                        ? null
+                                        : Text(
+                                            selecteditem == null
+                                                ? ""
+                                                : selecteditem ?? "",
+                                            style: subtitleTx(baseColorText),
+                                          ),
+                                  ),
+                                  dropdownBuilderSupportsNullItem: true,
+                                  selectedItem: selecteditem == null
+                                      ? null
+                                      : selecteditem,
+                                  showSelectedItems: false,
+                                  mode: Mode.BOTTOM_SHEET,
+                                  showClearButton:
+                                      _ReplaceEmployeeNumber == null
+                                          ? false
+                                          : true,
+                                  maxHeight: 400,
+                                  showAsSuffixIcons: true,
+                                  itemAsString: (item) =>
+                                      item?.EmployeeName ?? "",
+                                  dropdownSearchDecoration: InputDecoration(
+                                    // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                                    labelText: "الموظف البديل",
+                                    labelStyle:
+                                        TextStyle(color: secondryColorText),
+
+                                    border: OutlineInputBorder(),
+
+                                    errorStyle: TextStyle(color: redColor),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: responsiveMT(8, 30),
+                                        horizontal: 10.0),
+                                  ),
+                                  showSearchBox: true,
+                                  onChanged: (v) {
+                                    try {
+                                      _ReplaceEmployeeNumber =
+                                          v?.EmployeeNumber;
+
+                                      print(v?.EmployeeNumber.toString());
+                                      selecteditem = v.EmployeeName;
+                                      //setState(() {});
+                                    } catch (e) {}
+                                  },
+                                  popupTitle: Container(
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      color: secondryColor,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "الموظف البديل",
+                                        style: TextStyle(
+                                          fontSize: 24,
                                           fontWeight: FontWeight.bold,
-                                          color: baseColorText),
-                                    )
-                                  ],
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  popupShape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(24),
+                                      topRight: Radius.circular(24),
+                                    ),
+                                  ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextW(_provider
-                                                .getHrRequests[
-                                                    widget.index ?? 0]
-                                                .RequestTypeID ==
-                                            2
-                                        ? "عدد الساعات"
-                                        : "عدد الأيام"),
-                                    Text(
-                                        _provider
-                                                    .getHrRequests[
-                                                        widget.index ?? 0]
-                                                    .RequestTypeID ==
-                                                2
-                                            ? _provider
-                                                .getHrRequests[
-                                                    widget.index ?? 0]
-                                                .OverTimeHours
-                                                .toString()
-                                            : _provider
-                                                .getHrRequests[
-                                                    widget.index ?? 0]
-                                                .Days
-                                                .toString()
-                                                .split(".")[0],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: baseColorText))
-                                  ],
-                                )
-                              ],
+                              ),
+                            SizedBox(
+                              height: 10,
                             ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 90,
-                          child: Card(
-                            elevation: 1,
-                            color: BackGWhiteColor,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextW("البداية"),
-                                    Text(
-                                        _provider
-                                            .getHrRequests[widget.index ?? 0]
-                                            .StartDateG
-                                            .split("T")[0],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: baseColorText))
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextW("النهاية"),
-                                    Text(
-                                        _provider
-                                            .getHrRequests[widget.index ?? 0]
-                                            .EndDateG
-                                            .split("T")[0],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: baseColorText))
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Card(
-                    elevation: 1,
-                    color: BackGWhiteColor,
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          if (_provider.getHrRequests[widget.index ?? 0]
-                                  .RequestTypeID ==
-                              2)
-                            OutofDuties(),
-                          if (_provider.getHrRequests[widget.index ?? 0]
-                                  .RequestTypeID ==
-                              3)
                             Directionality(
                               textDirection: TextDirection.rtl,
-                              child: DropdownSearch<dynamic>(
+                              child: DropdownSearch<String>(
+                                items: _provider.resonsSrtings,
                                 popupBackgroundColor: BackGWhiteColor,
-                                key: UniqueKey(),
-                                items: _MainDepartmentEmployees,
+                                maxHeight: 300,
+                                key: key,
+                                mode: Mode.BOTTOM_SHEET,
+                                showClearButton: true,
+                                showAsSuffixIcons: true,
+                                dropdownSearchDecoration: InputDecoration(
+                                  labelText: "سبب الرفض",
+                                  labelStyle:
+                                      TextStyle(color: secondryColorText),
+                                  errorStyle: TextStyle(color: redColor),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: responsiveMT(8, 30),
+                                      horizontal: 10.0),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderSide: BorderSide(color: bordercolor),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: bordercolor),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: bordercolor),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  errorText: isValied == true
+                                      ? null
+                                      : "الرجاء إختيار السبب",
+                                  // contentPadding:
+                                  //     EdgeInsets.fromLTRB(12, 12, 0, 0),
+                                  // border: OutlineInputBorder(),
+                                ),
+                                showSearchBox: true,
+                                onChanged: (String? v) {
+                                  setState(() {
+                                    resondID = v ?? "";
+                                    if (resondID != "") {
+                                      isValied = true;
+                                    }
+                                  });
+                                },
+                                dropdownBuilder: (context, selectedItem) =>
+                                    Container(
+                                  decoration: null,
+                                  child: selectedItem == null
+                                      ? null
+                                      : Text(
+                                          selectedItem == null
+                                              ? ""
+                                              : selectedItem ?? "",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: baseColorText)),
+                                ),
+                                dropdownBuilderSupportsNullItem: true,
                                 popupItemBuilder: (context, rr, isSelected) =>
                                     (Container(
                                   margin: EdgeInsets.only(top: 10),
                                   child: Column(
                                     children: [
-                                      Text(rr.EmployeeName,
+                                      Text(rr.toString(),
                                           style: subtitleTx(baseColorText))
                                     ],
                                   ),
                                 )),
-                                dropdownBuilder: (context, selectedItem) =>
-                                    Container(
-                                  child: selectedItem == null
-                                      ? null
-                                      : Text(
-                                          selecteditem == null
-                                              ? ""
-                                              : selecteditem ?? "",
-                                          style: subtitleTx(baseColorText),
-                                        ),
-                                ),
-                                dropdownBuilderSupportsNullItem: true,
-                                selectedItem:
-                                    selecteditem == null ? null : selecteditem,
-                                showSelectedItems: false,
-                                mode: Mode.BOTTOM_SHEET,
-                                showClearButton: _ReplaceEmployeeNumber == null
-                                    ? false
-                                    : true,
-                                maxHeight: 400,
-                                showAsSuffixIcons: true,
-                                itemAsString: (item) =>
-                                    item?.EmployeeName ?? "",
-                                dropdownSearchDecoration: InputDecoration(
-                                  // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                                  labelText: "الموظف البديل",
-                                  labelStyle:
-                                      TextStyle(color: secondryColorText),
-
-                                  border: OutlineInputBorder(),
-
-                                  errorStyle: TextStyle(color: redColor),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: responsiveMT(8, 30),
-                                      horizontal: 10.0),
-                                ),
-                                showSearchBox: true,
-                                onChanged: (v) {
-                                  try {
-                                    _ReplaceEmployeeNumber = v?.EmployeeNumber;
-
-                                    print(v?.EmployeeNumber.toString());
-                                    selecteditem = v.EmployeeName;
-                                    //setState(() {});
-                                  } catch (e) {}
-                                },
                                 popupTitle: Container(
-                                  height: 60,
+                                  height: 50,
                                   decoration: BoxDecoration(
                                     color: secondryColor,
-                                    borderRadius: const BorderRadius.only(
+                                    borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(20),
                                       topRight: Radius.circular(20),
                                     ),
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "الموظف البديل",
+                                      'سبب الرفض',
                                       style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
@@ -348,7 +452,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                     ),
                                   ),
                                 ),
-                                popupShape: const RoundedRectangleBorder(
+                                popupShape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(24),
                                     topRight: Radius.circular(24),
@@ -356,265 +460,168 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                 ),
                               ),
                             ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: DropdownSearch<String>(
-                              items: _provider.resonsSrtings,
-                              popupBackgroundColor: BackGWhiteColor,
-                              maxHeight: 300,
-                              key: key,
-                              mode: Mode.BOTTOM_SHEET,
-                              showClearButton: true,
-                              showAsSuffixIcons: true,
-                              dropdownSearchDecoration: InputDecoration(
-                                labelText: "سبب الرفض",
-                                labelStyle: TextStyle(color: secondryColorText),
-                                errorStyle: TextStyle(color: redColor),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: responsiveMT(8, 30),
-                                    horizontal: 10.0),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4.0),
-                                  borderSide: BorderSide(color: bordercolor),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: bordercolor),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: bordercolor),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                errorText: isValied == true
-                                    ? null
-                                    : "الرجاء إختيار السبب",
-                                // contentPadding:
-                                //     EdgeInsets.fromLTRB(12, 12, 0, 0),
-                                // border: OutlineInputBorder(),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            TextField(
+                              keyboardType: TextInputType.text,
+                              maxLines: 3,
+                              style: TextStyle(
+                                color: baseColorText,
                               ),
-                              showSearchBox: true,
-                              onChanged: (String? v) {
-                                setState(() {
-                                  resondID = v ?? "";
-                                  if (resondID != "") {
-                                    isValied = true;
-                                  }
-                                });
-                              },
-                              dropdownBuilder: (context, selectedItem) =>
+                              decoration: formlabel1("ملاحظات"),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
                                   Container(
-                                decoration: null,
-                                child: selectedItem == null
-                                    ? null
-                                    : Text(
-                                        selectedItem == null
-                                            ? ""
-                                            : selectedItem ?? "",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color: baseColorText)),
-                              ),
-                              dropdownBuilderSupportsNullItem: true,
-                              popupItemBuilder: (context, rr, isSelected) =>
-                                  (Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Column(
-                                  children: [
-                                    Text(rr.toString(),
-                                        style: subtitleTx(baseColorText))
-                                  ],
-                                ),
-                              )),
-                              popupTitle: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: secondryColor,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'سبب الرفض',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              popupShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(24),
-                                  topRight: Radius.circular(24),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            keyboardType: TextInputType.text,
-                            maxLines: 3,
-                            style: TextStyle(
-                              color: baseColorText,
-                            ),
-                            decoration: formlabel1("ملاحظات"),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 8),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: redColor, // background
-                                      onPrimary: Colors.white, // foreground
-                                    ),
-                                    onPressed: () {
-                                      if (resondID == "") {
-                                        setState(() {
-                                          isValied = false;
-                                        });
+                                    margin: EdgeInsets.only(top: 8),
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: redColor, // background
+                                        onPrimary: Colors.white, // foreground
+                                      ),
+                                      onPressed: () {
+                                        if (resondID == "") {
+                                          setState(() {
+                                            isValied = false;
+                                          });
 
-                                        return;
-                                      } else {
-                                        setState(() {
-                                          isValied = true;
-                                        });
-                                      }
-
-                                      Alerts.confirmAlrt(context, "",
-                                              "تأكيد رفض الطلب", "رفض")
-                                          .show()
-                                          .then((val) async {
-                                        if (val == true) {
-                                          EasyLoading.show(
-                                            status: 'جاري المعالجة...',
-                                            maskType: EasyLoadingMaskType.black,
-                                          );
-                                          dynamic bool = true;
-
-                                          bool = await _provider.deleteEtmad(
-                                              widget.index ?? 0,
-                                              false,
-                                              resondID,
-                                              _ReplaceEmployeeNumber,
-                                              _provider
-                                                  .getHrRequests[
-                                                      widget.index ?? 0]
-                                                  .RequestTypeID);
-
-                                          EasyLoading.dismiss();
-                                          if (bool == true) {
-                                            Alerts.successAlert(
-                                                    context, "", "تم رفض الطلب")
-                                                .show()
-                                                .then((value) {
-                                              // to exit from secreen after clicking حسنا btn
-                                              //remova page from secreen
-                                              Navigator.pop(context);
-                                            });
-                                          } else {
-                                            Alerts.errorAlert(context, "", bool)
-                                                .show();
-                                          }
+                                          return;
+                                        } else {
+                                          setState(() {
+                                            isValied = true;
+                                          });
                                         }
-                                      });
-                                    },
-                                    child: Text('رفض'),
-                                  ),
-                                )
-                              ],
+
+                                        Alerts.confirmAlrt(context, "",
+                                                "تأكيد رفض الطلب", "رفض")
+                                            .show()
+                                            .then((val) async {
+                                          if (val == true) {
+                                            EasyLoading.show(
+                                              status: 'جاري المعالجة...',
+                                              maskType:
+                                                  EasyLoadingMaskType.black,
+                                            );
+                                            dynamic bool = true;
+
+                                            bool = await _provider.deleteEtmad(
+                                                widget.index ?? 0,
+                                                false,
+                                                resondID,
+                                                _ReplaceEmployeeNumber,
+                                                _provider
+                                                    .getHrRequests[
+                                                        widget.index ?? 0]
+                                                    .RequestTypeID);
+
+                                            EasyLoading.dismiss();
+                                            if (bool == true) {
+                                              Alerts.successAlert(context, "",
+                                                      "تم رفض الطلب")
+                                                  .show()
+                                                  .then((value) {
+                                                // to exit from secreen after clicking حسنا btn
+                                                //remova page from secreen
+                                                Navigator.pop(context);
+                                              });
+                                            } else {
+                                              Alerts.errorAlert(
+                                                      context, "", bool)
+                                                  .show();
+                                            }
+                                          }
+                                        });
+                                      },
+                                      child: Text('رفض'),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: baseColor, // background
-                                onPrimary: Colors.white, // foreground
-                              ),
-                              onPressed: () {
-                                Alerts.confirmAlrt(
-                                        context, "", "تأكيد قبول الطلب", "قبول")
-                                    .show()
-                                    .then((val) async {
-                                  if (val == true) {
-                                    EasyLoading.show(
-                                      status: 'جاري المعالجة...',
-                                      maskType: EasyLoadingMaskType.black,
-                                    );
-                                    dynamic bool = true;
-                                    if (_provider
-                                            .getHrRequests[widget.index ?? 0]
-                                            .RequestTypeID ==
-                                        2) {
-                                      bool =
-                                          await _provider.UpdateOutDutyRequest(
-                                              jsonEncode({
-                                        "OutDutyHours":
-                                            double.parse(_HoursNumberC.text),
-                                        "StartDate": _startDate.text,
-                                        "EndDate": _endtDate.text,
-                                        "UpdatedBy": sharedPref
-                                            .getDouble("EmployeeNumber")
-                                            .toString()
-                                            .split(".")[0],
-                                        "RequestNumber": _provider
-                                            .getHrRequests[widget.index ?? 0]
-                                            .RequestNumber
-                                      }));
-                                    }
-                                    if (bool == true) {
-                                      bool = await _provider.deleteEtmad(
-                                          widget.index ?? 0,
-                                          true,
-                                          resondID,
-                                          _ReplaceEmployeeNumber,
-                                          _provider
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: baseColor, // background
+                                  onPrimary: Colors.white, // foreground
+                                ),
+                                onPressed: () {
+                                  Alerts.confirmAlrt(context, "",
+                                          "تأكيد قبول الطلب", "قبول")
+                                      .show()
+                                      .then((val) async {
+                                    if (val == true) {
+                                      EasyLoading.show(
+                                        status: 'جاري المعالجة...',
+                                        maskType: EasyLoadingMaskType.black,
+                                      );
+                                      dynamic bool = true;
+                                      if (_provider
                                               .getHrRequests[widget.index ?? 0]
-                                              .RequestTypeID);
+                                              .RequestTypeID ==
+                                          2) {
+                                        bool = await _provider
+                                            .UpdateOutDutyRequest(jsonEncode({
+                                          "OutDutyHours":
+                                              double.parse(_HoursNumberC.text),
+                                          "StartDate": _startDate.text,
+                                          "EndDate": _endtDate.text,
+                                          "UpdatedBy": sharedPref
+                                              .getDouble("EmployeeNumber")
+                                              .toString()
+                                              .split(".")[0],
+                                          "RequestNumber": _provider
+                                              .getHrRequests[widget.index ?? 0]
+                                              .RequestNumber
+                                        }));
+                                      }
+                                      if (bool == true) {
+                                        bool = await _provider.deleteEtmad(
+                                            widget.index ?? 0,
+                                            true,
+                                            resondID,
+                                            _ReplaceEmployeeNumber,
+                                            _provider
+                                                .getHrRequests[
+                                                    widget.index ?? 0]
+                                                .RequestTypeID);
+                                      }
+                                      EasyLoading.dismiss();
+                                      if (bool == true) {
+                                        Alerts.successAlert(
+                                                context, "", "تم القبول ")
+                                            .show()
+                                            .then((value) {
+                                          Navigator.pop(context);
+                                        });
+                                      } else {
+                                        Alerts.errorAlert(context, "", bool)
+                                            .show();
+                                      }
                                     }
-                                    EasyLoading.dismiss();
-                                    if (bool == true) {
-                                      Alerts.successAlert(
-                                              context, "", "تم القبول ")
-                                          .show()
-                                          .then((value) {
-                                        Navigator.pop(context);
-                                      });
-                                    } else {
-                                      Alerts.errorAlert(context, "", bool)
-                                          .show();
-                                    }
-                                  }
-                                });
-                              },
-                              child: Text("قبول"),
-                            )),
-                      ),
-                    ],
-                  )
-                ],
+                                  });
+                                },
+                                child: Text("قبول"),
+                              )),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

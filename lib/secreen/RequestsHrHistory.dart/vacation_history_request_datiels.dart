@@ -23,12 +23,12 @@ class _vacation_history_request_datielsState
         appBar: AppBarW.appBarW("التفاصيل", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
+              ),
             ),
             SingleChildScrollView(
               child: Container(

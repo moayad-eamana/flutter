@@ -53,12 +53,12 @@ class _HrDecisionsViewState extends State<HrDecisionsView> {
         appBar: AppBarW.appBarW("القرارت الإلكترونية", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
+              ),
             ),
             _provider.HrDecisionsList.length == 0
                 ? Center(

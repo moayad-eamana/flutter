@@ -51,12 +51,12 @@ class _Mandates_historyState extends State<Mandates_history> {
         appBar: AppBarW.appBarW("إنتداباتي", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
+              ),
             ),
             list.length > 0
                 ? Container(

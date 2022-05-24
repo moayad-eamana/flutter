@@ -21,12 +21,12 @@ class _Mandates_history_detailesState extends State<Mandates_history_detailes> {
           appBar: AppBarW.appBarW("التفاصيل", context, null),
           body: Stack(
             children: [
-              Image.asset(
-                imageBG,
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                //height: MediaQuery.of(context).size.height,
-                fit: BoxFit.fill,
+              SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: Image.asset(
+                  imageBG,
+                  fit: BoxFit.fill,
+                ),
               ),
               Container(
                 margin: EdgeInsets.all(10),

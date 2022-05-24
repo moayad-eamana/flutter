@@ -53,17 +53,17 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW("الاعارات", context, null),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Image.asset(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
                 imageBG,
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                //height: MediaQuery.of(context).size.height,
                 fit: BoxFit.fill,
               ),
-              Column(
+            ),
+            SingleChildScrollView(
+              child: Column(
                 children: [
                   Card(
                     elevation: 1,
@@ -663,8 +663,8 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                   )
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
