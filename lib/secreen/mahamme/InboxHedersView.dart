@@ -173,22 +173,22 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
-    } else if (_provider.TypeID == 120) {
-      return caerdContent(
-        "إعتماد إعارة",
-        "assets/SVGs/dalelalmowzafen.svg",
-        () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider(
-                  create: (_) => LoansRequestsProvider(),
-                  child: LoansRequestsView()),
-            ),
-          );
-        },
-      );
-    } else {
+    } // else if (_provider.TypeID == 120) {
+    //   return caerdContent(
+    //     "إعتماد إعارة",
+    //     "assets/SVGs/dalelalmowzafen.svg",
+    //     () {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => ChangeNotifierProvider(
+    //               create: (_) => LoansRequestsProvider(),
+    //               child: LoansRequestsView()),
+    //         ),
+    //       );
+    //     },
+    //   );    // }
+    else {
       return Container();
     }
   }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:sizer/sizer.dart';
 
 class HrDecisionsDetailesView extends StatefulWidget {
   int index;
@@ -39,6 +40,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
             ),
             SingleChildScrollView(
               child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Column(
                   children: [
                     Container(
@@ -95,6 +97,9 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -129,44 +134,44 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 120,
-                            child: Card(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("الادارة السابقة"),
-                                  Text(
-                                      _provider[widget.index].OldDepartmentName)
-                                ],
-                              ),
-                            ),
-                          ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        width: 100.w,
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("الادارة السابقة"),
+                            Text(_provider[widget.index].OldDepartmentName)
+                          ],
                         ),
-                        Icon(Icons.forward),
-                        Expanded(
-                          child: Container(
-                            height: 120,
-                            child: Card(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("الادارة الحالية"),
-                                  Text(
-                                      _provider[widget.index].NewDepartmentName)
-                                ],
-                              ),
-                            ),
-                          ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        width: 100.w,
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("الادارة الحالية"),
+                            Text(_provider[widget.index].NewDepartmentName)
+                          ],
                         ),
-                      ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Expanded(
                           child: Container(
@@ -202,6 +207,9 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Expanded(
