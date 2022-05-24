@@ -24,7 +24,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
         Provider.of<PurchaseRequestsProvider>(context, listen: false);
     // TODO: implement initState
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      Provider.of<PurchaseRequestsProvider>(context, listen: false)
+      await Provider.of<PurchaseRequestsProvider>(context, listen: false)
           .fetchPurchaseRequestItemst(
               _provider.PurchaseRequestsList[widget.index].RequestNumber);
     });
@@ -34,7 +34,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
   @override
   Widget build(BuildContext context) {
     var _provider =
-        Provider.of<PurchaseRequestsProvider>(context, listen: false);
+        Provider.of<PurchaseRequestsProvider>(context, listen: true);
     print(_provider.PurchaseRequestsList[0].TransactionTypeID);
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -58,91 +58,94 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                   child: Column(
                     children: [
                       Container(
-                        child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          primary: false,
-                          itemCount: _provider.PurchaseRequestItemsList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              // margin:
-                              //     EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        child: _provider.PurchaseRequestItemsList.length == 0
+                            ? Container()
+                            : ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                //   primary: false,
+                                itemCount:
+                                    _provider.PurchaseRequestItemsList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    // margin:
+                                    //     EdgeInsets.symmetric(vertical: 10, horizontal: 10),
 
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    color: BackGWhiteColor,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 20, horizontal: 20),
-                                    child: Card(
-                                      color: BackGWhiteColor,
-                                      elevation: 1,
-                                      child: Column(
-                                        children: [
-                                          // Row(
-                                          //   children: [
-                                          //     Text(
-                                          //       "موضوع الطلب : " +
-                                          //           _provider
-                                          //               .PurchaseRequestsList[widget.index]
-                                          //               .Subject,
-                                          //       style: descTx2(secondryColorText),
-                                          //     )
-                                          //   ],
-                                          // ),
-                                          Table(
-                                            //       defaultColumnWidth: FixedColumnWidth(120.0),
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          color: BackGWhiteColor,
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 20, horizontal: 20),
+                                          child: Card(
+                                            color: BackGWhiteColor,
+                                            elevation: 1,
+                                            child: Column(
+                                              children: [
+                                                // Row(
+                                                //   children: [
+                                                //     Text(
+                                                //       "موضوع الطلب : " +
+                                                //           _provider
+                                                //               .PurchaseRequestsList[widget.index]
+                                                //               .Subject,
+                                                //       style: descTx2(secondryColorText),
+                                                //     )
+                                                //   ],
+                                                // ),
+                                                Table(
+                                                  //       defaultColumnWidth: FixedColumnWidth(120.0),
 
-                                            border: TableBorder.all(
-                                                color: bordercolor,
-                                                //  style: BorderStyle.solid,
-                                                width: 0.5),
-                                            children: [
-                                              TableRows(
-                                                  "الكمية المطلوبة",
-                                                  _provider
-                                                      .PurchaseRequestItemsList[
-                                                          index]
-                                                      .RequiredQuantity
-                                                      .toString()),
-                                              TableRows(
-                                                  "إسم الصنف",
-                                                  _provider
-                                                      .PurchaseRequestItemsList[
-                                                          index]
-                                                      .ItemName
-                                                      .toString()),
-                                              TableRows(
-                                                  "كود الصنف",
-                                                  _provider
-                                                      .PurchaseRequestItemsList[
-                                                          index]
-                                                      .ItemCode),
-                                              TableRows(
-                                                  "الوحدة",
-                                                  _provider
-                                                      .PurchaseRequestItemsList[
-                                                          index]
-                                                      .UnitDescription),
-                                              TableRows(
-                                                  "المتوفر في المخزون",
-                                                  _provider
-                                                      .PurchaseRequestItemsList[
-                                                          index]
-                                                      .StockAvaliableQuantity
-                                                      .toString()),
-                                            ],
+                                                  border: TableBorder.all(
+                                                      color: bordercolor,
+                                                      //  style: BorderStyle.solid,
+                                                      width: 0.5),
+                                                  children: [
+                                                    TableRows(
+                                                        "الكمية المطلوبة",
+                                                        _provider
+                                                            .PurchaseRequestItemsList[
+                                                                index]
+                                                            .RequiredQuantity
+                                                            .toString()),
+                                                    TableRows(
+                                                        "إسم الصنف",
+                                                        _provider
+                                                            .PurchaseRequestItemsList[
+                                                                index]
+                                                            .ItemName
+                                                            .toString()),
+                                                    TableRows(
+                                                        "كود الصنف",
+                                                        _provider
+                                                            .PurchaseRequestItemsList[
+                                                                index]
+                                                            .ItemCode),
+                                                    TableRows(
+                                                        "الوحدة",
+                                                        _provider
+                                                            .PurchaseRequestItemsList[
+                                                                index]
+                                                            .UnitDescription),
+                                                    TableRows(
+                                                        "المتوفر في المخزون",
+                                                        _provider
+                                                            .PurchaseRequestItemsList[
+                                                                index]
+                                                            .StockAvaliableQuantity
+                                                            .toString()),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),

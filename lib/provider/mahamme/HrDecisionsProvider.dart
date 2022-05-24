@@ -13,9 +13,14 @@ class HrDecisionsProvider extends ChangeNotifier {
     String empNo = await EmployeeProfile.getEmployeeNumber();
     var respose = await getAction("Inbox/GetDecisions" + "/" + empNo);
     print((jsonDecode(respose.body)["DecisionList"]));
-    _hrDecisions = (jsonDecode(respose.body)["DecisionList"] as List)
-        .map(((e) => HrDecisions.fromJson(e)))
-        .toList();
+    try {
+      _hrDecisions = (jsonDecode(respose.body)["DecisionList"] as List)
+          .map(((e) => HrDecisions.fromJson(e)))
+          .toList();
+    } catch (e) {
+      _hrDecisions = [];
+    }
+
     notifyListeners();
   }
 

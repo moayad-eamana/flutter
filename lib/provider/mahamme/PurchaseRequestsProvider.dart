@@ -50,6 +50,8 @@ class PurchaseRequestsProvider extends ChangeNotifier {
           .map(((e) => PurchaseRequestItems.fromJson(e)))
           .toList();
       notifyListeners();
+    } else {
+      _PurchaseRequestItems = [];
     }
     notifyListeners();
     EasyLoading.dismiss();
@@ -77,6 +79,7 @@ class PurchaseRequestsProvider extends ChangeNotifier {
         await postAction("Inbox/ApprovePurchasesRequest", jsonEncode(data));
 
     if (jsonDecode(respose.body)["StatusCode"] != 400) {
+      EasyLoading.dismiss();
       return jsonDecode(respose.body)["ErrorMessage"];
     }
     _PurchaseRequestsList.removeAt(index);

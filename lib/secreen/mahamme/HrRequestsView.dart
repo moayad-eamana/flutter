@@ -62,7 +62,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
               fit: BoxFit.fill,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: _provider.getHrRequests.length == 0
                   ? Container()
                   : AnimationLimiter(
