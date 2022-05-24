@@ -302,7 +302,7 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Text(
-                        "إعدادات ذوي الهمم",
+                        "إعدادات عامة",
                         style: titleTx(baseColor),
                         textAlign: TextAlign.right,
                       ),
