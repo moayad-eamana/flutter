@@ -55,7 +55,10 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
         appBar: AppBarW.appBarW("الاعارات", context, null),
         body: _provider.LoansRequestList.length == 0
             ? Center(
-                child: Text("لايوجد إعتمادات"),
+                child: Text(
+                  "لا يوجد إعتمادات",
+                  style: subtitleTx(baseColorText),
+                ),
               )
             : Stack(
                 children: [

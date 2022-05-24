@@ -62,7 +62,10 @@ class _HrDecisionsViewState extends State<HrDecisionsView> {
             ),
             _provider.HrDecisionsList.length == 0
                 ? Center(
-                    child: Text("لايوجد بيانات"),
+                    child: Text(
+                      "لا يوجد بيانات",
+                      style: subtitleTx(baseColorText),
+                    ),
                   )
                 : Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

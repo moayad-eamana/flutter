@@ -134,8 +134,8 @@ class _SalaryHistoryState extends State<SalaryHistory>
                   if (listOfSalary.length == 0 && isLoading == false)
                     Center(
                       child: Text(
-                        "لايوجد رواتب",
-                        style: titleTx(baseColor),
+                        "لا يوجد رواتب",
+                        style: subtitleTx(baseColorText),
                       ),
                     ),
                   if (listOfSalary.length > 0)

@@ -53,7 +53,10 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
             ),
             _provider.PurchaseRequestsList.length == 0
                 ? Center(
-                    child: Text("لايوجد بيانات"),
+                    child: Text(
+                      "لا يوجد بيانات",
+                      style: subtitleTx(baseColorText),
+                    ),
                   )
                 : ListView.builder(
                     itemCount: _provider.PurchaseRequestsList.length,
