@@ -60,7 +60,10 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
             ),
             list.length == 0
                 ? Center(
-                    child: Text("لايوجد طلبات"),
+                    child: Text(
+                      "لا يوجد طلبات",
+                      style: subtitleTx(baseColorText),
+                    ),
                   )
                 : Container(
                     margin: EdgeInsets.all(10),

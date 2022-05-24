@@ -49,7 +49,10 @@ class _MobasharaState extends State<Mobashara> {
             ),
             _provider.MobasharaList.length == 0
                 ? Center(
-                    child: Text("لايوجد بيانات"),
+                    child: Text(
+                      "لا يوجد بيانات",
+                      style: subtitleTx(baseColorText),
+                    ),
                   )
                 : Container(
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),

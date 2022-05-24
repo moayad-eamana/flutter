@@ -62,8 +62,8 @@ class _vacation_old_requestState extends State<vacation_old_request> {
               child: list.length == 0
                   ? Center(
                       child: Text(
-                        "لايوجد طلبات",
-                        style: titleTx(baseColor),
+                        "لا يوجد طلبات",
+                        style: subtitleTx(baseColorText),
                       ),
                     )
                   : ListView.builder(
