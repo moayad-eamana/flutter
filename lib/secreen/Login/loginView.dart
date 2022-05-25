@@ -362,6 +362,10 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ));
           } else {
+            if (_provider.geterorMs != "") {
+              Alerts.errorAlert(context, "خطأ", _provider.geterorMs).show();
+              return;
+            }
             Alerts.errorAlert(
                     context, "خطأ", "خطأ في كلمة المرور أو إسم المستخدم")
                 .show();

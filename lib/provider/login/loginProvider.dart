@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ class LoginProvider extends ChangeNotifier {
   String PrivateToken = "";
   String username = "";
   String pass = "";
+  String erorMs = "";
   get getPrivetToken {
     return PrivateToken;
   }
@@ -22,26 +24,31 @@ class LoginProvider extends ChangeNotifier {
     return pass;
   }
 
+  get geterorMs {
+    return erorMs;
+  }
   // EmployeeProfile employeeProfile = EmployeeProfile(0, "", "", "");
 
   Future<bool> checkUser(String userName, String password) async {
-    var respose = await http.post(
-        Uri.parse(
-            "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/CheckUserForMobile"),
-        body: jsonEncode({"EmployeeNumber": userName, "Password": password}),
-        headers: {"Content-Type": "application/json"});
+    erorMs = "";
+    var respose;
+    try {
+      respose = await Dio().post(
+          "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/CheckUserForMobile",
+          data: jsonEncode({"EmployeeNumber": userName, "Password": password}),
+          options: Options(headers: {"Content-Type": "application/json"}));
+    } catch (e) {
+      erorMs = e.toString();
+      return false;
+    }
 
-    if (jsonDecode(respose.body)["IsAuthenticated"] == true) {
-      PrivateToken = jsonDecode(respose.body)["PrivateToken"];
-      sharedPref.setString(
-          "PrivateToken", jsonDecode(respose.body)["PrivateToken"]);
+    if (respose.data["IsAuthenticated"] == true) {
+      PrivateToken = respose.data["PrivateToken"];
+      sharedPref.setString("PrivateToken", respose.data["PrivateToken"]);
       username = userName;
       pass = password;
 
       //_pref.setString("username", userName);
-      if (username == "1111") {
-        return true;
-      }
 
       return true;
     }
