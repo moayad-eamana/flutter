@@ -83,9 +83,11 @@ class _VacationRequestState extends State<VacationRequest> {
 
         //print(_MainDepartmentEmployees[0].EmployeeName);
         setState(() {});
-        EasyLoading.dismiss();
       }
-    } catch (Ex) {}
+      EasyLoading.dismiss();
+    } catch (Ex) {
+      EasyLoading.dismiss();
+    }
   }
 
   Future<void> InsertVacationRequest() async {
