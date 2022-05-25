@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Center(
                         child: Text(
                           "أمانة المنطقة الشرقية - إدارة تقنية المعلومات",
-                          style: descTx1(Colors.black),
+                          style: descTx1(Colors.white),
                           textAlign: TextAlign.right,
                         ),
                       ),
@@ -302,12 +302,12 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget background() {
-    return Image.asset(
-      imageBG,
-      alignment: Alignment.center,
-      width: MediaQuery.of(context).size.width,
-      //height: MediaQuery.of(context).size.height,
-      fit: BoxFit.fill,
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Image.asset(
+        imageBG,
+        fit: BoxFit.fill,
+      ),
     );
   }
 

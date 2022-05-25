@@ -83,12 +83,12 @@ class _OTPViewState extends State<OTPView> {
   }
 
   Widget background() {
-    return Image.asset(
-      imageBG,
-      alignment: Alignment.center,
-      width: MediaQuery.of(context).size.width,
-      //height: MediaQuery.of(context).size.height,
-      fit: BoxFit.fill,
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Image.asset(
+        imageBG,
+        fit: BoxFit.fill,
+      ),
     );
   }
 

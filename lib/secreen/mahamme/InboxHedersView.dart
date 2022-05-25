@@ -176,7 +176,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
-    } // else if (_provider.TypeID == 120) {
+    } //else if (_provider.TypeID == 120) {
     //   return caerdContent(
     //     "إعتماد إعارة",
     //     "assets/SVGs/dalelalmowzafen.svg",
@@ -190,7 +190,8 @@ class _InboxHedersViewState extends State<InboxHedersView> {
     //         ),
     //       );
     //     },
-    //   );    // }
+    //   );
+    // }
     else {
       return Container();
     }
