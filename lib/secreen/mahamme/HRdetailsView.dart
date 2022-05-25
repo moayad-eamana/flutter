@@ -698,8 +698,9 @@ class _HRdetailsViewState extends State<HRdetailsView> {
             step: 0.5,
             decoration: InputDecoration(
               labelText: 'ادخل عدد الساعات',
+              labelStyle: TextStyle(color: secondryColorText),
             ),
-            textStyle: subtitleTx(secondryColorText),
+            textStyle: subtitleTx(baseColorText),
             incrementIcon: Icon(
               Icons.add_box_outlined,
               size: 30,
