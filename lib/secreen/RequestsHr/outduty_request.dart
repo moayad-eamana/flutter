@@ -45,7 +45,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
 
   getuserinfo() async {
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     empinfo = await empinfo.getEmployeeProfile();

@@ -66,7 +66,7 @@ class _VacationRequestState extends State<VacationRequest> {
 
   Future<void> getMainDepartmentEmployees() async {
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     await getuserinfo();

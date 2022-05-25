@@ -32,7 +32,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       EasyLoading.show(
-        status: 'جاري المعالجة...',
+        status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
       await Provider.of<EatemadatProvider>(context, listen: false)

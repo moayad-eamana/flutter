@@ -312,7 +312,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 rseed();
               } else if (query == "تعريف بالراتب") {
                 EasyLoading.show(
-                  status: 'جاري المعالجة...',
+                  status: '... جاري المعالجة',
                   maskType: EasyLoadingMaskType.black,
                 );
                 String emNo = await EmployeeProfile.getEmployeeNumber();
@@ -405,7 +405,7 @@ class CustomSearchDelegate extends SearchDelegate {
       });
   Future<void> rseed() async {
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     String emNo = await EmployeeProfile.getEmployeeNumber();

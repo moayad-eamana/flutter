@@ -147,7 +147,7 @@ class _SettingsState extends State<Settings> {
                                         value: fingerprint,
                                         onChanged: (bool newValue) async {
                                           // EasyLoading.show(
-                                          //   status: 'جاري المعالجة...',
+                                          //   status: '... جاري المعالجة',
                                           //   maskType: EasyLoadingMaskType.black,
                                           // );
 

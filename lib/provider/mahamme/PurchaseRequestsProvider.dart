@@ -12,7 +12,7 @@ class PurchaseRequestsProvider extends ChangeNotifier {
 
   Future<dynamic> fetchPurchaseRequests(int id) async {
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     var EmNo = await EmployeeProfile.getEmployeeNumber();
@@ -38,7 +38,7 @@ class PurchaseRequestsProvider extends ChangeNotifier {
     _PurchaseRequestItems = [];
     notifyListeners();
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     var EmNo = await EmployeeProfile.getEmployeeNumber();
@@ -64,7 +64,7 @@ class PurchaseRequestsProvider extends ChangeNotifier {
   Future<dynamic> ApprovePurchasesRequest(
       int index, String Note, bool isAproved, int TransactionTypeID) async {
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     String emNo = await EmployeeProfile.getEmployeeNumber();

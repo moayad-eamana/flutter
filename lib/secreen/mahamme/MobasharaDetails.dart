@@ -286,7 +286,7 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                                   .then((value) async {
                                 if (value == true) {
                                   EasyLoading.show(
-                                    status: 'جاري المعالجة...',
+                                    status: '... جاري المعالجة',
                                     maskType: EasyLoadingMaskType.black,
                                   );
                                   String emNo =

@@ -34,7 +34,7 @@ class _Mandates_historyState extends State<Mandates_history> {
     String Empno =
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     list = await getAction("HR/GetUserMandates/" + Empno);

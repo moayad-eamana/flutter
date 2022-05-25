@@ -54,7 +54,7 @@ class _AddMeetingState extends State<AddMeeting> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'جاري المعالجة...',
+          status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<MettingsProvider>(context, listen: false)
@@ -569,7 +569,7 @@ class _AddMeetingState extends State<AddMeeting> {
                           ).show().then((value) async {
                             if (!rej) {
                               EasyLoading.show(
-                                status: 'جاري المعالجة...',
+                                status: '... جاري المعالجة',
                                 maskType: EasyLoadingMaskType.black,
                               );
                               await _provider.addApp(meetings, p);

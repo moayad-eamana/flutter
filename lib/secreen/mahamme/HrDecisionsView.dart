@@ -24,7 +24,7 @@ class _HrDecisionsViewState extends State<HrDecisionsView> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'جاري المعالجة...',
+          status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<HrDecisionsProvider>(context, listen: false)

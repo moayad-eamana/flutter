@@ -46,7 +46,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'جاري المعالجة...',
+          status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<EatemadatProvider>(context, listen: false)
@@ -89,7 +89,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
         .split(".")[0];
 
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
 
@@ -502,7 +502,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                             .then((val) async {
                                           if (val == true) {
                                             EasyLoading.show(
-                                              status: 'جاري المعالجة...',
+                                              status: '... جاري المعالجة',
                                               maskType:
                                                   EasyLoadingMaskType.black,
                                             );
@@ -563,7 +563,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                       .then((val) async {
                                     if (val == true) {
                                       EasyLoading.show(
-                                        status: 'جاري المعالجة...',
+                                        status: '... جاري المعالجة',
                                         maskType: EasyLoadingMaskType.black,
                                       );
                                       dynamic bool = true;

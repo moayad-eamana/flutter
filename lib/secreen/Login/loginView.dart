@@ -340,7 +340,7 @@ class _LoginViewState extends State<LoginView> {
         erore = checkValditionSubmit();
         if (!erore) {
           EasyLoading.show(
-            status: 'جاري المعالجة...',
+            status: '... جاري المعالجة',
             maskType: EasyLoadingMaskType.black,
           );
 

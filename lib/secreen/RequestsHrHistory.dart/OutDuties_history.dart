@@ -34,7 +34,7 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
     String Empno =
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     list = await getAction("HR/GetEmployeeOutDuties/" + Empno);

@@ -181,7 +181,7 @@ class _OTPViewState extends State<OTPView> {
               errorM = false;
             });
             EasyLoading.show(
-              status: 'جاري المعالجة...',
+              status: '... جاري المعالجة',
               maskType: EasyLoadingMaskType.black,
             );
             dynamic isValid =

@@ -474,7 +474,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                               }
 
                                               EasyLoading.show(
-                                                status: 'جاري المعالجة...',
+                                                status: '... جاري المعالجة',
                                                 maskType:
                                                     EasyLoadingMaskType.black,
                                               );
@@ -617,7 +617,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
                                                   return;
                                                 }
                                                 EasyLoading.show(
-                                                  status: 'جاري المعالجة...',
+                                                  status: '... جاري المعالجة',
                                                   maskType:
                                                       EasyLoadingMaskType.black,
                                                 );

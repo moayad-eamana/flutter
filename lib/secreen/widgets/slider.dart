@@ -59,7 +59,7 @@ class SliderWidget {
                   style: cardServiece,
                   onPressed: () async {
                     EasyLoading.show(
-                      status: 'جاري المعالجة...',
+                      status: '... جاري المعالجة',
                       maskType: EasyLoadingMaskType.black,
                     );
                     String emNo = await EmployeeProfile.getEmployeeNumber();

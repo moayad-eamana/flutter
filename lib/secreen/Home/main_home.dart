@@ -229,7 +229,7 @@ class _MainHomeState extends State<MainHome> {
                                     bool fingerprint =
                                         sharedPref.getBool('fingerprint')!;
                                     EasyLoading.show(
-                                      status: 'جاري المعالجة...',
+                                      status: '... جاري المعالجة',
                                       maskType: EasyLoadingMaskType.black,
                                     );
                                     String emNo = await EmployeeProfile

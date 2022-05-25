@@ -35,7 +35,7 @@ class _MeetingViewState extends State<MeetingView> {
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       EasyLoading.show(
-        status: 'جاري المعالجة...',
+        status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
       await Provider.of<MettingsProvider>(context, listen: false)
@@ -328,7 +328,7 @@ class _MeetingViewState extends State<MeetingView> {
                                                         if (!rej) {
                                                           EasyLoading.show(
                                                             status:
-                                                                'جاري المعالجة...',
+                                                                '... جاري المعالجة',
                                                             maskType:
                                                                 EasyLoadingMaskType
                                                                     .black,

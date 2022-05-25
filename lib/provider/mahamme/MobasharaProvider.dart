@@ -12,7 +12,7 @@ class MobasharaProvider extends ChangeNotifier {
 
   Future<dynamic> fetchMobashara(int TypeID) async {
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     var EmNo = await EmployeeProfile.getEmployeeNumber();

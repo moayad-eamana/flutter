@@ -34,7 +34,7 @@ class _AuhadState extends State<Auhad> {
 
   getdata() async {
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     await getuserinfo();

@@ -188,7 +188,7 @@ class _EntedabState extends State<Entedab> {
                                     //   "Notes": _Note.text
                                     // });
                                     EasyLoading.show(
-                                      status: 'جاري المعالجة...',
+                                      status: '... جاري المعالجة',
                                       maskType: EasyLoadingMaskType.black,
                                     );
                                     var response = await postAction(
@@ -314,7 +314,7 @@ class _EntedabState extends State<Entedab> {
         try {
           MandateTypeID = v["typeId"].toString();
           EasyLoading.show(
-            status: 'جاري المعالجة...',
+            status: '... جاري المعالجة',
             maskType: EasyLoadingMaskType.black,
           );
           var respose = await getAction("HR/GetMandateLocationListByTypeId/" +

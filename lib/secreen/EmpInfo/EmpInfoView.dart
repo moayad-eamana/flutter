@@ -357,7 +357,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
   Future<void> getEmpInfoViewdata() async {
     FocusScope.of(context).unfocus();
     EasyLoading.show(
-      status: 'جاري المعالجة...',
+      status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     bool hasinfo = await Provider.of<EmpInfoProvider>(context, listen: false)

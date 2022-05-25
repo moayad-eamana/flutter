@@ -23,7 +23,7 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
           .LoansRequestList
           .isEmpty) {
         EasyLoading.show(
-          status: 'جاري المعالجة...',
+          status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<LoansRequestsProvider>(context, listen: false)

@@ -227,7 +227,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                                   .then((value) async {
                                 if (value == true) {
                                   EasyLoading.show(
-                                    status: 'جاري المعالجة...',
+                                    status: '... جاري المعالجة',
                                     maskType: EasyLoadingMaskType.black,
                                   );
                                   var bool =

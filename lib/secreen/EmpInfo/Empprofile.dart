@@ -29,7 +29,7 @@ class _EmpProfileState extends State<EmpProfile> {
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
       EasyLoading.show(
-        status: 'جاري المعالجة...',
+        status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
       SharedPreferences _pref = await SharedPreferences.getInstance();

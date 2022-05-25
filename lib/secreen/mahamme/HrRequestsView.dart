@@ -25,7 +25,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
               .length ==
           0) {
         EasyLoading.show(
-          status: 'جاري المعالجة...',
+          status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
         await Provider.of<EatemadatProvider>(context, listen: false)
