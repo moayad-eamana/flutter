@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/secreen/EamanaDiscount/OfferDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -91,140 +92,150 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                       : Column(
                           children: [
                             ..._OffersList.map(
-                              (e) => Container(
-                                height: 100,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                decoration:
-                                    containerdecoration(BackGWhiteColor),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              width: 100.w <= 375 ? 100 : 120,
-                                              child: Stack(
-                                                fit: StackFit.loose,
-                                                overflow: Overflow.visible,
-                                                clipBehavior: Clip.hardEdge,
-                                                children: [
-                                                  Container(
-                                                    height: 45,
-                                                    decoration:
-                                                        containerdecoration(
-                                                            baseColor),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Text(
-                                                          e["DiscoutRatio"]
-                                                                  .toString() +
-                                                              "%",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          "خصم",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )
-                                                      ],
+                              (e) => GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => OfferDetails(e)),
+                                  );
+                                },
+                                child: Container(
+                                  height: 100,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  decoration:
+                                      containerdecoration(BackGWhiteColor),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                width: 100.w <= 375 ? 100 : 120,
+                                                child: Stack(
+                                                  fit: StackFit.loose,
+                                                  overflow: Overflow.visible,
+                                                  clipBehavior: Clip.hardEdge,
+                                                  children: [
+                                                    Container(
+                                                      height: 45,
+                                                      decoration:
+                                                          containerdecoration(
+                                                              baseColor),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Text(
+                                                            e["DiscoutRatio"]
+                                                                    .toString() +
+                                                                "%",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          Text(
+                                                            "خصم",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                  // Positioned(
-                                                  //   top: -9,
-                                                  //   left: 0.2,
-                                                  //   child: Container(
-                                                  //     height: 25,
-                                                  //     width: 100,
-                                                  //     decoration:
-                                                  //         containerdecoration(
-                                                  //             secondryColor),
-                                                  //     child: Center(
-                                                  //         child: Text(
-                                                  //       e["CategoryName"],
-                                                  //       style: descTx1(
-                                                  //           Colors.white),
-                                                  //     )),
-                                                  //   ),
-                                                  // ),
-                                                ],
+                                                    // Positioned(
+                                                    //   top: -9,
+                                                    //   left: 0.2,
+                                                    //   child: Container(
+                                                    //     height: 25,
+                                                    //     width: 100,
+                                                    //     decoration:
+                                                    //         containerdecoration(
+                                                    //             secondryColor),
+                                                    //     child: Center(
+                                                    //         child: Text(
+                                                    //       e["CategoryName"],
+                                                    //       style: descTx1(
+                                                    //           Colors.white),
+                                                    //     )),
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "صالح لغاية " +
-                                                  e["OfferExpiryDate"]
-                                                      .toString()
-                                                      .split("T")[0],
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: secondryColorText),
-                                            )
-                                          ],
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              right: 10, top: 3),
-                                          child: Text(
-                                            e["CompanyName"],
-                                            style: subtitleTx(baseColorText),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                "صالح لغاية " +
+                                                    e["OfferExpiryDate"]
+                                                        .toString()
+                                                        .split("T")[0],
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: secondryColorText),
+                                              )
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                          color: secondryColor,
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            size: 20,
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                right: 10, top: 3),
+                                            child: Text(
+                                              e["CompanyName"],
+                                              style: subtitleTx(baseColorText),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          IconButton(
+                                            color: secondryColor,
+                                            icon: Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              size: 20,
+                                            ),
+                                            onPressed: () async {
+                                              print(e);
+                                              // await ViewFile.open(
+                                              //     testbase64Pfd, "pdf");
+                                            },
                                           ),
-                                          onPressed: () async {
-                                            print(e);
-                                            // await ViewFile.open(
-                                            //     testbase64Pfd, "pdf");
-                                          },
-                                        ),
-                                        // Text(
-                                        //   "تفاصيل",
-                                        //   style: TextStyle(
-                                        //       fontSize: 10,
-                                        //       color: secondryColorText,
-                                        //       fontWeight: FontWeight.bold),
-                                        // )
-                                      ],
-                                    )
-                                  ],
+                                          // Text(
+                                          //   "تفاصيل",
+                                          //   style: TextStyle(
+                                          //       fontSize: 10,
+                                          //       color: secondryColorText,
+                                          //       fontWeight: FontWeight.bold),
+                                          // )
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
