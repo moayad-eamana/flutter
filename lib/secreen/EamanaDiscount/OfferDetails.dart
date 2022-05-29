@@ -22,17 +22,17 @@ class _OfferDetailsState extends State<OfferDetails> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBarW.appBarW("تفاصل العرض", context, null),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
               ),
-              Container(
+            ),
+            SingleChildScrollView(
+              child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Column(
                   children: [
@@ -51,9 +51,9 @@ class _OfferDetailsState extends State<OfferDetails> {
                     )
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -69,9 +69,9 @@ class _OfferDetailsState extends State<OfferDetails> {
         overflow: Overflow.visible,
         children: [
           Positioned(
-            top: -10,
+            top: -5,
             child: Container(
-              height: 45,
+              height: 40,
               width: 110,
               decoration: containerdecoration(baseColor),
               child: Row(
@@ -213,7 +213,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                     launch("tel://" + widget.offer["RespresentiveMobileNo"]);
                   },
                   child: Icon(
-                    Icons.phone,
+                    Icons.phone_outlined,
                     color: secondryColor,
                   ),
                 ),
@@ -222,7 +222,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                     launch("mailto:" + widget.offer["CompanyEmail"]);
                   },
                   child: Icon(
-                    Icons.email,
+                    Icons.email_outlined,
                     color: secondryColor,
                   ),
                 ),

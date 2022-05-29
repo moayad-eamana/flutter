@@ -32,8 +32,8 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
       maskType: EasyLoadingMaskType.black,
     );
 
-    var respose = await getAction("Offers/GetOffersByStatusID/1");
-    // var respose = await getAction("Offers/GetActiveOffers/0");
+    //   var respose = await getAction("Offers/GetOffersByStatusID/1");
+    var respose = await getAction("Offers/GetActiveOffers/0");
 
     setState(() {
       _OffersList = (jsonDecode(respose.body)["OffersList"]);
@@ -48,6 +48,8 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     "assets/SVGs/offers.svg",
     "assets/SVGs/offers.svg",
   ];
+
+  var givenDate = DateTime.now();
 
   @override
   void dispose() {
@@ -133,70 +135,102 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                                                       decoration:
                                                           containerdecoration(
                                                               baseColor),
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Text(
-                                                            e["DiscoutRatio"]
-                                                                    .toString() +
-                                                                "%",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 20,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                          Text(
-                                                            "خصم",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 20,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          )
-                                                        ],
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(top: 7),
+                                                        child: Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            Text(
+                                                              e["DiscoutRatio"]
+                                                                      .toString() +
+                                                                  "%",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            Text(
+                                                              "خصم",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            )
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                    // Positioned(
-                                                    //   top: -9,
-                                                    //   left: 0.2,
-                                                    //   child: Container(
-                                                    //     height: 25,
-                                                    //     width: 100,
-                                                    //     decoration:
-                                                    //         containerdecoration(
-                                                    //             secondryColor),
-                                                    //     child: Center(
-                                                    //         child: Text(
-                                                    //       e["CategoryName"],
-                                                    //       style: descTx1(
-                                                    //           Colors.white),
-                                                    //     )),
-                                                    //   ),
-                                                    // ),
+                                                    Positioned(
+                                                      top: -9,
+                                                      left: 0.2,
+                                                      child: Container(
+                                                        height: 25,
+                                                        width: 100,
+                                                        decoration:
+                                                            containerdecoration(
+                                                                secondryColor),
+                                                        child: Center(
+                                                            child: Text(
+                                                          e["CategoryName"],
+                                                          style: descTx1(
+                                                              Colors.white),
+                                                        )),
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
                                               SizedBox(
                                                 width: 5,
                                               ),
-                                              Text(
-                                                "صالح لغاية " +
-                                                    e["OfferExpiryDate"]
-                                                        .toString()
-                                                        .split("T")[0],
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: secondryColorText),
+                                              Column(
+                                                children: [
+                                                  givenDate.isBefore(
+                                                          DateTime.parse(e[
+                                                              "OfferStartDate"]))
+                                                      ? Text(
+                                                          "يبدأ في " +
+                                                              e["OfferStartDate"]
+                                                                  .toString()
+                                                                  .split(
+                                                                      "T")[0],
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  secondryColorText),
+                                                        )
+                                                      : Text(
+                                                          "صالح لغاية " +
+                                                              e["OfferExpiryDate"]
+                                                                  .toString()
+                                                                  .split(
+                                                                      "T")[0],
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  secondryColorText),
+                                                        ),
+                                                  Text(
+                                                    e["OfferName"],
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color:
+                                                            secondryColorText),
+                                                  ),
+                                                ],
                                               )
                                             ],
                                           ),
@@ -221,7 +255,13 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                                               size: 20,
                                             ),
                                             onPressed: () async {
-                                              print(e);
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        OfferDetails(e)),
+                                              );
+                                              // print(e);
                                               // await ViewFile.open(
                                               //     testbase64Pfd, "pdf");
                                             },
