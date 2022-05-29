@@ -5,6 +5,7 @@ import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
+import 'package:eamanaapp/secreen/EamanaDiscount/CategoriesFilter.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
@@ -332,16 +333,22 @@ class _ServicesViewState extends State<ServicesView> {
           //           },
           //           child: widgetsUni.cardcontentService(
           //               'assets/SVGs/events.svg', "الفعاليات"))),
-          // StaggeredGridTile.extent(
-          //     crossAxisCellCount: 1,
-          //     mainAxisExtent: hi,
-          //     child: ElevatedButton(
-          //         style: cardServiece,
-          //         onPressed: () {
-          //           Navigator.pushNamed(context, "/EamanaDiscount");
-          //         },
-          //         child: widgetsUni.cardcontentService(
-          //             'assets/SVGs/offers.svg', "عروض"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    //  Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => CategoriesFilter()),
+                    // );
+
+                    Navigator.pushNamed(context, "/EamanaDiscount");
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/offers.svg', "عروض"))),
           // StaggeredGridTile.extent(
           //   crossAxisCellCount: 1,
           //   mainAxisExtent: hi,
