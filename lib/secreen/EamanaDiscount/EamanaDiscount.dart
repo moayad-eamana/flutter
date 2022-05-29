@@ -33,6 +33,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     );
 
     var respose = await getAction("Offers/GetOffersByStatusID/1");
+    // var respose = await getAction("Offers/GetActiveOffers/0");
 
     setState(() {
       _OffersList = (jsonDecode(respose.body)["OffersList"]);
