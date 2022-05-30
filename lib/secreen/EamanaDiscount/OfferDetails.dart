@@ -230,7 +230,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                     widget.offer["URL"] != "sample string 6")
                   GestureDetector(
                     onTap: () {
-                      launch("https://www.extra.com/");
+                      launch(widget.offer["URL"]);
                     },
                     child: Icon(
                       Icons.link,
