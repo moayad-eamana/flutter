@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Alerts {
   static Alert successAlert(BuildContext context, String title, String desc) {
@@ -223,6 +227,97 @@ class Alerts {
           width: 120,
         )
       ],
+    );
+  }
+
+  static Alert update(BuildContext context, String title, String desc) {
+    return Alert(
+      style: AlertStyle(
+        isCloseButton: false,
+        overlayColor: Colors.black87,
+        backgroundColor: BackGWhiteColor,
+        titleStyle: titleTx(baseColorText),
+        descStyle: descTx1(baseColorText),
+        alertBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4.0),
+          side: BorderSide(
+            color: bordercolor,
+          ),
+        ),
+      ),
+      //    onWillPopActive: true,
+      content: Container(
+        child: Column(
+          children: [
+            Icon(
+              Icons.warning,
+              size: 100,
+              color: Colors.yellow.shade800,
+            ),
+            Text(
+              title,
+              style: titleTx(baseColorText),
+            ),
+            Text(
+              desc,
+              style: descTx1(baseColorText),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+      context: context,
+      // type: AlertType.warning,
+      // title: title,
+      // desc: desc,
+      buttons: [
+        DialogButton(
+          radius: BorderRadius.all(Radius.circular(4)),
+          color: baseColor,
+          child: const Text(
+            "تحديث",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            if (Platform.isAndroid) {
+              launch("https://play.google.com/apps/internaltest/4701378476454016517")
+                  .then((value) => {});
+            } else {
+              launch("https://testflight.apple.com/join/NCmeNY0Q")
+                  .then((value) => {print("edkjhflkjhwelfkJH")});
+            }
+          },
+          width: 120,
+        ),
+      ],
+    );
+  }
+
+  static _showMyDialog(context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

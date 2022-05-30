@@ -530,6 +530,8 @@ class _SettingsState extends State<Settings> {
                             ),
                             Text("الإصدار الأول 1.20.22",
                                 style: descTx1(baseColorText)),
+                            Text(packageInfo.buildNumber,
+                                style: descTx1(baseColorText)),
                             SizedBox(
                               height: 15,
                             ),

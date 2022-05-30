@@ -5,6 +5,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
@@ -32,6 +33,7 @@ class LoginProvider extends ChangeNotifier {
   Future<bool> checkUser(String userName, String password) async {
     erorMs = "";
     var respose;
+    packageInfo = await PackageInfo.fromPlatform();
     try {
       respose = await Dio().post(
           "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/CheckUserForMobile",

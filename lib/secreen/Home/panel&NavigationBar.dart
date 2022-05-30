@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -20,6 +21,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
@@ -27,6 +29,7 @@ import 'package:sizer/sizer.dart';
 
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'main_home.dart';
 
@@ -247,6 +250,7 @@ class _HomPanelState extends State<HomePanel>
 
   void initState() {
     super.initState();
+
     initTargets();
     Future.delayed(Duration(milliseconds: 250), getOnboardingSettings);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -381,219 +385,278 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: Stack(
-            fit: StackFit.loose,
-            overflow: Overflow.visible,
-            clipBehavior: Clip.hardEdge,
-            children: [
-              screen[_bottomNavIndex],
-              Container(
-                // margin: EdgeInsets.symmetric(horizontal: 20),
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  key: onboarding1,
-                  height: responsiveMT(90, 120),
-                ),
-                //  width: 100.w,
-              ),
-              //show panel only in home screens
-              _bottomNavIndex == 4
-                  ? SlidingUpPanel(
-                      renderPanelSheet: false,
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0.25))
-                      ],
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      onPanelClosed: () {
-                        setState(() {
-                          isOpen = false;
-                          showpanel = false;
-                        });
-                      },
-                      onPanelOpened: () {
-                        setState(() {
-                          isOpen = true;
-                          showpanel = true;
-                        });
-                      },
-                      onPanelSlide: (position) {
-                        setState(() {
-                          showpanel = true;
-                        });
-                      },
-                      controller: panlC,
-                      maxHeight: responsiveMT(380, 500),
-                      minHeight: responsiveMT(90, 120),
-                      slideDirection: SlideDirection.DOWN,
-                      border: Border.all(color: bordercolor),
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(4.0),
-                          bottomRight: Radius.circular(4.0)),
-                      parallaxEnabled: true,
-                      parallaxOffset: 0,
-                      collapsed: Stack(
-                        // key: onboarding1,
+          body: packageInfo.buildNumber == "26" ||
+                  packageInfo.buildNumber == "24" ||
+                  packageInfo.buildNumber == "23" ||
+                  packageInfo.buildNumber == "25"
+              ? Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: AlertDialog(
+                    title: Center(
+                      child: Icon(
+                        Icons.warning,
+                        size: 100,
+                        color: Colors.yellow.shade800,
+                      ),
+                    ),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Center(
+                              child: Text(
+                            'يوجد تحديث جديد',
+                            style: titleTx(baseColor),
+                          )),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: bordercolor),
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(4.0),
-                                    bottomRight: Radius.circular(4.0))),
-                            child: Image(
-                              //width: responsiveMT(90, 150),
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.fitWidth,
-                              image: AssetImage(imageBG),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(8),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                          ElevatedButton(
+                              style:
+                                  ElevatedButton.styleFrom(primary: baseColor),
+                              onPressed: () {
+                                launch(
+                                    "https://testflight.apple.com/join/NCmeNY0Q");
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: Text("تحديث")),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              : Stack(
+                  fit: StackFit.loose,
+                  overflow: Overflow.visible,
+                  clipBehavior: Clip.hardEdge,
+                  children: [
+                    screen[_bottomNavIndex],
+                    Container(
+                      // margin: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        key: onboarding1,
+                        height: responsiveMT(90, 120),
+                      ),
+                      //  width: 100.w,
+                    ),
+                    //show panel only in home screens
+                    _bottomNavIndex == 4
+                        ? SlidingUpPanel(
+                            renderPanelSheet: false,
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 0,
+                                  color: Color.fromRGBO(0, 0, 0, 0.25))
+                            ],
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            onPanelClosed: () {
+                              setState(() {
+                                isOpen = false;
+                                showpanel = false;
+                              });
+                            },
+                            onPanelOpened: () {
+                              setState(() {
+                                isOpen = true;
+                                showpanel = true;
+                              });
+                            },
+                            onPanelSlide: (position) {
+                              setState(() {
+                                showpanel = true;
+                              });
+                            },
+                            controller: panlC,
+                            maxHeight: responsiveMT(380, 500),
+                            minHeight: responsiveMT(90, 120),
+                            slideDirection: SlideDirection.DOWN,
+                            border: Border.all(color: bordercolor),
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(4.0),
+                                bottomRight: Radius.circular(4.0)),
+                            parallaxEnabled: true,
+                            parallaxOffset: 0,
+                            collapsed: Stack(
+                              // key: onboarding1,
                               children: [
-                                Expanded(
-                                  child: Stack(
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: bordercolor),
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(4.0),
+                                          bottomRight: Radius.circular(4.0))),
+                                  child: Image(
+                                    //width: responsiveMT(90, 150),
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width,
+                                    fit: BoxFit.fitWidth,
+                                    image: AssetImage(imageBG),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(8),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Container(
-                                        child: Center(
-                                          child: Image(
-                                              width: responsiveMT(90, 150),
-                                              image: AssetImage(
-                                                  "assets/image/rakamy-logo-21.png")),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                      Expanded(
+                                        child: Stack(
                                           children: [
                                             Container(
-                                              margin: EdgeInsets.only(left: 10),
-                                              child: Column(
-                                                children: [
-                                                  IconButton(
-                                                    iconSize:
-                                                        responsiveMT(30, 30),
-                                                    icon: Icon(
-                                                        Icons.logout_outlined),
-                                                    color: baseColor,
-                                                    //size: responsiveMT(45, 45),
-                                                    //
-                                                    onPressed: () async {
-                                                      Alerts.confirmAlrt(
-                                                              context,
-                                                              "تسجيل خروج",
-                                                              "هل تريد الخروج من التطبيق",
-                                                              "نعم")
-                                                          .show()
-                                                          .then((value) async {
-                                                        if (value == true) {
-                                                          // FirebaseMessaging
-                                                          //     .instance
-                                                          //     .deleteToken();
-
-                                                          sharedPref.setDouble(
-                                                              "EmployeeNumber",
-                                                              0);
-                                                          sharedPref.setString(
-                                                              "hasePerm", "");
-                                                          hasePerm = "";
-                                                          //_pref.clear();
-                                                          //setSettings();
-
-                                                          Navigator
-                                                              .pushReplacementNamed(
-                                                                  context,
-                                                                  '/loginView');
-                                                        }
-                                                      });
-                                                    },
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0,
-                                                  ),
-                                                  Text(
-                                                    "تسجيل خروج",
-                                                    style:
-                                                        descTx1(baseColorText),
-                                                  ),
-                                                ],
+                                              child: Center(
+                                                child: Image(
+                                                    width:
+                                                        responsiveMT(90, 150),
+                                                    image: AssetImage(
+                                                        "assets/image/rakamy-logo-21.png")),
                                               ),
                                             ),
-                                            Container(
-                                              margin:
-                                                  EdgeInsets.only(right: 10),
-                                              child: Column(
+                                            Align(
+                                              alignment: Alignment.bottomCenter,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        _bottomNavIndex = 1;
-                                                      });
-                                                    },
-                                                    child: CircleAvatar(
-                                                      backgroundColor:
-                                                          baseColor,
-                                                      radius:
-                                                          responsiveMT(26, 28),
-                                                      child: empinfo.ImageURL ==
-                                                                  null ||
-                                                              empinfo.ImageURL ==
-                                                                  ""
-                                                          ? CircleAvatar(
-                                                              radius:
-                                                                  responsiveMT(
-                                                                      24, 26),
-                                                              child: ClipOval(
-                                                                child:
-                                                                    Image.asset(
-                                                                  "assets/image/blank-profile.png",
-                                                                ),
-                                                              ),
-                                                            )
-                                                          : ClipOval(
-                                                              child:
-                                                                  CachedNetworkImage(
-                                                                height: 50,
-                                                                width: 50,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                                imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                    empinfo.ImageURL
-                                                                            .toString()
-                                                                        .split(
-                                                                            "\$")[1],
-                                                              ),
-                                                            ),
-                                                      // ClipOval(
-                                                      //     child: FadeInImage
-                                                      //         .assetNetwork(
-                                                      //       fit: BoxFit.cover,
-                                                      //       width: 50,
-                                                      //       height: 50,
-                                                      //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                      //           empinfo.ImageURL
-                                                      //                   .toString()
-                                                      //               .split(
-                                                      //                   "\$")[1],
-                                                      //       placeholder:
-                                                      //           "assets/image/avatar.jpg",
-                                                      //     ),
-                                                      //   ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Column(
+                                                      children: [
+                                                        IconButton(
+                                                          iconSize:
+                                                              responsiveMT(
+                                                                  30, 30),
+                                                          icon: Icon(Icons
+                                                              .logout_outlined),
+                                                          color: baseColor,
+                                                          //size: responsiveMT(45, 45),
+                                                          //
+                                                          onPressed: () async {
+                                                            Alerts.confirmAlrt(
+                                                                    context,
+                                                                    "تسجيل خروج",
+                                                                    "هل تريد الخروج من التطبيق",
+                                                                    "نعم")
+                                                                .show()
+                                                                .then(
+                                                                    (value) async {
+                                                              if (value ==
+                                                                  true) {
+                                                                // FirebaseMessaging
+                                                                //     .instance
+                                                                //     .deleteToken();
+
+                                                                sharedPref
+                                                                    .setDouble(
+                                                                        "EmployeeNumber",
+                                                                        0);
+                                                                sharedPref
+                                                                    .setString(
+                                                                        "hasePerm",
+                                                                        "");
+                                                                hasePerm = "";
+                                                                //_pref.clear();
+                                                                //setSettings();
+
+                                                                Navigator
+                                                                    .pushReplacementNamed(
+                                                                        context,
+                                                                        '/loginView');
+                                                              }
+                                                            });
+                                                          },
+                                                        ),
+                                                        SizedBox(
+                                                          height: 0,
+                                                        ),
+                                                        Text(
+                                                          "تسجيل خروج",
+                                                          style: descTx1(
+                                                              baseColorText),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                  Text(
-                                                    ("هلا / ") +
-                                                        (empinfo.FirstName ??
-                                                            ""),
-                                                    style:
-                                                        descTx1(baseColorText),
-                                                  )
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 10),
+                                                    child: Column(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _bottomNavIndex =
+                                                                  1;
+                                                            });
+                                                          },
+                                                          child: CircleAvatar(
+                                                            backgroundColor:
+                                                                baseColor,
+                                                            radius:
+                                                                responsiveMT(
+                                                                    26, 28),
+                                                            child: empinfo.ImageURL ==
+                                                                        null ||
+                                                                    empinfo.ImageURL ==
+                                                                        ""
+                                                                ? CircleAvatar(
+                                                                    radius:
+                                                                        responsiveMT(
+                                                                            24,
+                                                                            26),
+                                                                    child:
+                                                                        ClipOval(
+                                                                      child: Image
+                                                                          .asset(
+                                                                        "assets/image/blank-profile.png",
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                : ClipOval(
+                                                                    child:
+                                                                        CachedNetworkImage(
+                                                                      height:
+                                                                          50,
+                                                                      width: 50,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      imageUrl:
+                                                                          "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                              empinfo.ImageURL.toString().split("\$")[1],
+                                                                    ),
+                                                                  ),
+                                                            // ClipOval(
+                                                            //     child: FadeInImage
+                                                            //         .assetNetwork(
+                                                            //       fit: BoxFit.cover,
+                                                            //       width: 50,
+                                                            //       height: 50,
+                                                            //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                            //           empinfo.ImageURL
+                                                            //                   .toString()
+                                                            //               .split(
+                                                            //                   "\$")[1],
+                                                            //       placeholder:
+                                                            //           "assets/image/avatar.jpg",
+                                                            //     ),
+                                                            //   ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          ("هلا / ") +
+                                                              (empinfo.FirstName ??
+                                                                  ""),
+                                                          style: descTx1(
+                                                              baseColorText),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -603,332 +666,348 @@ class _HomPanelState extends State<HomePanel>
                                     ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Visibility(
-                            visible: showpanel,
-                            child: Positioned(
-                              bottom: -20,
-                              right: isPortrait == true ? 50.w - 40 : 50.h - 40,
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: bordercolor),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50))),
-                                child: IconButton(
-                                  icon: Icon(Icons.arrow_upward_rounded),
-                                  onPressed: () {
-                                    openpanel();
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      panel: Visibility(
-                        visible: showpanel,
-                        child: Stack(
-                          fit: StackFit.loose,
-                          overflow: Overflow.visible,
-                          clipBehavior: Clip.hardEdge,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: bordercolor,
-                                ),
-                                //  Border(
-                                //   bottom: BorderSide(
-                                //     color: Color(0xFFDDDDDD),
-                                //   ),
-                                //   left: BorderSide(
-                                //     color: Color(0xFFDDDDDD),
-                                //   ),
-                                //   right: BorderSide(
-                                //     color: Color(0xFFDDDDDD),
-                                //   ),
-                                // ),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(4),
-                                  bottomRight: Radius.circular(4),
-                                ),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(4),
-                                  bottomRight: Radius.circular(4),
-                                ),
-                                child:
-                                    // SvgPicture.asset(
-                                    //   'assets/SVGs/Asset_1.svg',
-                                    //   alignment: Alignment.topLeft,
-                                    //   width: MediaQuery.of(context).size.width,
-                                    //   fit: BoxFit.fitWidth,
-                                    // ),
-                                    Image(
-                                  //width: responsiveMT(90, 150),
-                                  alignment: Alignment.center,
-                                  width: MediaQuery.of(context).size.width,
-                                  fit: BoxFit.fitWidth,
-                                  image: AssetImage(imageBG),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
+                                Visibility(
+                                  visible: showpanel,
+                                  child: Positioned(
+                                    bottom: -20,
+                                    right: isPortrait == true
+                                        ? 50.w - 40
+                                        : 50.h - 40,
                                     child: Container(
+                                      width: 40,
+                                      height: 40,
                                       decoration: BoxDecoration(
-                                        color: baseColor,
-                                        borderRadius: BorderRadius.only(
-                                          bottomRight: new Radius.circular(20),
-                                          topRight: new Radius.circular(20),
-                                        ),
-                                      ),
-                                      width: 100,
-                                      // color: Colors.blue.shade900,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: Text(
-                                          empinfo.StatusName.toString(),
-                                          textAlign: TextAlign.right,
-                                          style: descTx1(Colors.white),
-                                        ),
+                                          color: Colors.white,
+                                          border:
+                                              Border.all(color: bordercolor),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50))),
+                                      child: IconButton(
+                                        icon: Icon(Icons.arrow_upward_rounded),
+                                        onPressed: () {
+                                          openpanel();
+                                        },
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 20,
+                                ),
+                              ],
+                            ),
+                            panel: Visibility(
+                              visible: showpanel,
+                              child: Stack(
+                                fit: StackFit.loose,
+                                overflow: Overflow.visible,
+                                clipBehavior: Clip.hardEdge,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: bordercolor,
+                                      ),
+                                      //  Border(
+                                      //   bottom: BorderSide(
+                                      //     color: Color(0xFFDDDDDD),
+                                      //   ),
+                                      //   left: BorderSide(
+                                      //     color: Color(0xFFDDDDDD),
+                                      //   ),
+                                      //   right: BorderSide(
+                                      //     color: Color(0xFFDDDDDD),
+                                      //   ),
+                                      // ),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(4),
+                                        bottomRight: Radius.circular(4),
+                                      ),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(4),
+                                        bottomRight: Radius.circular(4),
+                                      ),
+                                      child:
+                                          // SvgPicture.asset(
+                                          //   'assets/SVGs/Asset_1.svg',
+                                          //   alignment: Alignment.topLeft,
+                                          //   width: MediaQuery.of(context).size.width,
+                                          //   fit: BoxFit.fitWidth,
+                                          // ),
+                                          Image(
+                                        //width: responsiveMT(90, 150),
+                                        alignment: Alignment.center,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        fit: BoxFit.fitWidth,
+                                        image: AssetImage(imageBG),
+                                      ),
+                                    ),
                                   ),
                                   Container(
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
                                       children: [
-                                        CircleAvatar(
-                                          radius: responsiveMT(52, 92),
-                                          backgroundColor: baseColor,
-                                          child: empinfo.ImageURL == null ||
-                                                  empinfo.ImageURL == ""
-                                              ? CircleAvatar(
-                                                  radius: responsiveMT(50, 90),
-                                                  child: ClipOval(
-                                                    child: Image.asset(
-                                                      "assets/image/blank-profile.png",
-                                                    ),
-                                                  ),
-                                                )
-                                              : GestureDetector(
-                                                  child: Hero(
-                                                    tag: "profile",
-                                                    child: ClipOval(
-                                                      child: CachedNetworkImage(
-                                                        height: responsiveMT(
-                                                            100, 180),
-                                                        width: responsiveMT(
-                                                            100, 180),
-                                                        fit: BoxFit.cover,
-                                                        imageUrl:
-                                                            "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                empinfo.ImageURL
-                                                                        .toString()
-                                                                    .split(
-                                                                        "\$")[1],
-                                                      ),
-                                                      // FadeInImage
-                                                      //     .assetNetwork(
-                                                      //   fit: BoxFit.cover,
-                                                      //   width: 100,
-                                                      //   height: 100,
-                                                      //   image:
-                                                      //       "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                      //           empinfo.ImageURL
-                                                      //                   .toString()
-                                                      //               .split(
-                                                      //                   "\$")[1],
-                                                      //   placeholder:
-                                                      //       "assets/image/avatar.jpg",
-                                                      // ),
-                                                    ),
-                                                  ),
-                                                  onTap: () {
-                                                    Navigator.push(context,
-                                                        MaterialPageRoute(
-                                                            builder: (_) {
-                                                      return ProfileImage();
-                                                    }));
-                                                  }),
+                                        SizedBox(
+                                          height: 20,
                                         ),
-                                        Text(
-                                          empinfo.EmployeeName ?? "",
-                                          style: titleTx(baseColor),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                            empinfo.Title == null ||
-                                                    empinfo.Title == "" ||
-                                                    empinfo.Title == "-"
-                                                ? empinfo.JobName.toString()
-                                                : empinfo.Title.toString(),
-                                            style: descTx2(baseColor)),
-                                        Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 20),
-                                          child: Image.asset(
-                                            "assets/image/logo.png",
-                                            fit: BoxFit.fill,
-                                            width: responsiveMT(300, 550),
-                                            height: responsiveMT(100, 120),
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: baseColor,
+                                              borderRadius: BorderRadius.only(
+                                                bottomRight:
+                                                    new Radius.circular(20),
+                                                topRight:
+                                                    new Radius.circular(20),
+                                              ),
+                                            ),
+                                            width: 100,
+                                            // color: Colors.blue.shade900,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8),
+                                              child: Text(
+                                                empinfo.StatusName.toString(),
+                                                textAlign: TextAlign.right,
+                                                style: descTx1(Colors.white),
+                                              ),
+                                            ),
                                           ),
-                                        )
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              CircleAvatar(
+                                                radius: responsiveMT(52, 92),
+                                                backgroundColor: baseColor,
+                                                child: empinfo.ImageURL ==
+                                                            null ||
+                                                        empinfo.ImageURL == ""
+                                                    ? CircleAvatar(
+                                                        radius: responsiveMT(
+                                                            50, 90),
+                                                        child: ClipOval(
+                                                          child: Image.asset(
+                                                            "assets/image/blank-profile.png",
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : GestureDetector(
+                                                        child: Hero(
+                                                          tag: "profile",
+                                                          child: ClipOval(
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              height:
+                                                                  responsiveMT(
+                                                                      100, 180),
+                                                              width:
+                                                                  responsiveMT(
+                                                                      100, 180),
+                                                              fit: BoxFit.cover,
+                                                              imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                                  empinfo.ImageURL
+                                                                          .toString()
+                                                                      .split(
+                                                                          "\$")[1],
+                                                            ),
+                                                            // FadeInImage
+                                                            //     .assetNetwork(
+                                                            //   fit: BoxFit.cover,
+                                                            //   width: 100,
+                                                            //   height: 100,
+                                                            //   image:
+                                                            //       "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                            //           empinfo.ImageURL
+                                                            //                   .toString()
+                                                            //               .split(
+                                                            //                   "\$")[1],
+                                                            //   placeholder:
+                                                            //       "assets/image/avatar.jpg",
+                                                            // ),
+                                                          ),
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (_) {
+                                                            return ProfileImage();
+                                                          }));
+                                                        }),
+                                              ),
+                                              Text(
+                                                empinfo.EmployeeName ?? "",
+                                                style: titleTx(baseColor),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                  empinfo.Title == null ||
+                                                          empinfo.Title == "" ||
+                                                          empinfo.Title == "-"
+                                                      ? empinfo.JobName
+                                                          .toString()
+                                                      : empinfo.Title
+                                                          .toString(),
+                                                  style: descTx2(baseColor)),
+                                              Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 20,
+                                                    vertical: 20),
+                                                child: Image.asset(
+                                                  "assets/image/logo.png",
+                                                  fit: BoxFit.fill,
+                                                  width: responsiveMT(300, 550),
+                                                  height:
+                                                      responsiveMT(100, 120),
+                                                ),
+                                              )
 
-                                        /// Container(
-                                        //   margin: EdgeInsets.all(12),
-                                        //   height: 125,
-                                        //   decoration: BoxDecoration(
-                                        //     gradient: LinearGradient(
-                                        //       begin: Alignment.topCenter,
-                                        //       end: Alignment.bottomCenter,
-                                        //       colors: [
-                                        //         baseColor,
-                                        //         secondryColor,
-                                        //       ],
-                                        //     ),
-                                        //     border: Border.all(
-                                        //       color: Colors.white,
-                                        //       width: 2.0,
-                                        //       style: BorderStyle.solid,
-                                        //     ),
-                                        //     borderRadius:
-                                        //         const BorderRadius.all(
-                                        //             Radius.circular(8.0)),
-                                        //   ),
-                                        //   child: Row(
-                                        //     mainAxisAlignment:
-                                        //         MainAxisAlignment.end,
-                                        //     children: [
-                                        //       Container(
-                                        //         margin: EdgeInsets.symmetric(
-                                        //             horizontal: 10),
-                                        //         child: Column(
-                                        //           mainAxisAlignment:
-                                        //               MainAxisAlignment.center,
-                                        //           crossAxisAlignment:
-                                        //               CrossAxisAlignment.end,
-                                        //           children: [
-                                        //             Text(
-                                        //               "بطاقة تسجيل الدخول",
-                                        //               textAlign:
-                                        //                   TextAlign.right,
-                                        //               style:
-                                        //                   titleTx(Colors.white),
-                                        //             ),
-                                        //             Text(
-                                        //               "أمانة المنطقة الشرقية",
-                                        //               textAlign:
-                                        //                   TextAlign.right,
-                                        //               style:
-                                        //                   descTx2(Colors.white),
-                                        //             ),
-                                        //             // Text(
-                                        //             //   empinfo.JobName == null ||
-                                        //             //           empinfo.JobName ==
-                                        //             //               ""
-                                        //             //       ? empinfo.empTypeName
-                                        //             //           .toString()
-                                        //             //       : empinfo.JobName
-                                        //             //               .toString() +
-                                        //             //           " - " +
-                                        //             //           empinfo.empTypeName
-                                        //             //               .toString(),
-                                        //             //   textAlign: TextAlign.right,
-                                        //             //   style:
-                                        //             //       descTx2(Colors.white),
-                                        //             // ),
-                                        //             ///////////////////////////
-                                        //             // AutoSizeText(
-                                        //             //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                        //             //   maxLines: 1,
-                                        //             //   style: TextStyle(
-                                        //             //       color: Colors.white),
-                                        //             //   group: autoSizeGroup,
-                                        //             // ),
-                                        //             Text(
-                                        //               "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                        //               textAlign:
-                                        //                   TextAlign.right,
-                                        //               style: TextStyle(
-                                        //                   fontSize: 10,
-                                        //                   color: Colors.white),
-                                        //             )
-                                        //           ],
-                                        //         ),
-                                        //       ),
-                                        //       Container(
-                                        //         margin:
-                                        //             EdgeInsets.only(right: 18),
-                                        //         width: 90,
-                                        //         height: 90,
-                                        //         child: SfBarcodeGenerator(
-                                        //           backgroundColor: Colors.white,
-                                        //           value:
-                                        //               (empinfo.EmployeeNumber)
-                                        //                   .toString()
-                                        //                   .split(".")[0],
-                                        //           symbology: QRCode(),
-                                        //         ),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // )
+                                              /// Container(
+                                              //   margin: EdgeInsets.all(12),
+                                              //   height: 125,
+                                              //   decoration: BoxDecoration(
+                                              //     gradient: LinearGradient(
+                                              //       begin: Alignment.topCenter,
+                                              //       end: Alignment.bottomCenter,
+                                              //       colors: [
+                                              //         baseColor,
+                                              //         secondryColor,
+                                              //       ],
+                                              //     ),
+                                              //     border: Border.all(
+                                              //       color: Colors.white,
+                                              //       width: 2.0,
+                                              //       style: BorderStyle.solid,
+                                              //     ),
+                                              //     borderRadius:
+                                              //         const BorderRadius.all(
+                                              //             Radius.circular(8.0)),
+                                              //   ),
+                                              //   child: Row(
+                                              //     mainAxisAlignment:
+                                              //         MainAxisAlignment.end,
+                                              //     children: [
+                                              //       Container(
+                                              //         margin: EdgeInsets.symmetric(
+                                              //             horizontal: 10),
+                                              //         child: Column(
+                                              //           mainAxisAlignment:
+                                              //               MainAxisAlignment.center,
+                                              //           crossAxisAlignment:
+                                              //               CrossAxisAlignment.end,
+                                              //           children: [
+                                              //             Text(
+                                              //               "بطاقة تسجيل الدخول",
+                                              //               textAlign:
+                                              //                   TextAlign.right,
+                                              //               style:
+                                              //                   titleTx(Colors.white),
+                                              //             ),
+                                              //             Text(
+                                              //               "أمانة المنطقة الشرقية",
+                                              //               textAlign:
+                                              //                   TextAlign.right,
+                                              //               style:
+                                              //                   descTx2(Colors.white),
+                                              //             ),
+                                              //             // Text(
+                                              //             //   empinfo.JobName == null ||
+                                              //             //           empinfo.JobName ==
+                                              //             //               ""
+                                              //             //       ? empinfo.empTypeName
+                                              //             //           .toString()
+                                              //             //       : empinfo.JobName
+                                              //             //               .toString() +
+                                              //             //           " - " +
+                                              //             //           empinfo.empTypeName
+                                              //             //               .toString(),
+                                              //             //   textAlign: TextAlign.right,
+                                              //             //   style:
+                                              //             //       descTx2(Colors.white),
+                                              //             // ),
+                                              //             ///////////////////////////
+                                              //             // AutoSizeText(
+                                              //             //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                              //             //   maxLines: 1,
+                                              //             //   style: TextStyle(
+                                              //             //       color: Colors.white),
+                                              //             //   group: autoSizeGroup,
+                                              //             // ),
+                                              //             Text(
+                                              //               "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                              //               textAlign:
+                                              //                   TextAlign.right,
+                                              //               style: TextStyle(
+                                              //                   fontSize: 10,
+                                              //                   color: Colors.white),
+                                              //             )
+                                              //           ],
+                                              //         ),
+                                              //       ),
+                                              //       Container(
+                                              //         margin:
+                                              //             EdgeInsets.only(right: 18),
+                                              //         width: 90,
+                                              //         height: 90,
+                                              //         child: SfBarcodeGenerator(
+                                              //           backgroundColor: Colors.white,
+                                              //           value:
+                                              //               (empinfo.EmployeeNumber)
+                                              //                   .toString()
+                                              //                   .split(".")[0],
+                                              //           symbology: QRCode(),
+                                              //         ),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // )
+                                            ],
+                                          ),
+                                        ),
                                       ],
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: showpanel,
+                                    child: Positioned(
+                                      bottom: -20,
+                                      right: isPortrait == true
+                                          ? 50.w - 40
+                                          : 50.h - 40,
+                                      child: Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border:
+                                                Border.all(color: bordercolor),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50))),
+                                        child: IconButton(
+                                          icon:
+                                              Icon(Icons.arrow_upward_rounded),
+                                          onPressed: () {
+                                            openpanel();
+                                          },
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            Visibility(
-                              visible: showpanel,
-                              child: Positioned(
-                                bottom: -20,
-                                right:
-                                    isPortrait == true ? 50.w - 40 : 50.h - 40,
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: bordercolor),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(50))),
-                                  child: IconButton(
-                                    icon: Icon(Icons.arrow_upward_rounded),
-                                    onPressed: () {
-                                      openpanel();
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Container(),
-            ],
-          ),
+                          )
+                        : Container(),
+                  ],
+                ),
           floatingActionButton: ScaleTransition(
             scale: animation,
             child: Visibility(

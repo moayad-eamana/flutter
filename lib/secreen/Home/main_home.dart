@@ -11,6 +11,7 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
@@ -60,6 +61,8 @@ class _MainHomeState extends State<MainHome> {
   void initState() {
     // TODO: implement initState
     embId();
+    print(packageInfo.version);
+
     super.initState();
     //hasPermission();
     // subscribeToNotification();
