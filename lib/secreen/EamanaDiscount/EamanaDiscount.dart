@@ -233,20 +233,17 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                                                                   secondryColorText),
                                                         ),
                                                   Container(
-                                                    // width: 100,
                                                     child: Text(
-                                                      e["OfferName"].toString().substring(
-                                                              0,
-                                                              e["OfferName"]
-                                                                          .toString()
-                                                                          .length >=
-                                                                      22
-                                                                  ? 22
-                                                                  : e["OfferName"]
-                                                                      .toString()
-                                                                      .length) +
-                                                          " ...",
-                                                      // "عرض خصم 10% على القهوة البرازيلية والكولومبيا"
+                                                      e["OfferName"]
+                                                                  .toString()
+                                                                  .length >=
+                                                              22
+                                                          ? e["OfferName"]
+                                                                  .toString()
+                                                                  .substring(
+                                                                      0, 22) +
+                                                              " ..."
+                                                          : e["OfferName"],
                                                       // overflow: TextOverflow.ellipsis,
                                                       textAlign:
                                                           TextAlign.right,
