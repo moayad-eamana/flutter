@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
+import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
@@ -75,7 +76,7 @@ class _HomPanelState extends State<HomePanel>
     Icons.sell_rounded //here replaced with raqmy logo
   ];
 
-  List<String> list = ['الاعدادات', 'معلوماتي', 'الخدمات', 'دليل الموظفين'];
+  List<String> list = ['الاعدادات', 'معلوماتي', 'الخدمات', 'عروض'];
 
   String name = "";
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
@@ -328,11 +329,7 @@ class _HomPanelState extends State<HomePanel>
       ServicesView(),
       //page 4
 
-      ChangeNotifierProvider(
-        create: (context) => EmpInfoProvider(),
-        // ignore: prefer_const_constructors
-        child: EmpInfoView(true),
-      ),
+      EamanaDiscount(true),
 
       //home page
       MainHome(() {

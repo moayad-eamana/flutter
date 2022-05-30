@@ -323,7 +323,7 @@ class _MyAppState extends State<MyApp> {
           '/Empprofile': (context) => EmpProfile(null),
           '/HrDecisionsView': (context) => HrDecisionsView(),
           '/services': (context) => ServicesView(),
-          '/EamanaDiscount': (context) => EamanaDiscount(),
+          '/EamanaDiscount': (context) => EamanaDiscount(null),
           '/VacationRequest': (context) => VacationRequest(),
           '/entedab': (context) => Entedab(),
           '/OutdutyRequest': (context) => OutdutyRequest(),

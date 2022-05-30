@@ -11,6 +11,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
 
 class EamanaDiscount extends StatefulWidget {
+  bool? navBack;
+  EamanaDiscount(this.navBack);
   @override
   _EamanaDiscountState createState() => _EamanaDiscountState();
 }
@@ -63,7 +65,8 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("عروض الموظفين تجريبي", context, null),
+        appBar:
+            AppBarW.appBarW("عروض الموظفين تجريبي", context, widget.navBack),
         body: Stack(
           children: [
             Image.asset(
