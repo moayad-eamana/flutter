@@ -226,6 +226,17 @@ class _OfferDetailsState extends State<OfferDetails> {
                     color: secondryColor,
                   ),
                 ),
+                if (widget.offer["URL"] != "" &&
+                    widget.offer["URL"] != "sample string 6")
+                  GestureDetector(
+                    onTap: () {
+                      launch("https://www.extra.com/");
+                    },
+                    child: Icon(
+                      Icons.link,
+                      color: secondryColor,
+                    ),
+                  )
               ],
             )
           ],
