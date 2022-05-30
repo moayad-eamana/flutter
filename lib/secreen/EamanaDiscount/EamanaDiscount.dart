@@ -63,7 +63,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("عروض الموظفين", context, null),
+        appBar: AppBarW.appBarW("عروض الموظفين تجريبي", context, null),
         body: Stack(
           children: [
             Image.asset(
@@ -76,217 +76,235 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.symmetric(vertical: 10),
-                child:
-                    // _OffersList == null
-                    //     ? Center(
-                    //         child: Container(
-                    //           child: Column(
-                    //             children: [
-                    //               SizedBox(
-                    //                 height: 30,
-                    //               ),
-                    //               Text(
-                    //                 "لا يوجد عروض",
-                    //                 style: subtitleTx(secondryColorText),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ),
-                    //       )
-                    //     :
-                    Column(
-                  children: [
-                    // ..._OffersList.map(
-                    //   (e) =>
-                    for (int i = 0; i < 10; i++)
-                      GestureDetector(
-                        onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => OfferDetails(e)),
-                          // );
-                        },
+                child: _OffersList == null
+                    ? Center(
                         child: Container(
-                          height: 120,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          decoration: containerdecoration(BackGWhiteColor),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                          child: Column(
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 100.w <= 375 ? 100 : 120,
-                                        child: Stack(
-                                          fit: StackFit.loose,
-                                          overflow: Overflow.visible,
-                                          clipBehavior: Clip.hardEdge,
-                                          children: [
-                                            Container(
-                                              height: 45,
-                                              width: 110,
-                                              decoration: containerdecoration(
-                                                  baseColor),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                    "خصم",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  Text(
-                                                    // e["DiscoutRatio"]
-                                                    //         .toString() +
-                                                    "100%",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            // Positioned(
-                                            //   top: -9,
-                                            //   left: 0.2,
-                                            //   child: Container(
-                                            //     height: 25,
-                                            //     width: 100,
-                                            //     decoration:
-                                            //         containerdecoration(
-                                            //             secondryColor),
-                                            //     child: Center(
-                                            //         child: Text(
-                                            //       e["CategoryName"],
-                                            //       style: descTx1(
-                                            //           Colors.white),
-                                            //     )),
-                                            //   ),
-                                            // ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Container(
-                                        height: 60,
-                                        width: 200,
-                                        // color: Colors.amber,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            // givenDate.isBefore(DateTime.parse(
-                                            //         e["OfferStartDate"]                                         ))
-                                            //     ?
-                                            //     Text(
-                                            //         "يبدأ في " +
-                                            //             e["OfferStartDate"]
-                                            //                 .toString()
-                                            //                 .split("T")[0],
-                                            //         style: TextStyle(
-                                            //             fontSize: 14,
-                                            //             color:
-                                            //                 secondryColorText),
-                                            //       )
-                                            //     :
-                                            Text(
-                                              "صالح لغاية 2022/12/30",
-                                              // +
-                                              // e["OfferExpiryDate"]
-                                              //     .toString()
-                                              //     .split("T")[0],
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: secondryColorText),
-                                            ),
-                                            Container(
-                                              // width: 100,
-                                              child: Text(
-                                                // e["OfferName"] +
-                                                "عرض خصم 10% على القهوة البرازيلية والكولومبيا"
-                                                        .substring(0, 22) +
-                                                    " ...",
-                                                // overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.right,
-                                                maxLines: 1,
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: secondryColorText,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Container(
-                                    // color: Colors.amber,
-                                    margin: EdgeInsets.only(right: 10, top: 3),
-                                    child: Text(
-                                      "اسم شركة الخصم المتحدة للقهوة والشاهي",
-                                      // e["CompanyName"],
-                                      overflow: TextOverflow.ellipsis,
-                                      style: subtitleTx(baseColorText),
-                                    ),
-                                  )
-                                ],
+                              SizedBox(
+                                height: 30,
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    color: secondryColor,
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      size: 20,
-                                    ),
-                                    onPressed: () async {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           OfferDetails(e)),
-                                      // );
-                                      // print(e);
-                                      // await ViewFile.open(
-                                      //     testbase64Pfd, "pdf");
-                                    },
-                                  ),
-                                  // Text(
-                                  //   "تفاصيل",
-                                  //   style: TextStyle(
-                                  //       fontSize: 10,
-                                  //       color: secondryColorText,
-                                  //       fontWeight: FontWeight.bold),
-                                  // )
-                                ],
-                              )
+                              Text(
+                                "لا يوجد عروض",
+                                style: subtitleTx(secondryColorText),
+                              ),
                             ],
                           ),
                         ),
+                      )
+                    : Column(
+                        children: [
+                          ..._OffersList.map(
+                            (e) =>
+                                // for (int i = 0; i < 10; i++)
+                                GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => OfferDetails(e)),
+                                );
+                              },
+                              child: Container(
+                                height: 120,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                decoration:
+                                    containerdecoration(BackGWhiteColor),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 100.w <= 375 ? 100 : 120,
+                                              child: Stack(
+                                                fit: StackFit.loose,
+                                                overflow: Overflow.visible,
+                                                clipBehavior: Clip.hardEdge,
+                                                children: [
+                                                  Container(
+                                                    height: 45,
+                                                    width: 110,
+                                                    decoration:
+                                                        containerdecoration(
+                                                            baseColor),
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Text(
+                                                          "خصم",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Text(
+                                                          e["DiscoutRatio"]
+                                                                  .toString() +
+                                                              "%",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  // Positioned(
+                                                  //   top: -9,
+                                                  //   left: 0.2,
+                                                  //   child: Container(
+                                                  //     height: 25,
+                                                  //     width: 100,
+                                                  //     decoration:
+                                                  //         containerdecoration(
+                                                  //             secondryColor),
+                                                  //     child: Center(
+                                                  //         child: Text(
+                                                  //       e["CategoryName"],
+                                                  //       style: descTx1(
+                                                  //           Colors.white),
+                                                  //     )),
+                                                  //   ),
+                                                  // ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Container(
+                                              height: 60,
+                                              width: 200,
+                                              // color: Colors.amber,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  givenDate.isBefore(
+                                                          DateTime.parse(
+                                                              e["OfferStartDate"]
+                                                                  .toString()
+                                                                  .split(
+                                                                      "T")[0]))
+                                                      ? Text(
+                                                          "يبدأ في " +
+                                                              e["OfferStartDate"]
+                                                                  .toString()
+                                                                  .split(
+                                                                      "T")[0],
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  secondryColorText),
+                                                        )
+                                                      : Text(
+                                                          "صالح لغاية " +
+                                                              e["OfferExpiryDate"]
+                                                                  .toString()
+                                                                  .split(
+                                                                      "T")[0],
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  secondryColorText),
+                                                        ),
+                                                  Container(
+                                                    // width: 100,
+                                                    child: Text(
+                                                      e["OfferName"]
+                                                              .toString()
+                                                              .substring(
+                                                                  0, 22) +
+                                                          " ...",
+                                                      // "عرض خصم 10% على القهوة البرازيلية والكولومبيا"
+                                                      // overflow: TextOverflow.ellipsis,
+                                                      textAlign:
+                                                          TextAlign.right,
+                                                      maxLines: 1,
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        color:
+                                                            secondryColorText,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Container(
+                                          // color: Colors.amber,
+                                          margin: EdgeInsets.only(
+                                              right: 10, top: 3),
+                                          child: Text(
+                                            // "اسم شركة الخصم المتحدة للقهوة والشاهي",
+                                            e["CompanyName"],
+                                            overflow: TextOverflow.ellipsis,
+                                            style: subtitleTx(baseColorText),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                          color: secondryColor,
+                                          icon: Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            size: 20,
+                                          ),
+                                          onPressed: () async {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      OfferDetails(e)),
+                                            );
+                                            // print(e);
+                                            // await ViewFile.open(
+                                            //     testbase64Pfd, "pdf");
+                                          },
+                                        ),
+                                        // Text(
+                                        //   "تفاصيل",
+                                        //   style: TextStyle(
+                                        //       fontSize: 10,
+                                        //       color: secondryColorText,
+                                        //       fontWeight: FontWeight.bold),
+                                        // )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    // ),
-                  ],
-                ),
               ),
             )
           ],
