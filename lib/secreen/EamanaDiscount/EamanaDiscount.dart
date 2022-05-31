@@ -134,43 +134,49 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                                                 overflow: Overflow.visible,
                                                 clipBehavior: Clip.hardEdge,
                                                 children: [
-                                                  Container(
-                                                    height: 45,
-                                                    width: 110,
-                                                    decoration:
-                                                        containerdecoration(
-                                                            baseColor),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Text(
-                                                          "خصم",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          e["DiscoutRatio"]
-                                                                  .toString() +
-                                                              "%",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ],
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      right: 5.0,
+                                                    ),
+                                                    child: Container(
+                                                      height: 45,
+                                                      width: 110,
+                                                      decoration:
+                                                          containerdecoration(
+                                                              baseColor),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Text(
+                                                            "خصم",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          Text(
+                                                            e["DiscoutRatio"]
+                                                                    .toString() +
+                                                                "%",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                   // Positioned(

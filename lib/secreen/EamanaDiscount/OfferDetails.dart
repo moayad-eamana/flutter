@@ -47,7 +47,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                         SizedBox(
                           height: 10,
                         ),
-                        ViewPF(),
+                        // ViewPF(),
                       ],
                     )
                   ],
