@@ -45,11 +45,11 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     EasyLoading.dismiss();
   }
 
-  List<dynamic> icon = [
-    "assets/SVGs/offers.svg",
-    "assets/SVGs/offers.svg",
-    "assets/SVGs/offers.svg",
-  ];
+  // List<dynamic> icon = [
+  //   "assets/SVGs/offers.svg",
+  //   "assets/SVGs/offers.svg",
+  //   "assets/SVGs/offers.svg",
+  // ];
 
   var givenDate = DateTime.now();
 

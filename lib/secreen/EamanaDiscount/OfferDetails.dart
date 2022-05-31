@@ -1,3 +1,4 @@
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -229,8 +230,18 @@ class _OfferDetailsState extends State<OfferDetails> {
                 if (widget.offer["URL"] != "" &&
                     widget.offer["URL"] != "sample string 6")
                   GestureDetector(
-                    onTap: () {
-                      launch(widget.offer["URL"]);
+                    onTap: () async {
+                      try {
+                        // widget.offer["URL"] = "https://www.google.com/";
+                        // launch(widget.offer["URL"]);
+                        if (await canLaunch(widget.offer["URL"])) {
+                          await launch(widget.offer["URL"]);
+                        } else {
+                          Alerts.errorAlert(context, "خطأ", "يوجد خطأ بالرابط")
+                              .show();
+                          throw 'Could not launch ' + widget.offer["URL"];
+                        }
+                      } catch (e) {}
                     },
                     child: Icon(
                       Icons.link,
