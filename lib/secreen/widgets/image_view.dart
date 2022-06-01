@@ -40,6 +40,9 @@ class _ProfileImageState extends State<ProfileImage> {
               imageBuilder: (context, imageProvider) => PhotoView(
                 imageProvider: imageProvider,
               ),
+              errorWidget: (context, url, error) => Image.asset(
+                "assets/image/blank-profile.png",
+              ),
             ),
             //  FadeInImage.assetNetwork(
             //     fit: BoxFit.cover,

@@ -325,7 +325,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     fingerprint = sharedPref.getBool("fingerprint")!;
     darkmode = sharedPref.getBool("darkmode")!;
-    updatenotification = sharedPref.getBool("updatenotification")!;
+    // updatenotification = sharedPref.getBool("updatenotification")!;
     setState(() {});
   }
 
