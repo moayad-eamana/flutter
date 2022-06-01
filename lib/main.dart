@@ -172,6 +172,12 @@ void setSettings() async {
   if (sharedPref.getBool('onboarding') == null) {
     sharedPref.setBool("onboarding", false);
   }
+
+  if (sharedPref.getBool('updatenotification') == null) {
+    //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+    await FirebaseMessaging.instance.subscribeToTopic('test');
+    sharedPref.setBool("updatenotification", true);
+  }
 }
 
 void configLoading() {
@@ -275,7 +281,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   getToken() async {
     String? token = await messaging.getToken();
-    await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
     print(token);
   }
 
@@ -313,12 +318,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   bool fingerprint = false;
   bool darkmode = false;
+  bool updatenotification = true;
 
   void getfingerprintSettings() async {
     //final settingSP = await SharedPreferences.getInstance();
 
     fingerprint = sharedPref.getBool("fingerprint")!;
     darkmode = sharedPref.getBool("darkmode")!;
+    updatenotification = sharedPref.getBool("updatenotification")!;
     setState(() {});
   }
 

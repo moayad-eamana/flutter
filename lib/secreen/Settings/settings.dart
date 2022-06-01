@@ -23,6 +23,7 @@ class Settings extends StatefulWidget {
 bool fingerprint = false;
 bool darkmode = false;
 bool blindness = false;
+bool updatenotification = true;
 
 class _SettingsState extends State<Settings> {
   //
@@ -31,6 +32,7 @@ class _SettingsState extends State<Settings> {
     fingerprint = sharedPref.getBool("fingerprint") ?? false;
     blindness = sharedPref.getBool('blindness') ?? false;
     darkmode = sharedPref.getBool("darkmode") ?? false;
+    updatenotification = sharedPref.getBool("updatenotification") ?? true;
     // setState(() {});
   }
 
@@ -302,7 +304,7 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Text(
-                        "إعدادات عامة",
+                        "إعدادات الالوان",
                         style: titleTx(baseColor),
                         textAlign: TextAlign.right,
                       ),
@@ -371,6 +373,67 @@ class _SettingsState extends State<Settings> {
 
                                         widget.update!();
                                         configLoading();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "إعدادات الاشعارات",
+                        style: titleTx(baseColor),
+                        textAlign: TextAlign.right,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                          //margin: EdgeInsets.all(20),
+                          decoration: containerdecoration(BackGWhiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text("إشعارات التحديثات",
+                                        style: descTx1(baseColorText)),
+                                    Spacer(),
+                                    Switch(
+                                      activeColor: baseColor,
+                                      value: updatenotification,
+                                      onChanged: (bool newValue) async {
+                                        sharedPref.setBool(
+                                            "updatenotification", newValue);
+                                        setState(() {
+                                          updatenotification = sharedPref
+                                              .getBool('updatenotification')!;
+                                        });
+                                        print("updatenotification = " +
+                                            updatenotification.toString());
+
+                                        if (sharedPref.getBool(
+                                                "updatenotification") ==
+                                            false) {
+                                          // await FirebaseMessaging.instance
+                                          //     .unsubscribeFromTopic(
+                                          //         'raqameUpdate');
+                                          await FirebaseMessaging.instance
+                                              .unsubscribeFromTopic('test');
+                                        } else {
+                                          // await FirebaseMessaging.instance
+                                          //     .subscribeToTopic('raqameUpdate');
+                                          await FirebaseMessaging.instance
+                                              .subscribeToTopic('test');
+                                        }
+
+                                        widget.update!();
                                       },
                                     ),
                                   ],
