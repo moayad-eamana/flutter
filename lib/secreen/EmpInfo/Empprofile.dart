@@ -120,6 +120,11 @@ class _EmpProfileState extends State<EmpProfile> {
                                                             .ImageURL
                                                             .toString()
                                                             .split("\$")[1],
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Image.asset(
+                                                  "assets/image/blank-profile.png",
+                                                ),
                                               ),
                                             ),
                                     ),

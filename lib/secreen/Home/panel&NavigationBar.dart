@@ -640,6 +640,13 @@ class _HomPanelState extends State<HomePanel>
                                                                       imageUrl:
                                                                           "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                                               empinfo.ImageURL.toString().split("\$")[1],
+                                                                      errorWidget: (context,
+                                                                              url,
+                                                                              error) =>
+                                                                          Image
+                                                                              .asset(
+                                                                        "assets/image/blank-profile.png",
+                                                                      ),
                                                                     ),
                                                                   ),
                                                             // ClipOval(
@@ -829,7 +836,14 @@ class _HomPanelState extends State<HomePanel>
                                                                           .toString()
                                                                       .split(
                                                                           "\$")[1],
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Image.asset(
+                                                                "assets/image/blank-profile.png",
+                                                              ),
                                                             ),
+
                                                             // FadeInImage
                                                             //     .assetNetwork(
                                                             //   fit: BoxFit.cover,
