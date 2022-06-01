@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 
@@ -17,13 +22,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  TextEditingController _username = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  bool _usernameError = false;
-  bool passError = false;
-  bool rememperMe = false;
-  var _provider;
+  @override
   void initState() {
+    print("objectaswsd");
     if (sharedPref.getBool("rememberMe") == true) {
       rememperMe = true;
 
@@ -37,6 +38,13 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
   }
 
+  TextEditingController _username = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  bool _usernameError = false;
+  bool passError = false;
+  bool rememperMe = false;
+  var _provider;
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -47,158 +55,215 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: 100.h,
-          child: Stack(
-            children: [
-              background(),
-              Positioned(
-                bottom: 0,
-                child: Row(
-                  //  mainAxisAlignment: Ma,
-                  children: [
-                    Container(
-                      width: 40.w,
-                      height: 65,
-                      child: Container(
-                        //  height: 50,
-                        padding: EdgeInsets.all(8),
-                        child: Image.asset(
-                          'assets/image/rakamy-logo-2.png',
-                          alignment: Alignment.center,
-                          // width: MediaQuery.of(context).size.width,
-                          //height: MediaQuery.of(context).size.height,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 60.w,
-                      height: 65,
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Center(
+    return packageInfo.buildNumber != localVersion && forceUpdate == true
+        ? Directionality(
+            textDirection: TextDirection.rtl,
+            child: AlertDialog(
+              title: Center(
+                child: Icon(
+                  Icons.warning,
+                  size: 100,
+                  color: Colors.yellow.shade800,
+                ),
+              ),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Center(
                         child: Text(
-                          "أمانة المنطقة الشرقية - إدارة تقنية المعلومات",
-                          style: descTx1(Colors.white),
-                          textAlign: TextAlign.right,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: baseColor,
-                      ),
-                    ),
+                      "يجب التحديث",
+                      style: descTx1(baseColor),
+                    )),
+                    Center(
+                        child: Text(
+                      'يتوفر تحديث جديد،حدث الان!',
+                      style: titleTx(baseColor),
+                    )),
                   ],
                 ),
               ),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: Center(
-                  child: SingleChildScrollView(
-                      child: Column(
-                    children: [
-                      logo(),
-                      const SizedBox(
-                        height: 20,
+              actions: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: baseColor),
+                        onPressed: () async {
+                          if (Platform.isAndroid) {
+                            launch(
+                                "https://play.google.com/apps/internaltest/4701378476454016517");
+                          } else {
+                            launch(
+                                "https://testflight.apple.com/join/NCmeNY0Q");
+                          }
+
+                          packageInfo = await PackageInfo.fromPlatform();
+
+                          //   Navigator.pop(context);
+                        },
+                        child: Text("تحديث")),
+                  ],
+                )
+              ],
+            ),
+          )
+        : Scaffold(
+            body: SingleChildScrollView(
+              child: Container(
+                height: 100.h,
+                child: Stack(
+                  children: [
+                    background(),
+                    Positioned(
+                      bottom: 0,
+                      child: Row(
+                        //  mainAxisAlignment: Ma,
+                        children: [
+                          Container(
+                            width: 40.w,
+                            height: 65,
+                            child: Container(
+                              //  height: 50,
+                              padding: EdgeInsets.all(8),
+                              child: Image.asset(
+                                'assets/image/rakamy-logo-2.png',
+                                alignment: Alignment.center,
+                                // width: MediaQuery.of(context).size.width,
+                                //height: MediaQuery.of(context).size.height,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 60.w,
+                            height: 65,
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Center(
+                              child: Text(
+                                "أمانة المنطقة الشرقية - إدارة تقنية المعلومات",
+                                style: descTx1(Colors.white),
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              color: baseColor,
+                            ),
+                          ),
+                        ],
                       ),
-                      //    const Text("تسجيل الدخول"),
-                      //   const Text("فضلا أدخل معلومات التسجيل"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: Column(
+                    ),
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Center(
+                        child: SingleChildScrollView(
+                            child: Column(
                           children: [
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20),
-                              padding: EdgeInsets.symmetric(vertical: 25),
-                              decoration: containerdecoration(BackGWhiteColor),
+                            logo(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            //    const Text("تسجيل الدخول"),
+                            //   const Text("فضلا أدخل معلومات التسجيل"),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Center(
                               child: Column(
-                                //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    "أھلا بك في رقمي جوال\n من فضلك نحتاج معلومات الدخول",
-                                    maxLines: 2,
-                                    textAlign: TextAlign.center,
-                                    style: titleTx(baseColor),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  userName(),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  password(),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 30),
-                                    child: Row(
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 20),
+                                    padding: EdgeInsets.symmetric(vertical: 25),
+                                    decoration:
+                                        containerdecoration(BackGWhiteColor),
+                                    child: Column(
+                                      //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text(
-                                          "تذكرني",
-                                          style: subtitleTx(baseColorText),
+                                        SizedBox(
+                                          height: 20,
                                         ),
-                                        Checkbox(
-                                            value: rememperMe,
-                                            onChanged: (bool? val) {
-                                              setState(() {
-                                                sharedPref.setString(
-                                                    "emNoPref", _username.text);
-                                                sharedPref.setString(
-                                                    "PassPref", _password.text);
+                                        Text(
+                                          "أھلا بك في رقمي جوال\n من فضلك نحتاج معلومات الدخول",
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
+                                          style: titleTx(baseColor),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        userName(),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        password(),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 30),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "تذكرني",
+                                                style:
+                                                    subtitleTx(baseColorText),
+                                              ),
+                                              Checkbox(
+                                                  value: rememperMe,
+                                                  onChanged: (bool? val) {
+                                                    setState(() {
+                                                      sharedPref.setString(
+                                                          "emNoPref",
+                                                          _username.text);
+                                                      sharedPref.setString(
+                                                          "PassPref",
+                                                          _password.text);
 
-                                                rememperMe = val ?? false;
+                                                      rememperMe = val ?? false;
 
-                                                if (val == true) {
-                                                  sharedPref.setBool(
-                                                      "rememberMe", true);
-                                                } else {
-                                                  sharedPref.setBool(
-                                                      "rememberMe", false);
-                                                }
-                                              });
-                                            }),
+                                                      if (val == true) {
+                                                        sharedPref.setBool(
+                                                            "rememberMe", true);
+                                                      } else {
+                                                        sharedPref.setBool(
+                                                            "rememberMe",
+                                                            false);
+                                                      }
+                                                    });
+                                                  }),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            // Text(
+                                            //   "تغير كلمة المرور",
+                                            //   style: subtitleTx(baseColor),
+                                            // ),
+                                            loginBtn(_provider),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      // Text(
-                                      //   "تغير كلمة المرور",
-                                      //   style: subtitleTx(baseColor),
-                                      // ),
-                                      loginBtn(_provider),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
                                   ),
                                 ],
                               ),
                             ),
                           ],
-                        ),
+                        )),
                       ),
-                    ],
-                  )),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 
   Widget userName() {

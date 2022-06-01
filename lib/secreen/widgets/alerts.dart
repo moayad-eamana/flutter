@@ -233,8 +233,7 @@ class Alerts {
   static Alert update(BuildContext context, String title, String desc) {
     return Alert(
       style: AlertStyle(
-        isCloseButton: false,
-        overlayColor: Colors.black87,
+        isCloseButton: true,
         backgroundColor: BackGWhiteColor,
         titleStyle: titleTx(baseColorText),
         descStyle: descTx1(baseColorText),

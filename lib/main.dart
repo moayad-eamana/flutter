@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eamanaapp/auth_secreen.dart';
 import 'package:eamanaapp/events.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
@@ -29,6 +31,7 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -38,35 +41,37 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   RemoteNotification? notification = message.notification;
-//   AndroidNotification? android = message.notification?.android;
-//   if (notification != null && android != null) {
-//     print(message.data);
-//     flutterLocalNotificationsPlugin.show(
-//       notification.hashCode,
-//       notification.title,
-//       notification.body,
-//       NotificationDetails(
-//         android: AndroidNotificationDetails(
-//           channel.id,
-//           channel.name,
-//           playSound: true,
-//           color: Colors.blue,
-//           icon: '@mipmap/ic_launcher',
-//         ),
-//       ),
-//     );
-//   }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  RemoteNotification? notification = message.notification;
+  AndroidNotification? android = message.notification?.android;
+  if (notification != null && android != null) {
+    print(message.data);
+    flutterLocalNotificationsPlugin.show(
+      notification.hashCode,
+      notification.title,
+      notification.body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          channel.id,
+          channel.name,
+          playSound: true,
+          color: Colors.blue,
+          icon: '@mipmap/ic_launcher',
+        ),
+      ),
+    );
+  }
 
 //   print("Handling a background message: ${message.messageId}");
-// }
+}
 
-// late AndroidNotificationChannel channel;
+late AndroidNotificationChannel channel;
 
-// late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
+String? localVersion;
+bool forceUpdate = false;
 final navigatorKey = GlobalKey<NavigatorState>();
 dynamic hasePerm = "";
 late PackageInfo packageInfo;
@@ -78,58 +83,61 @@ Future<void> main() async {
 
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   packageInfo = await PackageInfo.fromPlatform();
+
   sharedPref = await SharedPreferences.getInstance();
+
   hasePerm = sharedPref.getString("hasePerm");
 
-  // channel = const AndroidNotificationChannel(
-  //   'high_importance_channel', // id
-  //   'High Importance Notifications', // title
-  //   // description
-  //   showBadge: true,
+  channel = const AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    // description
+    showBadge: true,
 
-  //   importance: Importance.high,
-  // );
+    importance: Importance.high,
+  );
 
-  // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  // await Firebase.initializeApp();
-  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  // NotificationSettings settings = await messaging.requestPermission(
-  //   alert: true,
-  //   announcement: false,
-  //   badge: true,
-  //   carPlay: false,
-  //   criticalAlert: false,
-  //   provisional: false,
-  //   sound: true,
-  // );
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  // if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-  //   print('User granted permission');
-  // } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-  //   print('User granted provisional permission');
-  // } else {
-  //   print('User declined or has not accepted permission');
-  // }
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+    print('User granted permission');
+  } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+    print('User granted provisional permission');
+  } else {
+    print('User declined or has not accepted permission');
+  }
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   //  Create an Android Notification Channel.
 
   //  We use this channel in the `AndroidManifest.xml` file to override the
   //  default FCM channel to enable heads up notifications.
-  // await flutterLocalNotificationsPlugin
-  //     .resolvePlatformSpecificImplementation<
-  //         AndroidFlutterLocalNotificationsPlugin>()
-  //     ?.createNotificationChannel(channel);
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
 
   // Update the iOS foreground notification presentation options to allow
   // heads up notifications.
-  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-  //   alert: true, // Required to display a heads up notification
-  //   badge: true,
-  //   sound: true,
-  // );
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true, // Required to display a heads up notification
+    badge: true,
+    sound: true,
+  );
 
   //Settings.getSettings();
   setSettings();
@@ -195,19 +203,22 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   // This widget is the root of your application.
   String messageTitle = "Empty";
   String notificationAlert = "alert";
 
-  // FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    getfingerprintSettings();
 
+    WidgetsBinding.instance?.addObserver(this);
+    super.initState();
+    getVersionFromServer();
+    getfingerprintSettings();
+    //  Alerts.update(context, "", "يوجد تحديث جديد").show();
     if (widget.username != null && widget.username != 0) {
       DateTime time = DateTime.parse(sharedPref.getString("tokenTime") ?? "");
 
@@ -219,40 +230,86 @@ class _MyAppState extends State<MyApp> {
       }
     }
 
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   RemoteNotification? notification = message.notification;
-    //   AndroidNotification? android = message.notification?.android;
-    //   if (notification != null && android != null) {
-    //     print(message.data);
-    //     flutterLocalNotificationsPlugin.show(
-    //       notification.hashCode,
-    //       notification.title,
-    //       notification.body,
-    //       NotificationDetails(
-    //         android: AndroidNotificationDetails(
-    //           channel.id,
-    //           channel.name,
-    //           visibility: NotificationVisibility.public,
-    //           color: Colors.blue,
-    //           icon: '@mipmap/launcher_icon',
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // });
-    // getToken();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        print(message.data);
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              visibility: NotificationVisibility.public,
+              color: Colors.blue,
+              icon: '@mipmap/launcher_icon',
+            ),
+          ),
+        );
+      }
+    });
+    getToken();
   }
 
-  // getToken() async {
-  //   String? token = await messaging.getToken();
-  //   await FirebaseMessaging.instance.subscribeToTopic('raqame_eamana');
-  //   print(token);
-  // }
+  getVersionFromServer() async {
+    await Firebase.initializeApp();
+    final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+    await remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(seconds: 10),
+      minimumFetchInterval: Duration.zero,
+    ));
 
-  // unsubscribeFromNotofication() async {
-  //   await FirebaseMessaging.instance.deleteToken();
-  //   await FirebaseMessaging.instance.unsubscribeFromTopic('raqame_eamana');
-  // }
+    await remoteConfig.fetchAndActivate();
+    localVersion = Platform.isAndroid
+        ? remoteConfig.getString("ServerVersionAndroid")
+        : remoteConfig.getString("ServerVersionIOS");
+
+    forceUpdate = remoteConfig.getBool("forceUpdate");
+    setState(() {});
+    print(localVersion.toString() + " _ios");
+    print(forceUpdate);
+  }
+
+  getToken() async {
+    String? token = await messaging.getToken();
+    await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+    print(token);
+  }
+
+  unsubscribeFromNotofication() async {
+    await FirebaseMessaging.instance.deleteToken();
+    await FirebaseMessaging.instance.unsubscribeFromTopic('raqameUpdate');
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      print('state = $state');
+
+      packageInfo = await PackageInfo.fromPlatform();
+      setState(() {});
+      await Firebase.initializeApp();
+      final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: Duration.zero,
+      ));
+
+      await remoteConfig.fetchAndActivate();
+      localVersion = Platform.isAndroid
+          ? remoteConfig.getString("ServerVersionAndroid")
+          : remoteConfig.getString("ServerVersionIOS");
+
+      forceUpdate = remoteConfig.getBool("forceUpdate");
+      setState(() {});
+      print(localVersion.toString() + " _ios");
+      print(forceUpdate);
+      setState(() {});
+    }
+  }
 
   bool fingerprint = false;
   bool darkmode = false;
@@ -269,6 +326,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       print(SizerUtil.deviceType);
+
       return MaterialApp(
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(),

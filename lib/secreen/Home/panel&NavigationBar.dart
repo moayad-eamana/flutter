@@ -16,11 +16,15 @@ import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,6 +53,7 @@ class _HomPanelState extends State<HomePanel>
   final autoSizeGroup = AutoSizeGroup();
   var _bottomNavIndex = 4;
   EmployeeProfile empinfo = new EmployeeProfile();
+  bool updateVersion = false;
 
   int key = 1;
 
@@ -382,10 +387,7 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: packageInfo.buildNumber == "26" ||
-                  packageInfo.buildNumber == "24" ||
-                  packageInfo.buildNumber == "23" ||
-                  packageInfo.buildNumber == "25"
+          body: packageInfo.buildNumber != localVersion && forceUpdate == true
               ? Directionality(
                   textDirection: TextDirection.rtl,
                   child: AlertDialog(
@@ -401,7 +403,12 @@ class _HomPanelState extends State<HomePanel>
                         children: <Widget>[
                           Center(
                               child: Text(
-                            'يوجد تحديث جديد',
+                            "يجب التحديث",
+                            style: descTx1(baseColor),
+                          )),
+                          Center(
+                              child: Text(
+                            'يتوفر تحديث جديد،حدث الان!',
                             style: titleTx(baseColor),
                           )),
                         ],
@@ -414,10 +421,16 @@ class _HomPanelState extends State<HomePanel>
                           ElevatedButton(
                               style:
                                   ElevatedButton.styleFrom(primary: baseColor),
-                              onPressed: () {
-                                launch(
-                                    "https://testflight.apple.com/join/NCmeNY0Q");
-                                Navigator.pop(context, 'OK');
+                              onPressed: () async {
+                                if (Platform.isAndroid) {
+                                  launch(
+                                      "https://play.google.com/apps/internaltest/4701378476454016517");
+                                } else {
+                                  launch(
+                                      "https://testflight.apple.com/join/NCmeNY0Q");
+                                }
+
+                                //   Navigator.pop(context);
                               },
                               child: Text("تحديث")),
                         ],
@@ -430,7 +443,6 @@ class _HomPanelState extends State<HomePanel>
                   overflow: Overflow.visible,
                   clipBehavior: Clip.hardEdge,
                   children: [
-                    screen[_bottomNavIndex],
                     Container(
                       // margin: EdgeInsets.symmetric(horizontal: 20),
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -440,6 +452,9 @@ class _HomPanelState extends State<HomePanel>
                       ),
                       //  width: 100.w,
                     ),
+
+                    screen[_bottomNavIndex],
+
                     //show panel only in home screens
                     _bottomNavIndex == 4
                         ? SlidingUpPanel(
@@ -865,7 +880,7 @@ class _HomPanelState extends State<HomePanel>
                                                   height:
                                                       responsiveMT(100, 120),
                                                 ),
-                                              )
+                                              ),
 
                                               /// Container(
                                               //   margin: EdgeInsets.all(12),
