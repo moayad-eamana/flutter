@@ -346,6 +346,31 @@ class _VacationRequestState extends State<VacationRequest> {
                                         topRight: Radius.circular(24),
                                       ),
                                     ),
+                                    emptyBuilder: (context, searchEntry) =>
+                                        Center(
+                                      child: Text(
+                                        "لا يوجد بيانات",
+                                        style: TextStyle(
+                                          color: baseColorText,
+                                        ),
+                                      ),
+                                    ),
+                                    searchFieldProps: TextFieldProps(
+                                      textAlign: TextAlign.right,
+                                      decoration: formlabel1(""),
+                                      style: TextStyle(
+                                        color: baseColorText,
+                                      ),
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                    clearButton: Icon(
+                                      Icons.clear,
+                                      color: baseColor,
+                                    ),
+                                    dropDownButton: Icon(
+                                      Icons.arrow_drop_down,
+                                      color: baseColor,
+                                    ),
                                   ),
                                   //////////
                                   ///
@@ -465,6 +490,31 @@ class _VacationRequestState extends State<VacationRequest> {
                                         topLeft: Radius.circular(24),
                                         topRight: Radius.circular(24),
                                       ),
+                                    ),
+                                    emptyBuilder: (context, searchEntry) =>
+                                        Center(
+                                      child: Text(
+                                        "لا يوجد بيانات",
+                                        style: TextStyle(
+                                          color: baseColorText,
+                                        ),
+                                      ),
+                                    ),
+                                    searchFieldProps: TextFieldProps(
+                                      textAlign: TextAlign.right,
+                                      decoration: formlabel1(""),
+                                      style: TextStyle(
+                                        color: baseColorText,
+                                      ),
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                    clearButton: Icon(
+                                      Icons.clear,
+                                      color: baseColor,
+                                    ),
+                                    dropDownButton: Icon(
+                                      Icons.arrow_drop_down,
+                                      color: baseColor,
                                     ),
                                   ),
 

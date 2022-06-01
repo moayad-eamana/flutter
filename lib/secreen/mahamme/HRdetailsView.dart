@@ -290,7 +290,9 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                             selecteditem == null
                                                 ? ""
                                                 : selecteditem ?? "",
-                                            style: subtitleTx(baseColorText),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: baseColorText),
                                           ),
                                   ),
                                   dropdownBuilderSupportsNullItem: true,
@@ -308,17 +310,29 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                   itemAsString: (item) =>
                                       item?.EmployeeName ?? "",
                                   dropdownSearchDecoration: InputDecoration(
-                                    // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                                    labelText: "الموظف البديل",
                                     labelStyle:
                                         TextStyle(color: secondryColorText),
-
-                                    border: OutlineInputBorder(),
-
                                     errorStyle: TextStyle(color: redColor),
                                     contentPadding: EdgeInsets.symmetric(
                                         vertical: responsiveMT(8, 30),
                                         horizontal: 10.0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4.0),
+                                      borderSide:
+                                          BorderSide(color: bordercolor),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: bordercolor),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: bordercolor),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                                    labelText: "الموظف البديل",
                                   ),
                                   showSearchBox: true,
                                   onChanged: (v) {
@@ -356,6 +370,31 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                       topLeft: Radius.circular(24),
                                       topRight: Radius.circular(24),
                                     ),
+                                  ),
+                                  emptyBuilder: (context, searchEntry) =>
+                                      Center(
+                                    child: Text(
+                                      "لا يوجد بيانات",
+                                      style: TextStyle(
+                                        color: baseColorText,
+                                      ),
+                                    ),
+                                  ),
+                                  searchFieldProps: TextFieldProps(
+                                    textAlign: TextAlign.right,
+                                    decoration: formlabel1(""),
+                                    style: TextStyle(
+                                      color: baseColorText,
+                                    ),
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                  clearButton: Icon(
+                                    Icons.clear,
+                                    color: baseColor,
+                                  ),
+                                  dropDownButton: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: baseColor,
                                   ),
                                 ),
                               ),
@@ -457,6 +496,30 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                     topLeft: Radius.circular(24),
                                     topRight: Radius.circular(24),
                                   ),
+                                ),
+                                emptyBuilder: (context, searchEntry) => Center(
+                                  child: Text(
+                                    "لا يوجد بيانات",
+                                    style: TextStyle(
+                                      color: baseColorText,
+                                    ),
+                                  ),
+                                ),
+                                searchFieldProps: TextFieldProps(
+                                  textAlign: TextAlign.right,
+                                  decoration: formlabel1(""),
+                                  style: TextStyle(
+                                    color: baseColorText,
+                                  ),
+                                  textDirection: TextDirection.rtl,
+                                ),
+                                clearButton: Icon(
+                                  Icons.clear,
+                                  color: baseColor,
+                                ),
+                                dropDownButton: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: baseColor,
                                 ),
                               ),
                             ),
