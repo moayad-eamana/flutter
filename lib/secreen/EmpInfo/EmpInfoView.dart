@@ -244,7 +244,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                       .toString()),
                                                               Row(
                                                                 children: [
-                                                                  TexrW("الرقم الوضيفي : " +
+                                                                  TexrW("الرقم الوظيفي : " +
                                                                       _provider[
                                                                               index]
                                                                           .EmployeeNumber

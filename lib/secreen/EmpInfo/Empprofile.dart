@@ -194,7 +194,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                                     .toString()),
                                             TextW("البريد الالكتروني : " +
                                                 _provider[0].Email),
-                                            TextW("الرقم الوضيفي : " +
+                                            TextW("الرقم الوظيفي : " +
                                                 _provider[0]
                                                     .EmployeeNumber
                                                     .toString()
