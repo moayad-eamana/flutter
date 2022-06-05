@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:eamanaapp/auth_secreen.dart';
 import 'package:eamanaapp/events.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
@@ -27,8 +26,9 @@ import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
-import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/main_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/main_utilities/setSettings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -40,6 +40,17 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+late AndroidNotificationChannel channel;
+
+late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+String? localVersion;
+bool forceUpdate = false;
+final navigatorKey = GlobalKey<NavigatorState>();
+dynamic hasePerm = "";
+late PackageInfo packageInfo;
+late SharedPreferences sharedPref;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -62,20 +73,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       ),
     );
   }
-
-//   print("Handling a background message: ${message.messageId}");
 }
 
-late AndroidNotificationChannel channel;
-
-late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-String? localVersion;
-bool forceUpdate = false;
-final navigatorKey = GlobalKey<NavigatorState>();
-dynamic hasePerm = "";
-late PackageInfo packageInfo;
-late SharedPreferences sharedPref;
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: baseColor,
@@ -83,62 +82,13 @@ Future<void> main() async {
 
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
   packageInfo = await PackageInfo.fromPlatform();
-
+  firebase_Notification();
   sharedPref = await SharedPreferences.getInstance();
-
   hasePerm = sharedPref.getString("hasePerm");
 
-  channel = const AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    // description
-    showBadge: true,
-
-    importance: Importance.high,
-  );
-
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
-
-  if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-    print('User granted permission');
-  } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-    print('User granted provisional permission');
-  } else {
-    print('User declined or has not accepted permission');
-  }
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  //  Create an Android Notification Channel.
-
-  //  We use this channel in the `AndroidManifest.xml` file to override the
-  //  default FCM channel to enable heads up notifications.
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  // Update the iOS foreground notification presentation options to allow
-  // heads up notifications.
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true, // Required to display a heads up notification
-    badge: true,
-    sound: true,
-  );
-
   //Settings.getSettings();
   setSettings();
   getColorSettings();
@@ -154,53 +104,6 @@ Future<void> main() async {
   configLoading();
 }
 
-void setSettings() async {
-  //final settingSP = await SharedPreferences.getInstance();
-
-  if (sharedPref.getBool('fingerprint') == null) {
-    sharedPref.setBool("fingerprint", false);
-  }
-
-  if (sharedPref.getBool('blindness') == null) {
-    sharedPref.setBool("blindness", false);
-  }
-
-  if (sharedPref.getBool('darkmode') == null) {
-    sharedPref.setBool("darkmode", false);
-  }
-
-  if (sharedPref.getBool('onboarding') == null) {
-    sharedPref.setBool("onboarding", false);
-  }
-
-  if (sharedPref.getBool('updatenotification') == null) {
-    //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
-    await FirebaseMessaging.instance.subscribeToTopic('test');
-    sharedPref.setBool("updatenotification", true);
-  }
-}
-
-void configLoading() {
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.custom
-    ..indicatorSize = 45.0
-    ..radius = 10.0
-    ..progressColor = baseColor
-    ..backgroundColor = BackGWhiteColor
-    ..indicatorColor = baseColor
-    ..textColor = baseColor
-    ..maskColor = baseColor.withOpacity(0.5)
-    ..userInteractions = true
-    ..indicatorWidget = Container(
-      height: 80,
-      width: 100,
-      child: Image(image: AssetImage("assets/image/rakamy-logo-21.png")),
-    )
-    ..dismissOnTap = false;
-}
-
 class MyApp extends StatefulWidget {
   double? username;
   MyApp(this.username);
@@ -213,9 +116,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   // This widget is the root of your application.
   String messageTitle = "Empty";
   String notificationAlert = "alert";
-
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -235,28 +136,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         widget.username = null;
       }
     }
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null) {
-        print(message.data);
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              visibility: NotificationVisibility.public,
-              color: Colors.blue,
-              icon: '@mipmap/launcher_icon',
-            ),
-          ),
-        );
-      }
-    });
+    listenToFirbaseNotification();
     getToken();
   }
 
@@ -317,15 +197,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   bool fingerprint = false;
-  bool darkmode = false;
-  bool updatenotification = true;
-
   void getfingerprintSettings() async {
-    //final settingSP = await SharedPreferences.getInstance();
-
-    fingerprint = sharedPref.getBool("fingerprint")!;
-    darkmode = sharedPref.getBool("darkmode")!;
-    // updatenotification = sharedPref.getBool("updatenotification")!;
+    fingerprint = sharedPref.getBool("fingerprint") ?? false;
     setState(() {});
   }
 

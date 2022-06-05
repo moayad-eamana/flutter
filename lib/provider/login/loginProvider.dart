@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
@@ -59,6 +61,9 @@ class LoginProvider extends ChangeNotifier {
 
   Future<dynamic> checkUserOTP(String otp) async {
     //  SharedPreferences _pref = await SharedPreferences.getInstance();
+    await Firebase.initializeApp();
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
     var respose = await http.post(
         Uri.parse(
           "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/IsValidOTP",
@@ -68,7 +73,8 @@ class LoginProvider extends ChangeNotifier {
           "PrivateToken": getPrivetToken,
           "UserName": "DevTeam",
           "Password": "DevTeam",
-          "OTP": int.parse(otp)
+          "OTP": int.parse(otp),
+          "DeviceID": token
         }),
         headers: {"Content-Type": "application/json"});
 
