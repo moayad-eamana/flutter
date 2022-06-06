@@ -38,7 +38,8 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     var respose = await getAction("Offers/GetActiveOffers/0");
 
     setState(() {
-      _OffersList = (jsonDecode(respose.body)["OffersList"]);
+      _OffersList = (jsonDecode(respose.body)["OffersList"]) ?? [];
+
       //  _OffersList = _OffersList.sort((a, b) => a.compareTo(b));
 
       _OffersList.sort((a, b) {
@@ -83,7 +84,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
               //height: MediaQuery.of(context).size.height,
               fit: BoxFit.fill,
             ),
-            _OffersList == null
+            _OffersList.length == 0
                 ? Center(
                     child: Text(
                       "لا يوجد عروض",
@@ -364,7 +365,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                                                               1)
                                                           .toString() +
                                                       " يوم",
-                                                  textAlign: TextAlign.center,
+                                                  textAlign: TextAlign.right,
                                                   style: descTx1(Colors.white),
                                                 ),
                                               ],
