@@ -394,7 +394,8 @@ class _EmpProfileState extends State<EmpProfile> {
     final bytes = await pdf.save();
 
     final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/my_example.pdf');
+    final file = File(
+        '${dir.path}/${_provider[0].FirstName + " " + _provider[0].LastName}.pdf');
 
     await file.writeAsBytes(bytes);
     final url = file.path;
