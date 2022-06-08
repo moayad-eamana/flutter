@@ -85,7 +85,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   packageInfo = await PackageInfo.fromPlatform();
-  firebase_Notification();
+  await firebase_Notification();
   sharedPref = await SharedPreferences.getInstance();
   hasePerm = sharedPref.getString("hasePerm");
 
