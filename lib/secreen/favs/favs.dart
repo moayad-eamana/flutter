@@ -155,43 +155,51 @@ class _favoriotState extends State<favoriot> {
             Image.asset(
               imageBG,
               fit: BoxFit.fill,
+              width: double.infinity,
             ),
-            SingleChildScrollView(
-                child: Container(
-              margin: EdgeInsets.all(10),
-              child: StaggeredGrid.count(
-                crossAxisCount:
-                    SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 10,
-                children: [
-                  ...list.map((e) {
-                    return StaggeredGridTileW(
-                      1,
-                      100,
-                      ElevatedButton(
-                        style: cardServiece,
-                        onPressed: () {
-                          if (e["service_name"] == "رصيد إجازات") {
-                            rseed();
-                            return;
-                          }
-                          if (e["service_name"] == "سجل الرواتب" ||
-                              e["service_name"] == "تعريف بالراتب") {
-                            salary(e["service_name"]);
-                            return;
-                          }
+            list.isEmpty
+                ? Center(
+                    child: Text(
+                      "لايوجد خدمات مفضلة",
+                      style: titleTx(baseColorText),
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: StaggeredGrid.count(
+                      crossAxisCount:
+                          SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 10,
+                      children: [
+                        ...list.map((e) {
+                          return StaggeredGridTileW(
+                            1,
+                            100,
+                            ElevatedButton(
+                              style: cardServiece,
+                              onPressed: () {
+                                if (e["service_name"] == "رصيد إجازات") {
+                                  rseed();
+                                  return;
+                                }
+                                if (e["service_name"] == "سجل الرواتب" ||
+                                    e["service_name"] == "تعريف بالراتب") {
+                                  salary(e["service_name"]);
+                                  return;
+                                }
 
-                          Navigator.pushNamed(context, e["Navigation"]);
-                        },
-                        child: widgetsUni.cardcontentService(
-                            e["icon"], e["service_name"]),
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            ))
+                                Navigator.pushNamed(context, e["Navigation"]);
+                              },
+                              child: widgetsUni.cardcontentService(
+                                  e["icon"], e["service_name"]),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ))
           ],
         ),
       ),
