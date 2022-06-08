@@ -350,9 +350,9 @@ class CustomSearchDelegate extends SearchDelegate {
                       //    buildSuggestions(context);
                     },
                     child: Icon(
-                      Icons.favorite,
+                      Icons.star,
                       color: isFav(services2[index]["service_name"].toString())
-                          ? Colors.red
+                          ? secondryColor
                           : Colors.grey,
                     ),
                   ),
