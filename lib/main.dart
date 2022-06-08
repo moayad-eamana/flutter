@@ -20,6 +20,7 @@ import 'package:eamanaapp/secreen/Settings/settings%20copy.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/community/comments.dart';
+import 'package:eamanaapp/secreen/favs/favs.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
@@ -276,6 +277,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/vacation_old_request': (context) => vacation_old_request(),
           '/OutDuties_hostiry': (context) => OutDuties_hostiry(),
           '/Mandates_history': (context) => Mandates_history(),
+          '/favs': (context) => favoriot(),
         },
       );
     });
