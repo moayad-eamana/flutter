@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:xml2json/xml2json.dart';
+import 'package:http/http.dart' as http;
 
 class OfferDetails extends StatefulWidget {
   dynamic offer;
@@ -16,6 +21,68 @@ class OfferDetails extends StatefulWidget {
 }
 
 class _OfferDetailsState extends State<OfferDetails> {
+  @override
+  void initState() {
+    getFilePath();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  late String path;
+
+  getFilePath() async {
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
+    var headers = {
+      'Content-Type': 'text/xml',
+      'Cookie': 'cookiesession1=678B28B36718B06CD19AAAD934ACDF5C'
+    };
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'https://srv.eamana.gov.sa/UploadServiceNew/UploadService.asmx?op=GetDocuments'));
+    request.body =
+        '''<?xml version="1.0" encoding="utf-8"?>\r\n<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\r\n  <soap:Body>\r\n    <GetDocuments xmlns="http://tempuri.org/">\r\n      <arcSerial>99999999</arcSerial>\r\n    </GetDocuments>\r\n  </soap:Body>\r\n</soap:Envelope>''';
+    request.headers.addAll(headers);
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      // print(await response.stream.bytesToString());
+
+      dynamic xml = await response.stream.bytesToString();
+
+      // print(xml);
+
+      final myTransformer = Xml2Json();
+
+      myTransformer.parse(xml);
+
+      dynamic jsondata = myTransformer.toGData();
+
+      jsondata = jsonDecode(jsondata);
+
+      // print(jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
+      //     ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"]);
+      setState(() {
+        path = jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
+            ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"];
+
+        path = "https://archive.eamana.gov.sa/TransactFileUpload/" +
+            path.split("\$")[1];
+      });
+
+      // print(jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
+      //     ["GetDocumentsResult"]["Attachments"]);
+
+    } else {
+      print(response.reasonPhrase);
+    }
+    EasyLoading.dismiss();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.offer);
@@ -47,7 +114,7 @@ class _OfferDetailsState extends State<OfferDetails> {
                         SizedBox(
                           height: 10,
                         ),
-                        // ViewPF(),
+                        ViewPF(),
                       ],
                     )
                   ],
@@ -317,7 +384,9 @@ class _OfferDetailsState extends State<OfferDetails> {
       width: 150,
       height: 50,
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            launch(path);
+          },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
@@ -336,9 +405,7 @@ class _OfferDetailsState extends State<OfferDetails> {
               SizedBox(
                 width: 5,
               ),
-              Icon(
-                Icons.picture_as_pdf,
-              )
+              Icon(Icons.open_in_browser)
             ],
           )),
     );

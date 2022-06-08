@@ -142,7 +142,7 @@ class _SettingsState extends State<Settings> {
                                 // ),
                                 Row(
                                   children: [
-                                    Text("الدخول عن طريق البصمة",
+                                    Text("الدخول عبر السمات الحيوية",
                                         style: descTx1(baseColorText)),
                                     Spacer(),
                                     Switch(
