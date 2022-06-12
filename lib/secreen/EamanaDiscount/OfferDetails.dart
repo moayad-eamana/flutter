@@ -89,7 +89,7 @@ class _OfferDetailsState extends State<OfferDetails> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("تفاصل العرض", context, null),
+        appBar: AppBarW.appBarW("تفاصيل العرض", context, null),
         body: Stack(
           children: [
             SingleChildScrollView(

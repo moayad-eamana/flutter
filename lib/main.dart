@@ -36,6 +36,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -170,6 +171,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     await FirebaseMessaging.instance.unsubscribeFromTopic('raqameUpdate');
   }
 
+  final LocalAuthentication auth = LocalAuthentication();
+  bool? _authenticated;
+  Future<void> _authenticate() async {
+    bool authenticated = false;
+    try {
+      authenticated = await auth.authenticate(
+          localizedReason: 'Let OS determine authentication method',
+          useErrorDialogs: true,
+          stickyAuth: true);
+      setState(() {
+        _authenticated = authenticated;
+      });
+    } on PlatformException catch (e) {
+      setState(() {
+        _authenticated = authenticated;
+      });
+      print(e);
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+  }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
@@ -194,6 +219,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       print(localVersion.toString() + " _ios");
       print(forceUpdate);
       setState(() {});
+      // option  for request authentication all time
+      // fingerprint = sharedPref.getBool("fingerprint") ?? false;
+      // if (fingerprint == true) {
+      //   do {
+      //     await _authenticate();
+      //   } while (_authenticated == false);
+      // }
     }
   }
 
