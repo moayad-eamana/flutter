@@ -102,6 +102,48 @@ final services2 = [
   },
 ];
 
+final fastservices = [
+  if (hasePerm == "true")
+    {
+      "service_name": "مواعيدي",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => MettingsProvider(),
+          // ignore: prefer_const_constructors
+          child: MeetingView(),
+        ),
+      ),
+      "icon": 'assets/SVGs/mawa3idi.svg',
+    },
+  {
+    "service_name": "تعريف بالراتب",
+    "Navigation": "/auth_secreen",
+    "icon": 'assets/SVGs/ta3refalratb.svg',
+  },
+  {
+    "service_name": "معلوماتي",
+    "Navigation": MaterialPageRoute(
+      builder: (context) => ChangeNotifierProvider(
+        create: (context) => EmpInfoProvider(),
+        // ignore: prefer_const_constructors
+        child: EmpProfile(null),
+      ),
+    ),
+    "icon": 'assets/SVGs/baynaty.svg',
+  },
+  {
+    "service_name": "دليل الموظفين",
+    "Navigation": MaterialPageRoute(
+      builder: (context) => ChangeNotifierProvider(
+        create: (context) => EmpInfoProvider(),
+        // ignore: prefer_const_constructors
+        child: EmpInfoView(null),
+      ),
+    ),
+    "icon": 'assets/SVGs/dalelalmowzafen.svg',
+  },
+];
+
 List<dynamic> listOfFavs() {
   List<String> favs = sharedPref.getStringList("favs") ?? [];
   List<dynamic> list = [];
