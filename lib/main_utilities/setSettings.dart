@@ -28,6 +28,11 @@ void setSettings() async {
     await FirebaseMessaging.instance.subscribeToTopic('test');
     sharedPref.setBool("updatenotification", true);
   }
+  if (sharedPref.getBool('test_offers') == null) {
+    //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+    await FirebaseMessaging.instance.subscribeToTopic('test_offers');
+    sharedPref.setBool("test_offers", true);
+  }
 }
 
 void configLoading() {

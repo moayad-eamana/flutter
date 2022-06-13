@@ -84,6 +84,10 @@ listenToFirbaseNotification() {
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+    if (message.data["module_name"] == "Offers") {
+      navigatorKey.currentState?.pushNamed("/EamanaDiscount");
+      return;
+    }
     if (message.data["group"] == "update") {
       if (Platform.isAndroid) {
         launch("https://play.google.com/apps/internaltest/4701378476454016517");
@@ -93,8 +97,13 @@ listenToFirbaseNotification() {
     }
     print("onMessageOpenedApp: $message");
   });
+
   FirebaseMessaging.instance.getInitialMessage().then((message) async {
     if (message != null) {
+      if (message.data["module_name"] == "Offers") {
+        navigatorKey.currentState?.pushNamed("/EamanaDiscount");
+        return;
+      }
       if (message.data["group"] == "update") {
         if (Platform.isAndroid) {
           launch(
