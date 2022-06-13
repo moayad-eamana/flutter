@@ -43,12 +43,12 @@ class _favoriotState extends State<favoriot> {
     {
       "service_name": "طلب خارج دوام",
       "Navigation": "/OutdutyRequest",
-      "icon": 'assets/SVGs/kharejdawam.svg',
+      "icon": 'assets/SVGs/work_out.svg',
     },
     {
       "service_name": "رصيد إجازات",
       "Navigation": "",
-      "icon": 'assets/SVGs/ejaza.svg'
+      "icon": 'assets/SVGs/balance.svg'
     },
     {
       "service_name": "طلب إنتداب",

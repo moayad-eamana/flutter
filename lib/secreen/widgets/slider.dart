@@ -51,7 +51,7 @@ class SliderWidget {
                     Navigator.pushNamed(context, '/OutdutyRequest');
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
+                      'assets/SVGs/work_out.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -125,7 +125,7 @@ class SliderWidget {
                     print("object");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/ejaza.svg', "رصيد إجازات"))),
+                      'assets/SVGs/balance.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -174,7 +174,7 @@ class SliderWidget {
           //           Navigator.pushNamed(context, "/OutdutyRequest");
           //         },
           //         child: widgetsUni.cardcontentService(
-          //             'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
+          //             'assets/SVGs/work_out.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,

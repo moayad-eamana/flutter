@@ -163,7 +163,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/OutdutyRequest");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/kharejdawam.svg', "طلب خارج دوام"))),
+                      'assets/SVGs/work_out.svg', "طلب خارج دوام"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -235,7 +235,7 @@ class _ServicesViewState extends State<ServicesView> {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/ejaza.svg', "رصيد إجازات"))),
+                      'assets/SVGs/balance.svg', "رصيد إجازات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -403,7 +403,7 @@ class _ServicesViewState extends State<ServicesView> {
               hi,
               widgetsUni.servicebutton2(
                 "المفضلة",
-                "assets/SVGs/baynaty.svg",
+                "assets/SVGs/bookmarks.svg",
                 () {
                   Navigator.pushNamed(context, "/favs");
                 },
