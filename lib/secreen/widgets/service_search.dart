@@ -3,222 +3,22 @@ import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
-import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
-import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
-import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
-import 'package:eamanaapp/utilities/testbase64.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/old/search.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
   dynamic id;
   CustomSearchDelegate(this.context, this.id);
-  final services1 = [
-    ////شؤون الموظفين
-    {
-      "service_name": "طلب إجازة",
-      "Navigation": "/VacationRequest",
-      "icon": 'assets/SVGs/ejaza.svg',
-    },
-    {
-      "service_name": "طلب خارج دوام",
-      "Navigation": "/OutdutyRequest",
-      "icon": 'assets/SVGs/work_out.svg',
-    },
-    {
-      "service_name": "رصيد إجازات",
-      "Navigation": "",
-      "icon": 'assets/SVGs/balance.svg'
-    },
-    {
-      "service_name": "طلب إنتداب",
-      "Navigation": "/entedab",
-      "icon": 'assets/SVGs/entdab.svg',
-    },
-    {
-      "service_name": "العهد", /////////
-      "Navigation": "/auhad",
-      "icon": 'assets/SVGs/3ohad.svg',
-    },
-    //الرواتب
-    {
-      "service_name": "سجل الرواتب",
-      "Navigation": "/SalaryHistory",
-      "icon": 'assets/SVGs/sejelalrawatb.svg',
-    },
-    {
-      "service_name": "تعريف بالراتب",
-      "Navigation": "/auth_secreen",
-      "icon": 'assets/SVGs/ta3refalratb.svg',
-    },
-    //مهامي
-    {
-      "service_name": "إعتماداتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EatemadatProvider(),
-          // ignore: prefer_const_constructors
-          child: InboxHedersView(),
-        ),
-      ),
-      "icon": 'assets/SVGs/e3tmadaty.svg',
-    },
-    if (hasePerm == "true")
-      {
-        "service_name": "مواعيدي",
-        "Navigation": MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider(
-            create: (context) => MettingsProvider(),
-            // ignore: prefer_const_constructors
-            child: MeetingView(),
-          ),
-        ),
-        "icon": 'assets/SVGs/mawa3idi.svg',
-      },
-    //خدمات أخرى
-    // {
-    //   "service_name": "الفعاليات",
-    //   "Navigation": "",
-    //   "icon": 'assets/SVGs/events.svg',
-    // },
-    // {
-    //   "service_name": "عروض الموظفين",
-    //   "Navigation": "/EamanaDiscount",
-    //   "icon": 'assets/SVGs/offers.svg',
-    // },
-    {
-      "service_name": "دليل الموظفين",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpInfoView(null),
-        ),
-      ),
-      "icon": 'assets/SVGs/dalelalmowzafen.svg',
-    },
-    {
-      "service_name": "معلوماتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
-      "icon": 'assets/SVGs/baynaty.svg',
-    },
-  ];
-
-  final services2 = [
-    ////شؤون الموظفين
-    {
-      "service_name": "طلب إجازة",
-      "Navigation": "/VacationRequest",
-      "icon": 'assets/SVGs/ejaza.svg',
-    },
-    {
-      "service_name": "طلب خارج دوام",
-      "Navigation": "/OutdutyRequest",
-      "icon": 'assets/SVGs/work_out.svg',
-    },
-    {
-      "service_name": "رصيد إجازات",
-      "Navigation": "",
-      "icon": 'assets/SVGs/balance.svg'
-    },
-    {
-      "service_name": "طلب إنتداب",
-      "Navigation": "/entedab",
-      "icon": 'assets/SVGs/entdab.svg',
-    },
-    {
-      "service_name": "العهد", /////////
-      "Navigation": "/auhad",
-      "icon": 'assets/SVGs/3ohad.svg',
-    },
-
-    //الرواتب
-    {
-      "service_name": "سجل الرواتب",
-      "Navigation": "/SalaryHistory",
-      "icon": 'assets/SVGs/sejelalrawatb.svg',
-    },
-    {
-      "service_name": "تعريف بالراتب",
-      "Navigation": "/auth_secreen",
-      "icon": 'assets/SVGs/ta3refalratb.svg',
-    },
-    //مهامي
-    {
-      "service_name": "إعتماداتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EatemadatProvider(),
-          // ignore: prefer_const_constructors
-          child: InboxHedersView(),
-        ),
-      ),
-      "icon": 'assets/SVGs/e3tmadaty.svg',
-    },
-    if (hasePerm == "true")
-      {
-        "service_name": "مواعيدي",
-        "Navigation": MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider(
-            create: (context) => MettingsProvider(),
-            // ignore: prefer_const_constructors
-            child: MeetingView(),
-          ),
-        ),
-        "icon": 'assets/SVGs/mawa3idi.svg',
-      },
-    //خدمات أخرى
-    // {
-    //   "service_name": "الفعاليات",
-    //   "Navigation": "",
-    //   "icon": 'assets/SVGs/events.svg',
-    // },
-    // {
-    //   "service_name": "عروض",
-    //   "Navigation": "/EamanaDiscount",
-    //   "icon": 'assets/SVGs/offers.svg',
-    // },
-    {
-      "service_name": "دليل الموظفين",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpInfoView(null),
-        ),
-      ),
-      "icon": 'assets/SVGs/dalelalmowzafen.svg',
-    },
-    {
-      "service_name": "معلوماتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
-      "icon": 'assets/SVGs/baynaty.svg',
-    },
-  ];
 
   //did't use
   final rescntservices = [
@@ -269,10 +69,9 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var services = hasePerm == "true" ? services2 : services1;
     final suggestions = query.isEmpty
-        ? services // replaced with rescntservices
-        : services.where((s) {
+        ? services2 // replaced with rescntservices
+        : services2.where((s) {
             //   print(s["service_name"]);
 
             return s["service_name"].toString().contains(query);
@@ -288,8 +87,7 @@ class CustomSearchDelegate extends SearchDelegate {
       for (int j = 0; j < services2.length; j++) {
         if (favs[i] == services2[j]["service_name"]) {
           var tmp = services2[j];
-          services1.removeAt(j);
-          services1.insert(0, tmp);
+
           services2.removeAt(j);
           services2.insert(0, tmp);
           // services2.removeAt(j + 1);

@@ -14,6 +14,8 @@ import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
+import 'package:eamanaapp/utilities/ActionOfServices.dart';
+import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -37,6 +39,8 @@ class MainHome extends StatefulWidget {
 }
 
 class _MainHomeState extends State<MainHome> {
+  List<dynamic> listofFavs = [];
+
   TextEditingController _search = TextEditingController();
   var _currentIndex = 0;
   var _currentIndexBanner = 0;
@@ -60,6 +64,7 @@ class _MainHomeState extends State<MainHome> {
   @override
   void initState() {
     // TODO: implement initState
+    listofFavs = listOfFavs();
     embId();
     print(packageInfo.version);
 
@@ -110,9 +115,15 @@ class _MainHomeState extends State<MainHome> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    print("object");
                     showSearch(
-                        context: context,
-                        delegate: CustomSearchDelegate(context, id));
+                            context: context,
+                            delegate: CustomSearchDelegate(context, id))
+                        .then((value) {
+                      setState(() {
+                        listofFavs = listOfFavs();
+                      });
+                    });
 
                     FocusScope.of(context).unfocus();
                   },
@@ -132,6 +143,7 @@ class _MainHomeState extends State<MainHome> {
                             size: 35,
                           ),
                           onPressed: () {
+                            print("object");
                             showSearch(
                                 context: context,
                                 delegate: CustomSearchDelegate(context, id));
@@ -158,7 +170,8 @@ class _MainHomeState extends State<MainHome> {
                       labelStyle: subtitleTx(lableTextcolor),
                     ),
                     onTap: () {
-                      FocusScope.of(context).unfocus();
+                      print("object");
+                      //FocusScope.of(context).unfocus();
 
                       showSearch(
                           context: context,
@@ -173,7 +186,7 @@ class _MainHomeState extends State<MainHome> {
                   Row(
                     children: [
                       Text(
-                        "خدمة سريعة",
+                        listofFavs.length == 0 ? "خدمة سريعة" : "المفضلة",
                         style: titleTx(baseColorText),
                       ),
                       Expanded(
@@ -201,108 +214,119 @@ class _MainHomeState extends State<MainHome> {
                           scrollDirection: Axis.horizontal,
                           child: Container(
                             height: 65,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                if (hasePerm == "true")
-                                  widgetsUni.servicebutton(
-                                    "مواعيد",
-                                    'assets/SVGs/mawa3idi.svg',
-                                    () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ChangeNotifierProvider(
-                                            create: (context) =>
-                                                MettingsProvider(),
-                                            // ignore: prefer_const_constructors
-                                            child: MeetingView(),
-                                          ),
+                            child: listofFavs.length > 0
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                        ...listofFavs.map((e) =>
+                                            servicebuttonFavs(e, context)),
+                                      ])
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      if (hasePerm == "true")
+                                        widgetsUni.servicebutton(
+                                          "مواعيد",
+                                          'assets/SVGs/mawa3idi.svg',
+                                          () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChangeNotifierProvider(
+                                                  create: (context) =>
+                                                      MettingsProvider(),
+                                                  // ignore: prefer_const_constructors
+                                                  child: MeetingView(),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
-                                  ),
-                                widgetsUni.servicebutton(
-                                  "تعريف بالراتب",
-                                  'assets/SVGs/ta3refalratb.svg',
-                                  () async {
-                                    // final fingerprintSP =
-                                    //     await SharedPreferences.getInstance();
-                                    bool fingerprint =
-                                        sharedPref.getBool('fingerprint')!;
-                                    EasyLoading.show(
-                                      status: '... جاري المعالجة',
-                                      maskType: EasyLoadingMaskType.black,
-                                    );
-                                    String emNo = await EmployeeProfile
-                                        .getEmployeeNumber();
-                                    var respons = await getAction(
-                                        "HR/GetEmployeeSalaryReport/" + emNo);
-                                    EasyLoading.dismiss();
-                                    if (fingerprint) {
-                                      Navigator.pushNamed(
-                                              context, "/auth_secreen")
-                                          .then((value) async {
-                                        if (value == true) {
-                                          //      print(jsonDecode(respons.body)["salaryPdf"]);
+                                      widgetsUni.servicebutton(
+                                        "تعريف بالراتب",
+                                        'assets/SVGs/ta3refalratb.svg',
+                                        () async {
+                                          // final fingerprintSP =
+                                          //     await SharedPreferences.getInstance();
+                                          bool fingerprint = sharedPref
+                                              .getBool('fingerprint')!;
+                                          EasyLoading.show(
+                                            status: '... جاري المعالجة',
+                                            maskType: EasyLoadingMaskType.black,
+                                          );
+                                          String emNo = await EmployeeProfile
+                                              .getEmployeeNumber();
+                                          var respons = await getAction(
+                                              "HR/GetEmployeeSalaryReport/" +
+                                                  emNo);
+                                          EasyLoading.dismiss();
+                                          if (fingerprint) {
+                                            Navigator.pushNamed(
+                                                    context, "/auth_secreen")
+                                                .then((value) async {
+                                              if (value == true) {
+                                                //      print(jsonDecode(respons.body)["salaryPdf"]);
 
-                                          ViewFile.open(
-                                              jsonDecode(
-                                                  respons.body)["salaryPdf"],
-                                              "pdf");
-                                        }
-                                      });
-                                    } else {
-                                      ViewFile.open(
-                                          jsonDecode(respons.body)["salaryPdf"],
-                                          "pdf");
-                                    }
-                                  },
-                                ),
-                                widgetsUni.servicebutton(
-                                  "معلوماتي",
-                                  'assets/SVGs/baynaty.svg',
-                                  () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ChangeNotifierProvider(
-                                            create: (context) =>
-                                                EmpInfoProvider(),
-                                            // ignore: prefer_const_constructors
-                                            child: EmpProfile(null),
-                                          ),
-                                        ));
-                                  },
-                                ),
-                                widgetsUni.servicebutton(
-                                  "دليل الموظفين",
-                                  'assets/SVGs/dalelalmowzafen.svg',
-                                  () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ChangeNotifierProvider(
-                                            create: (context) =>
-                                                EmpInfoProvider(),
-                                            // ignore: prefer_const_constructors
-                                            child: EmpInfoView(null),
-                                          ),
-                                        ));
-                                  },
-                                ),
-                                // widgetsUni.servicebutton(
-                                //   "طلب استيكر",
-                                //   Icons.directions_car,
-                                //   () {
-                                //     print("ee");
-                                //   },
-                                // ),
-                              ],
-                            ),
+                                                ViewFile.open(
+                                                    jsonDecode(respons.body)[
+                                                        "salaryPdf"],
+                                                    "pdf");
+                                              }
+                                            });
+                                          } else {
+                                            ViewFile.open(
+                                                jsonDecode(
+                                                    respons.body)["salaryPdf"],
+                                                "pdf");
+                                          }
+                                        },
+                                      ),
+                                      widgetsUni.servicebutton(
+                                        "معلوماتي",
+                                        'assets/SVGs/baynaty.svg',
+                                        () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChangeNotifierProvider(
+                                                  create: (context) =>
+                                                      EmpInfoProvider(),
+                                                  // ignore: prefer_const_constructors
+                                                  child: EmpProfile(null),
+                                                ),
+                                              ));
+                                        },
+                                      ),
+                                      widgetsUni.servicebutton(
+                                        "دليل الموظفين",
+                                        'assets/SVGs/dalelalmowzafen.svg',
+                                        () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChangeNotifierProvider(
+                                                  create: (context) =>
+                                                      EmpInfoProvider(),
+                                                  // ignore: prefer_const_constructors
+                                                  child: EmpInfoView(null),
+                                                ),
+                                              ));
+                                        },
+                                      ),
+                                      // widgetsUni.servicebutton(
+                                      //   "طلب استيكر",
+                                      //   Icons.directions_car,
+                                      //   () {
+                                      //     print("ee");
+                                      //   },
+                                      // ),
+                                    ],
+                                  ),
                           ),
                         ),
                       ),
