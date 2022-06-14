@@ -15,7 +15,8 @@ import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class favoriot extends StatefulWidget {
-  const favoriot({Key? key}) : super(key: key);
+  const favoriot({required this.context, Key? key}) : super(key: key);
+  final BuildContext context;
 
   @override
   State<favoriot> createState() => _favoriotState();
@@ -26,12 +27,16 @@ class _favoriotState extends State<favoriot> {
 
   @override
   void initState() {
-    list = listOfFavs();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero).then((val) {
+      list = listOfFavs(context);
+      setState(() {});
+    });
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

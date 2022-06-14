@@ -63,7 +63,7 @@ class _MainHomeState extends State<MainHome> {
   @override
   void initState() {
     // TODO: implement initState
-    listofFavs = listOfFavs();
+
     embId();
     print(packageInfo.version);
 
@@ -100,6 +100,10 @@ class _MainHomeState extends State<MainHome> {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero).then((value) {
+      listofFavs = listOfFavs(context);
+      setState(() {});
+    });
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.only(bottom: 70),
@@ -120,7 +124,7 @@ class _MainHomeState extends State<MainHome> {
                             delegate: CustomSearchDelegate(context, id))
                         .then((value) {
                       setState(() {
-                        listofFavs = listOfFavs();
+                        listofFavs = listOfFavs(context);
                       });
                     });
 
@@ -225,8 +229,10 @@ class _MainHomeState extends State<MainHome> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      ...fastservices.map(
-                                          (e) => servicebuttonFavs(e, context)),
+                                      ...listOfServices(context)
+                                          .fastservices
+                                          .map((e) =>
+                                              servicebuttonFavs(e, context)),
                                     ],
                                   ),
                           ),

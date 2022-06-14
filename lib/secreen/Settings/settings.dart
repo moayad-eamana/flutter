@@ -25,6 +25,7 @@ bool fingerprint = false;
 bool darkmode = false;
 bool blindness = false;
 bool updatenotification = true;
+bool test_offers = true;
 
 class _SettingsState extends State<Settings> {
   //
@@ -34,6 +35,7 @@ class _SettingsState extends State<Settings> {
     blindness = sharedPref.getBool('blindness') ?? false;
     darkmode = sharedPref.getBool("darkmode") ?? false;
     updatenotification = sharedPref.getBool("updatenotification") ?? true;
+    test_offers = sharedPref.getBool("test_offers") ?? true;
     // setState(() {});
   }
 
@@ -432,6 +434,47 @@ class _SettingsState extends State<Settings> {
                                           //     .subscribeToTopic('raqameUpdate');
                                           await FirebaseMessaging.instance
                                               .subscribeToTopic('test');
+                                        }
+
+                                        widget.update!();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  color: bordercolor,
+                                ),
+                                Row(
+                                  children: [
+                                    Text("إشعارات العروض",
+                                        style: descTx1(baseColorText)),
+                                    Spacer(),
+                                    Switch(
+                                      activeColor: baseColor,
+                                      value: test_offers,
+                                      onChanged: (bool newValue) async {
+                                        sharedPref.setBool(
+                                            "test_offers", newValue);
+                                        setState(() {
+                                          test_offers = sharedPref
+                                              .getBool('test_offers')!;
+                                        });
+                                        print("test_offers = " +
+                                            test_offers.toString());
+
+                                        if (sharedPref.getBool("test_offers") ==
+                                            false) {
+                                          // await FirebaseMessaging.instance
+                                          //     .unsubscribeFromTopic(
+                                          //         'raqameUpdate');
+                                          await FirebaseMessaging.instance
+                                              .unsubscribeFromTopic(
+                                                  'test_offers');
+                                        } else {
+                                          // await FirebaseMessaging.instance
+                                          //     .subscribeToTopic('raqameUpdate');
+                                          await FirebaseMessaging.instance
+                                              .subscribeToTopic('test_offers');
                                         }
 
                                         widget.update!();

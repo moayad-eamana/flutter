@@ -70,8 +70,8 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestions = query.isEmpty
-        ? services2 // replaced with rescntservices
-        : services2.where((s) {
+        ? listOfServices(context).services2 // replaced with rescntservices
+        : listOfServices(context).services2.where((s) {
             //   print(s["service_name"]);
 
             return s["service_name"].toString().contains(query);
@@ -84,12 +84,12 @@ class CustomSearchDelegate extends SearchDelegate {
     List<String> favs = sharedPref.getStringList("favs") ?? [];
 
     for (int i = 0; i < favs.length; i++) {
-      for (int j = 0; j < services2.length; j++) {
-        if (favs[i] == services2[j]["service_name"]) {
-          var tmp = services2[j];
+      for (int j = 0; j < listOfServices(context).services2.length; j++) {
+        if (favs[i] == listOfServices(context).services2[j]["service_name"]) {
+          var tmp = listOfServices(context).services2[j];
 
-          services2.removeAt(j);
-          services2.insert(0, tmp);
+          listOfServices(context).services2.removeAt(j);
+          listOfServices(context).services2.insert(0, tmp);
           // services2.removeAt(j + 1);
 
         }
@@ -111,7 +111,8 @@ class CustomSearchDelegate extends SearchDelegate {
                       // Find the ScaffoldMessenger in the widget tree
                       // and use it to show a SnackBar.
 
-                      if (!isFav(services2[index]["service_name"] as String)) {
+                      if (!isFav(listOfServices(context).services2[index]
+                          ["service_name"] as String)) {
                         if (favs.length == 0) {
                           final snackBar = SnackBar(
                             content: Text("تم إضافة الخدمة الى مفضلتي"),
@@ -119,20 +120,26 @@ class CustomSearchDelegate extends SearchDelegate {
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           favs.insert(
-                              0, services2[index]["service_name"] as String);
+                              0,
+                              listOfServices(context).services2[index]
+                                  ["service_name"] as String);
                         } else {
                           final snackBar = SnackBar(
                             content: Text("تم إضافة الخدمة الى مفضلتي"),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          favs.insert(favs.length - 1,
-                              services2[index]["service_name"] as String);
+                          favs.insert(
+                              favs.length - 1,
+                              listOfServices(context).services2[index]
+                                  ["service_name"] as String);
                         }
 
                         sharedPref.setStringList("favs", favs);
                       } else {
                         for (int i = 0; i < favs.length; i++) {
-                          if (services2[index]["service_name"] == favs[i]) {
+                          if (listOfServices(context).services2[index]
+                                  ["service_name"] ==
+                              favs[i]) {
                             favs.removeAt(i);
                             sharedPref.setStringList("favs", favs);
                           }
@@ -149,7 +156,9 @@ class CustomSearchDelegate extends SearchDelegate {
                     },
                     child: Icon(
                       Icons.star,
-                      color: isFav(services2[index]["service_name"].toString())
+                      color: isFav(listOfServices(context)
+                              .services2[index]["service_name"]
+                              .toString())
                           ? secondryColor
                           : Colors.grey,
                     ),

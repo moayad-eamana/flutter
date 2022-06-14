@@ -2,12 +2,15 @@ import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
+import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import '../main.dart';
 
 ServiceButton(e, BuildContext context) {
   return StaggeredGridTileW(
@@ -26,7 +29,10 @@ ServiceButton(e, BuildContext context) {
           return;
         }
 
-        Navigator.pushNamed(context, e["Navigation"]);
+        e["Navigation"] is String
+            ? Navigator.pushNamed(context, e["Navigation"])
+            : Navigator.push(context, e["Navigation"]);
+        return;
       },
       child: widgetsUni.cardcontentService(e["icon"], e["service_name"]),
     ),
@@ -47,7 +53,10 @@ Widget servicebuttonFavs(e, BuildContext context) {
         salary(e["service_name"], context);
         return;
       }
-      Navigator.pushNamed(context, e["Navigation"]);
+      e["Navigation"].runtimeType == String
+          ? Navigator.pushNamed(context, e["Navigation"])
+          : Navigator.push(context, e["Navigation"]);
+      return;
     },
   );
 }
@@ -145,4 +154,18 @@ salary(servName, BuildContext context) async {
       Navigator.pushNamed(context, "/SalaryHistory").then((value) {});
     }
   }
+}
+
+List<dynamic> listOfFavs(BuildContext context) {
+  var serv = listOfServices(context);
+  List<String> favs = sharedPref.getStringList("favs") ?? [];
+  List<dynamic> list = [];
+  for (int i = 0; favs.length > i; i++) {
+    for (int j = 0; serv.services2.length > j; j++) {
+      if (favs[i] == serv.services2[j]["service_name"]) {
+        list.insert(0, serv.services2[j]);
+      }
+    }
+  }
+  return list;
 }
