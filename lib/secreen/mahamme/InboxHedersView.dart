@@ -1,5 +1,4 @@
 import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
-import 'package:eamanaapp/provider/mahamme/LoansRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/MobasharaProvider.dart';
 import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
@@ -13,10 +12,8 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-
 import 'HrDecisionsView.dart';
 import 'HrRequestsView.dart';
-import 'LoansRequestsView.dart';
 
 class InboxHedersView extends StatefulWidget {
   const InboxHedersView({Key? key}) : super(key: key);

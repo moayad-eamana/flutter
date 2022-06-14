@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:eamanaapp/secreen/EamanaDiscount/OfferDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
-import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';

@@ -5,7 +5,6 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
-import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:sizer/sizer.dart';
 
 class HrDecisionsDetailesView extends StatefulWidget {

@@ -1,34 +1,14 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:eamanaapp/main.dart';
-import 'package:eamanaapp/model/employeeInfo/EmpInfo.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
-import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
-import 'package:eamanaapp/secreen/services/servicesView.dart';
-import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/ActionOfServices.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
-import 'package:eamanaapp/utilities/ViewFile.dart';
-import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eamanaapp/secreen/old/search.dart';
-import 'package:http/http.dart' as http;
 
 class MainHome extends StatefulWidget {
   final Function goto;

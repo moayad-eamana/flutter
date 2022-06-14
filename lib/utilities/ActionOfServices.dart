@@ -9,7 +9,6 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
 import '../main.dart';
 
 ServiceButton(e, BuildContext context) {

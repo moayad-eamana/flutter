@@ -8,7 +8,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:xml2json/xml2json.dart';
 import 'package:http/http.dart' as http;
 
