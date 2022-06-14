@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>eamanaapp.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>29</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+				<key>dateExpires</key>
+				<string>13/06/1444 AH</string>
+				<key>type</key>
+				<string>Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1.0</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>App.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FBLPromises.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>2.0.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FMDB.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>2.7.5</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FirebaseABTesting.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>8.15.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FirebaseCore.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>8.11.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FirebaseCoreDiagnostics.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>8.11.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FirebaseInstallations.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>8.11.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FirebaseMessaging.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>8.11.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>FirebaseRemoteConfig.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>8.11.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1.0</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>Flutter.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>GoogleDataTransport.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>9.1.2</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>GoogleUtilities.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>7.7.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>flutter_local_notifications.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.0.1</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>local_auth.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.0.1</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>nanopb.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>2.30908.0</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>open_file.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.0.1</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>package_info_plus.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.4.5</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>path_provider_ios.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.0.1</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>shared_preferences_ios.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.0.1</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>sqflite.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.0.2</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6A84726AD6FBF9F7216DA0EBECE22ECBA8D0F035</string>
+						<key>dateExpires</key>
+						<string>13/06/1444 AH</string>
+						<key>type</key>
+						<string>Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>url_launcher_ios.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>WR9K83VPRS</string>
+						<key>name</key>
+						<string>East Province Municipality</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.0.1</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>WR9K83VPRS.com.eamana.raqame</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>WR9K83VPRS</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>Runner.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>3d32f3bb-7b6e-4ce5-8d4e-61ee81829576</string>
+				<key>dateExpires</key>
+				<string>28/10/1444 AH</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: com.eamana.raqame</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>WR9K83VPRS</string>
+				<key>name</key>
+				<string>East Province Municipality</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -88,7 +88,7 @@ listenToFirbaseNotification() {
       navigatorKey.currentState?.pushNamed("/EamanaDiscount");
       return;
     }
-    if (message.data["group"] == "update") {
+    if (message.data["module_name"] == "update") {
       if (Platform.isAndroid) {
         launch("https://play.google.com/apps/internaltest/4701378476454016517");
       } else {
@@ -104,7 +104,7 @@ listenToFirbaseNotification() {
         navigatorKey.currentState?.pushNamed("/EamanaDiscount");
         return;
       }
-      if (message.data["group"] == "update") {
+      if (message.data["module_name"] == "update") {
         if (Platform.isAndroid) {
           launch(
               "https://play.google.com/apps/internaltest/4701378476454016517");
