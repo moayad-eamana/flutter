@@ -1,5 +1,10 @@
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/old/search.dart';
+import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+
+dynamic id = EmployeeProfile.getEmplPerm();
 
 class AppBarW {
   static PreferredSize appBarW(
@@ -73,6 +78,40 @@ class AppBarW {
                     ],
                   ),
                 ),
+              if (title == "خدماتي المفضلة")
+                Positioned(
+                  left: 25,
+                  top: 25,
+                  child: GestureDetector(
+                    onTap: () {
+                      showSearch(
+                          context: context,
+                          delegate: CustomSearchDelegate(context, id, true));
+                      //     .then((value) {
+                      //   setState(() {
+                      //     listofFavs = listOfFavs(context);
+                      //   });
+                      // });
+                    },
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.bookmark_add_rounded,
+                            color: baseColor,
+                            size: 40,
+                          ),
+                          // Text(
+                          //   "المفضلة",
+                          //   style: TextStyle(color: baseColorText),
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
             ],
           ),
         ),

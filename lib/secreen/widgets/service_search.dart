@@ -19,7 +19,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
   dynamic id;
-  CustomSearchDelegate(this.context, this.id);
+  bool fav;
+  CustomSearchDelegate(this.context, this.id, this.fav);
 
   //did't use
   final rescntservices = [
@@ -104,238 +105,244 @@ class CustomSearchDelegate extends SearchDelegate {
               return Directionality(
                 textDirection: TextDirection.rtl,
                 child: ListTile(
-                  trailing: GestureDetector(
-                    onTap: () {
-                      List<String> favs =
-                          sharedPref.getStringList("favs") ?? [];
+                    trailing: GestureDetector(
+                      onTap: () {
+                        List<String> favs =
+                            sharedPref.getStringList("favs") ?? [];
 
-                      // Find the ScaffoldMessenger in the widget tree
-                      // and use it to show a SnackBar.
+                        // Find the ScaffoldMessenger in the widget tree
+                        // and use it to show a SnackBar.
 
-                      if (!isFav(listOfServices(context).services2[index]
-                          ["service_name"] as String)) {
-                        if (favs.length == 0) {
-                          // final snackBar = SnackBar(
-                          //   content: Text("تم إضافة الخدمة الى مفضلتي"),
-                          //   duration: Duration(seconds: 1),
-                          // );
-                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          Fluttertoast.showToast(
-                              msg: "Tتم إضافة الخدمة الى مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1 // duration
-                              );
-                          favs.insert(
-                              0,
-                              listOfServices(context).services2[index]
-                                  ["service_name"] as String);
-                        } else {
-                          // final snackBar = SnackBar(
-                          //   content: Text("تم إضافة الخدمة الى مفضلتي"),
-                          //   width: 10,
-                          // );
-                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          // print(MediaQuery.of(context).viewInsets.bottom != 0);
-                          Fluttertoast.showToast(
-                              msg: "تم إضافة الخدمة الى مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1 // duration
-                              );
-                          favs.insert(
-                              favs.length - 1,
-                              listOfServices(context).services2[index]
-                                  ["service_name"] as String);
-                        }
-
-                        sharedPref.setStringList("favs", favs);
-                      } else {
-                        for (int i = 0; i < favs.length; i++) {
-                          if (listOfServices(context).services2[index]
-                                  ["service_name"] ==
-                              favs[i]) {
-                            favs.removeAt(i);
-                            sharedPref.setStringList("favs", favs);
+                        if (!isFav(listOfServices(context).services2[index]
+                            ["service_name"] as String)) {
+                          if (favs.length == 0) {
+                            // final snackBar = SnackBar(
+                            //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                            //   duration: Duration(seconds: 1),
+                            // );
+                            // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            Fluttertoast.showToast(
+                                msg: "Tتم إضافة الخدمة الى مفضلتي", // message
+                                toastLength: Toast.LENGTH_SHORT, // length
+                                gravity: ToastGravity.CENTER, // location
+                                timeInSecForIosWeb: 1 // duration
+                                );
+                            favs.insert(
+                                0,
+                                listOfServices(context).services2[index]
+                                    ["service_name"] as String);
+                          } else {
+                            // final snackBar = SnackBar(
+                            //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                            //   width: 10,
+                            // );
+                            // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            // print(MediaQuery.of(context).viewInsets.bottom != 0);
+                            Fluttertoast.showToast(
+                                msg: "تم إضافة الخدمة الى مفضلتي", // message
+                                toastLength: Toast.LENGTH_SHORT, // length
+                                gravity: ToastGravity.CENTER, // location
+                                timeInSecForIosWeb: 1 // duration
+                                );
+                            favs.insert(
+                                favs.length - 1,
+                                listOfServices(context).services2[index]
+                                    ["service_name"] as String);
                           }
+
+                          sharedPref.setStringList("favs", favs);
+                        } else {
+                          for (int i = 0; i < favs.length; i++) {
+                            if (listOfServices(context).services2[index]
+                                    ["service_name"] ==
+                                favs[i]) {
+                              favs.removeAt(i);
+                              sharedPref.setStringList("favs", favs);
+                            }
+                          }
+                          // final snackBar = SnackBar(
+                          //   content: Text("تم حذف الخدمة من مفضلتي"),
+                          // );
+                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          // print(MediaQuery.of(context).viewInsets.bottom);
+                          Fluttertoast.showToast(
+                              msg: "تم حذف الخدمة من مفضلتي", // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.CENTER, // location
+                              timeInSecForIosWeb: 1 // duration
+
+                              );
+                          // FToast fToast = FToast();
+                          // fToast.init(context);
+                          // fToast.showToast(
+                          //   toastDuration: Duration(milliseconds: 2000),
+                          //   child: Material(
+                          //     color: Colors.black,
+                          //     child: Row(
+                          //       mainAxisSize: MainAxisSize.min,
+                          //       children: [
+                          //         Text(
+                          //           "تم حذف الخدمة من مفضلتي",
+                          //           style: TextStyle(
+                          //               color: Colors.white, fontSize: 16.0),
+                          //         )
+                          //       ],
+                          //     ),
+                          //   ),
+                          //   gravity: ToastGravity.CENTER,
+                          // );
                         }
-                        // final snackBar = SnackBar(
-                        //   content: Text("تم حذف الخدمة من مفضلتي"),
-                        // );
-                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        // print(MediaQuery.of(context).viewInsets.bottom);
-                        Fluttertoast.showToast(
-                            msg: "تم حذف الخدمة من مفضلتي", // message
-                            toastLength: Toast.LENGTH_SHORT, // length
-                            gravity: ToastGravity.CENTER, // location
-                            timeInSecForIosWeb: 1 // duration
 
-                            );
-                        // FToast fToast = FToast();
-                        // fToast.init(context);
-                        // fToast.showToast(
-                        //   toastDuration: Duration(milliseconds: 2000),
-                        //   child: Material(
-                        //     color: Colors.black,
-                        //     child: Row(
-                        //       mainAxisSize: MainAxisSize.min,
-                        //       children: [
-                        //         Text(
-                        //           "تم حذف الخدمة من مفضلتي",
-                        //           style: TextStyle(
-                        //               color: Colors.white, fontSize: 16.0),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        //   gravity: ToastGravity.CENTER,
-                        // );
-                      }
-
-                      print("object");
-                      setState(() {});
-                      //    buildSuggestions(context);
-                    },
-                    child: Icon(
-                      Icons.star,
-                      color: isFav(listOfServices(context)
-                              .services2[index]["service_name"]
-                              .toString())
-                          ? secondryColor
-                          : Colors.grey,
+                        print("object");
+                        setState(() {});
+                        //    buildSuggestions(context);
+                      },
+                      child: Icon(
+                        Icons.star,
+                        color: isFav(listOfServices(context)
+                                .services2[index]["service_name"]
+                                .toString())
+                            ? secondryColor
+                            : Colors.grey,
+                      ),
                     ),
-                  ),
-                  leading: SvgPicture.asset(
-                    suggestions[index]["icon"],
-                    width: responsiveMT(30, 35),
-                  ),
-                  // Icon(
-                  //   suggestions[index]["icon"],
-                  //   color: baseColor,
-                  // ),
-                  title: Text(
-                    suggestions[index]["service_name"],
-                    style: descTx1(baseColorText),
-                  ),
+                    leading: SvgPicture.asset(
+                      suggestions[index]["icon"],
+                      width: responsiveMT(30, 35),
+                    ),
+                    // Icon(
+                    //   suggestions[index]["icon"],
+                    //   color: baseColor,
+                    // ),
+                    title: Text(
+                      suggestions[index]["service_name"],
+                      style: descTx1(baseColorText),
+                    ),
+                    onTap: () async {
+                      if (fav == false) {
+                        //final fingerprintSP = await SharedPreferences.getInstance();
+                        bool fingerprint = sharedPref.getBool('fingerprint')!;
+                        // if (fingerprint == true) {
+                        //   Navigator.pushNamed(context, "/auth_secreen").then((value) {
+                        //     if (value == true) {
+                        //       Navigator.pushNamed(context, "/SalaryHistory");
+                        //     }
+                        //   });
+                        // } else {
+                        //   Navigator.pushNamed(context, "/SalaryHistory");
+                        // }
 
-                  onTap: () async {
-                    //final fingerprintSP = await SharedPreferences.getInstance();
-                    bool fingerprint = sharedPref.getBool('fingerprint')!;
-                    // if (fingerprint == true) {
-                    //   Navigator.pushNamed(context, "/auth_secreen").then((value) {
-                    //     if (value == true) {
-                    //       Navigator.pushNamed(context, "/SalaryHistory");
-                    //     }
-                    //   });
-                    // } else {
-                    //   Navigator.pushNamed(context, "/SalaryHistory");
-                    // }
+                        query = suggestions[index]["service_name"];
 
-                    query = suggestions[index]["service_name"];
-
-                    var navi =
-                        suggestions[index]["Navigation"].toString().isNotEmpty
+                        var navi = suggestions[index]["Navigation"]
+                                .toString()
+                                .isNotEmpty
                             ? suggestions[index]["Navigation"]
                             : '/home';
 
-                    print(query == "تعريف بالراتب");
+                        print(query == "تعريف بالراتب");
 
-                    if (query == "رصيد إجازات") {
-                      rseed();
-                    } else if (query == "تعريف بالراتب") {
-                      EasyLoading.show(
-                        status: '... جاري المعالجة',
-                        maskType: EasyLoadingMaskType.black,
-                      );
-                      String emNo = await EmployeeProfile.getEmployeeNumber();
-                      var respons =
-                          await getAction("HR/GetEmployeeSalaryReport/" + emNo);
-                      EasyLoading.dismiss();
-                      fingerprint == true
-                          ? Navigator.pushNamed(context, "/auth_secreen")
-                              .then((value) {
-                              if (value == true) {
-                                ViewFile.open(
-                                        jsonDecode(respons.body)["salaryPdf"],
-                                        "pdf")
-                                    .then((value) {
+                        if (query == "رصيد إجازات") {
+                          rseed();
+                        } else if (query == "تعريف بالراتب") {
+                          EasyLoading.show(
+                            status: '... جاري المعالجة',
+                            maskType: EasyLoadingMaskType.black,
+                          );
+                          String emNo =
+                              await EmployeeProfile.getEmployeeNumber();
+                          var respons = await getAction(
+                              "HR/GetEmployeeSalaryReport/" + emNo);
+                          EasyLoading.dismiss();
+                          fingerprint == true
+                              ? Navigator.pushNamed(context, "/auth_secreen")
+                                  .then((value) {
+                                  if (value == true) {
+                                    ViewFile.open(
+                                            jsonDecode(
+                                                respons.body)["salaryPdf"],
+                                            "pdf")
+                                        .then((value) {
+                                      close(this.context, null);
+                                    });
+                                  }
+                                })
+                              : ViewFile.open(
+                                      jsonDecode(respons.body)["salaryPdf"],
+                                      "pdf")
+                                  .then((value) {
                                   close(this.context, null);
                                 });
-                              }
-                            })
-                          : ViewFile.open(
-                                  jsonDecode(respons.body)["salaryPdf"], "pdf")
-                              .then((value) {
-                              close(this.context, null);
-                            });
-                    } else if (query == "سجل الرواتب") {
-                      if (fingerprint == true) {
-                        Navigator.pushNamed(context, "/auth_secreen")
-                            .then((value) {
-                          if (value == true) {
-                            Navigator.pushNamed(this.context, "/SalaryHistory")
+                        } else if (query == "سجل الرواتب") {
+                          if (fingerprint == true) {
+                            Navigator.pushNamed(context, "/auth_secreen")
                                 .then((value) {
-                              //   close(this.context, null);
+                              if (value == true) {
+                                Navigator.pushNamed(
+                                        this.context, "/SalaryHistory")
+                                    .then((value) {
+                                  //   close(this.context, null);
+                                });
+                              }
+                            });
+                          } else {
+                            Navigator.pushNamed(context, "/SalaryHistory")
+                                .then((value) {
+                              close(this.context, true);
                             });
                           }
-                        });
-                      } else {
-                        Navigator.pushNamed(context, "/SalaryHistory")
-                            .then((value) {
-                          close(this.context, true);
-                        });
-                      }
-                    } else {
-                      navi.runtimeType == String
-                          ? Navigator.pushNamed(context, navi).then((value) {
-                              close(this.context, null);
-                            })
-                          : Navigator.push(context, navi).then((value) {
-                              close(this.context, null);
-                            });
-                    }
+                        } else {
+                          navi.runtimeType == String
+                              ? Navigator.pushNamed(context, navi)
+                                  .then((value) {
+                                  close(this.context, null);
+                                })
+                              : Navigator.push(context, navi).then((value) {
+                                  close(this.context, null);
+                                });
+                        }
 
-                    // query == "رصيد إجازات"
-                    //     ? rseed()
-                    //     : query == "تعريف بالراتب"
-                    //         ? fingerprint == true
-                    //             ? Navigator.pushNamed(context, "/auth_secreen")
-                    //                 .then((value) {
-                    //                 if (value == true) {
-                    //                   ViewFile.open(testbase64Pfd, "pdf")
-                    //                       .then((value) {
-                    //                     close(this.context, null);
-                    //                   });
-                    //                 }
-                    //               })
-                    //             : ViewFile.open(testbase64Pfd, "pdf").then((value) {
-                    //                 close(this.context, null);
-                    //               })
-                    //         : query == "سجل الرواتب"
-                    //             ? fingerprint == true
-                    //                 ? Navigator.pushNamed(context, "/auth_secreen")
-                    //                     .then((value) {
-                    //                     if (value == true) {
-                    //                       Navigator.pushNamed(context, navi)
-                    //                           .then((value) {
-                    //                         close(this.context, null);
-                    //                       });
-                    //                     }
-                    //                   })
-                    //                 : Navigator.pushNamed(context, navi)
-                    //                     .then((value) {
-                    //                     close(this.context, null);
-                    //                   })
-                    //             : navi.runtimeType == String
-                    //                 ? Navigator.pushNamed(context, navi)
-                    //                     .then((value) {
-                    //                     close(this.context, null);
-                    //                   })
-                    //                 : Navigator.push(context, navi).then((value) {
-                    //                     close(this.context, null);
-                    //                   });
-                  },
-                ),
+                        // query == "رصيد إجازات"
+                        //     ? rseed()
+                        //     : query == "تعريف بالراتب"
+                        //         ? fingerprint == true
+                        //             ? Navigator.pushNamed(context, "/auth_secreen")
+                        //                 .then((value) {
+                        //                 if (value == true) {
+                        //                   ViewFile.open(testbase64Pfd, "pdf")
+                        //                       .then((value) {
+                        //                     close(this.context, null);
+                        //                   });
+                        //                 }
+                        //               })
+                        //             : ViewFile.open(testbase64Pfd, "pdf").then((value) {
+                        //                 close(this.context, null);
+                        //               })
+                        //         : query == "سجل الرواتب"
+                        //             ? fingerprint == true
+                        //                 ? Navigator.pushNamed(context, "/auth_secreen")
+                        //                     .then((value) {
+                        //                     if (value == true) {
+                        //                       Navigator.pushNamed(context, navi)
+                        //                           .then((value) {
+                        //                         close(this.context, null);
+                        //                       });
+                        //                     }
+                        //                   })
+                        //                 : Navigator.pushNamed(context, navi)
+                        //                     .then((value) {
+                        //                     close(this.context, null);
+                        //                   })
+                        //             : navi.runtimeType == String
+                        //                 ? Navigator.pushNamed(context, navi)
+                        //                     .then((value) {
+                        //                     close(this.context, null);
+                        //                   })
+                        //                 : Navigator.push(context, navi).then((value) {
+                        //                     close(this.context, null);
+                        //                   });
+                      }
+                    }),
               );
             });
       },

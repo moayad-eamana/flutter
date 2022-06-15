@@ -101,7 +101,7 @@ class _MainHomeState extends State<MainHome> {
                     print("object");
                     showSearch(
                             context: context,
-                            delegate: CustomSearchDelegate(context, id))
+                            delegate: CustomSearchDelegate(context, id, false))
                         .then((value) {
                       setState(() {
                         listofFavs = listOfFavs(context);
@@ -129,7 +129,8 @@ class _MainHomeState extends State<MainHome> {
                             print("object");
                             showSearch(
                                 context: context,
-                                delegate: CustomSearchDelegate(context, id));
+                                delegate:
+                                    CustomSearchDelegate(context, id, false));
 
                             FocusScope.of(context).unfocus();
                           }),
@@ -158,7 +159,7 @@ class _MainHomeState extends State<MainHome> {
 
                       showSearch(
                           context: context,
-                          delegate: CustomSearchDelegate(context, id));
+                          delegate: CustomSearchDelegate(context, id, false));
                     },
                   ),
                 ),
