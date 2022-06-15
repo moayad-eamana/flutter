@@ -33,6 +33,11 @@ void setSettings() async {
     await FirebaseMessaging.instance.subscribeToTopic('test_offers');
     sharedPref.setBool("test_offers", true);
   }
+  if (sharedPref.getBool('test_morning') == null) {
+    //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+    await FirebaseMessaging.instance.subscribeToTopic('test_morning');
+    sharedPref.setBool("test_morning", true);
+  }
 }
 
 void configLoading() {

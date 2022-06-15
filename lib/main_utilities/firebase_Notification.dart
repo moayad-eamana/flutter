@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/secreen/messages/morning.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +85,15 @@ listenToFirbaseNotification() {
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+    if (message.data["module_name"] == "MorningMessages") {
+      navigatorKey.currentState?.pushNamed("/morning",
+          arguments: ({
+            "title": "رسالة صباح",
+            "body": message.notification?.body,
+            "url": message.data["image"]
+          }));
+      return;
+    }
     if (message.data["module_name"] == "Offers") {
       navigatorKey.currentState?.pushNamed("/EamanaDiscount");
       return;

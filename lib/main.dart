@@ -24,6 +24,7 @@ import 'package:eamanaapp/secreen/favs/favs.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
+import 'package:eamanaapp/secreen/messages/morning.dart';
 import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
@@ -309,6 +310,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/vacation_old_request': (context) => vacation_old_request(),
           '/OutDuties_hostiry': (context) => OutDuties_hostiry(),
           '/Mandates_history': (context) => Mandates_history(),
+          '/morning': (context) => morning(),
+
           '/favs': (context) => favoriot(
                 context: context,
               ),
