@@ -5,6 +5,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -252,6 +253,11 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                           () {
                                                                         FlutterClipboard.copy(_provider[index].EmployeeNumber.toString().split(".")[0]).then((value) =>
                                                                             print('copied'));
+                                                                        Fluttertoast
+                                                                            .showToast(
+                                                                          msg:
+                                                                              "تم النسخ", // message
+                                                                        );
                                                                       },
                                                                       icon:
                                                                           Icon(

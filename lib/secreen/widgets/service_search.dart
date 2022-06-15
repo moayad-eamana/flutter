@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/old/search.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
@@ -114,20 +115,34 @@ class CustomSearchDelegate extends SearchDelegate {
                       if (!isFav(listOfServices(context).services2[index]
                           ["service_name"] as String)) {
                         if (favs.length == 0) {
-                          final snackBar = SnackBar(
-                            content: Text("تم إضافة الخدمة الى مفضلتي"),
-                            duration: Duration(seconds: 1),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          // final snackBar = SnackBar(
+                          //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                          //   duration: Duration(seconds: 1),
+                          // );
+                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Fluttertoast.showToast(
+                              msg: "Tتم إضافة الخدمة الى مفضلتي", // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.CENTER, // location
+                              timeInSecForIosWeb: 1 // duration
+                              );
                           favs.insert(
                               0,
                               listOfServices(context).services2[index]
                                   ["service_name"] as String);
                         } else {
-                          final snackBar = SnackBar(
-                            content: Text("تم إضافة الخدمة الى مفضلتي"),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          // final snackBar = SnackBar(
+                          //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                          //   width: 10,
+                          // );
+                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          // print(MediaQuery.of(context).viewInsets.bottom != 0);
+                          Fluttertoast.showToast(
+                              msg: "تم إضافة الخدمة الى مفضلتي", // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.CENTER, // location
+                              timeInSecForIosWeb: 1 // duration
+                              );
                           favs.insert(
                               favs.length - 1,
                               listOfServices(context).services2[index]
@@ -144,10 +159,37 @@ class CustomSearchDelegate extends SearchDelegate {
                             sharedPref.setStringList("favs", favs);
                           }
                         }
-                        final snackBar = SnackBar(
-                          content: Text("تم حذف الخدمة من مفضلتي"),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        // final snackBar = SnackBar(
+                        //   content: Text("تم حذف الخدمة من مفضلتي"),
+                        // );
+                        // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        // print(MediaQuery.of(context).viewInsets.bottom);
+                        Fluttertoast.showToast(
+                            msg: "تم حذف الخدمة من مفضلتي", // message
+                            toastLength: Toast.LENGTH_SHORT, // length
+                            gravity: ToastGravity.CENTER, // location
+                            timeInSecForIosWeb: 1 // duration
+
+                            );
+                        // FToast fToast = FToast();
+                        // fToast.init(context);
+                        // fToast.showToast(
+                        //   toastDuration: Duration(milliseconds: 2000),
+                        //   child: Material(
+                        //     color: Colors.black,
+                        //     child: Row(
+                        //       mainAxisSize: MainAxisSize.min,
+                        //       children: [
+                        //         Text(
+                        //           "تم حذف الخدمة من مفضلتي",
+                        //           style: TextStyle(
+                        //               color: Colors.white, fontSize: 16.0),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        //   gravity: ToastGravity.CENTER,
+                        // );
                       }
 
                       print("object");
@@ -312,6 +354,17 @@ class CustomSearchDelegate extends SearchDelegate {
     }
 
     return val;
+  }
+
+  void _showToast(String msg, BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        action: SnackBarAction(
+            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
   }
 
   Future<void> rseed() async {

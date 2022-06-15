@@ -65,7 +65,7 @@ dependencies:
   dio: ^4.0.6
   package_info_plus: ^1.4.2
   firebase_remote_config: ^2.0.1
-   
+  fluttertoast: ^8.0.9
  
  
 
