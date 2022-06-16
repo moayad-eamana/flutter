@@ -20,6 +20,7 @@ class CustomSearchDelegate extends SearchDelegate {
   BuildContext context;
   dynamic id;
   bool fav;
+
   CustomSearchDelegate(this.context, this.id, this.fav);
 
   //did't use
@@ -71,9 +72,23 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    List<String> favs = sharedPref.getStringList("favs") ?? [];
+    dynamic Services = listOfServices(context).services2;
+    for (int i = 0; i < favs.length; i++) {
+      for (int j = 0; j < Services.length; j++) {
+        if (favs[i] == Services[j]["service_name"]) {
+          var tmp = Services[j];
+
+          Services.removeAt(j);
+          Services.insert(0, tmp);
+          // services2.removeAt(j + 1);
+
+        }
+      }
+    }
     final suggestions = query.isEmpty
-        ? listOfServices(context).services2 // replaced with rescntservices
-        : listOfServices(context).services2.where((s) {
+        ? Services // replaced with rescntservices
+        : Services.where((s) {
             //   print(s["service_name"]);
 
             return s["service_name"].toString().contains(query);
@@ -84,14 +99,14 @@ class CustomSearchDelegate extends SearchDelegate {
 
   Widget buildSuggestionsSuccess(List<dynamic> suggestions) {
     List<String> favs = sharedPref.getStringList("favs") ?? [];
-
+    dynamic Services = listOfServices(context).services2;
     for (int i = 0; i < favs.length; i++) {
-      for (int j = 0; j < listOfServices(context).services2.length; j++) {
-        if (favs[i] == listOfServices(context).services2[j]["service_name"]) {
-          var tmp = listOfServices(context).services2[j];
+      for (int j = 0; j < Services.length; j++) {
+        if (favs[i] == Services[j]["service_name"]) {
+          var tmp = Services[j];
 
-          listOfServices(context).services2.removeAt(j);
-          listOfServices(context).services2.insert(0, tmp);
+          Services.removeAt(j);
+          Services.insert(0, tmp);
           // services2.removeAt(j + 1);
 
         }
@@ -113,8 +128,7 @@ class CustomSearchDelegate extends SearchDelegate {
                         // Find the ScaffoldMessenger in the widget tree
                         // and use it to show a SnackBar.
 
-                        if (!isFav(listOfServices(context).services2[index]
-                            ["service_name"] as String)) {
+                        if (!isFav(Services[index]["service_name"] as String)) {
                           if (favs.length == 0) {
                             // final snackBar = SnackBar(
                             //   content: Text("تم إضافة الخدمة الى مفضلتي"),
@@ -122,15 +136,13 @@ class CustomSearchDelegate extends SearchDelegate {
                             // );
                             // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             Fluttertoast.showToast(
-                                msg: "Tتم إضافة الخدمة الى مفضلتي", // message
+                                msg: "تم إضافة الخدمة الى مفضلتي", // message
                                 toastLength: Toast.LENGTH_SHORT, // length
                                 gravity: ToastGravity.CENTER, // location
                                 timeInSecForIosWeb: 1 // duration
                                 );
                             favs.insert(
-                                0,
-                                listOfServices(context).services2[index]
-                                    ["service_name"] as String);
+                                0, Services[index]["service_name"] as String);
                           } else {
                             // final snackBar = SnackBar(
                             //   content: Text("تم إضافة الخدمة الى مفضلتي"),
@@ -144,18 +156,14 @@ class CustomSearchDelegate extends SearchDelegate {
                                 gravity: ToastGravity.CENTER, // location
                                 timeInSecForIosWeb: 1 // duration
                                 );
-                            favs.insert(
-                                favs.length - 1,
-                                listOfServices(context).services2[index]
-                                    ["service_name"] as String);
+                            favs.insert(favs.length - 1,
+                                Services[index]["service_name"] as String);
                           }
 
                           sharedPref.setStringList("favs", favs);
                         } else {
                           for (int i = 0; i < favs.length; i++) {
-                            if (listOfServices(context).services2[index]
-                                    ["service_name"] ==
-                                favs[i]) {
+                            if (Services[index]["service_name"] == favs[i]) {
                               favs.removeAt(i);
                               sharedPref.setStringList("favs", favs);
                             }
@@ -199,9 +207,7 @@ class CustomSearchDelegate extends SearchDelegate {
                       },
                       child: Icon(
                         Icons.star,
-                        color: isFav(listOfServices(context)
-                                .services2[index]["service_name"]
-                                .toString())
+                        color: isFav(Services[index]["service_name"].toString())
                             ? secondryColor
                             : Colors.grey,
                       ),
