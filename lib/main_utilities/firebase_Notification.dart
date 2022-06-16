@@ -110,6 +110,15 @@ listenToFirbaseNotification() {
 
   FirebaseMessaging.instance.getInitialMessage().then((message) async {
     if (message != null) {
+      if (message.data["module_name"] == "MorningMessages") {
+        navigatorKey.currentState?.pushNamed("/morning",
+            arguments: ({
+              "title": "رسالة صباح",
+              "body": message.notification?.body,
+              "url": message.data["image"]
+            }));
+        return;
+      }
       if (message.data["module_name"] == "Offers") {
         navigatorKey.currentState?.pushNamed("/EamanaDiscount");
         return;
