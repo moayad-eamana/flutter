@@ -21,6 +21,24 @@ firebase_Notification() async {
   );
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  // flutterLocalNotificationsPlugin.schedule(
+  //   1,
+  //   "test",
+  //   "body test",
+  //   DateTime(2022, 6, 16, 14, 26),
+  //   NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //         channel.id,
+  //         channel.name,
+  //         visibility: NotificationVisibility.public,
+  //         color: Colors.blue,
+  //         icon: '@mipmap/launcher_icon',
+  //       ),
+  //       iOS: IOSNotificationDetails(
+  //         subtitle: " test",
+  //       )),
+  // );
+  // flutterLocalNotificationsPlugin.cancel(1);
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 

@@ -136,7 +136,7 @@ class CustomSearchDelegate extends SearchDelegate {
                             // );
                             // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             Fluttertoast.showToast(
-                                msg: "Tتم إضافة الخدمة الى مفضلتي", // message
+                                msg: "تم إضافة الخدمة الى مفضلتي", // message
                                 toastLength: Toast.LENGTH_SHORT, // length
                                 gravity: ToastGravity.CENTER, // location
                                 timeInSecForIosWeb: 1 // duration

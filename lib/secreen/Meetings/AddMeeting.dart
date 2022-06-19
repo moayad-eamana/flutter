@@ -48,20 +48,15 @@ class _AddMeetingState extends State<AddMeeting> {
 
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      if (Provider.of<MettingsProvider>(context, listen: false)
-              .getMeetingsTimeList
-              .length ==
-          0) {
-        EasyLoading.show(
-          status: '... جاري المعالجة',
-          maskType: EasyLoadingMaskType.black,
-        );
-        await Provider.of<MettingsProvider>(context, listen: false)
-            .fetchMeetingsTime();
-        EasyLoading.dismiss();
-        fetchMeetinsTime(Provider.of<MettingsProvider>(context, listen: false)
-            .getMeetingsTimeList);
-      }
+      EasyLoading.show(
+        status: '... جاري المعالجة',
+        maskType: EasyLoadingMaskType.black,
+      );
+      await Provider.of<MettingsProvider>(context, listen: false)
+          .fetchMeetingsTime();
+      EasyLoading.dismiss();
+      fetchMeetinsTime(Provider.of<MettingsProvider>(context, listen: false)
+          .getMeetingsTimeList);
     });
     super.initState();
   }

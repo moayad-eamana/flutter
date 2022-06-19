@@ -4,6 +4,7 @@ import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/model/meeting/meetingsTime.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
 class MettingsProvider extends ChangeNotifier {
@@ -146,7 +147,9 @@ class MettingsProvider extends ChangeNotifier {
           ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       return;
     }
-    meetings.Id = "55555";
+    var lastid = jsonDecode(respose.body)["message"];
+    print(lastid);
+    meetings.Id = lastid.toString();
     meetings.MeetingDetails =
         meetings.MeetingDetails == "p" ? "حضوري" : "إفتراضي";
     switch (p) {
@@ -187,6 +190,36 @@ class MettingsProvider extends ChangeNotifier {
         break;
     }
     _meetings.insert(0, meetings);
+    //local notification for Appointments
+    //datetime d
+    var datetime = meetings.Date.split("-");
+    print(datetime[0]);
+    var time = meetings.Time.split(":");
+    print(time[0]);
+    String body =
+        "موعد مع " + meetings.Appwith + " - بخصوص " + meetings.Subject;
+    print(body);
+
+    ///
+    flutterLocalNotificationsPlugin.schedule(
+      lastid,
+      "تذكير موعد",
+      body,
+      DateTime(int.parse(datetime[0]), int.parse(datetime[1]),
+          int.parse(datetime[2]), int.parse(time[0]), int.parse(time[1])),
+      NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            visibility: NotificationVisibility.public,
+            color: Colors.blue,
+            icon: '@mipmap/launcher_icon',
+          ),
+          iOS: IOSNotificationDetails(
+              // subtitle: " test",
+              )),
+    );
+
     notifyListeners();
   }
 
