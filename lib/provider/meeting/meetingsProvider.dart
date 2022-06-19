@@ -107,12 +107,44 @@ class MettingsProvider extends ChangeNotifier {
     _meetings[index].Date = appDate;
     _meetings[index].Appwith = app_with;
     _meetings[index].Appwithmobile = mobile;
-    _meetings[index].MeetingDetails = appDow == "p" ? "حضوري" : "إفتراضي";
+    _meetings[index].MeetingDetails = mtype == "p" ? "حضوري" : "إفتراضي";
     _meetings[index].Notes = notes;
     _meetings[index].Subject = subject;
     _meetings[index].Meeting_url = meeting_url;
     _meetings[index].Meeting_pswd = meeting_pswd;
     _meetings[index].Meeting_id = meeting_id;
+    _meetings[index].Time = appTime;
+    _meetings[index].Day = appDow;
+
+    //local notification
+
+    flutterLocalNotificationsPlugin.cancel(app_id);
+
+    String body = "موعد مع " + app_with + " - بخصوص " + subject;
+    var datetime = appDate.split("-");
+    // print(datetime[0]);
+    var time = appTime.split(":");
+    // print(time[0]);
+    flutterLocalNotificationsPlugin.schedule(
+      app_id,
+      "تذكير موعد",
+      body,
+      DateTime(int.parse(datetime[0]), int.parse(datetime[1]),
+              int.parse(datetime[2]), int.parse(time[0]), int.parse(time[1]))
+          .subtract(Duration(minutes: 10)),
+      NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            visibility: NotificationVisibility.public,
+            color: Colors.blue,
+            icon: '@mipmap/launcher_icon',
+          ),
+          iOS: IOSNotificationDetails(
+              // subtitle: " test",
+              )),
+    );
+
     notifyListeners();
 
     print(respose.body);
@@ -192,6 +224,7 @@ class MettingsProvider extends ChangeNotifier {
     _meetings.insert(0, meetings);
     //local notification for Appointments
     //datetime d
+
     var datetime = meetings.Date.split("-");
     print(datetime[0]);
     var time = meetings.Time.split(":");
@@ -206,7 +239,8 @@ class MettingsProvider extends ChangeNotifier {
       "تذكير موعد",
       body,
       DateTime(int.parse(datetime[0]), int.parse(datetime[1]),
-          int.parse(datetime[2]), int.parse(time[0]), int.parse(time[1])),
+              int.parse(datetime[2]), int.parse(time[0]), int.parse(time[1]))
+          .subtract(Duration(minutes: 10)),
       NotificationDetails(
           android: AndroidNotificationDetails(
             channel.id,
@@ -245,6 +279,10 @@ class MettingsProvider extends ChangeNotifier {
       return;
     }
     _meetings.removeWhere((element) => element.Id == id.toString());
+
+    //local notification
+    flutterLocalNotificationsPlugin.cancel(id);
+
     notifyListeners();
   }
 }
