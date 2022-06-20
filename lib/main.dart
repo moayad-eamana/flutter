@@ -200,7 +200,27 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
       print('state = $state');
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+      NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        permissionStatusFuture = "granted";
+      } else if (settings.authorizationStatus ==
+          AuthorizationStatus.provisional) {
+        permissionStatusFuture = "granted";
+      } else {
+        permissionStatusFuture = "denied";
+      }
+      setState(() {});
       packageInfo = await PackageInfo.fromPlatform();
       setState(() {});
       await Firebase.initializeApp();
