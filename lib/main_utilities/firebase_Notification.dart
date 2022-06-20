@@ -6,8 +6,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+String? permissionStatusFuture;
 firebase_Notification() async {
   await Firebase.initializeApp();
 
@@ -53,11 +55,11 @@ firebase_Notification() async {
   );
 
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-    print('User granted permission');
+    permissionStatusFuture = "granted";
   } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-    print('User granted provisional permission');
+    permissionStatusFuture = "granted";
   } else {
-    print('User declined or has not accepted permission');
+    permissionStatusFuture = "denied";
   }
 
   //  Create an Android Notification Channel.
@@ -149,6 +151,31 @@ listenToFirbaseNotification() {
           launch("https://testflight.apple.com/join/NCmeNY0Q");
         }
       }
+    }
+  });
+}
+
+var permGranted = "granted";
+var permDenied = "denied";
+var permUnknown = "unknown";
+var permProvisional = "provisional";
+
+/// Checks the notification permission status
+Future<String?> getCheckNotificationPermStatus() async {
+  Future<PermissionStatus> permissionStatus =
+      NotificationPermissions.getNotificationPermissionStatus();
+  permissionStatus.then((status) {
+    switch (status) {
+      case PermissionStatus.denied:
+        return permDenied;
+      case PermissionStatus.granted:
+        return permGranted;
+      case PermissionStatus.unknown:
+        return permUnknown;
+      case PermissionStatus.provisional:
+        return permProvisional;
+      default:
+        return null;
     }
   });
 }

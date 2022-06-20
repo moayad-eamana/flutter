@@ -1,4 +1,5 @@
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/main_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -8,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Settings extends StatefulWidget {
   final Function? update;
@@ -82,10 +85,25 @@ class _SettingsState extends State<Settings> {
     super.didChangeDependencies();
   }
 
-  @override
-  void initState() {
-    getSettings();
+  void getpermissionStatusFuture() async {
+    permissionStatusFuture = await getCheckNotificationPermStatus();
+    setState(() {});
+    print("permissin status is = $permissionStatusFuture");
+  }
 
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   if (state == AppLifecycleState.resumed) {
+  //     setState(() {
+  //       getpermissionStatusFuture();
+  //     });
+  //   }
+  // }
+
+  @override
+  initState() {
+    print("permissin status is = $permissionStatusFuture");
+    getSettings();
+    // getpermissionStatusFuture();
     super.initState();
   }
 
@@ -390,97 +408,134 @@ class _SettingsState extends State<Settings> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                          //margin: EdgeInsets.all(20),
-                          decoration: containerdecoration(BackGWhiteColor),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text("إشعارات التحديثات",
-                                        style: descTx1(baseColorText)),
-                                    Spacer(),
-                                    Switch(
-                                      activeColor: baseColor,
-                                      value: updatenotification,
-                                      onChanged: (bool newValue) async {
-                                        sharedPref.setBool(
-                                            "updatenotification", newValue);
-                                        setState(() {
-                                          updatenotification = sharedPref
-                                              .getBool('updatenotification')!;
-                                        });
-                                        print("updatenotification = " +
-                                            updatenotification.toString());
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            //margin: EdgeInsets.all(20),
+                            decoration: containerdecoration(BackGWhiteColor),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text("إشعارات التحديثات",
+                                          style: descTx1(baseColorText)),
+                                      Spacer(),
+                                      Switch(
+                                        activeColor: baseColor,
+                                        value: updatenotification,
+                                        onChanged: (bool newValue) async {
+                                          sharedPref.setBool(
+                                              "updatenotification", newValue);
+                                          setState(() {
+                                            updatenotification = sharedPref
+                                                .getBool('updatenotification')!;
+                                          });
+                                          print("updatenotification = " +
+                                              updatenotification.toString());
 
-                                        if (sharedPref.getBool(
-                                                "updatenotification") ==
-                                            false) {
-                                          // await FirebaseMessaging.instance
-                                          //     .unsubscribeFromTopic(
-                                          //         'raqameUpdate');
-                                          await FirebaseMessaging.instance
-                                              .unsubscribeFromTopic('test');
-                                        } else {
-                                          // await FirebaseMessaging.instance
-                                          //     .subscribeToTopic('raqameUpdate');
-                                          await FirebaseMessaging.instance
-                                              .subscribeToTopic('test');
-                                        }
+                                          if (sharedPref.getBool(
+                                                  "updatenotification") ==
+                                              false) {
+                                            // await FirebaseMessaging.instance
+                                            //     .unsubscribeFromTopic(
+                                            //         'raqameUpdate');
+                                            await FirebaseMessaging.instance
+                                                .unsubscribeFromTopic('test');
+                                          } else {
+                                            // await FirebaseMessaging.instance
+                                            //     .subscribeToTopic('raqameUpdate');
+                                            await FirebaseMessaging.instance
+                                                .subscribeToTopic('test');
+                                          }
 
-                                        widget.update!();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                Divider(
-                                  color: bordercolor,
-                                ),
-                                Row(
-                                  children: [
-                                    Text("إشعارات العروض",
-                                        style: descTx1(baseColorText)),
-                                    Spacer(),
-                                    Switch(
-                                      activeColor: baseColor,
-                                      value: test_offers,
-                                      onChanged: (bool newValue) async {
-                                        sharedPref.setBool(
-                                            "test_offers", newValue);
-                                        setState(() {
-                                          test_offers = sharedPref
-                                              .getBool('test_offers')!;
-                                        });
-                                        print("test_offers = " +
-                                            test_offers.toString());
+                                          widget.update!();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(
+                                    color: bordercolor,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("إشعارات العروض",
+                                          style: descTx1(baseColorText)),
+                                      Spacer(),
+                                      Switch(
+                                        activeColor: baseColor,
+                                        value: test_offers,
+                                        onChanged: (bool newValue) async {
+                                          sharedPref.setBool(
+                                              "test_offers", newValue);
+                                          setState(() {
+                                            test_offers = sharedPref
+                                                .getBool('test_offers')!;
+                                          });
+                                          print("test_offers = " +
+                                              test_offers.toString());
 
-                                        if (sharedPref.getBool("test_offers") ==
-                                            false) {
-                                          // await FirebaseMessaging.instance
-                                          //     .unsubscribeFromTopic(
-                                          //         'raqameUpdate');
-                                          await FirebaseMessaging.instance
-                                              .unsubscribeFromTopic(
-                                                  'test_offers');
-                                        } else {
-                                          // await FirebaseMessaging.instance
-                                          //     .subscribeToTopic('raqameUpdate');
-                                          await FirebaseMessaging.instance
-                                              .subscribeToTopic('test_offers');
-                                        }
+                                          if (sharedPref
+                                                  .getBool("test_offers") ==
+                                              false) {
+                                            // await FirebaseMessaging.instance
+                                            //     .unsubscribeFromTopic(
+                                            //         'raqameUpdate');
+                                            await FirebaseMessaging.instance
+                                                .unsubscribeFromTopic(
+                                                    'test_offers');
+                                          } else {
+                                            // await FirebaseMessaging.instance
+                                            //     .subscribeToTopic('raqameUpdate');
+                                            await FirebaseMessaging.instance
+                                                .subscribeToTopic(
+                                                    'test_offers');
+                                          }
 
-                                        widget.update!();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                          widget.update!();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          )),
+                          ),
+                          if (permissionStatusFuture != "granted")
+                            Container(
+                              decoration: containerdecoration(
+                                  redColor.withOpacity(0.6)),
+                              height: 130,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  widgetsUni.actionbutton(
+                                      'تفعيل الاشعارات من الاعدادات النظام',
+                                      Icons.notifications_active, () async {
+                                    NotificationPermissions
+                                            .requestNotificationPermissions(
+                                                iosSettings:
+                                                    const NotificationSettingsIos(
+                                                        sound: true,
+                                                        badge: true,
+                                                        alert: true))
+                                        .then((value) {
+                                      // when finished, check the permission status
+
+                                      // getpermissionStatusFuture();
+                                      setState(() {});
+                                    });
+                                  }),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
                       SizedBox(
                         height: 10,
                       ),
