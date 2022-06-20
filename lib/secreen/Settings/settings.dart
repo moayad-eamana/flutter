@@ -85,20 +85,6 @@ class _SettingsState extends State<Settings> {
     super.didChangeDependencies();
   }
 
-  void getpermissionStatusFuture() async {
-    permissionStatusFuture = await getCheckNotificationPermStatus();
-    setState(() {});
-    print("permissin status is = $permissionStatusFuture");
-  }
-
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   if (state == AppLifecycleState.resumed) {
-  //     setState(() {
-  //       getpermissionStatusFuture();
-  //     });
-  //   }
-  // }
-
   @override
   initState() {
     print("permissin status is = $permissionStatusFuture");
@@ -518,18 +504,12 @@ class _SettingsState extends State<Settings> {
                                       'تفعيل الاشعارات من الاعدادات النظام',
                                       Icons.notifications_active, () async {
                                     NotificationPermissions
-                                            .requestNotificationPermissions(
-                                                iosSettings:
-                                                    const NotificationSettingsIos(
-                                                        sound: true,
-                                                        badge: true,
-                                                        alert: true))
-                                        .then((value) {
-                                      // when finished, check the permission status
-
-                                      // getpermissionStatusFuture();
-                                      setState(() {});
-                                    });
+                                        .requestNotificationPermissions(
+                                            iosSettings:
+                                                const NotificationSettingsIos(
+                                                    sound: true,
+                                                    badge: true,
+                                                    alert: true));
                                   }),
                                 ],
                               ),

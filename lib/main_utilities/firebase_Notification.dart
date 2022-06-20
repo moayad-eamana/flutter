@@ -154,28 +154,3 @@ listenToFirbaseNotification() {
     }
   });
 }
-
-var permGranted = "granted";
-var permDenied = "denied";
-var permUnknown = "unknown";
-var permProvisional = "provisional";
-
-/// Checks the notification permission status
-Future<String?> getCheckNotificationPermStatus() async {
-  Future<PermissionStatus> permissionStatus =
-      NotificationPermissions.getNotificationPermissionStatus();
-  permissionStatus.then((status) {
-    switch (status) {
-      case PermissionStatus.denied:
-        return permDenied;
-      case PermissionStatus.granted:
-        return permGranted;
-      case PermissionStatus.unknown:
-        return permUnknown;
-      case PermissionStatus.provisional:
-        return permProvisional;
-      default:
-        return null;
-    }
-  });
-}
