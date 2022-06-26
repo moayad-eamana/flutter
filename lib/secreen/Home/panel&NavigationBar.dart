@@ -627,7 +627,7 @@ class _HomPanelState extends State<HomePanel>
                                                                           .cover,
                                                                       imageUrl:
                                                                           "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                              empinfo.ImageURL.toString().split("\$")[1],
+                                                                              empinfo.ImageURL.toString(),
                                                                       errorWidget: (context,
                                                                               url,
                                                                               error) =>
@@ -821,9 +821,7 @@ class _HomPanelState extends State<HomePanel>
                                                               fit: BoxFit.cover,
                                                               imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                                   empinfo.ImageURL
-                                                                          .toString()
-                                                                      .split(
-                                                                          "\$")[1],
+                                                                      .toString(),
                                                               errorWidget: (context,
                                                                       url,
                                                                       error) =>

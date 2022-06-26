@@ -15,7 +15,7 @@ class MettingsProvider extends ChangeNotifier {
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsByEmail.php"),
+            "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsByEmail.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email
@@ -44,7 +44,7 @@ class MettingsProvider extends ChangeNotifier {
     notifyListeners();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsToken.php"),
+            "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsToken.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email
@@ -82,7 +82,7 @@ class MettingsProvider extends ChangeNotifier {
     employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/editAppointment.php"),
+            "https://crm.eamana.gov.sa/agenda/api/api-mobile/editAppointment.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email,
@@ -156,7 +156,7 @@ class MettingsProvider extends ChangeNotifier {
     employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/createAppointments.php"),
+            "https://crm.eamana.gov.sa/agenda/api/api-mobile/createAppointments.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email,
@@ -267,7 +267,7 @@ class MettingsProvider extends ChangeNotifier {
     employeeProfile = employeeProfile.getEmployeeProfile();
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/deleteAppointments.php"),
+            "https://crm.eamana.gov.sa/agenda/api/api-mobile/deleteAppointments.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "username": employeeProfile.Email,

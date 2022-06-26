@@ -193,7 +193,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                         height:
                                                                             100,
                                                                         image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                                            _provider[index].ImageURL.split("\$")[1],
+                                                                            _provider[index].ImageURL,
                                                                         placeholder:
                                                                             "assets/image/blank-profile.png",
                                                                         imageErrorBuilder: (context,

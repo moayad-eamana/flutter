@@ -171,7 +171,8 @@ class _LoginViewState extends State<LoginView> {
                                 children: [
                                   Container(
                                     margin: EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 20),
+                                        horizontal: responsiveMT(20, 100),
+                                        vertical: 20),
                                     padding: EdgeInsets.symmetric(vertical: 25),
                                     decoration:
                                         containerdecoration(BackGWhiteColor),

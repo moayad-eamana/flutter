@@ -38,7 +38,7 @@ class LoginProvider extends ChangeNotifier {
     packageInfo = await PackageInfo.fromPlatform();
     try {
       respose = await Dio().post(
-          "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/CheckUserForMobile",
+          "https://srv.eamana.gov.sa/NewAmanaAPIs/API/Authentication/CheckUserForMobile",
           data: jsonEncode({"EmployeeNumber": userName, "Password": password}),
           options: Options(headers: {"Content-Type": "application/json"}));
     } catch (e) {
@@ -66,7 +66,7 @@ class LoginProvider extends ChangeNotifier {
     String? token = await messaging.getToken();
     var respose = await http.post(
         Uri.parse(
-          "https://srv.eamana.gov.sa/NewAmanaAPIs_Test/API/Authentication/IsValidOTP",
+          "https://srv.eamana.gov.sa/NewAmanaAPIs/API/Authentication/IsValidOTP",
         ),
         body: jsonEncode({
           "EmployeeNumber": int.parse(getuserName),
@@ -130,7 +130,7 @@ class LoginProvider extends ChangeNotifier {
       try {
         var respose = await http.post(
             Uri.parse(
-                "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
+                "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php"),
             body: jsonEncode({
               "token": sharedPref.getString("AccessToken"),
               "username": empinfo.Email

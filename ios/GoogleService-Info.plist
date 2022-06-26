@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>438916329352-7vubcjem33ou3idqbrrjgqu532ca73a6.apps.googleusercontent.com</string>
+	<string>309438403428-4q1su3qhg2tfph7srau9av7dkabrgohm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.438916329352-7vubcjem33ou3idqbrrjgqu532ca73a6</string>
+	<string>com.googleusercontent.apps.309438403428-4q1su3qhg2tfph7srau9av7dkabrgohm</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCIxuU_T4JtFZz0aL3lHnlqpNSojHAbdtw</string>
+	<string>AIzaSyAS1Q8IrM5zDtRsRHDGBh4hzVMhdq68i_4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>438916329352</string>
+	<string>309438403428</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.eamana.raqame</string>
 	<key>PROJECT_ID</key>
-	<string>raqame-ed870</string>
+	<string>raqame-e8e8c</string>
 	<key>STORAGE_BUCKET</key>
-	<string>raqame-ed870.appspot.com</string>
+	<string>raqame-e8e8c.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:438916329352:ios:73db04086c2b776e38943d</string>
+	<string>1:309438403428:ios:54f61178d5bf20048f6071</string>
 </dict>
 </plist>

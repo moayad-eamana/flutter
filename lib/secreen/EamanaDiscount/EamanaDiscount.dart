@@ -71,8 +71,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar:
-            AppBarW.appBarW("عروض الموظفين تجريبي", context, widget.navBack),
+        appBar: AppBarW.appBarW("عروض الموظفين", context, widget.navBack),
         body: Stack(
           children: [
             Image.asset(

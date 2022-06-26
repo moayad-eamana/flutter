@@ -118,8 +118,7 @@ class _EmpProfileState extends State<EmpProfile> {
                                                     "https://archive.eamana.gov.sa/TransactFileUpload" +
                                                         _provider[0]
                                                             .ImageURL
-                                                            .toString()
-                                                            .split("\$")[1],
+                                                            .toString(),
                                                 errorWidget:
                                                     (context, url, error) =>
                                                         Image.asset(

@@ -34,7 +34,7 @@ class _SettingsState extends State<Settings> {
     blindness = sharedPref.getBool('blindness') ?? false;
     darkmode = sharedPref.getBool("darkmode") ?? false;
     updatenotification = sharedPref.getBool("updatenotification") ?? true;
-    test_offers = sharedPref.getBool("test_offers") ?? true;
+    test_offers = sharedPref.getBool("offers") ?? true;
     // setState(() {});
   }
 
@@ -428,16 +428,17 @@ class _SettingsState extends State<Settings> {
                                           if (sharedPref.getBool(
                                                   "updatenotification") ==
                                               false) {
-                                            // await FirebaseMessaging.instance
-                                            //     .unsubscribeFromTopic(
-                                            //         'raqameUpdate');
                                             await FirebaseMessaging.instance
-                                                .unsubscribeFromTopic('test');
+                                                .unsubscribeFromTopic(
+                                                    'raqameUpdate');
+                                            // await FirebaseMessaging.instance
+                                            //     .unsubscribeFromTopic('test');
                                           } else {
-                                            // await FirebaseMessaging.instance
-                                            //     .subscribeToTopic('raqameUpdate');
                                             await FirebaseMessaging.instance
-                                                .subscribeToTopic('test');
+                                                .subscribeToTopic(
+                                                    'raqameUpdate');
+                                            // await FirebaseMessaging.instance
+                                            //     .subscribeToTopic('test');
                                           }
 
                                           widget.update!();
@@ -458,29 +459,26 @@ class _SettingsState extends State<Settings> {
                                         value: test_offers,
                                         onChanged: (bool newValue) async {
                                           sharedPref.setBool(
-                                              "test_offers", newValue);
+                                              "offers", newValue);
                                           setState(() {
-                                            test_offers = sharedPref
-                                                .getBool('test_offers')!;
+                                            test_offers =
+                                                sharedPref.getBool('offers')!;
                                           });
-                                          print("test_offers = " +
+                                          print("offers = " +
                                               test_offers.toString());
 
-                                          if (sharedPref
-                                                  .getBool("test_offers") ==
+                                          if (sharedPref.getBool("offers") ==
                                               false) {
                                             // await FirebaseMessaging.instance
                                             //     .unsubscribeFromTopic(
                                             //         'raqameUpdate');
                                             await FirebaseMessaging.instance
-                                                .unsubscribeFromTopic(
-                                                    'test_offers');
+                                                .unsubscribeFromTopic('offers');
                                           } else {
                                             // await FirebaseMessaging.instance
                                             //     .subscribeToTopic('raqameUpdate');
                                             await FirebaseMessaging.instance
-                                                .subscribeToTopic(
-                                                    'test_offers');
+                                                .subscribeToTopic('offers');
                                           }
 
                                           widget.update!();
@@ -666,10 +664,10 @@ class _SettingsState extends State<Settings> {
                               image:
                                   AssetImage("assets/image/rakamy-logo-2.png"),
                             ),
-                            Text("الإصدار الأول 1.20.22",
-                                style: descTx1(baseColorText)),
-                            Text(packageInfo.buildNumber,
-                                style: descTx1(baseColorText)),
+                            // Text("الإصدار الأول 1.20.22",
+                            //     style: descTx1(baseColorText)),
+                            // Text(packageInfo.buildNumber,
+                            //     style: descTx1(baseColorText)),
                             SizedBox(
                               height: 15,
                             ),

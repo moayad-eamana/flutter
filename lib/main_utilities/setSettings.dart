@@ -24,19 +24,19 @@ void setSettings() async {
   }
 
   if (sharedPref.getBool('updatenotification') == null) {
-    //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
-    await FirebaseMessaging.instance.subscribeToTopic('test');
+    await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+    // await FirebaseMessaging.instance.subscribeToTopic('test');
     sharedPref.setBool("updatenotification", true);
   }
-  if (sharedPref.getBool('test_offers') == null) {
+  if (sharedPref.getBool('offers') == null) {
     //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
-    await FirebaseMessaging.instance.subscribeToTopic('test_offers');
-    sharedPref.setBool("test_offers", true);
+    await FirebaseMessaging.instance.subscribeToTopic('offers');
+    sharedPref.setBool("offers", true);
   }
-  if (sharedPref.getBool('test_morning') == null) {
+  if (sharedPref.getBool('morning') == null) {
     //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
-    await FirebaseMessaging.instance.subscribeToTopic('test_morning');
-    sharedPref.setBool("test_morning", true);
+    await FirebaseMessaging.instance.subscribeToTopic('morning');
+    sharedPref.setBool("morning", true);
   }
 }
 

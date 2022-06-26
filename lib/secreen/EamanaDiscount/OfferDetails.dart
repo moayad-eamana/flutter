@@ -69,8 +69,7 @@ class _OfferDetailsState extends State<OfferDetails> {
         path = jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
             ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"];
 
-        path = "https://archive.eamana.gov.sa/TransactFileUpload/" +
-            path.split("\$")[1];
+        path = "https://archive.eamana.gov.sa/TransactFileUpload/" + path;
       });
 
       // print(jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]

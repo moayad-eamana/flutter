@@ -1,77 +1,34 @@
 {
   "project_info": {
-    "project_number": "438916329352",
-    "project_id": "raqame-ed870",
-    "storage_bucket": "raqame-ed870.appspot.com"
+    "project_number": "309438403428",
+    "project_id": "raqame-e8e8c",
+    "storage_bucket": "raqame-e8e8c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:438916329352:android:482aebdd70c63b0f38943d",
+        "mobilesdk_app_id": "1:309438403428:android:6bfe10e958750d838f6071",
         "android_client_info": {
           "package_name": "com.eamana.eamanaapp.gov.sa"
         }
       },
       "oauth_client": [
         {
-          "client_id": "438916329352-sop69sqgfl8ojgbmv0vi1hnn15jp1j2o.apps.googleusercontent.com",
+          "client_id": "309438403428-jdnqo2hhmsfghobcdl1nl0oc5ernbd26.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDiHYeLIpyVemE7ZoYwxmIESkYME1jiEgk"
+          "current_key": "AIzaSyAWIFpaNurCcQhWNMDl50zPNWmQGJk8rbc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "438916329352-sop69sqgfl8ojgbmv0vi1hnn15jp1j2o.apps.googleusercontent.com",
+              "client_id": "309438403428-jdnqo2hhmsfghobcdl1nl0oc5ernbd26.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "438916329352-7vubcjem33ou3idqbrrjgqu532ca73a6.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.eamana.raqame"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:438916329352:android:a233858715555bbc38943d",
-        "android_client_info": {
-          "package_name": "com.example.eamanaapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "438916329352-sop69sqgfl8ojgbmv0vi1hnn15jp1j2o.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDiHYeLIpyVemE7ZoYwxmIESkYME1jiEgk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "438916329352-sop69sqgfl8ojgbmv0vi1hnn15jp1j2o.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "438916329352-7vubcjem33ou3idqbrrjgqu532ca73a6.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.eamana.raqame"
-              }
             }
           ]
         }

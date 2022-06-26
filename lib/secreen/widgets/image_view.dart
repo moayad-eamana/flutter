@@ -36,7 +36,7 @@ class _ProfileImageState extends State<ProfileImage> {
                 //   ),
                 CachedNetworkImage(
               imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                  empinfo.ImageURL.toString().split("\$")[1],
+                  empinfo.ImageURL.toString(),
               imageBuilder: (context, imageProvider) => PhotoView(
                 imageProvider: imageProvider,
               ),
