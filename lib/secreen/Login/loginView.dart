@@ -125,7 +125,7 @@ class _LoginViewState extends State<LoginView> {
                               //  height: 50,
                               padding: EdgeInsets.all(8),
                               child: Image.asset(
-                                'assets/image/rakamy-logo-2.png',
+                                'assets/image/logo1.png',
                                 alignment: Alignment.center,
                                 // width: MediaQuery.of(context).size.width,
                                 //height: MediaQuery.of(context).size.height,
@@ -139,7 +139,7 @@ class _LoginViewState extends State<LoginView> {
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             child: Center(
                               child: Text(
-                                "أمانة المنطقة الشرقية - إدارة تقنية المعلومات",
+                                "أمانة المنطقة الشرقية - إدارة العامة للتحول الرقمي",
                                 style: descTx1(Colors.white),
                                 textAlign: TextAlign.right,
                               ),
