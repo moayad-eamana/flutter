@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -460,13 +461,25 @@ class _ServicesViewState extends State<ServicesView> {
                         if (value == true) {
                           //      print(jsonDecode(respons.body)["salaryPdf"]);
 
-                          ViewFile.open(
-                              jsonDecode(respons.body)["salaryPdf"], "pdf");
+                          if (jsonDecode(respons.body)["salaryPdf"] != null) {
+                            ViewFile.open(
+                                jsonDecode(respons.body)["salaryPdf"], "pdf");
+                          } else {
+                            Alerts.warningAlert(context, "خطأ",
+                                    "لا توجد بيانات للتعريف بالراتب")
+                                .show();
+                          }
                         }
                       });
                     } else {
-                      ViewFile.open(
-                          jsonDecode(respons.body)["salaryPdf"], "pdf");
+                      if (jsonDecode(respons.body)["salaryPdf"] != null) {
+                        ViewFile.open(
+                            jsonDecode(respons.body)["salaryPdf"], "pdf");
+                      } else {
+                        Alerts.warningAlert(context, "خطأ",
+                                "لا توجد بيانات للتعريف بالراتب")
+                            .show();
+                      }
                     }
                   },
                   child: widgetsUni.cardcontentService(

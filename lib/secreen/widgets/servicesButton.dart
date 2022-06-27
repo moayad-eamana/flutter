@@ -8,6 +8,7 @@ import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -225,14 +226,27 @@ class _ServicesButtonState extends State<ServicesButton> {
             String emNo = await EmployeeProfile.getEmployeeNumber();
             var respons = await getAction("HR/GetEmployeeSalaryReport/" + emNo);
             EasyLoading.dismiss();
-            fingerprint == true
-                ? Navigator.pushNamed(context, "/auth_secreen").then((value) {
-                    if (value == true) {
-                      ViewFile.open(
-                          jsonDecode(respons.body)["salaryPdf"], "pdf");
-                    }
-                  })
-                : ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf");
+            if (fingerprint == true) {
+              Navigator.pushNamed(context, "/auth_secreen").then((value) {
+                if (value == true) {
+                  if (jsonDecode(respons.body)["salaryPdf"] != null) {
+                    ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf");
+                  } else {
+                    Alerts.warningAlert(
+                            context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
+                        .show();
+                  }
+                }
+              });
+            } else {
+              if (jsonDecode(respons.body)["salaryPdf"] != null) {
+                ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf");
+              } else {
+                Alerts.warningAlert(
+                        context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
+                    .show();
+              }
+            }
           } else if (query == "سجل الرواتب") {
             if (fingerprint == true) {
               Navigator.pushNamed(context, "/auth_secreen").then((value) {

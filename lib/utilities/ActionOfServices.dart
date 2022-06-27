@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -131,15 +132,28 @@ salary(servName, BuildContext context) async {
     String emNo = await EmployeeProfile.getEmployeeNumber();
     var respons = await getAction("HR/GetEmployeeSalaryReport/" + emNo);
     EasyLoading.dismiss();
-    fingerprint == true
-        ? Navigator.pushNamed(context, "/auth_secreen").then((value) {
-            if (value == true) {
-              ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
-                  .then((value) {});
-            }
-          })
-        : ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
+    if (fingerprint == true) {
+      Navigator.pushNamed(context, "/auth_secreen").then((value) {
+        if (value == true) {
+          if (jsonDecode(respons.body)["salaryPdf"] != null) {
+            ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
+                .then((value) {});
+          } else {
+            Alerts.warningAlert(
+                    context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
+                .show();
+          }
+        }
+      });
+    } else {
+      if (jsonDecode(respons.body)["salaryPdf"] != null) {
+        ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
             .then((value) {});
+      } else {
+        Alerts.warningAlert(context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
+            .show();
+      }
+    }
   } else if (servName == "سجل الرواتب") {
     if (fingerprint == true) {
       Navigator.pushNamed(context, "/auth_secreen").then((value) {

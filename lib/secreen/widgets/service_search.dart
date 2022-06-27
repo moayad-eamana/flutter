@@ -4,6 +4,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -260,25 +261,39 @@ class CustomSearchDelegate extends SearchDelegate {
                           var respons = await getAction(
                               "HR/GetEmployeeSalaryReport/" + emNo);
                           EasyLoading.dismiss();
-                          fingerprint == true
-                              ? Navigator.pushNamed(context, "/auth_secreen")
-                                  .then((value) {
-                                  if (value == true) {
-                                    ViewFile.open(
-                                            jsonDecode(
-                                                respons.body)["salaryPdf"],
-                                            "pdf")
-                                        .then((value) {
-                                      close(this.context, null);
-                                    });
-                                  }
-                                })
-                              : ViewFile.open(
+                          if (fingerprint == true) {
+                            Navigator.pushNamed(context, "/auth_secreen")
+                                .then((value) {
+                              if (value == true) {
+                                if (jsonDecode(respons.body)["salaryPdf"] !=
+                                    null) {
+                                  ViewFile.open(
+                                          jsonDecode(respons.body)["salaryPdf"],
+                                          "pdf")
+                                      .then((value) {
+                                    close(this.context, null);
+                                  });
+                                } else {
+                                  Alerts.warningAlert(context, "خطأ",
+                                          "لا توجد بيانات للتعريف بالراتب")
+                                      .show();
+                                }
+                              }
+                            });
+                          } else {
+                            if (jsonDecode(respons.body)["salaryPdf"] != null) {
+                              ViewFile.open(
                                       jsonDecode(respons.body)["salaryPdf"],
                                       "pdf")
                                   .then((value) {
-                                  close(this.context, null);
-                                });
+                                close(this.context, null);
+                              });
+                            } else {
+                              Alerts.warningAlert(context, "خطأ",
+                                      "لا توجد بيانات للتعريف بالراتب")
+                                  .show();
+                            }
+                          }
                         } else if (query == "سجل الرواتب") {
                           if (fingerprint == true) {
                             Navigator.pushNamed(context, "/auth_secreen")
