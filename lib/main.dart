@@ -331,10 +331,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/OutDuties_hostiry': (context) => OutDuties_hostiry(),
           '/Mandates_history': (context) => Mandates_history(),
           '/morning': (context) => morning(),
-
-          '/favs': (context) => favoriot(
-                context: context,
-              ),
+          '/favs': (context) => favoriot(),
         },
       );
     });

@@ -6,8 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sizer/sizer.dart';
 
 class favoriot extends StatefulWidget {
-  const favoriot({required this.context, Key? key}) : super(key: key);
-  final BuildContext context;
+  const favoriot({Key? key}) : super(key: key);
 
   @override
   State<favoriot> createState() => _favoriotState();
