@@ -79,10 +79,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: baseColor,
-  ));
-
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -95,6 +91,9 @@ Future<void> main() async {
   //Settings.getSettings();
   setSettings();
   getColorSettings();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: baseColor,
+  ));
   //getfingerprintSettings();
   double? username;
   try {

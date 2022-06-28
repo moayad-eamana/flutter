@@ -82,13 +82,13 @@ void getColorSettings() {
   if (darkmode == true) {
     imageBG = "assets/image/Union_2.png"; //
 
-    BackGColor = Colors.grey.shade800;
+    BackGColor = Colors.grey.shade900;
 
-    BackGWhiteColor = Colors.grey.shade700;
+    BackGWhiteColor = Color(0xff303030);
 
-    baseColor = Colors.blueGrey.shade200;
+    baseColor = Colors.blueGrey.shade400;
 
-    secondryColor = Color(0xff2E8D9A);
+    secondryColor = Color(0xff226973);
 
     baseColorText = Colors.white;
 
