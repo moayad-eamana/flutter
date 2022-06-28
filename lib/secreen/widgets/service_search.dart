@@ -106,11 +106,13 @@ class CustomSearchDelegate extends SearchDelegate {
                             // );
                             // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             Fluttertoast.showToast(
-                                msg: "تم إضافة الخدمة الى مفضلتي", // message
-                                toastLength: Toast.LENGTH_SHORT, // length
-                                gravity: ToastGravity.CENTER, // location
-                                timeInSecForIosWeb: 1 // duration
-                                );
+                              msg: "تم إضافة الخدمة الى مفضلتي", // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.CENTER, // location
+                              timeInSecForIosWeb: 1, // duration
+                              backgroundColor: BackGColor,
+                              textColor: baseColorText,
+                            );
                             favs.insert(
                                 0, Services[index]["service_name"] as String);
                           } else {
@@ -121,11 +123,13 @@ class CustomSearchDelegate extends SearchDelegate {
                             // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             // print(MediaQuery.of(context).viewInsets.bottom != 0);
                             Fluttertoast.showToast(
-                                msg: "تم إضافة الخدمة الى مفضلتي", // message
-                                toastLength: Toast.LENGTH_SHORT, // length
-                                gravity: ToastGravity.CENTER, // location
-                                timeInSecForIosWeb: 1 // duration
-                                );
+                              msg: "تم إضافة الخدمة الى مفضلتي", // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.CENTER, // location
+                              timeInSecForIosWeb: 1, // duration
+                              backgroundColor: BackGColor,
+                              textColor: baseColorText,
+                            );
                             favs.insert(favs.length - 1,
                                 Services[index]["service_name"] as String);
                           }
@@ -144,12 +148,13 @@ class CustomSearchDelegate extends SearchDelegate {
                           // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           // print(MediaQuery.of(context).viewInsets.bottom);
                           Fluttertoast.showToast(
-                              msg: "تم حذف الخدمة من مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1 // duration
-
-                              );
+                            msg: "تم حذف الخدمة من مفضلتي", // message
+                            toastLength: Toast.LENGTH_SHORT, // length
+                            gravity: ToastGravity.CENTER, // location
+                            timeInSecForIosWeb: 1, // duration
+                            backgroundColor: BackGColor,
+                            textColor: baseColorText,
+                          );
                         }
 
                         print("object");
@@ -314,11 +319,13 @@ class CustomSearchDelegate extends SearchDelegate {
                             // );
                             // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             Fluttertoast.showToast(
-                                msg: "تم إضافة الخدمة الى مفضلتي", // message
-                                toastLength: Toast.LENGTH_SHORT, // length
-                                gravity: ToastGravity.CENTER, // location
-                                timeInSecForIosWeb: 1 // duration
-                                );
+                              msg: "تم إضافة الخدمة الى مفضلتي", // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.CENTER, // location
+                              timeInSecForIosWeb: 1, // duration
+                              backgroundColor: BackGColor,
+                              textColor: baseColorText,
+                            );
                             favs.insert(0,
                                 suggestions[index]["service_name"] as String);
                           } else {
@@ -329,11 +336,13 @@ class CustomSearchDelegate extends SearchDelegate {
                             // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             // print(MediaQuery.of(context).viewInsets.bottom != 0);
                             Fluttertoast.showToast(
-                                msg: "تم إضافة الخدمة الى مفضلتي", // message
-                                toastLength: Toast.LENGTH_SHORT, // length
-                                gravity: ToastGravity.CENTER, // location
-                                timeInSecForIosWeb: 1 // duration
-                                );
+                              msg: "تم إضافة الخدمة الى مفضلتي", // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.CENTER, // location
+                              timeInSecForIosWeb: 1, // duration
+                              backgroundColor: BackGColor,
+                              textColor: baseColorText,
+                            );
                             favs.insert(favs.length - 1,
                                 suggestions[index]["service_name"] as String);
                           }
@@ -352,12 +361,13 @@ class CustomSearchDelegate extends SearchDelegate {
                           // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           // print(MediaQuery.of(context).viewInsets.bottom);
                           Fluttertoast.showToast(
-                              msg: "تم حذف الخدمة من مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1 // duration
-
-                              );
+                            msg: "تم حذف الخدمة من مفضلتي", // message
+                            toastLength: Toast.LENGTH_SHORT, // length
+                            gravity: ToastGravity.CENTER, // location
+                            timeInSecForIosWeb: 1, // duration
+                            backgroundColor: BackGColor,
+                            textColor: baseColorText,
+                          );
                         }
 
                         print("object");

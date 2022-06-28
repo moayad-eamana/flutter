@@ -345,6 +345,11 @@ class _SettingsState extends State<Settings> {
                                             blindness.toString());
                                         getColorSettings();
                                         widget.update!();
+                                        configLoading();
+                                        SystemChrome.setSystemUIOverlayStyle(
+                                            SystemUiOverlayStyle(
+                                          statusBarColor: baseColor,
+                                        ));
                                       },
                                     ),
                                   ],
@@ -376,6 +381,10 @@ class _SettingsState extends State<Settings> {
 
                                         widget.update!();
                                         configLoading();
+                                        SystemChrome.setSystemUIOverlayStyle(
+                                            SystemUiOverlayStyle(
+                                          statusBarColor: baseColor,
+                                        ));
                                       },
                                     ),
                                   ],
