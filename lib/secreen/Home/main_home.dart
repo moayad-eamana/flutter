@@ -220,7 +220,10 @@ class _MainHomeState extends State<MainHome> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.arrow_forward_ios_rounded),
+                        icon: Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: baseColorText,
+                        ),
                         onPressed: () {
                           _scrollController.animateTo(
                               _scrollController.position.maxScrollExtent,
