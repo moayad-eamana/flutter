@@ -257,6 +257,16 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                             .showToast(
                                                                           msg:
                                                                               "تم النسخ", // message
+                                                                          toastLength:
+                                                                              Toast.LENGTH_SHORT, // length
+                                                                          gravity:
+                                                                              ToastGravity.BOTTOM, // location
+                                                                          timeInSecForIosWeb:
+                                                                              1, // duration
+                                                                          backgroundColor:
+                                                                              BackGColor,
+                                                                          textColor:
+                                                                              baseColorText,
                                                                         );
                                                                       },
                                                                       icon:
