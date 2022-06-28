@@ -490,12 +490,17 @@ class _HomPanelState extends State<HomePanel>
                                       borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(4.0),
                                           bottomRight: Radius.circular(4.0))),
-                                  child: Image(
-                                    //width: responsiveMT(90, 150),
-                                    alignment: Alignment.center,
-                                    width: MediaQuery.of(context).size.width,
-                                    fit: BoxFit.fitWidth,
-                                    image: AssetImage(imageBG),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(4.0),
+                                        bottomRight: Radius.circular(4.0)),
+                                    child: Image(
+                                      //width: responsiveMT(90, 150),
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context).size.width,
+                                      fit: BoxFit.fitWidth,
+                                      image: AssetImage(imageBG),
+                                    ),
                                   ),
                                 ),
                                 Container(
@@ -513,6 +518,17 @@ class _HomPanelState extends State<HomePanel>
                                                         responsiveMT(90, 150),
                                                     image: AssetImage(
                                                         "assets/image/rakamy-logo-21.png")),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Align(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: Icon(
+                                                  Icons
+                                                      .keyboard_arrow_down_outlined,
+                                                  color: baseColorText,
+                                                ),
                                               ),
                                             ),
                                             Align(
@@ -684,13 +700,16 @@ class _HomPanelState extends State<HomePanel>
                                       width: 40,
                                       height: 40,
                                       decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: baseColor,
                                           border:
                                               Border.all(color: bordercolor),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(50))),
                                       child: IconButton(
-                                        icon: Icon(Icons.arrow_upward_rounded),
+                                        icon: Icon(
+                                          Icons.arrow_upward_rounded,
+                                          color: Colors.white,
+                                        ),
                                         onPressed: () {
                                           openpanel();
                                         },
@@ -998,14 +1017,16 @@ class _HomPanelState extends State<HomePanel>
                                         width: 40,
                                         height: 40,
                                         decoration: BoxDecoration(
-                                            color: Colors.white,
+                                            color: baseColor,
                                             border:
                                                 Border.all(color: bordercolor),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(50))),
                                         child: IconButton(
-                                          icon:
-                                              Icon(Icons.arrow_upward_rounded),
+                                          icon: Icon(
+                                            Icons.arrow_upward_rounded,
+                                            color: Colors.white,
+                                          ),
                                           onPressed: () {
                                             openpanel();
                                           },
