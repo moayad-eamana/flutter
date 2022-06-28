@@ -507,17 +507,55 @@ class _SettingsState extends State<Settings> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  widgetsUni.actionbutton(
-                                      'تفعيل الاشعارات من الاعدادات النظام',
-                                      Icons.notifications_active, () async {
-                                    NotificationPermissions
-                                        .requestNotificationPermissions(
-                                            iosSettings:
-                                                const NotificationSettingsIos(
-                                                    sound: true,
-                                                    badge: true,
-                                                    alert: true));
-                                  }),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      side: BorderSide(
+                                        width: 0.5,
+                                        color: bordercolor,
+                                      ),
+                                      elevation: 0,
+                                      primary: baseColor,
+                                    ),
+                                    onPressed: () async {
+                                      NotificationPermissions
+                                          .requestNotificationPermissions(
+                                              iosSettings:
+                                                  const NotificationSettingsIos(
+                                                      sound: true,
+                                                      badge: true,
+                                                      alert: true));
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.notifications_active,
+                                            color: Colors.white, size: 18),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          'تفعيل الاشعارات من الاعدادات النظام',
+                                          style: descTx1(Colors.white),
+                                          maxLines: 2,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  // widgetsUni.actionbutton(
+                                  //     'تفعيل الاشعارات من الاعدادات النظام',
+                                  //     Icons.notifications_active, () async {
+                                  //   NotificationPermissions
+                                  //       .requestNotificationPermissions(
+                                  //           iosSettings:
+                                  //               const NotificationSettingsIos(
+                                  //                   sound: true,
+                                  //                   badge: true,
+                                  //                   alert: true));
+                                  // }),
                                 ],
                               ),
                             ),
