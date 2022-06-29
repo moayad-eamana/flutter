@@ -80,10 +80,12 @@ class _MainHomeState extends State<MainHome> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero).then((value) {
-      listofFavs = listOfFavs(context);
-      setState(() {});
-    });
+    // https://stackoverflow.com/questions/71807696/flutter-future-delayed-on-endless-loop 😅
+    // but it is not working with favs.dart
+    // Future.delayed(Duration.zero).then((value) {
+    listofFavs = listOfFavs(context);
+    setState(() {});
+    // });
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.only(bottom: 70),
