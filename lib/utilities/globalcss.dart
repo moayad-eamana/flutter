@@ -86,9 +86,9 @@ void getColorSettings() {
 
     BackGWhiteColor = Color(0xff303030);
 
-    baseColor = Colors.blueGrey.shade400;
+    baseColor = Colors.blueGrey.shade200;
 
-    secondryColor = Color(0xff226973);
+    secondryColor = Color(0xff2E8D9A); // Color(0xff226973);
 
     baseColorText = Colors.white;
 

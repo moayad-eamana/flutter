@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
   String PrivateToken = "";
@@ -37,8 +36,7 @@ class LoginProvider extends ChangeNotifier {
     var respose;
     packageInfo = await PackageInfo.fromPlatform();
     try {
-      respose = await Dio().post(
-          "https://srv.eamana.gov.sa/NewAmanaAPIs/API/Authentication/CheckUserForMobile",
+      respose = await Dio().post(Url + "Authentication/CheckUserForMobile",
           data: jsonEncode({"EmployeeNumber": userName, "Password": password}),
           options: Options(headers: {"Content-Type": "application/json"}));
     } catch (e) {
@@ -66,7 +64,7 @@ class LoginProvider extends ChangeNotifier {
     String? token = await messaging.getToken();
     var respose = await http.post(
         Uri.parse(
-          "https://srv.eamana.gov.sa/NewAmanaAPIs/API/Authentication/IsValidOTP",
+          Url + "Authentication/IsValidOTP",
         ),
         body: jsonEncode({
           "EmployeeNumber": int.parse(getuserName),
