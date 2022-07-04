@@ -139,7 +139,7 @@ class _LoginViewState extends State<LoginView> {
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             child: Center(
                               child: Text(
-                                "أمانة المنطقة الشرقية - إدارة العامة للتحول الرقمي",
+                                "أمانة المنطقة الشرقية - الإدارة العامة للتحول الرقمي والمدن الذكية",
                                 style: descTx1(Colors.white),
                                 textAlign: TextAlign.right,
                               ),
