@@ -5,6 +5,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+String raqameUpdate = "raqameUpdate";
+String offers = "offers";
+String Morning = "morning";
+
+// String raqameUpdate = "test_raqameUpdate";
+// String offers = "test_offers";
+// String morning = "test_morning";
+
 void setSettings() async {
   await Firebase.initializeApp();
   if (sharedPref.getBool('fingerprint') == null) {
@@ -24,18 +32,18 @@ void setSettings() async {
   }
 
   if (sharedPref.getBool('updatenotification') == null) {
-    await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+    await FirebaseMessaging.instance.subscribeToTopic(raqameUpdate);
     // await FirebaseMessaging.instance.subscribeToTopic('test');
     sharedPref.setBool("updatenotification", true);
   }
   if (sharedPref.getBool('offers') == null) {
     //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
-    await FirebaseMessaging.instance.subscribeToTopic('offers');
+    await FirebaseMessaging.instance.subscribeToTopic(offers);
     sharedPref.setBool("offers", true);
   }
   if (sharedPref.getBool('morning') == null) {
     //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
-    await FirebaseMessaging.instance.subscribeToTopic('morning');
+    await FirebaseMessaging.instance.subscribeToTopic(Morning);
     sharedPref.setBool("morning", true);
   }
 }

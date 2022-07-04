@@ -1,9 +1,9 @@
 import 'package:eamanaapp/main.dart';
-import 'package:eamanaapp/main_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
+import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
+import 'package:eamanaapp/settings_utilities/setSettings.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
-import 'package:eamanaapp/main_utilities/setSettings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +11,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Settings extends StatefulWidget {
   final Function? update;
@@ -439,15 +438,10 @@ class _SettingsState extends State<Settings> {
                                               false) {
                                             await FirebaseMessaging.instance
                                                 .unsubscribeFromTopic(
-                                                    'raqameUpdate');
-                                            // await FirebaseMessaging.instance
-                                            //     .unsubscribeFromTopic('test');
+                                                    raqameUpdate);
                                           } else {
                                             await FirebaseMessaging.instance
-                                                .subscribeToTopic(
-                                                    'raqameUpdate');
-                                            // await FirebaseMessaging.instance
-                                            //     .subscribeToTopic('test');
+                                                .subscribeToTopic(raqameUpdate);
                                           }
 
                                           widget.update!();
@@ -482,12 +476,12 @@ class _SettingsState extends State<Settings> {
                                             //     .unsubscribeFromTopic(
                                             //         'raqameUpdate');
                                             await FirebaseMessaging.instance
-                                                .unsubscribeFromTopic('offers');
+                                                .unsubscribeFromTopic(offers);
                                           } else {
                                             // await FirebaseMessaging.instance
                                             //     .subscribeToTopic('raqameUpdate');
                                             await FirebaseMessaging.instance
-                                                .subscribeToTopic('offers');
+                                                .subscribeToTopic(offers);
                                           }
 
                                           widget.update!();
