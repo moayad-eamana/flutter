@@ -8,7 +8,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:eamanaapp/secreen/old/search.dart';
+import 'package:eamanaapp/utilities/searchX.dart';
 
 class MainHome extends StatefulWidget {
   final Function goto;

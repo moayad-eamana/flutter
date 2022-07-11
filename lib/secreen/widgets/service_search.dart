@@ -13,11 +13,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
-import 'package:eamanaapp/secreen/old/search.dart';
+import 'package:eamanaapp/utilities/searchX.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class CustomSearchDelegate extends SearchDelegate {
+class CustomSearchDelegate extends SearchDelegateR {
   BuildContext context;
   dynamic id;
   bool fav;
