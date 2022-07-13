@@ -144,6 +144,10 @@ class _MainHomeState extends State<MainHome> {
                         borderSide: BorderSide(color: bordercolor),
                         borderRadius: BorderRadius.circular(4),
                       ),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: bordercolor),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: bordercolor),
                         borderRadius: BorderRadius.circular(4),
