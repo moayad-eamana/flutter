@@ -77,7 +77,7 @@ class _AuthenticateBioState extends State<AuthenticateBio> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "تسجيل الدخول بواسطة البصمة",
+            "تسجيل الدخول عبر السمات الحيوية",
             style: titleTx(baseColor),
           ),
           SizedBox(
