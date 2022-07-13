@@ -22,9 +22,9 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 /// [SearchDelegateR.close] call. If the search page is closed with the system
 /// back button, it returns null.
 ///
-/// A given [SearchDelegateR] can only be associated with one active [showSearch]
+/// A given [SearchDelegateR] can only be associated with one active [showSearchX]
 /// call. Call [SearchDelegateR.close] before re-using the same delegate instance
-/// for another [showSearch] call.
+/// for another [showSearchX] call.
 ///
 /// The `useRootNavigator` argument is used to determine whether to push the
 /// search page to the [Navigator] furthest from or nearest to the given
@@ -47,7 +47,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 /// See also:
 ///
 ///  * [SearchDelegateR] to define the content of the search page.
-Future<T?> showSearch<T>({
+Future<T?> showSearchX<T>({
   required BuildContext context,
   required SearchDelegateR<T> delegate,
   String? query = '',
@@ -64,7 +64,7 @@ Future<T?> showSearch<T>({
   ));
 }
 
-/// Delegate for [showSearch] to define the content of the search page.
+/// Delegate for [showSearchX] to define the content of the search page.
 ///
 /// The search page always shows an [AppBar] at the top where users can
 /// enter their search queries. The buttons shown before and after the search
@@ -85,11 +85,11 @@ Future<T?> showSearch<T>({
 ///
 /// Once the user has selected a search result, [SearchDelegateR.close] should be
 /// called to remove the search page from the top of the navigation stack and
-/// to notify the caller of [showSearch] about the selected search result.
+/// to notify the caller of [showSearchX] about the selected search result.
 ///
-/// A given [SearchDelegateR] can only be associated with one active [showSearch]
+/// A given [SearchDelegateR] can only be associated with one active [showSearchX]
 /// call. Call [SearchDelegateR.close] before re-using the same delegate instance
-/// for another [showSearch] call.
+/// for another [showSearchX] call.
 ///
 /// ## Handling emojis and other complex characters
 /// {@macro flutter.widgets.EditableText.onChanged}
@@ -165,7 +165,7 @@ abstract class SearchDelegateR<T> {
   /// Typically, this method returns a [ListView] with the search results.
   /// When the user taps on a particular search result, [close] should be called
   /// with the selected result as argument. This will close the search page and
-  /// communicate the result back to the initial caller of [showSearch].
+  /// communicate the result back to the initial caller of [showSearchX].
   Widget buildResults(BuildContext context);
 
   /// A widget to display before the current query in the [AppBar].
@@ -299,7 +299,7 @@ abstract class SearchDelegateR<T> {
   /// Closes the search page and returns to the underlying route.
   ///
   /// The value provided for `result` is used as the return value of the call
-  /// to [showSearch] that launched the search initially.
+  /// to [showSearchX] that launched the search initially.
   void close(BuildContext context, T result) {
     _currentBody = null;
     _focusNode?.unfocus();

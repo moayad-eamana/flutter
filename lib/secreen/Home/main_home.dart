@@ -101,7 +101,7 @@ class _MainHomeState extends State<MainHome> {
                 GestureDetector(
                   onTap: () {
                     print("object");
-                    showSearch(
+                    showSearchX(
                             context: context,
                             delegate: CustomSearchDelegate(context, id, false))
                         .then((value) {
@@ -129,7 +129,7 @@ class _MainHomeState extends State<MainHome> {
                           ),
                           onPressed: () {
                             print("object");
-                            showSearch(
+                            showSearchX(
                                 context: context,
                                 delegate:
                                     CustomSearchDelegate(context, id, false));
@@ -159,7 +159,7 @@ class _MainHomeState extends State<MainHome> {
                       print("object");
                       //FocusScope.of(context).unfocus();
 
-                      showSearch(
+                      showSearchX(
                           context: context,
                           delegate: CustomSearchDelegate(context, id, false));
                     },
