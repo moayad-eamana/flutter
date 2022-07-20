@@ -375,7 +375,7 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: packageInfo.buildNumber != localVersion && forceUpdate == true
+          body: packageInfo.version != localVersion && forceUpdate == true
               ? Directionality(
                   textDirection: TextDirection.rtl,
                   child: AlertDialog(

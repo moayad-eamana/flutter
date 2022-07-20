@@ -13,6 +13,9 @@ Future<String> Bearer() async {
 }
 
 dynamic getAction(String link) async {
+  if (sharedPref.getString("dumyuser") == "10284928492") {
+    Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+  }
   dynamic respns = await http.get(Uri.parse(Url + link), headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -32,6 +35,9 @@ dynamic getAction(String link) async {
 
 //EE
 dynamic postAction(String link, dynamic body) async {
+  if (sharedPref.getString("dumyuser") == "10284928492") {
+    Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+  }
   dynamic respns = await http.post(Uri.parse(Url + link),
       headers: {
         'Content-Type': 'application/json',
