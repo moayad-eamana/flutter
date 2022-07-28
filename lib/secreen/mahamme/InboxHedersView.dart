@@ -2,6 +2,8 @@ import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/MobasharaProvider.dart';
 import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/secreen/mahamme/CooperativeTrainingRequests.dart';
+import 'package:eamanaapp/secreen/mahamme/GetCardRequest.dart';
 import 'package:eamanaapp/secreen/mahamme/Mobashara.dart';
 import 'package:eamanaapp/secreen/mahamme/PurchaseRequests.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -173,7 +175,38 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
-    } //else if (_provider.TypeID == 120) {
+    } else if (_provider.TypeID == 30) {
+      return caerdContent(
+        "بطاقة موظف",
+        "assets/SVGs/dalelalmowzafen.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                  create: (_) => PurchaseRequestsProvider(),
+                  child: GetCardRequest()),
+            ),
+          );
+        },
+      );
+    } else if (_provider.TypeID == 47) {
+      return caerdContent(
+        "التدريب التعاوني",
+        "assets/SVGs/dalelalmowzafen.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                  create: (_) => PurchaseRequestsProvider(),
+                  child: CooperativeTrainingRequests()),
+            ),
+          );
+        },
+      );
+    }
+    //else if (_provider.TypeID == 120) {
     //   return caerdContent(
     //     "إعتماد إعارة",
     //     "assets/SVGs/dalelalmowzafen.svg",

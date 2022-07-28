@@ -11,6 +11,7 @@ class HrRequests {
   double Days;
   int RequestTypeID;
   double OverTimeHours;
+  String? Location;
   HrRequests(
       this.RequestNumber,
       this.RequestType,
@@ -23,7 +24,8 @@ class HrRequests {
       this.Notes,
       this.Days,
       this.RequestTypeID,
-      this.OverTimeHours);
+      this.OverTimeHours,
+      this.Location);
 
   factory HrRequests.fromJson(dynamic json) {
     return HrRequests(
@@ -39,6 +41,7 @@ class HrRequests {
       json["Days"],
       json["RequestTypeID"],
       json["OverTimeHours"] ?? 0.0,
+      json["Location"] ?? "",
     );
   }
 }

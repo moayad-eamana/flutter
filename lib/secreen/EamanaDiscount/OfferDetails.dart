@@ -41,9 +41,9 @@ class _OfferDetailsState extends State<OfferDetails> {
     var request = http.Request(
         'POST',
         Uri.parse(
-            'https://srv.eamana.gov.sa/UploadServiceNew/UploadService.asmx?op=GetDocuments'));
+            'https://archive.eamana.gov.sa/UploadService/UploadService.asmx?op=GetDocuments'));
     request.body =
-        '''<?xml version="1.0" encoding="utf-8"?>\r\n<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\r\n  <soap:Body>\r\n    <GetDocuments xmlns="http://tempuri.org/">\r\n      <arcSerial>99999999</arcSerial>\r\n    </GetDocuments>\r\n  </soap:Body>\r\n</soap:Envelope>''';
+        '''<?xml version="1.0" encoding="utf-8"?>\r\n<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\r\n  <soap:Body>\r\n    <GetDocuments xmlns="http://tempuri.org/">\r\n      <arcSerial>${widget.offer["ArcSerial"]}</arcSerial>\r\n    </GetDocuments>\r\n  </soap:Body>\r\n</soap:Envelope>''';
     request.headers.addAll(headers);
 
     var response = await request.send();

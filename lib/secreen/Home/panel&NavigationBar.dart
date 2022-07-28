@@ -412,10 +412,10 @@ class _HomPanelState extends State<HomePanel>
                               onPressed: () async {
                                 if (Platform.isAndroid) {
                                   launch(
-                                      "https://play.google.com/apps/internaltest/4701378476454016517");
+                                      "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
                                 } else {
                                   launch(
-                                      "https://testflight.apple.com/join/NCmeNY0Q");
+                                      "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
                                 }
 
                                 //   Navigator.pop(context);

@@ -14,6 +14,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:sizer/sizer.dart';
 
 class HRdetailsView extends StatefulWidget {
   int? index;
@@ -246,6 +247,31 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                         )
                       ],
                     ),
+                    if (_provider
+                            .getHrRequests[widget.index ?? 0].RequestType ==
+                        "إنتداب")
+                      SizedBox(
+                        height: 10,
+                      ),
+                    if (_provider
+                            .getHrRequests[widget.index ?? 0].RequestType ==
+                        "إنتداب")
+                      Card(
+                        elevation: 1,
+                        color: BackGWhiteColor,
+                        child: Container(
+                          width: 90.w,
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              TextW("إنتداب إلى"),
+                              TextW(_provider
+                                  .getHrRequests[widget.index ?? 0].Location
+                                  .toString())
+                            ],
+                          ),
+                        ),
+                      ),
                     SizedBox(
                       height: 10,
                     ),

@@ -117,9 +117,11 @@ listenToFirbaseNotification() {
     }
     if (message.data["module_name"] == "update") {
       if (Platform.isAndroid) {
-        launch("https://play.google.com/apps/internaltest/4701378476454016517");
+        launch(
+            "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
       } else {
-        launch("https://testflight.apple.com/join/NCmeNY0Q");
+        launch(
+            "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
       }
     }
     print("onMessageOpenedApp: $message");
@@ -143,9 +145,10 @@ listenToFirbaseNotification() {
       if (message.data["module_name"] == "update") {
         if (Platform.isAndroid) {
           launch(
-              "https://play.google.com/apps/internaltest/4701378476454016517");
+              "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
         } else {
-          launch("https://testflight.apple.com/join/NCmeNY0Q");
+          launch(
+              "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
         }
       }
     }

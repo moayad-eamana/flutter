@@ -21,6 +21,8 @@ import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/community/comments.dart';
 import 'package:eamanaapp/secreen/favs/favs.dart';
+import 'package:eamanaapp/secreen/mahamme/CooperativeTrainingRequestsInfo.dart';
+import 'package:eamanaapp/secreen/mahamme/GetCardRequestInfo.dart';
 import 'package:eamanaapp/secreen/mahamme/HRdetailsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
@@ -331,6 +333,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/Mandates_history': (context) => Mandates_history(),
           '/morning': (context) => morning(),
           '/favs': (context) => favoriot(),
+          '/GetCardRequestInfo': (context) => GetCardRequestInfo(),
+          '/CooperativeTrainingRequestsInfo': (context) =>
+              CooperativeTrainingRequestsInfo(),
         },
       );
     });

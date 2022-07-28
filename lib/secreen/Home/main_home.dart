@@ -4,6 +4,7 @@ import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/ActionOfServices.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -46,7 +47,7 @@ class _MainHomeState extends State<MainHome> {
 
     embId();
     print(packageInfo.version);
-
+    getAction("Offers/GetCategories");
     super.initState();
     //hasPermission();
     // subscribeToNotification();
