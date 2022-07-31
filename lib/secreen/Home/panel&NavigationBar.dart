@@ -242,6 +242,11 @@ class _HomPanelState extends State<HomePanel>
     print("after tt = " + onboarding.toString());
   }
 
+  void didChangeDependencies() {
+    var image = precacheImage(AssetImage("assets/image/logo.png"), context);
+    super.didChangeDependencies();
+  }
+
   void initState() {
     super.initState();
 
