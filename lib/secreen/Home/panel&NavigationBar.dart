@@ -115,6 +115,7 @@ class _HomPanelState extends State<HomePanel>
 
     targets.add(
       TargetFocus(
+        enableOverlayTab: true,
         identify: "onboarding1",
         keyTarget: onboarding1,
         //alignSkip: Alignment.centerLeft,
@@ -186,6 +187,7 @@ class _HomPanelState extends State<HomePanel>
       TargetFocus(
         identify: "onboarding2",
         keyTarget: onboarding2,
+        enableOverlayTab: true,
         alignSkip: Alignment.bottomLeft,
         contents: [
           TargetContent(
