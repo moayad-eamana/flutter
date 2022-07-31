@@ -899,7 +899,7 @@ class _HomPanelState extends State<HomePanel>
                                                     vertical: 20),
                                                 child: Image.asset(
                                                   "assets/image/logo.png",
-                                                  fit: BoxFit.fill,
+                                                  // fit: BoxFit.fill,
                                                   width: responsiveMT(300, 550),
                                                   // height:
                                                   //     responsiveMT(100, 120),
