@@ -97,7 +97,7 @@ class _AuthenticateBioState extends State<AuthenticateBio> {
             alignment: Alignment.center,
             width: 150,
 
-            image: AssetImage("assets/image/rakamy-logo-2.png"),
+            image: AssetImage("assets/image/raqamy-logo.png"),
           ),
         ],
       ),

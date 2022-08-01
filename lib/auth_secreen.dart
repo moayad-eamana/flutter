@@ -93,7 +93,7 @@ class _AuthenticateBioState extends State<AuthenticateBioSecreen> {
             //width: responsiveMT(90, 150),
             alignment: Alignment.center,
             width: 150,
-            image: AssetImage("assets/image/rakamy-logo-2.png"),
+            image: AssetImage("assets/image/raqamy-logo.png"),
           ),
         ],
       ),

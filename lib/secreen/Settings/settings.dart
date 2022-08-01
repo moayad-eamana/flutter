@@ -700,10 +700,9 @@ class _SettingsState extends State<Settings> {
                             Image(
                               //width: responsiveMT(90, 150),
                               alignment: Alignment.center,
-                              width: 150,
+                              width: 200,
                               color: darkmode == true ? Colors.white : null,
-                              image:
-                                  AssetImage("assets/image/rakamy-logo-2.png"),
+                              image: AssetImage("assets/image/raqamy-logo.png"),
                             ),
                             // Text("الإصدار الأول 1.20.22",
                             //     style: descTx1(baseColorText)),
