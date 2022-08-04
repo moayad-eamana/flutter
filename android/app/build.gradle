@@ -51,9 +51,9 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.eamana.eamanaapp.gov.sa"
-        minSdkVersion 30
+        minSdkVersion 20
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 16
+        versionCode 19
         versionName flutterVersionName
     }
 

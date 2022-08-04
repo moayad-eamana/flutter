@@ -175,37 +175,39 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
-    } else if (_provider.TypeID == 30) {
-      return caerdContent(
-        "بطاقة موظف",
-        "assets/SVGs/dalelalmowzafen.svg",
-        () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider(
-                  create: (_) => PurchaseRequestsProvider(),
-                  child: GetCardRequest()),
-            ),
-          );
-        },
-      );
-    } else if (_provider.TypeID == 47) {
-      return caerdContent(
-        "التدريب التعاوني",
-        "assets/SVGs/dalelalmowzafen.svg",
-        () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChangeNotifierProvider(
-                  create: (_) => PurchaseRequestsProvider(),
-                  child: CooperativeTrainingRequests()),
-            ),
-          );
-        },
-      );
     }
+
+    // else if (_provider.TypeID == 30) {
+    //   return caerdContent(
+    //     "بطاقة موظف",
+    //     "assets/SVGs/dalelalmowzafen.svg",
+    //     () {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => ChangeNotifierProvider(
+    //               create: (_) => PurchaseRequestsProvider(),
+    //               child: GetCardRequest()),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // } else if (_provider.TypeID == 47) {
+    //   return caerdContent(
+    //     "التدريب التعاوني",
+    //     "assets/SVGs/dalelalmowzafen.svg",
+    //     () {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => ChangeNotifierProvider(
+    //               create: (_) => PurchaseRequestsProvider(),
+    //               child: CooperativeTrainingRequests()),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // }
     //else if (_provider.TypeID == 120) {
     //   return caerdContent(
     //     "إعتماد إعارة",
