@@ -125,7 +125,7 @@ class _LoginViewState extends State<LoginView> {
                               //  height: 50,
                               padding: EdgeInsets.all(8),
                               child: Image.asset(
-                                'assets/image/logo1.png',
+                                'assets/image/raqamy-logo.png',
                                 alignment: Alignment.center,
                                 // width: MediaQuery.of(context).size.width,
                                 //height: MediaQuery.of(context).size.height,

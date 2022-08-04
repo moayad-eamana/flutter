@@ -245,7 +245,7 @@ class _HomPanelState extends State<HomePanel>
   }
 
   void didChangeDependencies() {
-    var image = precacheImage(AssetImage("assets/image/logo.png"), context);
+    precacheImage(AssetImage("assets/image/raqamy-logo.png"), context);
     super.didChangeDependencies();
   }
 
@@ -900,7 +900,7 @@ class _HomPanelState extends State<HomePanel>
                                                     horizontal: 20,
                                                     vertical: 20),
                                                 child: Image.asset(
-                                                  "assets/image/logo.png",
+                                                  "assets/image/raqamy-logo.png",
                                                   // fit: BoxFit.fill,
                                                   width: responsiveMT(300, 550),
                                                   // height:

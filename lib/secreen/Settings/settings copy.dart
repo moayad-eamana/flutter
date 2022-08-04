@@ -520,7 +520,7 @@ class _Settings2State extends State<Settings2> {
                                   alignment: Alignment.center,
                                   width: 150,
                                   image: AssetImage(
-                                      "assets/image/rakamy-logo-2.png"),
+                                      "assets/image/raqamy-logo.png"),
                                 ),
                                 Text("الإصدار الأول 1.20.22",
                                     style: descTx1(baseColorText)),
