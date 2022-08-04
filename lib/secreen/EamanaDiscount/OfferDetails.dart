@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/getattachment.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -22,64 +23,63 @@ class OfferDetails extends StatefulWidget {
 class _OfferDetailsState extends State<OfferDetails> {
   @override
   void initState() {
-    getFilePath();
     // TODO: implement initState
     super.initState();
   }
 
   late String path;
 
-  getFilePath() async {
-    EasyLoading.show(
-      status: '... جاري المعالجة',
-      maskType: EasyLoadingMaskType.black,
-    );
-    var headers = {
-      'Content-Type': 'text/xml',
-      'Cookie': 'cookiesession1=678B28B36718B06CD19AAAD934ACDF5C'
-    };
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            'https://archive.eamana.gov.sa/UploadService/UploadService.asmx?op=GetDocuments'));
-    request.body =
-        '''<?xml version="1.0" encoding="utf-8"?>\r\n<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\r\n  <soap:Body>\r\n    <GetDocuments xmlns="http://tempuri.org/">\r\n      <arcSerial>${widget.offer["ArcSerial"]}</arcSerial>\r\n    </GetDocuments>\r\n  </soap:Body>\r\n</soap:Envelope>''';
-    request.headers.addAll(headers);
+  // getFilePath() async {
+  //   EasyLoading.show(
+  //     status: '... جاري المعالجة',
+  //     maskType: EasyLoadingMaskType.black,
+  //   );
+  //   var headers = {
+  //     'Content-Type': 'text/xml',
+  //     'Cookie': 'cookiesession1=678B28B36718B06CD19AAAD934ACDF5C'
+  //   };
+  //   var request = http.Request(
+  //       'POST',
+  //       Uri.parse(
+  //           'https://archive.eamana.gov.sa/UploadService/UploadService.asmx?op=GetDocuments'));
+  //   request.body =
+  //       '''<?xml version="1.0" encoding="utf-8"?>\r\n<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\r\n  <soap:Body>\r\n    <GetDocuments xmlns="http://tempuri.org/">\r\n      <arcSerial>${widget.offer["ArcSerial"]}</arcSerial>\r\n    </GetDocuments>\r\n  </soap:Body>\r\n</soap:Envelope>''';
+  //   request.headers.addAll(headers);
 
-    var response = await request.send();
+  //   var response = await request.send();
 
-    if (response.statusCode == 200) {
-      // print(await response.stream.bytesToString());
+  //   if (response.statusCode == 200) {
+  //     // print(await response.stream.bytesToString());
 
-      dynamic xml = await response.stream.bytesToString();
+  //     dynamic xml = await response.stream.bytesToString();
 
-      // print(xml);
+  //     // print(xml);
 
-      final myTransformer = Xml2Json();
+  //     final myTransformer = Xml2Json();
 
-      myTransformer.parse(xml);
+  //     myTransformer.parse(xml);
 
-      dynamic jsondata = myTransformer.toGData();
+  //     dynamic jsondata = myTransformer.toGData();
 
-      jsondata = jsonDecode(jsondata);
+  //     jsondata = jsonDecode(jsondata);
 
-      // print(jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
-      //     ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"]);
-      setState(() {
-        path = jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
-            ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"];
+  //     // print(jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
+  //     //     ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"]);
+  //     setState(() {
+  //       path = jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
+  //           ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"];
 
-        path = "https://archive.eamana.gov.sa/TransactFileUpload/" + path;
-      });
+  //       path = "https://archive.eamana.gov.sa/TransactFileUpload/" + path;
+  //     });
 
-      // print(jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
-      //     ["GetDocumentsResult"]["Attachments"]);
+  //     // print(jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
+  //     //     ["GetDocumentsResult"]["Attachments"]);
 
-    } else {
-      print(response.reasonPhrase);
-    }
-    EasyLoading.dismiss();
-  }
+  //   } else {
+  //     print(response.reasonPhrase);
+  //   }
+  //   EasyLoading.dismiss();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -382,7 +382,9 @@ class _OfferDetailsState extends State<OfferDetails> {
       width: 150,
       height: 50,
       child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
+            path = await getAttachment(widget.offer["ArcSerial"]);
+            // await getFilePath();
             launch(path);
           },
           style: ElevatedButton.styleFrom(
