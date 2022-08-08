@@ -43,7 +43,7 @@ getAttachment(int archSeiral) async {
     //     ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"]);
 
     path = jsondata["soap\$Envelope"]["soap\$Body"]["GetDocumentsResponse"]
-        ["GetDocumentsResult"]["Attachments"][0]["FilePath"]["\$t"];
+        ["GetDocumentsResult"]["Attachments"]["LocalFilePath"]["\$t"];
 
     path = "https://archive.eamana.gov.sa/TransactFileUpload/" + path;
     EasyLoading.dismiss();
