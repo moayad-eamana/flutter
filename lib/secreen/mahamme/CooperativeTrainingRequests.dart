@@ -81,21 +81,27 @@ class _CooperativeTrainingRequestsState
                                     ),
                                     subtitle: Text(
                                       RequestsList[index]["Major"],
-                                      //style: descTx2(baseColorText),
+                                      style: descTx2(baseColorText),
                                     ),
 
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text(RequestsList[index]["GPAScore"]
-                                                .toString() +
-                                            " من " +
-                                            RequestsList[index]["GPAType"]
-                                                .toString()),
+                                        Text(
+                                          RequestsList[index]["GPAScore"]
+                                                  .toString() +
+                                              " من " +
+                                              RequestsList[index]["GPAType"]
+                                                  .toString(),
+                                          style: descTx2(baseColorText),
+                                        ),
                                         SizedBox(
                                           width: 7,
                                         ),
-                                        Icon(Icons.arrow_forward_ios_sharp)
+                                        Icon(
+                                          Icons.arrow_forward_ios_sharp,
+                                          color: baseColorText,
+                                        )
                                       ],
                                     ),
                                     isThreeLine: false,

@@ -178,7 +178,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
     } else if (_provider.TypeID == 30) {
       return caerdContent(
         "بطاقة موظف",
-        "assets/SVGs/dalelalmowzafen.svg",
+        "assets/SVGs/card.svg",
         () {
           Navigator.push(
             context,
@@ -193,7 +193,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
     } else if (_provider.TypeID == 47) {
       return caerdContent(
         "التدريب التعاوني",
-        "assets/SVGs/dalelalmowzafen.svg",
+        "assets/SVGs/trining.svg",
         () {
           Navigator.push(
             context,
