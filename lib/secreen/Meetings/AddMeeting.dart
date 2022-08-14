@@ -140,46 +140,51 @@ class _AddMeetingState extends State<AddMeeting> {
                               }
                             },
                           ),
-                          TextField(
-                            keyboardType: TextInputType.number,
-                            maxLines: 1,
-                            controller: _mobile,
-                            style: TextStyle(
-                              color: baseColorText,
+                          Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: TextField(
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                              controller: _mobile,
+                              textAlign: TextAlign.right,
+                              textDirection: TextDirection.ltr,
+                              style: TextStyle(
+                                color: baseColorText,
+                              ),
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: decoration("رقم الجوال", 6, true),
+                              // onTap: () async {
+                              //   if (await FlutterContacts.requestPermission()) {
+                              //     dynamic contacts =
+                              //         await FlutterContacts.getContacts(
+                              //             withProperties: true);
+                              //     print(contacts[6].phones.first.number);
+                              //     Navigator.pushNamed(context, "/contactsView",
+                              //             arguments: contacts)
+                              //         .then((dynamic value) {
+                              //       setState(() {
+                              //         _mobile.text = value["No"];
+                              //         _appWith.text = value["name"];
+                              //       });
+                              //       print(value["name"]);
+                              //       print(value["No"]);
+                              //     });
+                              //   }
+                              // },
+                              onChanged: (String val) {
+                                if (val == "") {
+                                  setState(() {
+                                    error[6].text = errorTx(6);
+                                  });
+                                } else {
+                                  setState(() {
+                                    error[6].text = "";
+                                  });
+                                }
+                              },
                             ),
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            decoration: decoration("رقم الجوال", 6, true),
-                            // onTap: () async {
-                            //   if (await FlutterContacts.requestPermission()) {
-                            //     dynamic contacts =
-                            //         await FlutterContacts.getContacts(
-                            //             withProperties: true);
-                            //     print(contacts[6].phones.first.number);
-                            //     Navigator.pushNamed(context, "/contactsView",
-                            //             arguments: contacts)
-                            //         .then((dynamic value) {
-                            //       setState(() {
-                            //         _mobile.text = value["No"];
-                            //         _appWith.text = value["name"];
-                            //       });
-                            //       print(value["name"]);
-                            //       print(value["No"]);
-                            //     });
-                            //   }
-                            // },
-                            onChanged: (String val) {
-                              if (val == "") {
-                                setState(() {
-                                  error[6].text = errorTx(6);
-                                });
-                              } else {
-                                setState(() {
-                                  error[6].text = "";
-                                });
-                              }
-                            },
                           ),
                           TextField(
                             keyboardType: TextInputType.text,
@@ -292,13 +297,13 @@ class _AddMeetingState extends State<AddMeeting> {
                                   topRight: Radius.circular(20),
                                 ),
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
                                   'الاوقات المتاحة',
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    color: baseColorText,
                                   ),
                                 ),
                               ),
@@ -319,6 +324,30 @@ class _AddMeetingState extends State<AddMeeting> {
                                 ],
                               ),
                             )),
+                            emptyBuilder: (context, searchEntry) => Center(
+                              child: Text(
+                                "لا يوجد بيانات",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            searchFieldProps: TextFieldProps(
+                              textAlign: TextAlign.right,
+                              decoration: formlabel1(""),
+                              style: TextStyle(
+                                color: baseColorText,
+                              ),
+                              textDirection: TextDirection.rtl,
+                            ),
+                            clearButton: Icon(
+                              Icons.clear,
+                              color: baseColor,
+                            ),
+                            dropDownButton: Icon(
+                              Icons.arrow_drop_down,
+                              color: baseColor,
+                            ),
                           ),
                           DropdownSearch<String>(
                             popupBackgroundColor: BackGWhiteColor,
@@ -401,6 +430,30 @@ class _AddMeetingState extends State<AddMeeting> {
                                 ],
                               ),
                             )),
+                            emptyBuilder: (context, searchEntry) => Center(
+                              child: Text(
+                                "لا يوجد بيانات",
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                              ),
+                            ),
+                            searchFieldProps: TextFieldProps(
+                              textAlign: TextAlign.right,
+                              decoration: formlabel1(""),
+                              style: TextStyle(
+                                color: baseColorText,
+                              ),
+                              textDirection: TextDirection.rtl,
+                            ),
+                            clearButton: Icon(
+                              Icons.clear,
+                              color: baseColor,
+                            ),
+                            dropDownButton: Icon(
+                              Icons.arrow_drop_down,
+                              color: baseColor,
+                            ),
                           ),
                           if (_tpeApp.text == "إفتراضي")
                             TextField(
@@ -622,7 +675,7 @@ class _AddMeetingState extends State<AddMeeting> {
                 if (await FlutterContacts.requestPermission()) {
                   dynamic contacts =
                       await FlutterContacts.getContacts(withProperties: true);
-                  print(contacts[6].phones.first.number);
+                  // print(contacts[0].phones.first.number);
                   Navigator.pushNamed(context, "/contactsView",
                           arguments: contacts)
                       .then((dynamic value) {
@@ -635,7 +688,10 @@ class _AddMeetingState extends State<AddMeeting> {
                   });
                 }
               },
-              child: Icon(Icons.contacts))
+              child: Icon(
+                Icons.contacts,
+                color: baseColorText,
+              ))
           : null,
       errorText: error[i].text == "" ? null : error[i].text,
       labelStyle: TextStyle(color: secondryColorText),
