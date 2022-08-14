@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,14 +10,97 @@ class ContactsView extends StatefulWidget {
 }
 
 class _ContactsViewState extends State<ContactsView> {
+  final TextEditingController _queryTextController = TextEditingController();
+  dynamic contactd = [];
+  dynamic contact = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+      contact = ModalRoute.of(context)!.settings.arguments;
+      contact = jsonEncode(contact);
+      contact = jsonDecode(contact);
+      contactd = jsonEncode(contact);
+      contactd = jsonDecode(contactd);
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    dynamic contact = ModalRoute.of(context)!.settings.arguments;
-    print(contact);
-    print(contact);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: baseColorText),
+          backgroundColor: BackGColor,
+          title: TextField(
+            controller: _queryTextController,
+            // focusNode: focusNode,
+            style: subtitleTx(baseColorText),
+
+            onChanged: (String text) {
+              bool isFound = false;
+              if (text.isEmpty) {
+                setState(() {
+                  contactd = jsonEncode(contact);
+                  contactd = jsonDecode(contactd);
+                });
+              } else {
+                print(contact.length);
+                contactd = [];
+                for (int i = 0; i <= contact.length - 1; i++) {
+                  // print(i);
+                  if (contact[i]["displayName"]
+                      .toString()
+                      .toUpperCase()
+                      .contains(text.toUpperCase())) {
+                    isFound = true;
+                    setState(() {
+                      contactd.add(contact[i]);
+                    });
+                  }
+                }
+                setState(() {
+                  contactd = contactd;
+                });
+                if (isFound == false) {
+                  contactd = [];
+                  setState(() {});
+                }
+              }
+
+              // print("ssssssssssssssssssssssssssssssssssss");
+              // print(contactd);
+              // dynamic contactd = contact.where((s) {
+              //   return s.displayName.contains(text);
+              // });
+            },
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                hintText: "البحث",
+                hintStyle: subtitleTx(baseColorText)),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.clear),
+              color: baseColorText,
+              onPressed: () {
+                _queryTextController.clear();
+                setState(() {
+                  contactd = contact;
+                });
+                // handle the press
+              },
+            ),
+          ],
+          // bottom: widget.delegate.buildBottom(context),
+        ),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -26,14 +111,26 @@ class _ContactsViewState extends State<ContactsView> {
               ),
             ),
             ListView.builder(
-              itemCount: contact.length,
+              itemCount: contactd.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    print(contact[index].phones.first.number);
+                    //   print(contactd[index]["phones"].first.number);
                     Navigator.pop(context, {
-                      "name": contact[index].displayName ?? "",
-                      "No": contact[index].phones.first.number
+                      "name": contactd[index]["displayName"] ?? "",
+                      "No": contactd[index]["phones"].length == 0
+                          ? ""
+                          : contactd[index]["phones"][0]["number"]
+                              .toString()
+                              .replaceAll(" ", "")
+                              .toString()
+                              .replaceAll("-", "")
+                              .toString()
+                              .replaceAll("(", "")
+                              .toString()
+                              .replaceAll(")", "")
+                              .toString()
+                              .replaceAll("+", "")
                     });
                   },
                   child: Card(
@@ -41,12 +138,16 @@ class _ContactsViewState extends State<ContactsView> {
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: ListTile(
                       title: Text(
-                        contact[index].displayName ?? "",
+                        contactd[index]["displayName"] ?? "",
                         style: titleTx(secondryColor),
                       ),
                       subtitle: Text(
-                        contact[index].phones.first.number,
+                        contactd[index]["phones"].length == 0
+                            ? "لا يوجد رقم"
+                            : contactd[index]["phones"][0]["number"],
                         style: descTx1(baseColorText),
+                        textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.right,
                       ),
                       // contentPadding:
                       //     EdgeInsets.symmetric(horizontal: 20, vertical: 5),
