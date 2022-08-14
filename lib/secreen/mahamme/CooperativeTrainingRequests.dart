@@ -27,7 +27,7 @@ class _CooperativeTrainingRequestsState
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
       EasyLoading.dismiss();
       setState(() {
-        RequestsList = jsonDecode(RequestsList.body)["RequestsList"];
+        RequestsList = jsonDecode(RequestsList.body)["RequestsList"] ?? [];
       });
     });
     super.initState();

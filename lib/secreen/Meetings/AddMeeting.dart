@@ -1,12 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -23,6 +25,7 @@ class AddMeeting extends StatefulWidget {
 
 class _AddMeetingState extends State<AddMeeting> {
   final key = GlobalKey<AnimatedListState>();
+
   List<TextEditingController> error = [
     TextEditingController(),
     TextEditingController(),
@@ -124,7 +127,7 @@ class _AddMeetingState extends State<AddMeeting> {
                             style: TextStyle(
                               color: baseColorText,
                             ),
-                            decoration: decoration("الموعد مع", 0),
+                            decoration: decoration("الموعد مع", 0, false),
                             onChanged: (String val) {
                               if (val == "") {
                                 setState(() {
@@ -147,7 +150,25 @@ class _AddMeetingState extends State<AddMeeting> {
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly
                             ],
-                            decoration: decoration("رقم الجوال", 6),
+                            decoration: decoration("رقم الجوال", 6, true),
+                            // onTap: () async {
+                            //   if (await FlutterContacts.requestPermission()) {
+                            //     dynamic contacts =
+                            //         await FlutterContacts.getContacts(
+                            //             withProperties: true);
+                            //     print(contacts[6].phones.first.number);
+                            //     Navigator.pushNamed(context, "/contactsView",
+                            //             arguments: contacts)
+                            //         .then((dynamic value) {
+                            //       setState(() {
+                            //         _mobile.text = value["No"];
+                            //         _appWith.text = value["name"];
+                            //       });
+                            //       print(value["name"]);
+                            //       print(value["No"]);
+                            //     });
+                            //   }
+                            // },
                             onChanged: (String val) {
                               if (val == "") {
                                 setState(() {
@@ -167,7 +188,7 @@ class _AddMeetingState extends State<AddMeeting> {
                             style: TextStyle(
                               color: baseColorText,
                             ),
-                            decoration: decoration("الموضوع", 1),
+                            decoration: decoration("الموضوع", 1, false),
                             onChanged: (String val) {
                               if (val == "") {
                                 setState(() {
@@ -188,7 +209,7 @@ class _AddMeetingState extends State<AddMeeting> {
                               color: baseColorText,
                             ),
                             readOnly: true,
-                            decoration: decoration("التاريخ", 2),
+                            decoration: decoration("التاريخ", 2, false),
                             onChanged: (String val) {
                               if (val == "") {
                                 setState(() {
@@ -247,7 +268,7 @@ class _AddMeetingState extends State<AddMeeting> {
                                           fontSize: 16, color: baseColorText)),
                             ),
                             dropdownSearchDecoration:
-                                decoration("الاوقات المتاحة", 7),
+                                decoration("الاوقات المتاحة", 7, false),
                             showSearchBox: true,
                             onChanged: (String? v) {
                               if (v == "") {
@@ -310,7 +331,7 @@ class _AddMeetingState extends State<AddMeeting> {
                             showClearButton: true,
                             showAsSuffixIcons: true,
                             dropdownSearchDecoration:
-                                decoration("نوع الإجتماع", 8),
+                                decoration("نوع الإجتماع", 8, false),
 
                             showSearchBox: true,
 
@@ -389,7 +410,7 @@ class _AddMeetingState extends State<AddMeeting> {
                               style: TextStyle(
                                 color: baseColorText,
                               ),
-                              decoration: decoration("رابط الإجتماع", 3),
+                              decoration: decoration("رابط الإجتماع", 3, false),
                               onChanged: (String val) {
                                 if (_tpeApp.text == "إفتراضي") {
                                   if (val == "") {
@@ -417,7 +438,8 @@ class _AddMeetingState extends State<AddMeeting> {
                                     style: TextStyle(
                                       color: baseColorText,
                                     ),
-                                    decoration: decoration("الرقم المعرف", 4),
+                                    decoration:
+                                        decoration("الرقم المعرف", 4, false),
                                     onChanged: (String val) {
                                       if (_tpeApp.text == "إفتراضي") {
                                         if (val == "") {
@@ -442,7 +464,8 @@ class _AddMeetingState extends State<AddMeeting> {
                                     style: TextStyle(
                                       color: baseColorText,
                                     ),
-                                    decoration: decoration("كلمة السر", 5),
+                                    decoration:
+                                        decoration("كلمة السر", 5, false),
                                     onChanged: (String val) {
                                       if (_tpeApp.text == "إفتراضي") {
                                         if (val == "") {
@@ -591,8 +614,29 @@ class _AddMeetingState extends State<AddMeeting> {
     );
   }
 
-  decoration(String val, int i) {
+  decoration(String val, int i, bool ic) {
     return InputDecoration(
+      suffixIcon: ic
+          ? GestureDetector(
+              onTap: () async {
+                if (await FlutterContacts.requestPermission()) {
+                  dynamic contacts =
+                      await FlutterContacts.getContacts(withProperties: true);
+                  print(contacts[6].phones.first.number);
+                  Navigator.pushNamed(context, "/contactsView",
+                          arguments: contacts)
+                      .then((dynamic value) {
+                    setState(() {
+                      _mobile.text = value["No"];
+                      _appWith.text = value["name"];
+                    });
+                    print(value["name"]);
+                    print(value["No"]);
+                  });
+                }
+              },
+              child: Icon(Icons.contacts))
+          : null,
       errorText: error[i].text == "" ? null : error[i].text,
       labelStyle: TextStyle(color: secondryColorText),
       errorStyle: TextStyle(color: redColor),
@@ -735,4 +779,39 @@ class _AddMeetingState extends State<AddMeeting> {
 
     return errorTx;
   }
+}
+
+class Contact {
+  late String id;
+  late String displayName;
+  late Uint8List? photo;
+  Uint8List? thumbnail;
+  late Name name;
+  late List<Phone> phones;
+}
+
+class Name {
+  late String first;
+  late String last;
+}
+
+class Phone {
+  late String number;
+  late PhoneLabel label;
+}
+
+class Event {
+  int? year;
+  late int month;
+  late int day;
+  late EventLabel label;
+}
+
+class Note {
+  late String note;
+}
+
+class Group {
+  late String id;
+  late String name;
 }
