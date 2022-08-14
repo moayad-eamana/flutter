@@ -68,7 +68,7 @@ dependencies:
   fluttertoast: ^8.0.9
   notification_permissions: ^0.6.1
   flutter_contacts: ^1.1.5
-
+  persian_number_utility: ^1.1.2
  
  
 

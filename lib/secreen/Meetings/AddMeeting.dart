@@ -14,6 +14,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:persian_number_utility/persian_number_utility.dart';
 
 //jj
 class AddMeeting extends StatefulWidget {
@@ -673,14 +674,19 @@ class _AddMeetingState extends State<AddMeeting> {
           ? GestureDetector(
               onTap: () async {
                 if (await FlutterContacts.requestPermission()) {
+                  EasyLoading.show(
+                    status: '... جاري المعالجة',
+                    maskType: EasyLoadingMaskType.black,
+                  );
                   dynamic contacts =
                       await FlutterContacts.getContacts(withProperties: true);
+                  EasyLoading.dismiss();
                   // print(contacts[0].phones.first.number);
                   Navigator.pushNamed(context, "/contactsView",
                           arguments: contacts)
                       .then((dynamic value) {
                     setState(() {
-                      _mobile.text = value["No"];
+                      _mobile.text = value["No"].toString().toEnglishDigit();
                       _appWith.text = value["name"];
                     });
                     print(value["name"]);

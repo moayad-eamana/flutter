@@ -110,52 +110,60 @@ class _ContactsViewState extends State<ContactsView> {
                 fit: BoxFit.fill,
               ),
             ),
-            ListView.builder(
-              itemCount: contactd.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    //   print(contactd[index]["phones"].first.number);
-                    Navigator.pop(context, {
-                      "name": contactd[index]["displayName"] ?? "",
-                      "No": contactd[index]["phones"].length == 0
-                          ? ""
-                          : contactd[index]["phones"][0]["number"]
-                              .toString()
-                              .replaceAll(" ", "")
-                              .toString()
-                              .replaceAll("-", "")
-                              .toString()
-                              .replaceAll("(", "")
-                              .toString()
-                              .replaceAll(")", "")
-                              .toString()
-                              .replaceAll("+", "")
-                    });
-                  },
-                  child: Card(
-                    color: BackGWhiteColor,
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: ListTile(
-                      title: Text(
-                        contactd[index]["displayName"] ?? "",
-                        style: titleTx(secondryColor),
-                      ),
-                      subtitle: Text(
-                        contactd[index]["phones"].length == 0
-                            ? "لا يوجد رقم"
-                            : contactd[index]["phones"][0]["number"],
-                        style: descTx1(baseColorText),
-                        textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.right,
-                      ),
-                      // contentPadding:
-                      //     EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            contactd.length == 0
+                ? Center(
+                    child: Text(
+                      "لا يوجد بيانات",
+                      style: subtitleTx(secondryColorText),
                     ),
-                  ),
-                );
-              },
-            )
+                  )
+                : ListView.builder(
+                    itemCount: contactd.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          //   print(contactd[index]["phones"].first.number);
+                          Navigator.pop(context, {
+                            "name": contactd[index]["displayName"] ?? "",
+                            "No": contactd[index]["phones"].length == 0
+                                ? ""
+                                : contactd[index]["phones"][0]["number"]
+                                    .toString()
+                                    .replaceAll(" ", "")
+                                    .toString()
+                                    .replaceAll("-", "")
+                                    .toString()
+                                    .replaceAll("(", "")
+                                    .toString()
+                                    .replaceAll(")", "")
+                                    .toString()
+                                    .replaceAll("+", "")
+                          });
+                        },
+                        child: Card(
+                          color: BackGWhiteColor,
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          child: ListTile(
+                            title: Text(
+                              contactd[index]["displayName"] ?? "",
+                              style: titleTx(secondryColor),
+                            ),
+                            subtitle: Text(
+                              contactd[index]["phones"].length == 0
+                                  ? "لا يوجد رقم"
+                                  : contactd[index]["phones"][0]["number"],
+                              style: descTx1(baseColorText),
+                              textDirection: TextDirection.ltr,
+                              textAlign: TextAlign.right,
+                            ),
+                            // contentPadding:
+                            //     EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          ),
+                        ),
+                      );
+                    },
+                  )
           ],
         ),
       ),
