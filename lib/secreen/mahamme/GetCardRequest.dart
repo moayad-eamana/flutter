@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../main.dart';
+
 class GetCardRequest extends StatefulWidget {
   @override
   State<GetCardRequest> createState() => _GetCardRequestState();
@@ -21,10 +23,11 @@ class _GetCardRequestState extends State<GetCardRequest> {
         status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
-      CardsList = await getAction("inbox/GetWorkCards" + "/4341012");
+      CardsList = await getAction("inbox/GetWorkCards/" +
+          sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
       EasyLoading.dismiss();
       setState(() {
-        CardsList = jsonDecode(CardsList.body)["CardsList"];
+        CardsList = jsonDecode(CardsList.body)["CardsList"] ?? [];
       });
     });
     super.initState();

@@ -67,6 +67,8 @@ dependencies:
   firebase_remote_config: ^2.0.1
   fluttertoast: ^8.0.9
   notification_permissions: ^0.6.1
+  flutter_contacts: ^1.1.5
+
  
  
 

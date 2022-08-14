@@ -10,6 +10,7 @@ import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
+import 'package:eamanaapp/secreen/Meetings/contactsView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
@@ -336,6 +337,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/GetCardRequestInfo': (context) => GetCardRequestInfo(),
           '/CooperativeTrainingRequestsInfo': (context) =>
               CooperativeTrainingRequestsInfo(),
+          '/contactsView': (context) => ContactsView(),
         },
       );
     });
