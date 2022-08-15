@@ -9,6 +9,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:telephony/telephony.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -34,7 +35,14 @@ class _LoginViewState extends State<LoginView> {
       rememperMe = false;
       setState(() {});
     }
+    smspermission();
     super.initState();
+  }
+
+  void smspermission() async {
+    final Telephony telephony = Telephony.instance;
+    bool? permissionsGranted = await telephony.requestPhoneAndSmsPermissions;
+    print(permissionsGranted);
   }
 
   TextEditingController _username = TextEditingController();
