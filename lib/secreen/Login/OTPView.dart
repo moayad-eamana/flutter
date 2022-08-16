@@ -31,6 +31,7 @@ class _OTPViewState extends State<OTPView> {
           }
         },
         listenInBackground: false
+
         // onBackgroundMessage: backgroundMessageHandler
         );
   }
