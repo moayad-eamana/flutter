@@ -69,13 +69,9 @@ dependencies:
   notification_permissions: ^0.6.1
   flutter_contacts: ^1.1.5
   persian_number_utility: ^1.1.2
-<<<<<<< HEAD
   device_calendar: ^4.2.0
   timezone: ^0.8.0
-
-=======
   telephony: ^0.1.4
->>>>>>> 7cb0fa9c22f5b4e863cc72cf6f9f635b7b1a7ea4
  
  
 
