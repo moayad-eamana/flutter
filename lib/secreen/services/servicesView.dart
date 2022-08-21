@@ -284,26 +284,25 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/e3tmadaty.svg', "إعتماداتي"))),
-          if (hasePerm == "true")
-            StaggeredGridTile.extent(
-                crossAxisCellCount: 1,
-                mainAxisExtent: hi,
-                child: ElevatedButton(
-                    style: cardServiece,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-                            create: (context) => MettingsProvider(),
-                            // ignore: prefer_const_constructors
-                            child: MeetingView(),
-                          ),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => MettingsProvider(),
+                          // ignore: prefer_const_constructors
+                          child: MeetingView(),
                         ),
-                      );
-                    },
-                    child: widgetsUni.cardcontentService(
-                        'assets/SVGs/mawa3idi.svg', "مواعيدي")))
+                      ),
+                    );
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/mawa3idi.svg', "مواعيدي")))
         ],
       ),
     );

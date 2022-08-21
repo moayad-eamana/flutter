@@ -69,6 +69,9 @@ dependencies:
   notification_permissions: ^0.6.1
   flutter_contacts: ^1.1.5
   persian_number_utility: ^1.1.2
+  device_calendar: ^4.2.0
+  timezone: ^0.8.0
+
  
  
 

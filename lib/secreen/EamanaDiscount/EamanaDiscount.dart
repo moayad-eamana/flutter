@@ -382,7 +382,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                                               topRight: new Radius.circular(20),
                                             ),
                                           ),
-                                          width: 80,
+                                          width: 95,
                                           // color: Colors.blue.shade900,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(

@@ -1,3 +1,4 @@
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
@@ -5,10 +6,12 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:device_calendar/device_calendar.dart' as calendar;
 
 class MeetingView extends StatefulWidget {
   MeetingView({Key? key}) : super(key: key);
@@ -37,8 +40,14 @@ class _MeetingViewState extends State<MeetingView> {
         status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
-      await Provider.of<MettingsProvider>(context, listen: false)
-          .fetchMeetings();
+      if (hasePerm == "true") {
+        await Provider.of<MettingsProvider>(context, listen: false)
+            .fetchMeetings();
+      } else {
+        await Provider.of<MettingsProvider>(context, listen: false)
+            .getAppointmentsByLeader();
+      }
+
       EasyLoading.dismiss();
     });
 
@@ -52,6 +61,22 @@ class _MeetingViewState extends State<MeetingView> {
     super.dispose();
   }
 
+  Future<void> history1() async {
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
+    if (hasePerm == "true") {
+      await Provider.of<MettingsProvider>(context, listen: false)
+          .fetchMeetingshistory();
+    } else {
+      await Provider.of<MettingsProvider>(context, listen: false)
+          .getAppointmentsByLeaderHistory();
+    }
+
+    EasyLoading.dismiss();
+  }
+
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<MettingsProvider>(context);
@@ -60,18 +85,18 @@ class _MeetingViewState extends State<MeetingView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("مواعيدي", context, null),
+        appBar: AppBarW.appBarW("مواعيدي", context, null, history1),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
+            SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
+              ),
             ),
             _provider.meetingList.length == 0
-                ? Container()
+                ? Center(child: TextW("لايوجد لديك مواعيد"))
                 : AnimationLimiter(
                     child: GridView.builder(
                         key: _key,
@@ -83,273 +108,269 @@ class _MeetingViewState extends State<MeetingView> {
                         itemCount: _provider.meetingList.length,
                         itemBuilder: (BuildContext context, index) {
                           var parsedDate = DateTime.parse("2012-02-27 " +
-                              _provider.meetingList[index].Time);
+                              _provider.meetingList[index].Time.toString());
 
-                          return AnimationConfiguration.staggeredList(
-                            position: index,
-                            duration: Duration(milliseconds: 375),
-                            child: ScaleAnimation(
-                              //  verticalOffset: 50.0,
-                              curve: Curves.easeInOut,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ChangeNotifierProvider.value(
+                                          value: _provider,
+                                          child: EditMeetingView(index)),
+                                ),
+                              );
+                            },
+                            child: AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: Duration(milliseconds: 375),
+                              child: ScaleAnimation(
+                                //  verticalOffset: 50.0,
+                                curve: Curves.easeInOut,
 
-                              child: Container(
-                                //margin: EdgeInsets.symmetric(vertical: 250),
-                                height: 280,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                child: Card(
-                                  elevation: 1,
-                                  //shadowColor: Colors.white,
+                                child: Container(
+                                  //margin: EdgeInsets.symmetric(vertical: 250),
+                                  height: 280,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Card(
+                                    elevation: 1,
+                                    //shadowColor: Colors.white,
 
-                                  color: BackGWhiteColor,
-                                  child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      // mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            _provider
-                                                .meetingList[index].Appwith,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                                color: baseColor),
+                                    color: BackGWhiteColor,
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        // mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          SizedBox(
+                                            height: 10,
                                           ),
-                                        ),
-                                        Divider(
-                                          thickness: 0.5,
-                                          color: bordercolor,
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.all(8),
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: bordercolor),
-                                                      color: secondryColor,
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.elliptical(
-                                                                  5, 5))),
-                                                  child: Text(
-                                                    getmonth(_provider
-                                                        .meetingList[index]
-                                                        .Date),
-                                                    style: TextStyle(
-                                                        fontFamily: "Cairo",
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 18,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                                TextW(DayText(_provider
-                                                    .meetingList[index].Date)),
-                                              ],
+                                          Center(
+                                            child: Text(
+                                              _provider.meetingList[index]
+                                                      .Appwith ??
+                                                  "",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                  color: baseColor),
                                             ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  _provider.meetingList[index]
-                                                      .Subject,
-                                                  style: TextStyle(
-                                                      color: baseColorText,
-                                                      fontFamily: "Cairo",
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.date_range,
-                                                      color: baseColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    TextW("يوم " +
-                                                        _provider
-                                                            .meetingList[index]
-                                                            .Day +
-                                                        " " +
-                                                        _provider
-                                                            .meetingList[index]
-                                                            .Date),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.timelapse,
-                                                      color: baseColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    TextW("الساعه من " +
-                                                        _provider
-                                                            .meetingList[index]
-                                                            .Time
-                                                            .split(":")[0] +
-                                                        ":" +
-                                                        _provider
-                                                            .meetingList[index]
-                                                            .Time
-                                                            .split(":")[1] +
-                                                        "إلى " +
-                                                        (parsedDate
-                                                                .add(Duration(
-                                                                    minutes:
-                                                                        30))
-                                                                .toString())
-                                                            .split(" ")[1]
-                                                            .substring(0, 5)),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.chair_alt_sharp,
-                                                      color: baseColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    TextW(_provider
-                                                        .meetingList[index]
-                                                        .MeetingDetails),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          //color: Colors.white,
-                                          child: Divider(
+                                          ),
+                                          Divider(
                                             thickness: 0.5,
                                             color: bordercolor,
                                           ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    launch(
-                                                        "https://wa.me/+966${_provider.meetingList[index].Appwithmobile}/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.phone_android,
-                                                    color: baseColor,
-                                                  ),
-                                                ),
-                                                TextW(_provider
-                                                    .meetingList[index]
-                                                    .Appwithmobile),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(top: 10),
-                                                  child: ElevatedButton.icon(
-                                                    label: Text('حذف'),
-                                                    icon: Icon(
-                                                      Icons.close,
-                                                      color: pinkColor,
-                                                      size: 24.0,
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.all(8),
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: bordercolor),
+                                                        color: secondryColor,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius
+                                                                    .elliptical(
+                                                                        5, 5))),
+                                                    child: Text(
+                                                      getmonth(_provider
+                                                              .meetingList[
+                                                                  index]
+                                                              .Date ??
+                                                          ""),
+                                                      style: TextStyle(
+                                                          fontFamily: "Cairo",
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 18,
+                                                          color: Colors.white),
                                                     ),
-                                                    style: mainbtn,
+                                                  ),
+                                                  TextW(DayText(_provider
+                                                          .meetingList[index]
+                                                          .Date ??
+                                                      "")),
+                                                ],
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    _provider.meetingList[index]
+                                                            .Subject ??
+                                                        "",
+                                                    style: TextStyle(
+                                                        color: baseColorText,
+                                                        fontFamily: "Cairo",
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.date_range,
+                                                        color: baseColor,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      TextW("يوم " +
+                                                          _provider
+                                                              .meetingList[
+                                                                  index]
+                                                              .Day
+                                                              .toString() +
+                                                          " " +
+                                                          _provider
+                                                              .meetingList[
+                                                                  index]
+                                                              .Date
+                                                              .toString()),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.timelapse,
+                                                        color: baseColor,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      TextW("الساعه من " +
+                                                          _provider
+                                                              .meetingList[
+                                                                  index]
+                                                              .Time
+                                                              .toString()
+                                                              .split(":")[0] +
+                                                          ":" +
+                                                          _provider
+                                                              .meetingList[
+                                                                  index]
+                                                              .Time
+                                                              .toString()
+                                                              .split(":")[1] +
+                                                          "إلى " +
+                                                          (parsedDate
+                                                                  .add(Duration(
+                                                                      minutes:
+                                                                          30))
+                                                                  .toString())
+                                                              .split(" ")[1]
+                                                              .substring(0, 5)),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.chair_alt_sharp,
+                                                        color: baseColor,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      TextW(_provider
+                                                              .meetingList[
+                                                                  index]
+                                                              .MeetingDetails
+                                                              .toString() +
+                                                          "-" +
+                                                          (_provider
+                                                                          .meetingList[
+                                                                              index]
+                                                                          .for_leader
+                                                                          .toString() ==
+                                                                      "null" ||
+                                                                  _provider
+                                                                          .meetingList[
+                                                                              index]
+                                                                          .for_leader
+                                                                          .toString() ==
+                                                                      "y"
+                                                              ? "قيادي"
+                                                              : "إدارة")),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            //color: Colors.white,
+                                            child: Divider(
+                                              thickness: 0.5,
+                                              color: bordercolor,
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: hasePerm ==
+                                                    "true"
+                                                ? MainAxisAlignment.spaceAround
+                                                : MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  IconButton(
                                                     onPressed: () {
-                                                      bool rej = true;
-                                                      Alert(
-                                                        context: context,
-                                                        type: AlertType.warning,
-                                                        title: "",
-                                                        desc: "تأكيد الحذف",
-                                                        buttons: [
-                                                          DialogButton(
-                                                            child: Text(
-                                                              "حذف",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 20),
-                                                            ),
-                                                            onPressed: () {
-                                                              rej = false;
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            width: 120,
-                                                          ),
-                                                          DialogButton(
-                                                            child: Text(
-                                                              "إلغاء",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 20),
-                                                            ),
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    context),
-                                                            width: 120,
-                                                          )
-                                                        ],
-                                                      )
-                                                          .show()
-                                                          .then((value) async {
-                                                        if (!rej) {
-                                                          EasyLoading.show(
-                                                            status:
-                                                                '... جاري المعالجة',
-                                                            maskType:
-                                                                EasyLoadingMaskType
-                                                                    .black,
-                                                          );
-                                                          await _provider.deletApp(
-                                                              int.parse(_provider
-                                                                  .meetingList[
-                                                                      index]
-                                                                  .Id));
-                                                          EasyLoading.dismiss();
-
+                                                      launch(
+                                                          "https://wa.me/+966${_provider.meetingList[index].Appwithmobile}/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
+                                                    },
+                                                    icon: Icon(
+                                                      FontAwesomeIcons.whatsapp,
+                                                      color: baseColor,
+                                                    ),
+                                                  ),
+                                                  TextW(_provider
+                                                          .meetingList[index]
+                                                          .Appwithmobile ??
+                                                      ""),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  if (hasePerm == "true")
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 10),
+                                                      child:
+                                                          ElevatedButton.icon(
+                                                        label: Text('حذف'),
+                                                        icon: Icon(
+                                                          Icons.close,
+                                                          color: pinkColor,
+                                                          size: 24.0,
+                                                        ),
+                                                        style: mainbtn,
+                                                        onPressed: () {
+                                                          bool rej = true;
                                                           Alert(
                                                             context: context,
                                                             type: AlertType
-                                                                .success,
+                                                                .warning,
                                                             title: "",
-                                                            desc:
-                                                                "تم حذف الموعد",
+                                                            desc: "تأكيد الحذف",
                                                             buttons: [
                                                               DialogButton(
                                                                 child: Text(
-                                                                  "حسننا",
+                                                                  "حذف",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white,
@@ -357,77 +378,168 @@ class _MeetingViewState extends State<MeetingView> {
                                                                           20),
                                                                 ),
                                                                 onPressed: () {
+                                                                  rej = false;
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
                                                                 width: 120,
                                                               ),
-                                                            ],
-                                                          )
-                                                              .show()
-                                                              .then((value) {
-                                                            _key.currentState!.removeItem(
-                                                                index,
-                                                                (_, animation) {
-                                                              return SizeTransition(
-                                                                sizeFactor:
-                                                                    animation,
-                                                                child:
-                                                                    Container(
-                                                                  height: 250,
-                                                                  color: Colors
-                                                                      .white,
+                                                              DialogButton(
+                                                                child: Text(
+                                                                  "إلغاء",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          20),
                                                                 ),
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        context),
+                                                                width: 120,
+                                                              )
+                                                            ],
+                                                          ).show().then(
+                                                              (value) async {
+                                                            if (!rej) {
+                                                              EasyLoading.show(
+                                                                status:
+                                                                    '... جاري المعالجة',
+                                                                maskType:
+                                                                    EasyLoadingMaskType
+                                                                        .black,
                                                               );
-                                                            },
-                                                                duration: Duration(
-                                                                    milliseconds:
-                                                                        600));
+                                                              var availableCalendars =
+                                                                  await calendar
+                                                                              .DeviceCalendarPlugin
+                                                                          .private()
+                                                                      .retrieveCalendars();
+                                                              var defaultCalendarId =
+                                                                  availableCalendars
+                                                                      .data?[0]
+                                                                      .id;
+                                                              await calendar
+                                                                          .DeviceCalendarPlugin
+                                                                      .private()
+                                                                  .deleteEvent(
+                                                                      defaultCalendarId,
+                                                                      sharedPref.getString(_provider
+                                                                          .meetingList[
+                                                                              index]
+                                                                          .Id
+                                                                          .toString()));
+                                                              sharedPref.remove(
+                                                                  _provider
+                                                                      .meetingList[
+                                                                          index]
+                                                                      .Id
+                                                                      .toString());
+                                                              await _provider.deletApp(
+                                                                  int.parse(_provider
+                                                                          .meetingList[
+                                                                              index]
+                                                                          .Id ??
+                                                                      ""));
+                                                              EasyLoading
+                                                                  .dismiss();
 
-                                                            _provider
-                                                                .deletan(index);
+                                                              Alert(
+                                                                context:
+                                                                    context,
+                                                                type: AlertType
+                                                                    .success,
+                                                                title: "",
+                                                                desc:
+                                                                    "تم حذف الموعد",
+                                                                buttons: [
+                                                                  DialogButton(
+                                                                    child: Text(
+                                                                      "حسننا",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              20),
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    width: 120,
+                                                                  ),
+                                                                ],
+                                                              ).show().then(
+                                                                  (value) {
+                                                                if (!_provider
+                                                                    .meetingList
+                                                                    .isNotEmpty) {
+                                                                  _key.currentState!.removeItem(
+                                                                      index, (_,
+                                                                          animation) {
+                                                                    return SizeTransition(
+                                                                      sizeFactor:
+                                                                          animation,
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            250,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              600));
+                                                                }
+
+                                                                _provider
+                                                                    .deletan(
+                                                                        index);
+                                                              });
+                                                            }
                                                           });
-                                                        }
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(top: 10),
-                                                  child: ElevatedButton.icon(
-                                                    label: Text('تعديل'),
-                                                    icon: Icon(
-                                                      Icons.edit,
-                                                      color: secondryColor,
-                                                      size: 24.0,
+                                                        },
+                                                      ),
                                                     ),
-                                                    style: mainbtn,
-                                                    onPressed: () {
-                                                      print("sssssssss");
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              ChangeNotifierProvider.value(
-                                                                  value:
-                                                                      _provider,
-                                                                  child:
-                                                                      EditMeetingView(
-                                                                          index)),
-                                                        ),
-                                                      );
-                                                    },
+                                                  SizedBox(
+                                                    width: 5,
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      ],
+                                                  if (hasePerm == "true")
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 10),
+                                                      child:
+                                                          ElevatedButton.icon(
+                                                        label: Text('تعديل'),
+                                                        icon: Icon(
+                                                          Icons.edit,
+                                                          color: secondryColor,
+                                                          size: 24.0,
+                                                        ),
+                                                        style: mainbtn,
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  ChangeNotifierProvider.value(
+                                                                      value:
+                                                                          _provider,
+                                                                      child: EditMeetingView(
+                                                                          index)),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                ],
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -436,26 +548,27 @@ class _MeetingViewState extends State<MeetingView> {
                           );
                         }),
                   ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                margin: EdgeInsets.only(right: 10, bottom: 10),
-                child: FloatingActionButton(
-                  backgroundColor: baseColor,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider.value(
-                            value: _provider, child: AddMeeting()),
-                      ),
-                    );
-                  },
-                  // backgroundColor: Colors.green,
-                  child: Icon(Icons.add),
+            if (hasePerm == "true")
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  margin: EdgeInsets.only(right: 10, bottom: 10),
+                  child: FloatingActionButton(
+                    backgroundColor: baseColor,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider.value(
+                              value: _provider, child: AddMeeting()),
+                        ),
+                      );
+                    },
+                    // backgroundColor: Colors.green,
+                    child: Icon(Icons.add),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

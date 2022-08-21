@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 
 class ContactsView extends StatefulWidget {
   @override
@@ -27,11 +26,61 @@ class _ContactsViewState extends State<ContactsView> {
     });
   }
 
+  addNewContact(String firstName, String lastName, String phone, String email) {
+    print(firstName);
+    int arrlengt = contact.length;
+
+    contactd.add({
+      "displayName": firstName + " " + lastName,
+      "phones": [
+        {"number": phone}
+      ]
+    });
+    contact.add({
+      "displayName": firstName + " " + lastName,
+      "phones": [
+        {"number": phone}
+      ]
+    });
+    // contact[arrlengt]["displayName"] = firstName + " " + lastName;
+    // contactd[arrlengt]["displayName"] = firstName + " " + lastName;
+    // contactd[arrlengt]["phones"][0]["number"] = phone;
+    // contact[contact]["phones"][0]["number"] = phone;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            dynamic p = await FlutterContacts.openExternalInsert();
+            p = jsonEncode(p);
+            p = jsonDecode(p);
+            contactd.add({
+              "displayName": p["displayName"],
+              "phones": [
+                {"number": p["phones"][0]["number"]}
+              ]
+            });
+            contact.add({
+              "displayName": p["displayName"],
+              "phones": [
+                {"number": p["phones"][0]["number"]}
+              ]
+            });
+            setState(() {});
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //       builder: (context) => AddContact(addNewContact)),
+            // );
+          },
+          backgroundColor: baseColor,
+          child: const Icon(Icons.add),
+        ),
         appBar: AppBar(
           iconTheme: IconThemeData(color: baseColorText),
           backgroundColor: BackGColor,

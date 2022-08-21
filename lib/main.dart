@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
+import 'package:eamanaapp/secreen/Meetings/AddNewContatct.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/Meetings/contactsView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
@@ -46,6 +47,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 late AndroidNotificationChannel channel;
 
@@ -94,6 +96,9 @@ Future<void> main() async {
   //Settings.getSettings();
   setSettings();
   getColorSettings();
+
+  tz.initializeTimeZones();
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: baseColor,
   ));

@@ -77,18 +77,18 @@ class _ServicesButtonState extends State<ServicesButton> {
       ),
       "icon": 'assets/SVGs/e3tmadaty.svg',
     },
-    if (hasePerm == "true")
-      {
-        "service_name": "مواعيدي",
-        "Navigation": MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider(
-            create: (context) => MettingsProvider(),
-            // ignore: prefer_const_constructors
-            child: MeetingView(),
-          ),
+
+    {
+      "service_name": "مواعيدي",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => MettingsProvider(),
+          // ignore: prefer_const_constructors
+          child: MeetingView(),
         ),
-        "icon": 'assets/SVGs/mawa3idi.svg',
-      },
+      ),
+      "icon": 'assets/SVGs/mawa3idi.svg',
+    },
     //خدمات أخرى
     // {
     //   "service_name": "الفعاليات",

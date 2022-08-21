@@ -8,7 +8,8 @@ dynamic id = EmployeeProfile.getEmplPerm();
 
 class AppBarW {
   static PreferredSize appBarW(
-      String title, BuildContext context, bool? showBack) {
+      String title, BuildContext context, bool? showBack,
+      [Function? function]) {
     return PreferredSize(
       preferredSize: Size.fromHeight(90.0),
       child: AppBar(
@@ -111,7 +112,35 @@ class AppBarW {
                       ),
                     ),
                   ),
-                )
+                ),
+              if (function != null)
+                Positioned(
+                  left: 25,
+                  top: 25,
+                  child: GestureDetector(
+                    onTap: () {
+                      function();
+                      print("object");
+                    },
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.history,
+                            color: baseColor,
+                            size: 40,
+                          ),
+                          Text(
+                            "المواعيد السابقة",
+                            style: TextStyle(color: baseColorText),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

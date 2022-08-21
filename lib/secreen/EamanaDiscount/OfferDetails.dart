@@ -385,7 +385,10 @@ class _OfferDetailsState extends State<OfferDetails> {
           onPressed: () async {
             path = await getAttachment(widget.offer["ArcSerial"]);
             // await getFilePath();
-            launch(path);
+            if (!await launchUrl(Uri.parse(path))) {
+              throw 'Could not launch $path';
+            }
+            //launchUrl(path);
           },
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(

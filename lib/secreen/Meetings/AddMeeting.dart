@@ -1,6 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -15,6 +14,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
+import 'package:device_calendar/device_calendar.dart' as calendar;
+import 'package:timezone/timezone.dart' as tz;
 
 //jj
 class AddMeeting extends StatefulWidget {
@@ -26,6 +27,7 @@ class AddMeeting extends StatefulWidget {
 
 class _AddMeetingState extends State<AddMeeting> {
   final key = GlobalKey<AnimatedListState>();
+  String forLader = "قيادي";
 
   List<TextEditingController> error = [
     TextEditingController(),
@@ -456,6 +458,43 @@ class _AddMeetingState extends State<AddMeeting> {
                               color: baseColor,
                             ),
                           ),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: ListTile(
+                                      title: const Text('قيادي'),
+                                      leading: Radio<String>(
+                                        value: "قيادي",
+                                        groupValue: forLader,
+                                        onChanged: (String? value) {
+                                          setState(() {
+                                            forLader = value ?? "";
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListTile(
+                                      title: const Text('إدارة'),
+                                      leading: Radio<String>(
+                                        value: "إدارة",
+                                        groupValue: forLader,
+                                        onChanged: (String? value) {
+                                          setState(() {
+                                            forLader = value ?? "";
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                           if (_tpeApp.text == "إفتراضي")
                             TextField(
                               keyboardType: TextInputType.text,
@@ -606,7 +645,8 @@ class _AddMeetingState extends State<AddMeeting> {
                               _tpeApp.text == "حضوري" ? "p" : "v",
                               _url.text ?? "",
                               _meetingId.text,
-                              _pass.text);
+                              _pass.text,
+                              forLader == "قيادي" ? "y" : "no");
 
                           Alert(
                             context: context,
@@ -643,12 +683,87 @@ class _AddMeetingState extends State<AddMeeting> {
                                 status: '... جاري المعالجة',
                                 maskType: EasyLoadingMaskType.black,
                               );
+
                               await _provider.addApp(meetings, p);
                               EasyLoading.dismiss();
                               Alerts.successAlert(
                                       context, "", "تم إضافة الموعد")
                                   .show()
-                                  .then((value) => Navigator.pop(context));
+                                  .then((value) async {
+                                try {
+                                  var permissionsGranted = await calendar
+                                          .DeviceCalendarPlugin.private()
+                                      .hasPermissions();
+                                  if (permissionsGranted.isSuccess) {
+                                    permissionsGranted = await calendar
+                                            .DeviceCalendarPlugin.private()
+                                        .requestPermissions();
+                                    if (!permissionsGranted.isSuccess) {
+                                      return;
+                                    }
+                                  }
+                                } catch (e) {
+                                  print(e);
+                                }
+
+                                tz.Location _currentLocation =
+                                    tz.getLocation("Asia/Riyadh");
+                                try {
+                                  var availableCalendars = await calendar
+                                          .DeviceCalendarPlugin.private()
+                                      .retrieveCalendars();
+                                  var defaultCalendarId =
+                                      availableCalendars.data?[0].id;
+
+                                  final calendarEvent = await calendar
+                                          .DeviceCalendarPlugin.private()
+                                      .createOrUpdateEvent(calendar.Event(
+                                    defaultCalendarId,
+
+                                    start: tz.TZDateTime.from(
+                                        DateTime(
+                                            int.parse(meetings.Date.toString()
+                                                .split("-")[0]),
+                                            int.parse(meetings.Date.toString()
+                                                .split("-")[1]),
+                                            int.parse(meetings.Date.toString()
+                                                .split("-")[2]),
+                                            int.parse(meetings.Time.toString()
+                                                .split(":")[0]),
+                                            int.parse(meetings.Time.toString()
+                                                .split(":")[1])),
+                                        _currentLocation),
+                                    description: _subject.text,
+                                    title: "موعد مع " + _appWith.text,
+                                    end: tz.TZDateTime.from(
+                                        DateTime(
+                                            int.parse(meetings.Date.toString()
+                                                .split("-")[0]),
+                                            int.parse(meetings.Date.toString()
+                                                .split("-")[1]),
+                                            int.parse(meetings.Date.toString()
+                                                .split("-")[2]),
+                                            int.parse(meetings.Time.toString()
+                                                .split(":")[0]),
+                                            int.parse(meetings.Time.toString()
+                                                    .split(":")[1]) +
+                                                30),
+                                        _currentLocation),
+                                    // eventId: "moayad",
+
+                                    location: 'أمانة الشرقية',
+                                  ));
+
+                                  sharedPref.setString(meetings.Id.toString(),
+                                      calendarEvent?.data.toString() ?? "");
+                                  print(calendarEvent);
+                                  //   print(meetings.Id + "erferferf");
+                                } catch (e) {
+                                  print(e);
+                                }
+
+                                Navigator.pop(context);
+                              });
                             }
                           });
                         },
@@ -841,39 +956,4 @@ class _AddMeetingState extends State<AddMeeting> {
 
     return errorTx;
   }
-}
-
-class Contact {
-  late String id;
-  late String displayName;
-  late Uint8List? photo;
-  Uint8List? thumbnail;
-  late Name name;
-  late List<Phone> phones;
-}
-
-class Name {
-  late String first;
-  late String last;
-}
-
-class Phone {
-  late String number;
-  late PhoneLabel label;
-}
-
-class Event {
-  int? year;
-  late int month;
-  late int day;
-  late EventLabel label;
-}
-
-class Note {
-  late String note;
-}
-
-class Group {
-  late String id;
-  late String name;
 }

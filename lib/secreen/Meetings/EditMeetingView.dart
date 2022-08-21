@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:device_calendar/device_calendar.dart' as calendar;
+import 'package:timezone/timezone.dart' as tz;
 
 class EditMeetingView extends StatefulWidget {
   int? index;
@@ -18,6 +21,7 @@ class EditMeetingView extends StatefulWidget {
 }
 
 class _EditMeetingViewState extends State<EditMeetingView> {
+  String forLader = "";
   List<TextEditingController> error = [
     TextEditingController(),
     TextEditingController(),
@@ -59,11 +63,14 @@ class _EditMeetingViewState extends State<EditMeetingView> {
           status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
-        await Provider.of<MettingsProvider>(context, listen: false)
-            .fetchMeetingsTime();
+        if (hasePerm == "true") {
+          await Provider.of<MettingsProvider>(context, listen: false)
+              .fetchMeetingsTime();
+
+          fetchMeetinsTime(Provider.of<MettingsProvider>(context, listen: false)
+              .getMeetingsTimeList);
+        }
         EasyLoading.dismiss();
-        fetchMeetinsTime(Provider.of<MettingsProvider>(context, listen: false)
-            .getMeetingsTimeList);
       }
     });
     super.initState();
@@ -84,17 +91,26 @@ class _EditMeetingViewState extends State<EditMeetingView> {
       fetchMeetinsTime(_provider.getMeetingsTimeList);
     } else {
       if (!isLoaded) {
-        _appWith.text = _provider.meetingList[widget.index ?? 0].Appwith;
-        _subject.text = _provider.meetingList[widget.index ?? 0].Subject;
-        _mobile.text = _provider.meetingList[widget.index ?? 0].Appwithmobile;
-        _date.text = _provider.meetingList[widget.index ?? 0].Date;
-        _Time.text = _provider.meetingList[widget.index ?? 0].Time;
-        _tpeApp.text = _provider.meetingList[widget.index ?? 0].MeetingDetails;
-        _url.text = _provider.meetingList[widget.index ?? 0].Meeting_url;
-        _pass.text = _provider.meetingList[widget.index ?? 0].Meeting_pswd;
-        _meetingId.text = _provider.meetingList[widget.index ?? 0].Meeting_id;
-        _notes.text = _provider.meetingList[widget.index ?? 0].Notes;
+        _appWith.text = _provider.meetingList[widget.index ?? 0].Appwith ?? "";
+        _subject.text = _provider.meetingList[widget.index ?? 0].Subject ?? "";
+        _mobile.text =
+            _provider.meetingList[widget.index ?? 0].Appwithmobile ?? "";
+        _date.text = _provider.meetingList[widget.index ?? 0].Date ?? "";
+        _Time.text = _provider.meetingList[widget.index ?? 0].Time ?? "";
+        _tpeApp.text =
+            _provider.meetingList[widget.index ?? 0].MeetingDetails ?? "";
+        _url.text = _provider.meetingList[widget.index ?? 0].Meeting_url ?? "";
+        _pass.text =
+            _provider.meetingList[widget.index ?? 0].Meeting_pswd ?? "";
+        _meetingId.text =
+            _provider.meetingList[widget.index ?? 0].Meeting_id ?? "";
+        _notes.text = _provider.meetingList[widget.index ?? 0].Notes ?? "";
         isLoaded = true;
+        forLader = _provider.meetingList[widget.index ?? 0].for_leader == "y" ||
+                _provider.meetingList[widget.index ?? 0].for_leader == null
+            ? "قيادي"
+            : "إدارة";
+        setState(() {});
       }
     }
     return Directionality(
@@ -383,6 +399,43 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                           ),
                         ),
                       ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  title: const Text('قيادي'),
+                                  leading: Radio<String>(
+                                    value: "قيادي",
+                                    groupValue: forLader,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        forLader = value ?? "";
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: ListTile(
+                                  title: const Text('إدارة'),
+                                  leading: Radio<String>(
+                                    value: "إدارة",
+                                    groupValue: forLader,
+                                    onChanged: (String? value) {
+                                      setState(() {
+                                        forLader = value ?? "";
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -491,76 +544,170 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                       const SizedBox(
                         height: 10,
                       ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: baseColor, // background
-                          onPrimary: Colors.white, // foreground
-                        ),
-                        onPressed: () {
-                          if (CheckValdation()) {
-                            return;
-                          }
-                          bool rej = true;
-                          Alert(
-                            context: context,
-                            type: AlertType.warning,
-                            title: "",
-                            desc: "تأكيد تعديل الموعد",
-                            buttons: [
-                              DialogButton(
-                                child: const Text(
-                                  "تعديل",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () {
-                                  rej = false;
-                                  Navigator.pop(context);
-                                },
-                                width: 120,
-                              ),
-                              DialogButton(
-                                child: const Text(
-                                  "إلغاء",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                width: 120,
-                              )
-                            ],
-                          ).show().then((value) async {
-                            if (!rej) {
-                              EasyLoading.show(
-                                status: '... جاري المعالجة',
-                                maskType: EasyLoadingMaskType.black,
-                              );
-                              await _provider.putappoit(
-                                  widget.index ?? 0,
-                                  int.parse(_provider
-                                      .meetingList[widget.index ?? 0].Id),
-                                  _date.text,
-                                  p,
-                                  _Time.text,
-                                  _appWith.text,
-                                  _mobile.text,
-                                  _subject.text,
-                                  _notes.text,
-                                  pp,
-                                  _url.text,
-                                  _meetingId.text,
-                                  _pass.text);
-
-                              EasyLoading.dismiss();
-                              Alerts.successAlert(
-                                      context, "", "تم تعديل الموعد")
-                                  .show()
-                                  .then((value) => Navigator.pop(context));
+                      if (hasePerm == "true")
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: baseColor, // background
+                            onPrimary: Colors.white, // foreground
+                          ),
+                          onPressed: () {
+                            if (CheckValdation()) {
+                              return;
                             }
-                          });
-                        },
-                        child: const Text('تعديل'),
-                      ),
+                            bool rej = true;
+                            Alert(
+                              context: context,
+                              type: AlertType.warning,
+                              title: "",
+                              desc: "تأكيد تعديل الموعد",
+                              buttons: [
+                                DialogButton(
+                                  child: const Text(
+                                    "تعديل",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () {
+                                    rej = false;
+                                    Navigator.pop(context);
+                                  },
+                                  width: 120,
+                                ),
+                                DialogButton(
+                                  child: const Text(
+                                    "إلغاء",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  width: 120,
+                                )
+                              ],
+                            ).show().then((value) async {
+                              if (!rej) {
+                                EasyLoading.show(
+                                  status: '... جاري المعالجة',
+                                  maskType: EasyLoadingMaskType.black,
+                                );
+                                await _provider.putappoit(
+                                    widget.index ?? 0,
+                                    int.parse(_provider
+                                        .meetingList[widget.index ?? 0].Id
+                                        .toString()),
+                                    _date.text,
+                                    p,
+                                    _Time.text,
+                                    _appWith.text,
+                                    _mobile.text,
+                                    _subject.text,
+                                    _notes.text,
+                                    pp,
+                                    _url.text,
+                                    _meetingId.text,
+                                    _pass.text,
+                                    forLader);
+
+                                try {
+                                  var permissionsGranted = await calendar
+                                          .DeviceCalendarPlugin.private()
+                                      .hasPermissions();
+                                  if (permissionsGranted.isSuccess) {
+                                    permissionsGranted = await calendar
+                                            .DeviceCalendarPlugin.private()
+                                        .requestPermissions();
+                                    if (!permissionsGranted.isSuccess) {
+                                      return;
+                                    }
+                                  }
+                                } catch (e) {
+                                  print(e);
+                                }
+
+                                tz.Location _currentLocation =
+                                    tz.getLocation("Asia/Riyadh");
+                                try {
+                                  var availableCalendars = await calendar
+                                          .DeviceCalendarPlugin.private()
+                                      .retrieveCalendars();
+                                  var defaultCalendarId =
+                                      availableCalendars.data?[0].id;
+                                  await calendar.DeviceCalendarPlugin.private()
+                                      .deleteEvent(
+                                          defaultCalendarId,
+                                          sharedPref.getString(_provider
+                                              .meetingList[widget.index ?? 0].Id
+                                              .toString()));
+                                  sharedPref.remove(_provider
+                                      .meetingList[widget.index ?? 0].Id
+                                      .toString());
+                                  final calendarEvent = await calendar
+                                          .DeviceCalendarPlugin.private()
+                                      .createOrUpdateEvent(calendar.Event(
+                                    defaultCalendarId,
+
+                                    start: tz.TZDateTime.from(
+                                        DateTime(
+                                            int.parse(_date.text
+                                                .toString()
+                                                .split("-")[0]),
+                                            int.parse(_date.text
+                                                .toString()
+                                                .split("-")[1]),
+                                            int.parse(_date.text
+                                                .toString()
+                                                .split("-")[2]),
+                                            int.parse(_Time.text
+                                                .toString()
+                                                .split(":")[0]),
+                                            int.parse(_Time.text
+                                                .toString()
+                                                .split(":")[1])),
+                                        _currentLocation),
+                                    description: _subject.text,
+                                    title: "موعد مع " + _appWith.text,
+                                    end: tz.TZDateTime.from(
+                                        DateTime(
+                                            int.parse(_date.text
+                                                .toString()
+                                                .split("-")[0]),
+                                            int.parse(_date.text
+                                                .toString()
+                                                .split("-")[1]),
+                                            int.parse(_date.text
+                                                .toString()
+                                                .split("-")[2]),
+                                            int.parse(_Time.text
+                                                .toString()
+                                                .split(":")[0]),
+                                            int.parse(_Time.text
+                                                    .toString()
+                                                    .split(":")[1]) +
+                                                30),
+                                        _currentLocation),
+                                    // eventId: "moayad",
+
+                                    location: 'أمانة الشرقية',
+                                  ));
+
+                                  sharedPref.setString(
+                                      _provider
+                                          .meetingList[widget.index ?? 0].Id
+                                          .toString(),
+                                      calendarEvent?.data.toString() ?? "");
+                                  print(calendarEvent);
+                                } catch (e) {
+                                  print(e);
+                                }
+                                EasyLoading.dismiss();
+                                Alerts.successAlert(
+                                        context, "", "تم تعديل الموعد")
+                                    .show()
+                                    .then((value) => Navigator.pop(context));
+                              }
+                            });
+                          },
+                          child: const Text('تعديل'),
+                        ),
                     ],
                   ),
                 ),
