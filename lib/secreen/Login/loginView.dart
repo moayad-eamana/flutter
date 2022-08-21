@@ -5,10 +5,12 @@ import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:telephony/telephony.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -34,7 +36,20 @@ class _LoginViewState extends State<LoginView> {
       rememperMe = false;
       setState(() {});
     }
+    smspermission();
     super.initState();
+  }
+
+  void smspermission() async {
+    try {
+      final Telephony telephony = Telephony.instance;
+      bool? permissionsGranted = await telephony.requestPhoneAndSmsPermissions;
+      print(permissionsGranted);
+    } on PlatformException catch (err) {
+      // Handle err
+    } catch (err) {
+      // other types of Exceptions
+    }
   }
 
   TextEditingController _username = TextEditingController();

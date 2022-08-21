@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:telephony/telephony.dart';
 
 class OTPView extends StatefulWidget {
   const OTPView({Key? key}) : super(key: key);
@@ -16,6 +17,31 @@ class OTPView extends StatefulWidget {
 
 class _OTPViewState extends State<OTPView> {
   TextEditingController _otp = TextEditingController();
+  final Telephony telephony = Telephony.instance;
+
+  Future<void> SmsListener() async {
+    telephony.listenIncomingSms(
+        onNewMessage: (SmsMessage message) {
+          // Handle message
+          if (message.body != null) {
+            print(message.body.toString());
+            setState(() {
+              _otp.text = message.body.toString().substring(37, 41);
+            });
+          }
+        },
+        listenInBackground: false
+
+        // onBackgroundMessage: backgroundMessageHandler
+        );
+  }
+
+  @override
+  void initState() {
+    SmsListener();
+    // TODO: implement initState
+    super.initState();
+  }
 
   bool errorM = false;
   @override
