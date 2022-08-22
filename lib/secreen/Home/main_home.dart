@@ -174,72 +174,74 @@ class _MainHomeState extends State<MainHome> {
                   height: 10,
                 ),
                 if (id != 0101)
-                  Row(
-                    children: [
-                      Text(
-                        listofFavs.length == 0 ? "خدمة سريعة" : "المفضلة",
-                        style: titleTx(baseColorText),
-                      ),
-                      Expanded(
-                        child: Container(
-                            // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                            child: Divider(
-                          color: baseColorText,
-                          height: 20,
-                          thickness: 1,
-                          indent: 5,
-                          endIndent: 5,
-                        )),
-                      ),
-                    ],
-                  ),
+                  if (sharedPref.getInt("empTypeID") != 8)
+                    Row(
+                      children: [
+                        Text(
+                          listofFavs.length == 0 ? "خدمة سريعة" : "المفضلة",
+                          style: titleTx(baseColorText),
+                        ),
+                        Expanded(
+                          child: Container(
+                              // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                              child: Divider(
+                            color: baseColorText,
+                            height: 20,
+                            thickness: 1,
+                            indent: 5,
+                            endIndent: 5,
+                          )),
+                        ),
+                      ],
+                    ),
                 SizedBox(
                   height: 10,
                 ),
                 if (id != 0101)
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          controller: _scrollController,
-                          scrollDirection: Axis.horizontal,
-                          child: Container(
-                            height: 65,
-                            child: listofFavs.length > 0
-                                ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                        ...listofFavs.map((e) =>
-                                            servicebuttonFavs(e, context)),
-                                      ])
-                                : Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      ...listOfServices(context)
-                                          .fastservices
-                                          .map((e) =>
+                  if (sharedPref.getInt("empTypeID") != 8)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            controller: _scrollController,
+                            scrollDirection: Axis.horizontal,
+                            child: Container(
+                              height: 65,
+                              child: listofFavs.length > 0
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                          ...listofFavs.map((e) =>
                                               servicebuttonFavs(e, context)),
-                                    ],
-                                  ),
+                                        ])
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        ...listOfServices(context)
+                                            .fastservices
+                                            .map((e) =>
+                                                servicebuttonFavs(e, context)),
+                                      ],
+                                    ),
+                            ),
                           ),
                         ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: baseColorText,
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: baseColorText,
+                          ),
+                          onPressed: () {
+                            _scrollController.animateTo(
+                                _scrollController.position.maxScrollExtent,
+                                duration: Duration(milliseconds: 1000),
+                                curve: Curves.ease);
+                          },
                         ),
-                        onPressed: () {
-                          _scrollController.animateTo(
-                              _scrollController.position.maxScrollExtent,
-                              duration: Duration(milliseconds: 1000),
-                              curve: Curves.ease);
-                        },
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                 SizedBox(
                   height: 2.h,
                 ),
