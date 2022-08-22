@@ -14,56 +14,63 @@ class listOfServices {
   listOfServices(this.context);
 
   final services2 = [
-    ////شؤون الموظفين
-    {
-      "service_name": "طلب إجازة",
-      "Navigation": "/VacationRequest",
-      "icon": 'assets/SVGs/ejaza.svg',
-    },
-    {
-      "service_name": "طلب خارج دوام",
-      "Navigation": "/OutdutyRequest",
-      "icon": 'assets/SVGs/work_out.svg',
-    },
-    {
-      "service_name": "رصيد إجازات",
-      "Navigation": "",
-      "icon": 'assets/SVGs/balance.svg'
-    },
-    {
-      "service_name": "طلب إنتداب",
-      "Navigation": "/entedab",
-      "icon": 'assets/SVGs/entdab.svg',
-    },
-    {
-      "service_name": "العهد", /////////
-      "Navigation": "/auhad",
-      "icon": 'assets/SVGs/3ohad.svg',
-    },
-
-    //الرواتب
-    {
-      "service_name": "سجل الرواتب",
-      "Navigation": "/SalaryHistory",
-      "icon": 'assets/SVGs/sejelalrawatb.svg',
-    },
-    {
-      "service_name": "تعريف بالراتب",
-      "Navigation": "/auth_secreen",
-      "icon": 'assets/SVGs/ta3refalratb.svg',
-    },
-    //مهامي
-    {
-      "service_name": "إعتماداتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EatemadatProvider(),
-          // ignore: prefer_const_constructors
-          child: InboxHedersView(),
+    if (sharedPref.getInt("empTypeID") != 8)
+      ////شؤون الموظفين
+      {
+        "service_name": "طلب إجازة",
+        "Navigation": "/VacationRequest",
+        "icon": 'assets/SVGs/ejaza.svg',
+      },
+    if (sharedPref.getInt("empTypeID") != 8)
+      {
+        "service_name": "طلب خارج دوام",
+        "Navigation": "/OutdutyRequest",
+        "icon": 'assets/SVGs/work_out.svg',
+      },
+    if (sharedPref.getInt("empTypeID") != 8)
+      {
+        "service_name": "رصيد إجازات",
+        "Navigation": "",
+        "icon": 'assets/SVGs/balance.svg'
+      },
+    if (sharedPref.getInt("empTypeID") != 8)
+      {
+        "service_name": "طلب إنتداب",
+        "Navigation": "/entedab",
+        "icon": 'assets/SVGs/entdab.svg',
+      },
+    if (sharedPref.getInt("empTypeID") != 8)
+      {
+        "service_name": "العهد", /////////
+        "Navigation": "/auhad",
+        "icon": 'assets/SVGs/3ohad.svg',
+      },
+    if (sharedPref.getInt("empTypeID") != 8)
+      //الرواتب
+      {
+        "service_name": "سجل الرواتب",
+        "Navigation": "/SalaryHistory",
+        "icon": 'assets/SVGs/sejelalrawatb.svg',
+      },
+    if (sharedPref.getInt("empTypeID") != 8)
+      {
+        "service_name": "تعريف بالراتب",
+        "Navigation": "/auth_secreen",
+        "icon": 'assets/SVGs/ta3refalratb.svg',
+      },
+    if (sharedPref.getInt("empTypeID") != 8)
+      //مهامي
+      {
+        "service_name": "إعتماداتي",
+        "Navigation": MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => EatemadatProvider(),
+            // ignore: prefer_const_constructors
+            child: InboxHedersView(),
+          ),
         ),
-      ),
-      "icon": 'assets/SVGs/e3tmadaty.svg',
-    },
+        "icon": 'assets/SVGs/e3tmadaty.svg',
+      },
     if (hasePerm == "true")
       {
         "service_name": "مواعيدي",
@@ -76,7 +83,6 @@ class listOfServices {
         ),
         "icon": 'assets/SVGs/mawa3idi.svg',
       },
-
     {
       "service_name": "عروض",
       "Navigation": "/EamanaDiscount",

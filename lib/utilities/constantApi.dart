@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 
 import '../main.dart';
 
-// String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
 
-String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
+//String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
 //
 Future<String> Bearer() async {
   return sharedPref.getString("AccessToken") ?? "";
@@ -38,6 +38,7 @@ dynamic postAction(String link, dynamic body) async {
   if (sharedPref.getString("dumyuser") == "10284928492") {
     Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   }
+
   dynamic respns = await http.post(Uri.parse(Url + link),
       headers: {
         'Content-Type': 'application/json',
