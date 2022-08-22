@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -20,20 +22,23 @@ class _OTPViewState extends State<OTPView> {
   final Telephony telephony = Telephony.instance;
 
   Future<void> SmsListener() async {
-    telephony.listenIncomingSms(
-        onNewMessage: (SmsMessage message) {
-          // Handle message
-          if (message.body != null) {
-            print(message.body.toString());
-            setState(() {
-              _otp.text = message.body.toString().substring(37, 41);
-            });
-          }
-        },
-        listenInBackground: false
+    print("platform" + Platform.isAndroid.toString());
+    if (Platform.isAndroid) {
+      telephony.listenIncomingSms(
+          onNewMessage: (SmsMessage message) {
+            // Handle message
+            if (message.body != null) {
+              print(message.body.toString());
+              setState(() {
+                _otp.text = message.body.toString().substring(37, 41);
+              });
+            }
+          },
+          listenInBackground: false
 
-        // onBackgroundMessage: backgroundMessageHandler
-        );
+          // onBackgroundMessage: backgroundMessageHandler
+          );
+    }
   }
 
   @override
