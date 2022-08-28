@@ -4,6 +4,7 @@ import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/handelCalander.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -409,31 +410,39 @@ class _MeetingViewState extends State<MeetingView> {
                                                                     EasyLoadingMaskType
                                                                         .black,
                                                               );
-                                                              var availableCalendars =
-                                                                  await calendar
-                                                                              .DeviceCalendarPlugin
-                                                                          .private()
-                                                                      .retrieveCalendars();
-                                                              var defaultCalendarId =
-                                                                  availableCalendars
-                                                                      .data?[0]
-                                                                      .id;
-                                                              await calendar
-                                                                          .DeviceCalendarPlugin
-                                                                      .private()
-                                                                  .deleteEvent(
-                                                                      defaultCalendarId,
-                                                                      sharedPref.getString(_provider
+                                                              // var availableCalendars =
+                                                              //     await calendar
+                                                              //                 .DeviceCalendarPlugin
+                                                              //             .private()
+                                                              //         .retrieveCalendars();
+                                                              // var defaultCalendarId =
+                                                              //     availableCalendars
+                                                              //         .data?[0]
+                                                              //         .id;
+                                                              // await calendar
+                                                              //             .DeviceCalendarPlugin
+                                                              //         .private()
+                                                              //     .deleteEvent(
+                                                              //         defaultCalendarId,
+                                                              //         sharedPref.getString(_provider
+                                                              //             .meetingList[
+                                                              //                 index]
+                                                              //             .Id
+                                                              //             .toString()));
+                                                              // sharedPref.remove(
+                                                              //     _provider
+                                                              //         .meetingList[
+                                                              //             index]
+                                                              //         .Id
+                                                              //         .toString());
+                                                              await handelCalander.deletFromCalander(
+                                                                  sharedPref.getString(_provider
                                                                           .meetingList[
                                                                               index]
                                                                           .Id
-                                                                          .toString()));
-                                                              sharedPref.remove(
-                                                                  _provider
-                                                                      .meetingList[
-                                                                          index]
-                                                                      .Id
-                                                                      .toString());
+                                                                          .toString()) ??
+                                                                      "dd");
+
                                                               await _provider.deletApp(
                                                                   int.parse(_provider
                                                                           .meetingList[

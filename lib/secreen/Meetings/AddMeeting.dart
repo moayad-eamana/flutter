@@ -5,6 +5,7 @@ import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/handelCalander.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
@@ -690,77 +691,21 @@ class _AddMeetingState extends State<AddMeeting> {
                                       context, "", "تم إضافة الموعد")
                                   .show()
                                   .then((value) async {
-                                try {
-                                  var permissionsGranted = await calendar
-                                          .DeviceCalendarPlugin.private()
-                                      .hasPermissions();
-                                  if (permissionsGranted.isSuccess) {
-                                    permissionsGranted = await calendar
-                                            .DeviceCalendarPlugin.private()
-                                        .requestPermissions();
-                                    if (!permissionsGranted.isSuccess) {
-                                      return;
-                                    }
-                                  }
-                                } catch (e) {
-                                  print(e);
-                                }
-
-                                tz.Location _currentLocation =
-                                    tz.getLocation("Asia/Riyadh");
-                                try {
-                                  var availableCalendars = await calendar
-                                          .DeviceCalendarPlugin.private()
-                                      .retrieveCalendars();
-                                  var defaultCalendarId =
-                                      availableCalendars.data?[0].id;
-
-                                  final calendarEvent = await calendar
-                                          .DeviceCalendarPlugin.private()
-                                      .createOrUpdateEvent(calendar.Event(
-                                    defaultCalendarId,
-
-                                    start: tz.TZDateTime.from(
-                                        DateTime(
-                                            int.parse(meetings.Date.toString()
-                                                .split("-")[0]),
-                                            int.parse(meetings.Date.toString()
-                                                .split("-")[1]),
-                                            int.parse(meetings.Date.toString()
-                                                .split("-")[2]),
-                                            int.parse(meetings.Time.toString()
-                                                .split(":")[0]),
-                                            int.parse(meetings.Time.toString()
-                                                .split(":")[1])),
-                                        _currentLocation),
-                                    description: _subject.text,
-                                    title: "موعد مع " + _appWith.text,
-                                    end: tz.TZDateTime.from(
-                                        DateTime(
-                                            int.parse(meetings.Date.toString()
-                                                .split("-")[0]),
-                                            int.parse(meetings.Date.toString()
-                                                .split("-")[1]),
-                                            int.parse(meetings.Date.toString()
-                                                .split("-")[2]),
-                                            int.parse(meetings.Time.toString()
-                                                .split(":")[0]),
-                                            int.parse(meetings.Time.toString()
-                                                    .split(":")[1]) +
-                                                30),
-                                        _currentLocation),
-                                    // eventId: "moayad",
-
-                                    location: 'أمانة الشرقية',
-                                  ));
-
-                                  sharedPref.setString(meetings.Id.toString(),
-                                      calendarEvent?.data.toString() ?? "");
-                                  print(calendarEvent);
-                                  //   print(meetings.Id + "erferferf");
-                                } catch (e) {
-                                  print(e);
-                                }
+                                dynamic calendarEvent =
+                                    await handelCalander.pusToCalander(
+                                        meetings.Date.toString(),
+                                        meetings.Date.toString(),
+                                        meetings.Time.toString(),
+                                        meetings.Time.toString(),
+                                        _subject.text,
+                                        "موعد مع " + _appWith.text);
+                                sharedPref.setString(meetings.Id.toString(),
+                                    calendarEvent?.data.toString() ?? "");
+                                print(calendarEvent);
+                                //   print(meetings.Id + "erferferf");
+                                // } catch (e) {
+                                //   print(e);
+                                // }
 
                                 Navigator.pop(context);
                               });

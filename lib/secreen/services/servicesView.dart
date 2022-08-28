@@ -78,7 +78,7 @@ class _ServicesViewState extends State<ServicesView> {
                       SizedBox(
                         height: 5,
                       ),
-                    if (sharedPref.getInt("empTypeID") != 8) hrServices(),
+                    hrServices(),
                     SizedBox(
                       height: 10,
                     ),

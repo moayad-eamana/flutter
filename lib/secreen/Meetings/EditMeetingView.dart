@@ -4,6 +4,7 @@ import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/handelCalander.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -607,97 +608,24 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                                     _pass.text,
                                     forLader);
 
-                                try {
-                                  var permissionsGranted = await calendar
-                                          .DeviceCalendarPlugin.private()
-                                      .hasPermissions();
-                                  if (permissionsGranted.isSuccess) {
-                                    permissionsGranted = await calendar
-                                            .DeviceCalendarPlugin.private()
-                                        .requestPermissions();
-                                    if (!permissionsGranted.isSuccess) {
-                                      return;
-                                    }
-                                  }
-                                } catch (e) {
-                                  print(e);
-                                }
+                                await handelCalander.deletFromCalander(
+                                    sharedPref.getString(_provider
+                                            .meetingList[widget.index ?? 0].Id
+                                            .toString()) ??
+                                        "");
+                                dynamic calendarEvent =
+                                    await handelCalander.pusToCalander(
+                                        _date.text.toString(),
+                                        _date.text.toString(),
+                                        _Time.text,
+                                        _Time.text,
+                                        _subject.text,
+                                        'أمانة الشرقية');
+                                sharedPref.setString(
+                                    _provider.meetingList[widget.index ?? 0].Id
+                                        .toString(),
+                                    calendarEvent?.data.toString() ?? "");
 
-                                tz.Location _currentLocation =
-                                    tz.getLocation("Asia/Riyadh");
-                                try {
-                                  var availableCalendars = await calendar
-                                          .DeviceCalendarPlugin.private()
-                                      .retrieveCalendars();
-                                  var defaultCalendarId =
-                                      availableCalendars.data?[0].id;
-                                  await calendar.DeviceCalendarPlugin.private()
-                                      .deleteEvent(
-                                          defaultCalendarId,
-                                          sharedPref.getString(_provider
-                                              .meetingList[widget.index ?? 0].Id
-                                              .toString()));
-                                  sharedPref.remove(_provider
-                                      .meetingList[widget.index ?? 0].Id
-                                      .toString());
-                                  final calendarEvent = await calendar
-                                          .DeviceCalendarPlugin.private()
-                                      .createOrUpdateEvent(calendar.Event(
-                                    defaultCalendarId,
-
-                                    start: tz.TZDateTime.from(
-                                        DateTime(
-                                            int.parse(_date.text
-                                                .toString()
-                                                .split("-")[0]),
-                                            int.parse(_date.text
-                                                .toString()
-                                                .split("-")[1]),
-                                            int.parse(_date.text
-                                                .toString()
-                                                .split("-")[2]),
-                                            int.parse(_Time.text
-                                                .toString()
-                                                .split(":")[0]),
-                                            int.parse(_Time.text
-                                                .toString()
-                                                .split(":")[1])),
-                                        _currentLocation),
-                                    description: _subject.text,
-                                    title: "موعد مع " + _appWith.text,
-                                    end: tz.TZDateTime.from(
-                                        DateTime(
-                                            int.parse(_date.text
-                                                .toString()
-                                                .split("-")[0]),
-                                            int.parse(_date.text
-                                                .toString()
-                                                .split("-")[1]),
-                                            int.parse(_date.text
-                                                .toString()
-                                                .split("-")[2]),
-                                            int.parse(_Time.text
-                                                .toString()
-                                                .split(":")[0]),
-                                            int.parse(_Time.text
-                                                    .toString()
-                                                    .split(":")[1]) +
-                                                30),
-                                        _currentLocation),
-                                    // eventId: "moayad",
-
-                                    location: 'أمانة الشرقية',
-                                  ));
-
-                                  sharedPref.setString(
-                                      _provider
-                                          .meetingList[widget.index ?? 0].Id
-                                          .toString(),
-                                      calendarEvent?.data.toString() ?? "");
-                                  print(calendarEvent);
-                                } catch (e) {
-                                  print(e);
-                                }
                                 EasyLoading.dismiss();
                                 Alerts.successAlert(
                                         context, "", "تم تعديل الموعد")

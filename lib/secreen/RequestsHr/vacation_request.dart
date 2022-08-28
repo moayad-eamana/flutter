@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/handelCalander.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -32,6 +33,7 @@ class _VacationRequestState extends State<VacationRequest> {
   var _ReplaceEmployeeNumber;
   var _VacationTypeID;
   var _SignatureApproval;
+  var VacationTypeName;
 
   DropdownSearchW drop1 = new DropdownSearchW();
   EmployeeProfile empinfo = new EmployeeProfile();
@@ -99,7 +101,7 @@ class _VacationRequestState extends State<VacationRequest> {
       "Notes": _note.text.toString(),
       "SignatureApprovalFlag": _SignatureApproval,
     };
-    print(data);
+
     //encode Map to JSON
 
     var body = json.encode(data);
@@ -120,7 +122,31 @@ class _VacationRequestState extends State<VacationRequest> {
                   context, "خطأ", jsonDecode(respose.body)["ErrorMessage"])
               .show();
         } else {
-          Alerts.successAlert(context, "", "تم ارسال الطلب").show();
+          Alerts.successAlert(context, "", "تم ارسال الطلب")
+              .show()
+              .then((value) async {
+            String endDate = DateTime(
+              int.parse(_date.text.split("-")[0]),
+              (int.parse(_date.text.split("-")[1])),
+              (int.parse(_date.text.split("-")[2]) +
+                  int.parse(_daysNumber.text)),
+            ).toString();
+            print(endDate);
+            await handelCalander.pusToCalander(
+                _date.text,
+                _date.text.split(" ")[0],
+                null,
+                null,
+                "إجازة",
+                "بداية" + VacationTypeName);
+            await handelCalander.pusToCalander(
+                endDate.split(" ")[0],
+                endDate.split(" ")[0],
+                null,
+                null,
+                "إجازة",
+                "نهاية " + VacationTypeName);
+          });
         }
 
         EasyLoading.dismiss();
@@ -309,7 +335,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                     onChanged: (v) {
                                       try {
                                         setState(() {
+                                          print(v);
                                           _VacationTypeID = v["VacationID"];
+                                          VacationTypeName =
+                                              v["VacationTypeName"];
                                         });
                                         print('object');
                                         print(v["VacationID"]);
