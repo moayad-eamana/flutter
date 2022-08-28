@@ -276,6 +276,10 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                                           ),
                                           Container(
                                             // color: Colors.amber,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.8,
                                             margin: EdgeInsets.only(
                                                 right: 10, top: 3),
                                             child: Text(
