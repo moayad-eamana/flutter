@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -385,8 +386,15 @@ class _OfferDetailsState extends State<OfferDetails> {
           onPressed: () async {
             path = await getAttachment(widget.offer["ArcSerial"]);
             // await getFilePath();
-            if (!await launchUrl(Uri.parse(path))) {
-              throw 'Could not launch $path';
+            if (Platform.isIOS) {
+              if (!await launchUrl(Uri.parse(path))) {
+                throw 'Could not launch $path';
+              }
+            } else {
+              if (!await launchUrl(Uri.parse(path),
+                  mode: LaunchMode.externalApplication)) {
+                throw 'Could not launch $path';
+              }
             }
             //launchUrl(path);
           },
