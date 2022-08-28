@@ -407,9 +407,14 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                             children: [
                               Expanded(
                                 child: ListTile(
-                                  title: const Text('قيادي'),
+                                  title: Text(
+                                    'قيادي',
+                                    style: TextStyle(color: baseColorText),
+                                  ),
                                   leading: Radio<String>(
                                     value: "قيادي",
+                                    fillColor: MaterialStateColor.resolveWith(
+                                        (states) => baseColor),
                                     groupValue: forLader,
                                     onChanged: (String? value) {
                                       setState(() {
@@ -421,9 +426,14 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                               ),
                               Expanded(
                                 child: ListTile(
-                                  title: const Text('إدارة'),
+                                  title: Text(
+                                    'إدارة',
+                                    style: TextStyle(color: baseColorText),
+                                  ),
                                   leading: Radio<String>(
                                     value: "إدارة",
+                                    fillColor: MaterialStateColor.resolveWith(
+                                        (states) => baseColor),
                                     groupValue: forLader,
                                     onChanged: (String? value) {
                                       setState(() {

@@ -99,6 +99,7 @@ class _SalaryHistoryState extends State<SalaryHistory>
                               turns: Tween(begin: 0.0, end: 0.5)
                                   .animate(_controller),
                               child: IconButton(
+                                color: baseColorText,
                                 icon: Icon(Icons.filter_list_rounded),
                                 onPressed: () {
                                   setState(() {
