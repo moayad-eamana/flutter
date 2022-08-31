@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
@@ -19,11 +20,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:sizer/sizer.dart';
-
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+//old qrcode package
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vcard_maintained/vcard_maintained.dart';
 
 import 'main_home.dart';
 
@@ -306,6 +308,12 @@ class _HomPanelState extends State<HomePanel>
 
   @override
   Widget build(BuildContext context) {
+    var vCard = VCard();
+    vCard.firstName = sharedPref.getString("FirstName").toString();
+    vCard.lastName = sharedPref.getString("LastName").toString();
+    vCard.cellPhone = sharedPref.getString("MobileNumber").toString();
+
+    vCard.email = sharedPref.getString("Email").toString() + "@eamana.gov.sa";
     List<dynamic> screen = [
       //page 1
 
@@ -896,123 +904,123 @@ class _HomPanelState extends State<HomePanel>
                                                       : empinfo.Title
                                                           .toString(),
                                                   style: descTx2(baseColor)),
-                                              Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 20),
-                                                child: Image.asset(
-                                                  "assets/image/raqamy-logo.png",
-                                                  // fit: BoxFit.fill,
-                                                  width: responsiveMT(300, 550),
-                                                  // height:
-                                                  //     responsiveMT(100, 120),
-                                                ),
-                                              ),
-
                                               // Container(
-                                              //   margin: EdgeInsets.all(12),
-                                              //   height: 125,
-                                              //   decoration: BoxDecoration(
-                                              //     gradient: LinearGradient(
-                                              //       begin: Alignment.topCenter,
-                                              //       end: Alignment.bottomCenter,
-                                              //       colors: [
-                                              //         baseColor,
-                                              //         secondryColor,
-                                              //       ],
-                                              //     ),
-                                              //     border: Border.all(
-                                              //       color: Colors.white,
-                                              //       width: 2.0,
-                                              //       style: BorderStyle.solid,
-                                              //     ),
-                                              //     borderRadius:
-                                              //         const BorderRadius.all(
-                                              //             Radius.circular(8.0)),
+                                              //   margin: EdgeInsets.symmetric(
+                                              //       horizontal: 20,
+                                              //       vertical: 20),
+                                              //   child: Image.asset(
+                                              //     "assets/image/raqamy-logo.png",
+                                              //     // fit: BoxFit.fill,
+                                              //     width: responsiveMT(300, 550),
+                                              //     // height:
+                                              //     //     responsiveMT(100, 120),
                                               //   ),
-                                              //   child: Row(
-                                              //     mainAxisAlignment:
-                                              //         MainAxisAlignment.end,
-                                              //     children: [
-                                              //       Container(
-                                              //         margin:
-                                              //             EdgeInsets.symmetric(
-                                              //                 horizontal: 10),
-                                              //         child: Column(
-                                              //           mainAxisAlignment:
-                                              //               MainAxisAlignment
-                                              //                   .center,
-                                              //           crossAxisAlignment:
-                                              //               CrossAxisAlignment
-                                              //                   .end,
-                                              //           children: [
-                                              //             Text(
-                                              //               "بطاقة تسجيل الدخول",
-                                              //               textAlign:
-                                              //                   TextAlign.right,
-                                              //               style: titleTx(
-                                              //                   Colors.white),
-                                              //             ),
-                                              //             Text(
-                                              //               "أمانة المنطقة الشرقية",
-                                              //               textAlign:
-                                              //                   TextAlign.right,
-                                              //               style: descTx2(
-                                              //                   Colors.white),
-                                              //             ),
-                                              //             // Text(
-                                              //             //   empinfo.JobName == null ||
-                                              //             //           empinfo.JobName ==
-                                              //             //               ""
-                                              //             //       ? empinfo.empTypeName
-                                              //             //           .toString()
-                                              //             //       : empinfo.JobName
-                                              //             //               .toString() +
-                                              //             //           " - " +
-                                              //             //           empinfo.empTypeName
-                                              //             //               .toString(),
-                                              //             //   textAlign: TextAlign.right,
-                                              //             //   style:
-                                              //             //       descTx2(Colors.white),
-                                              //             // ),
-                                              //             ///////////////////////////
-                                              //             // AutoSizeText(
-                                              //             //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                              //             //   maxLines: 1,
-                                              //             //   style: TextStyle(
-                                              //             //       color: Colors.white),
-                                              //             //   group: autoSizeGroup,
-                                              //             // ),
-                                              //             Text(
-                                              //               "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                              //               textAlign:
-                                              //                   TextAlign.right,
-                                              //               style: TextStyle(
-                                              //                   fontSize: 10,
-                                              //                   color: Colors
-                                              //                       .white),
-                                              //             )
-                                              //           ],
-                                              //         ),
-                                              //       ),
-                                              //       Container(
-                                              //         margin: EdgeInsets.only(
-                                              //             right: 18),
-                                              //         width: 90,
-                                              //         height: 90,
-                                              //         child: SfBarcodeGenerator(
-                                              //           backgroundColor:
-                                              //               Colors.white,
-                                              //           value: (empinfo
-                                              //                   .EmployeeNumber)
-                                              //               .toString()
-                                              //               .split(".")[0],
-                                              //           symbology: QRCode(),
-                                              //         ),
-                                              //       ),
-                                              //     ],
-                                              //   ),
-                                              // )
+                                              // ),
+
+                                              Container(
+                                                margin: EdgeInsets.all(12),
+                                                height: 125,
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: [
+                                                      baseColor,
+                                                      secondryColor,
+                                                    ],
+                                                  ),
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 2.0,
+                                                    style: BorderStyle.solid,
+                                                  ),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(8.0)),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 10),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Text(
+                                                            "بطاقة تسجيل الدخول",
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                            style: titleTx(
+                                                                Colors.white),
+                                                          ),
+                                                          Text(
+                                                            "أمانة المنطقة الشرقية",
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                            style: descTx2(
+                                                                Colors.white),
+                                                          ),
+                                                          // Text(
+                                                          //   empinfo.JobName == null ||
+                                                          //           empinfo.JobName ==
+                                                          //               ""
+                                                          //       ? empinfo.empTypeName
+                                                          //           .toString()
+                                                          //       : empinfo.JobName
+                                                          //               .toString() +
+                                                          //           " - " +
+                                                          //           empinfo.empTypeName
+                                                          //               .toString(),
+                                                          //   textAlign: TextAlign.right,
+                                                          //   style:
+                                                          //       descTx2(Colors.white),
+                                                          // ),
+                                                          ///////////////////////////
+                                                          // AutoSizeText(
+                                                          //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                          //   maxLines: 1,
+                                                          //   style: TextStyle(
+                                                          //       color: Colors.white),
+                                                          //   group: autoSizeGroup,
+                                                          // ),
+                                                          Text(
+                                                            "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                            style: TextStyle(
+                                                                fontSize: 10,
+                                                                color: Colors
+                                                                    .white),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          right: 18),
+                                                      width: 100,
+                                                      height: 100,
+                                                      color: Colors.white,
+                                                      padding:
+                                                          EdgeInsets.all(3),
+                                                      child: BarcodeWidget(
+                                                        barcode: Barcode
+                                                            .qrCode(), // Barcode type and settings
+                                                        data: vCard
+                                                            .getFormattedString(), // Content
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
                                             ],
                                           ),
                                         ),

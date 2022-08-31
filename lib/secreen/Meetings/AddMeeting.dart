@@ -466,9 +466,15 @@ class _AddMeetingState extends State<AddMeeting> {
                                 children: [
                                   Expanded(
                                     child: ListTile(
-                                      title: const Text('قيادي'),
+                                      title: Text(
+                                        'قيادي',
+                                        style: TextStyle(color: baseColorText),
+                                      ),
                                       leading: Radio<String>(
                                         value: "قيادي",
+                                        fillColor:
+                                            MaterialStateColor.resolveWith(
+                                                (states) => baseColor),
                                         groupValue: forLader,
                                         onChanged: (String? value) {
                                           setState(() {
@@ -480,10 +486,16 @@ class _AddMeetingState extends State<AddMeeting> {
                                   ),
                                   Expanded(
                                     child: ListTile(
-                                      title: const Text('إدارة'),
+                                      title: Text(
+                                        'إدارة',
+                                        style: TextStyle(color: baseColorText),
+                                      ),
                                       leading: Radio<String>(
                                         value: "إدارة",
                                         groupValue: forLader,
+                                        fillColor:
+                                            MaterialStateColor.resolveWith(
+                                                (states) => baseColor),
                                         onChanged: (String? value) {
                                           setState(() {
                                             forLader = value ?? "";
@@ -647,7 +659,7 @@ class _AddMeetingState extends State<AddMeeting> {
                               _url.text ?? "",
                               _meetingId.text,
                               _pass.text,
-                              forLader == "قيادي" ? "y" : "no");
+                              forLader == "قيادي" ? "y" : "n");
 
                           Alert(
                             context: context,
