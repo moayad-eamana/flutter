@@ -289,6 +289,7 @@ class _HomPanelState extends State<HomePanel>
     );
   }
 
+  var vCard = VCard();
   // void didChangeAppLifecycleState(AppLifecycleState state) {
   //   if (state == AppLifecycleState.inactive ||
   //       state == AppLifecycleState.detached) return;
@@ -308,12 +309,12 @@ class _HomPanelState extends State<HomePanel>
 
   @override
   Widget build(BuildContext context) {
-    var vCard = VCard();
     vCard.firstName = sharedPref.getString("FirstName").toString();
     vCard.lastName = sharedPref.getString("LastName").toString();
     vCard.cellPhone = sharedPref.getString("MobileNumber").toString();
     vCard.email = sharedPref.getString("Email").toString() + "@eamana.gov.sa";
-
+    // print(vCard.getFormattedString());
+    // vCard.saveToFile('./contact.vcf');
     List<dynamic> screen = [
       //page 1
 
