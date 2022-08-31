@@ -312,8 +312,8 @@ class _HomPanelState extends State<HomePanel>
     vCard.firstName = sharedPref.getString("FirstName").toString();
     vCard.lastName = sharedPref.getString("LastName").toString();
     vCard.cellPhone = sharedPref.getString("MobileNumber").toString();
-
     vCard.email = sharedPref.getString("Email").toString() + "@eamana.gov.sa";
+
     List<dynamic> screen = [
       //page 1
 
