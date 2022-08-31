@@ -42,9 +42,13 @@ class EatemadatProvider extends ChangeNotifier {
     String empNo = await EmployeeProfile.getEmployeeNumber();
     var respose = await getAction("Inbox/GetInboxHrRequests/" + empNo);
     print((jsonDecode(respose.body)["RequestList"]));
-    _hrRequestsList = (jsonDecode(respose.body)["RequestList"] as List)
-        .map(((e) => HrRequests.fromJson(e)))
-        .toList();
+    if (jsonDecode(respose.body)["RequestList"] == null) {
+      _hrRequestsList = [];
+    } else {
+      _hrRequestsList = (jsonDecode(respose.body)["RequestList"] as List)
+          .map(((e) => HrRequests.fromJson(e)))
+          .toList();
+    }
 
     isLoding = false;
     notifyListeners();

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
-import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';

@@ -12,6 +12,7 @@ import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/AddNewContatct.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/Meetings/contactsView.dart';
+import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
@@ -343,6 +344,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/CooperativeTrainingRequestsInfo': (context) =>
               CooperativeTrainingRequestsInfo(),
           '/contactsView': (context) => ContactsView(),
+          '/scannQrcode': (context) => scanQrcode(),
         },
       );
     });

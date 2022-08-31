@@ -42,7 +42,7 @@ packages:
       name: barcode
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.2.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -643,7 +643,7 @@ packages:
       name: pdf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.7.1"
+    version: "3.8.3"
   pedantic:
     dependency: transitive
     description:
@@ -707,6 +707,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  qr_code_scanner:
+    dependency: "direct main"
+    description:
+      name: qr_code_scanner
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.0"
   rflutter_alert:
     dependency: "direct main"
     description:

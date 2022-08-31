@@ -408,6 +408,16 @@ class _ServicesViewState extends State<ServicesView> {
                   Navigator.pushNamed(context, "/favs");
                 },
               )),
+          StaggeredGridTileW(
+              1,
+              hi,
+              widgetsUni.servicebutton2(
+                "QR Code",
+                "assets/SVGs/bookmarks.svg",
+                () {
+                  Navigator.pushNamed(context, "/scannQrcode");
+                },
+              )),
         ],
       ),
     );
