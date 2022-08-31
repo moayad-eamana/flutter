@@ -72,7 +72,9 @@ dependencies:
   device_calendar: ^4.2.0
   timezone: ^0.8.0
   telephony: ^0.1.4
- 
+  vcard_maintained: ^0.0.1+1
+  barcode: ^2.2.3
+  barcode_widget: ^2.0.3
  
 
 dependency_overrides: 
