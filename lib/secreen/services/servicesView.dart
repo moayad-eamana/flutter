@@ -413,7 +413,7 @@ class _ServicesViewState extends State<ServicesView> {
               hi,
               widgetsUni.servicebutton2(
                 "QR Code",
-                "assets/SVGs/bookmarks.svg",
+                "assets/SVGs/qr_code_scanner.svg",
                 () {
                   Navigator.pushNamed(context, "/scannQrcode");
                 },
