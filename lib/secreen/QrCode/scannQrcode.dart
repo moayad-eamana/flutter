@@ -152,13 +152,17 @@ class _scanQrcodeState extends State<scanQrcode> {
                               ElevatedButton(
                                 child: const Text('حفظ للجهات الاتصال'),
                                 onPressed: () async {
-                                  final newContact = Contact()
-                                    ..name.first = _fn.text
-                                    ..name.last = _ln.text
-                                    ..phones = [Phone(_phone.text)]
-                                    ..emails = [Email(_email.text)];
+                                  if (await FlutterContacts
+                                      .requestPermission()) {
+                                    final newContact = Contact()
+                                      ..name.first = _fn.text
+                                      ..name.last = _ln.text
+                                      ..phones = [Phone(_phone.text)]
+                                      ..emails = [Email(_email.text)];
 
-                                  await newContact.insert();
+                                    await newContact.insert();
+                                  }
+
                                   Alerts.successAlert(context, "", "تم الحفظ")
                                       .show()
                                       .then((value) async {
