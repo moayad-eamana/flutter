@@ -287,9 +287,19 @@ class _HomPanelState extends State<HomePanel>
         return _animationController.forward();
       },
     );
+    setvcard();
   }
 
   var vCard = VCard();
+  void setvcard() {
+    vCard.firstName = sharedPref.getString("FirstName").toString();
+    vCard.lastName = sharedPref.getString("LastName").toString();
+    vCard.cellPhone = sharedPref.getString("MobileNumber").toString();
+    vCard.email = sharedPref.getString("Email").toString() + "@eamana.gov.sa";
+    setState(() {
+      vcarddate = vCard.getFormattedString();
+    });
+  }
   // void didChangeAppLifecycleState(AppLifecycleState state) {
   //   if (state == AppLifecycleState.inactive ||
   //       state == AppLifecycleState.detached) return;
@@ -306,18 +316,13 @@ class _HomPanelState extends State<HomePanel>
   //     // service.start();
   //   }*/
   // }
-
+  String vcarddate = "";
   @override
   Widget build(BuildContext context) {
-    vCard.firstName = sharedPref.getString("FirstName").toString();
-    vCard.lastName = sharedPref.getString("LastName").toString();
-    vCard.cellPhone = sharedPref.getString("MobileNumber").toString();
-    vCard.email = sharedPref.getString("Email").toString() + "@eamana.gov.sa";
     // print(vCard.getFormattedString());
     // vCard.saveToFile('./contact.vcf');
     List<dynamic> screen = [
       //page 1
-
       Settings(() {
         setState(() {
           // key++;
@@ -1015,8 +1020,7 @@ class _HomPanelState extends State<HomePanel>
                                                       child: BarcodeWidget(
                                                         barcode: Barcode
                                                             .qrCode(), // Barcode type and settings
-                                                        data: vCard
-                                                            .getFormattedString(), // Content
+                                                        data: vcarddate,
                                                       ),
                                                     ),
                                                   ],
