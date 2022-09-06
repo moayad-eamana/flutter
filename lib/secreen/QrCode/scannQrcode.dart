@@ -20,6 +20,13 @@ class _scanQrcodeState extends State<scanQrcode> {
   Barcode? result;
   QRViewController? controller;
   int i = 0;
+  TextEditingController _fn = TextEditingController();
+  TextEditingController _ln = TextEditingController();
+  TextEditingController _phone = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _workLocation =
+      TextEditingController(text: "أمانة الشرقية");
+  TextEditingController _jobTitle = TextEditingController();
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -64,11 +71,6 @@ class _scanQrcodeState extends State<scanQrcode> {
     );
   }
 
-  TextEditingController _fn = TextEditingController();
-  TextEditingController _ln = TextEditingController();
-  TextEditingController _phone = TextEditingController();
-  TextEditingController _email = TextEditingController();
-
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
 
@@ -81,6 +83,9 @@ class _scanQrcodeState extends State<scanQrcode> {
         _ln.text = contact.name.last;
         _phone.text = contact.phones.first.number;
         _email.text = contact.emails.first.address;
+        _workLocation.text = contact.organizations.first.company;
+        _jobTitle.text = contact.organizations.first.title;
+
         // print("fn = " + contact.name.first);
         if (i == 0) {
           showModalBottomSheet<void>(
@@ -149,6 +154,28 @@ class _scanQrcodeState extends State<scanQrcode> {
                               SizedBox(
                                 height: 15,
                               ),
+                              TextField(
+                                controller: _workLocation,
+                                enabled: false,
+                                keyboardType: TextInputType.text,
+                                maxLines: 1,
+                                style: TextStyle(color: baseColorText),
+                                decoration: formlabel1("جهة العمل"),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              TextField(
+                                enabled: false,
+                                controller: _jobTitle,
+                                keyboardType: TextInputType.text,
+                                maxLines: 1,
+                                style: TextStyle(color: baseColorText),
+                                decoration: formlabel1("جهة العمل"),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
                               ElevatedButton(
                                 child: const Text('حفظ للجهات الاتصال'),
                                 onPressed: () async {
@@ -158,6 +185,11 @@ class _scanQrcodeState extends State<scanQrcode> {
                                       ..name.first = _fn.text
                                       ..name.last = _ln.text
                                       ..phones = [Phone(_phone.text)]
+                                      ..organizations = [
+                                        Organization(
+                                            company: _workLocation.text,
+                                            title: _jobTitle.text)
+                                      ]
                                       ..emails = [Email(_email.text)];
 
                                     await newContact.insert();

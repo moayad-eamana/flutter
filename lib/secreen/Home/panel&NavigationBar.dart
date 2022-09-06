@@ -296,6 +296,12 @@ class _HomPanelState extends State<HomePanel>
     vCard.lastName = sharedPref.getString("LastName").toString();
     vCard.cellPhone = sharedPref.getString("MobileNumber").toString();
     vCard.email = sharedPref.getString("Email").toString() + "@eamana.gov.sa";
+    vCard.organization = "أمانة الشرقية";
+    vCard.jobTitle = sharedPref.getString("Title") == "" ||
+            sharedPref.getString("Title") == null
+        ? sharedPref.getString("JobName")
+        : sharedPref.getString("Title");
+
     setState(() {
       vcarddate = vCard.getFormattedString();
     });
@@ -961,7 +967,7 @@ class _HomPanelState extends State<HomePanel>
                                                                 .end,
                                                         children: [
                                                           Text(
-                                                            "بطاقة تسجيل الدخول",
+                                                            "مشاركة جهة إتصالي",
                                                             textAlign:
                                                                 TextAlign.right,
                                                             style: titleTx(
@@ -997,15 +1003,15 @@ class _HomPanelState extends State<HomePanel>
                                                           //       color: Colors.white),
                                                           //   group: autoSizeGroup,
                                                           // ),
-                                                          Text(
-                                                            "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
-                                                            textAlign:
-                                                                TextAlign.right,
-                                                            style: TextStyle(
-                                                                fontSize: 10,
-                                                                color: Colors
-                                                                    .white),
-                                                          )
+                                                          // Text(
+                                                          //   "تاريخ الدخول: الأحد 14/9/2022 - 14:00",
+                                                          //   textAlign:
+                                                          //       TextAlign.right,
+                                                          //   style: TextStyle(
+                                                          //       fontSize: 10,
+                                                          //       color: Colors
+                                                          //           .white),
+                                                          // )
                                                         ],
                                                       ),
                                                     ),

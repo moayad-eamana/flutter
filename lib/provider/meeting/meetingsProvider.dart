@@ -8,8 +8,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
 class MettingsProvider extends ChangeNotifier {
-  //String Meetingsurl = 'https://crm.eamana.gov.sa/agenda/api/api-mobile/';
-  String Meetingsurl = 'https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/';
+  String Meetingsurl = 'https://crm.eamana.gov.sa/agenda/api/api-mobile/';
+  //String Meetingsurl = 'https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/';
 
   late List<Meetings> _meetings = [];
   Future<void> fetchMeetings() async {

@@ -38,6 +38,8 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Access most functions for calendar viewing and editing.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs camera access to scan QR codes</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Access contacts for event attendee editing.</string>
 	<key>NSFaceIDUsageDescription</key>
@@ -65,6 +67,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 </dict>
 </plist>
