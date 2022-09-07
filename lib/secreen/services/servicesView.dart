@@ -78,10 +78,11 @@ class _ServicesViewState extends State<ServicesView> {
                       SizedBox(
                         height: 5,
                       ),
-                    hrServices(),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    if (sharedPref.getInt("empTypeID") != 8) hrServices(),
+                    if (sharedPref.getInt("empTypeID") != 8)
+                      SizedBox(
+                        height: 10,
+                      ),
                     if (sharedPref.getInt("empTypeID") != 8)
                       Text(
                         "الرواتب",
@@ -94,24 +95,25 @@ class _ServicesViewState extends State<ServicesView> {
                       SizedBox(
                         height: 10,
                       ),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      Text(
-                        "مهامي",
-                        style: subtitleTx(baseColor),
-                      ),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      widgetsUni.divider(),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      SizedBox(
-                        height: 10,
-                      ),
-                    if (sharedPref.getInt("empTypeID") != 8) mahamme(),
+
+                    Text(
+                      "مهامي",
+                      style: subtitleTx(baseColor),
+                    ),
+
+                    widgetsUni.divider(),
+
+                    SizedBox(
+                      height: 10,
+                    ),
+                    mahamme(),
 
                     SizedBox(
                       height: 10,
                     ),
 
                     Text("خدمات أخرى", style: subtitleTx(baseColor)),
+
                     widgetsUni.divider(),
                     SizedBox(
                       height: 5,

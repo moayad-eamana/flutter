@@ -167,6 +167,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     forceUpdate = remoteConfig.getBool("forceUpdate");
     setState(() {});
     print(localVersion.toString() + " _ios");
+    print(packageInfo.buildNumber);
     print(forceUpdate);
   }
 

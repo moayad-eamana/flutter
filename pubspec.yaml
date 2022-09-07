@@ -71,10 +71,10 @@ dependencies:
   persian_number_utility: ^1.1.2
   device_calendar: ^4.2.0
   timezone: ^0.8.0
-  telephony: ^0.1.4
   qr_code_scanner: ^0.7.0
   vcard_maintained: ^0.0.1+1
   barcode_widget: ^2.0.3
+  pass_flutter: ^2.0.1
   
   
 

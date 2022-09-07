@@ -10,7 +10,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:telephony/telephony.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
@@ -36,21 +35,21 @@ class _LoginViewState extends State<LoginView> {
       rememperMe = false;
       setState(() {});
     }
-    smspermission();
+    //smspermission();
     super.initState();
   }
 
-  void smspermission() async {
-    try {
-      final Telephony telephony = Telephony.instance;
-      bool? permissionsGranted = await telephony.requestPhoneAndSmsPermissions;
-      print(permissionsGranted);
-    } on PlatformException catch (err) {
-      // Handle err
-    } catch (err) {
-      // other types of Exceptions
-    }
-  }
+  // void smspermission() async {
+  //   try {
+  //     final Telephony telephony = Telephony.instance;
+  //     bool? permissionsGranted = await telephony.requestPhoneAndSmsPermissions;
+  //     print(permissionsGranted);
+  //   } on PlatformException catch (err) {
+  //     // Handle err
+  //   } catch (err) {
+  //     // other types of Exceptions
+  //   }
+  // }
 
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
@@ -69,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
-    return packageInfo.version != localVersion && forceUpdate == true
+    return packageInfo.buildNumber != localVersion && forceUpdate == true
         ? Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(
@@ -108,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                                 "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
                           } else {
                             launch(
-                                "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
+                                "https://testflight.apple.com/join/ds6xxuqO");
                           }
 
                           packageInfo = await PackageInfo.fromPlatform();

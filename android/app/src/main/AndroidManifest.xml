@@ -2,31 +2,31 @@
     package="com.eamana.eamanaapp.gov.sa">
      <uses-permission android:name="android.permission.READ_CONTACTS"/>
      <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+  
 
 	 
-    <queries>
-  <!-- If your app opens https URLs -->
+    <!-- <queries>
+
   <intent>
     <action android:name="android.intent.action.VIEW" />
     <data android:scheme="https" />
   </intent>
-  <!-- If your app makes calls -->
+
   <intent>
     <action android:name="android.intent.action.DIAL" />
     <data android:scheme="tel" />
   </intent>
-  <!-- If your sends SMS messages -->
+
   <intent>
     <action android:name="android.intent.action.SENDTO" />
     <data android:scheme="smsto" />
   </intent>
-  <!-- If your app sends emails -->
+
   <intent>
     <action android:name="android.intent.action.SEND" />
     <data android:mimeType="*/*" />
   </intent>
-  </queries>
+  </queries> -->
 
   <queries>
   <intent>
@@ -71,11 +71,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-            		<receiver android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
+            		<!-- <receiver android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
 		    android:permission="android.permission.BROADCAST_SMS" android:exported="true">
 		    <intent-filter>
 			<action android:name="android.provider.Telephony.SMS_RECEIVED"/>
 		    </intent-filter>
-		</receiver>
+		</receiver> -->
     </application>
 </manifest>

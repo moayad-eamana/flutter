@@ -120,8 +120,7 @@ listenToFirbaseNotification() {
         launch(
             "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
       } else {
-        launch(
-            "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
+        launch("https://testflight.apple.com/join/ds6xxuqO");
       }
     }
     print("onMessageOpenedApp: $message");
@@ -147,8 +146,7 @@ listenToFirbaseNotification() {
           launch(
               "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
         } else {
-          launch(
-              "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
+          launch("https://testflight.apple.com/join/ds6xxuqO");
         }
       }
     }

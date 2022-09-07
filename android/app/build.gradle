@@ -53,9 +53,9 @@ android {
         applicationId "com.eamana.eamanaapp.gov.sa"
         minSdkVersion 20
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 20
+        versionCode 24
         versionName flutterVersionName
-        multiDexEnabled true
+        
     }
 
     // buildTypes {

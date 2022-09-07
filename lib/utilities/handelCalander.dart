@@ -55,7 +55,7 @@ class handelCalander {
             _currentLocation),
         // eventId: "moayad",
         allDay: StartTime == null ? true : false,
-        location: 'أمانة الشرقية',
+        location: 'أمانة المنطقة الشرقية',
       ));
       return calendarEvent;
     } catch (e) {}

@@ -296,7 +296,7 @@ class _HomPanelState extends State<HomePanel>
     vCard.lastName = sharedPref.getString("LastName").toString();
     vCard.cellPhone = sharedPref.getString("MobileNumber").toString();
     vCard.email = sharedPref.getString("Email").toString() + "@eamana.gov.sa";
-    vCard.organization = "أمانة الشرقية";
+    vCard.organization = "أمانة المنطقة الشرقية";
     vCard.jobTitle = sharedPref.getString("Title") == "" ||
             sharedPref.getString("Title") == null
         ? sharedPref.getString("JobName")
@@ -403,7 +403,7 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: packageInfo.version != localVersion && forceUpdate == true
+          body: packageInfo.buildNumber != localVersion && forceUpdate == true
               ? Directionality(
                   textDirection: TextDirection.rtl,
                   child: AlertDialog(
@@ -443,7 +443,7 @@ class _HomPanelState extends State<HomePanel>
                                       "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
                                 } else {
                                   launch(
-                                      "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
+                                      "https://testflight.apple.com/join/ds6xxuqO");
                                 }
 
                                 //   Navigator.pop(context);
@@ -911,8 +911,7 @@ class _HomPanelState extends State<HomePanel>
                                                   empinfo.Title == null ||
                                                           empinfo.Title == "" ||
                                                           empinfo.Title == "-"
-                                                      ? empinfo.JobName
-                                                          .toString()
+                                                      ? "_".toString()
                                                       : empinfo.Title
                                                           .toString(),
                                                   style: descTx2(baseColor)),

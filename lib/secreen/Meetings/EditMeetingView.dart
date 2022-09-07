@@ -630,7 +630,7 @@ class _EditMeetingViewState extends State<EditMeetingView> {
                                         _Time.text,
                                         _Time.text,
                                         _subject.text,
-                                        'أمانة الشرقية');
+                                        'أمانة المنطقة الشرقية');
                                 sharedPref.setString(
                                     _provider.meetingList[widget.index ?? 0].Id
                                         .toString(),

@@ -25,7 +25,7 @@ class _scanQrcodeState extends State<scanQrcode> {
   TextEditingController _phone = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _workLocation =
-      TextEditingController(text: "أمانة الشرقية");
+      TextEditingController(text: "أمانة المنطقة الشرقية");
   TextEditingController _jobTitle = TextEditingController();
 
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -65,6 +65,14 @@ class _scanQrcodeState extends State<scanQrcode> {
                 ),
               ),
             ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("رجوع")),
+          SizedBox(
+            height: 10,
           )
         ],
       ),
