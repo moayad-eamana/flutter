@@ -68,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
-    return packageInfo.buildNumber != localVersion && forceUpdate == true
+    return packageInfo.version != localVersion && forceUpdate == true
         ? Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(
@@ -106,8 +106,10 @@ class _LoginViewState extends State<LoginView> {
                             launch(
                                 "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
                           } else {
-                            launch(
-                                "https://testflight.apple.com/join/ds6xxuqO");
+                            launch(sharedPref.getDouble("EmployeeNumber") ==
+                                    4341012.0
+                                ? "https://testflight.apple.com/join/ds6xxuqO"
+                                : "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
                           }
 
                           packageInfo = await PackageInfo.fromPlatform();

@@ -9,7 +9,6 @@ import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
-import 'package:eamanaapp/secreen/Meetings/AddNewContatct.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/Meetings/contactsView.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
@@ -143,7 +142,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       print(DateTime.now());
       if (time.compareTo(DateTime.now()) == 0 ||
           time.compareTo(DateTime.now()) < 0) {
-        // unsubscribeFromNotofication();
         widget.username = null;
       }
     }
@@ -161,10 +159,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
     await remoteConfig.fetchAndActivate();
     localVersion = Platform.isAndroid
-        ? remoteConfig.getString("ServerVersionAndroid")
-        : remoteConfig.getString("ServerVersionIOS");
-
-    forceUpdate = remoteConfig.getBool("forceUpdate");
+        ? remoteConfig.getString("ServerVersionAndroidAll")
+        : remoteConfig.getString("ServerVersionIOSAll");
+    forceUpdate = remoteConfig.getBool("forceUpdateAll");
     setState(() {});
     print(localVersion.toString() + " _ios");
     print(packageInfo.buildNumber);
@@ -174,11 +171,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   getToken() async {
     String? token = await messaging.getToken();
     print(token);
-  }
-
-  unsubscribeFromNotofication() async {
-    await FirebaseMessaging.instance.deleteToken();
-    await FirebaseMessaging.instance.unsubscribeFromTopic('raqameUpdate');
   }
 
   final LocalAuthentication auth = LocalAuthentication();
@@ -241,10 +233,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
       await remoteConfig.fetchAndActivate();
       localVersion = Platform.isAndroid
-          ? remoteConfig.getString("ServerVersionAndroid")
-          : remoteConfig.getString("ServerVersionIOS");
+          ? remoteConfig.getString("ServerVersionAndroidAll")
+          : remoteConfig.getString("ServerVersionIOSAll");
 
-      forceUpdate = remoteConfig.getBool("forceUpdate");
+      forceUpdate = remoteConfig.getBool("forceUpdateAll");
       setState(() {});
       print(localVersion.toString() + " _ios");
       print(forceUpdate);

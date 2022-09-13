@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -14,9 +15,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:pass_flutter/pass_flutter.dart';
 
 class EmpProfile extends StatefulWidget {
   bool? showBack;
@@ -233,35 +232,19 @@ class _EmpProfileState extends State<EmpProfile> {
                                   getPdfasync(_provider);
                                 },
                               ),
-                              widgetsUni.actionbutton(
-                                "إضافة إلي لمحفضة",
-                                Icons.wallet_giftcard,
-                                () async {
-                                  // var respose = await http.post(
-                                  //   Uri.parse(
-                                  //       "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass.php"),
-                                  // );
-
-                                  // PassFile passFile = await Pass().saveFromUrl(
-                                  //   url:
-                                  //       'https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass.php',
-                                  // );
-                                  //   passFile.save();
-                                  try {
-                                    await launchUrl(
-                                      await Uri.parse(
-                                          "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass.php?fname=${_provider[0].FirstName}&lname=${_provider[0].LastName}&fullname=${_provider[0].EmployeeName}&id=${_provider[0].EmployeeNumber.toString().split(".")[0]}&mobile=${_provider[0].MobileNumber}&email=${_provider[0].Email}@eamana.gov.sa&jobtitle=${_provider[0].Title}"),
-                                    );
-                                  } catch (e) {
-                                    return;
-                                  }
-
-                                  // launch(
-                                  //   respose.body,
-                                  // );
-                                  // print(respose);
-                                },
-                              ),
+                              if (Platform.isIOS)
+                                widgetsUni.actionbutton(
+                                  "إضافة إلي لمحفضة",
+                                  Icons.wallet_giftcard,
+                                  () async {
+                                    try {
+                                      await launchUrl(await Uri.parse(
+                                          "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
+                                    } catch (e) {
+                                      return;
+                                    }
+                                  },
+                                ),
                             ],
                           ),
                         ],

@@ -410,16 +410,17 @@ class _ServicesViewState extends State<ServicesView> {
                   Navigator.pushNamed(context, "/favs");
                 },
               )),
-          StaggeredGridTileW(
-              1,
-              hi,
-              widgetsUni.servicebutton2(
-                "QR Code",
-                "assets/SVGs/qr_code_scanner.svg",
-                () {
-                  Navigator.pushNamed(context, "/scannQrcode");
-                },
-              )),
+          if (sharedPref.getString("dumyuser") != "10284928492")
+            StaggeredGridTileW(
+                1,
+                hi,
+                widgetsUni.servicebutton2(
+                  "QR Code",
+                  "assets/SVGs/qr_code_scanner.svg",
+                  () {
+                    Navigator.pushNamed(context, "/scannQrcode");
+                  },
+                )),
         ],
       ),
     );

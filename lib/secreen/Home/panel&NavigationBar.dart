@@ -22,7 +22,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 //old qrcode package
-import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard_maintained/vcard_maintained.dart';
@@ -403,7 +402,7 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: packageInfo.buildNumber != localVersion && forceUpdate == true
+          body: packageInfo.version != localVersion && forceUpdate == true
               ? Directionality(
                   textDirection: TextDirection.rtl,
                   child: AlertDialog(
@@ -442,8 +441,11 @@ class _HomPanelState extends State<HomePanel>
                                   launch(
                                       "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
                                 } else {
-                                  launch(
-                                      "https://testflight.apple.com/join/ds6xxuqO");
+                                  launch(sharedPref
+                                              .getDouble("EmployeeNumber") ==
+                                          4341012.0
+                                      ? "https://testflight.apple.com/join/ds6xxuqO"
+                                      : "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
                                 }
 
                                 //   Navigator.pop(context);
