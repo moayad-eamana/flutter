@@ -35,7 +35,10 @@ class _add_violationState extends State<add_violation>
           controller: controller,
           children: <Widget>[
             individualUserInfo(IndividualUserInfo, nextPage),
-            bunud()
+            bunud(
+              next: nextPage,
+              back: backPag,
+            )
           ],
         ),
       ),
