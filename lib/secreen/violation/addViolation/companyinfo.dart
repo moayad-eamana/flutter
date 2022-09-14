@@ -8,10 +8,16 @@ class companyinfo extends StatefulWidget {
 }
 
 class _companyinfoState extends State<companyinfo> {
+  TextEditingController edit = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [TextField()],
+      key: UniqueKey(),
+      children: [
+        TextField(
+          controller: edit,
+        )
+      ],
     );
   }
 }
