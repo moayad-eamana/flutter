@@ -2,6 +2,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:sizer/sizer.dart';
 
 class bunud extends StatefulWidget {
   const bunud({Key? key}) : super(key: key);
@@ -10,7 +12,7 @@ class bunud extends StatefulWidget {
   State<bunud> createState() => _bunudState();
 }
 
-class _bunudState extends State<bunud> {
+class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
   final _formKey = GlobalKey<FormState>();
 
   List violationtype = [];
@@ -20,6 +22,10 @@ class _bunudState extends State<bunud> {
   List bunudtype = [];
   var _bunudTypeID;
   var _bunudTypeName;
+
+  List boundvaluetype = [];
+  var _boundvalueTypeID;
+  var _boundvalueTypeName;
 
   TextEditingController _unit = TextEditingController();
   TextEditingController _boundloop = TextEditingController();
@@ -56,6 +62,8 @@ class _bunudState extends State<bunud> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return SingleChildScrollView(
       child: Form(
         key: _formKey,
@@ -289,6 +297,7 @@ class _bunudState extends State<bunud> {
                     height: 10,
                   ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Flexible(
                         child: TextFormField(
@@ -296,6 +305,12 @@ class _bunudState extends State<bunud> {
                           keyboardType: TextInputType.text,
                           style: TextStyle(color: baseColorText),
                           decoration: formlabel1("الوحدة"),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'خطأ';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       SizedBox(
@@ -304,9 +319,19 @@ class _bunudState extends State<bunud> {
                       Flexible(
                         child: TextFormField(
                           controller: _boundloop,
-                          keyboardType: TextInputType.text,
                           style: TextStyle(color: baseColorText),
-                          decoration: formlabel1("العدد \ التكرار"),
+                          decoration: formlabel1("العدد /\ التكرار"),
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          keyboardType: TextInputType.number,
+                          maxLines: 1,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'يرجى إدخال العدد';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                     ],
@@ -320,6 +345,123 @@ class _bunudState extends State<bunud> {
                     keyboardType: TextInputType.text,
                     style: TextStyle(color: baseColorText),
                     decoration: formlabel1("القيمة المطبقة"),
+                    enabled: true,
+                    // inputFormatters: <TextInputFormatter>[
+                    //                 FilteringTextInputFormatter.digitsOnly
+                    //               ],
+                    //               keyboardType: TextInputType.number,
+                    maxLines: 1,
+
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'يرجى إدخال القيمة المطبقة';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  DropdownSearch<dynamic>(
+                    items: boundvaluetype,
+                    popupBackgroundColor: BackGWhiteColor,
+                    popupItemBuilder: (context, rr, isSelected) => (Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Column(
+                        children: [
+                          Text(rr["_boundvalueTypeName"].toString(),
+                              style: subtitleTx(baseColorText))
+                        ],
+                      ),
+                    )),
+                    dropdownBuilder: (context, selectedItem) => Container(
+                      decoration: null,
+                      child: selectedItem == null
+                          ? null
+                          : Text(
+                              selectedItem == null
+                                  ? ""
+                                  : selectedItem["_boundvalueTypeName"] ?? "",
+                              style: TextStyle(
+                                  fontSize: 16, color: baseColorText)),
+                    ),
+                    dropdownBuilderSupportsNullItem: true,
+                    mode: Mode.BOTTOM_SHEET,
+                    showClearButton: _violationTypeID == null ? false : true,
+                    maxHeight: 400,
+                    showAsSuffixIcons: true,
+                    dropdownSearchDecoration: formlabel1("القيمة المطبقة"),
+                    validator: (value) {
+                      if (value == "" || value == null) {
+                        return "يرجى إختيار القيمة المطبقة";
+                      } else {
+                        return null;
+                      }
+                    },
+                    showSearchBox: true,
+                    onChanged: (v) {
+                      try {
+                        setState(() {
+                          print(v);
+                          _boundvalueTypeID = v["_boundvalueTypeID"];
+                          _boundvalueTypeName = v["_boundvalueTypeName"];
+                        });
+                        print('object');
+                        print(v["_boundvalueTypeID"]);
+                        // value = v;
+                        //value = v ?? "";
+                      } catch (e) {}
+                    },
+                    popupTitle: Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: secondryColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "القيمة المطبقة",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    popupShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                    ),
+                    emptyBuilder: (context, searchEntry) => Center(
+                      child: Text(
+                        "لا يوجد بيانات",
+                        style: TextStyle(
+                          color: baseColorText,
+                        ),
+                      ),
+                    ),
+                    searchFieldProps: TextFieldProps(
+                      textAlign: TextAlign.right,
+                      decoration: formlabel1(""),
+                      style: TextStyle(
+                        color: baseColorText,
+                      ),
+                      textDirection: TextDirection.rtl,
+                    ),
+                    clearButton: Icon(
+                      Icons.clear,
+                      color: baseColor,
+                    ),
+                    dropDownButton: Icon(
+                      Icons.arrow_drop_down,
+                      color: baseColor,
+                    ),
                   ),
                   SizedBox(
                     height: 10,
@@ -329,143 +471,190 @@ class _bunudState extends State<bunud> {
                       widgetsUni.actionbutton(
                         'إضافة البند',
                         Icons.add,
-                        () {},
+                        () {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              bunudTable.add({
+                                '_bunudTypeID': 1,
+                                '_bunudTypeName':
+                                    '1-دم تسجيل المنشأة-عدم تسجيل المنشأة',
+                                '_unit': _unit.text,
+                                '_boundvalue': _boundvalue.text,
+                                '_boundloop': _boundloop.text,
+                                'total': int.parse(_boundvalue.text) *
+                                    int.parse(_boundloop.text)
+                              });
+                              generaltotal += 5000;
+                            });
+                          }
+                        },
                       ),
                     ],
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  ListView.builder(
-                    primary: false,
-                    itemCount: bunudTable.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      generaltotal = generaltotal + bunudTable[index]['total'];
+                  bunudTable.length > 0
+                      ? ListView.builder(
+                          primary: false,
+                          itemCount: bunudTable.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            // generaltotal = generaltotal + bunudTable[index]['total'];
 
-                      return Container(
-                        height: 70,
-                        child: Card(
-                          child: ListTile(
-                            minLeadingWidth: 10,
-                            leading: Text(
-                                bunudTable[index]['_boundloop'].toString() +
-                                    "×",
-                                style: subtitleTx(baseColor)),
-                            title: Text(
-                              bunudTable[index]['_bunudTypeName'],
-                              style: descTx1(baseColorText),
-                            ),
-                            subtitle: Text(
-                              bunudTable[index]['_unit'],
-                              style: descTx2(baseColorText),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  bunudTable[index]['total'].toString(),
-                                  style: descTx1(baseColorText),
+                            return Container(
+                              height: 70,
+                              child: Card(
+                                child: ListTile(
+                                  minLeadingWidth: 10,
+                                  leading: Text(
+                                      bunudTable[index]['_boundloop']
+                                              .toString() +
+                                          "×",
+                                      style: subtitleTx(baseColor)),
+                                  title: Text(
+                                    bunudTable[index]['_bunudTypeName']
+                                                .length >=
+                                            22
+                                        ? bunudTable[index]['_bunudTypeName']
+                                                .toString()
+                                                .substring(0, 25) +
+                                            " ..."
+                                        : bunudTable[index]['_bunudTypeName'],
+                                    style: descTx1(baseColorText),
+                                  ),
+                                  subtitle: Text(
+                                    bunudTable[index]['_unit'],
+                                    style: descTx2(baseColorText),
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        bunudTable[index]['total'].toString(),
+                                        style: descTx1(baseColorText),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      IconButton(
+                                        padding: EdgeInsets.zero,
+                                        constraints: BoxConstraints(),
+                                        icon: const Icon(Icons.delete),
+                                        color: redColor,
+                                        onPressed: () {
+                                          setState(() {
+                                            bunudTable.removeAt(index);
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  isThreeLine: true,
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(Icons.delete),
-                              ],
+                              ),
+                            );
+                            //  Column(
+                            //   children: [
+                            //     Container(
+                            //       decoration: BoxDecoration(
+                            //         color: BackGWhiteColor,
+                            //         border: Border.all(
+                            //           color: bordercolor,
+                            //         ),
+                            //         //color: baseColor,
+                            //         borderRadius: BorderRadius.all(
+                            //           new Radius.circular(4),
+                            //         ),
+                            //       ),
+                            //       child: Column(
+                            //         crossAxisAlignment: CrossAxisAlignment.center,
+                            //         children: [
+                            //           Row(
+                            //             mainAxisAlignment:
+                            //                 MainAxisAlignment.spaceEvenly,
+                            //             children: [
+                            //               Column(
+                            //                 children: [
+                            //                   Text(
+                            //                     "اسم  البند",
+                            //                     style: subtitleTx(baseColor),
+                            //                   ),
+                            //                   Text(
+                            //                     bunudTable[index]['_bunudTypeName'],
+                            //                     style: descTx2(baseColorText),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ],
+                            //           ),
+                            //           widgetsUni.divider(),
+                            //           Row(
+                            //             mainAxisAlignment:
+                            //                 MainAxisAlignment.spaceEvenly,
+                            //             children: [
+                            //               Column(
+                            //                 children: [
+                            //                   Text(
+                            //                     "القيمة المطبقة",
+                            //                     style: subtitleTx(baseColor),
+                            //                   ),
+                            //                   Text(
+                            //                     bunudTable[index]['_boundvalue']
+                            //                         .toString(),
+                            //                     style: descTx2(baseColorText),
+                            //                   )
+                            //                 ],
+                            //               ),
+                            //               Column(
+                            //                 children: [
+                            //                   Text(
+                            //                     "العدد",
+                            //                     style: subtitleTx(baseColor),
+                            //                   ),
+                            //                   Text(
+                            //                     bunudTable[index]['_boundloop']
+                            //                         .toString(),
+                            //                     style: descTx2(baseColorText),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //               Column(
+                            //                 children: [
+                            //                   Text(
+                            //                     "المجموع",
+                            //                     style: subtitleTx(baseColor),
+                            //                   ),
+                            //                   Text(
+                            //                     bunudTable[index]['total'].toString(),
+                            //                     style: descTx2(baseColorText),
+                            //                   )
+                            //                 ],
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     SizedBox(
+                            //       height: 10,
+                            //     )
+                            //   ],
+                            // );
+                          },
+                        )
+                      : Container(
+                          height: 70,
+                          width: 100.w,
+                          child: Card(
+                            child: Center(
+                              child: Text(
+                                "لا توجد بنود",
+                                style: subtitleTx(baseColorText),
+                              ),
                             ),
-                            isThreeLine: true,
                           ),
                         ),
-                      );
-                      //  Column(
-                      //   children: [
-                      //     Container(
-                      //       decoration: BoxDecoration(
-                      //         color: BackGWhiteColor,
-                      //         border: Border.all(
-                      //           color: bordercolor,
-                      //         ),
-                      //         //color: baseColor,
-                      //         borderRadius: BorderRadius.all(
-                      //           new Radius.circular(4),
-                      //         ),
-                      //       ),
-                      //       child: Column(
-                      //         crossAxisAlignment: CrossAxisAlignment.center,
-                      //         children: [
-                      //           Row(
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceEvenly,
-                      //             children: [
-                      //               Column(
-                      //                 children: [
-                      //                   Text(
-                      //                     "اسم  البند",
-                      //                     style: subtitleTx(baseColor),
-                      //                   ),
-                      //                   Text(
-                      //                     bunudTable[index]['_bunudTypeName'],
-                      //                     style: descTx2(baseColorText),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ],
-                      //           ),
-                      //           widgetsUni.divider(),
-                      //           Row(
-                      //             mainAxisAlignment:
-                      //                 MainAxisAlignment.spaceEvenly,
-                      //             children: [
-                      //               Column(
-                      //                 children: [
-                      //                   Text(
-                      //                     "القيمة المطبقة",
-                      //                     style: subtitleTx(baseColor),
-                      //                   ),
-                      //                   Text(
-                      //                     bunudTable[index]['_boundvalue']
-                      //                         .toString(),
-                      //                     style: descTx2(baseColorText),
-                      //                   )
-                      //                 ],
-                      //               ),
-                      //               Column(
-                      //                 children: [
-                      //                   Text(
-                      //                     "العدد",
-                      //                     style: subtitleTx(baseColor),
-                      //                   ),
-                      //                   Text(
-                      //                     bunudTable[index]['_boundloop']
-                      //                         .toString(),
-                      //                     style: descTx2(baseColorText),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //               Column(
-                      //                 children: [
-                      //                   Text(
-                      //                     "المجموع",
-                      //                     style: subtitleTx(baseColor),
-                      //                   ),
-                      //                   Text(
-                      //                     bunudTable[index]['total'].toString(),
-                      //                     style: descTx2(baseColorText),
-                      //                   )
-                      //                 ],
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //     SizedBox(
-                      //       height: 10,
-                      //     )
-                      //   ],
-                      // );
-                    },
-                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -490,4 +679,8 @@ class _bunudState extends State<bunud> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
