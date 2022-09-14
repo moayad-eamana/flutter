@@ -32,6 +32,7 @@ import 'package:eamanaapp/secreen/messages/morning.dart';
 import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/add_violation_home.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -338,6 +339,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               CooperativeTrainingRequestsInfo(),
           '/contactsView': (context) => ContactsView(),
           '/scannQrcode': (context) => scanQrcode(),
+          '/add_violation_home': (context) => add_violation(),
         },
       );
     });

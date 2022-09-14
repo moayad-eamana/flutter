@@ -537,7 +537,9 @@ class _ServicesViewState extends State<ServicesView> {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/add_violation_home");
+                  },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "إضافة مخالفة"))),
         ],
