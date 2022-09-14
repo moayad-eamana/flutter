@@ -112,6 +112,22 @@ class _ServicesViewState extends State<ServicesView> {
                       height: 10,
                     ),
 
+                    Text(
+                      "نظام المخالفات",
+                      style: subtitleTx(baseColor),
+                    ),
+
+                    widgetsUni.divider(),
+
+                    SizedBox(
+                      height: 10,
+                    ),
+                    violation(),
+
+                    SizedBox(
+                      height: 10,
+                    ),
+
                     Text("خدمات أخرى", style: subtitleTx(baseColor)),
 
                     widgetsUni.divider(),
@@ -502,6 +518,28 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/ta3refalratb.svg', "تعريف بالراتب"))),
+        ],
+      ),
+    );
+  }
+
+  violation() {
+    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
+    return Container(
+      //margin: EdgeInsets.symmetric(horizontal: 20),
+      child: StaggeredGrid.count(
+        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
+        mainAxisSpacing: 6,
+        crossAxisSpacing: 10,
+        children: [
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {},
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/violation.svg', "إضافة مخالفة"))),
         ],
       ),
     );
