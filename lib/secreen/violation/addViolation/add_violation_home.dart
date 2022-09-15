@@ -1,12 +1,15 @@
 import 'package:eamanaapp/model/violation/violation.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/attachment.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/bunud.dart';
-import 'package:eamanaapp/secreen/violation/addViolation/companyinfo.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/individualUserInfo.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 
+import 'company/companyinfo.dart';
+
 class add_violation extends StatefulWidget {
+  int page;
+  add_violation(this.page);
   @override
   State<add_violation> createState() => _add_violationState();
 }
@@ -35,7 +38,9 @@ class _add_violationState extends State<add_violation>
         body: PageView(
           controller: controller,
           children: <Widget>[
-            individualUserInfo(IndividualUserInfo, nextPage),
+            if (widget.page == 1)
+              individualUserInfo(IndividualUserInfo, nextPage),
+            if (widget.page == 2) companyinfo(nextPage),
             bunud(
               next: nextPage,
               back: backPag,
