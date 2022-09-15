@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'company/companyinfo.dart';
 
 class add_violation extends StatefulWidget {
-  int page;
+  int? page;
   add_violation(this.page);
   @override
   State<add_violation> createState() => _add_violationState();
