@@ -684,6 +684,9 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       widgetsUni.actionbutton("تالي", Icons.arrow_forward, () {
