@@ -1,4 +1,5 @@
 import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/attachment.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/bunud.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/companyinfo.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/individualUserInfo.dart';
@@ -38,7 +39,10 @@ class _add_violationState extends State<add_violation>
             bunud(
               next: nextPage,
               back: backPag,
-            )
+            ),
+            attachment(
+              back: backPag,
+            ),
           ],
         ),
       ),
