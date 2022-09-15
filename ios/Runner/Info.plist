@@ -36,10 +36,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+		<key>NSCameraUsageDescription</key>
+	<string>app needs to access your camera roll in order to save images on our server</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>app needs to access your microphone roll so that you can upload record. Your record will not be shared without your permission</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>app needs to access your photo Library roll in order to save images on our server</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Access most functions for calendar viewing and editing.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>This app needs camera access to scan QR codes</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Access contacts for event attendee editing.</string>
 	<key>NSFaceIDUsageDescription</key>

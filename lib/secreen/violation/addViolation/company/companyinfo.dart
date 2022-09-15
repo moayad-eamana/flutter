@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/company/hafreat.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/violationAdds.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,10 @@ class _companyinfoState extends State<companyinfo>
     {
       'violationTypeID': 1,
       'violationTypeName': 'مخالفة رخص اللوحات الاعلانية',
+    },
+    {
+      'violationTypeID': 2,
+      'violationTypeName': "مخالفات الحفريات",
     },
   ];
   @override
@@ -44,7 +49,8 @@ class _companyinfoState extends State<companyinfo>
             SizedBox(
               height: 10,
             ),
-            if (violationTypeID == 1) violationAdds(widget.nextPage)
+            if (violationTypeID == 1) violationAdds(widget.nextPage),
+            if (violationTypeID == 2) hafreat(widget.nextPage)
           ],
         ),
       ),

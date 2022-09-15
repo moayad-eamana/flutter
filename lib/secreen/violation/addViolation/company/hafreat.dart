@@ -4,22 +4,18 @@ import 'package:flutter/material.dart';
 
 import '../ListOfTextFieleds.dart';
 
-class violationAdds extends StatefulWidget {
+class hafreat extends StatefulWidget {
   Function nextPage;
-  violationAdds(this.nextPage);
+  hafreat(this.nextPage);
 
   @override
-  State<violationAdds> createState() => _violationAddsState();
+  State<hafreat> createState() => _hafreatState();
 }
 
-class _violationAddsState extends State<violationAdds>
-    with AutomaticKeepAliveClientMixin {
-  get baseColorText => null;
-
+class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     return Container(
       child: Column(
         children: [
@@ -29,51 +25,42 @@ class _violationAddsState extends State<violationAdds>
             ),
             keyboardType: TextInputType.number,
             maxLines: 1,
-            decoration: formlabel1("إسم البلدية"),
+            decoration: formlabel1("رقم الطلب"),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'إسم البلدية';
+                return 'الرجاء إدخال رقم الطلب';
               }
               return null;
             },
           ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
-            ),
-            keyboardType: TextInputType.number,
-            maxLines: 1,
-            decoration: formlabel1("رخص لوحة إعلانية"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'رخص لوحة إعلانية';
-              }
-              return null;
-            },
-          ),
-          sizeBox(),
           SizedBox(
               width: 120,
               child: widgetsUni.actionbutton("تحقق", Icons.send, () {})),
-          sizeBox(),
+          siedBox(),
           TextFormField(
             style: TextStyle(
               color: baseColorText,
             ),
-            keyboardType: TextInputType.number,
             maxLines: 1,
-            decoration: formlabel1("رقم السجل أو الهوية"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'رقم السجل أو الهوية';
-              }
-              return null;
-            },
+            decoration: formlabel1("إسم المنشأة"),
           ),
-          sizeBox(),
+          siedBox(),
+          TextFormField(
+            style: TextStyle(
+              color: baseColorText,
+            ),
+            maxLines: 1,
+            decoration: formlabel1("رقم السجل"),
+          ),
+          siedBox(),
+          TextFormField(
+            style: TextStyle(
+              color: baseColorText,
+            ),
+            maxLines: 1,
+            decoration: formlabel1("الجهة المستفيدة"),
+          ),
+          siedBox(),
           TextFormField(
             style: TextStyle(
               color: baseColorText,
@@ -88,46 +75,34 @@ class _violationAddsState extends State<violationAdds>
               return null;
             },
           ),
-          sizeBox(),
+          siedBox(),
           TextFormField(
             style: TextStyle(
               color: baseColorText,
             ),
             maxLines: 1,
-            decoration: formlabel1("عنوان اللوحة"),
+            decoration: formlabel1("مساحة الحفرة"),
           ),
-          sizeBox(),
+          siedBox(),
           TextFormField(
             style: TextStyle(
               color: baseColorText,
             ),
             maxLines: 1,
-            decoration: formlabel1("مساحة اللوحة"),
-          ),
-          sizeBox(),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
-            ),
-            maxLines: 1,
-            decoration: formlabel1("تاريخ إنتهاء الرخصة"),
+            decoration: formlabel1("وصف الموقع"),
           ),
           ...TexTfields(),
           SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            width: 120,
-            child: widgetsUni.actionbutton("التالي", Icons.next_plan, () {
-              widget.nextPage();
-            }),
-          )
+              width: 120,
+              child: widgetsUni.actionbutton("التالي", Icons.next_plan, () {
+                widget.nextPage();
+              })),
         ],
       ),
     );
   }
 
-  sizeBox() {
+  SizedBox siedBox() {
     return SizedBox(
       height: 10,
     );
