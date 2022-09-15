@@ -85,10 +85,10 @@ class _companyinfoState extends State<companyinfo>
       showClearButton: violationTypeID == null ? false : true,
       maxHeight: 400,
       showAsSuffixIcons: true,
-      dropdownSearchDecoration: formlabel1("نوع البند"),
+      dropdownSearchDecoration: formlabel1("نوع المخالفة"),
       validator: (value) {
         if (value == "" || value == null) {
-          return "يرجى إختيار نوع البند";
+          return "يرجى إختيار نوع المخالفة";
         } else {
           return null;
         }
@@ -113,7 +113,7 @@ class _companyinfoState extends State<companyinfo>
         ),
         child: Center(
           child: Text(
-            "نوع النبد",
+            "نوع المخالفة",
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
