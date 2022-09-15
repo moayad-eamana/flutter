@@ -56,13 +56,25 @@ class _individualUserInfoState extends State<individualUserInfo> {
               sizebox(),
               SizedBox(
                   width: 120,
-                  child: widgetsUni.actionbutton("تحقق", Icons.send, () {})),
+                  child: widgetsUni.actionbutton("تحقق", Icons.send, () {
+                    setState(() {
+                      widget.IndividualUserInfo.Name.text = "مؤيد العوفي";
+                      widget.IndividualUserInfo.mobile.text = "0567442031";
+                      widget.IndividualUserInfo.baldea.text = "بلدية الخبر";
+                      widget.IndividualUserInfo.Neighborhoodname.text =
+                          "حي الخبر الشمالية";
+                      widget.IndividualUserInfo.Streetname.text =
+                          "بلدية الخبر الشمالية";
+                    });
+                  })),
               ...fields(),
               sizebox(),
               SizedBox(
                   width: 120,
                   child: widgetsUni.actionbutton("التالي", Icons.next_plan, () {
-                    widget.function();
+                    if (_formKey.currentState!.validate()) {
+                      widget.function();
+                    }
                   }))
             ],
           ),

@@ -8,7 +8,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:open_file/open_file.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pdf/pdf.dart';
@@ -414,6 +414,6 @@ class _EmpProfileState extends State<EmpProfile> {
     await file.writeAsBytes(bytes);
     final url = file.path;
 
-    await OpenFile.open(url);
+    await OpenFilex.open(url);
   }
 }

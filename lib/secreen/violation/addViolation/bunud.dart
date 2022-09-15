@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
 class bunud extends StatefulWidget {
-  const bunud({Key? key}) : super(key: key);
+  bunud({required this.next, required this.back, Key? key}) : super(key: key);
+  Function next;
+  Function back;
 
   @override
   State<bunud> createState() => _bunudState();
@@ -58,7 +61,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
     },
   ];
 
-  num generaltotal = 0;
+  num generaltotal = 15000;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +87,13 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
               padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Column(
                 children: [
+                  Row(
+                    children: [
+                      widgetsUni.actionbutton("رجوع", Icons.next_plan, () {
+                        widget.back();
+                      }),
+                    ],
+                  ),
                   Text(
                     "البنود",
                     style: titleTx(baseColor),
@@ -521,6 +531,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                                                 .substring(0, 25) +
                                             " ..."
                                         : bunudTable[index]['_bunudTypeName'],
+                                    maxLines: 1,
                                     style: descTx1(baseColorText),
                                   ),
                                   subtitle: Text(
@@ -544,6 +555,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                                         color: redColor,
                                         onPressed: () {
                                           setState(() {
+                                            generaltotal -=
+                                                bunudTable[index]['total'];
                                             bunudTable.removeAt(index);
                                           });
                                         },
@@ -669,6 +682,22 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                         generaltotal.toString(),
                         style: subtitleTx(baseColor),
                       ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      widgetsUni.actionbutton("تالي", Icons.arrow_forward, () {
+                        if (bunudTable.isNotEmpty) {
+                          widget.next();
+                        } else {
+                          Alerts.errorAlert(context, "خطأ",
+                                  "الرجاء إضافة بند واحد على الاقل")
+                              .show();
+                        }
+                      }),
                     ],
                   ),
                 ],
