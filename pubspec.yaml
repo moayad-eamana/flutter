@@ -43,7 +43,6 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   pdf: ^3.8.3
   path_provider: ^2.0.8
-  open_file: ^3.2.1
   shared_preferences: ^2.0.11
   sizer: ^2.0.15
   animated_bottom_navigation_bar: ^0.3.2
@@ -75,8 +74,11 @@ dependencies:
   vcard_maintained: ^0.0.1+1
   barcode_widget: ^2.0.3
   pass_flutter: ^2.0.1
-  
-  
+  open_filex: ^3.4.0
+  image_picker: ^0.8.5+3
+  file_picker: ^4.6.1
+
+
 
   
 
