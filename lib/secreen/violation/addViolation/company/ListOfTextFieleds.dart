@@ -1,10 +1,17 @@
+import 'package:eamanaapp/model/violation/violation.dart';
+
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
-List<Widget> TexTfields() {
+// bool withstreetname = true;
+// CompanyInfoModel companyInfoModel = CompanyInfoModel();
+List<Widget> TexTfields(
+    bool withstreetname, IndividualUserInfoModel IndividualUserInfo) {
   return [
     sizeBox(),
     TextFormField(
+      controller: IndividualUserInfo.baldea,
+      keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
       ),
@@ -13,6 +20,8 @@ List<Widget> TexTfields() {
     ),
     sizeBox(),
     TextFormField(
+      controller: IndividualUserInfo.Neighborhoodname,
+      keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
       ),
@@ -26,7 +35,26 @@ List<Widget> TexTfields() {
       },
     ),
     sizeBox(),
+    if (withstreetname == true)
+      TextFormField(
+        controller: IndividualUserInfo.Streetname,
+        keyboardType: TextInputType.text,
+        style: TextStyle(
+          color: baseColorText,
+        ),
+        maxLines: 1,
+        decoration: formlabel1("إسم الشارع"),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'الرجاء إدخال إسم الشارع';
+          }
+          return null;
+        },
+      ),
+    if (withstreetname == true) sizeBox(),
     TextFormField(
+      controller: IndividualUserInfo.ShortDescription,
+      keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
       ),
@@ -41,6 +69,8 @@ List<Widget> TexTfields() {
     ),
     sizeBox(),
     TextFormField(
+      controller: IndividualUserInfo.EmployeeDescription,
+      keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
       ),

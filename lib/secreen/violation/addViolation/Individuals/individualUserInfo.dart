@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class individualUserInfo extends StatefulWidget {
-  individualUserInfoModel IndividualUserInfo;
+  IndividualUserInfoModel IndividualUserInfo;
   Function function;
   individualUserInfo(this.IndividualUserInfo, this.function);
   @override
@@ -54,9 +54,9 @@ class _individualUserInfoState extends State<individualUserInfo> {
                 },
               ),
               sizebox(),
-              SizedBox(
-                  width: 120,
-                  child: widgetsUni.actionbutton("تحقق", Icons.send, () {
+              Row(
+                children: [
+                  widgetsUni.actionbutton("تحقق", Icons.send, () {
                     setState(() {
                       widget.IndividualUserInfo.Name.text = "مؤيد العوفي";
                       widget.IndividualUserInfo.mobile.text = "0567442031";
@@ -66,16 +66,20 @@ class _individualUserInfoState extends State<individualUserInfo> {
                       widget.IndividualUserInfo.Streetname.text =
                           "بلدية الخبر الشمالية";
                     });
-                  })),
+                  }),
+                ],
+              ),
               ...fields(),
               sizebox(),
-              SizedBox(
-                  width: 120,
-                  child: widgetsUni.actionbutton("التالي", Icons.next_plan, () {
+              Row(
+                children: [
+                  widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
                     if (_formKey.currentState!.validate()) {
                       widget.function();
                     }
-                  }))
+                  }),
+                ],
+              )
             ],
           ),
         ),
@@ -168,12 +172,12 @@ class _individualUserInfoState extends State<individualUserInfo> {
         ),
         maxLines: 1,
         decoration: formlabel1("الوصف المختصر"),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'الرجاء إدخال وصف المختصر';
-          }
-          return null;
-        },
+        // validator: (value) {
+        //   if (value == null || value.isEmpty) {
+        //     return 'الرجاء إدخال وصف المختصر';
+        //   }
+        //   return null;
+        // },
       ),
       sizebox(),
       TextFormField(

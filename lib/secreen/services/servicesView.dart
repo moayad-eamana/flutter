@@ -113,7 +113,7 @@ class _ServicesViewState extends State<ServicesView> {
                     ),
 
                     Text(
-                      "نظام المخالفات",
+                      "المخالفات الإلكترونية",
                       style: subtitleTx(baseColor),
                     ),
 
@@ -541,7 +541,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/ViolationHome");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/violation.svg', "إضافة مخالفة"))),
+                      'assets/SVGs/violation.svg', "إنشاء مخالفة"))),
         ],
       ),
     );

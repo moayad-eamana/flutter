@@ -1,12 +1,14 @@
+import 'package:eamanaapp/model/violation/violation.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
-import '../ListOfTextFieleds.dart';
+import 'ListOfTextFieleds.dart';
 
 class violationAdds extends StatefulWidget {
   Function nextPage;
-  violationAdds(this.nextPage);
+  IndividualUserInfoModel IndividualUserInfo;
+  violationAdds(this.nextPage, this.IndividualUserInfo);
 
   @override
   State<violationAdds> createState() => _violationAddsState();
@@ -16,113 +18,145 @@ class _violationAddsState extends State<violationAdds>
     with AutomaticKeepAliveClientMixin {
   get baseColorText => null;
 
+  TextEditingController _baladeaname = TextEditingController();
+  TextEditingController _addslicenses = TextEditingController();
+  TextEditingController _recordnumberorid = TextEditingController();
+  TextEditingController _addslocation = TextEditingController();
+  TextEditingController _addsspace = TextEditingController();
+  TextEditingController _expirdate = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // widget.IndividualUserInfo.Neighborhoodname.text = "ddddd";
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Container(
-      child: Column(
-        children: [
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
+    return Form(
+      key: _formKey,
+      child: Container(
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _baladeaname,
+              style: TextStyle(
+                color: baseColorText,
+              ),
+              keyboardType: TextInputType.text,
+              maxLines: 1,
+              decoration: formlabel1("إسم البلدية"),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'إسم البلدية';
+                }
+                return null;
+              },
             ),
-            keyboardType: TextInputType.number,
-            maxLines: 1,
-            decoration: formlabel1("إسم البلدية"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'إسم البلدية';
-              }
-              return null;
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
+            SizedBox(
+              height: 10,
             ),
-            keyboardType: TextInputType.number,
-            maxLines: 1,
-            decoration: formlabel1("رخص لوحة إعلانية"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'رخص لوحة إعلانية';
-              }
-              return null;
-            },
-          ),
-          sizeBox(),
-          SizedBox(
-              width: 120,
-              child: widgetsUni.actionbutton("تحقق", Icons.send, () {})),
-          sizeBox(),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
+            TextFormField(
+              controller: _addslicenses,
+              style: TextStyle(
+                color: baseColorText,
+              ),
+              keyboardType: TextInputType.number,
+              maxLines: 1,
+              decoration: formlabel1("رخصة لوحة إعلانية"),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'الرجاء إدخال رخصة لوحة إعلانية';
+                }
+                return null;
+              },
             ),
-            keyboardType: TextInputType.number,
-            maxLines: 1,
-            decoration: formlabel1("رقم السجل أو الهوية"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'رقم السجل أو الهوية';
-              }
-              return null;
-            },
-          ),
-          sizeBox(),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
+            sizeBox(),
+            Row(
+              children: [
+                widgetsUni.actionbutton("تحقق", Icons.send, () {}),
+              ],
             ),
-            keyboardType: TextInputType.number,
-            maxLines: 1,
-            decoration: formlabel1("رقم الجوال"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'الرجاء إدخال رقم الجوال';
-              }
-              return null;
-            },
-          ),
-          sizeBox(),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
+            sizeBox(),
+            TextFormField(
+              controller: _recordnumberorid,
+              style: TextStyle(
+                color: baseColorText,
+              ),
+              keyboardType: TextInputType.number,
+              maxLines: 1,
+              decoration: formlabel1("رقم السجل أو الهوية"),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'رقم السجل أو الهوية';
+                }
+                return null;
+              },
             ),
-            maxLines: 1,
-            decoration: formlabel1("عنوان اللوحة"),
-          ),
-          sizeBox(),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
+            sizeBox(),
+            TextFormField(
+              controller: widget.IndividualUserInfo.mobile,
+              style: TextStyle(
+                color: baseColorText,
+              ),
+              keyboardType: TextInputType.number,
+              maxLines: 1,
+              decoration: formlabel1("رقم الجوال"),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'الرجاء إدخال رقم الجوال';
+                }
+                return null;
+              },
             ),
-            maxLines: 1,
-            decoration: formlabel1("مساحة اللوحة"),
-          ),
-          sizeBox(),
-          TextFormField(
-            style: TextStyle(
-              color: baseColorText,
+            sizeBox(),
+            TextFormField(
+              controller: _addslocation,
+              keyboardType: TextInputType.text,
+              style: TextStyle(
+                color: baseColorText,
+              ),
+              maxLines: 1,
+              decoration: formlabel1("عنوان اللوحة"),
             ),
-            maxLines: 1,
-            decoration: formlabel1("تاريخ إنتهاء الرخصة"),
-          ),
-          ...TexTfields(),
-          SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            width: 120,
-            child: widgetsUni.actionbutton("التالي", Icons.next_plan, () {
-              widget.nextPage();
-            }),
-          )
-        ],
+            sizeBox(),
+            TextFormField(
+              controller: _addsspace,
+              keyboardType: TextInputType.number,
+              style: TextStyle(
+                color: baseColorText,
+              ),
+              maxLines: 1,
+              decoration: formlabel1("مساحة اللوحة"),
+            ),
+            sizeBox(),
+            TextFormField(
+              controller: _expirdate,
+              keyboardType: TextInputType.datetime,
+              style: TextStyle(
+                color: baseColorText,
+              ),
+              maxLines: 1,
+              decoration: formlabel1("تاريخ إنتهاء الرخصة"),
+            ),
+            ...TexTfields(false, widget.IndividualUserInfo),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
+                  widget.nextPage();
+                }),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

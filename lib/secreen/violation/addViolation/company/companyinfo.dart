@@ -1,12 +1,20 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/company/building_license.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/company/commercial_Record.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/hafreat.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/company/shop_licenses.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/violationAdds.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
 class companyinfo extends StatefulWidget {
   Function nextPage;
-  companyinfo(this.nextPage);
+  IndividualUserInfoModel IndividualUserInfo;
+  companyinfo(
+    this.IndividualUserInfo,
+    this.nextPage,
+  );
 
   @override
   State<companyinfo> createState() => _companyinfoState();
@@ -23,7 +31,23 @@ class _companyinfoState extends State<companyinfo>
     },
     {
       'violationTypeID': 2,
+      'violationTypeName': "مخالفة لسجل تجاري",
+    },
+    {
+      'violationTypeID': 3,
+      'violationTypeName': "مخالفة رخص المحلات",
+    },
+    {
+      'violationTypeID': 4,
       'violationTypeName': "مخالفات الحفريات",
+    },
+    {
+      'violationTypeID': 5,
+      'violationTypeName': "مخالفات رخصة البناء",
+    },
+    {
+      'violationTypeID': 6,
+      'violationTypeName': "مخالفة سكن جماعي",
     },
   ];
   @override
@@ -49,8 +73,16 @@ class _companyinfoState extends State<companyinfo>
             SizedBox(
               height: 10,
             ),
-            if (violationTypeID == 1) violationAdds(widget.nextPage),
-            if (violationTypeID == 2) hafreat(widget.nextPage)
+            if (violationTypeID == 1)
+              violationAdds(widget.nextPage, widget.IndividualUserInfo),
+            if (violationTypeID == 2)
+              commercialRecord(widget.nextPage, widget.IndividualUserInfo),
+            if (violationTypeID == 3)
+              shopLicenses(widget.nextPage, widget.IndividualUserInfo),
+            if (violationTypeID == 4)
+              hafreat(widget.nextPage, widget.IndividualUserInfo),
+            if (violationTypeID == 5)
+              buildinglicense(widget.nextPage, widget.IndividualUserInfo),
           ],
         ),
       ),

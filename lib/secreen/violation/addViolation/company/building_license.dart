@@ -1,28 +1,29 @@
 import 'package:eamanaapp/model/violation/violation.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
-import 'ListOfTextFieleds.dart';
-
-class hafreat extends StatefulWidget {
-  Function nextPage;
+class buildinglicense extends StatefulWidget {
+  buildinglicense(this.nextPage, this.IndividualUserInfo);
   IndividualUserInfoModel IndividualUserInfo;
-  hafreat(this.nextPage, this.IndividualUserInfo);
+  Function nextPage;
 
   @override
-  State<hafreat> createState() => _hafreatState();
+  State<buildinglicense> createState() => _buildinglicenseState();
 }
 
-class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
-  TextEditingController _ordernumber = TextEditingController();
-  TextEditingController _facilityname = TextEditingController();
-  TextEditingController _recordnumber = TextEditingController();
-  TextEditingController _beneficiary = TextEditingController();
-  TextEditingController _spacehafreat = TextEditingController();
-  TextEditingController _sitedescription = TextEditingController();
+class _buildinglicenseState extends State<buildinglicense>
+    with AutomaticKeepAliveClientMixin {
+  TextEditingController _licensenumber = TextEditingController();
+  TextEditingController _ownername = TextEditingController();
+  TextEditingController _ownerid = TextEditingController();
+  TextEditingController _officename = TextEditingController();
+  TextEditingController _space = TextEditingController();
+  TextEditingController _licensetype = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -32,16 +33,16 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
         child: Column(
           children: [
             TextFormField(
-              controller: _ordernumber,
+              controller: _licensenumber,
               style: TextStyle(
                 color: baseColorText,
               ),
               keyboardType: TextInputType.number,
               maxLines: 1,
-              decoration: formlabel1("رقم الطلب"),
+              decoration: formlabel1("رقم الرخصة"),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'الرجاء إدخال رقم الطلب';
+                  return 'الرجاء إدخال رقم رخصة';
                 }
                 return null;
               },
@@ -53,30 +54,30 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
             ),
             siedBox(),
             TextFormField(
-              controller: _facilityname,
+              controller: _ownername,
               style: TextStyle(
                 color: baseColorText,
               ),
               maxLines: 1,
-              decoration: formlabel1("إسم المنشأة"),
+              decoration: formlabel1("إسم المالك"),
             ),
             siedBox(),
             TextFormField(
-              controller: _recordnumber,
+              controller: _ownerid,
               style: TextStyle(
                 color: baseColorText,
               ),
               maxLines: 1,
-              decoration: formlabel1("رقم السجل"),
+              decoration: formlabel1("رقم الهوية / سجل"),
             ),
             siedBox(),
             TextFormField(
-              controller: _beneficiary,
+              controller: _officename,
               style: TextStyle(
                 color: baseColorText,
               ),
               maxLines: 1,
-              decoration: formlabel1("الجهة المستفيدة"),
+              decoration: formlabel1("اسم المكتب الهندسي"),
             ),
             siedBox(),
             TextFormField(
@@ -96,27 +97,29 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
             ),
             siedBox(),
             TextFormField(
-              controller: _spacehafreat,
+              controller: _space,
               style: TextStyle(
                 color: baseColorText,
               ),
               maxLines: 1,
-              decoration: formlabel1("مساحة الحفرة"),
+              decoration: formlabel1("مساحة"),
             ),
             siedBox(),
             TextFormField(
-              controller: _sitedescription,
+              controller: _licensetype,
               style: TextStyle(
                 color: baseColorText,
               ),
               maxLines: 1,
-              decoration: formlabel1("وصف الموقع"),
+              decoration: formlabel1("نوع الرخصة"),
             ),
             ...TexTfields(false, widget.IndividualUserInfo),
             Row(
               children: [
                 widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
-                  widget.nextPage();
+                  if (_formKey.currentState!.validate()) {
+                    widget.nextPage();
+                  }
                 }),
               ],
             ),

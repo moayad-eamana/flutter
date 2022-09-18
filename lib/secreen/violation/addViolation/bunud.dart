@@ -1,9 +1,11 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:sizer/sizer.dart';
 
 class bunud extends StatefulWidget {
@@ -18,7 +20,9 @@ class bunud extends StatefulWidget {
 class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
   final _formKey = GlobalKey<FormState>();
 
-  List violationtype = [];
+  List violationtype = [
+    {'_violationTypeID': 1, '_violationTypeName': "مخالفة طرق"}
+  ];
   var _violationTypeID;
   var _violationTypeName;
 
@@ -30,6 +34,9 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
   var _boundvalueTypeID;
   var _boundvalueTypeName;
 
+  bool checkbox = false;
+
+  TextEditingController _date = TextEditingController();
   TextEditingController _unit = TextEditingController();
   TextEditingController _boundloop = TextEditingController();
   TextEditingController _boundvalue = TextEditingController();
@@ -199,6 +206,186 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                       color: baseColor,
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  TextFormField(
+                    controller: _date,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    readOnly: true,
+                    // keyboardType: TextInputType.datetime,
+                    maxLines: 1,
+                    decoration: formlabel1("تاریخ المخالفة"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'فضلاً أدخل تاریخ المخالفة';
+                      }
+                      return null;
+                    },
+                    onTap: () {
+                      DatePicker.showDatePicker(context,
+                          theme: DatePickerTheme(
+                            backgroundColor: BackGWhiteColor,
+                            itemStyle: TextStyle(
+                              color: baseColorText,
+                            ),
+                          ),
+                          showTitleActions: true,
+                          minTime: DateTime(2021, 3, 5), onChanged: (date) {
+                        _date.text = date.toString().split(" ")[0];
+                        print('change $date');
+                      }, onConfirm: (date) {
+                        _date.text = date.toString().split(" ")[0];
+                        print('confirm $date');
+                      }, currentTime: DateTime.now(), locale: LocaleType.ar);
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  if (_violationTypeID == 1)
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: checkbox,
+                          onChanged: (v) {
+                            setState(() {
+                              checkbox = v!;
+                              print(v);
+                            });
+                          },
+                        ),
+                        Text(
+                          "إظهار بيانات إضافية",
+                          style: descTx1(baseColorText),
+                        ),
+                      ],
+                    ),
+                  if (checkbox == true)
+                    Container(
+                      child: Table(
+                        border: TableBorder.all(color: bordercolor),
+                        columnWidths: const <int, TableColumnWidth>{
+                          0: FlexColumnWidth(),
+                          1: FlexColumnWidth(),
+
+                          // 2: FixedColumnWidth(64),
+                        },
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        children: [
+                          TableRow(
+                            children: [
+                              Container(
+                                color: baseColor,
+                                child: Center(
+                                  child: Text(
+                                    "البيانات",
+                                    style: descTx1(Colors.white),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                color: baseColor,
+                                child: Center(
+                                  child: Text(
+                                    "القيمة",
+                                    style: descTx1(Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                "عنوان المخالفة",
+                                style: descTx1(baseColorText),
+                              ),
+                              TextField(
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                                decoration: formlabel1(""),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                "نوع المركبة",
+                                style: descTx1(baseColorText),
+                              ),
+                              TextField(
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                                decoration: formlabel1(""),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                "رقم الهيكل",
+                                style: descTx1(baseColorText),
+                              ),
+                              TextField(
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                                decoration: formlabel1(""),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                "رقم  لوحة المركبة (في حال مخالفة المركبات)",
+                                style: descTx1(baseColorText),
+                              ),
+                              TextField(
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                                decoration: formlabel1(""),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                "إضافة رقم هوية الكفيل",
+                                style: descTx1(baseColorText),
+                              ),
+                              TextField(
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                                decoration: formlabel1(""),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              Text(
+                                "أسم كفيل المخالف (في حال كان المخالف أجنبي)",
+                                style: descTx1(baseColorText),
+                              ),
+                              TextField(
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                                decoration: formlabel1(""),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   SizedBox(
                     height: 10,
                   ),
@@ -515,13 +702,18 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                             return Container(
                               height: 70,
                               child: Card(
+                                color: BackGWhiteColor,
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: bordercolor),
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
                                 child: ListTile(
                                   minLeadingWidth: 10,
                                   leading: Text(
                                       bunudTable[index]['_boundloop']
                                               .toString() +
                                           "×",
-                                      style: subtitleTx(baseColor)),
+                                      style: subtitleTx(secondryColor)),
                                   title: Text(
                                     bunudTable[index]['_bunudTypeName']
                                                 .length >=

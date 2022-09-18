@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class individualUserInfoModel {
+class IndividualUserInfoModel {
   TextEditingController NID = TextEditingController();
   TextEditingController Name = TextEditingController();
   TextEditingController mobile = TextEditingController();
@@ -9,7 +9,7 @@ class individualUserInfoModel {
   TextEditingController Streetname = TextEditingController();
   TextEditingController ShortDescription = TextEditingController();
   TextEditingController EmployeeDescription = TextEditingController();
-  // individualUserInfoModel(
+  // IndividualUserInfoModel(
   //     this.NID,
   //     this.Name,
   //     this.mobile,
