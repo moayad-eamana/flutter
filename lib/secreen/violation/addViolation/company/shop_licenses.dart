@@ -16,12 +16,20 @@ class shopLicenses extends StatefulWidget {
 
 class _shopLicensesState extends State<shopLicenses>
     with AutomaticKeepAliveClientMixin {
+  //مخالفة رخص المحلات
+  //رخصة محل
   TextEditingController _shoplicenses = TextEditingController();
+  //إسم المنشأة
   TextEditingController _shopname = TextEditingController();
+  //رقم السجل أو الهوية
   TextEditingController _recordnumberorid = TextEditingController();
+  //تاريخ انتهاء الرخصة
   TextEditingController _expirdate = TextEditingController();
+  //مساحة المحل
   TextEditingController _shopespace = TextEditingController();
+  //النشاط
   TextEditingController _nshat = TextEditingController();
+
   bool checked = false;
 
   final _formKey = GlobalKey<FormState>();
