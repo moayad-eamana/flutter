@@ -20,7 +20,7 @@ class _shopLicensesState extends State<shopLicenses>
   //رخصة محل
   TextEditingController _shoplicenses = TextEditingController();
   //إسم المنشأة
-  TextEditingController _shopname = TextEditingController();
+  TextEditingController _facilityname = TextEditingController();
   //رقم السجل أو الهوية
   TextEditingController _recordnumberorid = TextEditingController();
   //تاريخ انتهاء الرخصة
@@ -74,7 +74,7 @@ class _shopLicensesState extends State<shopLicenses>
               Column(
                 children: [
                   TextFormField(
-                    controller: _shopname,
+                    controller: _facilityname,
                     style: TextStyle(
                       color: baseColorText,
                     ),
