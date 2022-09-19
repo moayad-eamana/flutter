@@ -26,6 +26,7 @@ class _violationAddsState extends State<violationAdds>
   TextEditingController _expirdate = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  bool checked = false;
 
   @override
   void initState() {
@@ -79,82 +80,102 @@ class _violationAddsState extends State<violationAdds>
             sizeBox(),
             Row(
               children: [
-                widgetsUni.actionbutton("تحقق", Icons.send, () {}),
-              ],
-            ),
-            sizeBox(),
-            TextFormField(
-              controller: _recordnumberorid,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              keyboardType: TextInputType.number,
-              maxLines: 1,
-              decoration: formlabel1("رقم السجل أو الهوية"),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'رقم السجل أو الهوية';
-                }
-                return null;
-              },
-            ),
-            sizeBox(),
-            TextFormField(
-              controller: widget.IndividualUserInfo.mobile,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              keyboardType: TextInputType.number,
-              maxLines: 1,
-              decoration: formlabel1("رقم الجوال"),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'الرجاء إدخال رقم الجوال';
-                }
-                return null;
-              },
-            ),
-            sizeBox(),
-            TextFormField(
-              controller: _addslocation,
-              keyboardType: TextInputType.text,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("عنوان اللوحة"),
-            ),
-            sizeBox(),
-            TextFormField(
-              controller: _addsspace,
-              keyboardType: TextInputType.number,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("مساحة اللوحة"),
-            ),
-            sizeBox(),
-            TextFormField(
-              controller: _expirdate,
-              keyboardType: TextInputType.datetime,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("تاريخ إنتهاء الرخصة"),
-            ),
-            ...TexTfields(false, widget.IndividualUserInfo),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
-                  widget.nextPage();
+                widgetsUni.actionbutton("تحقق", Icons.send, () {
+                  if (checked == false) {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        checked = true;
+                      });
+                    }
+                  }
                 }),
               ],
-            )
+            ),
+            sizeBox(),
+            if (checked == true)
+              Column(
+                children: [
+                  TextFormField(
+                    controller: _recordnumberorid,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("رقم السجل أو الهوية"),
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'رقم السجل أو الهوية';
+                    //   }
+                    //   return null;
+                    // },
+                  ),
+                  sizeBox(),
+                  TextFormField(
+                    controller: widget.IndividualUserInfo.mobile,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    decoration: formlabel1("رقم الجوال"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'الرجاء إدخال رقم الجوال';
+                      }
+                      return null;
+                    },
+                  ),
+                  sizeBox(),
+                  TextFormField(
+                    controller: _addslocation,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("عنوان اللوحة"),
+                  ),
+                  sizeBox(),
+                  TextFormField(
+                    controller: _addsspace,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("مساحة اللوحة"),
+                  ),
+                  sizeBox(),
+                  TextFormField(
+                    controller: _expirdate,
+                    keyboardType: TextInputType.datetime,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("تاريخ إنتهاء الرخصة"),
+                  ),
+                  ...TexTfields(false, widget.IndividualUserInfo),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      widgetsUni.actionbutton("التالي", Icons.arrow_forward,
+                          () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.nextPage();
+                        }
+                      }),
+                    ],
+                  ),
+                ],
+              ),
           ],
         ),
       ),

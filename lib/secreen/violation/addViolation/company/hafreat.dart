@@ -21,6 +21,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
   TextEditingController _beneficiary = TextEditingController();
   TextEditingController _spacehafreat = TextEditingController();
   TextEditingController _sitedescription = TextEditingController();
+  bool checked = false;
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -48,78 +49,99 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
             ),
             Row(
               children: [
-                widgetsUni.actionbutton("تحقق", Icons.send, () {}),
-              ],
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _facilityname,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("إسم المنشأة"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _recordnumber,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("رقم السجل"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _beneficiary,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("الجهة المستفيدة"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: widget.IndividualUserInfo.mobile,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              keyboardType: TextInputType.number,
-              maxLines: 1,
-              decoration: formlabel1("رقم الجوال"),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'الرجاء إدخال رقم الجوال';
-                }
-                return null;
-              },
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _spacehafreat,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("مساحة الحفرة"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _sitedescription,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("وصف الموقع"),
-            ),
-            ...TexTfields(false, widget.IndividualUserInfo),
-            Row(
-              children: [
-                widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
-                  widget.nextPage();
+                widgetsUni.actionbutton("تحقق", Icons.send, () {
+                  if (checked == false) {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        checked = true;
+                      });
+                    }
+                  }
                 }),
               ],
             ),
+            siedBox(),
+            if (checked == true)
+              Column(
+                children: [
+                  TextFormField(
+                    controller: _facilityname,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("إسم المنشأة"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _recordnumber,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("رقم السجل"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _beneficiary,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("الجهة المستفيدة"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: widget.IndividualUserInfo.mobile,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    decoration: formlabel1("رقم الجوال"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'الرجاء إدخال رقم الجوال';
+                      }
+                      return null;
+                    },
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _spacehafreat,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("مساحة الحفرة"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _sitedescription,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("وصف الموقع"),
+                  ),
+                  ...TexTfields(false, widget.IndividualUserInfo),
+                  Row(
+                    children: [
+                      widgetsUni.actionbutton("التالي", Icons.arrow_forward,
+                          () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.nextPage();
+                        }
+                      }),
+                    ],
+                  ),
+                ],
+              ),
           ],
         ),
       ),

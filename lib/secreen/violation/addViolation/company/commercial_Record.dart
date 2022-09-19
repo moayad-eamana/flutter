@@ -17,6 +17,7 @@ class _commercialRecordState extends State<commercialRecord>
     with AutomaticKeepAliveClientMixin {
   TextEditingController _commercialRecord = TextEditingController();
   TextEditingController _companyname = TextEditingController();
+  bool checked = false;
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -44,42 +45,59 @@ class _commercialRecordState extends State<commercialRecord>
             ),
             Row(
               children: [
-                widgetsUni.actionbutton("تحقق", Icons.send, () {}),
-              ],
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _companyname,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("إسم المؤسسة /الشركة"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: widget.IndividualUserInfo.mobile,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              keyboardType: TextInputType.number,
-              maxLines: 1,
-              decoration: formlabel1("رقم الجوال"),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'الرجاء إدخال رقم الجوال';
-                }
-                return null;
-              },
-            ),
-            ...TexTfields(true, widget.IndividualUserInfo),
-            Row(
-              children: [
-                widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
-                  widget.nextPage();
+                widgetsUni.actionbutton("تحقق", Icons.send, () {
+                  if (checked == false) {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        checked = true;
+                      });
+                    }
+                  }
                 }),
               ],
             ),
+            siedBox(),
+            if (checked == true)
+              Column(
+                children: [
+                  TextFormField(
+                    controller: _companyname,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("إسم المؤسسة /الشركة"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: widget.IndividualUserInfo.mobile,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    decoration: formlabel1("رقم الجوال"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'الرجاء إدخال رقم الجوال';
+                      }
+                      return null;
+                    },
+                  ),
+                  ...TexTfields(true, widget.IndividualUserInfo),
+                  Row(
+                    children: [
+                      widgetsUni.actionbutton("التالي", Icons.arrow_forward,
+                          () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.nextPage();
+                        }
+                      }),
+                    ],
+                  ),
+                ],
+              ),
           ],
         ),
       ),

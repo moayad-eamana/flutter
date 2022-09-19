@@ -1,4 +1,5 @@
 import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class individualUserInfo extends StatefulWidget {
 
 class _individualUserInfoState extends State<individualUserInfo> {
   final _formKey = GlobalKey<FormState>();
+  bool checked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,29 +59,39 @@ class _individualUserInfoState extends State<individualUserInfo> {
               Row(
                 children: [
                   widgetsUni.actionbutton("تحقق", Icons.send, () {
-                    setState(() {
-                      widget.IndividualUserInfo.Name.text = "مؤيد العوفي";
-                      widget.IndividualUserInfo.mobile.text = "0567442031";
-                      widget.IndividualUserInfo.baldea.text = "بلدية الخبر";
-                      widget.IndividualUserInfo.Neighborhoodname.text =
-                          "حي الخبر الشمالية";
-                      widget.IndividualUserInfo.Streetname.text =
-                          "بلدية الخبر الشمالية";
-                    });
-                  }),
-                ],
-              ),
-              ...fields(),
-              sizebox(),
-              Row(
-                children: [
-                  widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
-                    if (_formKey.currentState!.validate()) {
-                      widget.function();
+                    if (checked == true) {
+                      setState(() {
+                        widget.IndividualUserInfo.Name.text = "مؤيد العوفي";
+                        widget.IndividualUserInfo.mobile.text = "0567442031";
+                        widget.IndividualUserInfo.baldea.text = "بلدية الخبر";
+                        widget.IndividualUserInfo.Neighborhoodname.text =
+                            "حي الخبر الشمالية";
+                        widget.IndividualUserInfo.Streetname.text =
+                            "بلدية الخبر الشمالية";
+                      });
+                    }
+                    if (checked == false) {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          checked = true;
+                        });
+                      }
                     }
                   }),
                 ],
-              )
+              ),
+              if (checked == true) ...fields(),
+              if (checked == true) sizebox(),
+              if (checked == true)
+                Row(
+                  children: [
+                    widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
+                      if (_formKey.currentState!.validate()) {
+                        widget.function();
+                      }
+                    }),
+                  ],
+                )
             ],
           ),
         ),

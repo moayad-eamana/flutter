@@ -22,6 +22,7 @@ class _shopLicensesState extends State<shopLicenses>
   TextEditingController _expirdate = TextEditingController();
   TextEditingController _shopespace = TextEditingController();
   TextEditingController _nshat = TextEditingController();
+  bool checked = false;
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -49,103 +50,125 @@ class _shopLicensesState extends State<shopLicenses>
             ),
             Row(
               children: [
-                widgetsUni.actionbutton("تحقق", Icons.send, () {}),
-              ],
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _shopname,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("إسم المنشأة"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _recordnumberorid,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("رقم السجل أو الهوية"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _expirdate,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              readOnly: true,
-              // keyboardType: TextInputType.datetime,
-              maxLines: 1,
-              decoration: formlabel1("تاریخ إنتهاء الرخصة"),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'فضلاً أدخل تاریخ إنتهاء الرخصة';
-                }
-                return null;
-              },
-              onTap: () {
-                DatePicker.showDatePicker(context,
-                    theme: DatePickerTheme(
-                      backgroundColor: BackGWhiteColor,
-                      itemStyle: TextStyle(
-                        color: baseColorText,
-                      ),
-                    ),
-                    showTitleActions: true,
-                    minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                  _expirdate.text = date.toString().split(" ")[0];
-                  print('change $date');
-                }, onConfirm: (date) {
-                  _expirdate.text = date.toString().split(" ")[0];
-                  print('confirm $date');
-                }, currentTime: DateTime.now(), locale: LocaleType.ar);
-              },
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _shopespace,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("مساحة المحل"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: _nshat,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              maxLines: 1,
-              decoration: formlabel1("النشاط"),
-            ),
-            siedBox(),
-            TextFormField(
-              controller: widget.IndividualUserInfo.mobile,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              keyboardType: TextInputType.number,
-              maxLines: 1,
-              decoration: formlabel1("رقم الجوال"),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'الرجاء إدخال رقم الجوال';
-                }
-                return null;
-              },
-            ),
-            ...TexTfields(false, widget.IndividualUserInfo),
-            Row(
-              children: [
-                widgetsUni.actionbutton("التالي", Icons.arrow_forward, () {
-                  widget.nextPage();
+                widgetsUni.actionbutton("تحقق", Icons.send, () {
+                  if (checked == false) {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        checked = true;
+                      });
+                    }
+                  }
                 }),
               ],
             ),
+            siedBox(),
+            if (checked == true)
+              Column(
+                children: [
+                  TextFormField(
+                    controller: _shopname,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("إسم المنشأة"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _recordnumberorid,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("رقم السجل أو الهوية"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _expirdate,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    readOnly: true,
+                    // keyboardType: TextInputType.datetime,
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("تاریخ إنتهاء الرخصة"),
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'فضلاً أدخل تاریخ إنتهاء الرخصة';
+                    //   }
+                    //   return null;
+                    // },
+                    onTap: () {
+                      DatePicker.showDatePicker(context,
+                          theme: DatePickerTheme(
+                            backgroundColor: BackGWhiteColor,
+                            itemStyle: TextStyle(
+                              color: baseColorText,
+                            ),
+                          ),
+                          showTitleActions: true,
+                          minTime: DateTime(2021, 3, 5), onChanged: (date) {
+                        _expirdate.text = date.toString().split(" ")[0];
+                        print('change $date');
+                      }, onConfirm: (date) {
+                        _expirdate.text = date.toString().split(" ")[0];
+                        print('confirm $date');
+                      }, currentTime: DateTime.now(), locale: LocaleType.ar);
+                    },
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _shopespace,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("مساحة المحل"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: _nshat,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    maxLines: 1,
+                    enabled: false,
+                    decoration: formlabel1("النشاط"),
+                  ),
+                  siedBox(),
+                  TextFormField(
+                    controller: widget.IndividualUserInfo.mobile,
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLines: 1,
+                    decoration: formlabel1("رقم الجوال"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'الرجاء إدخال رقم الجوال';
+                      }
+                      return null;
+                    },
+                  ),
+                  ...TexTfields(false, widget.IndividualUserInfo),
+                  Row(
+                    children: [
+                      widgetsUni.actionbutton("التالي", Icons.arrow_forward,
+                          () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.nextPage();
+                        }
+                        ;
+                      }),
+                    ],
+                  ),
+                ],
+              ),
           ],
         ),
       ),

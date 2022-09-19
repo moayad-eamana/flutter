@@ -16,6 +16,7 @@ List<Widget> TexTfields(
         color: baseColorText,
       ),
       maxLines: 1,
+      enabled: false,
       decoration: formlabel1("البلدية التابعة"),
     ),
     sizeBox(),
@@ -60,12 +61,12 @@ List<Widget> TexTfields(
       ),
       maxLines: 1,
       decoration: formlabel1("الوصف المختصر"),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'الرجاء إدخال الوصف المختصر';
-        }
-        return null;
-      },
+      // validator: (value) {
+      //   if (value == null || value.isEmpty) {
+      //     return 'الرجاء إدخال الوصف المختصر';
+      //   }
+      //   return null;
+      // },
     ),
     sizeBox(),
     TextFormField(
