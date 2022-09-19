@@ -17,12 +17,18 @@ class violationAdds extends StatefulWidget {
 class _violationAddsState extends State<violationAdds>
     with AutomaticKeepAliveClientMixin {
   get baseColorText => null;
-
+//مخالفة رخص اللوحات الاعلانية
+//اسم البلدية
   TextEditingController _baladeaname = TextEditingController();
+  //رخصة لوحة إعلانية
   TextEditingController _addslicenses = TextEditingController();
+  //رقم السجل أو الهوية
   TextEditingController _recordnumberorid = TextEditingController();
+  //عنوان اللوحة
   TextEditingController _addslocation = TextEditingController();
+  //مساحة اللوحة
   TextEditingController _addsspace = TextEditingController();
+  //تاريخ إنتهاء الرخصة
   TextEditingController _expirdate = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();

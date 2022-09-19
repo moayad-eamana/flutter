@@ -15,7 +15,10 @@ class commercialRecord extends StatefulWidget {
 
 class _commercialRecordState extends State<commercialRecord>
     with AutomaticKeepAliveClientMixin {
+  //مخالفة لسجل تجاري
+  //سجل تجاري
   TextEditingController _commercialRecord = TextEditingController();
+  //اسم المؤسسة /الشركة
   TextEditingController _companyname = TextEditingController();
   bool checked = false;
 

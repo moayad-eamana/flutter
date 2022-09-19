@@ -15,11 +15,18 @@ class hafreat extends StatefulWidget {
 }
 
 class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
+  //مخالفات الحفريات
+  //رقم الطلب
   TextEditingController _ordernumber = TextEditingController();
+  //إسم المنشأة
   TextEditingController _facilityname = TextEditingController();
+  //رقم السجل
   TextEditingController _recordnumber = TextEditingController();
+  //الجهة المستفيدة
   TextEditingController _beneficiary = TextEditingController();
+  //مساحة الحفر
   TextEditingController _spacehafreat = TextEditingController();
+  //وصف المرقع
   TextEditingController _sitedescription = TextEditingController();
   bool checked = false;
 

@@ -15,11 +15,18 @@ class buildinglicense extends StatefulWidget {
 
 class _buildinglicenseState extends State<buildinglicense>
     with AutomaticKeepAliveClientMixin {
+  //مخالفة رخصة البناء
+  //رقم الرخصة
   TextEditingController _licensenumber = TextEditingController();
+  //اسم المالك
   TextEditingController _ownername = TextEditingController();
+  //رقم الهوية / سجل
   TextEditingController _ownerid = TextEditingController();
+  //اسم المكتب الهندسي
   TextEditingController _officename = TextEditingController();
+  //مساحة
   TextEditingController _space = TextEditingController();
+  //نوع الرخصة
   TextEditingController _licensetype = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
