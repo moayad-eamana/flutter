@@ -304,6 +304,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                               Text(
                                 "عنوان المخالفة",
                                 style: descTx1(baseColorText),
+                                textAlign: TextAlign.center,
                               ),
                               TextField(
                                 style: TextStyle(
@@ -318,6 +319,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                               Text(
                                 "نوع المركبة",
                                 style: descTx1(baseColorText),
+                                textAlign: TextAlign.center,
                               ),
                               TextField(
                                 style: TextStyle(
@@ -332,6 +334,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                               Text(
                                 "رقم الهيكل",
                                 style: descTx1(baseColorText),
+                                textAlign: TextAlign.center,
                               ),
                               TextField(
                                 style: TextStyle(
@@ -346,6 +349,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                               Text(
                                 "رقم  لوحة المركبة (في حال مخالفة المركبات)",
                                 style: descTx1(baseColorText),
+                                textAlign: TextAlign.center,
                               ),
                               TextField(
                                 style: TextStyle(
@@ -360,6 +364,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                               Text(
                                 "إضافة رقم هوية الكفيل",
                                 style: descTx1(baseColorText),
+                                textAlign: TextAlign.center,
                               ),
                               TextField(
                                 style: TextStyle(
@@ -374,6 +379,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                               Text(
                                 "أسم كفيل المخالف (في حال كان المخالف أجنبي)",
                                 style: descTx1(baseColorText),
+                                textAlign: TextAlign.center,
                               ),
                               TextField(
                                 style: TextStyle(

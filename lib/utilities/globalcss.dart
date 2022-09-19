@@ -167,6 +167,10 @@ InputDecoration formlabel1(String lableName) {
       borderSide: BorderSide(color: bordercolor),
       borderRadius: BorderRadius.circular(4),
     ),
+    disabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: bordercolor.withOpacity(0.5)),
+      borderRadius: BorderRadius.circular(4),
+    ),
   );
 }
 
