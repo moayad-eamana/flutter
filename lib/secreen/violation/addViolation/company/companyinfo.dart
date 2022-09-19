@@ -5,6 +5,7 @@ import 'package:eamanaapp/secreen/violation/addViolation/company/commercial_Reco
 import 'package:eamanaapp/secreen/violation/addViolation/company/hafreat.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/shop_licenses.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/violationAdds.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/company/violation_skn.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
@@ -83,6 +84,8 @@ class _companyinfoState extends State<companyinfo>
               hafreat(widget.nextPage, widget.IndividualUserInfo),
             if (violationTypeID == 5)
               buildinglicense(widget.nextPage, widget.IndividualUserInfo),
+            if (violationTypeID == 6)
+              ViolationSkn(widget.nextPage, widget.IndividualUserInfo),
           ],
         ),
       ),
