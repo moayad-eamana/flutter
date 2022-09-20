@@ -16,18 +16,7 @@ class hafreat extends StatefulWidget {
 
 class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
   //مخالفات الحفريات
-  //رقم الطلب
-  TextEditingController _ordernumber = TextEditingController();
-  //إسم المنشأة
-  TextEditingController _facilityname = TextEditingController();
-  //رقم السجل
-  TextEditingController _recordnumber = TextEditingController();
-  //الجهة المستفيدة
-  TextEditingController _beneficiary = TextEditingController();
-  //مساحة الحفر
-  TextEditingController _spacehafreat = TextEditingController();
-  //وصف المرقع
-  TextEditingController _sitedescription = TextEditingController();
+
   bool checked = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -40,7 +29,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
         child: Column(
           children: [
             TextFormField(
-              controller: _ordernumber,
+              controller: widget.IndividualUserInfo.ordernumber,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -72,7 +61,8 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
               Column(
                 children: [
                   TextFormField(
-                    controller: _facilityname,
+                    controller:
+                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -82,7 +72,8 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _recordnumber,
+                    controller:
+                        widget.IndividualUserInfo.identityOrCommericalNumber,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -92,7 +83,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _beneficiary,
+                    controller: widget.IndividualUserInfo.beneficiary,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -118,7 +109,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _spacehafreat,
+                    controller: widget.IndividualUserInfo.spacehafreat,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -128,7 +119,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _sitedescription,
+                    controller: widget.IndividualUserInfo.sitedescription,
                     style: TextStyle(
                       color: baseColorText,
                     ),

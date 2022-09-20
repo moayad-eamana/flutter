@@ -17,19 +17,6 @@ class violationAdds extends StatefulWidget {
 class _violationAddsState extends State<violationAdds>
     with AutomaticKeepAliveClientMixin {
   get baseColorText => null;
-//مخالفة رخص اللوحات الاعلانية
-//اسم البلدية
-  TextEditingController _baladeaname = TextEditingController();
-  //رخصة لوحة إعلانية
-  TextEditingController _addslicenses = TextEditingController();
-  //رقم السجل أو الهوية
-  TextEditingController _recordnumberorid = TextEditingController();
-  //عنوان اللوحة
-  TextEditingController _addslocation = TextEditingController();
-  //مساحة اللوحة
-  TextEditingController _addsspace = TextEditingController();
-  //تاريخ إنتهاء الرخصة
-  TextEditingController _expirdate = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool checked = false;
@@ -51,7 +38,7 @@ class _violationAddsState extends State<violationAdds>
         child: Column(
           children: [
             TextFormField(
-              controller: _baladeaname,
+              controller: widget.IndividualUserInfo.baladeaname,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -69,11 +56,11 @@ class _violationAddsState extends State<violationAdds>
               height: 10,
             ),
             TextFormField(
-              controller: _addslicenses,
+              controller: widget.IndividualUserInfo.addslicenses,
               style: TextStyle(
                 color: baseColorText,
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               maxLines: 1,
               decoration: formlabel1("رخصة لوحة إعلانية"),
               validator: (value) {
@@ -102,7 +89,8 @@ class _violationAddsState extends State<violationAdds>
               Column(
                 children: [
                   TextFormField(
-                    controller: _recordnumberorid,
+                    controller:
+                        widget.IndividualUserInfo.identityOrCommericalNumber,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -135,7 +123,8 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: _addslocation,
+                    controller:
+                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,
@@ -146,7 +135,7 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: _addsspace,
+                    controller: widget.IndividualUserInfo.advDistance,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       color: baseColorText,
@@ -157,7 +146,7 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: _expirdate,
+                    controller: widget.IndividualUserInfo.LicenseExpirDate,
                     keyboardType: TextInputType.datetime,
                     style: TextStyle(
                       color: baseColorText,

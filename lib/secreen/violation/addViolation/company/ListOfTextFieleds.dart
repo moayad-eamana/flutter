@@ -70,7 +70,7 @@ List<Widget> TexTfields(
     ),
     sizeBox(),
     TextFormField(
-      controller: IndividualUserInfo.EmployeeDescription,
+      controller: IndividualUserInfo.employeeDescription,
       keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,

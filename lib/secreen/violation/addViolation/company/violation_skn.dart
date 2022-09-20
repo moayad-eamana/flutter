@@ -16,18 +16,6 @@ class ViolationSkn extends StatefulWidget {
 class _ViolationSknState extends State<ViolationSkn>
     with AutomaticKeepAliveClientMixin {
   //مخالفة سكن جماعي
-//رخصة سكن جماعي
-  TextEditingController licenseskn = TextEditingController();
-  //اسم المنشأة
-  TextEditingController facilityname = TextEditingController();
-  //رقم السجل أو الهوية
-  TextEditingController recordnumberorid = TextEditingController();
-  //تاريخ إنتهاء الرخصة
-  TextEditingController expirdate = TextEditingController();
-  //مساحة
-  TextEditingController space = TextEditingController();
-  //نوع العقار
-  TextEditingController eqartype = TextEditingController();
 
   bool checked = false;
   final _formKey = GlobalKey<FormState>();
@@ -39,7 +27,7 @@ class _ViolationSknState extends State<ViolationSkn>
         child: Column(
           children: [
             TextFormField(
-              controller: licenseskn,
+              controller: widget.IndividualUserInfo.licenseskn,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -72,7 +60,8 @@ class _ViolationSknState extends State<ViolationSkn>
               Column(
                 children: [
                   TextFormField(
-                    controller: facilityname,
+                    controller:
+                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -89,7 +78,8 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: recordnumberorid,
+                    controller:
+                        widget.IndividualUserInfo.identityOrCommericalNumber,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       color: baseColorText,
@@ -100,7 +90,7 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: expirdate,
+                    controller: widget.IndividualUserInfo.LicenseExpirDate,
                     keyboardType: TextInputType.datetime,
                     style: TextStyle(
                       color: baseColorText,
@@ -111,7 +101,7 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: space,
+                    controller: widget.IndividualUserInfo.space,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,
@@ -122,7 +112,7 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: eqartype,
+                    controller: widget.IndividualUserInfo.eqartype,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,

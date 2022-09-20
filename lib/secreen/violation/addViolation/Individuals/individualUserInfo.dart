@@ -38,7 +38,8 @@ class _individualUserInfoState extends State<individualUserInfo> {
           child: Column(
             children: [
               TextFormField(
-                controller: widget.IndividualUserInfo.NID,
+                controller:
+                    widget.IndividualUserInfo.identityOrCommericalNumber,
                 style: TextStyle(
                   color: baseColorText,
                 ),
@@ -61,7 +62,8 @@ class _individualUserInfoState extends State<individualUserInfo> {
                   widgetsUni.actionbutton("تحقق", Icons.send, () {
                     if (checked == true) {
                       setState(() {
-                        widget.IndividualUserInfo.Name.text = "مؤيد العوفي";
+                        widget.IndividualUserInfo.IndividualNameOrCompanyName
+                            .text = "مؤيد العوفي";
                         widget.IndividualUserInfo.mobile.text = "0567442031";
                         widget.IndividualUserInfo.baldea.text = "بلدية الخبر";
                         widget.IndividualUserInfo.Neighborhoodname.text =
@@ -109,7 +111,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
     return [
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.Name,
+        controller: widget.IndividualUserInfo.IndividualNameOrCompanyName,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -193,7 +195,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.EmployeeDescription,
+        controller: widget.IndividualUserInfo.employeeDescription,
         style: TextStyle(
           color: baseColorText,
         ),

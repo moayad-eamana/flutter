@@ -16,20 +16,6 @@ class shopLicenses extends StatefulWidget {
 
 class _shopLicensesState extends State<shopLicenses>
     with AutomaticKeepAliveClientMixin {
-  //مخالفة رخص المحلات
-  //رخصة محل
-  TextEditingController _shoplicenses = TextEditingController();
-  //إسم المنشأة
-  TextEditingController _facilityname = TextEditingController();
-  //رقم السجل أو الهوية
-  TextEditingController _recordnumberorid = TextEditingController();
-  //تاريخ انتهاء الرخصة
-  TextEditingController _expirdate = TextEditingController();
-  //مساحة المحل
-  TextEditingController _shopespace = TextEditingController();
-  //النشاط
-  TextEditingController _nshat = TextEditingController();
-
   bool checked = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -42,7 +28,7 @@ class _shopLicensesState extends State<shopLicenses>
         child: Column(
           children: [
             TextFormField(
-              controller: _shoplicenses,
+              controller: widget.IndividualUserInfo.shoplicenses,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -74,7 +60,8 @@ class _shopLicensesState extends State<shopLicenses>
               Column(
                 children: [
                   TextFormField(
-                    controller: _facilityname,
+                    controller:
+                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -84,7 +71,8 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _recordnumberorid,
+                    controller:
+                        widget.IndividualUserInfo.identityOrCommericalNumber,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -94,7 +82,7 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _expirdate,
+                    controller: widget.IndividualUserInfo.LicenseExpirDate,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -119,17 +107,19 @@ class _shopLicensesState extends State<shopLicenses>
                           ),
                           showTitleActions: true,
                           minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                        _expirdate.text = date.toString().split(" ")[0];
+                        widget.IndividualUserInfo.LicenseExpirDate.text =
+                            date.toString().split(" ")[0];
                         print('change $date');
                       }, onConfirm: (date) {
-                        _expirdate.text = date.toString().split(" ")[0];
+                        widget.IndividualUserInfo.LicenseExpirDate.text =
+                            date.toString().split(" ")[0];
                         print('confirm $date');
                       }, currentTime: DateTime.now(), locale: LocaleType.ar);
                     },
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _shopespace,
+                    controller: widget.IndividualUserInfo.shopespace,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -139,7 +129,7 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: _nshat,
+                    controller: widget.IndividualUserInfo.activity,
                     style: TextStyle(
                       color: baseColorText,
                     ),

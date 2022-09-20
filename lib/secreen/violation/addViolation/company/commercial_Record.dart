@@ -17,9 +17,7 @@ class _commercialRecordState extends State<commercialRecord>
     with AutomaticKeepAliveClientMixin {
   //مخالفة لسجل تجاري
   //سجل تجاري
-  TextEditingController _commercialRecord = TextEditingController();
-  //اسم المؤسسة /الشركة
-  TextEditingController _companyname = TextEditingController();
+
   bool checked = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -32,7 +30,7 @@ class _commercialRecordState extends State<commercialRecord>
         child: Column(
           children: [
             TextFormField(
-              controller: _commercialRecord,
+              controller: widget.IndividualUserInfo.identityOrCommericalNumber,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -64,7 +62,8 @@ class _commercialRecordState extends State<commercialRecord>
               Column(
                 children: [
                   TextFormField(
-                    controller: _companyname,
+                    controller:
+                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
