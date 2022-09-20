@@ -83,19 +83,27 @@ class _attachmentState extends State<attachment>
                         icon: const Icon(Icons.image),
                         color: baseColor,
                         onPressed: () async {
-                          // Capture a photo
-                          images = await _picker.pickMultiImage();
+                          //from gallary
+                          images = await _picker.pickMultiImage(
+                            imageQuality: 100,
+                            maxHeight: 1440,
+                            maxWidth: 1440,
+                          );
                           print(images);
                           if (images != null) {
                             for (int i = 0; i < images!.length; i++) {
                               final imageTemp = File(images![i].path);
                               var base64 =
                                   base64Encode(await imageTemp.readAsBytes());
+                              int sizeInBytes = imageTemp.lengthSync();
+                              double sizeInMb = sizeInBytes / (1024 * 1024);
+                              print(sizeInMb);
                               listofimage.add({
                                 'path': images![i].path,
                                 'type': images![i].name.split(".").last,
                                 'name': images![i].name,
                                 'base64': base64,
+                                'size': sizeInMb
                               });
                             }
 
@@ -130,12 +138,18 @@ class _attachmentState extends State<attachment>
                         onPressed: () async {
                           // Capture a photo
                           photo = await _picker.pickImage(
-                              source: ImageSource.camera);
+                            source: ImageSource.camera,
+                            maxHeight: 1440,
+                            maxWidth: 1440,
+                          );
                           print(photo);
                           if (photo == null) return;
                           final imageTemp = File(photo!.path);
                           var base64 =
                               base64Encode(await imageTemp.readAsBytes());
+                          int sizeInBytes = imageTemp.lengthSync();
+                          double sizeInMb = sizeInBytes / (1024 * 1024);
+                          print(sizeInMb);
                           print(base64);
                           setState(() {
                             listofimage.add({
@@ -143,6 +157,7 @@ class _attachmentState extends State<attachment>
                               'type': photo!.name.split(".").last,
                               'name': photo!.name,
                               'base64': base64,
+                              'size': sizeInMb
                             });
                           });
                           // print(listofimage[0]);
@@ -171,6 +186,7 @@ class _attachmentState extends State<attachment>
                         icon: const Icon(Icons.picture_as_pdf),
                         color: baseColor,
                         onPressed: () async {
+                          //pdf
                           FilePickerResult? result =
                               await FilePicker.platform.pickFiles(
                             allowMultiple: true,
@@ -184,13 +200,23 @@ class _attachmentState extends State<attachment>
                               final imageTemp = File(file.path!);
                               var base64 =
                                   base64Encode(await imageTemp.readAsBytes());
+                              int sizeInBytes = imageTemp.lengthSync();
+                              double sizeInMb = sizeInBytes / (1024 * 1024);
+                              print(sizeInMb);
+                              if (sizeInMb <= 5) {
+                                listofimage.add({
+                                  'path': file.path,
+                                  'type': file.extension,
+                                  'name': file.name,
+                                  'base64': base64,
+                                  'size': sizeInMb
+                                });
+                              } else {
+                                Alerts.errorAlert(context, "خطأ",
+                                        "يجب ان يكون حجم الملف اقل من 5 ميجا")
+                                    .show();
+                              }
 
-                              listofimage.add({
-                                'path': file.path,
-                                'type': file.extension,
-                                'name': file.name,
-                                'base64': base64,
-                              });
                               print(listofimage);
                             }
 
