@@ -26,44 +26,49 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
   var _violationTypeID;
   var _violationTypeName;
 
-  List bunudtype = [];
+  List bunudtype = [
+    {
+      '_bunudTypeID': 1,
+      '_bunudTypeName': "عدم وجود اسم المقاول على صبات الحماية"
+    }
+  ];
   var _bunudTypeID;
   var _bunudTypeName;
 
-  List boundvaluetype = [];
-  var _boundvalueTypeID;
-  var _boundvalueTypeName;
+  List bunudvaluetype = [];
+  var _bunudvalueTypeID;
+  var _bunudvalueTypeName;
 
   bool checkbox = false;
 
   TextEditingController _date = TextEditingController();
   TextEditingController _unit = TextEditingController();
-  TextEditingController _boundloop = TextEditingController();
-  TextEditingController _boundvalue = TextEditingController();
+  TextEditingController _bunudloop = TextEditingController();
+  TextEditingController _bunudvalue = TextEditingController();
 
   List bunudTable = [
     {
       '_bunudTypeID': 1,
-      '_bunudTypeName': '1-دم تسجيل المنشأة-عدم تسجيل المنشأة',
+      '_bunudTypeName': '1-عدم تسجيل المنشأة-عدم تسجيل المنشأة',
       '_unit': 'لا توجد',
-      '_boundvalue': 5000,
-      '_boundloop': 1,
+      '_bunudvalue': 5000,
+      '_bunudloop': 1,
       'total': 5000
     },
     {
       '_bunudTypeID': 1,
       '_bunudTypeName': '1-عدم تسجيل المنشأة',
       '_unit': 'لا توجد',
-      '_boundvalue': 5000,
-      '_boundloop': 1,
+      '_bunudvalue': 5000,
+      '_bunudloop': 1,
       'total': 5000
     },
     {
       '_bunudTypeID': 1,
       '_bunudTypeName': '1-عدم تسجيل المنشأة',
       '_unit': 'لا توجد',
-      '_boundvalue': 5000,
-      '_boundloop': 1,
+      '_bunudvalue': 5000,
+      '_bunudloop': 1,
       'total': 5000
     },
   ];
@@ -438,6 +443,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           print(v);
                           _bunudTypeID = v["_bunudTypeID"];
                           _bunudTypeName = v["_bunudTypeName"];
+                          _unit.text = "للتصريح";
                         });
                         print('object');
                         print(v["_bunudTypeID"]);
@@ -505,6 +511,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                       Flexible(
                         child: TextFormField(
                           controller: _unit,
+                          enabled: false,
                           keyboardType: TextInputType.text,
                           style: TextStyle(color: baseColorText),
                           decoration: formlabel1("الوحدة"),
@@ -521,7 +528,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                       ),
                       Flexible(
                         child: TextFormField(
-                          controller: _boundloop,
+                          controller: _bunudloop,
                           style: TextStyle(color: baseColorText),
                           decoration: formlabel1("العدد /\ التكرار"),
                           inputFormatters: <TextInputFormatter>[
@@ -544,12 +551,15 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   ),
                   //here need if stutment to change the bunudvalue
                   TextFormField(
-                    controller: _boundvalue,
-                    keyboardType: TextInputType.text,
+                    controller: _bunudvalue,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
                     style: TextStyle(color: baseColorText),
                     decoration: formlabel1("القيمة المطبقة"),
                     enabled: true,
-                    // inputFormatters: <TextInputFormatter>[
+                    // inputFormatters: <TextInputFormatter>[ 1983
                     //                 FilteringTextInputFormatter.digitsOnly
                     //               ],
                     //               keyboardType: TextInputType.number,
@@ -565,107 +575,109 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   SizedBox(
                     height: 10,
                   ),
-                  DropdownSearch<dynamic>(
-                    items: boundvaluetype,
-                    popupBackgroundColor: BackGWhiteColor,
-                    popupItemBuilder: (context, rr, isSelected) => (Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: Column(
-                        children: [
-                          Text(rr["_boundvalueTypeName"].toString(),
-                              style: subtitleTx(baseColorText))
-                        ],
-                      ),
-                    )),
-                    dropdownBuilder: (context, selectedItem) => Container(
-                      decoration: null,
-                      child: selectedItem == null
-                          ? null
-                          : Text(
-                              selectedItem == null
-                                  ? ""
-                                  : selectedItem["_boundvalueTypeName"] ?? "",
-                              style: TextStyle(
-                                  fontSize: 16, color: baseColorText)),
-                    ),
-                    dropdownBuilderSupportsNullItem: true,
-                    mode: Mode.BOTTOM_SHEET,
-                    showClearButton: _violationTypeID == null ? false : true,
-                    maxHeight: 400,
-                    showAsSuffixIcons: true,
-                    dropdownSearchDecoration: formlabel1("القيمة المطبقة"),
-                    validator: (value) {
-                      if (value == "" || value == null) {
-                        return "يرجى إختيار القيمة المطبقة";
-                      } else {
-                        return null;
-                      }
-                    },
-                    showSearchBox: true,
-                    onChanged: (v) {
-                      try {
-                        setState(() {
-                          print(v);
-                          _boundvalueTypeID = v["_boundvalueTypeID"];
-                          _boundvalueTypeName = v["_boundvalueTypeName"];
-                        });
-                        print('object');
-                        print(v["_boundvalueTypeID"]);
-                        // value = v;
-                        //value = v ?? "";
-                      } catch (e) {}
-                    },
-                    popupTitle: Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: secondryColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                  //here need if stutment to change the bunudvalue
+                  if (false)
+                    DropdownSearch<dynamic>(
+                      items: bunudvaluetype,
+                      popupBackgroundColor: BackGWhiteColor,
+                      popupItemBuilder: (context, rr, isSelected) => (Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Column(
+                          children: [
+                            Text(rr["_bunudvalueTypeName"].toString(),
+                                style: subtitleTx(baseColorText))
+                          ],
                         ),
+                      )),
+                      dropdownBuilder: (context, selectedItem) => Container(
+                        decoration: null,
+                        child: selectedItem == null
+                            ? null
+                            : Text(
+                                selectedItem == null
+                                    ? ""
+                                    : selectedItem["_bunudvalueTypeName"] ?? "",
+                                style: TextStyle(
+                                    fontSize: 16, color: baseColorText)),
                       ),
-                      child: Center(
-                        child: Text(
-                          "القيمة المطبقة",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                      dropdownBuilderSupportsNullItem: true,
+                      mode: Mode.BOTTOM_SHEET,
+                      showClearButton: _violationTypeID == null ? false : true,
+                      maxHeight: 400,
+                      showAsSuffixIcons: true,
+                      dropdownSearchDecoration: formlabel1("القيمة المطبقة"),
+                      validator: (value) {
+                        if (value == "" || value == null) {
+                          return "يرجى إختيار القيمة المطبقة";
+                        } else {
+                          return null;
+                        }
+                      },
+                      showSearchBox: true,
+                      onChanged: (v) {
+                        try {
+                          setState(() {
+                            print(v);
+                            _bunudvalueTypeID = v["_bunudvalueTypeID"];
+                            _bunudvalueTypeName = v["_bunudvalueTypeName"];
+                          });
+                          print('object');
+                          print(v["_bunudvalueTypeID"]);
+                          // value = v;
+                          //value = v ?? "";
+                        } catch (e) {}
+                      },
+                      popupTitle: Container(
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: secondryColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "القيمة المطبقة",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    popupShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24),
-                        topRight: Radius.circular(24),
+                      popupShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
                       ),
-                    ),
-                    emptyBuilder: (context, searchEntry) => Center(
-                      child: Text(
-                        "لا يوجد بيانات",
+                      emptyBuilder: (context, searchEntry) => Center(
+                        child: Text(
+                          "لا يوجد بيانات",
+                          style: TextStyle(
+                            color: baseColorText,
+                          ),
+                        ),
+                      ),
+                      searchFieldProps: TextFieldProps(
+                        textAlign: TextAlign.right,
+                        decoration: formlabel1(""),
                         style: TextStyle(
                           color: baseColorText,
                         ),
+                        textDirection: TextDirection.rtl,
+                      ),
+                      clearButton: Icon(
+                        Icons.clear,
+                        color: baseColor,
+                      ),
+                      dropDownButton: Icon(
+                        Icons.arrow_drop_down,
+                        color: baseColor,
                       ),
                     ),
-                    searchFieldProps: TextFieldProps(
-                      textAlign: TextAlign.right,
-                      decoration: formlabel1(""),
-                      style: TextStyle(
-                        color: baseColorText,
-                      ),
-                      textDirection: TextDirection.rtl,
-                    ),
-                    clearButton: Icon(
-                      Icons.clear,
-                      color: baseColor,
-                    ),
-                    dropDownButton: Icon(
-                      Icons.arrow_drop_down,
-                      color: baseColor,
-                    ),
-                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -677,17 +689,26 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                         () {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
-                              bunudTable.add({
-                                '_bunudTypeID': 1,
-                                '_bunudTypeName':
-                                    '1-دم تسجيل المنشأة-عدم تسجيل المنشأة',
-                                '_unit': _unit.text,
-                                '_boundvalue': _boundvalue.text,
-                                '_boundloop': _boundloop.text,
-                                'total': int.parse(_boundvalue.text) *
-                                    int.parse(_boundloop.text)
-                              });
-                              generaltotal += 5000;
+                              _bunudTypeID = 3;
+                              var contain = bunudTable.where((element) =>
+                                  element['_bunudTypeID'] == _bunudTypeID);
+                              if (contain.isEmpty) {
+                                bunudTable.add({
+                                  '_bunudTypeID': _bunudTypeID,
+                                  '_bunudTypeName': _bunudTypeName,
+                                  '_unit': _unit.text,
+                                  '_bunudvalue': _bunudvalue.text,
+                                  '_bunudloop': _bunudloop.text,
+                                  'total': int.parse(_bunudvalue.text) *
+                                      int.parse(_bunudloop.text)
+                                });
+                                generaltotal += int.parse(_bunudvalue.text) *
+                                    int.parse(_bunudloop.text);
+                              } else {
+                                Alerts.warningAlert(context, "تنبيه",
+                                        "تم إضافة البند مسبقاً")
+                                    .show();
+                              }
                             });
                           }
                         },
@@ -716,7 +737,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                                 child: ListTile(
                                   minLeadingWidth: 10,
                                   leading: Text(
-                                      bunudTable[index]['_boundloop']
+                                      bunudTable[index]['_bunudloop']
                                               .toString() +
                                           "×",
                                       style: subtitleTx(secondryColor)),
@@ -811,7 +832,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                             //                     style: subtitleTx(baseColor),
                             //                   ),
                             //                   Text(
-                            //                     bunudTable[index]['_boundvalue']
+                            //                     bunudTable[index]['_bunudvalue']
                             //                         .toString(),
                             //                     style: descTx2(baseColorText),
                             //                   )
@@ -824,7 +845,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                             //                     style: subtitleTx(baseColor),
                             //                   ),
                             //                   Text(
-                            //                     bunudTable[index]['_boundloop']
+                            //                     bunudTable[index]['_bunudloop']
                             //                         .toString(),
                             //                     style: descTx2(baseColorText),
                             //                   ),
