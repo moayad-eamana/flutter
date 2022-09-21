@@ -900,7 +900,8 @@ class _HomPanelState extends State<HomePanel>
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder: (_) {
-                                                            return ProfileImage();
+                                                            return ProfileImage(
+                                                                tag: "profile");
                                                           }));
                                                         }),
                                               ),

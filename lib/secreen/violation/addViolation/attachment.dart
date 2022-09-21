@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -268,12 +269,24 @@ class _attachmentState extends State<attachment>
                               ),
                             ),
                             child: listofimage[index]['type'] != 'pdf'
-                                ? Image.file(
-                                    File(
-                                      listofimage[index]['path'],
-                                    ),
-                                    fit: BoxFit.cover,
-                                  )
+                                ? GestureDetector(
+                                    child: Hero(
+                                        tag: listofimage[index]['name'],
+                                        child: Image.file(
+                                          File(
+                                            listofimage[index]['path'],
+                                          ),
+                                          fit: BoxFit.cover,
+                                        )),
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (_) {
+                                        return ProfileImage(
+                                          tag: listofimage[index]['name'],
+                                          path: listofimage[index]['path'],
+                                        );
+                                      }));
+                                    })
                                 : Container(
                                     height: 100,
                                     width: 100,
