@@ -63,7 +63,7 @@ class _commercialRecordState extends State<commercialRecord>
                 children: [
                   TextFormField(
                     controller:
-                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
+                        widget.IndividualUserInfo.individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),

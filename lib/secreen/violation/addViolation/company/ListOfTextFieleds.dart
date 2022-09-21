@@ -21,7 +21,7 @@ List<Widget> TexTfields(
     ),
     sizeBox(),
     TextFormField(
-      controller: IndividualUserInfo.Neighborhoodname,
+      controller: IndividualUserInfo.neighborhoodname,
       keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
@@ -38,7 +38,7 @@ List<Widget> TexTfields(
     sizeBox(),
     if (withstreetname == true)
       TextFormField(
-        controller: IndividualUserInfo.Streetname,
+        controller: IndividualUserInfo.streetname,
         keyboardType: TextInputType.text,
         style: TextStyle(
           color: baseColorText,

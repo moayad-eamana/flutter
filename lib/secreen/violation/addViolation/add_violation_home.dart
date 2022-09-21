@@ -53,6 +53,7 @@ class _add_violationState extends State<add_violation>
                 bunud(
                   next: nextPage,
                   back: backPag,
+                  IndividualUserInfo: IndividualUserInfo,
                 ),
                 attachment(
                   back: backPag,

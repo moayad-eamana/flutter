@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/model/violation/violation.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -9,9 +10,15 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:sizer/sizer.dart';
 
 class bunud extends StatefulWidget {
-  bunud({required this.next, required this.back, Key? key}) : super(key: key);
+  bunud(
+      {required this.next,
+      required this.back,
+      required this.IndividualUserInfo,
+      Key? key})
+      : super(key: key);
   Function next;
   Function back;
+  IndividualUserInfoModel IndividualUserInfo;
 
   @override
   State<bunud> createState() => _bunudState();
@@ -41,13 +48,10 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
 
   bool checkbox = false;
 
-  TextEditingController _date = TextEditingController();
-  TextEditingController _unit = TextEditingController();
-  TextEditingController _bunudloop = TextEditingController();
-  TextEditingController _bunudvalue = TextEditingController();
-
   List bunudTable = [
     {
+      '_violationTypeID': 1,
+      '_violationTypeName': "مخالفة طرق",
       '_bunudTypeID': 1,
       '_bunudTypeName': '1-عدم تسجيل المنشأة-عدم تسجيل المنشأة',
       '_unit': 'لا توجد',
@@ -56,6 +60,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
       'total': 5000
     },
     {
+      '_violationTypeID': 1,
+      '_violationTypeName': "مخالفة طرق",
       '_bunudTypeID': 1,
       '_bunudTypeName': '1-عدم تسجيل المنشأة',
       '_unit': 'لا توجد',
@@ -64,6 +70,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
       'total': 5000
     },
     {
+      '_violationTypeID': 1,
+      '_violationTypeName': "مخالفة طرق",
       '_bunudTypeID': 1,
       '_bunudTypeName': '1-عدم تسجيل المنشأة',
       '_unit': 'لا توجد',
@@ -216,7 +224,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   ),
 
                   TextFormField(
-                    controller: _date,
+                    controller: widget.IndividualUserInfo.violationDate,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -240,10 +248,12 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           ),
                           showTitleActions: true,
                           minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                        _date.text = date.toString().split(" ")[0];
+                        widget.IndividualUserInfo.violationDate.text =
+                            date.toString().split(" ")[0];
                         print('change $date');
                       }, onConfirm: (date) {
-                        _date.text = date.toString().split(" ")[0];
+                        widget.IndividualUserInfo.violationDate.text =
+                            date.toString().split(" ")[0];
                         print('confirm $date');
                       }, currentTime: DateTime.now(), locale: LocaleType.ar);
                     },
@@ -443,7 +453,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           print(v);
                           _bunudTypeID = v["_bunudTypeID"];
                           _bunudTypeName = v["_bunudTypeName"];
-                          _unit.text = "للتصريح";
+                          widget.IndividualUserInfo.unit.text = "للتصريح";
                         });
                         print('object');
                         print(v["_bunudTypeID"]);
@@ -510,7 +520,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                     children: [
                       Flexible(
                         child: TextFormField(
-                          controller: _unit,
+                          controller: widget.IndividualUserInfo.unit,
                           enabled: false,
                           keyboardType: TextInputType.text,
                           style: TextStyle(color: baseColorText),
@@ -528,7 +538,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                       ),
                       Flexible(
                         child: TextFormField(
-                          controller: _bunudloop,
+                          controller: widget.IndividualUserInfo.repetition,
                           style: TextStyle(color: baseColorText),
                           decoration: formlabel1("العدد /\ التكرار"),
                           inputFormatters: <TextInputFormatter>[
@@ -551,7 +561,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   ),
                   //here need if stutment to change the bunudvalue
                   TextFormField(
-                    controller: _bunudvalue,
+                    controller: widget.IndividualUserInfo.bunudvalue,
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
@@ -694,16 +704,24 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                                   element['_bunudTypeID'] == _bunudTypeID);
                               if (contain.isEmpty) {
                                 bunudTable.add({
+                                  '_violationTypeID': 1,
+                                  '_violationTypeName': "مخالفة طرق",
                                   '_bunudTypeID': _bunudTypeID,
                                   '_bunudTypeName': _bunudTypeName,
-                                  '_unit': _unit.text,
-                                  '_bunudvalue': _bunudvalue.text,
-                                  '_bunudloop': _bunudloop.text,
-                                  'total': int.parse(_bunudvalue.text) *
-                                      int.parse(_bunudloop.text)
+                                  '_unit': widget.IndividualUserInfo.unit.text,
+                                  '_bunudvalue':
+                                      widget.IndividualUserInfo.bunudvalue.text,
+                                  '_bunudloop':
+                                      widget.IndividualUserInfo.repetition.text,
+                                  'total': int.parse(widget
+                                          .IndividualUserInfo.bunudvalue.text) *
+                                      int.parse(widget
+                                          .IndividualUserInfo.repetition.text)
                                 });
-                                generaltotal += int.parse(_bunudvalue.text) *
-                                    int.parse(_bunudloop.text);
+                                generaltotal += int.parse(widget
+                                        .IndividualUserInfo.bunudvalue.text) *
+                                    int.parse(widget
+                                        .IndividualUserInfo.repetition.text);
                               } else {
                                 Alerts.warningAlert(context, "تنبيه",
                                         "تم إضافة البند مسبقاً")

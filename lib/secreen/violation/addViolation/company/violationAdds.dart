@@ -56,7 +56,7 @@ class _violationAddsState extends State<violationAdds>
               height: 10,
             ),
             TextFormField(
-              controller: widget.IndividualUserInfo.addslicenses,
+              controller: widget.IndividualUserInfo.advboardlicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -124,7 +124,7 @@ class _violationAddsState extends State<violationAdds>
                   sizeBox(),
                   TextFormField(
                     controller:
-                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
+                        widget.IndividualUserInfo.individualNameOrCompanyName,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,
@@ -135,7 +135,7 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.advDistance,
+                    controller: widget.IndividualUserInfo.advboardDistance,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       color: baseColorText,
@@ -146,7 +146,7 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.LicenseExpirDate,
+                    controller: widget.IndividualUserInfo.licenseExpirDate,
                     keyboardType: TextInputType.datetime,
                     style: TextStyle(
                       color: baseColorText,

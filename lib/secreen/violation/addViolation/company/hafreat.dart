@@ -29,7 +29,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.ordernumber,
+              controller: widget.IndividualUserInfo.diggingLicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -62,7 +62,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                 children: [
                   TextFormField(
                     controller:
-                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
+                        widget.IndividualUserInfo.individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -109,7 +109,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.spacehafreat,
+                    controller: widget.IndividualUserInfo.diggingArea,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -119,7 +119,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.sitedescription,
+                    controller: widget.IndividualUserInfo.locOrPurposeDesc,
                     style: TextStyle(
                       color: baseColorText,
                     ),

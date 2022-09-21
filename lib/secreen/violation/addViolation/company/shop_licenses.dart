@@ -61,7 +61,7 @@ class _shopLicensesState extends State<shopLicenses>
                 children: [
                   TextFormField(
                     controller:
-                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
+                        widget.IndividualUserInfo.individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -82,7 +82,7 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.LicenseExpirDate,
+                    controller: widget.IndividualUserInfo.licenseExpirDate,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -107,11 +107,11 @@ class _shopLicensesState extends State<shopLicenses>
                           ),
                           showTitleActions: true,
                           minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                        widget.IndividualUserInfo.LicenseExpirDate.text =
+                        widget.IndividualUserInfo.licenseExpirDate.text =
                             date.toString().split(" ")[0];
                         print('change $date');
                       }, onConfirm: (date) {
-                        widget.IndividualUserInfo.LicenseExpirDate.text =
+                        widget.IndividualUserInfo.licenseExpirDate.text =
                             date.toString().split(" ")[0];
                         print('confirm $date');
                       }, currentTime: DateTime.now(), locale: LocaleType.ar);
@@ -119,7 +119,7 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.shopespace,
+                    controller: widget.IndividualUserInfo.storeDistance,
                     style: TextStyle(
                       color: baseColorText,
                     ),

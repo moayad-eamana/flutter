@@ -36,7 +36,7 @@ class _buildinglicenseState extends State<buildinglicense>
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.licensenumber,
+              controller: widget.IndividualUserInfo.buildingLicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -69,7 +69,7 @@ class _buildinglicenseState extends State<buildinglicense>
                 children: [
                   TextFormField(
                     controller:
-                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
+                        widget.IndividualUserInfo.individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -116,7 +116,7 @@ class _buildinglicenseState extends State<buildinglicense>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.space,
+                    controller: widget.IndividualUserInfo.areaBuildingLic,
                     style: TextStyle(
                       color: baseColorText,
                     ),

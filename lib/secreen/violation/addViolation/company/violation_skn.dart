@@ -27,7 +27,7 @@ class _ViolationSknState extends State<ViolationSkn>
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.licenseskn,
+              controller: widget.IndividualUserInfo.dormitoryLicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -61,7 +61,7 @@ class _ViolationSknState extends State<ViolationSkn>
                 children: [
                   TextFormField(
                     controller:
-                        widget.IndividualUserInfo.IndividualNameOrCompanyName,
+                        widget.IndividualUserInfo.individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -90,7 +90,8 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.LicenseExpirDate,
+                    controller:
+                        widget.IndividualUserInfo.dormitoryLicenseExpireDate,
                     keyboardType: TextInputType.datetime,
                     style: TextStyle(
                       color: baseColorText,
@@ -101,7 +102,7 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.space,
+                    controller: widget.IndividualUserInfo.dormitoryArea,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,
@@ -112,7 +113,7 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.eqartype,
+                    controller: widget.IndividualUserInfo.dormitoryType,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,

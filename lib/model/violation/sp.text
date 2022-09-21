@@ -1,7 +1,7 @@
 if (ddlUserType.SelectedValue == "1" || ddlViolType.SelectedValue == "1")
                         {// افراد
                             newItem["IdentityOrCommericalNumber"] = txtIdentityOrCommercialNumber.Text;
-                            newItem["IndividualNameOrCompanyName"] = txtIndividualCompanyName.Text;
+                            newItem["individualNameOrCompanyName"] = txtIndividualCompanyName.Text;
                             newItem["MobileNumber"] = txtMobileNumber.Text;
                             if (ddlViolType.SelectedValue == "1")
                             {
@@ -14,7 +14,7 @@ if (ddlUserType.SelectedValue == "1" || ddlViolType.SelectedValue == "1")
                         {//رخص المحلات
                             newItem["ShopLicense"] = txtIdentityOrCommercialNumber.Text;
                             newItem["IdentityOrCommericalNumber"] = txtIdentityOrCommercialNumberShopLic.Text;
-                            newItem["IndividualNameOrCompanyName"] = txtCompanyNameShopLic.Text;
+                            newItem["individualNameOrCompanyName"] = txtCompanyNameShopLic.Text;
                             newItem["MobileNumber"] = txtMobileNumberShopLic.Text;
                             newItem["StoreDistance"] = txtdistanceShopLic.Text;
                             newItem["LicenseExpirDate"] = txtLicenseExpirationDateShopLic.Text;
@@ -25,7 +25,7 @@ if (ddlUserType.SelectedValue == "1" || ddlViolType.SelectedValue == "1")
                         {//رخص للوحات الاعلانية
                             newItem["advboardlicense"] = txtadvboard.Text;
                             newItem["IdentityOrCommericalNumber"] = txtIdentityOrCommercialNumberAdvBoard.Text;
-                            newItem["IndividualNameOrCompanyName"] = txtAdvBoardName.Text;
+                            newItem["individualNameOrCompanyName"] = txtAdvBoardName.Text;
                             newItem["advboardDistance"] = txtdistanceAdvBoard.Text;
                             newItem["LicenseExpirDate"] = txtLicenseExpirationDateAdvBoard.Text;
                             newItem["ViolationSelected"] = ddlViolType.SelectedItem.Text;//new edit
@@ -35,7 +35,7 @@ if (ddlUserType.SelectedValue == "1" || ddlViolType.SelectedValue == "1")
                         {//الحفريات
                             newItem["DiggingLicense"] = txtIdentityOrCommercialNumber.Text;
                             newItem["IdentityOrCommericalNumber"] = txtCRNumberDiggLic.Text;
-                            newItem["IndividualNameOrCompanyName"] = txtCompanyNameDigLic.Text;
+                            newItem["individualNameOrCompanyName"] = txtCompanyNameDigLic.Text;
                             newItem["MobileNumber"] = txtMobNumDigLic.Text;
                             newItem["DiggingArea"] = txtAreaDigLic.Text;
                             newItem["BeneficiaryName"] = txtbeneficiaryDigLic.Text;
@@ -46,7 +46,7 @@ if (ddlUserType.SelectedValue == "1" || ddlViolType.SelectedValue == "1")
                         {//رخص بناء
                             newItem["BuildingLicense"] = txtIdentityOrCommercialNumber.Text;
                             newItem["IdentityOrCommericalNumber"] = txtCRNumberBldgLic.Text;
-                            newItem["IndividualNameOrCompanyName"] = txtOwnerNameBldgLic.Text;
+                            newItem["individualNameOrCompanyName"] = txtOwnerNameBldgLic.Text;
                             newItem["MobileNumber"] = txtMobNumBldgLic.Text;
                             newItem["AreaBuildingLic"] = txtAreaBldgLic.Text;
                             newItem["LocOrPurposeDesc"] = txtProposedDescBldgLic.Text;
@@ -57,7 +57,7 @@ if (ddlUserType.SelectedValue == "1" || ddlViolType.SelectedValue == "1")
                         {//سكن جماعي
                             newItem["DormitoryLicense"] = txtIdentityOrCommercialNumber.Text;
                             newItem["IdentityOrCommericalNumber"] = txtIdentityOrCommercialNumberDormitoryLic.Text;
-                            newItem["IndividualNameOrCompanyName"] = txtDormitoryName.Text;
+                            newItem["individualNameOrCompanyName"] = txtDormitoryName.Text;
                             newItem["MobileNumber"] = txtMobileNumberDormitoryLic.Text;
                             newItem["DormitoryArea"] = txtdistanceDormitoryLic.Text;
                             newItem["DormitoryLicenseExpireDate"] = txtLicenseExpirationDateDormitoryLic.Text;

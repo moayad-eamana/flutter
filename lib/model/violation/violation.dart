@@ -5,15 +5,15 @@ class IndividualUserInfoModel {
   //رقم الهوية او رقم سجل
   TextEditingController identityOrCommericalNumber = TextEditingController();
   //إسم الفرد أو سم اشركة
-  TextEditingController IndividualNameOrCompanyName = TextEditingController();
+  TextEditingController individualNameOrCompanyName = TextEditingController();
   //رقم الجوال
   TextEditingController mobile = TextEditingController();
   //البلدية التابعة
   TextEditingController baldea = TextEditingController();
   //إسم الحي
-  TextEditingController Neighborhoodname = TextEditingController();
+  TextEditingController neighborhoodname = TextEditingController();
   //إسم الشارع
-  TextEditingController Streetname = TextEditingController();
+  TextEditingController streetname = TextEditingController();
   //الوصف المختصر
   TextEditingController ShortDescription = TextEditingController();
   //ملاحظات الموظف
@@ -21,88 +21,100 @@ class IndividualUserInfoModel {
 
   //مخالفة رخصة البناء
   //رقم الرخصة
-  TextEditingController licensenumber = TextEditingController();
+  TextEditingController buildingLicense = TextEditingController();
   //اسم المالك
-  // TextEditingController IndividualNameOrCompanyName = TextEditingController();
+  // TextEditingController individualNameOrCompanyName = TextEditingController();
   //رقم الهوية / سجل
   // TextEditingController identityOrCommericalNumber = TextEditingController();
   //اسم المكتب الهندسي
   TextEditingController companyEngName = TextEditingController();
   //مساحة
-  TextEditingController space = TextEditingController();
-  //نوع الرخصة
+  TextEditingController areaBuildingLic = TextEditingController();
+  //نوع الرخصة locOrPurposeDesc ?
   TextEditingController licensetype = TextEditingController();
 
   //مخالفة لسجل تجاري
   //سجل تجاري
   // TextEditingController identityORcommercialnumber = TextEditingController();
   //اسم المؤسسة /الشركة
-  // TextEditingController IndividualNameOrCompanyName = TextEditingController();
+  // TextEditingController individualNameOrCompanyName = TextEditingController();
 
   //مخالفات الحفريات
   //رقم الطلب
-  TextEditingController ordernumber = TextEditingController();
+  TextEditingController diggingLicense = TextEditingController();
   //إسم المنشأة
-  // TextEditingController IndividualNameOrCompanyName = TextEditingController();
+  // TextEditingController individualNameOrCompanyName = TextEditingController();
   //رقم السجل
   // TextEditingController identityOrCommericalNumber = TextEditingController();
   //الجهة المستفيدة
   TextEditingController beneficiary = TextEditingController();
   //مساحة الحفر
-  TextEditingController spacehafreat = TextEditingController();
+  TextEditingController diggingArea = TextEditingController();
   //وصف الموقع
-  TextEditingController sitedescription = TextEditingController();
+  TextEditingController locOrPurposeDesc = TextEditingController();
 
   //مخالفة رخص المحلات
   //رخصة محل
   TextEditingController shoplicenses = TextEditingController();
   //إسم المنشأة
-  // TextEditingController IndividualNameOrCompanyName = TextEditingController();
+  // TextEditingController individualNameOrCompanyName = TextEditingController();
   //رقم السجل أو الهوية
   // TextEditingController identityOrCommericalNumber = TextEditingController();
   //تاريخ انتهاء الرخصة
-  TextEditingController LicenseExpirDate = TextEditingController();
+  TextEditingController licenseExpirDate = TextEditingController();
   //مساحة المحل
-  TextEditingController shopespace = TextEditingController();
+  TextEditingController storeDistance = TextEditingController();
   //النشاط
   TextEditingController activity = TextEditingController();
 
   //مخالفة سكن جماعي
 //رخصة سكن جماعي
-  TextEditingController licenseskn = TextEditingController();
+  TextEditingController dormitoryLicense = TextEditingController();
   //اسم المنشأة
-  // TextEditingController IndividualNameOrCompanyName = TextEditingController();
+  // TextEditingController individualNameOrCompanyName = TextEditingController();
   //رقم السجل أو الهوية
   // TextEditingController identityOrCommericalNumber = TextEditingController();
   //تاريخ إنتهاء الرخصة
-  // TextEditingController DormitoryLicenseExpireDate = TextEditingController();
+  TextEditingController dormitoryLicenseExpireDate = TextEditingController();
   //مساحة
   TextEditingController dormitoryArea = TextEditingController();
   //نوع العقار
-  TextEditingController eqartype = TextEditingController();
+  TextEditingController dormitoryType = TextEditingController();
 
   //مخالفة رخص اللوحات الاعلانية
 //اسم البلدية
   TextEditingController baladeaname = TextEditingController();
   //رخصة لوحة إعلانية
-  TextEditingController addslicenses = TextEditingController();
+  TextEditingController advboardlicense = TextEditingController();
   //رقم السجل أو الهوية
   // TextEditingController identityOrCommericalNumber = TextEditingController();
   //عنوان اللوحة
-  // TextEditingController IndividualNameOrCompanyName = TextEditingController();
+  // TextEditingController individualNameOrCompanyName = TextEditingController();
   //مساحة اللوحة
-  TextEditingController advDistance = TextEditingController();
+  TextEditingController advboardDistance = TextEditingController();
   //تاريخ إنتهاء الرخصة
   // TextEditingController LicenseExpirDate = TextEditingController();
+
+  String ViolationSelected = "";
+
+  //بنود
+  //تاريخ المخالفة
+  TextEditingController violationDate = TextEditingController();
+  //الوحدة
+  TextEditingController unit = TextEditingController();
+  //التكرار
+  TextEditingController repetition = TextEditingController();
+  //القيمة المطبقة
+  TextEditingController bunudvalue = TextEditingController();
 
   //for set
   void settestdata() {
     //json body
     var json = ({
-      "violationDate": "",
+      "violationDate": this.violationDate.text,
       "violationType": "",
       "violationTypeID": "",
-      "commercialNumber": "",
+      "commercialNumber": this.identityOrCommericalNumber.text,
       "amount": "",
       "userType": "",
       "licenseNumber": "",

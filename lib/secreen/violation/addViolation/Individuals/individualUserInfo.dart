@@ -62,13 +62,13 @@ class _individualUserInfoState extends State<individualUserInfo> {
                   widgetsUni.actionbutton("تحقق", Icons.send, () {
                     if (checked == true) {
                       setState(() {
-                        widget.IndividualUserInfo.IndividualNameOrCompanyName
+                        widget.IndividualUserInfo.individualNameOrCompanyName
                             .text = "مؤيد العوفي";
                         widget.IndividualUserInfo.mobile.text = "0567442031";
                         widget.IndividualUserInfo.baldea.text = "بلدية الخبر";
-                        widget.IndividualUserInfo.Neighborhoodname.text =
+                        widget.IndividualUserInfo.neighborhoodname.text =
                             "حي الخبر الشمالية";
-                        widget.IndividualUserInfo.Streetname.text =
+                        widget.IndividualUserInfo.streetname.text =
                             "بلدية الخبر الشمالية";
                       });
                     }
@@ -111,7 +111,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
     return [
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.IndividualNameOrCompanyName,
+        controller: widget.IndividualUserInfo.individualNameOrCompanyName,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -150,7 +150,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.Neighborhoodname,
+        controller: widget.IndividualUserInfo.neighborhoodname,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -165,7 +165,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.Streetname,
+        controller: widget.IndividualUserInfo.streetname,
         style: TextStyle(
           color: baseColorText,
         ),
