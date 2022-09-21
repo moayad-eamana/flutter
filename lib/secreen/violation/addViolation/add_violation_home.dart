@@ -2,6 +2,7 @@ import 'package:eamanaapp/model/violation/violation.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/attachment.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/bunud.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/Individuals/individualUserInfo.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -35,32 +36,47 @@ class _add_violationState extends State<add_violation>
     super.build(context);
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: AppBarW.appBarW("إضافة مخالفة", context, null),
-        body: Stack(
-          children: [
-            Image.asset(
-              imageBG,
-              fit: BoxFit.fill,
-              width: 100.w,
-            ),
-            PageView(
-              controller: controller,
-              children: <Widget>[
-                if (widget.page == 1)
-                  individualUserInfo(IndividualUserInfo, nextPage),
-                if (widget.page == 2) companyinfo(IndividualUserInfo, nextPage),
-                bunud(
-                  next: nextPage,
-                  back: backPag,
-                  IndividualUserInfo: IndividualUserInfo,
-                ),
-                attachment(
-                  back: backPag,
-                ),
-              ],
-            ),
-          ],
+      child: WillPopScope(
+        onWillPop: () async {
+          Alerts.confirmAlrt(
+                  context, "خروج", "هل تريد الخروج النظام المخالفات", "نعم")
+              .show()
+              .then((value) async {
+            if (value == true) {
+              Navigator.pop(context);
+            }
+          });
+
+          return false;
+        },
+        child: Scaffold(
+          appBar: AppBarW.appBarW("إضافة مخالفة", context, null),
+          body: Stack(
+            children: [
+              Image.asset(
+                imageBG,
+                fit: BoxFit.fill,
+                width: 100.w,
+              ),
+              PageView(
+                controller: controller,
+                children: <Widget>[
+                  if (widget.page == 1)
+                    individualUserInfo(IndividualUserInfo, nextPage),
+                  if (widget.page == 2)
+                    companyinfo(IndividualUserInfo, nextPage),
+                  bunud(
+                    next: nextPage,
+                    back: backPag,
+                    IndividualUserInfo: IndividualUserInfo,
+                  ),
+                  attachment(
+                    back: backPag,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

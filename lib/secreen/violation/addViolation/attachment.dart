@@ -366,7 +366,16 @@ class _attachmentState extends State<attachment>
                     SizedBox(
                       width: 10,
                     ),
-                    widgetsUni.actionbutton("إالغاء", Icons.cancel, () {}),
+                    widgetsUni.actionbutton("إالغاء", Icons.cancel, () {
+                      Alerts.confirmAlrt(context, "خروج",
+                              "هل تريد الخروج النظام المخالفات", "نعم")
+                          .show()
+                          .then((value) async {
+                        if (value == true) {
+                          Navigator.pop(context);
+                        }
+                      });
+                    }),
                   ],
                 )
               ],
