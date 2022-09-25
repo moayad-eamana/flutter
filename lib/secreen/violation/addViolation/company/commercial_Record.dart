@@ -1,12 +1,12 @@
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class commercialRecord extends StatefulWidget {
-  commercialRecord(this.nextPage, this.IndividualUserInfo);
-  IndividualUserInfoModel IndividualUserInfo;
+  commercialRecord(this.nextPage, this.vaiolationModel);
+  VaiolationModel vaiolationModel;
   Function nextPage;
 
   @override
@@ -30,7 +30,8 @@ class _commercialRecordState extends State<commercialRecord>
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.identityOrCommericalNumber,
+              controller: widget.vaiolationModel.commercial_Record_model
+                  .identityORcommercialnumber,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -62,8 +63,8 @@ class _commercialRecordState extends State<commercialRecord>
               Column(
                 children: [
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.individualNameOrCompanyName,
+                    controller: widget.vaiolationModel.commercial_Record_model
+                        .individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -73,7 +74,7 @@ class _commercialRecordState extends State<commercialRecord>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.mobile,
+                    controller: widget.vaiolationModel.comment.mobile,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -87,7 +88,7 @@ class _commercialRecordState extends State<commercialRecord>
                       return null;
                     },
                   ),
-                  ...TexTfields(true, widget.IndividualUserInfo),
+                  ...TexTfields(true, widget.vaiolationModel),
                   Row(
                     children: [
                       widgetsUni.actionbutton("التالي", Icons.arrow_forward,

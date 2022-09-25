@@ -1,4 +1,4 @@
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +7,8 @@ import 'ListOfTextFieleds.dart';
 
 class hafreat extends StatefulWidget {
   Function nextPage;
-  IndividualUserInfoModel IndividualUserInfo;
-  hafreat(this.nextPage, this.IndividualUserInfo);
+  VaiolationModel vaiolationModel;
+  hafreat(this.nextPage, this.vaiolationModel);
 
   @override
   State<hafreat> createState() => _hafreatState();
@@ -29,7 +29,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.diggingLicense,
+              controller: widget.vaiolationModel.hafreat_model.diggingLicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -61,8 +61,8 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
               Column(
                 children: [
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.individualNameOrCompanyName,
+                    controller: widget.vaiolationModel.hafreat_model
+                        .individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -72,8 +72,8 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.identityOrCommericalNumber,
+                    controller: widget.vaiolationModel.hafreat_model
+                        .identityOrCommericalNumber,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -83,7 +83,8 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.beneficiary,
+                    controller:
+                        widget.vaiolationModel.hafreat_model.beneficiary,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -93,7 +94,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.mobile,
+                    controller: widget.vaiolationModel.comment.mobile,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -109,7 +110,8 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.diggingArea,
+                    controller:
+                        widget.vaiolationModel.hafreat_model.diggingArea,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -119,7 +121,8 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.locOrPurposeDesc,
+                    controller:
+                        widget.vaiolationModel.hafreat_model.locOrPurposeDesc,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -127,7 +130,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                     enabled: false,
                     decoration: formlabel1("وصف الموقع"),
                   ),
-                  ...TexTfields(false, widget.IndividualUserInfo),
+                  ...TexTfields(false, widget.vaiolationModel),
                   Row(
                     children: [
                       widgetsUni.actionbutton("التالي", Icons.arrow_forward,

@@ -1,13 +1,12 @@
-import 'package:eamanaapp/model/violation/violation.dart';
-import 'package:eamanaapp/secreen/violation/addViolation/Individuals/individualUserInfo.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class buildinglicense extends StatefulWidget {
-  buildinglicense(this.nextPage, this.IndividualUserInfo);
-  IndividualUserInfoModel IndividualUserInfo;
+  buildinglicense(this.nextPage, this.vaiolationModel);
+  VaiolationModel vaiolationModel;
   Function nextPage;
 
   @override
@@ -17,6 +16,7 @@ class buildinglicense extends StatefulWidget {
 class _buildinglicenseState extends State<buildinglicense>
     with AutomaticKeepAliveClientMixin {
   final _formKey = GlobalKey<FormState>();
+
   //مخالفة رخصة البناء
   bool checked = false;
 
@@ -24,7 +24,7 @@ class _buildinglicenseState extends State<buildinglicense>
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.IndividualUserInfo.settestdata();
+    // widget.building_license_model.settestdata();
   }
 
   @override
@@ -36,7 +36,8 @@ class _buildinglicenseState extends State<buildinglicense>
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.buildingLicense,
+              controller:
+                  widget.vaiolationModel.building_license_model.buildingLicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -68,8 +69,8 @@ class _buildinglicenseState extends State<buildinglicense>
               Column(
                 children: [
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.individualNameOrCompanyName,
+                    controller: widget.vaiolationModel.building_license_model
+                        .individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -79,8 +80,8 @@ class _buildinglicenseState extends State<buildinglicense>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.identityOrCommericalNumber,
+                    controller: widget.vaiolationModel.building_license_model
+                        .identityOrCommericalNumber,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -90,7 +91,8 @@ class _buildinglicenseState extends State<buildinglicense>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.companyEngName,
+                    controller: widget
+                        .vaiolationModel.building_license_model.companyEngName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -100,7 +102,7 @@ class _buildinglicenseState extends State<buildinglicense>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.mobile,
+                    controller: widget.vaiolationModel.comment.mobile,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -116,7 +118,8 @@ class _buildinglicenseState extends State<buildinglicense>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.areaBuildingLic,
+                    controller: widget
+                        .vaiolationModel.building_license_model.areaBuildingLic,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -126,7 +129,8 @@ class _buildinglicenseState extends State<buildinglicense>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.licensetype,
+                    controller: widget
+                        .vaiolationModel.building_license_model.licensetype,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -134,7 +138,7 @@ class _buildinglicenseState extends State<buildinglicense>
                     enabled: false,
                     decoration: formlabel1("نوع الرخصة"),
                   ),
-                  ...TexTfields(false, widget.IndividualUserInfo),
+                  ...TexTfields(false, widget.vaiolationModel),
                   Row(
                     children: [
                       widgetsUni.actionbutton("التالي", Icons.arrow_forward,

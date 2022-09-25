@@ -1,5 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/building_license.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/commercial_Record.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/hafreat.dart';
@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 
 class companyinfo extends StatefulWidget {
   Function nextPage;
-  IndividualUserInfoModel IndividualUserInfo;
+  VaiolationModel vaiolationModel;
   companyinfo(
-    this.IndividualUserInfo,
+    this.vaiolationModel,
     this.nextPage,
   );
 
@@ -75,17 +75,17 @@ class _companyinfoState extends State<companyinfo>
               height: 10,
             ),
             if (violationTypeID == 1)
-              violationAdds(widget.nextPage, widget.IndividualUserInfo),
+              violationAdds(widget.nextPage, widget.vaiolationModel),
             if (violationTypeID == 2)
-              commercialRecord(widget.nextPage, widget.IndividualUserInfo),
+              commercialRecord(widget.nextPage, widget.vaiolationModel),
             if (violationTypeID == 3)
-              shopLicenses(widget.nextPage, widget.IndividualUserInfo),
+              shopLicenses(widget.nextPage, widget.vaiolationModel),
             if (violationTypeID == 4)
-              hafreat(widget.nextPage, widget.IndividualUserInfo),
+              hafreat(widget.nextPage, widget.vaiolationModel),
             if (violationTypeID == 5)
-              buildinglicense(widget.nextPage, widget.IndividualUserInfo),
+              buildinglicense(widget.nextPage, widget.vaiolationModel),
             if (violationTypeID == 6)
-              ViolationSkn(widget.nextPage, widget.IndividualUserInfo),
+              ViolationSkn(widget.nextPage, widget.vaiolationModel),
           ],
         ),
       ),

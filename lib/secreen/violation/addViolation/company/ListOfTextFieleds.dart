@@ -1,16 +1,15 @@
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
 // bool withstreetname = true;
 // CompanyInfoModel companyInfoModel = CompanyInfoModel();
-List<Widget> TexTfields(
-    bool withstreetname, IndividualUserInfoModel IndividualUserInfo) {
+List<Widget> TexTfields(bool withstreetname, VaiolationModel vaiolationModel) {
   return [
     sizeBox(),
     TextFormField(
-      controller: IndividualUserInfo.baldea,
+      controller: vaiolationModel.comment.baldea,
       keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
@@ -21,7 +20,7 @@ List<Widget> TexTfields(
     ),
     sizeBox(),
     TextFormField(
-      controller: IndividualUserInfo.neighborhoodname,
+      controller: vaiolationModel.comment.neighborhoodname,
       keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
@@ -38,7 +37,7 @@ List<Widget> TexTfields(
     sizeBox(),
     if (withstreetname == true)
       TextFormField(
-        controller: IndividualUserInfo.streetname,
+        controller: vaiolationModel.comment.streetname,
         keyboardType: TextInputType.text,
         style: TextStyle(
           color: baseColorText,
@@ -54,7 +53,7 @@ List<Widget> TexTfields(
       ),
     if (withstreetname == true) sizeBox(),
     TextFormField(
-      controller: IndividualUserInfo.ShortDescription,
+      controller: vaiolationModel.comment.shortDescription,
       keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,
@@ -70,7 +69,7 @@ List<Widget> TexTfields(
     ),
     sizeBox(),
     TextFormField(
-      controller: IndividualUserInfo.employeeDescription,
+      controller: vaiolationModel.comment.employeeDescription,
       keyboardType: TextInputType.text,
       style: TextStyle(
         color: baseColorText,

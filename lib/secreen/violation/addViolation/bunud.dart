@@ -1,6 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:eamanaapp/model/violation/violation.dart';
-import 'package:eamanaapp/secreen/Settings/settings.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -13,12 +12,12 @@ class bunud extends StatefulWidget {
   bunud(
       {required this.next,
       required this.back,
-      required this.IndividualUserInfo,
+      required this.vaiolationModel,
       Key? key})
       : super(key: key);
   Function next;
   Function back;
-  IndividualUserInfoModel IndividualUserInfo;
+  VaiolationModel vaiolationModel;
 
   @override
   State<bunud> createState() => _bunudState();
@@ -224,7 +223,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   ),
 
                   TextFormField(
-                    controller: widget.IndividualUserInfo.violationDate,
+                    controller: widget.vaiolationModel.comment.violationDate,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -248,11 +247,11 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           ),
                           showTitleActions: true,
                           minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                        widget.IndividualUserInfo.violationDate.text =
+                        widget.vaiolationModel.comment.violationDate.text =
                             date.toString().split(" ")[0];
                         print('change $date');
                       }, onConfirm: (date) {
-                        widget.IndividualUserInfo.violationDate.text =
+                        widget.vaiolationModel.comment.violationDate.text =
                             date.toString().split(" ")[0];
                         print('confirm $date');
                       }, currentTime: DateTime.now(), locale: LocaleType.ar);
@@ -453,7 +452,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           print(v);
                           _bunudTypeID = v["_bunudTypeID"];
                           _bunudTypeName = v["_bunudTypeName"];
-                          widget.IndividualUserInfo.unit.text = "للتصريح";
+                          widget.vaiolationModel.comment.unit.text = "للتصريح";
                         });
                         print('object');
                         print(v["_bunudTypeID"]);
@@ -520,7 +519,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                     children: [
                       Flexible(
                         child: TextFormField(
-                          controller: widget.IndividualUserInfo.unit,
+                          controller: widget.vaiolationModel.comment.unit,
                           enabled: false,
                           keyboardType: TextInputType.text,
                           style: TextStyle(color: baseColorText),
@@ -538,7 +537,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                       ),
                       Flexible(
                         child: TextFormField(
-                          controller: widget.IndividualUserInfo.repetition,
+                          controller: widget.vaiolationModel.comment.repetition,
                           style: TextStyle(color: baseColorText),
                           decoration: formlabel1("العدد /\ التكرار"),
                           inputFormatters: <TextInputFormatter>[
@@ -561,7 +560,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   ),
                   //here need if stutment to change the bunudvalue
                   TextFormField(
-                    controller: widget.IndividualUserInfo.bunudvalue,
+                    controller: widget.vaiolationModel.comment.bunudvalue,
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
@@ -708,20 +707,21 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                                   '_violationTypeName': "مخالفة طرق",
                                   '_bunudTypeID': _bunudTypeID,
                                   '_bunudTypeName': _bunudTypeName,
-                                  '_unit': widget.IndividualUserInfo.unit.text,
-                                  '_bunudvalue':
-                                      widget.IndividualUserInfo.bunudvalue.text,
-                                  '_bunudloop':
-                                      widget.IndividualUserInfo.repetition.text,
-                                  'total': int.parse(widget
-                                          .IndividualUserInfo.bunudvalue.text) *
-                                      int.parse(widget
-                                          .IndividualUserInfo.repetition.text)
+                                  '_unit':
+                                      widget.vaiolationModel.comment.unit.text,
+                                  '_bunudvalue': widget
+                                      .vaiolationModel.comment.bunudvalue.text,
+                                  '_bunudloop': widget
+                                      .vaiolationModel.comment.repetition.text,
+                                  'total': int.parse(widget.vaiolationModel
+                                          .comment.bunudvalue.text) *
+                                      int.parse(widget.vaiolationModel.comment
+                                          .repetition.text)
                                 });
-                                generaltotal += int.parse(widget
-                                        .IndividualUserInfo.bunudvalue.text) *
-                                    int.parse(widget
-                                        .IndividualUserInfo.repetition.text);
+                                generaltotal += int.parse(widget.vaiolationModel
+                                        .comment.bunudvalue.text) *
+                                    int.parse(widget.vaiolationModel.comment
+                                        .repetition.text);
                               } else {
                                 Alerts.warningAlert(context, "تنبيه",
                                         "تم إضافة البند مسبقاً")

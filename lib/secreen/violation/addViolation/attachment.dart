@@ -1,23 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sizer/sizer.dart';
-
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class attachment extends StatefulWidget {
-  attachment({required this.back, required this.IndividualUserInfo, Key? key})
+  attachment({required this.back, required this.vaiolationModel, Key? key})
       : super(key: key);
   Function back;
-  IndividualUserInfoModel IndividualUserInfo;
+  VaiolationModel vaiolationModel;
 
   @override
   State<attachment> createState() => _attachmentState();
@@ -350,7 +346,8 @@ class _attachmentState extends State<attachment>
                     widgetsUni.actionbutton("إرسال", Icons.send, () {
                       if (listofimage.isNotEmpty) {
                         //post json to api
-                        widget.IndividualUserInfo.settestdata();
+                        widget.vaiolationModel.individualUserInfoModel
+                            .settestdata();
                       } else {
                         Alerts.errorAlert(context, "خطأ", "الرجاء إضافة مرفقات")
                             .show();

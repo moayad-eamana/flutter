@@ -1,4 +1,4 @@
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/attachment.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/bunud.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/Individuals/individualUserInfo.dart';
@@ -6,7 +6,6 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import 'company/companyinfo.dart';
 
@@ -19,7 +18,7 @@ class add_violation extends StatefulWidget {
 
 class _add_violationState extends State<add_violation>
     with AutomaticKeepAliveClientMixin {
-  IndividualUserInfoModel IndividualUserInfo = IndividualUserInfoModel();
+  VaiolationModel vaiolationModel = VaiolationModel();
   final PageController controller = PageController();
   int index = 1;
   @override
@@ -64,17 +63,16 @@ class _add_violationState extends State<add_violation>
                 controller: controller,
                 children: <Widget>[
                   if (widget.page == 1)
-                    individualUserInfo(IndividualUserInfo, nextPage),
-                  if (widget.page == 2)
-                    companyinfo(IndividualUserInfo, nextPage),
+                    individualUserInfo(vaiolationModel, nextPage),
+                  if (widget.page == 2) companyinfo(vaiolationModel, nextPage),
                   bunud(
                     next: nextPage,
                     back: backPag,
-                    IndividualUserInfo: IndividualUserInfo,
+                    vaiolationModel: vaiolationModel,
                   ),
                   attachment(
                     back: backPag,
-                    IndividualUserInfo: IndividualUserInfo,
+                    vaiolationModel: vaiolationModel,
                   ),
                 ],
               ),

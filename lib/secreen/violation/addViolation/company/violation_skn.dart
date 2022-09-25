@@ -1,13 +1,13 @@
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class ViolationSkn extends StatefulWidget {
-  ViolationSkn(this.nextPage, this.IndividualUserInfo);
+  ViolationSkn(this.nextPage, this.vaiolationModel);
   Function nextPage;
-  IndividualUserInfoModel IndividualUserInfo;
+  VaiolationModel vaiolationModel;
 
   @override
   State<ViolationSkn> createState() => _ViolationSknState();
@@ -27,7 +27,8 @@ class _ViolationSknState extends State<ViolationSkn>
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.dormitoryLicense,
+              controller:
+                  widget.vaiolationModel.violation_skn_mohdel.dormitoryLicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -60,8 +61,8 @@ class _ViolationSknState extends State<ViolationSkn>
               Column(
                 children: [
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.individualNameOrCompanyName,
+                    controller: widget.vaiolationModel.violation_skn_mohdel
+                        .individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -78,8 +79,8 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.identityOrCommericalNumber,
+                    controller: widget.vaiolationModel.violation_skn_mohdel
+                        .identityOrCommericalNumber,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       color: baseColorText,
@@ -90,8 +91,8 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.dormitoryLicenseExpireDate,
+                    controller: widget.vaiolationModel.violation_skn_mohdel
+                        .dormitoryLicenseExpireDate,
                     keyboardType: TextInputType.datetime,
                     style: TextStyle(
                       color: baseColorText,
@@ -102,7 +103,8 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.dormitoryArea,
+                    controller: widget
+                        .vaiolationModel.violation_skn_mohdel.dormitoryArea,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,
@@ -113,7 +115,8 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.dormitoryType,
+                    controller: widget
+                        .vaiolationModel.violation_skn_mohdel.dormitoryType,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,
@@ -124,7 +127,7 @@ class _ViolationSknState extends State<ViolationSkn>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.mobile,
+                    controller: widget.vaiolationModel.comment.mobile,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -138,7 +141,7 @@ class _ViolationSknState extends State<ViolationSkn>
                       return null;
                     },
                   ),
-                  ...TexTfields(false, widget.IndividualUserInfo),
+                  ...TexTfields(false, widget.vaiolationModel),
                   SizedBox(
                     height: 20,
                   ),

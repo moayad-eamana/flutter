@@ -1,4 +1,4 @@
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
@@ -6,8 +6,9 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class shopLicenses extends StatefulWidget {
-  shopLicenses(this.nextPage, this.IndividualUserInfo);
-  IndividualUserInfoModel IndividualUserInfo;
+  shopLicenses(this.nextPage, this.vaiolationModel);
+
+  VaiolationModel vaiolationModel;
   Function nextPage;
 
   @override
@@ -28,7 +29,8 @@ class _shopLicensesState extends State<shopLicenses>
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.shoplicenses,
+              controller:
+                  widget.vaiolationModel.shop_licenses_model.shoplicenses,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -60,8 +62,8 @@ class _shopLicensesState extends State<shopLicenses>
               Column(
                 children: [
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.individualNameOrCompanyName,
+                    controller: widget.vaiolationModel.shop_licenses_model
+                        .individualNameOrCompanyName,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -71,8 +73,8 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.identityOrCommericalNumber,
+                    controller: widget.vaiolationModel.shop_licenses_model
+                        .identityOrCommericalNumber,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -82,7 +84,8 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.licenseExpirDate,
+                    controller: widget
+                        .vaiolationModel.shop_licenses_model.licenseExpirDate,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -107,19 +110,26 @@ class _shopLicensesState extends State<shopLicenses>
                           ),
                           showTitleActions: true,
                           minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                        widget.IndividualUserInfo.licenseExpirDate.text =
-                            date.toString().split(" ")[0];
+                        widget
+                            .vaiolationModel
+                            .shop_licenses_model
+                            .licenseExpirDate
+                            .text = date.toString().split(" ")[0];
                         print('change $date');
                       }, onConfirm: (date) {
-                        widget.IndividualUserInfo.licenseExpirDate.text =
-                            date.toString().split(" ")[0];
+                        widget
+                            .vaiolationModel
+                            .shop_licenses_model
+                            .licenseExpirDate
+                            .text = date.toString().split(" ")[0];
                         print('confirm $date');
                       }, currentTime: DateTime.now(), locale: LocaleType.ar);
                     },
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.storeDistance,
+                    controller: widget
+                        .vaiolationModel.shop_licenses_model.storeDistance,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -129,7 +139,8 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.activity,
+                    controller:
+                        widget.vaiolationModel.shop_licenses_model.activity,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -139,7 +150,7 @@ class _shopLicensesState extends State<shopLicenses>
                   ),
                   siedBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.mobile,
+                    controller: widget.vaiolationModel.comment.mobile,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -153,7 +164,7 @@ class _shopLicensesState extends State<shopLicenses>
                       return null;
                     },
                   ),
-                  ...TexTfields(false, widget.IndividualUserInfo),
+                  ...TexTfields(false, widget.vaiolationModel),
                   Row(
                     children: [
                       widgetsUni.actionbutton("التالي", Icons.arrow_forward,

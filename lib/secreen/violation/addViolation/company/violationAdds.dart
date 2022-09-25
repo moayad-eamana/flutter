@@ -1,4 +1,4 @@
-import 'package:eamanaapp/model/violation/violation.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +7,8 @@ import 'ListOfTextFieleds.dart';
 
 class violationAdds extends StatefulWidget {
   Function nextPage;
-  IndividualUserInfoModel IndividualUserInfo;
-  violationAdds(this.nextPage, this.IndividualUserInfo);
+  VaiolationModel vaiolationModel;
+  violationAdds(this.nextPage, this.vaiolationModel);
 
   @override
   State<violationAdds> createState() => _violationAddsState();
@@ -38,7 +38,8 @@ class _violationAddsState extends State<violationAdds>
         child: Column(
           children: [
             TextFormField(
-              controller: widget.IndividualUserInfo.baladeaname,
+              controller:
+                  widget.vaiolationModel.violationAdds_model.baladeaname,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -56,7 +57,8 @@ class _violationAddsState extends State<violationAdds>
               height: 10,
             ),
             TextFormField(
-              controller: widget.IndividualUserInfo.advboardlicense,
+              controller:
+                  widget.vaiolationModel.violationAdds_model.advboardlicense,
               style: TextStyle(
                 color: baseColorText,
               ),
@@ -89,8 +91,8 @@ class _violationAddsState extends State<violationAdds>
               Column(
                 children: [
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.identityOrCommericalNumber,
+                    controller: widget.vaiolationModel.violationAdds_model
+                        .identityOrCommericalNumber,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -107,7 +109,7 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.mobile,
+                    controller: widget.vaiolationModel.comment.mobile,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -123,8 +125,8 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller:
-                        widget.IndividualUserInfo.individualNameOrCompanyName,
+                    controller: widget.vaiolationModel.violationAdds_model
+                        .individualNameOrCompanyName,
                     keyboardType: TextInputType.text,
                     style: TextStyle(
                       color: baseColorText,
@@ -135,7 +137,8 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.advboardDistance,
+                    controller: widget
+                        .vaiolationModel.violationAdds_model.advboardDistance,
                     keyboardType: TextInputType.number,
                     style: TextStyle(
                       color: baseColorText,
@@ -146,7 +149,8 @@ class _violationAddsState extends State<violationAdds>
                   ),
                   sizeBox(),
                   TextFormField(
-                    controller: widget.IndividualUserInfo.licenseExpirDate,
+                    controller: widget
+                        .vaiolationModel.violationAdds_model.LicenseExpirDate,
                     keyboardType: TextInputType.datetime,
                     style: TextStyle(
                       color: baseColorText,
@@ -155,7 +159,7 @@ class _violationAddsState extends State<violationAdds>
                     enabled: false,
                     decoration: formlabel1("تاريخ إنتهاء الرخصة"),
                   ),
-                  ...TexTfields(false, widget.IndividualUserInfo),
+                  ...TexTfields(false, widget.vaiolationModel),
                   SizedBox(
                     height: 20,
                   ),

@@ -1,14 +1,13 @@
-import 'package:eamanaapp/model/violation/violation.dart';
-import 'package:eamanaapp/provider/login/loginProvider.dart';
+import 'package:eamanaapp/model/violation/vaiolation.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class individualUserInfo extends StatefulWidget {
-  IndividualUserInfoModel IndividualUserInfo;
+  VaiolationModel vaiolationModel;
   Function function;
-  individualUserInfo(this.IndividualUserInfo, this.function);
+  individualUserInfo(this.vaiolationModel, this.function);
   @override
   State<individualUserInfo> createState() => _individualUserInfoState();
 }
@@ -38,8 +37,8 @@ class _individualUserInfoState extends State<individualUserInfo> {
           child: Column(
             children: [
               TextFormField(
-                controller:
-                    widget.IndividualUserInfo.identityOrCommericalNumber,
+                controller: widget.vaiolationModel.individualUserInfoModel
+                    .identityOrCommericalNumber,
                 style: TextStyle(
                   color: baseColorText,
                 ),
@@ -62,13 +61,15 @@ class _individualUserInfoState extends State<individualUserInfo> {
                   widgetsUni.actionbutton("تحقق", Icons.send, () {
                     if (checked == true) {
                       setState(() {
-                        widget.IndividualUserInfo.individualNameOrCompanyName
-                            .text = "مؤيد العوفي";
-                        widget.IndividualUserInfo.mobile.text = "0567442031";
-                        widget.IndividualUserInfo.baldea.text = "بلدية الخبر";
-                        widget.IndividualUserInfo.neighborhoodname.text =
+                        widget.vaiolationModel.individualUserInfoModel
+                            .individualNameOrCompanyName.text = "مؤيد العوفي";
+                        widget.vaiolationModel.comment.mobile.text =
+                            "0567442031";
+                        widget.vaiolationModel.comment.baldea.text =
+                            "بلدية الخبر";
+                        widget.vaiolationModel.comment.neighborhoodname.text =
                             "حي الخبر الشمالية";
-                        widget.IndividualUserInfo.streetname.text =
+                        widget.vaiolationModel.comment.streetname.text =
                             "بلدية الخبر الشمالية";
                       });
                     }
@@ -111,7 +112,8 @@ class _individualUserInfoState extends State<individualUserInfo> {
     return [
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.individualNameOrCompanyName,
+        controller: widget.vaiolationModel.individualUserInfoModel
+            .individualNameOrCompanyName,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -121,7 +123,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.mobile,
+        controller: widget.vaiolationModel.comment.mobile,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -140,7 +142,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.baldea,
+        controller: widget.vaiolationModel.comment.baldea,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -150,7 +152,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.neighborhoodname,
+        controller: widget.vaiolationModel.comment.neighborhoodname,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -165,7 +167,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.streetname,
+        controller: widget.vaiolationModel.comment.streetname,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -180,7 +182,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.ShortDescription,
+        controller: widget.vaiolationModel.comment.shortDescription,
         style: TextStyle(
           color: baseColorText,
         ),
@@ -195,7 +197,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
       ),
       sizebox(),
       TextFormField(
-        controller: widget.IndividualUserInfo.employeeDescription,
+        controller: widget.vaiolationModel.comment.employeeDescription,
         style: TextStyle(
           color: baseColorText,
         ),
