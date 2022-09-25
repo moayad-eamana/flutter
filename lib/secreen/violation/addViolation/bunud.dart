@@ -47,40 +47,43 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
 
   bool checkbox = false;
 
-  List bunudTable = [
-    {
-      '_violationTypeID': 1,
-      '_violationTypeName': "مخالفة طرق",
-      '_bunudTypeID': 1,
-      '_bunudTypeName': '1-عدم تسجيل المنشأة-عدم تسجيل المنشأة',
-      '_unit': 'لا توجد',
-      '_bunudvalue': 5000,
-      '_bunudloop': 1,
-      'total': 5000
-    },
-    {
-      '_violationTypeID': 1,
-      '_violationTypeName': "مخالفة طرق",
-      '_bunudTypeID': 1,
-      '_bunudTypeName': '1-عدم تسجيل المنشأة',
-      '_unit': 'لا توجد',
-      '_bunudvalue': 5000,
-      '_bunudloop': 1,
-      'total': 5000
-    },
-    {
-      '_violationTypeID': 1,
-      '_violationTypeName': "مخالفة طرق",
-      '_bunudTypeID': 1,
-      '_bunudTypeName': '1-عدم تسجيل المنشأة',
-      '_unit': 'لا توجد',
-      '_bunudvalue': 5000,
-      '_bunudloop': 1,
-      'total': 5000
-    },
-  ];
-
-  num generaltotal = 15000;
+  @override
+  void initState() {
+    super.initState();
+    widget.vaiolationModel.bunud_model.bunudTable = [
+      {
+        '_violationTypeID': 1,
+        '_violationTypeName': "مخالفة طرق",
+        '_bunudTypeID': 1,
+        '_bunudTypeName': '1-عدم تسجيل المنشأة-عدم تسجيل المنشأة',
+        '_unit': 'لا توجد',
+        '_bunudvalue': 5000,
+        '_bunudloop': 1,
+        'total': 5000
+      },
+      {
+        '_violationTypeID': 1,
+        '_violationTypeName': "مخالفة طرق",
+        '_bunudTypeID': 1,
+        '_bunudTypeName': '1-عدم تسجيل المنشأة',
+        '_unit': 'لا توجد',
+        '_bunudvalue': 5000,
+        '_bunudloop': 1,
+        'total': 5000
+      },
+      {
+        '_violationTypeID': 1,
+        '_violationTypeName': "مخالفة طرق",
+        '_bunudTypeID': 1,
+        '_bunudTypeName': '1-عدم تسجيل المنشأة',
+        '_unit': 'لا توجد',
+        '_bunudvalue': 5000,
+        '_bunudloop': 1,
+        'total': 5000
+      },
+    ];
+    widget.vaiolationModel.bunud_model.generaltotal = 15000;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +226,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   ),
 
                   TextFormField(
-                    controller: widget.vaiolationModel.comment.violationDate,
+                    controller:
+                        widget.vaiolationModel.bunud_model.violationDate,
                     style: TextStyle(
                       color: baseColorText,
                     ),
@@ -247,11 +251,11 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           ),
                           showTitleActions: true,
                           minTime: DateTime(2021, 3, 5), onChanged: (date) {
-                        widget.vaiolationModel.comment.violationDate.text =
+                        widget.vaiolationModel.bunud_model.violationDate.text =
                             date.toString().split(" ")[0];
                         print('change $date');
                       }, onConfirm: (date) {
-                        widget.vaiolationModel.comment.violationDate.text =
+                        widget.vaiolationModel.bunud_model.violationDate.text =
                             date.toString().split(" ")[0];
                         print('confirm $date');
                       }, currentTime: DateTime.now(), locale: LocaleType.ar);
@@ -452,7 +456,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           print(v);
                           _bunudTypeID = v["_bunudTypeID"];
                           _bunudTypeName = v["_bunudTypeName"];
-                          widget.vaiolationModel.comment.unit.text = "للتصريح";
+                          widget.vaiolationModel.bunud_model.unit.text =
+                              "للتصريح";
                         });
                         print('object');
                         print(v["_bunudTypeID"]);
@@ -519,7 +524,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                     children: [
                       Flexible(
                         child: TextFormField(
-                          controller: widget.vaiolationModel.comment.unit,
+                          controller: widget.vaiolationModel.bunud_model.unit,
                           enabled: false,
                           keyboardType: TextInputType.text,
                           style: TextStyle(color: baseColorText),
@@ -537,7 +542,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                       ),
                       Flexible(
                         child: TextFormField(
-                          controller: widget.vaiolationModel.comment.repetition,
+                          controller:
+                              widget.vaiolationModel.bunud_model.repetition,
                           style: TextStyle(color: baseColorText),
                           decoration: formlabel1("العدد /\ التكرار"),
                           inputFormatters: <TextInputFormatter>[
@@ -560,7 +566,7 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   ),
                   //here need if stutment to change the bunudvalue
                   TextFormField(
-                    controller: widget.vaiolationModel.comment.bunudvalue,
+                    controller: widget.vaiolationModel.bunud_model.bunudvalue,
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
@@ -699,28 +705,35 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
                               _bunudTypeID = 3;
-                              var contain = bunudTable.where((element) =>
-                                  element['_bunudTypeID'] == _bunudTypeID);
+                              var contain = widget
+                                  .vaiolationModel.bunud_model.bunudTable
+                                  .where((element) =>
+                                      element['_bunudTypeID'] == _bunudTypeID);
                               if (contain.isEmpty) {
-                                bunudTable.add({
+                                widget.vaiolationModel.bunud_model.bunudTable
+                                    .add({
                                   '_violationTypeID': 1,
                                   '_violationTypeName': "مخالفة طرق",
                                   '_bunudTypeID': _bunudTypeID,
                                   '_bunudTypeName': _bunudTypeName,
-                                  '_unit':
-                                      widget.vaiolationModel.comment.unit.text,
-                                  '_bunudvalue': widget
-                                      .vaiolationModel.comment.bunudvalue.text,
-                                  '_bunudloop': widget
-                                      .vaiolationModel.comment.repetition.text,
+                                  '_unit': widget
+                                      .vaiolationModel.bunud_model.unit.text,
+                                  '_bunudvalue': widget.vaiolationModel
+                                      .bunud_model.bunudvalue.text,
+                                  '_bunudloop': widget.vaiolationModel
+                                      .bunud_model.repetition.text,
                                   'total': int.parse(widget.vaiolationModel
-                                          .comment.bunudvalue.text) *
-                                      int.parse(widget.vaiolationModel.comment
-                                          .repetition.text)
+                                          .bunud_model.bunudvalue.text) *
+                                      int.parse(widget.vaiolationModel
+                                          .bunud_model.repetition.text)
                                 });
-                                generaltotal += int.parse(widget.vaiolationModel
-                                        .comment.bunudvalue.text) *
-                                    int.parse(widget.vaiolationModel.comment
+                                widget.vaiolationModel.bunud_model
+                                    .generaltotal += int.parse(widget
+                                        .vaiolationModel
+                                        .bunud_model
+                                        .bunudvalue
+                                        .text) *
+                                    int.parse(widget.vaiolationModel.bunud_model
                                         .repetition.text);
                               } else {
                                 Alerts.warningAlert(context, "تنبيه",
@@ -736,10 +749,11 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   SizedBox(
                     height: 10,
                   ),
-                  bunudTable.length > 0
+                  widget.vaiolationModel.bunud_model.bunudTable.length > 0
                       ? ListView.builder(
                           primary: false,
-                          itemCount: bunudTable.length,
+                          itemCount: widget
+                              .vaiolationModel.bunud_model.bunudTable.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             // generaltotal = generaltotal + bunudTable[index]['total'];
@@ -755,31 +769,45 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                                 child: ListTile(
                                   minLeadingWidth: 10,
                                   leading: Text(
-                                      bunudTable[index]['_bunudloop']
+                                      widget.vaiolationModel.bunud_model
+                                              .bunudTable[index]['_bunudloop']
                                               .toString() +
                                           "×",
                                       style: subtitleTx(secondryColor)),
                                   title: Text(
-                                    bunudTable[index]['_bunudTypeName']
+                                    widget
+                                                .vaiolationModel
+                                                .bunud_model
+                                                .bunudTable[index]
+                                                    ['_bunudTypeName']
                                                 .length >=
                                             22
-                                        ? bunudTable[index]['_bunudTypeName']
+                                        ? widget
+                                                .vaiolationModel
+                                                .bunud_model
+                                                .bunudTable[index]
+                                                    ['_bunudTypeName']
                                                 .toString()
                                                 .substring(0, 25) +
                                             " ..."
-                                        : bunudTable[index]['_bunudTypeName'],
+                                        : widget.vaiolationModel.bunud_model
+                                                .bunudTable[index]
+                                            ['_bunudTypeName'],
                                     maxLines: 1,
                                     style: descTx1(baseColorText),
                                   ),
                                   subtitle: Text(
-                                    bunudTable[index]['_unit'],
+                                    widget.vaiolationModel.bunud_model
+                                        .bunudTable[index]['_unit'],
                                     style: descTx2(baseColorText),
                                   ),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
-                                        bunudTable[index]['total'].toString(),
+                                        widget.vaiolationModel.bunud_model
+                                            .bunudTable[index]['total']
+                                            .toString(),
                                         style: descTx1(baseColorText),
                                       ),
                                       SizedBox(
@@ -792,9 +820,16 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                                         color: redColor,
                                         onPressed: () {
                                           setState(() {
-                                            generaltotal -=
-                                                bunudTable[index]['total'];
-                                            bunudTable.removeAt(index);
+                                            widget.vaiolationModel.bunud_model
+                                                    .generaltotal -=
+                                                int.parse(widget
+                                                    .vaiolationModel
+                                                    .bunud_model
+                                                    .bunudTable[index]['total']
+                                                    .toString());
+                                            widget.vaiolationModel.bunud_model
+                                                .bunudTable
+                                                .removeAt(index);
                                           });
                                         },
                                       ),
@@ -916,7 +951,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                         style: subtitleTx(baseColor),
                       ),
                       Text(
-                        generaltotal.toString(),
+                        widget.vaiolationModel.bunud_model.generaltotal
+                            .toString(),
                         style: subtitleTx(baseColor),
                       ),
                     ],
@@ -927,7 +963,8 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                   Row(
                     children: [
                       widgetsUni.actionbutton("تالي", Icons.arrow_forward, () {
-                        if (bunudTable.isNotEmpty) {
+                        if (widget.vaiolationModel.bunud_model.bunudTable
+                            .isNotEmpty) {
                           widget.next();
                         } else {
                           Alerts.errorAlert(context, "خطأ",

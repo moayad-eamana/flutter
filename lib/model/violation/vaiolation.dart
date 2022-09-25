@@ -1,4 +1,5 @@
 import 'package:eamanaapp/model/violation/building_license_model.dart';
+import 'package:eamanaapp/model/violation/bunud_model.dart';
 import 'package:eamanaapp/model/violation/comment.dart';
 import 'package:eamanaapp/model/violation/commercial_Record_model.dart';
 import 'package:eamanaapp/model/violation/hafreat_model.dart';
@@ -17,4 +18,5 @@ class VaiolationModel {
   Shop_licenses_model shop_licenses_model = Shop_licenses_model();
   Violation_skn_mohdel violation_skn_mohdel = Violation_skn_mohdel();
   ViolationAdds_model violationAdds_model = ViolationAdds_model();
+  Bunud_model bunud_model = Bunud_model();
 }

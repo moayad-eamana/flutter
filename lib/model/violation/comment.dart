@@ -20,14 +20,4 @@ class Comment {
   TextEditingController identityOrCommericalNumber = TextEditingController();
   //عنوان اللوحة
   TextEditingController individualNameOrCompanyName = TextEditingController();
-
-  //بنود
-  //تاريخ المخالفة
-  TextEditingController violationDate = TextEditingController();
-  //الوحدة
-  TextEditingController unit = TextEditingController();
-  //التكرار
-  TextEditingController repetition = TextEditingController();
-  //القيمة المطبقة
-  TextEditingController bunudvalue = TextEditingController();
 }
