@@ -64,24 +64,20 @@ class _ProfileImageState extends State<ProfileImage> {
           },
         ),
       );
-    return Scaffold(
-      body: GestureDetector(
-        child: Center(
-          child: Hero(
-              tag: widget.tag,
-              child: InteractiveViewer(
-                child: Image.file(
-                  File(
-                    widget.path ?? "",
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              )),
-        ),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
+    return GestureDetector(
+      child: Hero(
+          tag: widget.tag,
+          child: InteractiveViewer(
+            child: Image.file(
+              File(
+                widget.path ?? "",
+              ),
+              fit: BoxFit.cover,
+            ),
+          )),
+      onTap: () {
+        Navigator.pop(context);
+      },
     );
   }
 }

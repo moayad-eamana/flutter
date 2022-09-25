@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:eamanaapp/model/violation/violation.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -13,8 +14,10 @@ import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class attachment extends StatefulWidget {
-  attachment({required this.back, Key? key}) : super(key: key);
+  attachment({required this.back, required this.IndividualUserInfo, Key? key})
+      : super(key: key);
   Function back;
+  IndividualUserInfoModel IndividualUserInfo;
 
   @override
   State<attachment> createState() => _attachmentState();
@@ -347,6 +350,7 @@ class _attachmentState extends State<attachment>
                     widgetsUni.actionbutton("إرسال", Icons.send, () {
                       if (listofimage.isNotEmpty) {
                         //post json to api
+                        widget.IndividualUserInfo.settestdata();
                       } else {
                         Alerts.errorAlert(context, "خطأ", "الرجاء إضافة مرفقات")
                             .show();

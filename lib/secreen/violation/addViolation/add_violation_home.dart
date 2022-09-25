@@ -53,10 +53,12 @@ class _add_violationState extends State<add_violation>
           appBar: AppBarW.appBarW("إضافة مخالفة", context, null),
           body: Stack(
             children: [
-              Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-                width: 100.w,
+              SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: Image.asset(
+                  imageBG,
+                  fit: BoxFit.fill,
+                ),
               ),
               PageView(
                 controller: controller,
@@ -72,6 +74,7 @@ class _add_violationState extends State<add_violation>
                   ),
                   attachment(
                     back: backPag,
+                    IndividualUserInfo: IndividualUserInfo,
                   ),
                 ],
               ),
