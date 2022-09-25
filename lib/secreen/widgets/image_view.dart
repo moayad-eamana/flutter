@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -24,6 +25,7 @@ class _ProfileImageState extends State<ProfileImage> {
     //  WidgetsBinding.instance?.addPostFrameCallback((_) => getuserinfo());
   }
 
+  final transformationController = TransformationController();
   @override
   Widget build(BuildContext context) {
     if (widget.tag == "profile")
@@ -64,20 +66,29 @@ class _ProfileImageState extends State<ProfileImage> {
           },
         ),
       );
-    return GestureDetector(
-      child: Hero(
-          tag: widget.tag,
-          child: InteractiveViewer(
-            child: Image.file(
-              File(
-                widget.path ?? "",
-              ),
-              fit: BoxFit.cover,
-            ),
-          )),
-      onTap: () {
-        Navigator.pop(context);
-      },
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBarW.appBarW("عرض المرفقات", context, null),
+        body: GestureDetector(
+          child: Hero(
+              tag: widget.tag,
+              child: Center(
+                child: InteractiveViewer(
+                  alignPanAxis: true,
+                  child: Image.file(
+                    File(
+                      widget.path ?? "",
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
     );
   }
 }
