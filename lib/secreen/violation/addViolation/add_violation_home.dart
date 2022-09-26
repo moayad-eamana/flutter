@@ -86,16 +86,16 @@ class _add_violationState extends State<add_violation>
 
   nextPage() {
     //  controller.nextPage(duration: Duration.zero, curve: curve)
+    FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() + 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-    FocusScope.of(context).unfocus();
   }
 
   backPag() {
     // controller.previousPage(duration: duration, curve: curve)();
+    FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() - 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-    FocusScope.of(context).unfocus();
   }
 
   @override

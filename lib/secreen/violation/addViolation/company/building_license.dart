@@ -51,6 +51,7 @@ class _buildinglicenseState extends State<buildinglicense>
                 return null;
               },
             ),
+            siedBox(),
             Row(
               children: [
                 widgetsUni.actionbutton("تحقق", Icons.send, () {

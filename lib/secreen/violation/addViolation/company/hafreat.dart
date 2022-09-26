@@ -43,6 +43,7 @@ class _hafreatState extends State<hafreat> with AutomaticKeepAliveClientMixin {
                 return null;
               },
             ),
+            siedBox(),
             Row(
               children: [
                 widgetsUni.actionbutton("تحقق", Icons.send, () {

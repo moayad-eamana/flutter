@@ -44,6 +44,7 @@ class _shopLicensesState extends State<shopLicenses>
                 return null;
               },
             ),
+            siedBox(),
             Row(
               children: [
                 widgetsUni.actionbutton("تحقق", Icons.send, () {

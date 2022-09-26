@@ -120,6 +120,9 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                     "البنود",
                     style: titleTx(baseColor),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   DropdownSearch<dynamic>(
                     items: violationtype,
                     popupBackgroundColor: BackGWhiteColor,

@@ -55,38 +55,45 @@ class _companyinfoState extends State<companyinfo>
   Widget build(BuildContext context) {
     super.build(context);
     return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.all(15),
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: BackGWhiteColor,
-          border: Border.all(
-            color: bordercolor,
-          ),
-          //color: baseColor,
-          borderRadius: BorderRadius.all(
-            new Radius.circular(4),
-          ),
-        ),
-        child: Column(
-          children: [
-            dropdwn(),
-            SizedBox(
-              height: 10,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Container(
+          decoration: BoxDecoration(
+            color: BackGWhiteColor,
+            border: Border.all(
+              color: bordercolor,
             ),
-            if (violationTypeID == 1)
-              violationAdds(widget.nextPage, widget.vaiolationModel),
-            if (violationTypeID == 2)
-              commercialRecord(widget.nextPage, widget.vaiolationModel),
-            if (violationTypeID == 3)
-              shopLicenses(widget.nextPage, widget.vaiolationModel),
-            if (violationTypeID == 4)
-              hafreat(widget.nextPage, widget.vaiolationModel),
-            if (violationTypeID == 5)
-              buildinglicense(widget.nextPage, widget.vaiolationModel),
-            if (violationTypeID == 6)
-              ViolationSkn(widget.nextPage, widget.vaiolationModel),
-          ],
+            //color: baseColor,
+            borderRadius: BorderRadius.all(
+              new Radius.circular(4),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                dropdwn(),
+                SizedBox(
+                  height: 10,
+                ),
+                if (violationTypeID == 1)
+                  violationAdds(widget.nextPage, widget.vaiolationModel),
+                if (violationTypeID == 2)
+                  commercialRecord(widget.nextPage, widget.vaiolationModel),
+                if (violationTypeID == 3)
+                  shopLicenses(widget.nextPage, widget.vaiolationModel),
+                if (violationTypeID == 4)
+                  hafreat(widget.nextPage, widget.vaiolationModel),
+                if (violationTypeID == 5)
+                  buildinglicense(widget.nextPage, widget.vaiolationModel),
+                if (violationTypeID == 6)
+                  ViolationSkn(widget.nextPage, widget.vaiolationModel),
+              ],
+            ),
+          ),
         ),
       ),
     );

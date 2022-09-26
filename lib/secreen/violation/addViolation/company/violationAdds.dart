@@ -53,9 +53,7 @@ class _violationAddsState extends State<violationAdds>
                 return null;
               },
             ),
-            SizedBox(
-              height: 10,
-            ),
+            sizeBox(),
             TextFormField(
               controller:
                   widget.vaiolationModel.violationAdds_model.advboardlicense,

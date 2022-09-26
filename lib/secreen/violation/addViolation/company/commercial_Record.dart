@@ -45,6 +45,7 @@ class _commercialRecordState extends State<commercialRecord>
                 return null;
               },
             ),
+            siedBox(),
             Row(
               children: [
                 widgetsUni.actionbutton("تحقق", Icons.send, () {
