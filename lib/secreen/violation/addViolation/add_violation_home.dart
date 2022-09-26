@@ -61,6 +61,7 @@ class _add_violationState extends State<add_violation>
               ),
               PageView(
                 controller: controller,
+                // physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   if (widget.page == 1)
                     individualUserInfo(vaiolationModel, nextPage),
@@ -87,12 +88,14 @@ class _add_violationState extends State<add_violation>
     //  controller.nextPage(duration: Duration.zero, curve: curve)
     controller.animateToPage(controller.page!.toInt() + 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+    FocusScope.of(context).unfocus();
   }
 
   backPag() {
     // controller.previousPage(duration: duration, curve: curve)();
     controller.animateToPage(controller.page!.toInt() - 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+    FocusScope.of(context).unfocus();
   }
 
   @override

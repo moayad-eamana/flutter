@@ -1,4 +1,5 @@
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/searchX.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -58,14 +59,42 @@ class AppBarW {
                             child: IconButton(
                               icon: const Icon(Icons.arrow_back),
                               color: baseColorText,
-                              onPressed: () {
-                                Navigator.pop(context);
+                              onPressed: () async {
+                                if (title == "إضافة مخالفة") {
+                                  Alerts.confirmAlrt(
+                                          context,
+                                          "خروج",
+                                          "هل تريد الخروج النظام المخالفات",
+                                          "نعم")
+                                      .show()
+                                      .then((value) async {
+                                    if (value == true) {
+                                      Navigator.pop(context);
+                                    }
+                                  });
+                                } else {
+                                  Navigator.pop(context);
+                                }
                               },
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
+                            onTap: () async {
+                              if (title == "إضافة مخالفة") {
+                                Alerts.confirmAlrt(
+                                        context,
+                                        "خروج",
+                                        "هل تريد الخروج النظام المخالفات",
+                                        "نعم")
+                                    .show()
+                                    .then((value) async {
+                                  if (value == true) {
+                                    Navigator.pop(context);
+                                  }
+                                });
+                              } else {
+                                Navigator.pop(context);
+                              }
                             },
                             child: Container(
                                 margin: EdgeInsets.only(right: 10, top: 30),
