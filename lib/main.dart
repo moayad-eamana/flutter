@@ -22,6 +22,7 @@ import 'package:eamanaapp/secreen/Settings/settings%20copy.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/community/comments.dart';
+import 'package:eamanaapp/secreen/customerService/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/favs/favs.dart';
 import 'package:eamanaapp/secreen/mahamme/CooperativeTrainingRequestsInfo.dart';
 import 'package:eamanaapp/secreen/mahamme/GetCardRequestInfo.dart';
@@ -166,7 +167,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     forceUpdate = remoteConfig.getBool("forceUpdateAll");
     setState(() {});
     print(localVersion.toString() + " _ios");
-    print(packageInfo.buildNumber);
+    print(packageInfo.version);
     print(forceUpdate);
   }
 
@@ -341,6 +342,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/contactsView': (context) => ContactsView(),
           '/scannQrcode': (context) => scanQrcode(),
           '/ViolationHome': (context) => ViolationHome(),
+          '/customerServiceRequests': (context) => customerServiceRrequests(),
         },
       );
     });

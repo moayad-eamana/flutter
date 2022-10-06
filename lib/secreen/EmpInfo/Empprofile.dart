@@ -238,8 +238,54 @@ class _EmpProfileState extends State<EmpProfile> {
                                   Icons.wallet_giftcard,
                                   () async {
                                     try {
-                                      await launchUrl(await Uri.parse(
-                                          "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
+                                      showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            padding: EdgeInsets.all(10),
+                                            height: 200,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "اللغة المفضلة",
+                                                  style: subtitleTx(baseColor),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                // widgetsUni.divider(),
+
+                                                widgetsUni.divider(),
+
+                                                TextButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        // await launchUrl(
+                                                        //     await Uri.parse(
+                                                        //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
+
+                                                        await launchUrl(
+                                                            await Uri.parse(
+                                                                "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar"));
+                                                      } catch (e) {}
+                                                    },
+                                                    child:
+                                                        Text("اللغة االعربية")),
+                                                TextButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        await launchUrl(
+                                                            await Uri.parse(
+                                                                "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=en"));
+                                                      } catch (e) {}
+                                                    },
+                                                    child: Text(
+                                                        "اللغة الانجليزية")),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     } catch (e) {
                                       return;
                                     }
