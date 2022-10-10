@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
@@ -48,6 +50,7 @@ class _MainHomeState extends State<MainHome> {
     embId();
     print(packageInfo.version);
     getAction("Offers/GetCategories");
+    print("object");
     super.initState();
     //hasPermission();
     // subscribeToNotification();

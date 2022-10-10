@@ -144,12 +144,15 @@ class LoginProvider extends ChangeNotifier {
       try {
         var respose = await http.post(
             Uri.parse(
-                "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php"),
+                "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
             body: jsonEncode({
               "token": sharedPref.getString("AccessToken"),
               "username": empinfo.Email
             }));
         hasePerm = jsonDecode(respose.body)["message"];
+        sharedPref.setBool(
+            "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+        sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
       } catch (e) {}
 
       //hasePerm = hasePerm;

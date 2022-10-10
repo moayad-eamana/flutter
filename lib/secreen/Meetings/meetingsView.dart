@@ -134,7 +134,7 @@ class _MeetingViewState extends State<MeetingView> {
                                   //margin: EdgeInsets.symmetric(vertical: 250),
                                   height: 280,
                                   margin: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
+                                      horizontal: 9, vertical: 10),
                                   child: Card(
                                     elevation: 1,
                                     //shadowColor: Colors.white,
@@ -218,7 +218,8 @@ class _MeetingViewState extends State<MeetingView> {
                                                         color: baseColorText,
                                                         fontFamily: "Cairo",
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.bold,
+                                                        fontSize: 12),
                                                   ),
                                                   Row(
                                                     children: [

@@ -252,6 +252,9 @@ class _SettingsState extends State<Settings> {
                                                 "EmployeeNumber", 0);
                                             sharedPref.setString(
                                                 "hasePerm", "");
+                                            sharedPref.setBool(
+                                                "permissionforCRM", false);
+
                                             hasePerm = "";
                                             //_pref.clear();
                                             //setSettings();

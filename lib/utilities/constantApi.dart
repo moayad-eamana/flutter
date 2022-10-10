@@ -23,6 +23,7 @@ dynamic getAction(String link) async {
   if (respns.statusCode == 401) {
     EasyLoading.dismiss();
     sharedPref.setString("hasePerm", "");
+    sharedPref.setBool("permissionforCRM", false);
     sharedPref.setDouble("EmployeeNumber", 0);
     hasePerm = "";
     navigatorKey.currentState
@@ -49,6 +50,7 @@ dynamic postAction(String link, dynamic body) async {
   if (respns.statusCode == 401) {
     EasyLoading.dismiss();
     sharedPref.setString("hasePerm", "");
+    sharedPref.setBool("permissionforCRM", false);
     sharedPref.setDouble("EmployeeNumber", 0);
     hasePerm = "";
     navigatorKey.currentState

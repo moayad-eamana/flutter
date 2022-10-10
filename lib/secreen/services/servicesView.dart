@@ -20,6 +20,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
 
 class ServicesView extends StatefulWidget {
   @override
@@ -33,7 +34,35 @@ class _ServicesViewState extends State<ServicesView> {
   void initState() {
     // TODO: implement initState
     embId();
+    hasPermission2();
+    print("object");
     super.initState();
+  }
+
+  Future<void> hasPermission2() async {
+    EmployeeProfile empinfo = await EmployeeProfile();
+
+    empinfo = await empinfo.getEmployeeProfile();
+    try {
+      var respose = await http.post(
+          Uri.parse(
+              "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
+          body: jsonEncode({
+            "token": sharedPref.getString("AccessToken"),
+            "username": empinfo.Email
+          }));
+      hasePerm = jsonDecode(respose.body)["message"];
+      sharedPref.setBool(
+          "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+      sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+    } catch (e) {}
+
+    //hasePerm = hasePerm;
+    print("rr == " + hasePerm.toString());
+    //SharedPreferences? sharedPref = await SharedPreferences.getInstance();
+    sharedPref.setString("hasePerm", hasePerm.toString());
+    hasePerm = hasePerm.toString();
+    setState(() {});
   }
 
   embId() async {
@@ -112,29 +141,31 @@ class _ServicesViewState extends State<ServicesView> {
                       height: 10,
                     ),
 
-                    Text(
-                      "المخالفات الإلكترونية",
-                      style: subtitleTx(baseColor),
-                    ),
+                    // Text(
+                    //   "المخالفات الإلكترونية",
+                    //   style: subtitleTx(baseColor),
+                    // ),
 
-                    widgetsUni.divider(),
+                    // widgetsUni.divider(),
 
-                    SizedBox(
-                      height: 10,
-                    ),
-                    violation(),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // violation(),
 
-                    SizedBox(
-                      height: 10,
-                    ),
-
-                    Text("خدمة العملاء", style: subtitleTx(baseColor)),
-
-                    widgetsUni.divider(),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    customerService(),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      Text("خدمة العملاء", style: subtitleTx(baseColor)),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      widgetsUni.divider(),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      SizedBox(
+                        height: 5,
+                      ),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      customerService(),
                     SizedBox(
                       height: 5,
                     ),

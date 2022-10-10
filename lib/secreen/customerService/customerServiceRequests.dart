@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
   TextEditingController reqID = new TextEditingController();
   List customerServiceRrequestsList = [];
   List deptList = [];
-  String deptsID = "0";
+  String deptsID = sharedPref.getString("deptid") ?? "";
   String? selectedItem;
 
   String Meetingsurl =
@@ -48,8 +49,8 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
     );
     var respose = await http.post(Uri.parse(Meetingsurl),
         body: jsonEncode({
-          "token": "",
-          "email": "ajalarfaj",
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email"),
           "deptsID": deptsID,
           "statusID": "",
           "allowEdit": "",
@@ -69,9 +70,17 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
     var respose2 = await http.post(
         Uri.parse(
             "https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/get_depts_list.php"),
-        body: jsonEncode({"token": "", "email": "ajalarfaj"}));
-
-    deptList = jsonDecode(respose2.body)["depts"];
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email")
+        }));
+    try {
+      deptList = jsonDecode(respose2.body)["depts"];
+    } catch (e) {
+      deptList = [];
+    }
+    print("object");
+    print(deptList);
     setState(() {});
   }
 
@@ -107,8 +116,8 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                       );
                       var respose = await http.post(Uri.parse(Meetingsurl),
                           body: jsonEncode({
-                            "token": "",
-                            "email": "ajalarfaj",
+                            "token": sharedPref.getString("AccessToken"),
+                            "email": sharedPref.getString("Email"),
                             "deptsID": deptsID,
                             "statusID": "",
                             "allowEdit": "",
@@ -126,6 +135,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                 ElevatedButton(
                     onPressed: () {
                       reqID.text = "";
+                      deptsID = sharedPref.getString("deptsID") ?? "";
                       Navigator.pop(context);
                       getData(true);
                       setState(() {});
@@ -214,118 +224,122 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
   }
 
   DropDown() {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: GestureDetector(
-        onTap: () async {},
-        child: DropdownSearch<dynamic>(
-          popupBackgroundColor: BackGWhiteColor,
-          key: UniqueKey(),
-          items: deptList,
-          popupItemBuilder: (context, rr, isSelected) => (Container(
-            margin: EdgeInsets.only(top: 10),
-            child: Column(
-              children: [Text(rr["name"], style: subtitleTx(baseColorText))],
-            ),
-          )),
-          dropdownBuilder: (context, selectedItem2) => Container(
-            child: selectedItem2 == null
-                ? null
-                : Text(
-                    selectedItem2 == null ? "" : selectedItem ?? "",
-                    style: TextStyle(fontSize: 12, color: baseColorText),
+    return deptList.length == 0
+        ? Container()
+        : Directionality(
+            textDirection: TextDirection.rtl,
+            child: GestureDetector(
+              onTap: () async {},
+              child: DropdownSearch<dynamic>(
+                popupBackgroundColor: BackGWhiteColor,
+                key: UniqueKey(),
+                items: deptList,
+                popupItemBuilder: (context, rr, isSelected) => (Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Column(
+                    children: [
+                      Text(rr["name"], style: subtitleTx(baseColorText))
+                    ],
                   ),
-          ),
-          dropdownBuilderSupportsNullItem: true,
-          selectedItem: selectedItem == null ? null : selectedItem,
-          showSelectedItems: false,
-          showClearButton: true,
-          mode: Mode.BOTTOM_SHEET,
-          maxHeight: 400,
-          showAsSuffixIcons: true,
-          itemAsString: (item) => item["actionName"] ?? "",
-          dropdownSearchDecoration: InputDecoration(
-            labelStyle: TextStyle(color: secondryColorText),
-            errorStyle: TextStyle(color: redColor),
-            contentPadding: EdgeInsets.symmetric(
-                vertical: responsiveMT(8, 30), horizontal: 10.0),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(color: bordercolor),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: bordercolor),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: bordercolor),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-            labelText: "الإدارات",
-          ),
-          showSearchBox: true,
-          onChanged: (v) async {
-            try {
-              selectedItem = v["name"];
-              deptsID = v["ID"];
-              setState(() {});
-            } catch (e) {
-              print(e);
-            }
-          },
-          popupTitle: Container(
-            height: 60,
-            decoration: BoxDecoration(
-              color: secondryColor,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Center(
-              child: Text(
-                "الإدارات",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                )),
+                dropdownBuilder: (context, selectedItem2) => Container(
+                  child: selectedItem2 == null
+                      ? null
+                      : Text(
+                          selectedItem2 == null ? "" : selectedItem ?? "",
+                          style: TextStyle(fontSize: 12, color: baseColorText),
+                        ),
+                ),
+                dropdownBuilderSupportsNullItem: true,
+                selectedItem: selectedItem == null ? null : selectedItem,
+                showSelectedItems: false,
+                showClearButton: true,
+                mode: Mode.BOTTOM_SHEET,
+                maxHeight: 400,
+                showAsSuffixIcons: true,
+                itemAsString: (item) => item["actionName"] ?? "",
+                dropdownSearchDecoration: InputDecoration(
+                  labelStyle: TextStyle(color: secondryColorText),
+                  errorStyle: TextStyle(color: redColor),
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: responsiveMT(8, 30), horizontal: 10.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                    borderSide: BorderSide(color: bordercolor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: bordercolor),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: bordercolor),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                  labelText: "الإدارات",
+                ),
+                showSearchBox: true,
+                onChanged: (v) async {
+                  try {
+                    selectedItem = v["name"];
+                    deptsID = v["ID"];
+                    setState(() {});
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                popupTitle: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: secondryColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "الإدارات",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                popupShape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                ),
+                emptyBuilder: (context, searchEntry) => Center(
+                  child: Text(
+                    "لا يوجد بيانات",
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                  ),
+                ),
+                searchFieldProps: TextFieldProps(
+                  textAlign: TextAlign.right,
+                  decoration: formlabel1(""),
+                  style: TextStyle(
+                    color: baseColorText,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                clearButton: Icon(
+                  Icons.clear,
+                  color: baseColor,
+                ),
+                dropDownButton: Icon(
+                  Icons.arrow_drop_down,
+                  color: baseColor,
                 ),
               ),
             ),
-          ),
-          popupShape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(24),
-              topRight: Radius.circular(24),
-            ),
-          ),
-          emptyBuilder: (context, searchEntry) => Center(
-            child: Text(
-              "لا يوجد بيانات",
-              style: TextStyle(
-                color: baseColorText,
-              ),
-            ),
-          ),
-          searchFieldProps: TextFieldProps(
-            textAlign: TextAlign.right,
-            decoration: formlabel1(""),
-            style: TextStyle(
-              color: baseColorText,
-            ),
-            textDirection: TextDirection.rtl,
-          ),
-          clearButton: Icon(
-            Icons.clear,
-            color: baseColor,
-          ),
-          dropDownButton: Icon(
-            Icons.arrow_drop_down,
-            color: baseColor,
-          ),
-        ),
-      ),
-    );
+          );
   }
 }

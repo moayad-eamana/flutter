@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -23,12 +24,12 @@ class customerServiceRequestsDetails extends StatefulWidget {
 
 class _customerServiceRequestsDetailsState
     extends State<customerServiceRequestsDetails> {
+  String Meetingsurl =
+      'https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/';
   TextEditingController DateText = TextEditingController();
   TextEditingController note = TextEditingController();
   String? dow;
   String? Time;
-  String Meetingsurl =
-      'https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/';
   bool page1 = false;
   bool page2 = false;
   bool page3 = false;
@@ -598,7 +599,10 @@ class _customerServiceRequestsDetailsState
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(Uri.parse(Meetingsurl + "get_dept_emps.php"),
-        body: jsonEncode({"token": "", "email": "ajalarfaj"}));
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email")
+        }));
     MyEmps = jsonDecode(respose.body);
     print(appointments_time_List);
     setState(() {});
@@ -610,13 +614,13 @@ class _customerServiceRequestsDetailsState
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose = await http.post(
-        Uri.parse(Meetingsurl + "get_appointments_time.php"),
-        body: jsonEncode({
-          "token": "",
-          "email": "ajalarfaj",
-          "reqID": widget.List["reqID"]
-        }));
+    var respose =
+        await http.post(Uri.parse(Meetingsurl + "get_appointments_time.php"),
+            body: jsonEncode({
+              "token": sharedPref.getString("AccessToken"),
+              "email": sharedPref.getString("Email"),
+              "reqID": widget.List["reqID"]
+            }));
     appointments_time_List = jsonDecode(respose.body);
     setState(() {});
     EasyLoading.dismiss();
@@ -628,7 +632,10 @@ class _customerServiceRequestsDetailsState
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(Uri.parse(Meetingsurl + "get_depts_list.php"),
-        body: jsonEncode({"token": "", "email": "ajalarfaj"}));
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email")
+        }));
     depIDList = jsonDecode(respose.body)["depts"];
     print(appointments_time_List);
     setState(() {});
@@ -692,13 +699,13 @@ class _customerServiceRequestsDetailsState
             status: '... جاري المعالجة',
             maskType: EasyLoadingMaskType.black,
           );
-          var respose = await http.post(
-              Uri.parse(Meetingsurl + "get_request_log.php"),
-              body: jsonEncode({
-                "token": "",
-                "email": "ajalarfaj",
-                "reqID": widget.List["reqID"]
-              }));
+          var respose =
+              await http.post(Uri.parse(Meetingsurl + "get_request_log.php"),
+                  body: jsonEncode({
+                    "token": sharedPref.getString("AccessToken"),
+                    "email": sharedPref.getString("Email"),
+                    "reqID": widget.List["reqID"]
+                  }));
           EasyLoading.dismiss();
           request_log = jsonDecode(respose.body);
           setState(() {});
@@ -717,13 +724,13 @@ class _customerServiceRequestsDetailsState
             status: '... جاري المعالجة',
             maskType: EasyLoadingMaskType.black,
           );
-          var respose = await http.post(
-              Uri.parse(Meetingsurl + "get_Actions_list.php"),
-              body: jsonEncode({
-                "token": "",
-                "email": "ajalarfaj",
-                "reqID": widget.List["reqID"]
-              }));
+          var respose =
+              await http.post(Uri.parse(Meetingsurl + "get_Actions_list.php"),
+                  body: jsonEncode({
+                    "token": sharedPref.getString("AccessToken"),
+                    "email": sharedPref.getString("Email"),
+                    "reqID": widget.List["reqID"]
+                  }));
           EasyLoading.dismiss();
           ActionsList = jsonDecode(respose.body);
 
@@ -817,8 +824,11 @@ class _customerServiceRequestsDetailsState
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Column(
           children: [
-            titleAnddescByRow("نوع الخدمة", widget.List["Type"], "الحالة",
-                widget.List["Status"]),
+            Container(
+              height: 140,
+              child: titleAnddescByRow("نوع الخدمة", widget.List["Type"],
+                  "الحالة", widget.List["Status"]),
+            ),
             if (widget.List["date"] != null)
               titleAnddescByRow("التاريخ", widget.List["date"], "اليوم",
                   widget.List["appDowTxt"] ?? ""),
@@ -1013,8 +1023,8 @@ class _customerServiceRequestsDetailsState
     var respose =
         await http.post(Uri.parse(Meetingsurl + "set_request_action.php"),
             body: jsonEncode({
-              "token": "",
-              "email": "ajalarfaj",
+              "token": sharedPref.getString("AccessToken"),
+              "email": sharedPref.getString("Email"),
               "reqID": widget.List["reqID"],
               "actionID": ActionID,
               "sid": widget.List["sid"],
