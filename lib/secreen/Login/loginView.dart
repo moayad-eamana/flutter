@@ -5,7 +5,6 @@ import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +59,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     EasyLoading.dismiss();
     super.dispose();
   }
@@ -106,10 +104,8 @@ class _LoginViewState extends State<LoginView> {
                             launch(
                                 "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
                           } else {
-                            launch(sharedPref.getDouble("EmployeeNumber") ==
-                                    4341012.0
-                                ? "https://testflight.apple.com/join/ds6xxuqO"
-                                : "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
+                            launch(
+                                "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
                           }
 
                           packageInfo = await PackageInfo.fromPlatform();

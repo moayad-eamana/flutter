@@ -156,19 +156,19 @@ class _ServicesViewState extends State<ServicesView> {
                     // SizedBox(
                     //   height: 10,
                     // ),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      Text("خدمة العملاء", style: subtitleTx(baseColor)),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      widgetsUni.divider(),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      SizedBox(
-                        height: 5,
-                      ),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      customerService(),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    // if (sharedPref.getBool("permissionforCRM") == true)
+                    //   Text("خدمة العملاء", style: subtitleTx(baseColor)),
+                    // if (sharedPref.getBool("permissionforCRM") == true)
+                    //   widgetsUni.divider(),
+                    // if (sharedPref.getBool("permissionforCRM") == true)
+                    //   SizedBox(
+                    //     height: 5,
+                    //   ),
+                    // if (sharedPref.getBool("permissionforCRM") == true)
+                    //   customerService(),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
                     Text("خدمات أخرى", style: subtitleTx(baseColor)),
 
                     widgetsUni.divider(),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -273,10 +274,64 @@ class _EmpProfileState extends State<EmpProfile> {
                                               TextButton(
                                                   onPressed: () async {
                                                     try {
-                                                      await launchUrl(
-                                                          await Uri.parse(
-                                                              "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=en"));
-                                                    } catch (e) {}
+                                                      EasyLoading.show(
+                                                        status:
+                                                            '... جاري المعالجة',
+                                                        maskType:
+                                                            EasyLoadingMaskType
+                                                                .black,
+                                                      );
+
+                                                      Response response;
+                                                      Dio dio = new Dio();
+
+                                                      final appStorage =
+                                                          await getApplicationDocumentsDirectory();
+                                                      var file = File(
+                                                          '${appStorage.path}/wallet.pkpass');
+                                                      final raf = file.openSync(
+                                                        mode: FileMode.append,
+                                                      );
+
+                                                      response = await dio.post(
+                                                        "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar",
+                                                        options: Options(
+                                                            responseType:
+                                                                ResponseType
+                                                                    .bytes,
+                                                            followRedirects:
+                                                                false,
+                                                            receiveTimeout: 0),
+                                                      );
+                                                      if (response.data !=
+                                                          null) {
+                                                        try {
+                                                          raf.writeFromSync(
+                                                              response.data);
+                                                          await raf.close();
+                                                          print("path = " +
+                                                              file.path);
+                                                        } catch (e) {
+                                                          print(e);
+                                                        }
+                                                      } else {
+                                                        print("Data error");
+                                                      }
+                                                      // PassFile passFile =
+                                                      //     await Pass()
+                                                      //         .fetchPreviewFromUrl(
+                                                      //             url: response
+                                                      //                 .data);
+                                                      // passFile.save();
+                                                      EasyLoading.dismiss();
+                                                      OpenFilex.open(file.path);
+
+                                                      // await launchUrl(
+                                                      //     await Uri.parse(
+                                                      //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=en"));
+                                                    } catch (e) {
+                                                      print("error");
+                                                    }
                                                   },
                                                   child:
                                                       Text("اللغة الانجليزية")),

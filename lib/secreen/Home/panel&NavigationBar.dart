@@ -441,11 +441,8 @@ class _HomPanelState extends State<HomePanel>
                                   launch(
                                       "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
                                 } else {
-                                  launch(sharedPref
-                                              .getDouble("EmployeeNumber") ==
-                                          4341012.0
-                                      ? "https://testflight.apple.com/join/ds6xxuqO"
-                                      : "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
+                                  launch(
+                                      "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
                                 }
 
                                 //   Navigator.pop(context);

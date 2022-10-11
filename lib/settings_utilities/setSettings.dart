@@ -5,9 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-String raqameUpdate = sharedPref.getDouble("EmployeeNumber") == 4341012.0
-    ? "raqameUpdate"
-    : "raqameUpdateAll";
+String raqameUpdate = "raqameUpdateAll";
 String offers = "offers";
 String Morning = "morning";
 

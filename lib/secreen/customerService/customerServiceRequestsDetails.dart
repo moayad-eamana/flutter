@@ -228,7 +228,8 @@ class _customerServiceRequestsDetailsState
                           ActionID == 6 ||
                           ActionID == 8 ||
                           ActionID == 9 ||
-                          ActionID == 13) {
+                          ActionID == 13 ||
+                          ActionID == 11) {
                         insert(null, null, null, note.text, null, null);
                       } else if (ActionID == 7) {
                         insert(null, null, null, note.text, depID, null);
@@ -997,7 +998,14 @@ class _customerServiceRequestsDetailsState
         return;
       }
     }
-    if (ActionID == 4 || ActionID == 5 || ActionID == 6) {
+    if (ActionID == 3 ||
+        ActionID == 4 ||
+        ActionID == 5 ||
+        ActionID == 6 ||
+        ActionID == 8 ||
+        ActionID == 9 ||
+        ActionID == 13 ||
+        ActionID == 11) {
       if (note?.trim() == "") {
         Alerts.errorAlert(context, "خطاء", 'الرجاء إدخال ملاحظات').show();
         return;
