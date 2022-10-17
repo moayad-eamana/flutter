@@ -60,6 +60,8 @@ class _getusrtInfoState extends State<getusrtInfo> {
                 ).then((value) {
                   print(value);
                   NID.text = value;
+
+                  print("uuuuuuuuuuuuu = " + value);
                   setState(() {});
                   getUSersInfo();
                 });

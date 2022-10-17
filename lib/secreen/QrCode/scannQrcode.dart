@@ -227,15 +227,20 @@ class _scanQrcodeState extends State<scanQrcode> {
             ).then((value) {
               i = 0;
             });
+
             i++;
           }
         }
+        if (i == 0) {
+          if (widget.titlePage == "حجز موعد") {
+            print("eeeeeeeeeee");
+            result = scanData;
+            i++;
+            Navigator.pop(context, scanData.code.toString());
+          }
+        }
       });
-      if (widget.titlePage == "حجز موعد") {
-        result = scanData;
-        Navigator.pop(context, result);
-        return;
-      }
+
       // await FlutterContacts.openExternalView(contact);
     });
   }
