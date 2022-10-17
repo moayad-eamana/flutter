@@ -14,8 +14,9 @@ import 'package:http/http.dart' as http;
 
 class customerServiceRequestsDetails extends StatefulWidget {
   var List;
+  String url;
 
-  customerServiceRequestsDetails(this.List);
+  customerServiceRequestsDetails(this.List, this.url);
 
   @override
   State<customerServiceRequestsDetails> createState() =>
@@ -24,8 +25,7 @@ class customerServiceRequestsDetails extends StatefulWidget {
 
 class _customerServiceRequestsDetailsState
     extends State<customerServiceRequestsDetails> {
-  String Meetingsurl =
-      'https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/';
+  String Meetingsurl = 'https://crm.eamana.gov.sa/agenda_dev/api/';
   TextEditingController DateText = TextEditingController();
   TextEditingController note = TextEditingController();
   String? dow;
@@ -599,7 +599,8 @@ class _customerServiceRequestsDetailsState
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose = await http.post(Uri.parse(Meetingsurl + "get_dept_emps.php"),
+    var respose = await http.post(
+        Uri.parse(Meetingsurl + ("Agenda_dashboard/get_dept_emps.php")),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email")
@@ -615,13 +616,13 @@ class _customerServiceRequestsDetailsState
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose =
-        await http.post(Uri.parse(Meetingsurl + "get_appointments_time.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "email": sharedPref.getString("Email"),
-              "reqID": widget.List["reqID"]
-            }));
+    var respose = await http.post(
+        Uri.parse(Meetingsurl + "Agenda_dashboard/get_appointments_time.php"),
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email"),
+          "reqID": widget.List["reqID"]
+        }));
     appointments_time_List = jsonDecode(respose.body);
     setState(() {});
     EasyLoading.dismiss();
@@ -632,7 +633,8 @@ class _customerServiceRequestsDetailsState
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose = await http.post(Uri.parse(Meetingsurl + "get_depts_list.php"),
+    var respose = await http.post(
+        Uri.parse(Meetingsurl + "Agenda_dashboard/get_depts_list.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email")
@@ -700,13 +702,16 @@ class _customerServiceRequestsDetailsState
             status: '... جاري المعالجة',
             maskType: EasyLoadingMaskType.black,
           );
-          var respose =
-              await http.post(Uri.parse(Meetingsurl + "get_request_log.php"),
-                  body: jsonEncode({
-                    "token": sharedPref.getString("AccessToken"),
-                    "email": sharedPref.getString("Email"),
-                    "reqID": widget.List["reqID"]
-                  }));
+          var respose = await http.post(
+              Uri.parse(Meetingsurl +
+                  (widget.url == "LeaderAppointment_dashboard"
+                      ? "LeaderAppointment_dashboard/get_appoinments_request_log.php"
+                      : "Agenda_dashboard/get_request_log.php")),
+              body: jsonEncode({
+                "token": sharedPref.getString("AccessToken"),
+                "email": sharedPref.getString("Email"),
+                "reqID": widget.List["reqID"]
+              }));
           EasyLoading.dismiss();
           request_log = jsonDecode(respose.body);
           setState(() {});
@@ -725,13 +730,16 @@ class _customerServiceRequestsDetailsState
             status: '... جاري المعالجة',
             maskType: EasyLoadingMaskType.black,
           );
-          var respose =
-              await http.post(Uri.parse(Meetingsurl + "get_Actions_list.php"),
-                  body: jsonEncode({
-                    "token": sharedPref.getString("AccessToken"),
-                    "email": sharedPref.getString("Email"),
-                    "reqID": widget.List["reqID"]
-                  }));
+          var respose = await http.post(
+              Uri.parse(Meetingsurl +
+                  (widget.url == "LeaderAppointment_dashboard"
+                      ? "LeaderAppointment_dashboard/get_Actions_list.php"
+                      : "Agenda_dashboard/get_Actions_list.php")),
+              body: jsonEncode({
+                "token": sharedPref.getString("AccessToken"),
+                "email": sharedPref.getString("Email"),
+                "reqID": widget.List["reqID"]
+              }));
           EasyLoading.dismiss();
           ActionsList = jsonDecode(respose.body);
 
@@ -1028,22 +1036,25 @@ class _customerServiceRequestsDetailsState
       maskType: EasyLoadingMaskType.black,
     );
 
-    var respose =
-        await http.post(Uri.parse(Meetingsurl + "set_request_action.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "email": sharedPref.getString("Email"),
-              "reqID": widget.List["reqID"],
-              "actionID": ActionID,
-              "sid": widget.List["sid"],
-              "up_notes": note,
-              "date": date,
-              "time": time,
-              "dow": dow,
-              "newdept": depID,
-              "newemp": myEmp == null ? null : myEmp["user"],
-              "newempName": myEmp == null ? null : myEmp["name"]
-            }));
+    var respose = await http.post(
+        Uri.parse(Meetingsurl +
+            (widget.url == "LeaderAppointment_dashboard"
+                ? "LeaderAppointment_dashboard/set_request_action.php"
+                : "Agenda_dashboard/set_request_action.php")),
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email"),
+          "reqID": widget.List["reqID"],
+          "actionID": ActionID,
+          "sid": widget.List["sid"],
+          "up_notes": note,
+          "date": date,
+          "time": time,
+          "dow": dow,
+          "newdept": depID,
+          "newemp": myEmp == null ? null : myEmp["user"],
+          "newempName": myEmp == null ? null : myEmp["name"]
+        }));
 
     if (jsonDecode(respose.body)["status"] == true) {
       Alerts.successAlert(context, "", "تم التحديث").show().then((value) {

@@ -234,121 +234,121 @@ class _EmpProfileState extends State<EmpProfile> {
                                   getPdfasync(_provider);
                                 },
                               ),
-                              // if (Platform.isIOS)
-                              GestureDetector(
-                                onTap: () async {
-                                  try {
-                                    showModalBottomSheet<void>(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          padding: EdgeInsets.all(10),
-                                          height: 200,
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                "اللغة المفضلة",
-                                                style: subtitleTx(baseColor),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              // widgetsUni.divider(),
+                              if (Platform.isIOS)
+                                GestureDetector(
+                                  onTap: () async {
+                                    try {
+                                      showModalBottomSheet<void>(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            padding: EdgeInsets.all(10),
+                                            height: 200,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "اللغة المفضلة",
+                                                  style: subtitleTx(baseColor),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                // widgetsUni.divider(),
 
-                                              widgetsUni.divider(),
+                                                widgetsUni.divider(),
 
-                                              TextButton(
-                                                  onPressed: () async {
-                                                    try {
-                                                      // await launchUrl(
-                                                      //     await Uri.parse(
-                                                      //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
+                                                TextButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        // await launchUrl(
+                                                        //     await Uri.parse(
+                                                        //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
 
-                                                      await launchUrl(
-                                                          await Uri.parse(
-                                                              "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar"));
-                                                    } catch (e) {}
-                                                  },
-                                                  child:
-                                                      Text("اللغة االعربية")),
-                                              TextButton(
-                                                  onPressed: () async {
-                                                    try {
-                                                      EasyLoading.show(
-                                                        status:
-                                                            '... جاري المعالجة',
-                                                        maskType:
-                                                            EasyLoadingMaskType
-                                                                .black,
-                                                      );
+                                                        await launchUrl(
+                                                            await Uri.parse(
+                                                                "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar"));
+                                                      } catch (e) {}
+                                                    },
+                                                    child:
+                                                        Text("اللغة االعربية")),
+                                                TextButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        // EasyLoading.show(
+                                                        //   status:
+                                                        //       '... جاري المعالجة',
+                                                        //   maskType:
+                                                        //       EasyLoadingMaskType
+                                                        //           .black,
+                                                        // );
 
-                                                      Response response;
-                                                      Dio dio = new Dio();
+                                                        // Response response;
+                                                        // Dio dio = new Dio();
 
-                                                      final appStorage =
-                                                          await getApplicationDocumentsDirectory();
-                                                      var file = File(
-                                                          '${appStorage.path}/wallet.pkpass');
-                                                      final raf = file.openSync(
-                                                        mode: FileMode.append,
-                                                      );
+                                                        // final appStorage =
+                                                        //     await getApplicationDocumentsDirectory();
+                                                        // var file = File(
+                                                        //     '${appStorage.path}/wallet.pkpass');
+                                                        // final raf = file.openSync(
+                                                        //   mode: FileMode.append,
+                                                        // );
 
-                                                      response = await dio.post(
-                                                        "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar",
-                                                        options: Options(
-                                                            responseType:
-                                                                ResponseType
-                                                                    .bytes,
-                                                            followRedirects:
-                                                                false,
-                                                            receiveTimeout: 0),
-                                                      );
-                                                      if (response.data !=
-                                                          null) {
-                                                        try {
-                                                          raf.writeFromSync(
-                                                              response.data);
-                                                          await raf.close();
-                                                          print("path = " +
-                                                              file.path);
-                                                        } catch (e) {
-                                                          print(e);
-                                                        }
-                                                      } else {
-                                                        print("Data error");
+                                                        // response = await dio.post(
+                                                        //   "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar",
+                                                        //   options: Options(
+                                                        //       responseType:
+                                                        //           ResponseType
+                                                        //               .bytes,
+                                                        //       followRedirects:
+                                                        //           false,
+                                                        //       receiveTimeout: 0),
+                                                        // );
+                                                        // if (response.data !=
+                                                        //     null) {
+                                                        //   try {
+                                                        //     raf.writeFromSync(
+                                                        //         response.data);
+                                                        //     await raf.close();
+                                                        //     print("path = " +
+                                                        //         file.path);
+                                                        //   } catch (e) {
+                                                        //     print(e);
+                                                        //   }
+                                                        // } else {
+                                                        //   print("Data error");
+                                                        // }
+                                                        // // PassFile passFile =
+                                                        // //     await Pass()
+                                                        // //         .fetchPreviewFromUrl(
+                                                        // //             url: response
+                                                        // //                 .data);
+                                                        // // passFile.save();
+                                                        // EasyLoading.dismiss();
+                                                        // OpenFilex.open(file.path);
+
+                                                        await launchUrl(
+                                                            await Uri.parse(
+                                                                "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=en"));
+                                                      } catch (e) {
+                                                        print("error");
                                                       }
-                                                      // PassFile passFile =
-                                                      //     await Pass()
-                                                      //         .fetchPreviewFromUrl(
-                                                      //             url: response
-                                                      //                 .data);
-                                                      // passFile.save();
-                                                      EasyLoading.dismiss();
-                                                      OpenFilex.open(file.path);
-
-                                                      // await launchUrl(
-                                                      //     await Uri.parse(
-                                                      //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=en"));
-                                                    } catch (e) {
-                                                      print("error");
-                                                    }
-                                                  },
-                                                  child:
-                                                      Text("اللغة الانجليزية")),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  } catch (e) {
-                                    return;
-                                  }
-                                },
-                                child: SvgPicture.asset(
-                                  'assets/SVGs/AR_Add_to_Apple_Wallet.svg',
-                                  height: 37,
+                                                    },
+                                                    child: Text(
+                                                        "اللغة الانجليزية")),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } catch (e) {
+                                      return;
+                                    }
+                                  },
+                                  child: SvgPicture.asset(
+                                    'assets/SVGs/AR_Add_to_Apple_Wallet.svg',
+                                    height: 37,
+                                  ),
                                 ),
-                              ),
                               // widgetsUni.actionbutton(
                               //   "إضافة إلي لمحفضة",
                               //   Icons.wallet_giftcard,

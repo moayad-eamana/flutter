@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'customerServiceRequestsDetails.dart';
 
 class customerServiceRrequests extends StatefulWidget {
+  String url;
+  customerServiceRrequests(this.url);
   @override
   State<customerServiceRrequests> createState() =>
       _customerServiceRrequestsState();
@@ -21,10 +23,14 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
   List customerServiceRrequestsList = [];
   List deptList = [];
   String deptsID = sharedPref.getString("deptid") ?? "";
+  String leadid = sharedPref.getString("leadid") ?? "";
   String? selectedItem;
+  String? selectedItemstatus;
+  String statusesID = "";
 
-  String Meetingsurl =
-      'https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/get_request.php';
+  List statuslist = [];
+
+  String Meetingsurl = 'https://crm.eamana.gov.sa/agenda_dev/api/';
 
   void initState() {
     controller = ScrollController()..addListener(_scrollListener);
@@ -47,12 +53,17 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose = await http.post(Uri.parse(Meetingsurl),
+    var respose = await http.post(
+        Uri.parse(Meetingsurl +
+            (widget.url == "LeaderAppointment_dashboard"
+                ? "LeaderAppointment_dashboard/get_appoinments_request.php"
+                : "Agenda_dashboard/get_request.php")),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email"),
-          "deptsID": deptsID,
-          "statusID": "",
+          "deptsID":
+              widget.url == "LeaderAppointment_dashboard" ? leadid : deptsID,
+          "statusID": statusesID,
           "allowEdit": "",
           "reqID": reqID.text,
           "page": ++page
@@ -68,8 +79,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
     setState(() {});
     EasyLoading.dismiss();
     var respose2 = await http.post(
-        Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/get_depts_list.php"),
+        Uri.parse(Meetingsurl + "Agenda_dashboard/get_depts_list.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email")
@@ -78,6 +88,11 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
       deptList = jsonDecode(respose2.body)["depts"];
     } catch (e) {
       deptList = [];
+    }
+    try {
+      statuslist = jsonDecode(respose2.body)["statuslist"];
+    } catch (e) {
+      statuslist = [];
     }
     print("object");
     print(deptList);
@@ -93,7 +108,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
             child: AlertDialog(
               title: Text('بحث'),
               content: Container(
-                height: 150,
+                height: 200,
                 child: Column(
                   children: [
                     TextField(
@@ -103,7 +118,11 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                     SizedBox(
                       height: 15,
                     ),
-                    DropDown()
+                    DropDown(),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    DropDownstatuslist()
                   ],
                 ),
               ),
@@ -114,12 +133,19 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                         status: '... جاري المعالجة',
                         maskType: EasyLoadingMaskType.black,
                       );
-                      var respose = await http.post(Uri.parse(Meetingsurl),
+                      var respose = await http.post(
+                          Uri.parse(Meetingsurl +
+                              (widget.url == "LeaderAppointment_dashboard"
+                                  ? "LeaderAppointment_dashboard/get_appoinments_request.php"
+                                  : "Agenda_dashboard/get_request.php")),
                           body: jsonEncode({
                             "token": sharedPref.getString("AccessToken"),
                             "email": sharedPref.getString("Email"),
-                            "deptsID": deptsID,
-                            "statusID": "",
+                            "deptsID":
+                                widget.url == "LeaderAppointment_dashboard"
+                                    ? leadid
+                                    : deptsID,
+                            "statusID": statusesID,
                             "allowEdit": "",
                             "reqID": reqID.text,
                             "page": "1"
@@ -135,7 +161,10 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                 ElevatedButton(
                     onPressed: () {
                       reqID.text = "";
-                      deptsID = sharedPref.getString("deptsID") ?? "";
+                      deptsID = widget.url == "LeaderAppointment_dashboard"
+                          ? leadid
+                          : sharedPref.getString("deptsID") ?? "";
+                      statusesID = "";
                       Navigator.pop(context);
                       getData(true);
                       setState(() {});
@@ -186,9 +215,12 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     customerServiceRequestsDetails(
-                                        customerServiceRrequestsList[index])),
+                                        customerServiceRrequestsList[index],
+                                        "LeaderAppointment_dashboard")),
                           ).then((value) {
                             if (value == true) {
+                              page = 0;
+
                               getData(true);
                             }
                           });
@@ -300,6 +332,127 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                   child: Center(
                     child: Text(
                       "الإدارات",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                popupShape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                ),
+                emptyBuilder: (context, searchEntry) => Center(
+                  child: Text(
+                    "لا يوجد بيانات",
+                    style: TextStyle(
+                      color: baseColorText,
+                    ),
+                  ),
+                ),
+                searchFieldProps: TextFieldProps(
+                  textAlign: TextAlign.right,
+                  decoration: formlabel1(""),
+                  style: TextStyle(
+                    color: baseColorText,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+                clearButton: Icon(
+                  Icons.clear,
+                  color: baseColor,
+                ),
+                dropDownButton: Icon(
+                  Icons.arrow_drop_down,
+                  color: baseColor,
+                ),
+              ),
+            ),
+          );
+  }
+
+  DropDownstatuslist() {
+    return statuslist.length == 0
+        ? Container()
+        : Directionality(
+            textDirection: TextDirection.rtl,
+            child: GestureDetector(
+              onTap: () async {},
+              child: DropdownSearch<dynamic>(
+                popupBackgroundColor: BackGWhiteColor,
+                key: UniqueKey(),
+                items: statuslist,
+                popupItemBuilder: (context, rr, isSelected) => (Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Column(
+                    children: [
+                      Text(rr["statuses"], style: subtitleTx(baseColorText))
+                    ],
+                  ),
+                )),
+                dropdownBuilder: (context, selectedItem2) => Container(
+                  child: selectedItem2 == null
+                      ? null
+                      : Text(
+                          selectedItem2 == null ? "" : selectedItemstatus ?? "",
+                          style: TextStyle(fontSize: 12, color: baseColorText),
+                        ),
+                ),
+                dropdownBuilderSupportsNullItem: true,
+                selectedItem:
+                    selectedItemstatus == null ? null : selectedItemstatus,
+                showSelectedItems: false,
+                showClearButton: true,
+                mode: Mode.BOTTOM_SHEET,
+                maxHeight: 400,
+                showAsSuffixIcons: true,
+                itemAsString: (item) => item["actionName"] ?? "",
+                dropdownSearchDecoration: InputDecoration(
+                  labelStyle: TextStyle(color: secondryColorText),
+                  errorStyle: TextStyle(color: redColor),
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: responsiveMT(8, 30), horizontal: 10.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                    borderSide: BorderSide(color: bordercolor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: bordercolor),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: bordercolor),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                  labelText: "حالة الطلب",
+                ),
+                showSearchBox: true,
+                onChanged: (v) async {
+                  try {
+                    selectedItemstatus = v["statuses"];
+                    statusesID = v["statusesID"].toString();
+                    setState(() {});
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                popupTitle: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: secondryColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "حالة الطلب",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

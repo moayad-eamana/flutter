@@ -22,7 +22,8 @@ import 'package:eamanaapp/secreen/Settings/settings%20copy.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/community/comments.dart';
-import 'package:eamanaapp/secreen/customerService/customerServiceRequests.dart';
+import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
+import 'package:eamanaapp/secreen/customerService/reserveForcustomer/reserveForcustomer.dart';
 import 'package:eamanaapp/secreen/favs/favs.dart';
 import 'package:eamanaapp/secreen/mahamme/CooperativeTrainingRequestsInfo.dart';
 import 'package:eamanaapp/secreen/mahamme/GetCardRequestInfo.dart';
@@ -263,8 +264,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      print(SizerUtil.deviceType);
-
       return MaterialApp(
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(),
@@ -342,7 +341,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/contactsView': (context) => ContactsView(),
           '/scannQrcode': (context) => scanQrcode(),
           '/ViolationHome': (context) => ViolationHome(),
-          '/customerServiceRequests': (context) => customerServiceRrequests(),
+          '/customerServiceRequests': (context) => customerServiceRrequests(""),
+          '/reserveForcustomer': (context) => reserveForcustomer(),
         },
       );
     });

@@ -146,32 +146,38 @@ ButtonStyle cardServiece = ElevatedButton.styleFrom(
   onPrimary: Colors.grey, // foregroundjjjkl
 );
 
-InputDecoration formlabel1(String lableName) {
+InputDecoration formlabel1(String lableName,
+    [dynamic ico, Function? function]) {
   return InputDecoration(
-    // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-    counterStyle: TextStyle(color: baseColorText),
-    labelText: lableName,
-    labelStyle: TextStyle(color: secondryColorText),
-    errorStyle: TextStyle(color: redColor),
-    contentPadding:
-        EdgeInsets.symmetric(vertical: responsiveMT(8, 30), horizontal: 10.0),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4.0),
-      borderSide: BorderSide(color: bordercolor),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: bordercolor),
-      borderRadius: BorderRadius.circular(4),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: bordercolor),
-      borderRadius: BorderRadius.circular(4),
-    ),
-    disabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: bordercolor.withOpacity(0.5)),
-      borderRadius: BorderRadius.circular(4),
-    ),
-  );
+      // contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+      counterStyle: TextStyle(color: baseColorText),
+      labelText: lableName,
+      labelStyle: TextStyle(color: secondryColorText),
+      errorStyle: TextStyle(color: redColor),
+      contentPadding:
+          EdgeInsets.symmetric(vertical: responsiveMT(8, 30), horizontal: 10.0),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(4.0),
+        borderSide: BorderSide(color: bordercolor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: bordercolor.withOpacity(0.5)),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      suffixIcon: GestureDetector(
+          onTap: () {
+            function!();
+            print("object");
+          },
+          child: Icon(ico)));
 }
 
 InputDecoration formlabelClearText1(String lableName, VoidCallback onClicked) {

@@ -3,10 +3,9 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
+import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -55,6 +54,9 @@ class _ServicesViewState extends State<ServicesView> {
       sharedPref.setBool(
           "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
       sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+      sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
+      sharedPref.setBool("permissionforAppManege3",
+          jsonDecode(respose.body)["permissionforAppManege"]);
     } catch (e) {}
 
     //hasePerm = hasePerm;
@@ -141,34 +143,34 @@ class _ServicesViewState extends State<ServicesView> {
                       height: 10,
                     ),
 
-                    // Text(
-                    //   "المخالفات الإلكترونية",
-                    //   style: subtitleTx(baseColor),
-                    // ),
+                    Text(
+                      "المخالفات الإلكترونية",
+                      style: subtitleTx(baseColor),
+                    ),
 
-                    // widgetsUni.divider(),
+                    widgetsUni.divider(),
 
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // violation(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    violation(),
 
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // if (sharedPref.getBool("permissionforCRM") == true)
-                    //   Text("خدمة العملاء", style: subtitleTx(baseColor)),
-                    // if (sharedPref.getBool("permissionforCRM") == true)
-                    //   widgetsUni.divider(),
-                    // if (sharedPref.getBool("permissionforCRM") == true)
-                    //   SizedBox(
-                    //     height: 5,
-                    //   ),
-                    // if (sharedPref.getBool("permissionforCRM") == true)
-                    //   customerService(),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      Text("خدمة العملاء", style: subtitleTx(baseColor)),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      widgetsUni.divider(),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      SizedBox(
+                        height: 5,
+                      ),
+                    if (sharedPref.getBool("permissionforCRM") == true)
+                      customerService(),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text("خدمات أخرى", style: subtitleTx(baseColor)),
 
                     widgetsUni.divider(),
@@ -358,13 +360,22 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => MettingsProvider(),
-                          // ignore: prefer_const_constructors
-                          child: MeetingView(),
-                        ),
+                        // ignore: prefer_const_constructors
+                        builder: (BuildContext context) {
+                          return meettingsType();
+                        },
                       ),
                     );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => ChangeNotifierProvider(
+                    //       create: (context) => MettingsProvider(),
+                    //       // ignore: prefer_const_constructors
+                    //       child: MeetingView(),
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/mawa3idi.svg', "مواعيدي")))
@@ -607,6 +618,16 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "عرض الطلبات"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/reserveForcustomer");
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/violation.svg', "حجز موعد"))),
         ],
       ),
     );
