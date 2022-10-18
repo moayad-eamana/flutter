@@ -254,6 +254,7 @@ class _scanQrcodeState extends State<scanQrcode> {
       });
       if (i == 0) {
         if (widget.titlePage == "تسجيل دخول") {
+          i++;
           result = scanData;
           String? id;
           String? typeId;
@@ -274,13 +275,25 @@ class _scanQrcodeState extends State<scanQrcode> {
                 "type": typeId
               }));
           EasyLoading.dismiss();
-          Alerts.successAlert(context, "", "تم تسجيل دخول المستفيد")
-              .show()
-              .then((value) {
-            Navigator.pop(context);
-          });
+          if (jsonDecode(respose.body)["status"] == true) {
+            i++;
+            setState(() {});
+            Alerts.successAlert(context, "", "تم تسجيل دخول المستفيد")
+                .show()
+                .then((value) {
+              Navigator.pop(context);
+            });
+          } else {
+            i++;
+            setState(() {});
+            Alerts.errorAlert(
+                    context, "خطأ", jsonDecode(respose.body)["message"])
+                .show()
+                .then((value) {
+              i = 0;
+            });
+          }
           setState(() {});
-          i++;
         }
       }
 
