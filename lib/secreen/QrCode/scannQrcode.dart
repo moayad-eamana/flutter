@@ -1,11 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
 
 class scanQrcode extends StatefulWidget {
   String? titlePage;
@@ -84,12 +89,14 @@ class _scanQrcodeState extends State<scanQrcode> {
     );
   }
 
-  void _onQRViewCreated(QRViewController controller) {
+  void _onQRViewCreated(QRViewController controller) async {
     this.controller = controller;
 
     controller.scannedDataStream.listen((scanData) async {
       setState(() {
         if (widget.titlePage == "حجز موعد") {
+          result = scanData;
+        } else if (widget.titlePage == "تسجيل دخول") {
           result = scanData;
         } else {
           result = scanData;
@@ -245,6 +252,37 @@ class _scanQrcodeState extends State<scanQrcode> {
           }
         }
       });
+      if (i == 0) {
+        if (widget.titlePage == "تسجيل دخول") {
+          result = scanData;
+          String? id;
+          String? typeId;
+          final uri = Uri.parse(scanData.code.toString());
+          id = uri.queryParameters["id"];
+          typeId = uri.queryParameters["typeid"];
+          EasyLoading.show(
+            status: '... جاري المعالجة',
+            maskType: EasyLoadingMaskType.black,
+          );
+          var respose = await http.post(
+              Uri.parse(
+                  "https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/updateAppointmentsLogByID.php"),
+              body: jsonEncode({
+                "token": sharedPref.getString("AccessToken"),
+                "email": sharedPref.getString("Email"),
+                "reqid": id,
+                "type": typeId
+              }));
+          EasyLoading.dismiss();
+          Alerts.successAlert(context, "", "تم تسجيل دخول المستفيد")
+              .show()
+              .then((value) {
+            Navigator.pop(context);
+          });
+          setState(() {});
+          i++;
+        }
+      }
 
       // await FlutterContacts.openExternalView(contact);
     });

@@ -6,6 +6,7 @@ import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
+import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
@@ -647,6 +648,20 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "الإحصائيات"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => scanQrcode("تسجيل دخول")),
+                    );
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/violation.svg', "تسجيل دخول"))),
         ],
       ),
     );
