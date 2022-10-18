@@ -197,6 +197,30 @@ class AppBarW {
                     ),
                   ),
                 ),
+              if (function != null && title == "الإحصائيات")
+                Positioned(
+                  left: 25,
+                  top: 25,
+                  child: GestureDetector(
+                    onTap: () {
+                      function();
+                      print("object");
+                    },
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.search,
+                            color: baseColor,
+                            size: 40,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

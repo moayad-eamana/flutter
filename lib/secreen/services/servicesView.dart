@@ -6,6 +6,8 @@ import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
+import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
+import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -614,7 +616,11 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    Navigator.pushNamed(context, "/customerServiceRequests");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => customerServiceRrequests("")),
+                    );
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "عرض الطلبات"))),
@@ -628,6 +634,19 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "حجز موعد"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => statistics()),
+                    );
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/violation.svg', "الإحصائيات"))),
         ],
       ),
     );

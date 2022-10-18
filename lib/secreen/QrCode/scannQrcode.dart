@@ -49,7 +49,12 @@ class _scanQrcodeState extends State<scanQrcode> {
             flex: 5,
             child: QRView(
               // formatsAllowed: [BarcodeFormat.qrcode],
-              overlay: QrScannerOverlayShape(),
+              overlay: QrScannerOverlayShape(
+                borderRadius: 10,
+                borderWidth: 5,
+                borderColor: Colors.white,
+              ),
+
               key: qrKey,
               onQRViewCreated: _onQRViewCreated,
             ),

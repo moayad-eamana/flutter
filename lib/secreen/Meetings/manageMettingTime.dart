@@ -42,7 +42,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
               "email": sharedPref.getString("Email"),
             }));
     appointments_timelist = jsonDecode(respose.body)["table"];
-    NoOfcustomer.text = jsonDecode(respose.body)["num_of_ppl"];
+    NoOfcustomer.text = jsonDecode(respose.body)["num_of_ppl"] ?? "";
     appointments_timelist[0]["color"] = secondryColor;
     Time = appointments_timelist[0]["Time"];
     EasyLoading.dismiss();

@@ -216,7 +216,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                                 builder: (context) =>
                                     customerServiceRequestsDetails(
                                         customerServiceRrequestsList[index],
-                                        "LeaderAppointment_dashboard")),
+                                        widget.url)),
                           ).then((value) {
                             if (value == true) {
                               page = 0;
