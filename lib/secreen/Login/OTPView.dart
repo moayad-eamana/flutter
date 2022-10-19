@@ -78,26 +78,33 @@ class _OTPViewState extends State<OTPView> {
                       const SizedBox(
                         height: 20,
                       ),
-                      SizedBox(
-                        height: 250,
-                        child: Stack(
-                          children: [
-                            banalPag(),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("تسجيل الدخول",
-                                    style: titleTx(secondryColorText)),
-                                Text("فضلا أدخل الرمز المرسل على الجوال",
-                                    style: titleTx(secondryColorText)),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                smsTxt(),
-                                submitBtn()
-                              ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 20.0),
+                          decoration: BoxDecoration(
+                            color: BackGWhiteColor,
+                            border: Border.all(
+                              color: bordercolor,
                             ),
-                          ],
+                            borderRadius: BorderRadius.all(
+                              new Radius.circular(4),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("تسجيل الدخول",
+                                  style: titleTx(secondryColorText)),
+                              Text("فضلا أدخل الرمز المرسل على الجوال",
+                                  style: titleTx(secondryColorText)),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              smsTxt(),
+                              submitBtn()
+                            ],
+                          ),
                         ),
                       ),
                     ],
