@@ -90,6 +90,7 @@ class _customerServiceRequestsDetailsState
 
   ExpansionPanel Actions() {
     return ExpansionPanel(
+        backgroundColor: BackGColor,
         isExpanded: page4,
         canTapOnHeader: true,
         headerBuilder: (BuildContext context, bool isExpanded) {
@@ -166,12 +167,12 @@ class _customerServiceRequestsDetailsState
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: e["color"] == null
-                                      ? Colors.white
+                                      ? BackGWhiteColor
                                       : e["color"] as Color,
                                   padding: EdgeInsets.all(4)),
                               onPressed: () {
                                 for (var list in appointments_time_List)
-                                  list["color"] = Colors.white;
+                                  list["color"] = BackGWhiteColor;
                                 e["color"] = secondryColor;
                                 Time = e["Time"];
                                 dow = e["dow"];
@@ -647,6 +648,7 @@ class _customerServiceRequestsDetailsState
 
   ExpansionPanel UserInfo() {
     return ExpansionPanel(
+      backgroundColor: BackGColor,
       isExpanded: page1,
       canTapOnHeader: true,
       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -757,6 +759,7 @@ class _customerServiceRequestsDetailsState
 
   ExpansionPanel get_request_log() {
     return ExpansionPanel(
+      backgroundColor: BackGColor,
       isExpanded: page3,
       canTapOnHeader: true,
       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -778,8 +781,9 @@ class _customerServiceRequestsDetailsState
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Card(
+                  color: BackGWhiteColor,
                   child: Container(
-                    decoration: containerdecoration(Colors.white),
+                    // decoration: containerdecoration(Colors.white),
                     padding: EdgeInsets.all(5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -822,6 +826,7 @@ class _customerServiceRequestsDetailsState
 
   ExpansionPanel RequestInfo() {
     return ExpansionPanel(
+      backgroundColor: BackGColor,
       isExpanded: page2,
       canTapOnHeader: true,
       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -900,9 +905,10 @@ class _customerServiceRequestsDetailsState
 
   Widget titleAnddescByCol(String title, String desc) {
     return Card(
+      color: BackGWhiteColor,
       elevation: 3,
       child: Container(
-        color: Colors.white,
+        // color: Colors.white,
         padding: EdgeInsets.all(8),
         width: 100.w,
         child: Column(
@@ -930,9 +936,10 @@ class _customerServiceRequestsDetailsState
       children: [
         Expanded(
           child: Card(
+            color: BackGWhiteColor,
             elevation: 3,
             child: Container(
-              color: Colors.white,
+              // color: Colors.white,
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [
@@ -954,9 +961,10 @@ class _customerServiceRequestsDetailsState
         ),
         Expanded(
           child: Card(
+            color: BackGWhiteColor,
             elevation: 3,
             child: Container(
-              color: Colors.white,
+              // color: Colors.white,
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [

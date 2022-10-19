@@ -94,6 +94,7 @@ class _statisticsState extends State<statistics> {
                         child: Column(
                           children: [
                             Card(
+                              color: BackGWhiteColor,
                               elevation: 5,
                               child: ListTile(
                                 title: Text(
@@ -166,9 +167,10 @@ class _statisticsState extends State<statistics> {
   Widget Cards(String Tiltle, String No, dynamic icon, dynamic color) {
     return Expanded(
         child: Card(
+      color: BackGWhiteColor,
       elevation: 5,
       child: Container(
-        decoration: containerdecoration(Colors.white),
+        // decoration: containerdecoration(Colors.white),
         height: 170,
         padding: EdgeInsets.all(10),
         child: Column(

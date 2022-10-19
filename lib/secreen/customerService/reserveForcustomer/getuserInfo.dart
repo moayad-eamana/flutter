@@ -46,11 +46,14 @@ class _getusrtInfoState extends State<getusrtInfo> {
       child: Container(
         margin: EdgeInsets.all(25),
         padding: EdgeInsets.all(20),
-        decoration: containerdecoration(Colors.white),
+        decoration: containerdecoration(BackGColor),
         child: Column(
           children: [
             TextField(
               controller: NID,
+              style: TextStyle(
+                color: baseColorText,
+              ),
               keyboardType: TextInputType.number,
               decoration: formlabel1("رقم الهوية", Icons.qr_code, () {
                 Navigator.push(
@@ -72,6 +75,9 @@ class _getusrtInfoState extends State<getusrtInfo> {
             ),
             if (showDOB)
               TextField(
+                style: TextStyle(
+                  color: baseColorText,
+                ),
                 controller: TextEditingController(
                     text: DOB == null
                         ? ""
@@ -384,6 +390,7 @@ class _getusrtInfoState extends State<getusrtInfo> {
       ),
       Card(
         elevation: 3,
+        color: BackGWhiteColor,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10),
           width: 90.w,
@@ -411,6 +418,9 @@ class _getusrtInfoState extends State<getusrtInfo> {
         controller: mobileNo,
         keyboardType: TextInputType.number,
         decoration: formlabel1("رقم الجوال"),
+        style: TextStyle(
+          color: baseColorText,
+        ),
       ),
       SizedBox(
         height: 10,
@@ -418,6 +428,9 @@ class _getusrtInfoState extends State<getusrtInfo> {
       TextField(
         controller: Email,
         keyboardType: TextInputType.text,
+        style: TextStyle(
+          color: baseColorText,
+        ),
         decoration: formlabel1("البريد الإلكتروني"),
       ),
       SizedBox(
@@ -430,6 +443,9 @@ class _getusrtInfoState extends State<getusrtInfo> {
       if (servicesId == 0) DropDownsDepts(),
       if (servicesId != 0 && servicesId != null)
         TextField(
+          style: TextStyle(
+            color: baseColorText,
+          ),
           decoration: formlabel1("إسم الإدارة"),
           controller: TextEditingController(text: DepartName),
           enabled: false,
@@ -468,12 +484,12 @@ class _getusrtInfoState extends State<getusrtInfo> {
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           primary: e["color"] == null
-                              ? Colors.white
+                              ? BackGWhiteColor
                               : e["color"] as Color,
                           padding: EdgeInsets.all(4)),
                       onPressed: () {
                         for (var list in appointments_time_List)
-                          list["color"] = Colors.white;
+                          list["color"] = BackGWhiteColor;
                         e["color"] = secondryColor;
                         time = e["Time"];
                         Dow = e["dow"];

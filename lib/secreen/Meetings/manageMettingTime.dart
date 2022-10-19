@@ -71,7 +71,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                         width: 90.w,
                         margin: EdgeInsets.all(25),
                         padding: EdgeInsets.all(10),
-                        decoration: containerdecoration(Colors.white),
+                        decoration: containerdecoration(BackGColor),
                         child: Column(
                           children: [
                             SizedBox(
@@ -85,8 +85,8 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                                       style: ElevatedButton.styleFrom(
                                           primary: e["color"] != null
                                               ? e["color"]
-                                              : Colors.white,
-                                          onPrimary: Colors.black),
+                                              : BackGWhiteColor,
+                                          onPrimary: baseColorText),
                                       onPressed: () {
                                         for (int i = 0;
                                             i <=
@@ -94,7 +94,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                                                     1;
                                             i++) {
                                           appointments_timelist[i]["color"] =
-                                              Colors.white;
+                                              BackGWhiteColor;
                                         }
                                         Time = e["Time"];
                                         e["color"] = secondryColor;
@@ -172,6 +172,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                               height: 20,
                             ),
                             TextField(
+                              style: TextStyle(color: baseColorText),
                               decoration: formlabel1("عدد المستفيدين"),
                               controller: NoOfcustomer,
                             ),

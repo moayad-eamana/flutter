@@ -226,6 +226,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                           });
                         },
                         child: Card(
+                          color: BackGColor,
                           elevation: 5,
                           child: ListTile(
                             leading: Text(

@@ -177,7 +177,10 @@ InputDecoration formlabel1(String lableName,
             function!();
             print("object");
           },
-          child: Icon(ico)));
+          child: Icon(
+            ico,
+            color: baseColorText,
+          )));
 }
 
 InputDecoration formlabelClearText1(String lableName, VoidCallback onClicked) {
