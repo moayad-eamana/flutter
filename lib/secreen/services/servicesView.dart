@@ -634,7 +634,7 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.pushNamed(context, "/reserveForcustomer");
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/violation.svg', "حجز موعد"))),
+                      'assets/SVGs/set_appoinment.svg', "حجز موعد"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -647,7 +647,7 @@ class _ServicesViewState extends State<ServicesView> {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/violation.svg', "الإحصائيات"))),
+                      'assets/SVGs/assessment.svg', "الإحصائيات"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -661,7 +661,7 @@ class _ServicesViewState extends State<ServicesView> {
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/violation.svg', "تسجيل دخول"))),
+                      'assets/SVGs/login.svg', "تسجيل دخول"))),
         ],
       ),
     );

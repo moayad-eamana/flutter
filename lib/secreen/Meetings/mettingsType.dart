@@ -85,7 +85,7 @@ class _meettingsTypeState extends State<meettingsType> {
                                     );
                                   },
                                   child: widgetsUni.cardcontentService(
-                                      'assets/SVGs/violation.svg',
+                                      'assets/SVGs/mawa3idi-mustafeed.svg',
                                       "مواعيد المستفيد")),
                             ),
                           ),
@@ -111,7 +111,7 @@ class _meettingsTypeState extends State<meettingsType> {
                                       );
                                     },
                                     child: widgetsUni.cardcontentService(
-                                        'assets/SVGs/violation.svg',
+                                        'assets/SVGs/edit_calendar.svg',
                                         "إدارة المواعيد")),
                               ),
                             ),
