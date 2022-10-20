@@ -106,13 +106,17 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
           return Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(
-              title: Text('بحث'),
+              backgroundColor: BackGWhiteColor,
+              title: Text('بحث', style: subtitleTx(baseColorText)),
               content: Container(
                 height: 200,
                 child: Column(
                   children: [
                     TextField(
                       controller: reqID,
+                      style: TextStyle(
+                        color: baseColorText,
+                      ),
                       decoration: formlabel1("رقم الطلب"),
                     ),
                     SizedBox(
