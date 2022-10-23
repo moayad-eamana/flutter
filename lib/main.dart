@@ -48,6 +48,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:root_tester/root_tester.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -111,10 +112,19 @@ Future<void> main() async {
   try {
     username = sharedPref.getDouble("EmployeeNumber");
   } catch (e) {}
+  late bool isRooted;
+  if (Platform.isAndroid) {
+    isRooted = await RootTester.isDeviceRooted;
+  } else {
+    isRooted = false;
+  }
 
-  runApp(
-    MyApp(username),
-  );
+  if (!isRooted) {
+    runApp(
+      MyApp(username),
+    );
+  }
+
   configLoading();
 }
 

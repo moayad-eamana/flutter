@@ -3,6 +3,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/model/meeting/meetingsTime.dart';
+import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
@@ -16,12 +17,15 @@ class MettingsProvider extends ChangeNotifier {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
     notifyListeners();
-    var respose = await http.post(
-        Uri.parse(Meetingsurl + "getAppointmentsByEmail.php"),
-        body: jsonEncode({
-          "token": sharedPref.getString("AccessToken"),
-          "username": employeeProfile.Email
-        }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose = await http.post(
+          Uri.parse(Meetingsurl + "getAppointmentsByEmail.php"),
+          body: jsonEncode({
+            "token": sharedPref.getString("AccessToken"),
+            "username": employeeProfile.Email
+          }));
+    }
 
     print((jsonDecode(respose.body)));
     if (jsonDecode(respose.body)["httpcode"] == 401) {
@@ -47,12 +51,15 @@ class MettingsProvider extends ChangeNotifier {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
     notifyListeners();
-    var respose = await http.post(
-        Uri.parse(Meetingsurl + "getAppointmentsByEmail.php"),
-        body: jsonEncode({
-          "token": sharedPref.getString("AccessToken"),
-          "username": employeeProfile.Email
-        }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose = await http.post(
+          Uri.parse(Meetingsurl + "getAppointmentsByEmail.php"),
+          body: jsonEncode({
+            "token": sharedPref.getString("AccessToken"),
+            "username": employeeProfile.Email
+          }));
+    }
 
     print((jsonDecode(respose.body)));
     if (jsonDecode(respose.body)["httpcode"] == 401) {
@@ -78,12 +85,15 @@ class MettingsProvider extends ChangeNotifier {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
     notifyListeners();
-    var respose = await http.post(
-        Uri.parse(Meetingsurl + "getAppointmentsByLeader.php"),
-        body: jsonEncode({
-          "token": sharedPref.getString("AccessToken"),
-          "username": employeeProfile.Email
-        }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose = await http.post(
+          Uri.parse(Meetingsurl + "getAppointmentsByLeader.php"),
+          body: jsonEncode({
+            "token": sharedPref.getString("AccessToken"),
+            "username": employeeProfile.Email
+          }));
+    }
 
     print((jsonDecode(respose.body)));
     if (jsonDecode(respose.body)["httpcode"] == 401) {
@@ -114,12 +124,15 @@ class MettingsProvider extends ChangeNotifier {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
     notifyListeners();
-    var respose = await http.post(
-        Uri.parse(Meetingsurl + "getAppointmentsByLeader.php"),
-        body: jsonEncode({
-          "token": sharedPref.getString("AccessToken"),
-          "username": employeeProfile.Email
-        }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose = await http.post(
+          Uri.parse(Meetingsurl + "getAppointmentsByLeader.php"),
+          body: jsonEncode({
+            "token": sharedPref.getString("AccessToken"),
+            "username": employeeProfile.Email
+          }));
+    }
 
     print((jsonDecode(respose.body)));
     if (jsonDecode(respose.body)["httpcode"] == 401) {
@@ -150,12 +163,16 @@ class MettingsProvider extends ChangeNotifier {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
     notifyListeners();
-    var respose = await http.post(
-        Uri.parse(Meetingsurl + "getAppointmentsToken.php"),
-        body: jsonEncode({
-          "token": sharedPref.getString("AccessToken"),
-          "username": employeeProfile.Email
-        }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose = await http.post(
+          Uri.parse(Meetingsurl + "getAppointmentsToken.php"),
+          body: jsonEncode({
+            "token": sharedPref.getString("AccessToken"),
+            "username": employeeProfile.Email
+          }));
+    }
+
     if (jsonDecode(respose.body)["httpcode"] == 401) {
       navigatorKey.currentState
           ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
@@ -188,25 +205,28 @@ class MettingsProvider extends ChangeNotifier {
       String folLader) async {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
-    var respose =
-        await http.post(Uri.parse(Meetingsurl + "editAppointment.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "username": employeeProfile.Email,
-              "app_id": app_id,
-              "appDate": appDate,
-              "appDow": appDow,
-              "appTime": appTime,
-              "app_with": app_with,
-              "mobile": mobile,
-              "subject": subject,
-              "notes": notes,
-              "mtype": mtype,
-              "meeting_url": meeting_url,
-              "meeting_id": meeting_id,
-              "meeting_pswd": meeting_pswd,
-              "for_leader": folLader == "قيادي" ? "y" : "n"
-            }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose = await http.post(Uri.parse(Meetingsurl + "editAppointment.php"),
+          body: jsonEncode({
+            "token": sharedPref.getString("AccessToken"),
+            "username": employeeProfile.Email,
+            "app_id": app_id,
+            "appDate": appDate,
+            "appDow": appDow,
+            "appTime": appTime,
+            "app_with": app_with,
+            "mobile": mobile,
+            "subject": subject,
+            "notes": notes,
+            "mtype": mtype,
+            "meeting_url": meeting_url,
+            "meeting_id": meeting_id,
+            "meeting_pswd": meeting_pswd,
+            "for_leader": folLader == "قيادي" ? "y" : "n"
+          }));
+    }
+
     if (jsonDecode(respose.body)["httpcode"] == 401) {
       navigatorKey.currentState
           ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
@@ -263,25 +283,29 @@ class MettingsProvider extends ChangeNotifier {
   Future<void> addApp(Meetings meetings, String p) async {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
-    var respose =
-        await http.post(Uri.parse(Meetingsurl + "createAppointments.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "username": employeeProfile.Email,
-              "appDate": meetings.Date,
-              "hdate": "1443-5-20",
-              "appDow": p,
-              "appTime": meetings.Time,
-              "app_with": meetings.Appwith,
-              "mobile": meetings.Appwithmobile,
-              "subject": meetings.Subject,
-              "notes": meetings.Notes,
-              "mtype": meetings.MeetingDetails,
-              "meeting_url": meetings.Meeting_url,
-              "meeting_id": meetings.Meeting_id,
-              "meeting_pswd": meetings.Meeting_pswd,
-              "for_leader": meetings.for_leader
-            }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose =
+          await http.post(Uri.parse(Meetingsurl + "createAppointments.php"),
+              body: jsonEncode({
+                "token": sharedPref.getString("AccessToken"),
+                "username": employeeProfile.Email,
+                "appDate": meetings.Date,
+                "hdate": "1443-5-20",
+                "appDow": p,
+                "appTime": meetings.Time,
+                "app_with": meetings.Appwith,
+                "mobile": meetings.Appwithmobile,
+                "subject": meetings.Subject,
+                "notes": meetings.Notes,
+                "mtype": meetings.MeetingDetails,
+                "meeting_url": meetings.Meeting_url,
+                "meeting_id": meetings.Meeting_id,
+                "meeting_pswd": meetings.Meeting_pswd,
+                "for_leader": meetings.for_leader
+              }));
+    }
+
     print(respose.body);
     if (jsonDecode(respose.body)["httpcode"] == 401) {
       navigatorKey.currentState
@@ -376,13 +400,17 @@ class MettingsProvider extends ChangeNotifier {
   Future<void> deletApp(int id) async {
     EmployeeProfile employeeProfile = new EmployeeProfile();
     employeeProfile = employeeProfile.getEmployeeProfile();
-    var respose =
-        await http.post(Uri.parse(Meetingsurl + "deleteAppointments.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "username": employeeProfile.Email,
-              "app_id": id
-            }));
+    var respose;
+    if (await checkSSL(Meetingsurl)) {
+      respose =
+          await http.post(Uri.parse(Meetingsurl + "deleteAppointments.php"),
+              body: jsonEncode({
+                "token": sharedPref.getString("AccessToken"),
+                "username": employeeProfile.Email,
+                "app_id": id
+              }));
+    }
+
     if (jsonDecode(respose.body)["httpcode"] == 401) {
       navigatorKey.currentState
           ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);

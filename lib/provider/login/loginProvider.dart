@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -44,25 +45,29 @@ class LoginProvider extends ChangeNotifier {
     } else {
       username = userName;
     }
-    try {
-      respose = await Dio().post(Url + "Authentication/CheckUserForMobile",
-          data: jsonEncode({"EmployeeNumber": username, "Password": password}),
-          options: Options(headers: {"Content-Type": "application/json"}));
-    } catch (e) {
-      erorMs = e.toString();
-      return false;
+    if (await checkSSL(Url)) {
+      try {
+        respose = await Dio().post(Url + "Authentication/CheckUserForMobile",
+            data:
+                jsonEncode({"EmployeeNumber": username, "Password": password}),
+            options: Options(headers: {"Content-Type": "application/json"}));
+      } catch (e) {
+        erorMs = e.toString();
+        return false;
+      }
+
+      if (respose.data["IsAuthenticated"] == true) {
+        PrivateToken = respose.data["PrivateToken"];
+        sharedPref.setString("PrivateToken", respose.data["PrivateToken"]);
+        username = userName;
+        pass = password;
+
+        //_pref.setString("username", userName);
+
+        return true;
+      }
     }
 
-    if (respose.data["IsAuthenticated"] == true) {
-      PrivateToken = respose.data["PrivateToken"];
-      sharedPref.setString("PrivateToken", respose.data["PrivateToken"]);
-      username = userName;
-      pass = password;
-
-      //_pref.setString("username", userName);
-
-      return true;
-    }
     return false;
   }
 
@@ -75,19 +80,22 @@ class LoginProvider extends ChangeNotifier {
       username = "4331006";
       Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
     }
-    var respose = await http.post(
-        Uri.parse(
-          Url + "Authentication/IsValidOTP",
-        ),
-        body: jsonEncode({
-          "EmployeeNumber": int.parse(getuserName),
-          "PrivateToken": getPrivetToken,
-          "UserName": "DevTeam",
-          "Password": "DevTeam",
-          "OTP": int.parse(otp),
-          "DeviceID": token
-        }),
-        headers: {"Content-Type": "application/json"});
+    var respose;
+    if (await checkSSL(Url)) {
+      respose = await http.post(
+          Uri.parse(
+            Url + "Authentication/IsValidOTP",
+          ),
+          body: jsonEncode({
+            "EmployeeNumber": int.parse(getuserName),
+            "PrivateToken": getPrivetToken,
+            "UserName": "DevTeam",
+            "Password": "DevTeam",
+            "OTP": int.parse(otp),
+            "DeviceID": token
+          }),
+          headers: {"Content-Type": "application/json"});
+    }
 
     if (jsonDecode(respose.body)["IsValid"] == true) {
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
@@ -141,19 +149,21 @@ class LoginProvider extends ChangeNotifier {
     EmployeeProfile empinfo = await EmployeeProfile();
     if (hasePerm == null || hasePerm == "") {
       empinfo = await empinfo.getEmployeeProfile();
-      try {
-        var respose = await http.post(
-            Uri.parse(
-                "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "username": empinfo.Email
-            }));
-        hasePerm = jsonDecode(respose.body)["message"];
-        sharedPref.setBool(
-            "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-        sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
-      } catch (e) {}
+      if (await checkSSL(Url)) {
+        try {
+          var respose = await http.post(
+              Uri.parse(
+                  "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php"),
+              body: jsonEncode({
+                "token": sharedPref.getString("AccessToken"),
+                "username": empinfo.Email
+              }));
+          hasePerm = jsonDecode(respose.body)["message"];
+          sharedPref.setBool(
+              "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+          sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+        } catch (e) {}
+      }
 
       //hasePerm = hasePerm;
       print("rr == " + hasePerm.toString());

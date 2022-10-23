@@ -13,6 +13,7 @@ import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
+import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -45,22 +46,27 @@ class _ServicesViewState extends State<ServicesView> {
     EmployeeProfile empinfo = await EmployeeProfile();
 
     empinfo = await empinfo.getEmployeeProfile();
-    try {
-      var respose = await http.post(
-          Uri.parse(
-              "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
-          body: jsonEncode({
-            "token": sharedPref.getString("AccessToken"),
-            "username": empinfo.Email
-          }));
-      hasePerm = jsonDecode(respose.body)["message"];
-      sharedPref.setBool(
-          "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-      sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
-      sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
-      sharedPref.setBool("permissionforAppManege3",
-          jsonDecode(respose.body)["permissionforAppManege"]);
-    } catch (e) {}
+    if (await checkSSL(
+        "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php")) {
+      try {
+        var respose = await http.post(
+            Uri.parse(
+                "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
+            body: jsonEncode({
+              "token": sharedPref.getString("AccessToken"),
+              "username": empinfo.Email
+            }));
+        hasePerm = jsonDecode(respose.body)["message"];
+        sharedPref.setBool(
+            "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+        sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+        sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
+        sharedPref.setBool("permissionforAppManege3",
+            jsonDecode(respose.body)["permissionforAppManege"]);
+      } catch (e) {}
+    } else {
+      return;
+    }
 
     //hasePerm = hasePerm;
     print("rr == " + hasePerm.toString());
