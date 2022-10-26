@@ -9,6 +9,8 @@ import 'package:eamanaapp/utilities/dropDownCss.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:hijri/hijri_calendar.dart';
+import 'package:hijri_picker/hijri_picker.dart';
 import 'package:intl/intl.dart' as format;
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
@@ -40,78 +42,179 @@ class _getusrtInfoState extends State<getusrtInfo> {
   DateTime? DOB;
   bool showDOB = false;
   bool showListOfwidgets = false;
+
+  var selectedDate = new HijriCalendar.now();
+
+  String replacearabicNumber(String input) {
+    const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const arabic = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+    for (int i = 0; i < english.length; i++) {
+      input = input.replaceAll(arabic[i], english[i]);
+    }
+
+    return input;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(25),
-        padding: EdgeInsets.all(20),
-        decoration: containerdecoration(BackGColor),
-        child: Column(
-          children: [
-            TextField(
-              controller: NID,
-              style: TextStyle(
-                color: baseColorText,
-              ),
-              keyboardType: TextInputType.number,
-              decoration: formlabel1("رقم الهوية", Icons.qr_code, () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => scanQrcode("حجز موعد")),
-                ).then((value) {
-                  print(value);
-                  NID.text = value;
-
-                  print("uuuuuuuuuuuuu = " + value);
-                  setState(() {});
-                  getUSersInfo();
-                });
-              }),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            if (showDOB)
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(25),
+          padding: EdgeInsets.all(20),
+          decoration: containerdecoration(BackGColor),
+          child: Column(
+            children: [
               TextField(
+                controller: NID,
                 style: TextStyle(
                   color: baseColorText,
                 ),
-                controller: TextEditingController(
-                    text: DOB == null
-                        ? ""
-                        : format.DateFormat('dd/MM/yyyy')
-                            .format(DOB!)
-                            .toString()),
-                keyboardType: TextInputType.text,
-                decoration:
-                    formlabel1("تاريخ الميلاد", Icons.remove_circle, () {
-                  showDOB = false;
-                  setState(() {});
+                keyboardType: TextInputType.number,
+                decoration: formlabel1("رقم الهوية", Icons.qr_code, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => scanQrcode("حجز موعد")),
+                  ).then((value) {
+                    print(value);
+                    NID.text = value;
+                    setState(() {});
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    getUSersInfo();
+                  });
                 }),
-                onTap: () async {
-                  DOB = await showDatePicker(
-                    context: context,
-                    initialDatePickerMode: DatePickerMode.year,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(1700),
-                    lastDate: DateTime(2040),
-                  );
-                  setState(() {});
-                },
               ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-                width: 100,
-                child: widgetsUni.actionbutton("تحقق", Icons.search, () async {
-                  getUSersInfo();
-                })),
-            //List of user info
-            if (showListOfwidgets) ...userifoWidgets(),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              if (showDOB)
+                TextField(
+                  style: TextStyle(
+                    color: baseColorText,
+                  ),
+                  controller: TextEditingController(
+                      text: DOB == null
+                          ? ""
+                          : format.DateFormat('dd/MM/yyyy')
+                              .format(DOB!)
+                              .toString()),
+                  keyboardType: TextInputType.text,
+                  decoration:
+                      formlabel1("تاريخ الميلاد", Icons.remove_circle, () {
+                    showDOB = false;
+                    setState(() {});
+                  }),
+                  onTap: () async {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          padding: EdgeInsets.all(10),
+                          height: 200,
+                          child: Column(
+                            children: [
+                              Text(
+                                "نوع التاريخ",
+                                style: subtitleTx(baseColor),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              // widgetsUni.divider(),
+
+                              widgetsUni.divider(),
+
+                              Container(
+                                width: 100.w,
+                                child: TextButton(
+                                    onPressed: () async {
+                                      try {
+                                        final HijriCalendar? picked =
+                                            await showHijriDatePicker(
+                                          context: context,
+                                          locale: Locale('ar', ''),
+                                          initialDate: selectedDate,
+                                          lastDate: HijriCalendar()
+                                            ..hYear = 1446
+                                            ..hMonth = 9
+                                            ..hDay = 25,
+                                          firstDate: HijriCalendar()
+                                            ..hYear = 1370
+                                            ..hMonth = 12
+                                            ..hDay = 25,
+                                          initialDatePickerMode:
+                                              DatePickerMode.day,
+                                        );
+                                        // print(picked);
+                                        if (picked != null) {
+                                          var date = replacearabicNumber(
+                                              picked.toString());
+                                          print(date);
+                                          date = date.replaceAll("-", "/");
+                                          var datearr = date.split('/');
+
+                                          DOB = new DateTime(
+                                              int.parse(datearr[0]),
+                                              int.parse(datearr[1]),
+                                              int.parse(datearr[2]));
+                                        }
+                                        setState(() {});
+                                        Navigator.pop(context);
+                                      } catch (e) {}
+                                    },
+                                    child: Text("هجري")),
+                              ),
+                              Container(
+                                width: 100.w,
+                                child: TextButton(
+                                    onPressed: () async {
+                                      try {
+                                        DOB = await showDatePicker(
+                                          locale: Locale('en', ''),
+                                          context: context,
+                                          initialDatePickerMode:
+                                              DatePickerMode.year,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1700),
+                                          lastDate: DateTime(2040),
+                                        );
+                                        setState(() {});
+                                        Navigator.pop(context);
+                                      } catch (e) {
+                                        print("error");
+                                      }
+                                    },
+                                    child: Text("ميلادي")),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+
+                    setState(() {});
+                  },
+                ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                  width: 100,
+                  child:
+                      widgetsUni.actionbutton("تحقق", Icons.search, () async {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    getUSersInfo();
+                  })),
+              //List of user info
+              if (showListOfwidgets) ...userifoWidgets(),
+            ],
+          ),
         ),
       ),
     );
@@ -455,6 +558,7 @@ class _getusrtInfoState extends State<getusrtInfo> {
       ),
       if (appointments_time_List.length != 0)
         TextFormField(
+          readOnly: true,
           controller: DateText,
           keyboardType: TextInputType.text,
           maxLines: 1,
@@ -462,6 +566,7 @@ class _getusrtInfoState extends State<getusrtInfo> {
           decoration: formlabel1("التاريخ"),
           onTap: () async {
             showTime();
+            FocusManager.instance.primaryFocus?.unfocus();
           },
         ),
       if (pickedDate != "" && pickedDate != null) widgetsUni.divider(),

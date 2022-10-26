@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -205,6 +206,11 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
               "num_of_ppl": NoOfcustomer.text,
               "appointment": sendTime
             }));
+    if (jsonDecode(respose.body)["status"] == true) {
+      Alerts.successAlert(context, "", "تم التعديل ").show();
+    } else {
+      Alerts.errorAlert(context, "خطأ", "").show();
+    }
     sendTime.clear();
     EasyLoading.dismiss();
   }

@@ -35,7 +35,6 @@ import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/ViolationHome.dart';
-import 'package:eamanaapp/secreen/violation/addViolation/add_violation_home.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -45,6 +44,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -275,6 +275,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          // GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale('en', ''),
+          Locale('ar', ''),
+        ],
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,

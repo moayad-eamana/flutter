@@ -6,7 +6,7 @@ import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
-import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
+import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
@@ -47,11 +47,11 @@ class _ServicesViewState extends State<ServicesView> {
 
     empinfo = await empinfo.getEmployeeProfile();
     if (await checkSSL(
-        "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php")) {
+        "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php")) {
       try {
         var respose = await http.post(
             Uri.parse(
-                "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
+                "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php"),
             body: jsonEncode({
               "token": sharedPref.getString("AccessToken"),
               "username": empinfo.Email
@@ -59,10 +59,10 @@ class _ServicesViewState extends State<ServicesView> {
         hasePerm = jsonDecode(respose.body)["message"];
         sharedPref.setBool(
             "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-        sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
-        sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
-        sharedPref.setBool("permissionforAppManege3",
-            jsonDecode(respose.body)["permissionforAppManege"]);
+        // sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+        // sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
+        // sharedPref.setBool("permissionforAppManege3",
+        //     jsonDecode(respose.body)["permissionforAppManege"]);
       } catch (e) {}
     } else {
       return;
@@ -663,11 +663,11 @@ class _ServicesViewState extends State<ServicesView> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => scanQrcode("تسجيل دخول")),
+                          builder: (context) => customerEnterance()),
                     );
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/login.svg', "تسجيل دخول"))),
+                      'assets/SVGs/login.svg', "تسجيل حضور"))),
         ],
       ),
     );

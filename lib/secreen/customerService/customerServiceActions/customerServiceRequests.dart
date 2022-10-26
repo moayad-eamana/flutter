@@ -49,6 +49,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
       customerServiceRrequestsList.clear();
     }
 
+    getDepts();
     EasyLoading.show(
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
@@ -78,12 +79,23 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
 
     setState(() {});
     EasyLoading.dismiss();
+
+    print("object");
+    print(deptList);
+    setState(() {});
+  }
+
+  getDepts() async {
     var respose2 = await http.post(
-        Uri.parse(Meetingsurl + "Agenda_dashboard/get_depts_list.php"),
+        Uri.parse(Meetingsurl +
+            (widget.url == "LeaderAppointment_dashboard"
+                ? "LeaderAppointment_dashboard/get_leaders_list.php"
+                : "Agenda_dashboard/get_depts_list.php")),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email")
         }));
+
     try {
       deptList = jsonDecode(respose2.body)["depts"];
     } catch (e) {
@@ -94,90 +106,93 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
     } catch (e) {
       statuslist = [];
     }
-    print("object");
-    print(deptList);
     setState(() {});
   }
 
   _displayDialog(BuildContext context) async {
     return showDialog(
-        context: context,
-        builder: (context) {
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            child: AlertDialog(
-              backgroundColor: BackGWhiteColor,
-              title: Text('بحث', style: subtitleTx(baseColorText)),
-              content: Container(
-                height: 200,
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: reqID,
-                      style: TextStyle(
-                        color: baseColorText,
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Directionality(
+              textDirection: TextDirection.rtl,
+              child: AlertDialog(
+                backgroundColor: BackGWhiteColor,
+                title: Text('بحث', style: subtitleTx(baseColorText)),
+                content: Container(
+                  height: 200,
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: reqID,
+                        style: TextStyle(
+                          color: baseColorText,
+                        ),
+                        decoration: formlabel1("رقم الطلب"),
                       ),
-                      decoration: formlabel1("رقم الطلب"),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    DropDown(),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    DropDownstatuslist()
-                  ],
+                      SizedBox(
+                        height: 15,
+                      ),
+                      DropDown(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      DropDownstatuslist()
+                    ],
+                  ),
                 ),
-              ),
-              actions: <Widget>[
-                ElevatedButton(
-                    onPressed: () async {
-                      EasyLoading.show(
-                        status: '... جاري المعالجة',
-                        maskType: EasyLoadingMaskType.black,
-                      );
-                      var respose = await http.post(
-                          Uri.parse(Meetingsurl +
-                              (widget.url == "LeaderAppointment_dashboard"
-                                  ? "LeaderAppointment_dashboard/get_appoinments_request.php"
-                                  : "Agenda_dashboard/get_request.php")),
-                          body: jsonEncode({
-                            "token": sharedPref.getString("AccessToken"),
-                            "email": sharedPref.getString("Email"),
-                            "deptsID":
-                                widget.url == "LeaderAppointment_dashboard"
-                                    ? leadid
-                                    : deptsID,
-                            "statusID": statusesID,
-                            "allowEdit": "",
-                            "reqID": reqID.text,
-                            "page": "1"
-                          }));
+                actions: <Widget>[
+                  ElevatedButton(
+                      onPressed: () async {
+                        EasyLoading.show(
+                          status: '... جاري المعالجة',
+                          maskType: EasyLoadingMaskType.black,
+                        );
+                        var respose = await http.post(
+                            Uri.parse(Meetingsurl +
+                                (widget.url == "LeaderAppointment_dashboard"
+                                    ? "LeaderAppointment_dashboard/get_appoinments_request.php"
+                                    : "Agenda_dashboard/get_request.php")),
+                            body: jsonEncode({
+                              "token": sharedPref.getString("AccessToken"),
+                              "email": sharedPref.getString("Email"),
+                              "deptsID":
+                                  widget.url == "LeaderAppointment_dashboard"
+                                      ? leadid
+                                      : deptsID,
+                              "statusID": statusesID,
+                              "allowEdit": "",
+                              "reqID": reqID.text,
+                              "page": "1"
+                            }));
 
-                      var res = jsonDecode(respose.body);
-                      customerServiceRrequestsList = res;
-                      Navigator.pop(context);
-                      setState(() {});
-                      EasyLoading.dismiss();
-                    },
-                    child: Text("بحث")),
-                ElevatedButton(
-                    onPressed: () {
-                      reqID.text = "";
-                      deptsID = widget.url == "LeaderAppointment_dashboard"
-                          ? leadid
-                          : sharedPref.getString("deptsID") ?? "";
-                      statusesID = "";
-                      Navigator.pop(context);
-                      getData(true);
-                      setState(() {});
-                    },
-                    child: Text("تصفية"))
-              ],
-            ),
-          );
-        });
+                        var res = jsonDecode(respose.body);
+                        customerServiceRrequestsList = res;
+                        Navigator.pop(context);
+                        setState(() {});
+                        EasyLoading.dismiss();
+                      },
+                      child: Text("بحث")),
+                  ElevatedButton(
+                      onPressed: () {
+                        reqID.text = "";
+                        deptsID = widget.url == "LeaderAppointment_dashboard"
+                            ? leadid
+                            : sharedPref.getString("deptsID") ?? "";
+                        statusesID = "";
+                        Navigator.pop(context);
+                        getData(true);
+                        setState(() {});
+                      },
+                      child: Text("تصفية"))
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   void dispose() {
