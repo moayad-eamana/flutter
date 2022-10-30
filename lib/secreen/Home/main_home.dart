@@ -52,33 +52,9 @@ class _MainHomeState extends State<MainHome> {
     getAction("Offers/GetCategories");
     print("object");
     super.initState();
-    //hasPermission();
-    // subscribeToNotification();
   }
 
-  // subscribeToNotification() async {
-  //   // await FirebaseMessaging.instance.subscribeToTopic('raqame_eamana');
-  // }
-
   EmployeeProfile empinfo = new EmployeeProfile();
-
-  // Future<void> hasPermission() async {
-  //   if (hasePerm == null) {
-  //     empinfo = await empinfo.getEmployeeProfile();
-  //     var respose = await http.post(
-  //         Uri.parse(
-  //             "https://crm.eamana.gov.sa/agendaweekend/api/api-mobile/getAppointmentsPermission.php"),
-  //         body: jsonEncode({
-  //           "token": "RETTErhyty45ythTRH45y45y",
-  //           "username": empinfo.Email
-  //         }));
-  //     hasePerm = jsonDecode(respose.body)["message"];
-  //     hasePerm = hasePerm;
-  //     print("rr" + hasePerm.toString());
-  //     SharedPreferences? sharedPref = await SharedPreferences.getInstance();
-  //     hasePerm = sharedPref.setBool("hasePerm", hasePerm);
-  //   }
-  // }
 
   ScrollController _scrollController = ScrollController();
 

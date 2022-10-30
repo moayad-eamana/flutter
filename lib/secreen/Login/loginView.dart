@@ -66,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
-    return packageInfo.version != localVersion && forceUpdate == true
+    return packageInfo.version != localVersion && forceUpdate == false
         ? Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(
