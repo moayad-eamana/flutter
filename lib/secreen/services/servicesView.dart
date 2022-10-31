@@ -53,7 +53,7 @@ class _ServicesViewState extends State<ServicesView> {
       try {
         var respose = await http.post(
             Uri.parse(
-                "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php"),
+                "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
             body: jsonEncode({
               "token": sharedPref.getString("AccessToken"),
               "username": empinfo.Email
@@ -61,10 +61,10 @@ class _ServicesViewState extends State<ServicesView> {
         hasePerm = jsonDecode(respose.body)["message"];
         sharedPref.setBool(
             "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-        // sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
-        // sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
-        // sharedPref.setBool("permissionforAppManege3",
-        //     jsonDecode(respose.body)["permissionforAppManege"]);
+        sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+        sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
+        sharedPref.setBool("permissionforAppManege3",
+            jsonDecode(respose.body)["permissionforAppManege"]);
       } catch (e) {}
     } else {
       return;
