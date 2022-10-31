@@ -66,7 +66,8 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
             bottomNavigationBar: BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
+              // backgroundColor: baseColor,
+              items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.rotate_left_outlined),
                   label: 'روتيني',
@@ -77,7 +78,8 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                 ),
               ],
               currentIndex: index,
-              selectedItemColor: baseColor,
+              // unselectedItemColor: Colors.white,
+              selectedItemColor: secondryColor,
               onTap: (int index2) {
                 index = index2;
                 setState(() {});
@@ -238,6 +240,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
             TextField(
               controller: startDate,
               decoration: formlabel1("الرجاء إدخال تاريخ البداية"),
+              style: TextStyle(color: baseColorText),
               readOnly: true,
               onTap: () async {
                 var date = await showDatePicker(
@@ -276,6 +279,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
               children: [
                 ...appointments_timelist2.asMap().entries.map((e) {
                   return ExpansionPanel(
+                    backgroundColor: BackGColor,
                     canTapOnHeader: true,
                     isExpanded: e.value["isExpanded"] ?? false,
                     headerBuilder: (BuildContext context, bool isExpanded) {
