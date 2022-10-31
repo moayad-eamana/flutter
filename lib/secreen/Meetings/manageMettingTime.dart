@@ -453,7 +453,6 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
             SizedBox(
               height: 10,
             ),
-
             sendTime2.isEmpty
                 ? Container()
                 : widgetsUni.actionbutton("حقظ", Icons.send, () async {
@@ -476,42 +475,6 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                     }
                     EasyLoading.dismiss();
                   })
-            // TextField(
-            //   controller: endDate,
-            //   decoration: formlabel1("الرجاء إدخال تاريخ"),
-            //   readOnly: true,
-            //   onTap: () async {
-            //     var datesplit =
-            //         appointments_timelist2[appointments_timelist2.length - 1]
-            //                 ["date"]
-            //             .toString()
-            //             .split("-");
-            //     Time2.clear();
-            //     var date = await showDatePicker(
-            //         locale: Locale('en', ''),
-            //         context: context,
-            //         initialDatePickerMode: DatePickerMode.day,
-            //         initialDate: DateTime(
-            //             int.parse(startDate.text.split("-")[0]),
-            //             int.parse(startDate.text.split("-")[1]),
-            //             int.parse(startDate.text.split("-")[2])),
-            //         firstDate: DateTime(
-            //             int.parse(startDate.text.split("-")[0]),
-            //             int.parse(startDate.text.split("-")[1]),
-            //             int.parse(startDate.text.split("-")[2])),
-            //         lastDate: DateTime(int.parse(datesplit[0]),
-            //             int.parse(datesplit[1]), int.parse(datesplit[2])));
-            //     endDate.text = date.toString().split(" ")[0].toString();
-            //     dynamic dd = appointments_timelist2
-            //         .where((element) =>
-            //             element["date"] == date.toString().split(" ")[0])
-            //         .toList();
-            //     selecetedindex = int.parse(dd[0]["day_id"]);
-            //     Time2 = dd[0]["Time"];
-            //     EasyLoading.dismiss();
-            //     setState(() {});
-            //   },
-            // ),
           ],
         ),
       ),
