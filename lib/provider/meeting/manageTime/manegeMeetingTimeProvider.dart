@@ -1,13 +1,13 @@
 import 'dart:convert';
-
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 
 class manegeMeetingTimeProvider {
   List sendTime2 = [];
   List appointments_timelist2 = [];
-
+  int selecetedindex = 0;
   String Meetingsurl =
       "https://crm.eamana.gov.sa/agenda_dev/api/LeaderAppointment_dashboard/";
   getData(var startDate) async {
@@ -115,5 +115,25 @@ class manegeMeetingTimeProvider {
     }
 
     print(sendTime2);
+  }
+
+  insert(context) async {
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
+    var respose = await http.post(
+        Uri.parse(Meetingsurl + "set_appointments_time_with_date.php"),
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email"),
+          "appointment": sendTime2
+        }));
+    if (jsonDecode(respose.body)["status"] == true) {
+      Alerts.successAlert(context, "", "تم التعديل").show();
+    } else {
+      Alerts.errorAlert(context, "", "خطأ").show();
+    }
+    EasyLoading.dismiss();
   }
 }

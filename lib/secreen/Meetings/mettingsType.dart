@@ -1,6 +1,6 @@
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
-import 'package:eamanaapp/secreen/Meetings/manageMettingTime.dart';
+import 'package:eamanaapp/secreen/Meetings/manageTime/manageMettingTime.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
