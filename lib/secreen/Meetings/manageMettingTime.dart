@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:eamanaapp/provider/meeting/manegeMeetingTimeProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'package:toggle_switch/toggle_switch.dart';
@@ -19,17 +21,15 @@ class manegeMeetingTime extends StatefulWidget {
 class _manegeMeetingTimeState extends State<manegeMeetingTime> {
   TextEditingController startDate = TextEditingController();
   TextEditingController endDate = TextEditingController();
-
+  manegeMeetingTimeProvider _provider = manegeMeetingTimeProvider();
   List appointments_timelist = [];
-  List appointments_timelist2 = [];
 
   String Meetingsurl =
       "https://crm.eamana.gov.sa/agenda_dev/api/LeaderAppointment_dashboard/";
   int selecetedindex = 0;
   List Time = [];
-  List Time2 = [];
+
   List sendTime = [];
-  List sendTime2 = [];
   List ListOfpanal = [];
   int index = 0;
   TextEditingController NoOfcustomer = TextEditingController();
@@ -179,7 +179,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                                                     e.value["time"] ==
                                                         sendTime[i]["time"]) {
                                                   found = true;
-                                                  print("remove");
+
                                                   sendTime.removeAt(i);
                                                   break;
                                                 }
@@ -193,7 +193,6 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                                                 });
                                               }
                                             }
-
                                             print(sendTime);
                                             setState(() {});
                                           },
@@ -253,21 +252,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                 );
                 print(date);
                 startDate.text = date.toString().split(" ")[0];
-                EasyLoading.show(
-                  status: '... جاري المعالجة',
-                  maskType: EasyLoadingMaskType.black,
-                );
-                var respose = await http.post(
-                    Uri.parse(
-                        Meetingsurl + "get_appointments_time_with_date.php"),
-                    body: jsonEncode({
-                      "token": sharedPref.getString("AccessToken"),
-                      "email": sharedPref.getString("Email"),
-                      "startdate": startDate.text
-                    }));
-                sendTime2.clear();
-                appointments_timelist2 = jsonDecode(respose.body);
-                EasyLoading.dismiss();
+                _provider.getData(startDate.text);
                 setState(() {});
               },
             ),
@@ -277,7 +262,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
             ExpansionPanelList(
               expansionCallback: (panelIndex, isExpanded) {},
               children: [
-                ...appointments_timelist2.asMap().entries.map((e) {
+                ..._provider.appointments_timelist2.asMap().entries.map((e) {
                   return ExpansionPanel(
                     backgroundColor: BackGColor,
                     canTapOnHeader: true,
@@ -285,8 +270,8 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                     headerBuilder: (BuildContext context, bool isExpanded) {
                       return ListTile(
                         onTap: () {
-                          print("fffff");
-                          e.value["isExpanded"] = !isExpanded;
+                          // print("object");
+                          e.value["isExpanded"] = (!isExpanded);
                           setState(() {});
                         },
                         trailing: ToggleSwitch(
@@ -303,73 +288,9 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                           fontSize: 10,
                           labels: ['فتح', 'إغلاق'],
                           onToggle: (index) {
-                            int indexS = index as int;
-                            for (int i = 0;
-                                i <
-                                    appointments_timelist2[e.key]["Time"]
-                                        .length;
-                                i++) {
-                              if (index == 0) {
-                                e.value["ischeckd"] = 0;
-                                appointments_timelist2[e.key]["Time"][i]
-                                    ["isopen"] = "y";
-                                bool found = false;
-                                for (int j = 0; j < sendTime2.length; j++) {
-                                  if (sendTime2[j]["time"] ==
-                                          appointments_timelist2[e.key]["Time"]
-                                              [i]["time"] &&
-                                      sendTime2[j]["date"] ==
-                                          appointments_timelist2[e.key]
-                                              ["date"]) {
-                                    sendTime2[i]["isopen"] = "y";
-                                    found = true;
-                                  }
-                                }
-                                if (found == false) {
-                                  sendTime2.add({
-                                    "day_id": int.parse(
-                                        appointments_timelist2[e.key]
-                                            ["day_id"]),
-                                    "time": jsonDecode(jsonEncode(
-                                        appointments_timelist2[e.key]["Time"][i]
-                                            ["time"])),
-                                    "isopen": "y",
-                                    "date": e.value["date"]
-                                  });
-                                }
-
-                                setState(() {});
-                              } else {
-                                e.value["ischeckd"] = 1;
-                                appointments_timelist2[e.key]["Time"][i]
-                                    ["isopen"] = "n";
-                                bool found = false;
-                                for (int j = 0; j < sendTime2.length; j++) {
-                                  if (sendTime2[j]["time"] ==
-                                          appointments_timelist2[e.key]["Time"]
-                                              [i]["time"] &&
-                                      sendTime2[j]["date"] ==
-                                          appointments_timelist2[e.key]
-                                              ["date"]) {
-                                    sendTime2[j]["isopen"] = "n";
-                                    found = true;
-                                  }
-                                }
-                                if (found == false) {
-                                  sendTime2.add({
-                                    "day_id": int.parse(
-                                        appointments_timelist2[e.key]
-                                            ["day_id"]),
-                                    "time": jsonDecode(jsonEncode(
-                                        appointments_timelist2[e.key]["Time"][i]
-                                            ["time"])),
-                                    "isopen": "n",
-                                    "date": e.value["date"]
-                                  });
-                                }
-                                setState(() {});
-                              }
-                            }
+                            //  int indexS = index as int;
+                            _provider.openAndCloseAll(index, e);
+                            setState(() {});
                           },
                         ),
                         contentPadding: EdgeInsets.only(right: 7),
@@ -383,7 +304,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                         Wrap(
                           spacing: 10,
                           children: [
-                            ...appointments_timelist2[e.key]["Time"]
+                            ..._provider.appointments_timelist2[e.key]["Time"]
                                 .asMap()
                                 .entries
                                 .map((item) {
@@ -394,60 +315,14 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                                           : Colors.red[400],
                                       onPrimary: Colors.black),
                                   onPressed: () {
-                                    selecetedindex =
-                                        int.parse(e.value["day_id"]);
-                                    bool found = false;
-                                    if (item.value["isopen"] == "y") {
-                                      item.value["isopen"] = "n";
-                                    } else {
-                                      item.value["isopen"] = "y";
-                                    }
-
-                                    if (sendTime2.length == 0) {
-                                      sendTime2.add({
-                                        "day_id": selecetedindex,
-                                        "time": jsonDecode(
-                                            jsonEncode(item.value["time"])),
-                                        "isopen": item.value["isopen"],
-                                        "date": e.value["date"]
-                                      });
-                                    } else {
-                                      for (int i = 0;
-                                          i <= sendTime2.length - 1;
-                                          i++) {
-                                        print(i);
-                                        if (selecetedindex ==
-                                                sendTime2[i]["day_id"] &&
-                                            item.value["time"] ==
-                                                sendTime2[i]["time"]) {
-                                          found = true;
-                                          print("remove");
-                                          sendTime2[i]["isopen"] =
-                                              (sendTime2[i]["isopen"] == "y"
-                                                  ? "n"
-                                                  : "y");
-                                          break;
-                                        }
-                                      }
-
-                                      if (found == false) {
-                                        sendTime2.add({
-                                          "day_id": selecetedindex,
-                                          "time": jsonDecode(
-                                              jsonEncode(item.value["time"])),
-                                          "isopen": item.value["isopen"],
-                                          "date": e.value["date"]
-                                        });
-                                      }
-                                    }
-
-                                    print(sendTime2);
+                                    _provider.openOrCloseTime(
+                                        selecetedindex, e, item);
                                     setState(() {});
                                   },
                                   child: Text(item.value["time"]));
                             })
                           ],
-                        ),
+                        )
                       ],
                     ),
                   );
@@ -457,7 +332,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
             SizedBox(
               height: 10,
             ),
-            sendTime2.isEmpty
+            _provider.sendTime2.isEmpty
                 ? Container()
                 : widgetsUni.actionbutton("حقظ", Icons.send, () async {
                     EasyLoading.show(
@@ -470,7 +345,7 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                         body: jsonEncode({
                           "token": sharedPref.getString("AccessToken"),
                           "email": sharedPref.getString("Email"),
-                          "appointment": sendTime2
+                          "appointment": _provider.sendTime2
                         }));
                     if (jsonDecode(respose.body)["status"] == true) {
                       Alerts.successAlert(context, "", "تم التعديل").show();

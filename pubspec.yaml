@@ -82,6 +82,7 @@ dependencies:
   hijri_picker: ^3.0.0
   http_certificate_pinning: ^2.0.4
   root_tester: ^0.0.4
+  get: ^4.6.5
 
 
 
