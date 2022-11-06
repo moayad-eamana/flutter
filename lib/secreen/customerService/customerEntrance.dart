@@ -3,6 +3,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -225,8 +226,8 @@ class _customerEnteranceState extends State<customerEnterance> {
                   maskType: EasyLoadingMaskType.black,
                 );
                 var respose = await http.post(
-                    Uri.parse(
-                        "https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/updateAppointmentsLogByID.php"),
+                    Uri.parse(CRMURL +
+                        "Agenda_dashboard/updateAppointmentsLogByID.php"),
                     body: jsonEncode({
                       "token": sharedPref.getString("AccessToken"),
                       "email": sharedPref.getString("Email"),
@@ -259,8 +260,7 @@ class _customerEnteranceState extends State<customerEnterance> {
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(
-        Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/Agenda_dashboard/getAppointmentsByID.php"),
+        Uri.parse(CRMURL + "Agenda_dashboard/getAppointmentsByID.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email"),

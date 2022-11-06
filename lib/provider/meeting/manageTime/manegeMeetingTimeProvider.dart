@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,7 +10,7 @@ class manegeMeetingTimeProvider {
   List appointments_timelist2 = [];
   int selecetedindex = 0;
   String Meetingsurl =
-      "https://crm.eamana.gov.sa/agenda_dev/api/LeaderAppointment_dashboard/";
+      CRMURL + "LeaderAppointment_dashboard/LeaderAppointment_dashboard/";
   getData(var startDate) async {
     EasyLoading.show(
       status: '... جاري المعالجة',

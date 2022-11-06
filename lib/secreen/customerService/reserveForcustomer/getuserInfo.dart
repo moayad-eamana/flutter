@@ -5,6 +5,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/dropDownCss.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -344,7 +345,7 @@ class _getusrtInfoState extends State<getusrtInfo> {
     );
     var respose = await http.post(
         Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/create_appintment_mobile/get_appointments_time.php"),
+            CRMURL + "create_appintment_mobile/get_appointments_time.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email"),
@@ -389,8 +390,7 @@ class _getusrtInfoState extends State<getusrtInfo> {
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(
-        Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/create_appintment_mobile/get_user_info.php"),
+        Uri.parse(CRMURL + "create_appintment_mobile/get_user_info.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email"),
@@ -459,8 +459,7 @@ class _getusrtInfoState extends State<getusrtInfo> {
       "RefNumber": ""
     });
     var respose = await http.post(
-        Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/create_appintment_mobile/createRequest.php"),
+        Uri.parse(CRMURL + "create_appintment_mobile/createRequest.php"),
         body: jsonEncode({
           "emailemp": sharedPref.getString("Email"),
           "bn": name,

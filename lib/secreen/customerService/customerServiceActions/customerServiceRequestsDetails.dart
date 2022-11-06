@@ -5,6 +5,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -25,7 +26,6 @@ class customerServiceRequestsDetails extends StatefulWidget {
 
 class _customerServiceRequestsDetailsState
     extends State<customerServiceRequestsDetails> {
-  String Meetingsurl = 'https://crm.eamana.gov.sa/agenda_dev/api/';
   TextEditingController DateText = TextEditingController();
   TextEditingController note = TextEditingController();
   String? dow;
@@ -601,7 +601,7 @@ class _customerServiceRequestsDetailsState
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(
-        Uri.parse(Meetingsurl + ("Agenda_dashboard/get_dept_emps.php")),
+        Uri.parse(CRMURL + ("Agenda_dashboard/get_dept_emps.php")),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email")
@@ -618,7 +618,7 @@ class _customerServiceRequestsDetailsState
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(
-        Uri.parse(Meetingsurl + "Agenda_dashboard/get_appointments_time.php"),
+        Uri.parse(CRMURL + "Agenda_dashboard/get_appointments_time.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email"),
@@ -635,7 +635,7 @@ class _customerServiceRequestsDetailsState
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(
-        Uri.parse(Meetingsurl + "Agenda_dashboard/get_depts_list.php"),
+        Uri.parse(CRMURL + "Agenda_dashboard/get_depts_list.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email")
@@ -705,7 +705,7 @@ class _customerServiceRequestsDetailsState
             maskType: EasyLoadingMaskType.black,
           );
           var respose = await http.post(
-              Uri.parse(Meetingsurl +
+              Uri.parse(CRMURL +
                   (widget.url == "LeaderAppointment_dashboard"
                       ? "LeaderAppointment_dashboard/get_appoinments_request_log.php"
                       : "Agenda_dashboard/get_request_log.php")),
@@ -733,7 +733,7 @@ class _customerServiceRequestsDetailsState
             maskType: EasyLoadingMaskType.black,
           );
           var respose = await http.post(
-              Uri.parse(Meetingsurl +
+              Uri.parse(CRMURL +
                   (widget.url == "LeaderAppointment_dashboard"
                       ? "LeaderAppointment_dashboard/get_Actions_list.php"
                       : "Agenda_dashboard/get_Actions_list.php")),
@@ -1045,7 +1045,7 @@ class _customerServiceRequestsDetailsState
     );
 
     var respose = await http.post(
-        Uri.parse(Meetingsurl +
+        Uri.parse(CRMURL +
             (widget.url == "LeaderAppointment_dashboard"
                 ? "LeaderAppointment_dashboard/set_request_action.php"
                 : "Agenda_dashboard/set_request_action.php")),

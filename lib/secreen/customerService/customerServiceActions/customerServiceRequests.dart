@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -30,8 +31,6 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
 
   List statuslist = [];
 
-  String Meetingsurl = 'https://crm.eamana.gov.sa/agenda_dev/api/';
-
   void initState() {
     controller = ScrollController()..addListener(_scrollListener);
 
@@ -55,7 +54,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(
-        Uri.parse(Meetingsurl +
+        Uri.parse(CRMURL +
             (widget.url == "LeaderAppointment_dashboard"
                 ? "LeaderAppointment_dashboard/get_appoinments_request.php"
                 : "Agenda_dashboard/get_request.php")),
@@ -87,7 +86,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
 
   getDepts() async {
     var respose2 = await http.post(
-        Uri.parse(Meetingsurl +
+        Uri.parse(CRMURL +
             (widget.url == "LeaderAppointment_dashboard"
                 ? "LeaderAppointment_dashboard/get_leaders_list.php"
                 : "Agenda_dashboard/get_depts_list.php")),
@@ -150,7 +149,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                           maskType: EasyLoadingMaskType.black,
                         );
                         var respose = await http.post(
-                            Uri.parse(Meetingsurl +
+                            Uri.parse(CRMURL +
                                 (widget.url == "LeaderAppointment_dashboard"
                                     ? "LeaderAppointment_dashboard/get_appoinments_request.php"
                                     : "Agenda_dashboard/get_request.php")),
@@ -169,6 +168,8 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
 
                         var res = jsonDecode(respose.body);
                         customerServiceRrequestsList = res;
+                        print(customerServiceRrequestsList);
+                        setState(() {});
                         Navigator.pop(context);
                         setState(() {});
                         EasyLoading.dismiss();
@@ -181,6 +182,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                             ? leadid
                             : sharedPref.getString("deptsID") ?? "";
                         statusesID = "";
+
                         Navigator.pop(context);
                         getData(true);
                         setState(() {});
@@ -192,7 +194,9 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
           },
         );
       },
-    );
+    ).then((value) {
+      setState(() {});
+    });
   }
 
   void dispose() {

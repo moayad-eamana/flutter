@@ -7,6 +7,8 @@ import 'SLL_pin.dart';
 
 String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
 //String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
+//String CRMURL = "https://crm.eamana.gov.sa/agenda/api/";
+String CRMURL = "https://crm.eamana.gov.sa/agenda_dev/api/";
 
 Future<String> Bearer() async {
   return sharedPref.getString("AccessToken") ?? "";

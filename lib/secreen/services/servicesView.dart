@@ -52,19 +52,18 @@ class _ServicesViewState extends State<ServicesView> {
         "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php")) {
       try {
         var respose = await http.post(
-            Uri.parse(
-                "https://crm.eamana.gov.sa/agenda_dev/api/api-mobile/getAppointmentsPermission.php"),
+            Uri.parse(CRMURL + "api-mobile/getAppointmentsPermission.php"),
             body: jsonEncode({
               "token": sharedPref.getString("AccessToken"),
               "username": empinfo.Email
             }));
         hasePerm = jsonDecode(respose.body)["message"];
-        sharedPref.setBool(
-            "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-        sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
-        sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
-        sharedPref.setBool("permissionforAppManege3",
-            jsonDecode(respose.body)["permissionforAppManege"]);
+        // sharedPref.setBool(
+        //     "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+        // sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+        // sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
+        // sharedPref.setBool("permissionforAppManege3",
+        //     jsonDecode(respose.body)["permissionforAppManege"]);
       } catch (e) {}
     } else {
       return;
@@ -368,25 +367,25 @@ class _ServicesViewState extends State<ServicesView> {
               child: ElevatedButton(
                   style: cardServiece,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        // ignore: prefer_const_constructors
-                        builder: (BuildContext context) {
-                          return meettingsType();
-                        },
-                      ),
-                    );
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
-                    //     builder: (context) => ChangeNotifierProvider(
-                    //       create: (context) => MettingsProvider(),
-                    //       // ignore: prefer_const_constructors
-                    //       child: MeetingView(),
-                    //     ),
+                    //     // ignore: prefer_const_constructors
+                    //     builder: (BuildContext context) {
+                    //       return meettingsType();
+                    //     },
                     //   ),
                     // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => MettingsProvider(),
+                          // ignore: prefer_const_constructors
+                          child: MeetingView(),
+                        ),
+                      ),
+                    );
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/mawa3idi.svg', "مواعيدي")))

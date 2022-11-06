@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -47,8 +48,7 @@ class _statisticsState extends State<statistics> {
       maskType: EasyLoadingMaskType.black,
     );
     var respose = await http.post(
-        Uri.parse(
-            "https://crm.eamana.gov.sa/agenda_dev/api/Agenda_statistics/get_statistics.php"),
+        Uri.parse(CRMURL + "Agenda_statistics/get_statistics.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
           "email": sharedPref.getString("Email"),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -8,8 +9,7 @@ import 'package:http/http.dart' as http;
 
 class ManageroutinTime {
   int selecetedindex = 0;
-  String Meetingsurl =
-      "https://crm.eamana.gov.sa/agenda_dev/api/LeaderAppointment_dashboard/";
+
   List appointments_timelist = [];
   List Time = [];
   List sendTime = [];
@@ -20,12 +20,13 @@ class ManageroutinTime {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose =
-        await http.post(Uri.parse(Meetingsurl + "get_appointments_time.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "email": sharedPref.getString("Email"),
-            }));
+    var respose = await http.post(
+        Uri.parse(
+            CRMURL + "LeaderAppointment_dashboard/get_appointments_time.php"),
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email"),
+        }));
     appointments_timelist = jsonDecode(respose.body)["table"];
     NoOfcustomer.text = jsonDecode(respose.body)["num_of_ppl"] ?? "";
     appointments_timelist[0]["color"] = secondryColor;
@@ -82,14 +83,15 @@ class ManageroutinTime {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose =
-        await http.post(Uri.parse(Meetingsurl + "set_appointments_time.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "email": sharedPref.getString("Email"),
-              "num_of_ppl": NoOfcustomer.text,
-              "appointment": sendTime
-            }));
+    var respose = await http.post(
+        Uri.parse(
+            CRMURL + "LeaderAppointment_dashboard/set_appointments_time.php"),
+        body: jsonEncode({
+          "token": sharedPref.getString("AccessToken"),
+          "email": sharedPref.getString("Email"),
+          "num_of_ppl": NoOfcustomer.text,
+          "appointment": sendTime
+        }));
     if (jsonDecode(respose.body)["status"] == true) {
       Alerts.successAlert(context, "", "تم التعديل ").show();
     } else {

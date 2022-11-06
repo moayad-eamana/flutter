@@ -13,8 +13,7 @@ class manegeMeetingTime extends StatefulWidget {
 
 class _manegeMeetingTimeState extends State<manegeMeetingTime> {
   manegeMeetingTimeProvider _provider = manegeMeetingTimeProvider();
-  String Meetingsurl =
-      "https://crm.eamana.gov.sa/agenda_dev/api/LeaderAppointment_dashboard/";
+
   ManageroutinTime manageroutinTime = ManageroutinTime();
   int index = 0;
   @override
