@@ -26,13 +26,7 @@ class _ViolationHomeState extends State<ViolationHome> {
         appBar: AppBarW.appBarW("نظام المخالفات", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin:

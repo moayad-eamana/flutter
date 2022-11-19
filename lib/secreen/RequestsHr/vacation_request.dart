@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
@@ -69,23 +70,28 @@ class _VacationRequestState extends State<VacationRequest> {
       maskType: EasyLoadingMaskType.black,
     );
     await getuserinfo();
-    var respose = await getAction("HR/GetEmployeeReplacments/" +
-        empinfo.EmployeeNumber.toString().split(".")[0]);
-    // print(empinfo.MainDepartmentID.toString());
-    //print("respose = " + respose.toString());
-    try {
-      if (jsonDecode(respose.body)["EmployeesList"] != null) {
-        _MainDepartmentEmployees =
-            (jsonDecode(respose.body)["EmployeesList"] as List)
-                .map(((e) => MainDepartmentEmployees.fromJson(e)))
-                .toList();
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      var respose = await getAction("HR/GetEmployeeReplacments/" +
+          empinfo.EmployeeNumber.toString().split(".")[0]);
+      // print(empinfo.MainDepartmentID.toString());
+      //print("respose = " + respose.toString());
+      try {
+        if (jsonDecode(respose.body)["EmployeesList"] != null) {
+          _MainDepartmentEmployees =
+              (jsonDecode(respose.body)["EmployeesList"] as List)
+                  .map(((e) => MainDepartmentEmployees.fromJson(e)))
+                  .toList();
 
-        //print(_MainDepartmentEmployees[0].EmployeeName);
-        setState(() {});
+          //print(_MainDepartmentEmployees[0].EmployeeName);
+          setState(() {});
+        }
+        EasyLoading.dismiss();
+      } catch (Ex) {
+        EasyLoading.dismiss();
       }
+    } else {
       EasyLoading.dismiss();
-    } catch (Ex) {
-      EasyLoading.dismiss();
+      _MainDepartmentEmployees = [];
     }
   }
 
@@ -181,13 +187,7 @@ class _VacationRequestState extends State<VacationRequest> {
           appBar: AppBarW.appBarW("تقدیم طلب إجازة", context, null),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widgetsUni.bacgroundimage(),
               SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(20.0),

@@ -12,6 +12,7 @@ import 'package:mccounting_text/mccounting_text.dart';
 import 'package:intl/intl.dart' as format;
 import 'package:http/http.dart' as http;
 import 'package:eamanaapp/utilities/dropDownCss.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class statistics extends StatefulWidget {
   const statistics({Key? key}) : super(key: key);
@@ -79,13 +80,7 @@ class _statisticsState extends State<statistics> {
           appBar: AppBarW.appBarW("الإحصائيات", context, null, filter),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widgetsUni.bacgroundimage(),
               allReqs == null
                   ? Container()
                   : Container(

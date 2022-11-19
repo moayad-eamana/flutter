@@ -13,6 +13,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:device_calendar/device_calendar.dart' as calendar;
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class MeetingView extends StatefulWidget {
   MeetingView({Key? key}) : super(key: key);
@@ -89,13 +90,7 @@ class _MeetingViewState extends State<MeetingView> {
         appBar: AppBarW.appBarW("مواعيدي", context, null, history1),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             _provider.meetingList.length == 0
                 ? Center(child: TextW("لايوجد لديك مواعيد"))
                 : AnimationLimiter(
@@ -411,31 +406,31 @@ class _MeetingViewState extends State<MeetingView> {
                                                                     EasyLoadingMaskType
                                                                         .black,
                                                               );
-                                                              // var availableCalendars =
-                                                              //     await calendar
-                                                              //                 .DeviceCalendarPlugin
-                                                              //             .private()
-                                                              //         .retrieveCalendars();
-                                                              // var defaultCalendarId =
-                                                              //     availableCalendars
-                                                              //         .data?[0]
-                                                              //         .id;
-                                                              // await calendar
-                                                              //             .DeviceCalendarPlugin
-                                                              //         .private()
-                                                              //     .deleteEvent(
-                                                              //         defaultCalendarId,
-                                                              //         sharedPref.getString(_provider
-                                                              //             .meetingList[
-                                                              //                 index]
-                                                              //             .Id
-                                                              //             .toString()));
-                                                              // sharedPref.remove(
-                                                              //     _provider
-                                                              //         .meetingList[
-                                                              //             index]
-                                                              //         .Id
-                                                              //         .toString());
+                                                              var availableCalendars =
+                                                                  await calendar
+                                                                              .DeviceCalendarPlugin
+                                                                          .private()
+                                                                      .retrieveCalendars();
+                                                              var defaultCalendarId =
+                                                                  availableCalendars
+                                                                      .data?[0]
+                                                                      .id;
+                                                              await calendar
+                                                                          .DeviceCalendarPlugin
+                                                                      .private()
+                                                                  .deleteEvent(
+                                                                      defaultCalendarId,
+                                                                      sharedPref.getString(_provider
+                                                                          .meetingList[
+                                                                              index]
+                                                                          .Id
+                                                                          .toString()));
+                                                              sharedPref.remove(
+                                                                  _provider
+                                                                      .meetingList[
+                                                                          index]
+                                                                      .Id
+                                                                      .toString());
                                                               await handelCalander.deletFromCalander(
                                                                   sharedPref.getString(_provider
                                                                           .meetingList[

@@ -12,6 +12,7 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:xml2json/xml2json.dart';
 import 'package:http/http.dart' as http;
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class OfferDetails extends StatefulWidget {
   dynamic offer;
@@ -91,13 +92,7 @@ class _OfferDetailsState extends State<OfferDetails> {
         appBar: AppBarW.appBarW("تفاصيل العرض", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

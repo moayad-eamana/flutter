@@ -28,13 +28,7 @@ class _meettingsTypeState extends State<meettingsType> {
         appBar: AppBarW.appBarW("إدارة المواعيد", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             Container(
               margin: EdgeInsets.all(20),
               child: Center(

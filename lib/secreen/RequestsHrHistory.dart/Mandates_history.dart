@@ -31,15 +31,26 @@ class _Mandates_historyState extends State<Mandates_history> {
   }
 
   getInfo() async {
-    String Empno =
-        sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
-    EasyLoading.show(
-      status: '... جاري المعالجة',
-      maskType: EasyLoadingMaskType.black,
-    );
-    list = await getAction("HR/GetUserMandates/" + Empno);
-    EasyLoading.dismiss();
-    list = jsonDecode(list.body)["MandatesList"] ?? [];
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      String Empno =
+          sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
+      EasyLoading.show(
+        status: '... جاري المعالجة',
+        maskType: EasyLoadingMaskType.black,
+      );
+      list = await getAction("HR/GetUserMandates/" + Empno);
+      EasyLoading.dismiss();
+      list = jsonDecode(list.body)["MandatesList"] ?? [];
+    } else {
+      EasyLoading.show(
+        status: '... جاري المعالجة',
+        maskType: EasyLoadingMaskType.black,
+      );
+      await Future.delayed(Duration(seconds: 1));
+      list = [];
+      EasyLoading.dismiss();
+    }
+
     setState(() {});
   }
 
@@ -51,13 +62,7 @@ class _Mandates_historyState extends State<Mandates_history> {
         appBar: AppBarW.appBarW("إنتداباتي", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             list.length > 0
                 ? Container(
                     margin: EdgeInsets.all(10),

@@ -5,7 +5,8 @@ import 'package:sizer/sizer.dart';
 bool blindness = false;
 bool darkmode = false;
 
-String imageBG = "assets/image/Union_1.png";
+String imageBG = "assets/image/gidam.png";
+// "assets/image/Union_1.png";
 
 late Color BackGWhiteColor;
 
@@ -30,15 +31,16 @@ Color pinkColor = Colors.pink;
 Color chatColor = Color(0xffF8F8F8);
 
 void getColorSettings() {
-  imageBG = "assets/image/Union_1.png";
+  imageBG = "assets/image/gidam.png";
+// "assets/image/Union_1.png";
 
   BackGWhiteColor = Colors.white;
 
   BackGColor = Color(0xfffcfcfc);
 
-  baseColor = Color(0xff274690);
+  baseColor = Color(0xff004F51); //Color(0xff274690);
 
-  secondryColor = Color(0xff2E8D9A);
+  secondryColor = Color(0xff00A887); // Color(0xff2E8D9A);
 
   baseColorText = Color(0xff444444);
 
@@ -80,7 +82,9 @@ void getColorSettings() {
     chatColor = Color(0xffF8F8F8);
   }
   if (darkmode == true) {
-    imageBG = "assets/image/Union_2.png"; //
+    imageBG = "assets/image/gidam.png";
+// "assets/image/Union_1.png";
+// "assets/image/Union_2.png"; //
 
     BackGColor = Colors.grey.shade900;
 

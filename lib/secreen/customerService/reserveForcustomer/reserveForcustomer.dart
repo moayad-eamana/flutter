@@ -2,6 +2,7 @@ import 'package:eamanaapp/secreen/customerService/reserveForcustomer/getuserInfo
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class reserveForcustomer extends StatefulWidget {
   @override
@@ -26,13 +27,7 @@ class _reserveForcustomerState extends State<reserveForcustomer> {
         appBar: AppBarW.appBarW("حجز الموعد للمستفيد", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             PageView(
               controller: controller,
               children: <Widget>[

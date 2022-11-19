@@ -16,6 +16,18 @@ class _manageTimeBuDateState extends State<manageTimeBuDate> {
   List ListOfpanal = [];
   TextEditingController startDate = TextEditingController();
   @override
+  void initState() {
+    initFun();
+    super.initState();
+  }
+
+  initFun() async {
+    startDate.text = DateTime.now().toString().split(" ")[0];
+    await widget._provider.getData(startDate.text);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -43,9 +55,11 @@ class _manageTimeBuDateState extends State<manageTimeBuDate> {
                   lastDate: DateTime(2040),
                 );
                 print(date);
-                startDate.text = date.toString().split(" ")[0];
-                await widget._provider.getData(startDate.text);
-                setState(() {});
+                if (date != null) {
+                  startDate.text = date.toString().split(" ")[0];
+                  await widget._provider.getData(startDate.text);
+                  setState(() {});
+                }
               },
             ),
             SizedBox(

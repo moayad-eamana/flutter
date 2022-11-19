@@ -10,8 +10,9 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:device_calendar/device_calendar.dart' as calendar;
+//import 'package:device_calendar/device_calendar.dart' as calendar;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class EditMeetingView extends StatefulWidget {
   int? index;
@@ -121,13 +122,7 @@ class _EditMeetingViewState extends State<EditMeetingView> {
         appBar: AppBarW.appBarW("تعديل موعد", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 decoration: BoxDecoration(

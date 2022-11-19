@@ -1,3 +1,4 @@
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/MobasharaProvider.dart';
 import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
@@ -34,8 +35,13 @@ class _InboxHedersViewState extends State<InboxHedersView> {
         status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
-      await Provider.of<EatemadatProvider>(context, listen: false)
-          .getInboxHeader();
+      if (sharedPref.getString("dumyuser") != "10284928492") {
+        await Provider.of<EatemadatProvider>(context, listen: false)
+            .getInboxHeader();
+      } else {
+        await Future.delayed(Duration(seconds: 1));
+      }
+
       EasyLoading.dismiss();
     });
 
@@ -61,13 +67,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
         appBar: AppBarW.appBarW("إعتماداتي", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             AnimationLimiter(
               child: _provider.length == 0
                   ? Container(

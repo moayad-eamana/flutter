@@ -67,12 +67,19 @@ class SliderWidget {
                         status: '... جاري المعالجة',
                         maskType: EasyLoadingMaskType.black,
                       );
-                      String emNo = await EmployeeProfile.getEmployeeNumber();
-                      dynamic respose =
-                          await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
-                      print(respose);
-                      respose = jsonDecode(respose.body)["EmpInfo"]
-                          ["VacationBalance"];
+                      dynamic respose;
+                      if ((sharedPref.getString("dumyuser") != "10284928492")) {
+                        String emNo = await EmployeeProfile.getEmployeeNumber();
+                        respose = await getAction(
+                            "HR/GetEmployeeDataByEmpNo/" + emNo);
+                        print(respose);
+                        respose = jsonDecode(respose.body)["EmpInfo"]
+                            ["VacationBalance"];
+                      } else {
+                        await Future.delayed(Duration(seconds: 1));
+                        respose = "22";
+                      }
+
                       EasyLoading.dismiss();
                       showDialog<String>(
                         context: context,

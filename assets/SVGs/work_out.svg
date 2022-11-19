@@ -1,64 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   enable-background="new 0 0 24 24"
-   height="24px"
-   viewBox="0 0 24 24"
-   width="24px"
-   fill="#000000"
-   version="1.1"
-   id="svg16"
-   sodipodi:docname="work_history_black_24dp.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs20" />
-  <sodipodi:namedview
-     id="namedview18"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="34.875"
-     inkscape:cx="10.853047"
-     inkscape:cy="12.014337"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg16" />
-  <g
-     id="g4">
-    <rect
-       fill="none"
-       height="24"
-       width="24"
-       id="rect2" />
+<svg xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000" version="1.1" id="svg16" sodipodi:docname="work_history_black_24dp.svg" inkscape:version="1.2 (dc2aedaf03, 2022-05-15)">
+  <defs id="defs20" fill="#000000"/>
+  <sodipodi:namedview id="namedview18" pagecolor="#ffffff" bordercolor="#000000" borderopacity="0.25" inkscape:showpageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#d1d1d1" showgrid="false" inkscape:zoom="34.875" inkscape:cx="10.853047" inkscape:cy="12.014337" inkscape:window-width="1920" inkscape:window-height="1017" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="svg16" fill="#000000"/>
+  <g id="g4">
+    <rect fill="none" height="24" width="24" id="rect2"/>
   </g>
-  <g
-     id="g14">
-    <g
-       id="g10">
-      <path
-         d="M 4.8602151,8.8888889 V 19.888889 h 7.0799999 c -0.05,-0.33 -0.08,-0.66 -0.08,-1 0,-3.87 3.13,-7 7,-7 0.7,0 1.37,0.1 2,0.29 V 8.8888889 Z"
-         opacity=".3"
-         id="path6"
-         style="opacity:1;fill:#2e8d9a;fill-opacity:1" />
-      <path
-         d="M4,19V8h16v3.29c0.72,0.22,1.4,0.54,2,0.97V8c0-1.11-0.89-2-2-2h-4V4c0-1.11-0.89-2-2-2h-4C8.89,2,8,2.89,8,4v2H4 C2.89,6,2.01,6.89,2.01,8L2,19c0,1.11,0.89,2,2,2h7.68c-0.3-0.62-0.5-1.29-0.6-2H4z M10,4h4v2h-4V4z"
-         id="path8"
-         style="fill:#274690;fill-opacity:1" />
+  <g id="g14">
+    <g id="g10">
+      <path d="M 4.8602151,8.8888889 V 19.888889 h 7.0799999 c -0.05,-0.33 -0.08,-0.66 -0.08,-1 0,-3.87 3.13,-7 7,-7 0.7,0 1.37,0.1 2,0.29 V 8.8888889 Z" opacity=".3" id="path6" style="opacity:1;fill:#00a887;fill-opacity:1"/>
+      <path d="M4,19V8h16v3.29c0.72,0.22,1.4,0.54,2,0.97V8c0-1.11-0.89-2-2-2h-4V4c0-1.11-0.89-2-2-2h-4C8.89,2,8,2.89,8,4v2H4 C2.89,6,2.01,6.89,2.01,8L2,19c0,1.11,0.89,2,2,2h7.68c-0.3-0.62-0.5-1.29-0.6-2H4z M10,4h4v2h-4V4z" id="path8" style="fill:#004f51;fill-opacity:1"/>
     </g>
-    <path
-       d="M18,13c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S20.76,13,18,13z M19.65,20.35l-2.15-2.15V15h1v2.79l1.85,1.85 L19.65,20.35z"
-       id="path12"
-       style="fill:#274690;fill-opacity:1" />
+    <path d="M18,13c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5S20.76,13,18,13z M19.65,20.35l-2.15-2.15V15h1v2.79l1.85,1.85 L19.65,20.35z" id="path12" style="fill:#004f51;fill-opacity:1"/>
   </g>
 </svg>

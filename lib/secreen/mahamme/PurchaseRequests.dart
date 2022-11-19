@@ -44,13 +44,7 @@ class _PurchaseRequestsState extends State<PurchaseRequests> {
         appBar: AppBarW.appBarW("إعتماد شراء", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             _provider.PurchaseRequestsList.length == 0
                 ? Center(
                     child: Text(

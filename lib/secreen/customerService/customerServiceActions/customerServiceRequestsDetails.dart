@@ -61,13 +61,7 @@ class _customerServiceRequestsDetailsState
             appBar: AppBarW.appBarW("التفاصل", context, null),
             body: Stack(
               children: [
-                SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
-                  child: Image.asset(
-                    imageBG,
-                    fit: BoxFit.fill,
-                  ),
-                ),
+                widgetsUni.bacgroundimage(),
                 SingleChildScrollView(
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 30),

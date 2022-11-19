@@ -1,5 +1,7 @@
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/searchX.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -47,6 +49,15 @@ class AppBarW {
                   ),
                 ),
               ),
+              if (showBack != null)
+                if (sharedPref.getString("dumyuser") != "10284928492")
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Image.asset(
+                      "assets/image/GiddamLogo.png",
+                      fit: BoxFit.fill,
+                    ),
+                  ),
               if (showBack == null)
                 Container(
                   margin: EdgeInsets.only(right: 25),
@@ -219,6 +230,22 @@ class AppBarW {
                         ],
                       ),
                     ),
+                  ),
+                ),
+              if (function != null && title == "إدارة المواعيد")
+                Positioned(
+                  left: 25,
+                  top: 25,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: widgetsUni.actionbutton("حفظ", Icons.send, () {
+                          function();
+                        }),
+                      )
+                    ],
                   ),
                 ),
             ],

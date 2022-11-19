@@ -521,12 +521,17 @@ class _HomPanelState extends State<HomePanel>
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(4.0),
                                         bottomRight: Radius.circular(4.0)),
-                                    child: Image(
-                                      //width: responsiveMT(90, 150),
-                                      alignment: Alignment.center,
-                                      width: MediaQuery.of(context).size.width,
-                                      fit: BoxFit.fitWidth,
-                                      image: AssetImage(imageBG),
+                                    child: Opacity(
+                                      opacity: 0.10,
+                                      child: Image(
+                                        //width: responsiveMT(90, 150),
+                                        alignment: Alignment.center,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        fit: BoxFit.fitWidth,
+
+                                        image: AssetImage(imageBG),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -791,13 +796,17 @@ class _HomPanelState extends State<HomePanel>
                                           //   width: MediaQuery.of(context).size.width,
                                           //   fit: BoxFit.fitWidth,
                                           // ),
-                                          Image(
-                                        //width: responsiveMT(90, 150),
-                                        alignment: Alignment.center,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        fit: BoxFit.fitWidth,
-                                        image: AssetImage(imageBG),
+                                          Opacity(
+                                        opacity: 0.10,
+                                        child: Image(
+                                          //width: responsiveMT(90, 150),
+                                          alignment: Alignment.center,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          height: 100.h,
+                                          fit: BoxFit.cover,
+                                          image: AssetImage(imageBG),
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -1,12 +1,27 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sizer/sizer.dart';
 
 class widgetsUni {
   static Divider divider() {
     return Divider(
       thickness: 0.5,
       color: baseColor,
+    );
+  }
+
+  static bacgroundimage() {
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Opacity(
+        opacity: 0.10,
+        child: Image.asset(
+          "assets/image/gidam.png",
+          fit: BoxFit.fill,
+          height: 100.h,
+        ),
+      ),
     );
   }
 

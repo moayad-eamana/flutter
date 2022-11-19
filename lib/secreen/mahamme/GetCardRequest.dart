@@ -41,13 +41,7 @@ class _GetCardRequestState extends State<GetCardRequest> {
         appBar: AppBarW.appBarW("الطلبات", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             CardsList.length > 0
                 ? Container(
                     margin: EdgeInsets.symmetric(vertical: 10),

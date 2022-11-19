@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Auhad extends StatefulWidget {
@@ -39,16 +41,22 @@ class _AuhadState extends State<Auhad> {
     await getuserinfo();
 
     // print(empinfo.EmployeeNumber..toString().split(".")[0]);
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      var respose = await getAction("HR/GetEmployeeCustodies/" +
+          empinfo.EmployeeNumber.toString().split(".")[0]);
 
-    var respose = await getAction("HR/GetEmployeeCustodies/" +
-        empinfo.EmployeeNumber.toString().split(".")[0]);
+      setState(() {
+        _GetEmployeeCustodies = (jsonDecode(respose.body)["CustodiesList"]);
+        ItemsCount = (jsonDecode(respose.body)["ItemsCount"]);
+        // print(_GetEmployeeCustodies);
+        // print(ItemsCount);
+      });
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+      _GetEmployeeCustodies = null;
+      setState(() {});
+    }
 
-    setState(() {
-      _GetEmployeeCustodies = (jsonDecode(respose.body)["CustodiesList"]);
-      ItemsCount = (jsonDecode(respose.body)["ItemsCount"]);
-      // print(_GetEmployeeCustodies);
-      // print(ItemsCount);
-    });
     EasyLoading.dismiss();
   }
 
@@ -67,13 +75,7 @@ class _AuhadState extends State<Auhad> {
         appBar: AppBarW.appBarW("العهد", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             if (_GetEmployeeCustodies == null)
               Center(
                 child: Text(

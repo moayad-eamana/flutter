@@ -32,13 +32,7 @@ class _customerEnteranceState extends State<customerEnterance> {
             },
             child: Stack(
               children: [
-                SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
-                  child: Image.asset(
-                    imageBG,
-                    fit: BoxFit.fill,
-                  ),
-                ),
+                widgetsUni.bacgroundimage(),
                 SingleChildScrollView(
                   child: Container(
                     // height: 90.h,

@@ -2,6 +2,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class vacation_history_request_datiels extends StatefulWidget {
   dynamic list;
@@ -22,13 +23,7 @@ class _vacation_history_request_datielsState
         appBar: AppBarW.appBarW("التفاصيل", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.all(10),

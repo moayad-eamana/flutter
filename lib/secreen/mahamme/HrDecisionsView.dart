@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 import 'HrDecisionsDetailesView.dart';
 
@@ -52,13 +53,7 @@ class _HrDecisionsViewState extends State<HrDecisionsView> {
         appBar: AppBarW.appBarW("القرارت الإلكترونية", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             _provider.HrDecisionsList.length == 0
                 ? Center(
                     child: Text(

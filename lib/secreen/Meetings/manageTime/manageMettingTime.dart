@@ -5,6 +5,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'manageroutinTime.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class manegeMeetingTime extends StatefulWidget {
   @override
@@ -53,16 +54,19 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
                 setState(() {});
               },
             ),
-            appBar: AppBarW.appBarW('إدارة المواعيد', context, null),
+            appBar: AppBarW.appBarW(
+                'إدارة المواعيد',
+                context,
+                null,
+                index == 1
+                    ? () async {
+                        await _provider.insert(context);
+                        setState(() {});
+                      }
+                    : null),
             body: Stack(
               children: [
-                SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
-                  child: Image.asset(
-                    imageBG,
-                    fit: BoxFit.fill,
-                  ),
-                ),
+                widgetsUni.bacgroundimage(),
                 manageroutinTime.appointments_timelist.length == 0
                     ? Container()
                     : index == 1

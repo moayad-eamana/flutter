@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -40,13 +41,7 @@ class _EntedabState extends State<Entedab> {
         appBar: AppBarW.appBarW("طلب إنتداب", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 //color: Colors.amber,
@@ -309,27 +304,34 @@ class _EntedabState extends State<Entedab> {
         });
 
         //
+        if (sharedPref.getString("dumyuser") != "10284928492") {
+          String emNo = await EmployeeProfile.getEmployeeNumber();
+          try {
+            MandateTypeID = v["typeId"].toString();
+            EasyLoading.show(
+              status: '... جاري المعالجة',
+              maskType: EasyLoadingMaskType.black,
+            );
+            var respose = await getAction("HR/GetMandateLocationListByTypeId/" +
+                v["typeId"].toString() +
+                "/" +
+                emNo);
+            EasyLoading.dismiss();
+            setState(() {
+              mandateLocations =
+                  (jsonDecode(respose.body)["MandateLocationsList"] as List)
+                      .map(((e) => MandateLocations.fromJson(e)))
+                      .toList();
+            });
+            //     print(mandateLocations);
+          } catch (e) {}
+        } else {
+          mandateLocations = [
+            {"MandateLocationID": 1.1, "MandateLocationName": "السعودية"}
+          ].map(((e) => MandateLocations.fromJson(e))).toList();
+          setState(() {});
+        }
 
-        String emNo = await EmployeeProfile.getEmployeeNumber();
-        try {
-          MandateTypeID = v["typeId"].toString();
-          EasyLoading.show(
-            status: '... جاري المعالجة',
-            maskType: EasyLoadingMaskType.black,
-          );
-          var respose = await getAction("HR/GetMandateLocationListByTypeId/" +
-              v["typeId"].toString() +
-              "/" +
-              emNo);
-          EasyLoading.dismiss();
-          setState(() {
-            mandateLocations =
-                (jsonDecode(respose.body)["MandateLocationsList"] as List)
-                    .map(((e) => MandateLocations.fromJson(e)))
-                    .toList();
-          });
-          //     print(mandateLocations);
-        } catch (e) {}
         //value = v ?? "";
       },
       popupTitle: Container(

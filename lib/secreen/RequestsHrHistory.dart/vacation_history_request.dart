@@ -30,15 +30,22 @@ class _vacation_old_requestState extends State<vacation_old_request> {
   }
 
   getInfo() async {
-    String Empno =
-        sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
     EasyLoading.show(
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    list = await getAction("HR/GetUserVacations/" + Empno);
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      String Empno =
+          sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
+
+      list = await getAction("HR/GetUserVacations/" + Empno);
+
+      list = jsonDecode(list.body)["VacationsList"] ?? [];
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+      list = [];
+    }
     EasyLoading.dismiss();
-    list = jsonDecode(list.body)["VacationsList"] ?? [];
     setState(() {});
   }
 
@@ -50,13 +57,7 @@ class _vacation_old_requestState extends State<vacation_old_request> {
         appBar: AppBarW.appBarW("إجازاتي", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             Container(
               margin: EdgeInsets.all(10),
               child: list.length == 0

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/OfferDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -7,6 +8,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class EamanaDiscount extends StatefulWidget {
   bool? navBack;
@@ -31,23 +33,29 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      var respose = await getAction("Offers/GetActiveOffers/0");
 
-    //   var respose = await getAction("Offers/GetOffersByStatusID/1");
-    var respose = await getAction("Offers/GetActiveOffers/0");
+      setState(() {
+        _OffersList = (jsonDecode(respose.body)["OffersList"]) ?? [];
 
-    setState(() {
-      _OffersList = (jsonDecode(respose.body)["OffersList"]) ?? [];
+        //  _OffersList = _OffersList.sort((a, b) => a.compareTo(b));
 
-      //  _OffersList = _OffersList.sort((a, b) => a.compareTo(b));
+        _OffersList.sort((a, b) {
+          //sorting in ascending order
+          return DateTime.parse(a["OfferExpiryDate"])
+              .compareTo(DateTime.parse(b["OfferExpiryDate"]));
+        });
 
-      _OffersList.sort((a, b) {
-        //sorting in ascending order
-        return DateTime.parse(a["OfferExpiryDate"])
-            .compareTo(DateTime.parse(b["OfferExpiryDate"]));
+        print(_OffersList);
       });
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+      _OffersList = [];
+      setState(() {});
+    }
+    //   var respose = await getAction("Offers/GetOffersByStatusID/1");
 
-      print(_OffersList);
-    });
     EasyLoading.dismiss();
   }
 
@@ -74,13 +82,7 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
         appBar: AppBarW.appBarW("عروض الموظفين", context, widget.navBack),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             _OffersList.length == 0
                 ? Center(
                     child: Text(

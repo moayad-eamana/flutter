@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 import 'HRdetailsView.dart';
 
@@ -53,13 +54,7 @@ class _HrRequestsViewState extends State<HrRequestsView> {
         appBar: AppBarW.appBarW("إعتماد شؤون الموظفين", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: _provider.getHrRequests.length == 0

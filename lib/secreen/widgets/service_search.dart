@@ -411,42 +411,57 @@ class CustomSearchDelegate extends SearchDelegateR {
                             status: '... جاري المعالجة',
                             maskType: EasyLoadingMaskType.black,
                           );
-                          String emNo =
-                              await EmployeeProfile.getEmployeeNumber();
-                          var respons = await getAction(
-                              "HR/GetEmployeeSalaryReport/" + emNo);
-                          EasyLoading.dismiss();
-                          if (fingerprint == true) {
-                            Navigator.pushNamed(context, "/auth_secreen")
-                                .then((value) {
-                              if (value == true) {
-                                if (jsonDecode(respons.body)["salaryPdf"] !=
-                                    null) {
-                                  ViewFile.open(
-                                          jsonDecode(respons.body)["salaryPdf"],
-                                          "pdf")
-                                      .then((value) {
-                                    close(this.context, null);
-                                  });
-                                } else {
-                                  Alerts.warningAlert(context, "خطأ",
-                                          "لا توجد بيانات للتعريف بالراتب")
-                                      .show();
-                                }
-                              }
-                            });
-                          } else {
-                            if (jsonDecode(respons.body)["salaryPdf"] != null) {
-                              ViewFile.open(
-                                      jsonDecode(respons.body)["salaryPdf"],
-                                      "pdf")
+                          var respons;
+                          if ((sharedPref.getString("dumyuser") !=
+                              "10284928492")) {
+                            String emNo =
+                                await EmployeeProfile.getEmployeeNumber();
+                            respons = await getAction(
+                                "HR/GetEmployeeSalaryReport/" + emNo);
+                            EasyLoading.dismiss();
+                            if (fingerprint == true) {
+                              Navigator.pushNamed(context, "/auth_secreen")
                                   .then((value) {
-                                close(this.context, null);
+                                if (value == true) {
+                                  if (jsonDecode(respons.body)["salaryPdf"] !=
+                                      null) {
+                                    ViewFile.open(
+                                            jsonDecode(
+                                                respons.body)["salaryPdf"],
+                                            "pdf")
+                                        .then((value) {
+                                      close(this.context, null);
+                                    });
+                                  } else {
+                                    Alerts.warningAlert(context, "خطأ",
+                                            "لا توجد بيانات للتعريف بالراتب")
+                                        .show();
+                                  }
+                                }
                               });
+                            }
+                          } else {
+                            if ((sharedPref.getString("dumyuser") !=
+                                "10284928492")) {
+                              if (jsonDecode(respons.body)["salaryPdf"] !=
+                                  null) {
+                                ViewFile.open(
+                                        jsonDecode(respons.body)["salaryPdf"],
+                                        "pdf")
+                                    .then((value) {
+                                  close(this.context, null);
+                                });
+                              } else {
+                                Alerts.warningAlert(context, "خطأ",
+                                        "لا توجد بيانات للتعريف بالراتب")
+                                    .show();
+                              }
                             } else {
+                              await Future.delayed(Duration(seconds: 1));
                               Alerts.warningAlert(context, "خطأ",
                                       "لا توجد بيانات للتعريف بالراتب")
                                   .show();
+                              EasyLoading.dismiss();
                             }
                           }
                         } else if (query == "سجل الرواتب") {
@@ -504,9 +519,17 @@ class CustomSearchDelegate extends SearchDelegateR {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    String emNo = await EmployeeProfile.getEmployeeNumber();
-    dynamic respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
-    respose = jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
+
+    dynamic respose;
+    if ((sharedPref.getString("dumyuser") != "10284928492")) {
+      String emNo = await EmployeeProfile.getEmployeeNumber();
+      respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+      respose = jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+      respose = "22";
+    }
+
     EasyLoading.dismiss();
     showDialog<String>(
       context: context,

@@ -27,13 +27,7 @@ class _AddContactState extends State<AddContact> {
         appBar: AppBarW.appBarW("إضافة جهة إتصال جديدة", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             Center(
               child: SingleChildScrollView(
                 child: Container(

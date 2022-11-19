@@ -45,6 +45,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -90,11 +91,22 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   //new aksjdhlkajswhdlkajshdwliuagdLIUYSDWGQ
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.removeAfter(await Future.delayed(Duration(seconds: 4)));
+  //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // FlutterNativeSplash.removeAfter(
+  //     await Future.delayed(const Duration(seconds: 0)));
+  print("dddd");
+  sharedPref = await SharedPreferences.getInstance();
+  if (sharedPref.getBool("splashloaded") == null) {
+    await Future.delayed(Duration(seconds: 4));
+    sharedPref.setBool("splashloaded", true);
+  }
 
+  FlutterNativeSplash.remove();
   packageInfo = await PackageInfo.fromPlatform();
   await firebase_Notification();
-  sharedPref = await SharedPreferences.getInstance();
+
   hasePerm = sharedPref.getString("hasePerm");
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -104,9 +116,9 @@ Future<void> main() async {
 
   tz.initializeTimeZones();
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: baseColor,
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //   statusBarColor: baseColor,
+  // ));
   //getfingerprintSettings();
   double? username;
   try {

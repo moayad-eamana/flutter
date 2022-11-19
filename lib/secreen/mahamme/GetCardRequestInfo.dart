@@ -7,6 +7,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class GetCardRequestInfo extends StatefulWidget {
   @override
@@ -34,13 +35,7 @@ class _GetCardRequestInfoState extends State<GetCardRequestInfo> {
         ),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             Container(
               padding: EdgeInsets.symmetric(vertical: 10),
               margin: EdgeInsets.symmetric(horizontal: 10),

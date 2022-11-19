@@ -6,6 +6,7 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class CooperativeTrainingRequests extends StatefulWidget {
   @override
@@ -40,13 +41,7 @@ class _CooperativeTrainingRequestsState
             appBar: AppBarW.appBarW("طلبات التدريب التعاوني", context, null),
             body: Stack(
               children: [
-                Image.asset(
-                  imageBG,
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  //height: MediaQuery.of(context).size.height,
-                  fit: BoxFit.fill,
-                ),
+                widgetsUni.bacgroundimage(),
                 Container(
                   margin: EdgeInsets.all(10),
                   child: ListView.builder(

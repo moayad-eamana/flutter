@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_svg/svg.dart';
 
 String raqameUpdate = "raqameUpdateAll";
 String offers = "offers";
@@ -62,9 +63,20 @@ void configLoading() {
     ..maskColor = baseColor.withOpacity(0.5)
     ..userInteractions = true
     ..indicatorWidget = Container(
-      height: 80,
-      width: 100,
-      child: Image(image: AssetImage("assets/image/rakamy-logo-21.png")),
+      height: 150,
+      width: 120,
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            "assets/image/Giddam-Supporting.svg",
+            width: 100,
+          ),
+          Image(
+              width: 80,
+              //  height: 80,
+              image: AssetImage("assets/image/rakamy-logo-21.png")),
+        ],
+      ),
     )
     ..dismissOnTap = false;
 }

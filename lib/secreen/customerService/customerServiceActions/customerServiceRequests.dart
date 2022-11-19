@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'customerServiceRequestsDetails.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class customerServiceRrequests extends StatefulWidget {
   String url;
@@ -213,13 +214,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
         appBar: AppBarW.appBarW("عرض الطلبات", context, null, _displayDialog),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             customerServiceRrequestsList.length == 0
                 ? Center(
                     child: Text(

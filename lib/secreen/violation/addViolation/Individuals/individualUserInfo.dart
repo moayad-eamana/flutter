@@ -95,6 +95,7 @@ class _individualUserInfoState extends State<individualUserInfo> {
                       }),
                     ],
                   ),
+
                   if (checked == true) ...fields(),
                   if (checked == true) sizebox(),
                   if (checked == true)

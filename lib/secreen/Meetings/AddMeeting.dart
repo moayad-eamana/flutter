@@ -17,6 +17,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:device_calendar/device_calendar.dart' as calendar;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 //jj
 class AddMeeting extends StatefulWidget {
@@ -86,13 +87,7 @@ class _AddMeetingState extends State<AddMeeting> {
         appBar: AppBarW.appBarW("إضافة موعد", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin:
@@ -159,24 +154,24 @@ class _AddMeetingState extends State<AddMeeting> {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               decoration: decoration("رقم الجوال", 6, true),
-                              // onTap: () async {
-                              //   if (await FlutterContacts.requestPermission()) {
-                              //     dynamic contacts =
-                              //         await FlutterContacts.getContacts(
-                              //             withProperties: true);
-                              //     print(contacts[6].phones.first.number);
-                              //     Navigator.pushNamed(context, "/contactsView",
-                              //             arguments: contacts)
-                              //         .then((dynamic value) {
-                              //       setState(() {
-                              //         _mobile.text = value["No"];
-                              //         _appWith.text = value["name"];
-                              //       });
-                              //       print(value["name"]);
-                              //       print(value["No"]);
-                              //     });
-                              //   }
-                              // },
+                              onTap: () async {
+                                if (await FlutterContacts.requestPermission()) {
+                                  dynamic contacts =
+                                      await FlutterContacts.getContacts(
+                                          withProperties: true);
+                                  print(contacts[6].phones.first.number);
+                                  Navigator.pushNamed(context, "/contactsView",
+                                          arguments: contacts)
+                                      .then((dynamic value) {
+                                    setState(() {
+                                      _mobile.text = value["No"];
+                                      _appWith.text = value["name"];
+                                    });
+                                    print(value["name"]);
+                                    print(value["No"]);
+                                  });
+                                }
+                              },
                               onChanged: (String val) {
                                 if (val == "") {
                                   setState(() {

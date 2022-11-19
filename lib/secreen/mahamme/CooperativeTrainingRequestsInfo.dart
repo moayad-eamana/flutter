@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class CooperativeTrainingRequestsInfo extends StatefulWidget {
   @override
@@ -35,13 +36,7 @@ class _CooperativeTrainingRequestsInfoState
           appBar: AppBarW.appBarW("التفاصيل", context, null),
           body: Stack(
             children: [
-              Image.asset(
-                imageBG,
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                //height: MediaQuery.of(context).size.height,
-                fit: BoxFit.fill,
-              ),
+              widgetsUni.bacgroundimage(),
               Container(
                 margin: EdgeInsets.all(10),
                 child: SingleChildScrollView(

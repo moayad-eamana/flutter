@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -42,15 +43,23 @@ class _SalaryHistoryState extends State<SalaryHistory>
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    String emNo = await EmployeeProfile.getEmployeeNumber();
-    listOfSalary = await getAction("HR/GetEmployeeLastSalariesInfo/${emNo}/6");
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      String emNo = await EmployeeProfile.getEmployeeNumber();
+      listOfSalary =
+          await getAction("HR/GetEmployeeLastSalariesInfo/${emNo}/6");
 
-    setState(() {
-      isLoading = false;
-      listOfSalary = jsonDecode(listOfSalary.body)["LastSalaries"] == null
-          ? []
-          : jsonDecode(listOfSalary.body)["LastSalaries"];
-    });
+      setState(() {
+        isLoading = false;
+        listOfSalary = jsonDecode(listOfSalary.body)["LastSalaries"] == null
+            ? []
+            : jsonDecode(listOfSalary.body)["LastSalaries"];
+      });
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+      listOfSalary = [];
+      setState(() {});
+    }
+
     EasyLoading.dismiss();
     print(listOfSalary);
   }
@@ -66,172 +75,177 @@ class _SalaryHistoryState extends State<SalaryHistory>
           overflow: Overflow.visible,
           clipBehavior: Clip.hardEdge,
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            widgetsUni.bacgroundimage(),
+            listOfSalary.length == 0
+                ? Center(
+                    child: Text("لايوجد رواتب"),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
                       children: [
-                        Text(
-                          "سجل الرواتب لاخر ستة أشهر",
-                          style: titleTx(baseColor),
+                        SizedBox(
+                          height: 20,
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              "الترتيب",
-                              style: titleTx(secondryColorText),
-                            ),
-                            SizedBox(width: 10),
-                            RotationTransition(
-                              turns: Tween(begin: 0.0, end: 0.5)
-                                  .animate(_controller),
-                              child: IconButton(
-                                color: baseColorText,
-                                icon: Icon(Icons.filter_list_rounded),
-                                onPressed: () {
-                                  setState(() {
-                                    if (_expanded) {
-                                      _controller..reverse(from: 0.5);
-                                    } else {
-                                      _controller..forward(from: 0.0);
-                                    }
-                                    _expanded = !_expanded;
-                                    print(_expanded);
-                                    listOfSalary =
-                                        List.from(listOfSalary.reversed);
-                                  });
-                                },
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "سجل الرواتب لاخر ستة أشهر",
+                                style: titleTx(baseColor),
                               ),
-                            ),
-                            // GestureDetector(
-                            //     onTap: () {
-                            //       setState(() {
-                            //         listOfSalary =
-                            //             List.from(listOfSalary.reversed);
-                            //       });
-                            //     },
-                            //     child: Icon(Icons.filter_list_rounded))
-                          ],
+                              Row(
+                                children: [
+                                  Text(
+                                    "الترتيب",
+                                    style: titleTx(secondryColorText),
+                                  ),
+                                  SizedBox(width: 10),
+                                  RotationTransition(
+                                    turns: Tween(begin: 0.0, end: 0.5)
+                                        .animate(_controller),
+                                    child: IconButton(
+                                      color: baseColorText,
+                                      icon: Icon(Icons.filter_list_rounded),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (_expanded) {
+                                            _controller..reverse(from: 0.5);
+                                          } else {
+                                            _controller..forward(from: 0.0);
+                                          }
+                                          _expanded = !_expanded;
+                                          print(_expanded);
+                                          listOfSalary =
+                                              List.from(listOfSalary.reversed);
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  // GestureDetector(
+                                  //     onTap: () {
+                                  //       setState(() {
+                                  //         listOfSalary =
+                                  //             List.from(listOfSalary.reversed);
+                                  //       });
+                                  //     },
+                                  //     child: Icon(Icons.filter_list_rounded))
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
+                        Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: widgetsUni.divider()),
+                        if (listOfSalary.length == 0 && isLoading == false)
+                          Center(
+                            child: Text(
+                              "لا يوجد رواتب",
+                              style: subtitleTx(baseColorText),
+                            ),
+                          ),
+                        if (listOfSalary.length > 0)
+                          ...listOfSalary.asMap().entries.map((entry) {
+                            return Column(
+                              children: [
+                                Stack(
+                                  fit: StackFit.loose,
+                                  overflow: Overflow.visible,
+                                  clipBehavior: Clip.hardEdge,
+                                  children: [
+                                    Card(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      elevation: 2,
+                                      child: Container(
+                                        height: 130,
+                                        decoration: BoxDecoration(
+                                            color: BackGWhiteColor,
+                                            border: Border.all(
+                                                color: Colors.black45),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(4))),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              "التاريخ : " +
+                                                  entry.value["SalaryDate"]
+                                                      .toString()
+                                                      .split("T")[0],
+                                              style: subtitleTx(baseColor),
+                                            ),
+                                            SizedBox(height: 5),
+                                            Expanded(
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Expanded(
+                                                        child: buildStack(
+                                                            "إجمالي",
+                                                            entry.value[
+                                                                "TotalDues"],
+                                                            baseColor)),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Expanded(
+                                                        child: buildStack(
+                                                            "صافي",
+                                                            entry.value[
+                                                                "NetValue"],
+                                                            secondryColor)),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Expanded(
+                                                        child: buildStack(
+                                                            "حسميات",
+                                                            entry.value[
+                                                                "Deductions"],
+                                                            Colors.red))
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    // Positioned(
+                                    //   left: 25,
+                                    //   child: Container(
+                                    //     width: 25,
+                                    //     height: 40,
+                                    //     decoration: BoxDecoration(
+                                    //         shape: BoxShape.circle,
+                                    //         border: Border.all(color: Colors.black),
+                                    //         color: (Colors.white)),
+                                    //     child: Center(
+                                    //         child: Text(
+                                    //       (entry.key + 1).toString(),
+                                    //       style: TextStyle(color: Colors.black),
+                                    //     )),
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                                SizedBox(height: 20),
+                              ],
+                            );
+                          }).toList(),
                       ],
                     ),
                   ),
-                  Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
-                      child: widgetsUni.divider()),
-                  if (listOfSalary.length == 0 && isLoading == false)
-                    Center(
-                      child: Text(
-                        "لا يوجد رواتب",
-                        style: subtitleTx(baseColorText),
-                      ),
-                    ),
-                  if (listOfSalary.length > 0)
-                    ...listOfSalary.asMap().entries.map((entry) {
-                      return Column(
-                        children: [
-                          Stack(
-                            fit: StackFit.loose,
-                            overflow: Overflow.visible,
-                            clipBehavior: Clip.hardEdge,
-                            children: [
-                              Card(
-                                margin: EdgeInsets.symmetric(horizontal: 15),
-                                elevation: 2,
-                                child: Container(
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                      color: BackGWhiteColor,
-                                      border: Border.all(color: Colors.black45),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(4))),
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "التاريخ : " +
-                                            entry.value["SalaryDate"]
-                                                .toString()
-                                                .split("T")[0],
-                                        style: subtitleTx(baseColor),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Expanded(
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Expanded(
-                                                  child: buildStack(
-                                                      "إجمالي",
-                                                      entry.value["TotalDues"],
-                                                      baseColor)),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Expanded(
-                                                  child: buildStack(
-                                                      "صافي",
-                                                      entry.value["NetValue"],
-                                                      secondryColor)),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Expanded(
-                                                  child: buildStack(
-                                                      "حسميات",
-                                                      entry.value["Deductions"],
-                                                      Colors.red))
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              // Positioned(
-                              //   left: 25,
-                              //   child: Container(
-                              //     width: 25,
-                              //     height: 40,
-                              //     decoration: BoxDecoration(
-                              //         shape: BoxShape.circle,
-                              //         border: Border.all(color: Colors.black),
-                              //         color: (Colors.white)),
-                              //     child: Center(
-                              //         child: Text(
-                              //       (entry.key + 1).toString(),
-                              //       style: TextStyle(color: Colors.black),
-                              //     )),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                        ],
-                      );
-                    }).toList(),
-                ],
-              ),
-            ),
           ],
         ),
       ),

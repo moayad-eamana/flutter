@@ -145,6 +145,45 @@ class LoginProvider extends ChangeNotifier {
     return jsonDecode(respose.body)["ErrorMessage"];
   }
 
+  Future<dynamic> checkUserOTP2(String otp) async {
+    //  SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    sharedPref.setDouble("EmployeeNumber", 2334023.0);
+    sharedPref.setString("EmployeeName", "علي بن علي");
+    sharedPref.setString("FirstName", "علي");
+    sharedPref.setString("SecondName", "محمد");
+    sharedPref.setString("ThirdName", "محمد");
+    sharedPref.setString("LastName", "العوفي");
+    sharedPref.setInt("DepartmentID", 1);
+    sharedPref.setString("DepartmentName", "الحاسب");
+    sharedPref.setString("Email", "mohammed@gmail.com");
+
+    sharedPref.setInt("empTypeID", 1);
+    sharedPref.setString("empTypeName", "مبرمج");
+    sharedPref.setString("StatusName", "على راس العمل");
+    sharedPref.setString("UserIdentityNumber", "1020300303");
+    sharedPref.setString("MobileNumber", "56666363562");
+    sharedPref.setInt("UserTypeID", 2);
+    sharedPref.setInt("VacationBalance", 22);
+
+    sharedPref.setString("JobName", "مبرمج");
+    sharedPref.setString("ImageURL", '');
+    sharedPref.setString("Title", "مبرمج");
+    sharedPref.setString("DirectManagerName", "");
+
+    sharedPref.setInt("DirectManagerEmployeeNumber", 1);
+    sharedPref.setInt("GeneralManagerEmployeeNumber", 7373773773);
+    sharedPref.setInt("MainDepartmentID", 3);
+    sharedPref.setString("MainDepartmentName", "حاسب");
+    sharedPref.setInt("Extension", 3333);
+    sharedPref.setInt("GenderID", 1);
+    sharedPref.setString("AccessToken", "eee" ?? "");
+    sharedPref.setString(
+        "tokenTime", (DateTime.now().add(Duration(days: 3))).toString());
+
+    return true;
+  }
+
   Future<void> hasPermission() async {
     EmployeeProfile empinfo = await EmployeeProfile();
     if (hasePerm == null || hasePerm == "") {

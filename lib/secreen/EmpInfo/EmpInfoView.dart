@@ -1,4 +1,5 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -9,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class EmpInfoView extends StatefulWidget {
   bool? showback;
@@ -39,13 +41,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
               "دليل الموظفين", context, widget.showback == null ? null : true),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widgetsUni.bacgroundimage(),
               Container(
                 margin:
                     EdgeInsets.only(bottom: widget.showback != null ? 10 : 10),
@@ -390,10 +386,31 @@ class _EmpInfoViewState extends State<EmpInfoView> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    bool hasinfo = await Provider.of<EmpInfoProvider>(context, listen: false)
-        .fetchEmpInfo(_search.text);
 
-    if (hasinfo == false) {
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      bool hasinfo = await Provider.of<EmpInfoProvider>(context, listen: false)
+          .fetchEmpInfo(_search.text);
+
+      if (hasinfo == false) {
+        Alert(
+          context: context,
+          type: AlertType.warning,
+          title: "",
+          desc: "لايوجد موظفين",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "حسنا",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
+        ).show();
+      }
+    } else {
+      await Future.delayed(Duration(seconds: 1));
       Alert(
         context: context,
         type: AlertType.warning,
@@ -411,6 +428,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
         ],
       ).show();
     }
+
     EasyLoading.dismiss();
   }
 

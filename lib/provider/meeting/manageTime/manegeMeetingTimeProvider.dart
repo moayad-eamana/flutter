@@ -9,8 +9,7 @@ class manegeMeetingTimeProvider {
   List sendTime2 = [];
   List appointments_timelist2 = [];
   int selecetedindex = 0;
-  String Meetingsurl =
-      CRMURL + "LeaderAppointment_dashboard/LeaderAppointment_dashboard/";
+  String Meetingsurl = CRMURL + "LeaderAppointment_dashboard/";
   getData(var startDate) async {
     EasyLoading.show(
       status: '... جاري المعالجة',
@@ -20,7 +19,7 @@ class manegeMeetingTimeProvider {
         Uri.parse(Meetingsurl + "get_appointments_time_with_date.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
-          "email": sharedPref.getString("Email"),
+          "email": "akubaish",
           "startdate": startDate
         }));
 

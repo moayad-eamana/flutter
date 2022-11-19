@@ -6,6 +6,7 @@ import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
@@ -24,6 +25,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 
@@ -92,12 +94,16 @@ class _ServicesViewState extends State<ServicesView> {
         appBar: AppBarHome.appBarW("جميع الخدمات", context),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
+            Opacity(
+              opacity: 0.10,
+              child: Image.asset(
+                imageBG,
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                //height: MediaQuery.of(context).size.height,
+                fit: BoxFit.fill,
+                height: 100.h,
+              ),
             ),
             SingleChildScrollView(
               child: Container(
@@ -149,38 +155,38 @@ class _ServicesViewState extends State<ServicesView> {
                     ),
                     mahamme(),
 
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+
+                    // Text(
+                    //   "المخالفات الإلكترونية",
+                    //   style: subtitleTx(baseColor),
+                    // ),
+
+                    // widgetsUni.divider(),
+
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // violation(),
+
                     SizedBox(
                       height: 10,
                     ),
-
-                    Text(
-                      "المخالفات الإلكترونية",
-                      style: subtitleTx(baseColor),
-                    ),
-
-                    widgetsUni.divider(),
-
-                    SizedBox(
-                      height: 10,
-                    ),
-                    violation(),
-
-                    SizedBox(
-                      height: 10,
-                    ),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      Text("خدمة العملاء", style: subtitleTx(baseColor)),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      widgetsUni.divider(),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      SizedBox(
-                        height: 5,
-                      ),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      customerService(),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    // if (sharedPref.getBool("permissionforCRM") == false)
+                    //   Text("خدمة العملاء", style: subtitleTx(baseColor)),
+                    // if (sharedPref.getBool("permissionforCRM") == false)
+                    //   widgetsUni.divider(),
+                    // if (sharedPref.getBool("permissionforCRM") == false)
+                    //   SizedBox(
+                    //     height: 5,
+                    //   ),
+                    // if (sharedPref.getBool("permissionforCRM") == false)
+                    //   customerService(),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
                     Text("خدمات أخرى", style: subtitleTx(baseColor)),
 
                     widgetsUni.divider(),
@@ -246,11 +252,18 @@ class _ServicesViewState extends State<ServicesView> {
                       status: '... جاري المعالجة',
                       maskType: EasyLoadingMaskType.black,
                     );
-                    String emNo = await EmployeeProfile.getEmployeeNumber();
-                    dynamic respose =
-                        await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
-                    respose =
-                        jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
+                    dynamic respose;
+                    if (sharedPref.getString("dumyuser") != "10284928492") {
+                      String emNo = await EmployeeProfile.getEmployeeNumber();
+                      respose =
+                          await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+                      respose = jsonDecode(respose.body)["EmpInfo"]
+                          ["VacationBalance"];
+                    } else {
+                      await Future.delayed(Duration(seconds: 1));
+                      respose = "22";
+                    }
+
                     EasyLoading.dismiss();
                     showDialog<String>(
                       context: context,
@@ -328,6 +341,26 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/3ohad.svg', "العهد"))),
+          // StaggeredGridTileW(
+          //   1,
+          //   hi,
+          //   ElevatedButton(
+          //     style: cardServiece,
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           // ignore: prefer_const_constructors
+          //           builder: (BuildContext context) {
+          //             return EmployeeEvaluationMaster();
+          //           },
+          //         ),
+          //       );
+          //     },
+          //     child: widgetsUni.cardcontentService(
+          //         'assets/SVGs/ejaza.svg', "تقيماتي"),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -361,34 +394,35 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/e3tmadaty.svg', "إعتماداتي"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     // ignore: prefer_const_constructors
-                    //     builder: (BuildContext context) {
-                    //       return meettingsType();
-                    //     },
-                    //   ),
-                    // );
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => MettingsProvider(),
-                          // ignore: prefer_const_constructors
-                          child: MeetingView(),
+          if (sharedPref.getString("dumyuser") != "10284928492")
+            StaggeredGridTile.extent(
+                crossAxisCellCount: 1,
+                mainAxisExtent: hi,
+                child: ElevatedButton(
+                    style: cardServiece,
+                    onPressed: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     // ignore: prefer_const_constructors
+                      //     builder: (BuildContext context) {
+                      //       return meettingsType();
+                      //     },
+                      //   ),
+                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider(
+                            create: (context) => MettingsProvider(),
+                            // ignore: prefer_const_constructors
+                            child: MeetingView(),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/mawa3idi.svg', "مواعيدي")))
+                      );
+                    },
+                    child: widgetsUni.cardcontentService(
+                        'assets/SVGs/mawa3idi.svg', "مواعيدي")))
         ],
       ),
     );
@@ -547,35 +581,42 @@ class _ServicesViewState extends State<ServicesView> {
                       status: '... جاري المعالجة',
                       maskType: EasyLoadingMaskType.black,
                     );
-                    String emNo = await EmployeeProfile.getEmployeeNumber();
-                    var respons =
-                        await getAction("HR/GetEmployeeSalaryReport/" + emNo);
-                    EasyLoading.dismiss();
-                    if (fingerprint == true) {
-                      Navigator.pushNamed(context, "/auth_secreen")
-                          .then((value) async {
-                        if (value == true) {
-                          //      print(jsonDecode(respons.body)["salaryPdf"]);
+                    if (sharedPref.getString("dumyuser") != "10284928492") {
+                      String emNo = await EmployeeProfile.getEmployeeNumber();
+                      var respons =
+                          await getAction("HR/GetEmployeeSalaryReport/" + emNo);
+                      EasyLoading.dismiss();
+                      if (fingerprint == true) {
+                        Navigator.pushNamed(context, "/auth_secreen")
+                            .then((value) async {
+                          if (value == true) {
+                            //      print(jsonDecode(respons.body)["salaryPdf"]);
 
-                          if (jsonDecode(respons.body)["salaryPdf"] != null) {
-                            ViewFile.open(
-                                jsonDecode(respons.body)["salaryPdf"], "pdf");
-                          } else {
-                            Alerts.warningAlert(context, "خطأ",
-                                    "لا توجد بيانات للتعريف بالراتب")
-                                .show();
+                            if (jsonDecode(respons.body)["salaryPdf"] != null) {
+                              ViewFile.open(
+                                  jsonDecode(respons.body)["salaryPdf"], "pdf");
+                            } else {
+                              Alerts.warningAlert(context, "خطأ",
+                                      "لا توجد بيانات للتعريف بالراتب")
+                                  .show();
+                            }
                           }
-                        }
-                      });
-                    } else {
-                      if (jsonDecode(respons.body)["salaryPdf"] != null) {
-                        ViewFile.open(
-                            jsonDecode(respons.body)["salaryPdf"], "pdf");
+                        });
                       } else {
-                        Alerts.warningAlert(context, "خطأ",
-                                "لا توجد بيانات للتعريف بالراتب")
-                            .show();
+                        if (jsonDecode(respons.body)["salaryPdf"] != null) {
+                          ViewFile.open(
+                              jsonDecode(respons.body)["salaryPdf"], "pdf");
+                        } else {
+                          Alerts.warningAlert(context, "خطأ",
+                                  "لا توجد بيانات للتعريف بالراتب")
+                              .show();
+                        }
                       }
+                    } else {
+                      await Future.delayed(Duration(seconds: 1));
+                      EasyLoading.dismiss();
+                      Alerts.errorAlert(context, "", "لايوجد تعريف بالراتب")
+                          .show();
                     }
                   },
                   child: widgetsUni.cardcontentService(

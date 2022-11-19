@@ -4,6 +4,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sizer/sizer.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class favoriot extends StatefulWidget {
   const favoriot({Key? key}) : super(key: key);
@@ -33,11 +34,7 @@ class _favoriotState extends State<favoriot> {
         appBar: AppBarW.appBarW("خدماتي المفضلة", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              fit: BoxFit.fill,
-              width: double.infinity,
-            ),
+            widgetsUni.bacgroundimage(),
             list.isEmpty
                 ? Center(
                     child: Text(

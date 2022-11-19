@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class ContactsView extends StatefulWidget {
   @override
@@ -152,13 +153,7 @@ class _ContactsViewState extends State<ContactsView> {
         ),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             contactd.length == 0
                 ? Center(
                     child: Text(

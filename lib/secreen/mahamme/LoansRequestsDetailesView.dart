@@ -8,6 +8,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class LoansRequestsDetailesView extends StatefulWidget {
   int? index;
@@ -54,13 +55,7 @@ class _LoansRequestsDetailesViewState extends State<LoansRequestsDetailesView> {
         appBar: AppBarW.appBarW("الاعارات", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Column(
                 children: [

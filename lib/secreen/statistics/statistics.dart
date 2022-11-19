@@ -1,6 +1,7 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Statistics extends StatefulWidget {
   const Statistics({Key? key}) : super(key: key);
@@ -14,13 +15,7 @@ class _StatisticsState extends State<Statistics> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SvgPicture.asset(
-          'assets/SVGs/background.svg',
-          alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width,
-          //height: MediaQuery.of(context).size.height,
-          fit: BoxFit.fill,
-        ),
+        widgetsUni.bacgroundimage(),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

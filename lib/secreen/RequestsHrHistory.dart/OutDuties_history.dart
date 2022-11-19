@@ -30,15 +30,21 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
   }
 
   getInfo() async {
-    String Empno =
-        sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
     EasyLoading.show(
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    list = await getAction("HR/GetEmployeeOutDuties/" + Empno);
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      String Empno =
+          sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
+
+      list = await getAction("HR/GetEmployeeOutDuties/" + Empno);
+
+      list = jsonDecode(list.body)["OutDutyList"] ?? [];
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+    }
     EasyLoading.dismiss();
-    list = jsonDecode(list.body)["OutDutyList"] ?? [];
     setState(() {});
   }
 
@@ -50,13 +56,7 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
         appBar: AppBarW.appBarW("طلبات خارج دوام", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             list.length == 0
                 ? Center(
                     child: Text(

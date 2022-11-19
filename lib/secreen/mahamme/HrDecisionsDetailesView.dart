@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class HrDecisionsDetailesView extends StatefulWidget {
   int index;
@@ -30,13 +31,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
         appBar: AppBarW.appBarW("التفاصيل", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

@@ -42,13 +42,7 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
           appBar: AppBarW.appBarW("إعتماد طلب مشتريات", context, null),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widgetsUni.bacgroundimage(),
               SingleChildScrollView(
                 child: Form(
                   key: _formKey,

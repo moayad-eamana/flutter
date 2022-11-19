@@ -33,13 +33,7 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
         appBar: AppBarW.appBarW("تفاصيل الطلب", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'LoansRequestsDetailesView.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class LoansRequestsView extends StatefulWidget {
   LoansRequestsView({Key? key}) : super(key: key);
@@ -60,13 +61,7 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
               )
             : Stack(
                 children: [
-                  Image.asset(
-                    imageBG,
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width,
-                    //height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.fill,
-                  ),
+                  widgetsUni.bacgroundimage(),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     child: AnimationLimiter(

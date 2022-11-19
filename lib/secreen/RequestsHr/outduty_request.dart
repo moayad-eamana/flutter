@@ -98,13 +98,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
           appBar: AppBarW.appBarW("طلب خارج الدوام", context, null),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widgetsUni.bacgroundimage(),
               SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),

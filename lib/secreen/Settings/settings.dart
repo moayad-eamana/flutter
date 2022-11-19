@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Settings extends StatefulWidget {
   final Function? update;
@@ -101,13 +102,7 @@ class _SettingsState extends State<Settings> {
           appBar: AppBarHome.appBarW("الاعدادات", context),
           body: Stack(
             children: [
-              Image.asset(
-                imageBG,
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                //height: MediaQuery.of(context).size.height,
-                fit: BoxFit.fill,
-              ),
+              widgetsUni.bacgroundimage(),
               SingleChildScrollView(
                 child: Container(
                   //color: Colors.amber,

@@ -5,6 +5,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Mobashara extends StatefulWidget {
   int TypeID;
@@ -40,13 +41,7 @@ class _MobasharaState extends State<Mobashara> {
         appBar: AppBarW.appBarW("إعتماد مباشرة عمل", context, null),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
+            widgetsUni.bacgroundimage(),
             _provider.MobasharaList.length == 0
                 ? Center(
                     child: Text(

@@ -129,30 +129,37 @@ salary(servName, BuildContext context) async {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    String emNo = await EmployeeProfile.getEmployeeNumber();
-    var respons = await getAction("HR/GetEmployeeSalaryReport/" + emNo);
-    EasyLoading.dismiss();
-    if (fingerprint == true) {
-      Navigator.pushNamed(context, "/auth_secreen").then((value) {
-        if (value == true) {
-          if (jsonDecode(respons.body)["salaryPdf"] != null) {
-            ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
-                .then((value) {});
-          } else {
-            Alerts.warningAlert(
-                    context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
-                .show();
+    if ((sharedPref.getString("dumyuser") != "10284928492")) {
+      String emNo = await EmployeeProfile.getEmployeeNumber();
+      var respons = await getAction("HR/GetEmployeeSalaryReport/" + emNo);
+      EasyLoading.dismiss();
+      if (fingerprint == true) {
+        Navigator.pushNamed(context, "/auth_secreen").then((value) {
+          if (value == true) {
+            if (jsonDecode(respons.body)["salaryPdf"] != null) {
+              ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
+                  .then((value) {});
+            } else {
+              Alerts.warningAlert(
+                      context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
+                  .show();
+            }
           }
-        }
-      });
-    } else {
-      if (jsonDecode(respons.body)["salaryPdf"] != null) {
-        ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
-            .then((value) {});
+        });
       } else {
-        Alerts.warningAlert(context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
-            .show();
+        if (jsonDecode(respons.body)["salaryPdf"] != null) {
+          ViewFile.open(jsonDecode(respons.body)["salaryPdf"], "pdf")
+              .then((value) {});
+        } else {
+          Alerts.warningAlert(context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
+              .show();
+        }
       }
+    } else {
+      Future.delayed(Duration(seconds: 1));
+      EasyLoading.dismiss();
+      Alerts.warningAlert(context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
+          .show();
     }
   } else if (servName == "سجل الرواتب") {
     if (fingerprint == true) {

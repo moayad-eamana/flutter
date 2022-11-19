@@ -14,6 +14,7 @@ import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:sizer/sizer.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class HRdetailsView extends StatefulWidget {
   int? index;
@@ -121,13 +122,7 @@ class _HRdetailsViewState extends State<HRdetailsView> {
         appBar: AppBarW.appBarW("تفاصيل الطلب", context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.symmetric(vertical: 20, horizontal: 20),

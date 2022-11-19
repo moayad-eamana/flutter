@@ -36,9 +36,13 @@ class _EmpProfileState extends State<EmpProfile> {
         status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
-      SharedPreferences _pref = await SharedPreferences.getInstance();
-      await Provider.of<EmpInfoProvider>(context, listen: false).fetchEmpInfo(
-          _pref.getDouble("EmployeeNumber").toString().split(".")[0]);
+      if (sharedPref.getString("dumyuser") != "10284928492") {
+        SharedPreferences _pref = await SharedPreferences.getInstance();
+        await Provider.of<EmpInfoProvider>(context, listen: false).fetchEmpInfo(
+            _pref.getDouble("EmployeeNumber").toString().split(".")[0]);
+      } else {
+        setState(() {});
+      }
 
       EasyLoading.dismiss();
     });
@@ -77,14 +81,9 @@ class _EmpProfileState extends State<EmpProfile> {
             "معلوماتي", context, widget.showBack == null ? null : true),
         body: Stack(
           children: [
-            Image.asset(
-              imageBG,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              //height: MediaQuery.of(context).size.height,
-              fit: BoxFit.fill,
-            ),
-            _provider.length == 0
+            widgetsUni.bacgroundimage(),
+            _provider.length == 0 &&
+                    sharedPref.getString("dumyuser") != "10284928492"
                 ? Container()
                 : SingleChildScrollView(
                     child: Container(
@@ -108,27 +107,33 @@ class _EmpProfileState extends State<EmpProfile> {
                                     child: SizedBox(
                                       height: imageHgit,
                                       width: imageHgit,
-                                      child: _provider[0].ImageURL == ""
-                                          ? Image.asset(
+                                      child: sharedPref.getString("dumyuser") !=
+                                              "10284928492"
+                                          ? (_provider[0].ImageURL == ""
+                                              ? Image.asset(
+                                                  "assets/image/blank-profile.png",
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : ClipOval(
+                                                  child: CachedNetworkImage(
+                                                    height: 50,
+                                                    width: 50,
+                                                    fit: BoxFit.cover,
+                                                    imageUrl:
+                                                        "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                                            _provider[0]
+                                                                .ImageURL
+                                                                .toString(),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Image.asset(
+                                                      "assets/image/blank-profile.png",
+                                                    ),
+                                                  ),
+                                                ))
+                                          : Image.asset(
                                               "assets/image/blank-profile.png",
                                               fit: BoxFit.fill,
-                                            )
-                                          : ClipOval(
-                                              child: CachedNetworkImage(
-                                                height: 50,
-                                                width: 50,
-                                                fit: BoxFit.cover,
-                                                imageUrl:
-                                                    "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                        _provider[0]
-                                                            .ImageURL
-                                                            .toString(),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Image.asset(
-                                                  "assets/image/blank-profile.png",
-                                                ),
-                                              ),
                                             ),
                                     ),
                                   ),
@@ -137,9 +142,14 @@ class _EmpProfileState extends State<EmpProfile> {
                             ),
                           ),
                           TextW_size(
-                            _provider[0].EmployeeName,
+                            sharedPref.getString("dumyuser") == "10284928492"
+                                ? "عل بن علي"
+                                : _provider[0].EmployeeName,
                           ),
-                          TextW(_provider[0].Title),
+                          TextW(
+                              sharedPref.getString("dumyuser") == "10284928492"
+                                  ? "ميرمج"
+                                  : _provider[0].Title),
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 10),
                             child: ElevatedButton(
@@ -157,7 +167,10 @@ class _EmpProfileState extends State<EmpProfile> {
 
                                   elevation: 2),
                               onPressed: () async {
-                                getPdfasync(_provider);
+                                if (sharedPref.getString("dumyuser") !=
+                                    "10284928492") {
+                                  getPdfasync(_provider);
+                                }
                               },
                               child: Container(
                                 height: 250,
@@ -167,14 +180,20 @@ class _EmpProfileState extends State<EmpProfile> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      _provider[0].EmployeeName,
+                                      sharedPref.getString("dumyuser") !=
+                                              "10284928492"
+                                          ? _provider[0].EmployeeName
+                                          : "علي بن علي",
                                       style: TextStyle(
                                           color: baseColor,
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     TextW(
-                                      _provider[0].Title,
+                                      sharedPref.getString("dumyuser") !=
+                                              "10284928492"
+                                          ? _provider[0].Title
+                                          : "مبرمج",
                                     ),
                                     SizedBox(
                                       height: 10,
@@ -190,18 +209,34 @@ class _EmpProfileState extends State<EmpProfile> {
                                               MainAxisAlignment.center,
                                           children: [
                                             TextW("رقم الجوال : " +
-                                                _provider[0].MobileNumber),
+                                                (sharedPref.getString(
+                                                            "dumyuser") !=
+                                                        "10284928492"
+                                                    ? _provider[0].MobileNumber
+                                                    : "0567442031")),
                                             TextW("رقم التحويلة : " +
-                                                _provider[0]
-                                                    .Extension
-                                                    .toString()),
+                                                (sharedPref.getString(
+                                                            "dumyuser") !=
+                                                        "10284928492"
+                                                    ? _provider[0]
+                                                        .Extension
+                                                        .toString()
+                                                    : "3333")),
                                             TextW("البريد الالكتروني : " +
-                                                _provider[0].Email),
+                                                (sharedPref.getString(
+                                                            "dumyuser") !=
+                                                        "10284928492"
+                                                    ? _provider[0].Email
+                                                    : "moayad")),
                                             TextW("الرقم الوظيفي : " +
-                                                _provider[0]
-                                                    .EmployeeNumber
-                                                    .toString()
-                                                    .split(".")[0]),
+                                                (sharedPref.getString(
+                                                            "dumyuser") !=
+                                                        "10284928492"
+                                                    ? _provider[0]
+                                                        .EmployeeNumber
+                                                        .toString()
+                                                        .split(".")[0]
+                                                    : "3333")),
                                           ],
                                         ),
                                         Container(
@@ -234,7 +269,9 @@ class _EmpProfileState extends State<EmpProfile> {
                                   getPdfasync(_provider);
                                 },
                               ),
-                              if (Platform.isIOS)
+                              if (Platform.isIOS &&
+                                  sharedPref.getString("dumyuser") !=
+                                      "10284928492")
                                 GestureDetector(
                                   onTap: () async {
                                     try {

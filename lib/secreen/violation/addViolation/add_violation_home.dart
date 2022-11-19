@@ -6,6 +6,7 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 import 'company/companyinfo.dart';
 
@@ -52,13 +53,7 @@ class _add_violationState extends State<add_violation>
           appBar: AppBarW.appBarW("إضافة مخالفة", context, null),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widgetsUni.bacgroundimage(),
               PageView(
                 controller: controller,
                 // physics: NeverScrollableScrollPhysics(),
