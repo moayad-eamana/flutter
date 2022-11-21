@@ -12,6 +12,7 @@ import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
@@ -518,22 +519,10 @@ class _HomPanelState extends State<HomePanel>
                                           bottomLeft: Radius.circular(4.0),
                                           bottomRight: Radius.circular(4.0))),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(4.0),
-                                        bottomRight: Radius.circular(4.0)),
-                                    child: Opacity(
-                                      opacity: 0.10,
-                                      child: Image(
-                                        //width: responsiveMT(90, 150),
-                                        alignment: Alignment.center,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        fit: BoxFit.fitWidth,
-
-                                        image: AssetImage(imageBG),
-                                      ),
-                                    ),
-                                  ),
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(4.0),
+                                          bottomRight: Radius.circular(4.0)),
+                                      child: widgetsUni.bacgroundimage()),
                                 ),
                                 Container(
                                   margin: EdgeInsets.all(8),
@@ -785,30 +774,18 @@ class _HomPanelState extends State<HomePanel>
                                       ),
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(4),
-                                        bottomRight: Radius.circular(4),
-                                      ),
-                                      child:
-                                          // SvgPicture.asset(
-                                          //   'assets/SVGs/Asset_1.svg',
-                                          //   alignment: Alignment.topLeft,
-                                          //   width: MediaQuery.of(context).size.width,
-                                          //   fit: BoxFit.fitWidth,
-                                          // ),
-                                          Opacity(
-                                        opacity: 0.10,
-                                        child: Image(
-                                          //width: responsiveMT(90, 150),
-                                          alignment: Alignment.center,
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 100.h,
-                                          fit: BoxFit.cover,
-                                          image: AssetImage(imageBG),
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(4),
+                                          bottomRight: Radius.circular(4),
                                         ),
-                                      ),
-                                    ),
+                                        child:
+                                            // SvgPicture.asset(
+                                            //   'assets/SVGs/Asset_1.svg',
+                                            //   alignment: Alignment.topLeft,
+                                            //   width: MediaQuery.of(context).size.width,
+                                            //   fit: BoxFit.fitWidth,
+                                            // ),
+                                            widgetsUni.bacgroundimage()),
                                   ),
                                   Container(
                                     child: Column(

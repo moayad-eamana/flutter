@@ -101,6 +101,8 @@ Future<void> main() async {
   if (sharedPref.getBool("splashloaded") == null) {
     await Future.delayed(Duration(seconds: 4));
     sharedPref.setBool("splashloaded", true);
+  } else {
+    await Future.delayed(Duration(seconds: 2));
   }
 
   FlutterNativeSplash.remove();

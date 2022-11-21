@@ -15,9 +15,9 @@ class widgetsUni {
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Opacity(
-        opacity: 0.10,
+        opacity: 1,
         child: Image.asset(
-          "assets/image/gidam.png",
+          "assets/image/Union_1.png",
           fit: BoxFit.fill,
           height: 100.h,
         ),

@@ -94,17 +94,7 @@ class _ServicesViewState extends State<ServicesView> {
         appBar: AppBarHome.appBarW("جميع الخدمات", context),
         body: Stack(
           children: [
-            Opacity(
-              opacity: 0.10,
-              child: Image.asset(
-                imageBG,
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width,
-                //height: MediaQuery.of(context).size.height,
-                fit: BoxFit.fill,
-                height: 100.h,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin:
@@ -155,9 +145,9 @@ class _ServicesViewState extends State<ServicesView> {
                     ),
                     mahamme(),
 
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
+                    SizedBox(
+                      height: 10,
+                    ),
 
                     // Text(
                     //   "المخالفات الإلكترونية",
@@ -171,22 +161,22 @@ class _ServicesViewState extends State<ServicesView> {
                     // ),
                     // violation(),
 
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // if (sharedPref.getBool("permissionforCRM") == false)
-                    //   Text("خدمة العملاء", style: subtitleTx(baseColor)),
-                    // if (sharedPref.getBool("permissionforCRM") == false)
-                    //   widgetsUni.divider(),
-                    // if (sharedPref.getBool("permissionforCRM") == false)
-                    //   SizedBox(
-                    //     height: 5,
-                    //   ),
-                    // if (sharedPref.getBool("permissionforCRM") == false)
-                    //   customerService(),
                     // SizedBox(
-                    //   height: 5,
+                    //   height: 10,
                     // ),
+                    if (sharedPref.getBool("permissionforCRM") == false)
+                      Text("خدمة العملاء", style: subtitleTx(baseColor)),
+                    if (sharedPref.getBool("permissionforCRM") == false)
+                      widgetsUni.divider(),
+                    if (sharedPref.getBool("permissionforCRM") == false)
+                      SizedBox(
+                        height: 5,
+                      ),
+                    if (sharedPref.getBool("permissionforCRM") == false)
+                      customerService(),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text("خدمات أخرى", style: subtitleTx(baseColor)),
 
                     widgetsUni.divider(),

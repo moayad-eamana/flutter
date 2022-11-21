@@ -8,7 +8,7 @@
     <!-- <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/> -->
     <!-- <uses-permission android:name="android.permission.RECEIVE_SMS"/> -->
-
+ 
 	<application>
 	
 		<!-- <receiver android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
