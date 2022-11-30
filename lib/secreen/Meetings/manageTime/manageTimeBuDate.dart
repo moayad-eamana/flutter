@@ -66,7 +66,13 @@ class _manageTimeBuDateState extends State<manageTimeBuDate> {
               height: 20,
             ),
             ExpansionPanelList(
-              expansionCallback: (panelIndex, isExpanded) {},
+              expansionCallback: (panelIndex, isExpanded) {
+                // e.value["isExpanded"] = (!isExpanded);
+                widget._provider.appointments_timelist2[panelIndex]
+                    ["isExpanded"] = (!isExpanded);
+                setState(() {});
+                print("object");
+              },
               children: [
                 ...widget._provider.appointments_timelist2
                     .asMap()
@@ -108,34 +114,37 @@ class _manageTimeBuDateState extends State<manageTimeBuDate> {
                             style: subtitleTx(baseColor)),
                       );
                     },
-                    body: Column(
-                      children: [
-                        Wrap(
-                          spacing: 10,
-                          children: [
-                            ...widget
-                                ._provider.appointments_timelist2[e.key]["Time"]
-                                .asMap()
-                                .entries
-                                .map((item) {
-                              return ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: item.value["isopen"] == "y"
-                                          ? Colors.green
-                                          : Colors.red[400],
-                                      onPrimary: Colors.black),
-                                  onPressed: () {
-                                    widget._provider.openOrCloseTime(
-                                        widget._provider.selecetedindex,
-                                        e,
-                                        item);
-                                    setState(() {});
-                                  },
-                                  child: Text(item.value["time"]));
-                            })
-                          ],
-                        )
-                      ],
+                    body: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          Wrap(
+                            spacing: 10,
+                            children: [
+                              ...widget._provider
+                                  .appointments_timelist2[e.key]["Time"]
+                                  .asMap()
+                                  .entries
+                                  .map((item) {
+                                return ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: item.value["isopen"] == "y"
+                                            ? Colors.green
+                                            : Colors.red[400],
+                                        onPrimary: Colors.black),
+                                    onPressed: () {
+                                      widget._provider.openOrCloseTime(
+                                          widget._provider.selecetedindex,
+                                          e,
+                                          item);
+                                      setState(() {});
+                                    },
+                                    child: Text(item.value["time"]));
+                              })
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   );
                 })

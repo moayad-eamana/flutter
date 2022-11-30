@@ -61,6 +61,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
         Provider.of<EatemadatProvider>(context).inboxHeaderList.toList();
     double width = MediaQuery.of(context).size.width;
     var _provider2 = Provider.of<EatemadatProvider>(context);
+    print(_provider);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

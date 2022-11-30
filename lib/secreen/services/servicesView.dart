@@ -60,12 +60,13 @@ class _ServicesViewState extends State<ServicesView> {
               "username": empinfo.Email
             }));
         hasePerm = jsonDecode(respose.body)["message"];
-        // sharedPref.setBool(
-        //     "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-        // sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
-        // sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
-        // sharedPref.setBool("permissionforAppManege3",
-        //     jsonDecode(respose.body)["permissionforAppManege"]);
+        sharedPref.setBool(
+            "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+        sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+        sharedPref.setString("leadid", jsonDecode(respose.body)["leadid"]);
+        sharedPref.setBool("permissionforAppManege3",
+            jsonDecode(respose.body)["permissionforAppManege"]);
+        setState(() {});
       } catch (e) {}
     } else {
       return;
@@ -164,15 +165,15 @@ class _ServicesViewState extends State<ServicesView> {
                     // SizedBox(
                     //   height: 10,
                     // ),
-                    if (sharedPref.getBool("permissionforCRM") == false)
+                    if (sharedPref.getBool("permissionforCRM") == true)
                       Text("خدمة العملاء", style: subtitleTx(baseColor)),
-                    if (sharedPref.getBool("permissionforCRM") == false)
+                    if (sharedPref.getBool("permissionforCRM") == true)
                       widgetsUni.divider(),
-                    if (sharedPref.getBool("permissionforCRM") == false)
+                    if (sharedPref.getBool("permissionforCRM") == true)
                       SizedBox(
                         height: 5,
                       ),
-                    if (sharedPref.getBool("permissionforCRM") == false)
+                    if (sharedPref.getBool("permissionforCRM") == true)
                       customerService(),
                     SizedBox(
                       height: 5,
@@ -391,25 +392,25 @@ class _ServicesViewState extends State<ServicesView> {
                 child: ElevatedButton(
                     style: cardServiece,
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     // ignore: prefer_const_constructors
-                      //     builder: (BuildContext context) {
-                      //       return meettingsType();
-                      //     },
-                      //   ),
-                      // );
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-                            create: (context) => MettingsProvider(),
-                            // ignore: prefer_const_constructors
-                            child: MeetingView(),
-                          ),
+                          // ignore: prefer_const_constructors
+                          builder: (BuildContext context) {
+                            return meettingsType();
+                          },
                         ),
                       );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => ChangeNotifierProvider(
+                      //       create: (context) => MettingsProvider(),
+                      //       // ignore: prefer_const_constructors
+                      //       child: MeetingView(),
+                      //     ),
+                      //   ),
+                      // );
                     },
                     child: widgetsUni.cardcontentService(
                         'assets/SVGs/mawa3idi.svg', "مواعيدي")))
