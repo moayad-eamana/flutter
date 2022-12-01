@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/secreen/EamanaDiscount/CategoriesFilter.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/OfferDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -19,6 +20,8 @@ class EamanaDiscount extends StatefulWidget {
 
 class _EamanaDiscountState extends State<EamanaDiscount> {
   List<dynamic> _OffersList = [];
+  List<dynamic> OffersListfiltred = [];
+  List<dynamic> GetCategories = [];
   //  final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   @override
@@ -36,16 +39,26 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     if (sharedPref.getString("dumyuser") != "10284928492") {
       var respose = await getAction("Offers/GetActiveOffers/0");
 
+      var respose2 = await getAction("Offers/GetCategories/");
+
       setState(() {
         _OffersList = (jsonDecode(respose.body)["OffersList"]) ?? [];
 
+        _OffersList = _OffersList.reversed.toList();
+
+        GetCategories = (jsonDecode(respose2.body)["CategoriesList"]);
+
+        OffersListfiltred = _OffersList;
+
+        // _OffersList = _OffersList.where((element) => null);
+
         //  _OffersList = _OffersList.sort((a, b) => a.compareTo(b));
 
-        _OffersList.sort((a, b) {
-          //sorting in ascending order
-          return DateTime.parse(a["OfferExpiryDate"])
-              .compareTo(DateTime.parse(b["OfferExpiryDate"]));
-        });
+        // _OffersList.sort((a, b) {
+        //   //sorting in ascending order
+        //   return DateTime.parse(a["OfferExpiryDate"])
+        //       .compareTo(DateTime.parse(b["OfferExpiryDate"]));
+        // });
 
         print(_OffersList);
       });
@@ -59,12 +72,6 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     EasyLoading.dismiss();
   }
 
-  // List<dynamic> icon = [
-  //   "assets/SVGs/offers.svg",
-  //   "assets/SVGs/offers.svg",
-  //   "assets/SVGs/offers.svg",
-  // ];
-
   var givenDate = DateTime.now();
 
   @override
@@ -74,16 +81,58 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
     super.dispose();
   }
 
+  goToCategoriesPage(BuildContext context) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => CategoriesFilter(GetCategories: GetCategories)),
+    ).then((value) => updatefilter());
+  }
+
+  updatefilter() {
+    OffersListfiltred = [];
+    bool check = false;
+    bool hasSelected = false;
+    // print("wwwwwww = " + GetCategories[0]['selected'].toString());
+    for (var i = 0; i < _OffersList.length; i++) {
+      int CategoryID = _OffersList[i]['CategoryID'];
+      for (var x = 0; x < GetCategories.length; x++) {
+        if (GetCategories[x]['CategoryID'] == CategoryID) {
+          check = GetCategories[x]['selected'] ?? false;
+        }
+        if (GetCategories[x]['selected'] != null &&
+            GetCategories[x]['selected'] == true) {
+          hasSelected = true;
+        }
+      }
+
+      // bool check = GetCategories.contains(_OffersList[i]['CategoryID']);
+      //  = GetCategories[] ?? false;
+      print(check);
+      if (check) {
+        OffersListfiltred.add(_OffersList[i]);
+        print(OffersListfiltred);
+      }
+    }
+    print(hasSelected);
+
+    OffersListfiltred = OffersListfiltred.isEmpty && hasSelected == false
+        ? _OffersList
+        : OffersListfiltred;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("عروض الموظفين", context, widget.navBack),
+        appBar: AppBarW.appBarW(
+            "عروض الموظفين", context, widget.navBack, goToCategoriesPage),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
-            _OffersList.length == 0
+            OffersListfiltred.length == 0
                 ? Center(
                     child: Text(
                       "لا يوجد عروض",
@@ -93,10 +142,8 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
                 : SingleChildScrollView(
                     child: Column(
                       children: [
-                        ..._OffersList.map(
-                          (e) =>
-                              // for (int i = 0; i < 10; i++)
-                              GestureDetector(
+                        ...OffersListfiltred.map(
+                          (e) => GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,

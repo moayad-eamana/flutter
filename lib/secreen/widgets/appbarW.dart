@@ -180,6 +180,33 @@ class AppBarW {
                     ),
                   ),
                 ),
+              if (title == "عروض الموظفين" && function != null)
+                Positioned(
+                  left: 25,
+                  top: 25,
+                  child: GestureDetector(
+                    onTap: () {
+                      function(context);
+                    },
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.filter_list,
+                            color: baseColor,
+                            size: 40,
+                          ),
+                          Text(
+                            "",
+                            style: TextStyle(color: baseColorText),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               if (function != null && title == "مواعيدي")
                 Positioned(
                   left: 25,

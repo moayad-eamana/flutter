@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -9,44 +10,18 @@ import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class CategoriesFilter extends StatefulWidget {
-  CategoriesFilter({Key? key}) : super(key: key);
-
+  CategoriesFilter({required this.GetCategories, Key? key}) : super(key: key);
+  dynamic GetCategories;
   @override
   State<CategoriesFilter> createState() => _CategoriesFilterState();
 }
 
 class _CategoriesFilterState extends State<CategoriesFilter> {
-  dynamic _GetCategories = [];
-  double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-
   @override
   void initState() {
-    getdata();
     // TODO: implement initState
     super.initState();
   }
-
-  getdata() async {
-    EasyLoading.show(
-      status: '... جاري المعالجة',
-      maskType: EasyLoadingMaskType.black,
-    );
-
-    var respose = await getAction("Offers/GetCategories/");
-
-    setState(() {
-      _GetCategories = (jsonDecode(respose.body)["CategoriesList"]);
-
-      // print(_GetCategories);
-    });
-    EasyLoading.dismiss();
-  }
-
-  List<dynamic> icon = [
-    "assets/SVGs/offers.svg",
-    "assets/SVGs/offers.svg",
-    "assets/SVGs/offers.svg",
-  ];
 
   @override
   void dispose() {
@@ -73,7 +48,7 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
               SingleChildScrollView(
                 child: Container(
                   margin: EdgeInsets.all(10),
-                  child: _GetCategories == null
+                  child: widget.GetCategories == null
                       ? Center(
                           child: Container(
                             child: Column(
@@ -91,41 +66,47 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
                         )
                       : Column(
                           children: [
-                            Container(
-                              // margin: EdgeInsets.symmetric(horizontal: 20),
-                              child: StaggeredGrid.count(
-                                crossAxisCount:
-                                    SizerUtil.deviceType == DeviceType.mobile
-                                        ? 3
-                                        : 4,
-                                mainAxisSpacing: 6,
-                                crossAxisSpacing: 8,
-                                children: [
-                                  ..._GetCategories.map(
-                                    (e) => StaggeredGridTile.extent(
-                                      crossAxisCellCount: 1,
-                                      mainAxisExtent: hi,
-                                      child: ElevatedButton(
-                                        style: cardServiece,
-                                        onPressed: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //       builder: (context) =>
-                                          //           CategoriesFilter()),
-                                          // );
-                                          print(e['CategoryID'].toString());
-                                        },
-                                        child: widgetsUni.cardcontentService(
-                                          icon[e['CategoryID']],
+                            ...widget.GetCategories.map(
+                              (e) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    e["selected"] = e["selected"] == null
+                                        ? true
+                                        : !e["selected"];
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5),
+                                    decoration:
+                                        containerdecoration(BackGWhiteColor),
+                                    child: Row(
+                                      children: [
+                                        Text(
                                           e['CategoryName'].toString(),
+                                          style: titleTx(baseColor),
                                         ),
-                                      ),
+                                        Spacer(),
+                                        Checkbox(
+                                          checkColor: Colors.white,
+                                          value: e["selected"] == true
+                                              ? true
+                                              : false,
+                                          onChanged: (bool? value) {
+                                            setState(() {
+                                              e["selected"] = value;
+                                            });
+                                          },
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            )
+                            ),
+                            sizeBox(),
                           ],
                         ),
                 ),
