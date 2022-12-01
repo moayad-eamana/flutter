@@ -199,7 +199,34 @@ class AppBarW {
                             size: 40,
                           ),
                           Text(
-                            "",
+                            "تصنيفات",
+                            style: TextStyle(color: baseColorText),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              if (title == "تصنيفات العروض" && function != null)
+                Positioned(
+                  left: 25,
+                  top: 25,
+                  child: GestureDetector(
+                    onTap: () {
+                      function();
+                    },
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.check_box_outline_blank,
+                            color: baseColor,
+                            size: 30,
+                          ),
+                          Text(
+                            "تصفية",
                             style: TextStyle(color: baseColorText),
                           ),
                         ],

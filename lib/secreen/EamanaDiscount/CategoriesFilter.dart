@@ -30,12 +30,20 @@ class _CategoriesFilterState extends State<CategoriesFilter> {
     super.dispose();
   }
 
+  unCheckallboxs() {
+    for (var x = 0; x < widget.GetCategories.length; x++) {
+      widget.GetCategories[x]["selected"] = false;
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("تصنيفات العروض", context, null),
+          appBar:
+              AppBarW.appBarW("تصنيفات العروض", context, null, unCheckallboxs),
           body: Stack(
             children: [
               SingleChildScrollView(
