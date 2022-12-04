@@ -98,12 +98,6 @@ Future<void> main() async {
   //     await Future.delayed(const Duration(seconds: 0)));
   print("dddd");
   sharedPref = await SharedPreferences.getInstance();
-  if (sharedPref.getBool("splashloaded") == null) {
-    await Future.delayed(Duration(seconds: 4));
-    sharedPref.setBool("splashloaded", true);
-  } else {
-    await Future.delayed(Duration(seconds: 2));
-  }
 
   FlutterNativeSplash.remove();
   packageInfo = await PackageInfo.fromPlatform();

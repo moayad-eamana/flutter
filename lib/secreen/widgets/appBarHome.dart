@@ -43,14 +43,14 @@ class AppBarHome {
                   ),
                 ),
               ),
-              if (sharedPref.getString("dumyuser") != "10284928492")
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Image.asset(
-                    "assets/image/GiddamLogo.png",
-                    fit: BoxFit.fill,
-                  ),
-                ),
+              // if (sharedPref.getString("dumyuser") != "10284928492")
+              //   Align(
+              //     alignment: Alignment.centerRight,
+              //     child: Image.asset(
+              //       "assets/image/GiddamLogo.png",
+              //       fit: BoxFit.fill,
+              //     ),
+              //   ),
               // Container(
               //   margin: EdgeInsets.only(right: 25),
               //   child: Column(

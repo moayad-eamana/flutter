@@ -49,15 +49,6 @@ class AppBarW {
                   ),
                 ),
               ),
-              if (showBack != null)
-                if (sharedPref.getString("dumyuser") != "10284928492")
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Image.asset(
-                      "assets/image/GiddamLogo.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
               if (showBack == null)
                 Container(
                   margin: EdgeInsets.only(right: 25),
@@ -221,12 +212,12 @@ class AppBarW {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            Icons.check_box_outline_blank,
+                            Icons.clear_all,
                             color: baseColor,
                             size: 30,
                           ),
                           Text(
-                            "تصفية",
+                            "مسح التصفية",
                             style: TextStyle(color: baseColorText),
                           ),
                         ],

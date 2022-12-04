@@ -63,14 +63,14 @@ void configLoading() {
     ..maskColor = baseColor.withOpacity(0.5)
     ..userInteractions = true
     ..indicatorWidget = Container(
-      height: 150,
-      width: 120,
+      height: 40,
+      width: 90,
       child: Column(
         children: [
-          SvgPicture.asset(
-            "assets/image/Giddam-Supporting.svg",
-            width: 100,
-          ),
+          // SvgPicture.asset(
+          //   "assets/image/Giddam-Supporting.svg",
+          //   width: 100,
+          // ),
           Image(
               width: 80,
               //  height: 80,

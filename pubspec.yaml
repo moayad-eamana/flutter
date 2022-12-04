@@ -141,7 +141,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/SVGs/background.svg 
-  - assets/SVGs/splash.svg
   - assets/SVGs/brand-logo.svg
   - assets/SVGs/panel-bg.svg
   - assets/SVGs/header.png 
@@ -153,8 +152,6 @@ flutter:
   - assets/SVGs/appstore.png
   - assets/SVGs/Union_1.svg
   - assets/SVGs/Asset_1.svg
-  - assets/image/gidam.png
-  - assets/image/GiddamLogo.png
   - assets/image/
   - assets/SVGs/
 

@@ -17,9 +17,9 @@ class widgetsUni {
       child: Opacity(
         opacity: 1,
         child: Image.asset(
-          "assets/image/Union_1.png",
+          imageBG,
           fit: BoxFit.fill,
-          height: 100.h,
+          //   height: 100.h,
         ),
       ),
     );

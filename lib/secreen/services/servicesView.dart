@@ -332,26 +332,26 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/3ohad.svg', "العهد"))),
-          // StaggeredGridTileW(
-          //   1,
-          //   hi,
-          //   ElevatedButton(
-          //     style: cardServiece,
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           // ignore: prefer_const_constructors
-          //           builder: (BuildContext context) {
-          //             return EmployeeEvaluationMaster();
-          //           },
-          //         ),
-          //       );
-          //     },
-          //     child: widgetsUni.cardcontentService(
-          //         'assets/SVGs/ejaza.svg', "تقيماتي"),
-          //   ),
-          // ),
+          StaggeredGridTileW(
+            1,
+            hi,
+            ElevatedButton(
+              style: cardServiece,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    // ignore: prefer_const_constructors
+                    builder: (BuildContext context) {
+                      return EmployeeEvaluationMaster();
+                    },
+                  ),
+                );
+              },
+              child: widgetsUni.cardcontentService(
+                  'assets/SVGs/rate.svg', "تقيماتي"),
+            ),
+          ),
         ],
       ),
     );

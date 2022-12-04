@@ -5,6 +5,9 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'EmployeeEvaluationDetailsByYear.dart';
 
 class EmployeeEvaluationMaster extends StatefulWidget {
   @override
@@ -21,9 +24,15 @@ class _EmployeeEvaluationMasterState extends State<EmployeeEvaluationMaster> {
   }
 
   getData() async {
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
     var response = await getAction("HR/GetEmployeeEvaluationMaster/" +
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
     EvaluationsMasterList = jsonDecode(response.body)["EvaluationsMaster"];
+    EvaluationsMasterList = EvaluationsMasterList.reversed.toList();
+    EasyLoading.dismiss();
     setState(() {});
   }
 
@@ -49,21 +58,78 @@ class _EmployeeEvaluationMasterState extends State<EmployeeEvaluationMaster> {
                     itemCount: EvaluationsMasterList.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                EvaluationsMasterList[index]["EvaluationYear"]
-                                    .toString(),
-                                style: subtitleTx(baseColor),
-                              ),
-                            ],
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EmployeeEvaluationDetailsByYear(
+                                        EvaluationsMasterList[index]
+                                                ["EvaluationYear"]
+                                            .toString())),
+                          );
+                        },
+                        child: Card(
+                          child: ListTile(
+                            trailing: Icon(Icons.arrow_forward_ios_rounded),
+                            leading: Text(
+                              EvaluationsMasterList[index]["EvaluationYear"]
+                                  .toString(),
+                              style: subtitleTx(secondryColor),
+                            ),
+                            title: Text(
+                              EvaluationsMasterList[index]
+                                      ["AgreementStatusText"] +
+                                  " - " +
+                                  EvaluationsMasterList[index]
+                                      ["FinalEvauationName"],
+                              style: descTx1(baseColorText),
+                            ),
+                            subtitle: Text(
+                              "المسؤول : " +
+                                  EvaluationsMasterList[index]
+                                      ["DirectManagerEmployeeName"],
+                              style: descTx2(secondryColorText),
+                            ),
                           ),
                         ),
                       );
+                      // return Card(
+                      //   elevation: 4,
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(8.0),
+                      //     child: Column(
+                      //       children: [
+                      // Text(
+                      //   EvaluationsMasterList[index]["EvaluationYear"]
+                      //       .toString(),
+                      //   style: subtitleTx(secondryColor),
+                      // ),
+                      //         Text(
+                      //           "المسؤول المباشر",
+                      //           style: subtitleTx(baseColor),
+                      //         ),
+                      //         Text(
+                      //           EvaluationsMasterList[index]
+                      //                   ["DirectManagerEmployeeName"]
+                      //               .toString(),
+                      //           style: subtitleTx(baseColorText),
+                      //         ),
+                      //         Row(
+                      //           children: [
+                      //             Text(
+                      //               "حالة الميثاق : ",
+                      //             ),
+                      //             Text(EvaluationsMasterList[index]
+                      //                     ["AgreementStatusText"]
+                      //                 .toString())
+                      //           ],
+                      //         )
+                      //       ],
+                      //     ),
+                      //   ),
+                      // );
                     }),
               ))
             ],
