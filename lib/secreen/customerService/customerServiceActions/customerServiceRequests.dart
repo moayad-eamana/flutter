@@ -333,7 +333,10 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                 onChanged: (v) async {
                   try {
                     selectedItem = v["name"];
-                    deptsID = v["ID"];
+
+                    widget.url == "LeaderAppointment_dashboard"
+                        ? leadid = v["ID"]
+                        : deptsID = v["ID"];
                     setState(() {});
                   } catch (e) {
                     print(e);
