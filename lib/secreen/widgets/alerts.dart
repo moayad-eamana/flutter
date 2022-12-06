@@ -136,7 +136,7 @@ class Alerts {
           ),
           Text(
             desc,
-            style: descTx1(baseColorText),
+            style: subtitleTx(baseColorText),
             textAlign: TextAlign.center,
           ),
         ],

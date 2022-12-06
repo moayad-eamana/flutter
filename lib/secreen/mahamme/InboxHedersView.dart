@@ -5,10 +5,12 @@ import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/mahamme/CooperativeTrainingRequests.dart';
 import 'package:eamanaapp/secreen/mahamme/GetCardRequest.dart';
+import 'package:eamanaapp/secreen/mahamme/GetPromotionRequest.dart';
 import 'package:eamanaapp/secreen/mahamme/Mobashara.dart';
 import 'package:eamanaapp/secreen/mahamme/PurchaseRequests.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -203,6 +205,17 @@ class _InboxHedersViewState extends State<InboxHedersView> {
                   create: (_) => PurchaseRequestsProvider(),
                   child: CooperativeTrainingRequests()),
             ),
+          );
+        },
+      );
+    } else if (_provider.TypeID == 37) {
+      return caerdContent(
+        "إقرار ترقية",
+        "assets/SVGs/promotion.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GetPromotionRequest()),
           );
         },
       );

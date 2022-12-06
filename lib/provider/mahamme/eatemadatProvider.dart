@@ -25,7 +25,7 @@ class EatemadatProvider extends ChangeNotifier {
             .toList();
       }
     } catch (Ex) {}
-
+    _inboxHeader.removeWhere((element) => element.TypeID == 121);
     isLoding = false;
 
     notifyListeners();

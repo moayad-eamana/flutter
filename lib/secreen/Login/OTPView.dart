@@ -68,28 +68,22 @@ class _OTPViewState extends State<OTPView> {
             children: [
               //   background(),
               widgetsUni.bacgroundimage(),
-              Container(
-                margin: EdgeInsets.only(top: 80),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    logo(),
-                    Image.asset(
-                      "assets/image/Giddam-Supporting.png",
-                      // fit: BoxFit.co,
-                      width: 150,
-                      height: 120,
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.only(top: 80),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //     children: [
+              //       logo(),
+              //     ],
+              //   ),
+              // ),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: Center(
                   child: SingleChildScrollView(
                       child: Column(
                     children: [
-                      //  logo(),
+                      logo(),
                       const SizedBox(
                         height: 20,
                       ),

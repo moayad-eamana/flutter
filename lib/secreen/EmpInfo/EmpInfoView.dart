@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -110,7 +111,8 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                             crossAxisCount:
                                                 (width >= 768.0 ? 2 : 1),
                                             mainAxisSpacing: 10,
-                                            mainAxisExtent: 250),
+                                            mainAxisExtent:
+                                                onlyme() == true ? 320 : 250),
                                     shrinkWrap: true,
                                     itemCount: _provider.length,
                                     itemBuilder: (BuildContext context, index) {
@@ -213,20 +215,18 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                                 CrossAxisAlignment
                                                                     .start,
                                                             children: [
-                                                              // Row(
-                                                              //   children: [
-                                                              //     SelectableText(
-                                                              //       "رقم الجوال : " +
-                                                              //           (_provider[index].GenderID ==
-                                                              //                   2
-                                                              //               ? "0"
-                                                              //               : _provider[index].MobileNumber),
-                                                              //       style: TextStyle(
-                                                              //           color:
-                                                              //               baseColorText),
-                                                              //     ),
-                                                              //   ],
-                                                              // ),
+                                                              onlyme() == true
+                                                                  ? Row(
+                                                                      children: [
+                                                                        SelectableText(
+                                                                          "رقم الجوال : " +
+                                                                              (_provider[index].GenderID == 2 ? "0" : _provider[index].MobileNumber),
+                                                                          style:
+                                                                              TextStyle(color: baseColorText),
+                                                                        ),
+                                                                      ],
+                                                                    )
+                                                                  : Container(),
                                                               Row(children: [
                                                                 TexrW("البريد الالكتروني : " +
                                                                     _provider[
@@ -299,68 +299,72 @@ class _EmpInfoViewState extends State<EmpInfoView> {
                                                         )
                                                       ],
                                                     ),
-                                                    // Divider(
-                                                    //     indent: 20,
-                                                    //     endIndent: 20,
-                                                    //     thickness: 0.5),
-                                                    // Container(
-                                                    //   margin: EdgeInsets.only(
-                                                    //       left: 20),
-                                                    //   child: Row(
-                                                    //     mainAxisAlignment:
-                                                    //         MainAxisAlignment
-                                                    //             .end,
-                                                    //     children: [
-                                                    //       ElevatedButton.icon(
-                                                    //         label:
-                                                    //             Text('واتساب'),
-                                                    //         icon: FaIcon(
-                                                    //           FontAwesomeIcons
-                                                    //               .whatsapp,
-                                                    //           color: baseColor,
-                                                    //           size: 24.0,
-                                                    //         ),
-                                                    //         style: mainbtn,
-                                                    //         onPressed: _provider[
-                                                    //                         index]
-                                                    //                     .GenderID ==
-                                                    //                 2
-                                                    //             ? null
-                                                    //             : () {
-                                                    //                 if (_provider[index]
-                                                    //                         .GenderID ==
-                                                    //                     1) {
-                                                    //                   launch(
-                                                    //                       "https://wa.me/+966${_provider[index].MobileNumber}/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
-                                                    //                 }
-                                                    //               },
-                                                    //       ),
-                                                    //       SizedBox(
-                                                    //         width: 10,
-                                                    //       ),
-                                                    //       ElevatedButton.icon(
-                                                    //         label:
-                                                    //             Text('إتصال'),
-                                                    //         icon: Icon(
-                                                    //           Icons.call,
-                                                    //           color: baseColor,
-                                                    //           size: 24.0,
-                                                    //         ),
-                                                    //         style: mainbtn,
-                                                    //         onPressed: _provider[
-                                                    //                         index]
-                                                    //                     .GenderID ==
-                                                    //                 2
-                                                    //             ? null
-                                                    //             : () {
-                                                    //                 launch("tel://" +
-                                                    //                     _provider[index]
-                                                    //                         .MobileNumber);
-                                                    //               },
-                                                    //       ),
-                                                    //     ],
-                                                    //   ),
-                                                    // )
+                                                    onlyme() == true
+                                                        ? Divider(
+                                                            indent: 20,
+                                                            endIndent: 20,
+                                                            thickness: 0.5)
+                                                        : Container(),
+                                                    onlyme() == true
+                                                        ? Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 20),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                ElevatedButton
+                                                                    .icon(
+                                                                  label: Text(
+                                                                      'واتساب'),
+                                                                  icon: FaIcon(
+                                                                    FontAwesomeIcons
+                                                                        .whatsapp,
+                                                                    color:
+                                                                        baseColor,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                  style:
+                                                                      mainbtn,
+                                                                  onPressed:
+                                                                      _provider[index].GenderID ==
+                                                                              2
+                                                                          ? null
+                                                                          : () {
+                                                                              if (_provider[index].GenderID == 1) {
+                                                                                launch("https://wa.me/+966${_provider[index].MobileNumber}/?text=${Uri.parse("السلام عليكم ورحمة الله وبركاته")}");
+                                                                              }
+                                                                            },
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 10,
+                                                                ),
+                                                                ElevatedButton
+                                                                    .icon(
+                                                                  label: Text(
+                                                                      'إتصال'),
+                                                                  icon: Icon(
+                                                                    Icons.call,
+                                                                    color:
+                                                                        baseColor,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                  style:
+                                                                      mainbtn,
+                                                                  onPressed:
+                                                                      _provider[index].GenderID ==
+                                                                              2
+                                                                          ? null
+                                                                          : () {
+                                                                              launch("tel://" + _provider[index].MobileNumber);
+                                                                            },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        : Container()
                                                   ],
                                                 ),
                                               ),
@@ -378,6 +382,17 @@ class _EmpInfoViewState extends State<EmpInfoView> {
             ],
           )),
     );
+  }
+
+  bool onlyme() {
+    if (sharedPref.getDouble("EmployeeNumber") == 4261003 ||
+        sharedPref.getDouble("EmployeeNumber") == 4438104 ||
+        sharedPref.getDouble("EmployeeNumber") == 4281309 ||
+        sharedPref.getDouble("EmployeeNumber") == 4341012) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<void> getEmpInfoViewdata() async {

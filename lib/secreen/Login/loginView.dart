@@ -127,21 +127,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     //  background(),
                     widgetsUni.bacgroundimage(),
-                    Container(
-                      margin: EdgeInsets.only(top: 80),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          logo(),
-                          Image.asset(
-                            "assets/image/Giddam-Supporting.png",
-                            // fit: BoxFit.co,
-                            width: 150,
-                            height: 120,
-                          ),
-                        ],
-                      ),
-                    ),
+
                     // Positioned(
                     //   right: 0,
                     //   top: 50,
@@ -206,6 +192,7 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             //    const Text("تسجيل الدخول"),
                             //   const Text("فضلا أدخل معلومات التسجيل"),
+                            logo(),
                             const SizedBox(
                               height: 20,
                             ),
