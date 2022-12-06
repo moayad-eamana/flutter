@@ -54,99 +54,109 @@ class _EmployeeEvaluationDetailsByYearState
               child: Stack(
                 children: [
                   widgetsUni.bacgroundimage(),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: EvaluationDetailsByYear.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.all(10),
-                          child: Card(
-                            elevation: 5,
-                            child: ConstrainedBox(
-                              constraints: new BoxConstraints(
-                                minHeight: 210.0,
-                              ),
-                              child: new DecoratedBox(
-                                decoration:
-                                    new BoxDecoration(color: Colors.white),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Table(
-                                          border: TableBorder.all(),
-                                          columnWidths: {
-                                            0: FlexColumnWidth(1.5),
-                                            1: FlexColumnWidth(4),
-                                          },
-                                          children: <TableRow>[
-                                            TableRowW(
-                                                "الهدف",
-                                                EvaluationDetailsByYear[index]
-                                                    ["TargetDecription"]),
-                                            TableRowW(
-                                                "معيار المقياس",
-                                                EvaluationDetailsByYear[index]
-                                                    ["TargetTool"]),
-                                            TableRowW(
-                                                "الوزن النسبي",
-                                                EvaluationDetailsByYear[index]
-                                                        ["TargetWieght"]
-                                                    .toString()),
-                                            TableRowW(
-                                                "الناتج المستهدف",
-                                                EvaluationDetailsByYear[index]
-                                                        ["Target"]
-                                                    .toString()),
-                                          ]),
-                                      // CardW(
-                                      //     "الهدف",
-                                      //     EvaluationDetailsByYear[index]
-                                      //         ["TargetDecription"]),
-                                      // widgetsUni.divider(),
-                                      // SizedBox(
-                                      //   height: 10,
-                                      // ),
-                                      // CardW(
-                                      //     "معيار المقياس",
-                                      //     EvaluationDetailsByYear[index]
-                                      //         ["TargetTool"]),
-                                      // widgetsUni.divider(),
-                                      // Row(
-                                      //   mainAxisAlignment:
-                                      //       MainAxisAlignment.spaceAround,
-                                      //   children: [
-                                      //     Column(
-                                      //       children: [
-                                      //         CardW(
-                                      //             "الوزن النسبي",
-                                      //             EvaluationDetailsByYear[index]
-                                      //                     ["TargetWieght"]
-                                      //                 .toString()),
-                                      //       ],
-                                      //     ),
-                                      //     Column(
-                                      //       children: [
-                                      //         CardW(
-                                      //             "الناتج المستهدف",
-                                      //             EvaluationDetailsByYear[index]
-                                      //                     ["Target"]
-                                      //                 .toString()),
-                                      //       ],
-                                      //     )
-                                      //   ],
-                                      // )
-                                    ],
+                  EvaluationDetailsByYear.length != 0
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: EvaluationDetailsByYear.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.all(10),
+                              child: Card(
+                                elevation: 5,
+                                child: ConstrainedBox(
+                                  constraints: new BoxConstraints(
+                                    minHeight: 210.0,
+                                  ),
+                                  child: new DecoratedBox(
+                                    decoration:
+                                        new BoxDecoration(color: Colors.white),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Table(
+                                              border: TableBorder.all(),
+                                              columnWidths: {
+                                                0: FlexColumnWidth(1.5),
+                                                1: FlexColumnWidth(4),
+                                              },
+                                              children: <TableRow>[
+                                                TableRowW(
+                                                    "الهدف",
+                                                    EvaluationDetailsByYear[
+                                                            index]
+                                                        ["TargetDecription"]),
+                                                TableRowW(
+                                                    "معيار المقياس",
+                                                    EvaluationDetailsByYear[
+                                                        index]["TargetTool"]),
+                                                TableRowW(
+                                                    "الوزن النسبي",
+                                                    EvaluationDetailsByYear[
+                                                                index]
+                                                            ["TargetWieght"]
+                                                        .toString()),
+                                                TableRowW(
+                                                    "الناتج المستهدف",
+                                                    EvaluationDetailsByYear[
+                                                            index]["Target"]
+                                                        .toString()),
+                                              ]),
+                                          // CardW(
+                                          //     "الهدف",
+                                          //     EvaluationDetailsByYear[index]
+                                          //         ["TargetDecription"]),
+                                          // widgetsUni.divider(),
+                                          // SizedBox(
+                                          //   height: 10,
+                                          // ),
+                                          // CardW(
+                                          //     "معيار المقياس",
+                                          //     EvaluationDetailsByYear[index]
+                                          //         ["TargetTool"]),
+                                          // widgetsUni.divider(),
+                                          // Row(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.spaceAround,
+                                          //   children: [
+                                          //     Column(
+                                          //       children: [
+                                          //         CardW(
+                                          //             "الوزن النسبي",
+                                          //             EvaluationDetailsByYear[index]
+                                          //                     ["TargetWieght"]
+                                          //                 .toString()),
+                                          //       ],
+                                          //     ),
+                                          //     Column(
+                                          //       children: [
+                                          //         CardW(
+                                          //             "الناتج المستهدف",
+                                          //             EvaluationDetailsByYear[index]
+                                          //                     ["Target"]
+                                          //                 .toString()),
+                                          //       ],
+                                          //     )
+                                          //   ],
+                                          // )
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            );
+                          })
+                      : SizedBox(
+                          height: 90.h,
+                          child: Center(
+                            child: Text("لا يوجد بيانات",
+                                style: subtitleTx(baseColorText)),
                           ),
-                        );
-                      })
+                        ),
                 ],
               ),
             ),

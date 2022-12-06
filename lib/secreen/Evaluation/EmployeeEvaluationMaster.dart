@@ -41,7 +41,7 @@ class _EmployeeEvaluationMasterState extends State<EmployeeEvaluationMaster> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("تقيماتي", context, null),
+          appBar: AppBarW.appBarW("تقييماتي", context, null),
           body: Stack(
             children: [
               SingleChildScrollView(
@@ -71,6 +71,7 @@ class _EmployeeEvaluationMasterState extends State<EmployeeEvaluationMaster> {
                           );
                         },
                         child: Card(
+                          color: BackGColor,
                           child: ListTile(
                             trailing: Icon(Icons.arrow_forward_ios_rounded),
                             leading: Text(
