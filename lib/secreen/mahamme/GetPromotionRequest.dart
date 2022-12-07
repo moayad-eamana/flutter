@@ -84,6 +84,7 @@ class _GetPromotionRequestState extends State<GetPromotionRequest> {
                                             margin: EdgeInsets.symmetric(
                                                 horizontal: 10),
                                             child: Card(
+                                              color: BackGColor,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
