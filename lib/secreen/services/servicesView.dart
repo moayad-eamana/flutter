@@ -349,7 +349,7 @@ class _ServicesViewState extends State<ServicesView> {
                 );
               },
               child: widgetsUni.cardcontentService(
-                  'assets/SVGs/rate.svg', "تقيماتي"),
+                  'assets/SVGs/rate.svg', "تقييماتي"),
             ),
           ),
         ],
