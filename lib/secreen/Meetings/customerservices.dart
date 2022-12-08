@@ -2,6 +2,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class customerservicesmettings extends StatefulWidget {
   const customerservicesmettings({Key? key}) : super(key: key);
@@ -12,6 +13,13 @@ class customerservicesmettings extends StatefulWidget {
 }
 
 class _customerservicesmettingsState extends State<customerservicesmettings> {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(

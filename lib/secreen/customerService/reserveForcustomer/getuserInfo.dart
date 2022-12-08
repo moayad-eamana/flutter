@@ -58,6 +58,13 @@ class _getusrtInfoState extends State<getusrtInfo> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {

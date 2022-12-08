@@ -28,10 +28,17 @@ class _EmployeeEvaluationMasterState extends State<EmployeeEvaluationMaster> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var response = await getAction("HR/GetEmployeeEvaluationMaster/" +
-        sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
-    EvaluationsMasterList = jsonDecode(response.body)["EvaluationsMaster"];
-    EvaluationsMasterList = EvaluationsMasterList.reversed.toList();
+    var response;
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      response = await getAction("HR/GetEmployeeEvaluationMaster/" +
+          sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
+      EvaluationsMasterList = jsonDecode(response.body)["EvaluationsMaster"];
+      EvaluationsMasterList = EvaluationsMasterList.reversed.toList();
+    } else {
+      await Future.delayed(Duration(seconds: 1));
+      EvaluationsMasterList = [];
+    }
+
     EasyLoading.dismiss();
     setState(() {});
   }

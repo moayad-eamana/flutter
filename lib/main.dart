@@ -11,6 +11,7 @@ import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:eamanaapp/secreen/Meetings/AddMeeting.dart';
 import 'package:eamanaapp/secreen/Meetings/EditMeetingView.dart';
 import 'package:eamanaapp/secreen/Meetings/contactsView.dart';
+import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
@@ -45,7 +46,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -99,7 +99,6 @@ Future<void> main() async {
   print("dddd");
   sharedPref = await SharedPreferences.getInstance();
 
-  FlutterNativeSplash.remove();
   packageInfo = await PackageInfo.fromPlatform();
   await firebase_Notification();
 
@@ -370,6 +369,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/ViolationHome': (context) => ViolationHome(),
           '/customerServiceRequests': (context) => customerServiceRrequests(""),
           '/reserveForcustomer': (context) => reserveForcustomer(),
+          '/meettingsType': (context) => meettingsType(),
         },
       );
     });

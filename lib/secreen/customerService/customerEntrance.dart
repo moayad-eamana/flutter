@@ -21,6 +21,13 @@ class _customerEnteranceState extends State<customerEnterance> {
   List requestInfo = [];
   String typeId = "0";
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Directionality(
         textDirection: TextDirection.rtl,

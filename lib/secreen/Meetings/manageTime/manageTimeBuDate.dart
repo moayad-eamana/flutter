@@ -1,6 +1,7 @@
 import 'package:eamanaapp/provider/meeting/manageTime/manegeMeetingTimeProvider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -25,6 +26,13 @@ class _manageTimeBuDateState extends State<manageTimeBuDate> {
     startDate.text = DateTime.now().toString().split(" ")[0];
     await widget._provider.getData(startDate.text);
     setState(() {});
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
   }
 
   @override

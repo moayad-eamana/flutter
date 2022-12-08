@@ -48,6 +48,13 @@ class _statisticsState extends State<statistics> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
+    @override
+    void dispose() {
+      // TODO: implement dispose
+      EasyLoading.dismiss();
+      super.dispose();
+    }
+
     var respose = await http.post(
         Uri.parse(CRMURL + "Agenda_statistics/get_statistics.php"),
         body: jsonEncode({

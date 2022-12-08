@@ -33,11 +33,17 @@ class _EmployeeEvaluationDetailsByYearState
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respons = await getAction("HR/GetEmployeeEvaluationDetailsByYear/" +
-        sharedPref.getDouble("EmployeeNumber").toString().split(".")[0] +
-        "/" +
-        widget.year);
-    EvaluationDetailsByYear = jsonDecode(respons.body)["EvaluationsDetails"];
+    var respons;
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      respons = await getAction("HR/GetEmployeeEvaluationDetailsByYear/" +
+          sharedPref.getDouble("EmployeeNumber").toString().split(".")[0] +
+          "/" +
+          widget.year);
+      EvaluationDetailsByYear = jsonDecode(respons.body)["EvaluationsDetails"];
+    } else {
+      EvaluationDetailsByYear = [];
+    }
+
     EasyLoading.dismiss();
     setState(() {});
   }

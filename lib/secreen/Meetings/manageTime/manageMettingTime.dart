@@ -4,6 +4,7 @@ import 'package:eamanaapp/secreen/Meetings/manageTime/manageTimeBuDate.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'manageroutinTime.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
@@ -27,6 +28,13 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
   getInfoRoutin() async {
     await manageroutinTime.getData();
     setState(() {});
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
   }
 
   @override

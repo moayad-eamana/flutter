@@ -197,10 +197,16 @@ class LoginProvider extends ChangeNotifier {
                 "token": sharedPref.getString("AccessToken"),
                 "username": empinfo.Email
               }));
+
           hasePerm = jsonDecode(respose.body)["message"];
           sharedPref.setBool(
               "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-          // sharedPref.setString("deptid", jsonDecode(respose.body)["deptid"]);
+          sharedPref.setString(
+              "deptid", jsonDecode(respose.body)["deptid"] ?? "");
+          sharedPref.setString(
+              "leadid", jsonDecode(respose.body)["leadid"] ?? "");
+          sharedPref.setBool("permissionforAppManege3",
+              jsonDecode(respose.body)["permissionforAppManege"]);
         } catch (e) {}
       }
 
