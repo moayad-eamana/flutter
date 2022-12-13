@@ -14,6 +14,7 @@ import 'package:eamanaapp/secreen/Meetings/contactsView.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
+import 'package:eamanaapp/secreen/RequestsHr/auhad2.dart';
 import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
 import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/Mandates_history.dart';
@@ -351,6 +352,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/Settings': (context) => Settings(null),
           '/AuthenticateBio': (context) => AuthenticateBio(),
           '/auhad': (context) => Auhad(),
+          '/auhad2': (context) => Auhad2(),
+
           '/auth_secreen': (context) => AuthenticateBioSecreen(),
           '/SalaryHistory': (context) => SalaryHistory(),
           '/comments': (context) => Comments(),

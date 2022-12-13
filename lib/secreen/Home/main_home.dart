@@ -29,7 +29,7 @@ class _MainHomeState extends State<MainHome> {
   var _currentIndexBanner = 0;
   dynamic id;
 
-  List<int> selectsilder = [0, 1, 2];
+  List<int> selectsilder = [0, 1];
 
   List<dynamic> imageBanner = [
     // "assets/image/Ramdan_kreem.jpg",
