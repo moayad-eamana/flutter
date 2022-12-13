@@ -32,8 +32,11 @@ class _statisticsState extends State<statistics> {
   String? transferredReqs;
   String? transferredText;
   List depts = [];
-  String? deptID = "0";
+  String? deptID = sharedPref.getString("deptid") == "1"
+      ? "0"
+      : sharedPref.getString("deptid");
   String? selectedItemdepts;
+  bool canchange = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -75,6 +78,7 @@ class _statisticsState extends State<statistics> {
     openActiveReqs = tem["openActiveReqs"];
     transferredReqs = tem["transferredReqs"];
     transferredText = tem["transferredText"];
+    canchange = tem["canchange"];
     setState(() {});
     EasyLoading.dismiss();
   }
@@ -258,10 +262,11 @@ class _statisticsState extends State<statistics> {
                           showDatPic(false);
                         },
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      dropdownDepts()
+                      if (canchange == true)
+                        SizedBox(
+                          height: 10,
+                        ),
+                      if (canchange == true) dropdownDepts()
                     ],
                   ),
                 ),

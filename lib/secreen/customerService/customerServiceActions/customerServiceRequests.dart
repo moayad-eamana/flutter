@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -29,6 +30,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
   String? selectedItem;
   String? selectedItemstatus;
   String statusesID = "";
+  bool canchange = false;
 
   List statuslist = [];
 
@@ -98,6 +100,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
 
     try {
       deptList = jsonDecode(respose2.body)["depts"];
+      canchange = jsonDecode(respose2.body)["canchange"];
     } catch (e) {
       deptList = [];
     }
@@ -129,12 +132,22 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
                         style: TextStyle(
                           color: baseColorText,
                         ),
-                        decoration: formlabel1("رقم الطلب"),
+                        decoration: formlabel1("رقم الطلب", Icons.qr_code, () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => scanQrcode("تسجيل حضور")),
+                          ).then((value) {
+                            reqID.text = value["id"].toString();
+                            setState(() {});
+                          });
+                        }),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      DropDown(),
+                      if (canchange == true)
+                        SizedBox(
+                          height: 15,
+                        ),
+                      if (canchange == true) DropDown(),
                       SizedBox(
                         height: 15,
                       ),

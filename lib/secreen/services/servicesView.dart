@@ -59,6 +59,8 @@ class _ServicesViewState extends State<ServicesView> {
         hasePerm = jsonDecode(respose.body)["message"];
         sharedPref.setBool(
             "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+        sharedPref.setBool("permissionforAppReq",
+            jsonDecode(respose.body)["permissionforAppReq"]);
         sharedPref.setString(
             "deptid", jsonDecode(respose.body)["deptid"] ?? "");
         sharedPref.setString(
@@ -66,7 +68,9 @@ class _ServicesViewState extends State<ServicesView> {
         sharedPref.setBool("permissionforAppManege3",
             jsonDecode(respose.body)["permissionforAppManege"]);
         setState(() {});
-      } catch (e) {}
+      } catch (e) {
+        print(e);
+      }
     } else {
       return;
     }
@@ -663,16 +667,17 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "عرض الطلبات"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/reserveForcustomer");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/set_appoinment.svg', "حجز موعد"))),
+          if (sharedPref.getString("deptid") == "1")
+            StaggeredGridTile.extent(
+                crossAxisCellCount: 1,
+                mainAxisExtent: hi,
+                child: ElevatedButton(
+                    style: cardServiece,
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/reserveForcustomer");
+                    },
+                    child: widgetsUni.cardcontentService(
+                        'assets/SVGs/set_appoinment.svg', "حجز موعد"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -686,20 +691,21 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/assessment.svg', "الإحصائيات"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => customerEnterance()),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/login.svg', "تسجيل حضور"))),
+          if (sharedPref.getString("deptid") == "1")
+            StaggeredGridTile.extent(
+                crossAxisCellCount: 1,
+                mainAxisExtent: hi,
+                child: ElevatedButton(
+                    style: cardServiece,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => customerEnterance()),
+                      );
+                    },
+                    child: widgetsUni.cardcontentService(
+                        'assets/SVGs/login.svg', "تسجيل حضور"))),
         ],
       ),
     );

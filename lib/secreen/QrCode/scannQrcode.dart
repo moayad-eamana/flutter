@@ -253,7 +253,7 @@ class _scanQrcodeState extends State<scanQrcode> {
           String? id;
           String? typeId;
           final uri = Uri.parse(scanData.code.toString());
-          id = uri.queryParameters["id"];
+          id = uri.queryParameters["ID"];
           typeId = uri.queryParameters["typeid"];
           i++;
           setState(() {});

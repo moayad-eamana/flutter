@@ -201,6 +201,8 @@ class LoginProvider extends ChangeNotifier {
           hasePerm = jsonDecode(respose.body)["message"];
           sharedPref.setBool(
               "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+          sharedPref.setBool("permissionforAppReq",
+              jsonDecode(respose.body)["permissionforAppReq"]);
           sharedPref.setString(
               "deptid", jsonDecode(respose.body)["deptid"] ?? "");
           sharedPref.setString(

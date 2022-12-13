@@ -600,6 +600,14 @@ class _HomPanelState extends State<HomePanel>
                                                                     "permissionforCRM",
                                                                     false);
 
+                                                                sharedPref.setBool(
+                                                                    "permissionforAppReq",
+                                                                    false);
+
+                                                                sharedPref.setBool(
+                                                                    "permissionforAppManege3",
+                                                                    false);
+
                                                                 hasePerm = "";
                                                                 //_pref.clear();
                                                                 //setSettings();

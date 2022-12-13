@@ -6,6 +6,7 @@ import 'package:eamanaapp/secreen/customerService/customerServiceActions/custome
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -35,38 +36,37 @@ class _meettingsTypeState extends State<meettingsType> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      StaggeredGrid.count(
+                        crossAxisCount:
+                            SizerUtil.deviceType == DeviceType.mobile ? 2 : 1,
+                        mainAxisSpacing: 6,
+                        crossAxisSpacing: 10,
                         children: [
-                          Expanded(
-                            child: Container(
-                              height: 120,
-                              child: ElevatedButton(
-                                  style: cardServiece,
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ChangeNotifierProvider(
-                                          create: (context) =>
-                                              MettingsProvider(),
-                                          // ignore: prefer_const_constructors
-                                          child: MeetingView(),
-                                        ),
+                          StaggeredGridTile.extent(
+                            crossAxisCellCount: 1,
+                            mainAxisExtent: 120,
+                            child: ElevatedButton(
+                                style: cardServiece,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ChangeNotifierProvider(
+                                        create: (context) => MettingsProvider(),
+                                        // ignore: prefer_const_constructors
+                                        child: MeetingView(),
                                       ),
-                                    );
-                                  },
-                                  child: widgetsUni.cardcontentService(
-                                      'assets/SVGs/mawa3idi.svg', "مواعيدي")),
-                            ),
+                                    ),
+                                  );
+                                },
+                                child: widgetsUni.cardcontentService(
+                                    'assets/SVGs/mawa3idi.svg', "مواعيدي")),
                           ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Container(
-                              height: 120,
+                          if (sharedPref.getBool("permissionforAppReq") == true)
+                            StaggeredGridTile.extent(
+                              crossAxisCellCount: 1,
+                              mainAxisExtent: 120,
                               child: ElevatedButton(
                                   style: cardServiece,
                                   onPressed: () {
@@ -82,9 +82,60 @@ class _meettingsTypeState extends State<meettingsType> {
                                       'assets/SVGs/mawa3idi-mustafeed.svg',
                                       "مواعيد المستفيد")),
                             ),
-                          ),
                         ],
                       ),
+                      // Row(
+                      //   // mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Expanded(
+                      //       child: Container(
+                      //         height: 120,
+                      //         width: 50.w,
+                      //         child: ElevatedButton(
+                      //             style: cardServiece,
+                      //             onPressed: () {
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder: (context) =>
+                      //                       ChangeNotifierProvider(
+                      //                     create: (context) =>
+                      //                         MettingsProvider(),
+                      //                     // ignore: prefer_const_constructors
+                      //                     child: MeetingView(),
+                      //                   ),
+                      //                 ),
+                      //               );
+                      //             },
+                      //             child: widgetsUni.cardcontentService(
+                      //                 'assets/SVGs/mawa3idi.svg', "مواعيدي")),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 20,
+                      //     ),
+                      //     if (sharedPref.getBool("permissionforAppReq") == true)
+                      //       Expanded(
+                      //         child: Container(
+                      //           height: 120,
+                      //           child: ElevatedButton(
+                      //               style: cardServiece,
+                      //               onPressed: () {
+                      //                 Navigator.push(
+                      //                   context,
+                      //                   MaterialPageRoute(
+                      //                       builder: (context) =>
+                      //                           customerServiceRrequests(
+                      //                               "LeaderAppointment_dashboard")),
+                      //                 );
+                      //               },
+                      //               child: widgetsUni.cardcontentService(
+                      //                   'assets/SVGs/mawa3idi-mustafeed.svg',
+                      //                   "مواعيد المستفيد")),
+                      //         ),
+                      //       ),
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 20,
                       ),
