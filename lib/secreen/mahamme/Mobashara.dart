@@ -38,7 +38,10 @@ class _MobasharaState extends State<Mobashara> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("إعتماد مباشرة عمل", context, null),
+        appBar: AppBarW.appBarW(
+            widget.TypeID == 132 ? "إعتماد استمرار موظف" : "إعتماد مباشرة عمل",
+            context,
+            null),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
@@ -65,8 +68,7 @@ class _MobasharaState extends State<Mobashara> {
                                           ChangeNotifierProvider.value(
                                               value: _provider,
                                               child: MobasharaDetails(
-                                                index,
-                                              )),
+                                                  index, widget.TypeID)),
                                     ),
                                   );
                                 },

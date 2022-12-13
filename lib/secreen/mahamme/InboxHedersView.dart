@@ -148,9 +148,11 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
-    } else if (_provider.TypeID == 39 || _provider.TypeID == 40) {
+    } else if (_provider.TypeID == 39 ||
+        _provider.TypeID == 40 ||
+        _provider.TypeID == 132) {
       return caerdContent(
-        "مباشرة عمل",
+        _provider.TypeID == 132 ? "إستمرار موظف" : "مباشرة عمل",
         "assets/SVGs/dalelalmowzafen.svg",
         () {
           Navigator.push(

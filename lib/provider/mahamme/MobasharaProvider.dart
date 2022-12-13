@@ -16,8 +16,13 @@ class MobasharaProvider extends ChangeNotifier {
       maskType: EasyLoadingMaskType.black,
     );
     var EmNo = await EmployeeProfile.getEmployeeNumber();
-    var respose = await getAction(
-        "Inbox/GetStartWorkRequests/" + EmNo + "/" + TypeID.toString());
+    var respose;
+    if (TypeID == 132) {
+      respose = await getAction("Inbox/GetContinueWorkRequests/" + EmNo);
+    } else {
+      respose = await getAction(
+          "Inbox/GetStartWorkRequests/" + EmNo + "/" + TypeID.toString());
+    }
 
     if (jsonDecode(respose.body)["RequestsList"] != null) {
       _mobashara = (jsonDecode(respose.body)["RequestsList"] as List)
@@ -29,9 +34,15 @@ class MobasharaProvider extends ChangeNotifier {
     EasyLoading.dismiss();
   }
 
-  Future<dynamic> ApproveStartWorkRequest(var data, int index) async {
-    var respose =
-        await postAction("Inbox/ApproveStartWorkRequest", jsonEncode(data));
+  Future<dynamic> ApproveStartWorkRequest(var data, int index, int id) async {
+    var respose;
+    if (id == 132) {
+      respose =
+          await postAction("Inbox/ApproveContinueRequest", jsonEncode(data));
+    } else {
+      respose =
+          await postAction("Inbox/ApproveStartWorkRequest", jsonEncode(data));
+    }
 
     if (jsonDecode(respose.body)["StatusCode"] != 400) {
       return jsonDecode(respose.body)["ErrorMessage"];

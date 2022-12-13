@@ -11,14 +11,17 @@ import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class MobasharaDetails extends StatefulWidget {
+  int TypeID;
   int index;
-  MobasharaDetails(this.index);
+  MobasharaDetails(this.index, this.TypeID);
   @override
   State<MobasharaDetails> createState() => _MobasharaDetailsState();
 }
 
 class _MobasharaDetailsState extends State<MobasharaDetails> {
   TextEditingController _date = TextEditingController();
+  TextEditingController _Note = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -221,101 +224,175 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                       SizedBox(
                         height: 10,
                       ),
-                      if (_mobasharaList[widget.index].TransactionTypeID ==
-                              39 &&
-                          _mobasharaList[widget.index].OrderTypeID == 3)
-                        Card(
-                          elevation: 5,
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            color: Colors.white,
-                            child: TextFormField(
-                              keyboardType: TextInputType.text,
-                              readOnly: true,
-                              maxLines: 1,
-                              controller: _date,
-                              decoration:
-                                  formlabel1("فضلا أدخل تاريخ المباشرة"),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return "فضلا أدخل تاريخ المباشرة";
-                                } else {
-                                  return null;
-                                }
-                              },
-                              onTap: () {
-                                DatePicker.showDatePicker(context,
-                                    theme: DatePickerTheme(
-                                      backgroundColor: BackGWhiteColor,
-                                      itemStyle: TextStyle(
-                                        color: baseColorText,
-                                      ),
-                                    ),
-                                    showTitleActions: true,
-                                    minTime: DateTime(2021, 3, 5),
-                                    onChanged: (date) {
-                                  //  print('change $date');
-                                }, onConfirm: (date) {
-                                  setState(() {
-                                    _date.text = date.toString().split(" ")[0];
-                                  });
+                      if (widget.TypeID != 132)
+                        if (_mobasharaList[widget.index].TransactionTypeID ==
+                                39 &&
+                            _mobasharaList[widget.index].OrderTypeID == 3)
+                          Card(
+                            elevation: 5,
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              color: Colors.white,
+                              child: TextFormField(
+                                keyboardType: TextInputType.text,
+                                readOnly: true,
+                                maxLines: 1,
+                                controller: _date,
+                                decoration:
+                                    formlabel1("فضلا أدخل تاريخ المباشرة"),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "فضلا أدخل تاريخ المباشرة";
+                                  } else {
+                                    return null;
+                                  }
                                 },
-                                    currentTime: DateTime.now(),
-                                    locale: LocaleType.ar);
+                                onTap: () {
+                                  DatePicker.showDatePicker(context,
+                                      theme: DatePickerTheme(
+                                        backgroundColor: BackGWhiteColor,
+                                        itemStyle: TextStyle(
+                                          color: baseColorText,
+                                        ),
+                                      ),
+                                      showTitleActions: true,
+                                      minTime: DateTime(2021, 3, 5),
+                                      onChanged: (date) {
+                                    //  print('change $date');
+                                  }, onConfirm: (date) {
+                                    setState(() {
+                                      _date.text =
+                                          date.toString().split(" ")[0];
+                                    });
+                                  },
+                                      currentTime: DateTime.now(),
+                                      locale: LocaleType.ar);
+                                },
+                              ),
+                            ),
+                          ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormField(
+                        minLines: 3,
+                        controller: _Note,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: widgetsUni.actionbutton(
+                              " رفض الطلب",
+                              Icons.check,
+                              () async {
+                                if (_formKey.currentState!.validate()) {
+                                  Alerts.confirmAlrt(context, "",
+                                          "هل انت متأكد من الرفض", "نعم")
+                                      .show()
+                                      .then((value) async {
+                                    if (value == true) {
+                                      EasyLoading.show(
+                                        status: '... جاري المعالجة',
+                                        maskType: EasyLoadingMaskType.black,
+                                      );
+                                      String emNo = await EmployeeProfile
+                                          .getEmployeeNumber();
+                                      var response = await _provider
+                                          .ApproveStartWorkRequest({
+                                        "EmployeeNumber":
+                                            _mobasharaList[widget.index]
+                                                .EmployeeNumber,
+                                        "StartDate": widget.TypeID == 132
+                                            ? null
+                                            : _date.text,
+                                        "TransactionDate":
+                                            _mobasharaList[widget.index]
+                                                .StartDate,
+                                        "ApprovalBy": int.parse(emNo),
+                                        "TransactionTypeID":
+                                            _mobasharaList[widget.index]
+                                                .TransactionTypeID,
+                                        "Notes": _Note,
+                                        "Flag": "R"
+                                      }, widget.index, widget.TypeID);
+                                      EasyLoading.dismiss();
+
+                                      if (response == true) {
+                                        Alerts.successAlert(
+                                                context, "", "تمت الموافقة ")
+                                            .show()
+                                            .then((value) {
+                                          Navigator.pop(context);
+                                        });
+                                      } else {
+                                        EasyLoading.dismiss();
+                                        Alerts.errorAlert(
+                                                context, "خطأ", response)
+                                            .show();
+                                      }
+                                    }
+                                  });
+                                }
                               },
                             ),
                           ),
-                        ),
-                      Container(
-                        width: 180,
-                        child: widgetsUni.actionbutton(
-                          "موافقة على الطلب",
-                          Icons.check,
-                          () async {
-                            if (_formKey.currentState!.validate()) {
-                              Alerts.confirmAlrt(context, "",
-                                      "هل انت متأكد من الموافقة", "نعم")
-                                  .show()
-                                  .then((value) async {
-                                if (value == true) {
-                                  EasyLoading.show(
-                                    status: '... جاري المعالجة',
-                                    maskType: EasyLoadingMaskType.black,
-                                  );
-                                  String emNo =
-                                      await EmployeeProfile.getEmployeeNumber();
-                                  var response =
-                                      await _provider.ApproveStartWorkRequest({
-                                    "EmployeeNumber":
-                                        _mobasharaList[widget.index]
-                                            .EmployeeNumber,
-                                    "StartDate": _date.text,
-                                    "TransactionDate":
-                                        _mobasharaList[widget.index].StartDate,
-                                    "ApprovalBy": int.parse(emNo),
-                                    "TransactionTypeID":
-                                        _mobasharaList[widget.index]
-                                            .TransactionTypeID
-                                  }, widget.index);
-                                  EasyLoading.dismiss();
+                          Expanded(
+                            child: widgetsUni.actionbutton(
+                              "موافقة على الطلب",
+                              Icons.check,
+                              () async {
+                                if (_formKey.currentState!.validate()) {
+                                  Alerts.confirmAlrt(context, "",
+                                          "هل انت متأكد من الموافقة", "نعم")
+                                      .show()
+                                      .then((value) async {
+                                    if (value == true) {
+                                      EasyLoading.show(
+                                        status: '... جاري المعالجة',
+                                        maskType: EasyLoadingMaskType.black,
+                                      );
+                                      String emNo = await EmployeeProfile
+                                          .getEmployeeNumber();
+                                      var response = await _provider
+                                          .ApproveStartWorkRequest({
+                                        "EmployeeNumber":
+                                            _mobasharaList[widget.index]
+                                                .EmployeeNumber,
+                                        "StartDate": widget.TypeID == 132
+                                            ? null
+                                            : _date.text,
+                                        "TransactionDate":
+                                            _mobasharaList[widget.index]
+                                                .StartDate,
+                                        "ApprovalBy": int.parse(emNo),
+                                        "TransactionTypeID":
+                                            _mobasharaList[widget.index]
+                                                .TransactionTypeID,
+                                        "Notes": _Note,
+                                        "Flag": "A"
+                                      }, widget.index, widget.TypeID);
+                                      EasyLoading.dismiss();
 
-                                  if (response == true) {
-                                    Alerts.successAlert(
-                                            context, "", "تمت الموافقة ")
-                                        .show()
-                                        .then((value) {
-                                      Navigator.pop(context);
-                                    });
-                                  } else {
-                                    EasyLoading.dismiss();
-                                    Alerts.errorAlert(context, "خطأ", response)
-                                        .show();
-                                  }
+                                      if (response == true) {
+                                        Alerts.successAlert(
+                                                context, "", "تمت الموافقة ")
+                                            .show()
+                                            .then((value) {
+                                          Navigator.pop(context);
+                                        });
+                                      } else {
+                                        EasyLoading.dismiss();
+                                        Alerts.errorAlert(
+                                                context, "خطأ", response)
+                                            .show();
+                                      }
+                                    }
+                                  });
                                 }
-                              });
-                            }
-                          },
-                        ),
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
