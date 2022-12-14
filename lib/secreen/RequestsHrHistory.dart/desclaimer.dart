@@ -72,6 +72,7 @@ class _desclaimerState extends State<desclaimer> {
                             itemCount: naif.length,
                             itemBuilder: (context, index) {
                               return Card(
+                                color: BackGColor,
                                 elevation: 6,
                                 child: ListTile(
                                   title: Text(
@@ -82,9 +83,11 @@ class _desclaimerState extends State<desclaimer> {
                                     style: subtitleTx(baseColorText),
                                   ),
                                   subtitle: Text(
-                                      naif[index]["Status"].toString() +
-                                          " - " +
-                                          naif[index]["Type"]),
+                                    naif[index]["Status"].toString() +
+                                        " - " +
+                                        naif[index]["Type"],
+                                    style: subtitleTx(secondryColorText),
+                                  ),
                                   leading: Text(
                                     naif[index]["RequestNumber"].toString(),
                                     style: titleTx(baseColor),

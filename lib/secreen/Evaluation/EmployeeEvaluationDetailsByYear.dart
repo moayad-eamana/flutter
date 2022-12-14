@@ -69,14 +69,16 @@ class _EmployeeEvaluationDetailsByYearState
                             return Container(
                               margin: EdgeInsets.all(10),
                               child: Card(
+                                color: BackGColor,
                                 elevation: 5,
                                 child: ConstrainedBox(
                                   constraints: new BoxConstraints(
                                     minHeight: 210.0,
                                   ),
                                   child: new DecoratedBox(
-                                    decoration:
-                                        new BoxDecoration(color: Colors.white),
+                                    decoration: new BoxDecoration(
+                                      color: BackGColor,
+                                    ),
                                     child: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Column(
@@ -197,7 +199,10 @@ class _EmployeeEvaluationDetailsByYearState
               child: Container(
                 child: Text(
                   Title,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: baseColorText),
                 ),
                 //  color: Colors.red,
               ),
