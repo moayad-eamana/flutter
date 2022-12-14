@@ -35,6 +35,10 @@ class LoginProvider extends ChangeNotifier {
   Future<bool> checkUser(String userName, String password) async {
     erorMs = "";
     var respose;
+    sharedPref.setString("hasePerm", "");
+    sharedPref.setBool("permissionforCRM", false);
+    sharedPref.setBool("permissionforAppReq", false);
+    sharedPref.setBool("permissionforAppManege", false);
     packageInfo = await PackageInfo.fromPlatform();
     sharedPref.setString("dumyuser", "0");
     if (userName == "10284928492") {
