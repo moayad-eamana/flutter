@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
@@ -59,8 +60,6 @@ class _ServicesViewState extends State<ServicesView> {
         hasePerm = jsonDecode(respose.body)["message"];
         sharedPref.setBool(
             "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-        sharedPref.setBool("permissionforAppReq",
-            jsonDecode(respose.body)["permissionforAppReq"]);
         sharedPref.setString(
             "deptid", jsonDecode(respose.body)["deptid"] ?? "");
         sharedPref.setString(
@@ -68,9 +67,7 @@ class _ServicesViewState extends State<ServicesView> {
         sharedPref.setBool("permissionforAppManege3",
             jsonDecode(respose.body)["permissionforAppManege"]);
         setState(() {});
-      } catch (e) {
-        print(e);
-      }
+      } catch (e) {}
     } else {
       return;
     }
@@ -355,6 +352,19 @@ class _ServicesViewState extends State<ServicesView> {
                   'assets/SVGs/rate.svg', "تقييماتي"),
             ),
           ),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => desclaimer()),
+                    );
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/desclaimer.svg', "إستعلام إخلاء طرف"))),
         ],
       ),
     );
@@ -667,17 +677,16 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "عرض الطلبات"))),
-          if (sharedPref.getString("deptid") == "1")
-            StaggeredGridTile.extent(
-                crossAxisCellCount: 1,
-                mainAxisExtent: hi,
-                child: ElevatedButton(
-                    style: cardServiece,
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/reserveForcustomer");
-                    },
-                    child: widgetsUni.cardcontentService(
-                        'assets/SVGs/set_appoinment.svg', "حجز موعد"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/reserveForcustomer");
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/set_appoinment.svg', "حجز موعد"))),
           StaggeredGridTile.extent(
               crossAxisCellCount: 1,
               mainAxisExtent: hi,
@@ -691,21 +700,20 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/assessment.svg', "الإحصائيات"))),
-          if (sharedPref.getString("deptid") == "1")
-            StaggeredGridTile.extent(
-                crossAxisCellCount: 1,
-                mainAxisExtent: hi,
-                child: ElevatedButton(
-                    style: cardServiece,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => customerEnterance()),
-                      );
-                    },
-                    child: widgetsUni.cardcontentService(
-                        'assets/SVGs/login.svg', "تسجيل حضور"))),
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => customerEnterance()),
+                    );
+                  },
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/login.svg', "تسجيل حضور"))),
         ],
       ),
     );
