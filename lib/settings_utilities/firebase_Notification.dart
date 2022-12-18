@@ -102,10 +102,10 @@ listenToFirbaseNotification() {
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-    if (message.data["module_name"] == "MorningMessages") {
+    if (message.data["module_name"] == "GeneralMessages") {
       navigatorKey.currentState?.pushNamed("/morning",
           arguments: ({
-            "title": "رسالة صباح",
+            "title": message.notification?.title,
             "body": message.notification?.body,
             "url": message.data["image"]
           }));

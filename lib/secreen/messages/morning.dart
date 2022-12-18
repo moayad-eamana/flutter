@@ -44,7 +44,7 @@ class _morningState extends State<morning> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("رسالة الصباح", context, null),
+        appBar: AppBarW.appBarW(args["title"].toString(), context, null),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -72,7 +72,7 @@ class _morningState extends State<morning> {
                           ),
                       Center(
                         child: Text(
-                          args["body"],
+                          args["body"].toString(),
                           style: titleTx(secondryColor),
                         ),
                       ),
