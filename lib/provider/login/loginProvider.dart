@@ -15,6 +15,7 @@ class LoginProvider extends ChangeNotifier {
   String username = "";
   String pass = "";
   String erorMs = "";
+  String loginerorMs = "";
   get getPrivetToken {
     return PrivateToken;
   }
@@ -30,10 +31,15 @@ class LoginProvider extends ChangeNotifier {
   get geterorMs {
     return erorMs;
   }
+
+  get getloginerorMs {
+    return loginerorMs;
+  }
   // EmployeeProfile employeeProfile = EmployeeProfile(0, "", "", "");
 
   Future<bool> checkUser(String userName, String password) async {
     erorMs = "";
+    loginerorMs = "";
     var respose;
     sharedPref.setString("hasePerm", "");
     sharedPref.setBool("permissionforCRM", false);
@@ -69,6 +75,9 @@ class LoginProvider extends ChangeNotifier {
         //_pref.setString("username", userName);
 
         return true;
+      } else {
+        loginerorMs = respose.data["ErrorMessage"].toString();
+        return false;
       }
     }
 
