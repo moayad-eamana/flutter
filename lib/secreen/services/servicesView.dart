@@ -66,6 +66,8 @@ class _ServicesViewState extends State<ServicesView> {
             "leadid", jsonDecode(respose.body)["leadid"] ?? "");
         sharedPref.setBool("permissionforAppManege3",
             jsonDecode(respose.body)["permissionforAppManege"]);
+        sharedPref.setBool("permissionforAppReq",
+            jsonDecode(respose.body)["permissionforAppReq"]);
         setState(() {});
       } catch (e) {}
     } else {
