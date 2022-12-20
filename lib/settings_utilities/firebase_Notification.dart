@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:eamanaapp/main.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 String? permissionStatusFuture;
 firebase_Notification() async {
@@ -77,27 +80,72 @@ firebase_Notification() async {
   );
 }
 
-listenToFirbaseNotification() {
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+Future<String> _downloadAndSaveFile(String url, String fileName) async {
+  final Directory directory = await getApplicationDocumentsDirectory();
+  final String filePath = '${directory.path}/$fileName';
+  final http.Response response = await http.get(Uri.parse(url));
+  final File file = File(filePath);
+  await file.writeAsBytes(response.bodyBytes);
+  return filePath;
+}
+
+listenToFirbaseNotification() async {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
 
     if (notification != null && android != null) {
       print(message.data);
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            visibility: NotificationVisibility.public,
-            color: Colors.blue,
-            icon: '@mipmap/launcher_icon',
+      if (message.data["module_name"] == "GeneralMessages") {
+        // final String largeIconPath =
+        //     await _downloadAndSaveFile(message.data["image"], 'largeIcon');
+        final String bigPicturePath =
+            await _downloadAndSaveFile(message.data["image"], 'bigPicture');
+        final BigPictureStyleInformation bigPictureStyleInformation =
+            BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
+                // largeIcon: FilePathAndroidBitmap(largeIconPath),
+                contentTitle: message.notification?.title,
+                htmlFormatContentTitle: true,
+                summaryText: message.notification?.body,
+                htmlFormatSummaryText: true);
+        final AndroidNotificationDetails androidNotificationDetails =
+            AndroidNotificationDetails(channel.id, channel.name,
+                visibility: NotificationVisibility.public,
+                color: Colors.blue,
+                icon: '@mipmap/launcher_icon',
+                styleInformation: bigPictureStyleInformation);
+        final NotificationDetails notificationDetails =
+            NotificationDetails(android: androidNotificationDetails);
+        await flutterLocalNotificationsPlugin.show(notification.hashCode,
+            notification.title, notification.body, notificationDetails,
+            payload: jsonEncode(message.data).toString());
+
+        // .then(
+        //   (value) => navigatorKey.currentState?.pushNamed(
+        //     "/morning",
+        //     arguments: ({
+        //       "title": message.notification?.title,
+        //       "body": message.notification?.body,
+        //       "url": message.data["image"]
+        //     }),
+        //   ),
+        // );
+      } else {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              visibility: NotificationVisibility.public,
+              color: Colors.blue,
+              icon: '@mipmap/launcher_icon',
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
   });
 
@@ -129,10 +177,10 @@ listenToFirbaseNotification() {
 
   FirebaseMessaging.instance.getInitialMessage().then((message) async {
     if (message != null) {
-      if (message.data["module_name"] == "MorningMessages") {
+      if (message.data["module_name"] == "GeneralMessages") {
         navigatorKey.currentState?.pushNamed("/morning",
             arguments: ({
-              "title": "رسالة صباح",
+              "title": message.notification?.title,
               "body": message.notification?.body,
               "url": message.data["image"]
             }));
