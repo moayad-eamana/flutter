@@ -13,6 +13,8 @@ String? permissionStatusFuture;
 firebase_Notification() async {
   await Firebase.initializeApp();
 
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
   channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -22,7 +24,7 @@ firebase_Notification() async {
     importance: Importance.high,
   );
 
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  // flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   // flutterLocalNotificationsPlugin.schedule(
   //   1,
   //   "test",
@@ -90,6 +92,32 @@ Future<String> _downloadAndSaveFile(String url, String fileName) async {
 }
 
 listenToFirbaseNotification() async {
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/launcher_icon');
+
+  final InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onSelectNotification: (String? payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+      var message = jsonDecode(payload);
+
+      if (message["module_name"] == "GeneralMessages") {
+        navigatorKey.currentState?.pushNamed("/morning",
+            arguments: ({
+              "title": message["title"],
+              "body": message["body"],
+              "url": message["image"]
+            }));
+        return;
+      }
+    }
+    // selectedNotificationPayload = payload;
+    // selectNotificationSubject.add(payload);
+  });
+
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
     AndroidNotification? android = message.notification?.android;
@@ -116,6 +144,10 @@ listenToFirbaseNotification() async {
                 styleInformation: bigPictureStyleInformation);
         final NotificationDetails notificationDetails =
             NotificationDetails(android: androidNotificationDetails);
+        message.data.addAll({
+          "title": message.notification?.title,
+          'body': message.notification?.body
+        });
         await flutterLocalNotificationsPlugin.show(notification.hashCode,
             notification.title, notification.body, notificationDetails,
             payload: jsonEncode(message.data).toString());
