@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer_datiels.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -77,26 +78,39 @@ class _desclaimerState extends State<desclaimer> {
                             shrinkWrap: true,
                             itemCount: naif.length,
                             itemBuilder: (context, index) {
-                              return Card(
-                                color: BackGColor,
-                                elevation: 6,
-                                child: ListTile(
-                                  title: Text(
-                                    " تاريخ الطلب:- " +
-                                        naif[index]["RequestDate"]
-                                            .toString()
-                                            .split("T")[0],
-                                    style: subtitleTx(baseColorText),
-                                  ),
-                                  subtitle: Text(
-                                    naif[index]["Status"].toString() +
-                                        " - " +
-                                        naif[index]["Type"],
-                                    style: subtitleTx(secondryColorText),
-                                  ),
-                                  leading: Text(
-                                    naif[index]["RequestNumber"].toString(),
-                                    style: titleTx(baseColor),
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Desclaimerdatiels(
+                                            naif[index]["RequestNumber"]
+                                                .toString())),
+                                  );
+                                },
+                                child: Card(
+                                  color: BackGColor,
+                                  elevation: 6,
+                                  child: ListTile(
+                                    trailing:
+                                        Icon(Icons.arrow_forward_ios_rounded),
+                                    title: Text(
+                                      " تاريخ الطلب:- " +
+                                          naif[index]["RequestDate"]
+                                              .toString()
+                                              .split("T")[0],
+                                      style: subtitleTx(baseColorText),
+                                    ),
+                                    subtitle: Text(
+                                      naif[index]["Status"].toString() +
+                                          " - " +
+                                          naif[index]["Type"],
+                                      style: subtitleTx(secondryColorText),
+                                    ),
+                                    leading: Text(
+                                      naif[index]["RequestNumber"].toString(),
+                                      style: titleTx(baseColor),
+                                    ),
                                   ),
                                 ),
                               );
