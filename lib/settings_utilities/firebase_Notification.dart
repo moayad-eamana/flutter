@@ -98,25 +98,27 @@ listenToFirbaseNotification() async {
   final InitializationSettings initializationSettings =
       InitializationSettings(android: initializationSettingsAndroid);
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onSelectNotification: (String? payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: $payload');
-      var message = jsonDecode(payload);
+  if (Platform.isAndroid) {
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: (String? payload) async {
+      if (payload != null) {
+        debugPrint('notification payload: $payload');
+        var message = jsonDecode(payload);
 
-      if (message["module_name"] == "GeneralMessages") {
-        navigatorKey.currentState?.pushNamed("/morning",
-            arguments: ({
-              "title": message["title"],
-              "body": message["body"],
-              "url": message["image"]
-            }));
-        return;
+        if (message["module_name"] == "GeneralMessages") {
+          navigatorKey.currentState?.pushNamed("/morning",
+              arguments: ({
+                "title": message["title"],
+                "body": message["body"],
+                "url": message["image"]
+              }));
+          return;
+        }
       }
-    }
-    // selectedNotificationPayload = payload;
-    // selectNotificationSubject.add(payload);
-  });
+      // selectedNotificationPayload = payload;
+      // selectNotificationSubject.add(payload);
+    });
+  }
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     RemoteNotification? notification = message.notification;
