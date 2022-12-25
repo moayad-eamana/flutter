@@ -100,7 +100,7 @@ class _DesclaimerdatielsState extends State<Desclaimerdatiels> {
                                         GetEvacuationDetails[index]
                                                 ["Description"]
                                             .toString(),
-                                    style: descTx2(secondryColorText),
+                                    style: descTx1(secondryColorText),
                                   ),
                                   // isThreeLine: true,
                                   // leading: Text(
