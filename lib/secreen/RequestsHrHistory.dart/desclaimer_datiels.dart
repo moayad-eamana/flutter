@@ -49,7 +49,7 @@ class _DesclaimerdatielsState extends State<Desclaimerdatiels> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBarW.appBarW("التفاصيل", context, null),
+          appBar: AppBarW.appBarW("إجراءات", context, null),
           body: Container(
             height: 100.h,
             child: Stack(
@@ -85,13 +85,13 @@ class _DesclaimerdatielsState extends State<Desclaimerdatiels> {
                                                 ["TransactionDate"]
                                             .toString()
                                             .split("T")[0],
-                                    style: descTx1(baseColorText),
+                                    style: subtitleTx(baseColor),
                                   ),
                                   title: Text(
                                     GetEvacuationDetails[index]
                                             ["DepartmentName"]
                                         .toString(),
-                                    style: descTx1(baseColor),
+                                    style: descTx1(baseColorText),
                                   ),
                                   subtitle: Text(
                                     GetEvacuationDetails[index]["Status"]
