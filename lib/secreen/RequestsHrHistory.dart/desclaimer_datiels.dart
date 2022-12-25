@@ -33,7 +33,8 @@ class _DesclaimerdatielsState extends State<Desclaimerdatiels> {
     );
     var respons;
     if (sharedPref.getString("dumyuser") != "10284928492") {
-      respons = await getAction("HR/GetEvacuationDetails/" + "28");
+      respons =
+          await getAction("HR/GetEvacuationDetails/" + widget.RequestNumber);
       GetEvacuationDetails = jsonDecode(respons.body)["ApprovalsList"];
     } else {
       GetEvacuationDetails = [];
