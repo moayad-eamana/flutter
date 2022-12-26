@@ -35,6 +35,7 @@ class ServicesView extends StatefulWidget {
 class _ServicesViewState extends State<ServicesView> {
   int id = 0;
   String empNo = "";
+  List<int> insertExtensionRequestValid = [0, 6, 7];
   @override
   void initState() {
     // TODO: implement initState
@@ -367,6 +368,20 @@ class _ServicesViewState extends State<ServicesView> {
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/desclaimer.svg', "إستعلام إخلاء طرف"))),
+          if (insertExtensionRequestValid
+              .contains(sharedPref.getInt("empTypeID")))
+            StaggeredGridTileW(
+              1,
+              hi,
+              ElevatedButton(
+                style: cardServiece,
+                onPressed: () {
+                  insertExtensionRequest();
+                },
+                child: widgetsUni.cardcontentService(
+                    'assets/SVGs/ejaza.svg', "ترحيل الاجازة"),
+              ),
+            ),
         ],
       ),
     );
@@ -719,5 +734,46 @@ class _ServicesViewState extends State<ServicesView> {
         ],
       ),
     );
+  }
+
+  void insertExtensionRequest() {
+    Alerts.confirmAlrt(context, "ترحيل الاجازة",
+            "سيتم ترحيل الاجازة, هل انت موافق ؟", "نعم")
+        .show()
+        .then((value) async {
+      if (value == true) {
+        EasyLoading.show(
+          status: '... جاري المعالجة',
+          maskType: EasyLoadingMaskType.black,
+        );
+
+        var respose = await postAction(
+            "HR/InsertExtensionRequest",
+            jsonEncode({
+              "EmployeeNumber": int.parse(sharedPref
+                  .getDouble("EmployeeNumber")
+                  .toString()
+                  .split(".")[0])
+            }));
+
+        print(respose.body);
+
+        respose = jsonDecode(respose.body);
+
+        EasyLoading.dismiss();
+
+        if (respose["StatusMessage"] == "Succeeded") {
+          Alerts.successAlert(context, "ترحيل الاجازة", "تم الطلب الترحيل")
+              .show();
+        } else {
+          Alerts.errorAlert(
+                  context, "ترحيل الاجازة", respose["ErrorMessage"] ?? "")
+              .show();
+        }
+
+        // setState(() {});
+      }
+    });
+    ;
   }
 }
