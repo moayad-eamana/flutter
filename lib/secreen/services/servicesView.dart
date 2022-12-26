@@ -379,7 +379,7 @@ class _ServicesViewState extends State<ServicesView> {
                   insertExtensionRequest();
                 },
                 child: widgetsUni.cardcontentService(
-                    'assets/SVGs/ejaza.svg', "ترحيل الاجازة"),
+                    'assets/SVGs/Insertvacation.svg', "ترحيل الاجازة"),
               ),
             ),
         ],
