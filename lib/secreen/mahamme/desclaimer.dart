@@ -73,6 +73,7 @@ class _desclaimerState extends State<desclaimer> {
                               });
                             },
                             child: Card(
+                              color: BackGColor,
                               elevation: 5,
                               child: ListTile(
                                 leading: Text(
@@ -86,16 +87,23 @@ class _desclaimerState extends State<desclaimer> {
                                 ),
                                 subtitle: Row(
                                   children: [
-                                    Text("تاريخ الطلب: "),
+                                    Text(
+                                      "تاريخ الطلب: ",
+                                      style: descTx2(baseColorText),
+                                    ),
                                     Text(
                                       EvacuationRequests[index]["RequestDate"]
                                           .toString()
                                           .split("T")[0],
+                                      style: descTx2(baseColorText),
                                       textAlign: TextAlign.right,
                                     ),
                                   ],
                                 ),
-                                trailing: Icon(Icons.arrow_forward_ios),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: baseColor,
+                                ),
                               ),
                             ),
                           );

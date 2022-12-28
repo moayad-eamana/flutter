@@ -54,6 +54,7 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
                             .split("T")[0]),
                     // Cards("حالة الطلب", widget.desclaimer["RequestStatusName"]),
                     Card(
+                      color: BackGColor,
                       child: Container(
                         width: 100.w,
                         padding: EdgeInsets.all(10),
@@ -94,6 +95,7 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
                       height: 10,
                     ),
                     Card(
+                      color: BackGColor,
                       child: Container(
                         margin: EdgeInsets.all(10),
                         child: Form(
@@ -249,6 +251,7 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
 
   Cards(String title, String des) {
     return Card(
+      color: BackGColor,
       child: Container(
         width: 100.w,
         padding: EdgeInsets.all(10),
