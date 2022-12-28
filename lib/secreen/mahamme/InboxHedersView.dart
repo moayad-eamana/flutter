@@ -8,6 +8,7 @@ import 'package:eamanaapp/secreen/mahamme/GetCardRequest.dart';
 import 'package:eamanaapp/secreen/mahamme/GetPromotionRequest.dart';
 import 'package:eamanaapp/secreen/mahamme/Mobashara.dart';
 import 'package:eamanaapp/secreen/mahamme/PurchaseRequests.dart';
+import 'package:eamanaapp/secreen/mahamme/desclaimer.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -218,6 +219,17 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => GetPromotionRequest()),
+          );
+        },
+      );
+    } else if (_provider.TypeID == 21) {
+      return caerdContent(
+        "إخلاء طرف",
+        "assets/SVGs/desclaimer.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => desclaimer()),
           );
         },
       );

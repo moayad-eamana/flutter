@@ -10,7 +10,8 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Auhad extends StatefulWidget {
-  Auhad({Key? key}) : super(key: key);
+  List? EmployeeCustodies;
+  Auhad(this.EmployeeCustodies);
 
   @override
   State<Auhad> createState() => _AuhadState();
@@ -34,30 +35,34 @@ class _AuhadState extends State<Auhad> {
   }
 
   getdata() async {
-    EasyLoading.show(
-      status: '... جاري المعالجة',
-      maskType: EasyLoadingMaskType.black,
-    );
-    await getuserinfo();
-
-    // print(empinfo.EmployeeNumber..toString().split(".")[0]);
-    if (sharedPref.getString("dumyuser") != "10284928492") {
-      var respose = await getAction("HR/GetEmployeeCustodies/" +
-          empinfo.EmployeeNumber.toString().split(".")[0]);
-
-      setState(() {
-        _GetEmployeeCustodies = (jsonDecode(respose.body)["CustodiesList"]);
-        ItemsCount = (jsonDecode(respose.body)["ItemsCount"]);
-        // print(_GetEmployeeCustodies);
-        // print(ItemsCount);
-      });
+    if (widget.EmployeeCustodies != null) {
+      _GetEmployeeCustodies = widget.EmployeeCustodies;
     } else {
-      await Future.delayed(Duration(seconds: 1));
-      _GetEmployeeCustodies = null;
-      setState(() {});
-    }
+      EasyLoading.show(
+        status: '... جاري المعالجة',
+        maskType: EasyLoadingMaskType.black,
+      );
+      await getuserinfo();
 
-    EasyLoading.dismiss();
+      // print(empinfo.EmployeeNumber..toString().split(".")[0]);
+      if (sharedPref.getString("dumyuser") != "10284928492") {
+        var respose = await getAction("HR/GetEmployeeCustodies/" +
+            empinfo.EmployeeNumber.toString().split(".")[0]);
+
+        setState(() {
+          _GetEmployeeCustodies = (jsonDecode(respose.body)["CustodiesList"]);
+          ItemsCount = (jsonDecode(respose.body)["ItemsCount"]);
+          // print(_GetEmployeeCustodies);
+          // print(ItemsCount);
+        });
+      } else {
+        await Future.delayed(Duration(seconds: 1));
+        _GetEmployeeCustodies = null;
+        setState(() {});
+      }
+
+      EasyLoading.dismiss();
+    }
   }
 
   @override

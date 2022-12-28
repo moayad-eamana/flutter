@@ -350,7 +350,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/OutdutyRequest': (context) => OutdutyRequest(),
           '/Settings': (context) => Settings(null),
           '/AuthenticateBio': (context) => AuthenticateBio(),
-          '/auhad': (context) => Auhad(),
+          '/auhad': (context) => Auhad(null),
           '/auth_secreen': (context) => AuthenticateBioSecreen(),
           '/SalaryHistory': (context) => SalaryHistory(),
           '/comments': (context) => Comments(),
