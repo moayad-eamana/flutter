@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:eamanaapp/auth_secreen.dart';
 import 'package:eamanaapp/events.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
+import 'package:eamanaapp/provider/otp.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
@@ -46,6 +47,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -54,24 +56,53 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:url_launcher/url_launcher.dart';
 
 late AndroidNotificationChannel channel;
 
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
 String? localVersion;
 bool forceUpdate = false;
 final navigatorKey = GlobalKey<NavigatorState>();
 dynamic hasePerm = "";
 late PackageInfo packageInfo;
 late SharedPreferences sharedPref;
+final Controller c = Get.put(Controller());
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
+  print("jjjjjjjjjj");
+  if (message.data["module_name"] == "otp") {
+    c.increment(message.data["image"]);
+    return;
+  }
+  if (message.data["module_name"] == "GeneralMessages") {
+    navigatorKey.currentState?.pushNamed("/morning",
+        arguments: ({
+          "title": message.notification?.title,
+          "body": message.notification?.body,
+          "url": message.data["image"]
+        }));
+    return;
+  }
+  if (message.data["module_name"] == "Offers") {
+    navigatorKey.currentState?.pushNamed("/EamanaDiscount");
+    return;
+  }
+  if (message.data["module_name"] == "update") {
+    if (Platform.isAndroid) {
+      launch(
+          "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
+    } else {
+      launch(
+          "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
+    }
+  }
   if (notification != null && android != null) {
     print(message.data);
+    print("object");
     flutterLocalNotificationsPlugin.show(
       notification.hashCode,
       notification.title,
@@ -281,7 +312,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
+      return GetMaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           // GlobalWidgetsLocalizations.delegate,

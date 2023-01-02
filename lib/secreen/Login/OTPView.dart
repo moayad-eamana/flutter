@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
+import 'package:eamanaapp/provider/otp.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -46,6 +48,9 @@ class _OTPViewState extends State<OTPView> {
   void initState() {
     // SmsListener();
     // TODO: implement initState
+    print(c.count);
+    c.otp.text = c.count == "" ? "" : c.count.toString();
+    setState(() {});
     super.initState();
   }
 
@@ -114,7 +119,7 @@ class _OTPViewState extends State<OTPView> {
                                 height: 10,
                               ),
                               smsTxt(),
-                              submitBtn()
+                              submitBtn(),
                             ],
                           ),
                         ),

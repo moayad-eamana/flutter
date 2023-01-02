@@ -57,7 +57,7 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text(" رقم الوظيفي : " +
+                                Text("رقم الوظيفي : " +
                                     _provider[widget.index]
                                         .EmplyeeNumber
                                         .toString()),

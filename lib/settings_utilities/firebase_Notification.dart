@@ -97,27 +97,21 @@ listenToFirbaseNotification() async {
 
   final InitializationSettings initializationSettings =
       InitializationSettings(android: initializationSettingsAndroid);
-
+  print("ssss");
   if (Platform.isAndroid) {
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: (String? payload) async {
-      if (payload != null) {
-        debugPrint('notification payload: $payload');
-        var message = jsonDecode(payload);
-
-        if (message["module_name"] == "GeneralMessages") {
-          navigatorKey.currentState?.pushNamed("/morning",
-              arguments: ({
-                "title": message["title"],
-                "body": message["body"],
-                "url": message["image"]
-              }));
-          return;
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onSelectNotification: (String? payload) async {
+        if (payload != null) {
+          debugPrint('notification payload: $payload');
+          print("sqqw'le;wq;l");
+          var message = jsonDecode(payload);
+          handelfirbasemessge(message);
         }
-      }
-      // selectedNotificationPayload = payload;
-      // selectNotificationSubject.add(payload);
-    });
+        // selectedNotificationPayload = payload;
+        // selectNotificationSubject.add(payload);
+      },
+    );
   }
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
@@ -126,6 +120,7 @@ listenToFirbaseNotification() async {
 
     if (notification != null && android != null) {
       print(message.data);
+
       if (message.data["module_name"] == "GeneralMessages") {
         // final String largeIconPath =
         //     await _downloadAndSaveFile(message.data["image"], 'largeIcon');
@@ -180,59 +175,54 @@ listenToFirbaseNotification() async {
           ),
         );
       }
+      if (message.data["module_name"] == "otp") {
+        c.increment(message.data["image"]);
+
+        return;
+      }
     }
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-    if (message.data["module_name"] == "GeneralMessages") {
-      navigatorKey.currentState?.pushNamed("/morning",
-          arguments: ({
-            "title": message.notification?.title,
-            "body": message.notification?.body,
-            "url": message.data["image"]
-          }));
-      return;
-    }
-    if (message.data["module_name"] == "Offers") {
-      navigatorKey.currentState?.pushNamed("/EamanaDiscount");
-      return;
-    }
-    if (message.data["module_name"] == "update") {
-      if (Platform.isAndroid) {
-        launch(
-            "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
-      } else {
-        launch(
-            "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
-      }
-    }
-    print("onMessageOpenedApp: $message");
+    handelfirbasemessge(message);
   });
 
   FirebaseMessaging.instance.getInitialMessage().then((message) async {
     if (message != null) {
-      if (message.data["module_name"] == "GeneralMessages") {
-        navigatorKey.currentState?.pushNamed("/morning",
-            arguments: ({
-              "title": message.notification?.title,
-              "body": message.notification?.body,
-              "url": message.data["image"]
-            }));
-        return;
-      }
-      if (message.data["module_name"] == "Offers") {
-        navigatorKey.currentState?.pushNamed("/EamanaDiscount");
-        return;
-      }
-      if (message.data["module_name"] == "update") {
-        if (Platform.isAndroid) {
-          launch(
-              "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
-        } else {
-          launch(
-              "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
-        }
-      }
+      handelfirbasemessge(message);
     }
   });
+}
+
+Future<void> handelfirbasemessge(RemoteMessage message) async {
+  if (message.data["module_name"] == "otp") {
+    c.increment(message.data["image"]);
+
+    return;
+  }
+  if (message.data["module_name"] == "GeneralMessages") {
+    navigatorKey.currentState?.pushNamed("/morning",
+        arguments: ({
+          "title": message.notification?.title,
+          "body": message.notification?.body,
+          "url": message.data["image"]
+        }));
+    return;
+  }
+  if (message.data["module_name"] == "Offers") {
+    navigatorKey.currentState?.pushNamed("/EamanaDiscount");
+    return;
+  }
+  if (message.data["module_name"] == "update") {
+    if (Platform.isAndroid) {
+      launch(
+          "https://play.google.com/store/apps/details?id=com.eamana.eamanaapp.gov.sa");
+    } else {
+      launch(
+          "https://apps.apple.com/us/app/%D8%B1%D9%82%D9%85%D9%8A/id1613668254");
+    }
+  }
+  print("swdsd");
+  print(message.data["data"] + "dddd");
+  print("onMessageOpenedApp: $message");
 }
