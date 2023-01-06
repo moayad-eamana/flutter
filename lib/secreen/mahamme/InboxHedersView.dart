@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/mahamme/GetPromotionRequest.dart';
 import 'package:eamanaapp/secreen/mahamme/Mobashara.dart';
 import 'package:eamanaapp/secreen/mahamme/PurchaseRequests.dart';
 import 'package:eamanaapp/secreen/mahamme/desclaimer.dart';
+import 'package:eamanaapp/secreen/mahamme/transfarevacation.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -230,6 +231,17 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => desclaimer()),
+          );
+        },
+      );
+    } else if (_provider.TypeID == 48) {
+      return caerdContent(
+        "ترحيل إجازة",
+        "assets/SVGs/Insertvacation.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => transfarevacation()),
           );
         },
       );
