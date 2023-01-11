@@ -29,9 +29,13 @@ class _morningState extends State<morning> {
       maskType: EasyLoadingMaskType.black,
     );
     Future.delayed(Duration.zero).then((value) async {
-      final ByteData imageData =
-          await NetworkAssetBundle(Uri.parse(args["url"].toString())).load("");
-      bytes = imageData.buffer.asUint8List();
+      try {
+        final ByteData imageData =
+            await NetworkAssetBundle(Uri.parse(args["url"].toString()))
+                .load("");
+        bytes = imageData.buffer.asUint8List();
+      } catch (e) {}
+
       setState(() {});
       EasyLoading.dismiss();
     });

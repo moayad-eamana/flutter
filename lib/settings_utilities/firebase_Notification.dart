@@ -106,7 +106,15 @@ listenToFirbaseNotification() async {
           debugPrint('notification payload: $payload');
           print("sqqw'le;wq;l");
           var message = jsonDecode(payload);
-          handelfirbasemessge(message);
+          if (message["module_name"] == "GeneralMessages") {
+            navigatorKey.currentState?.pushNamed("/morning",
+                arguments: ({
+                  "title": message["title"],
+                  "body": message["body"],
+                  "url": message["image"]
+                }));
+            return;
+          }
         }
         // selectedNotificationPayload = payload;
         // selectNotificationSubject.add(payload);
@@ -122,17 +130,23 @@ listenToFirbaseNotification() async {
       print(message.data);
 
       if (message.data["module_name"] == "GeneralMessages") {
+        String bigPicturePath;
+        BigPictureStyleInformation? bigPictureStyleInformation;
         // final String largeIconPath =
         //     await _downloadAndSaveFile(message.data["image"], 'largeIcon');
-        final String bigPicturePath =
-            await _downloadAndSaveFile(message.data["image"], 'bigPicture');
-        final BigPictureStyleInformation bigPictureStyleInformation =
-            BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
-                // largeIcon: FilePathAndroidBitmap(largeIconPath),
-                contentTitle: message.notification?.title,
-                htmlFormatContentTitle: true,
-                summaryText: message.notification?.body,
-                htmlFormatSummaryText: true);
+        if (message.data["image"] != null && message.data["image"] != "") {
+          bigPicturePath =
+              await _downloadAndSaveFile(message.data["image"], 'bigPicture');
+          bigPictureStyleInformation =
+              BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
+
+                  // largeIcon: FilePathAndroidBitmap(largeIconPath),
+                  contentTitle: message.notification?.title,
+                  htmlFormatContentTitle: true,
+                  summaryText: message.notification?.body,
+                  htmlFormatSummaryText: true);
+        }
+
         final AndroidNotificationDetails androidNotificationDetails =
             AndroidNotificationDetails(channel.id, channel.name,
                 visibility: NotificationVisibility.public,
