@@ -114,6 +114,8 @@ listenToFirbaseNotification() async {
                   "url": message["image"]
                 }));
             return;
+          } else {
+            handelfirbasemessge(message);
           }
         }
         // selectedNotificationPayload = payload;
