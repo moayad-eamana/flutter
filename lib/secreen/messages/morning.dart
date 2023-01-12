@@ -5,7 +5,9 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:http/http.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class morning extends StatefulWidget {
   @override
@@ -74,10 +76,29 @@ class _morningState extends State<morning> {
                           //   style: titleTx(baseColorText),
                           // ),
                           ),
+                      // Center(
+                      //   child: Text(
+                      //     args["body"].toString(),
+                      //     style: titleTx(secondryColor),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
                       Center(
-                        child: Text(
-                          args["body"].toString(),
+                        child: Linkify(
+                          onOpen: (link) async {
+                            try {
+                              if (await canLaunch(link.url.toString())) {
+                                await launch(link.url.toString());
+                              } else {
+                                throw 'Could not launch $link';
+                              }
+                            } catch (e) {}
+                          },
+                          text: args["body"].toString(),
                           style: titleTx(secondryColor),
+                          linkStyle: titleTx(baseColor),
                         ),
                       ),
                       SizedBox(
