@@ -89,10 +89,8 @@ class _morningState extends State<morning> {
                         child: Linkify(
                           onOpen: (link) async {
                             try {
-                              if (await canLaunch(link.url.toString())) {
-                                await launch(link.url.toString());
-                              } else {
-                                throw 'Could not launch $link';
+                              if (!await launch(link.url)) {
+                                throw 'Could not launch ';
                               }
                             } catch (e) {}
                           },
