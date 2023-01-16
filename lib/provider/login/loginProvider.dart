@@ -112,7 +112,8 @@ class LoginProvider extends ChangeNotifier {
 
     if (jsonDecode(respose.body)["IsValid"] == true) {
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
-      sharedPref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
+      sharedPref.setDouble("EmployeeNumber",
+          double.parse(empinfo["EmployeeNumber"].toString() + ".0"));
       sharedPref.setString("EmployeeName", empinfo["EmployeeName"].toString());
       sharedPref.setString("FirstName", empinfo["FirstName"].toString());
       sharedPref.setString("SecondName", empinfo["SecondName"].toString());
