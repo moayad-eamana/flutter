@@ -36,12 +36,14 @@ class _ServicesViewState extends State<ServicesView> {
   int id = 0;
   String empNo = "";
   List<int> insertExtensionRequestValid = [0, 6, 7];
+  int? notificationcont;
   @override
   void initState() {
     // TODO: implement initState
     embId();
     hasPermission2();
     print("object");
+    // notificationcont = 3;
     super.initState();
   }
 
@@ -95,7 +97,8 @@ class _ServicesViewState extends State<ServicesView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarHome.appBarW("جميع الخدمات", context),
+        appBar:
+            AppBarHome.appBarW("جميع الخدمات", context, true, notificationcont),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
