@@ -1,13 +1,12 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-
-import '../../main.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -18,6 +17,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   List Notifications = [];
+  bool Isload = true;
   @override
   void initState() {
     super.initState();
@@ -29,11 +29,15 @@ class _NotificationPageState extends State<NotificationPage> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var respose = await getAction("Hr/GetUserNotificationsHistory/4358095/10");
+    var respose = await getAction("Hr/GetUserNotificationsHistory/" +
+        EmployeeProfile.getEmployeeNumber() +
+        "/10");
     print(respose.body);
-    setState(() {
-      Notifications = jsonDecode(respose.body)["ReturnResult"];
-    });
+    Isload = false;
+    Notifications = jsonDecode(respose.body)["ReturnResult"] ?? [];
+
+    setState(() {});
+
     EasyLoading.dismiss();
   }
 
@@ -46,7 +50,7 @@ class _NotificationPageState extends State<NotificationPage> {
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
-            Notifications.length == 0
+            Isload == false && Notifications.length == 0
                 ? Center(
                     child: Text(
                     "لايوجد إشعارات",

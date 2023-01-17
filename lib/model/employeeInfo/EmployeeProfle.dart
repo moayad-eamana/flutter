@@ -74,7 +74,7 @@ class EmployeeProfile {
     return employeeProfile;
   }
 
-  static Future<String> getEmployeeNumber() async {
+  static String getEmployeeNumber() {
     // EmployeeProfile employeeProfile = new EmployeeProfile();
     // SharedPreferences _pref = await SharedPreferences.getInstance();
 
