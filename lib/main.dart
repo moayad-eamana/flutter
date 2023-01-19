@@ -59,6 +59,7 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:url_launcher/url_launcher.dart';
 
 late AndroidNotificationChannel channel;
+int? notificationcont;
 
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 String? localVersion;
@@ -83,7 +84,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         arguments: ({
           "title": message.notification?.title,
           "body": message.notification?.body,
-          "url": message.data["image"]
+          "url": message.data,
         }));
     return;
   }

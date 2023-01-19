@@ -111,7 +111,7 @@ listenToFirbaseNotification() async {
                 arguments: ({
                   "title": message["title"],
                   "body": message["body"],
-                  "url": message["image"]
+                  "url": message
                 }));
             return;
           } else {
@@ -221,7 +221,7 @@ Future<void> handelfirbasemessge(RemoteMessage message) async {
         arguments: ({
           "title": message.notification?.title,
           "body": message.notification?.body,
-          "url": message.data["image"]
+          "url": message.data
         }));
     return;
   }

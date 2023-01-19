@@ -1,6 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,10 +33,11 @@ class _morningState extends State<morning> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
+
     Future.delayed(Duration.zero).then((value) async {
       try {
         final ByteData imageData =
-            await NetworkAssetBundle(Uri.parse(args["url"].toString()))
+            await NetworkAssetBundle(Uri.parse(args["url"]["image"].toString()))
                 .load("");
         bytes = imageData.buffer.asUint8List();
       } catch (e) {}
@@ -50,7 +54,7 @@ class _morningState extends State<morning> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW(args["title"].toString(), context, null),
+        appBar: AppBarW.appBarW(args["url"]["title"].toString(), context, null),
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -94,7 +98,7 @@ class _morningState extends State<morning> {
                               }
                             } catch (e) {}
                           },
-                          text: args["body"].toString(),
+                          text: args["url"]["body"].toString(),
                           style: titleTx(secondryColor),
                           linkStyle: titleTx(baseColor),
                         ),

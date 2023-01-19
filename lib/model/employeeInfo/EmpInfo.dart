@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EmpInfo {
-  int EmployeeNumber;
+  double EmployeeNumber;
   String EmployeeName;
   String FirstName;
   String SecondName;

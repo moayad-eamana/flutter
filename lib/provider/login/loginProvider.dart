@@ -88,7 +88,10 @@ class LoginProvider extends ChangeNotifier {
     //  SharedPreferences _pref = await SharedPreferences.getInstance();
     await Firebase.initializeApp();
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-    String? token = await messaging.getToken();
+    String? token;
+    try {
+      token = await messaging.getToken();
+    } catch (e) {}
     if (username == "10284928492") {
       username = "4331006";
       Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
@@ -112,8 +115,7 @@ class LoginProvider extends ChangeNotifier {
 
     if (jsonDecode(respose.body)["IsValid"] == true) {
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
-      sharedPref.setDouble("EmployeeNumber",
-          double.parse(empinfo["EmployeeNumber"].toString() + ".0"));
+      sharedPref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
       sharedPref.setString("EmployeeName", empinfo["EmployeeName"].toString());
       sharedPref.setString("FirstName", empinfo["FirstName"].toString());
       sharedPref.setString("SecondName", empinfo["SecondName"].toString());

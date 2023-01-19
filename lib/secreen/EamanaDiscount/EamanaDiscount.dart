@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/CategoriesFilter.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/OfferDetails.dart';

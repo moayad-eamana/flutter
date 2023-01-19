@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -21,6 +22,7 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   void initState() {
     super.initState();
+
     getdatat();
   }
 
@@ -35,7 +37,10 @@ class _NotificationPageState extends State<NotificationPage> {
     print(respose.body);
     Isload = false;
     Notifications = jsonDecode(respose.body)["ReturnResult"] ?? [];
-
+    postAction(
+        "HR/UpdateIsReadStatus/" + EmployeeProfile.getEmployeeNumber() + "/1",
+        null);
+    notificationcont = null;
     setState(() {});
 
     EasyLoading.dismiss();
@@ -73,35 +78,49 @@ class _NotificationPageState extends State<NotificationPage> {
                             child: Card(
                               color: BackGColor,
                               elevation: 5,
-                              child: ListTile(
-                                title: Text(
-                                  Notifications[index]["Title"],
-                                  style: subtitleTx(baseColor),
-                                ),
-                                subtitle: Text(
-                                  Notifications[index]["Body"]
-                                          .toString()
-                                          .replaceAll("\n", " ")
-                                          .substring(0, 50) +
-                                      (Notifications[index]["Body"]
-                                                  .toString()
-                                                  .length >
-                                              50
-                                          ? "..."
-                                          : ""),
-                                  style: descTx2(baseColorText),
-                                  textAlign: TextAlign.right,
-                                ),
-                                trailing: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: baseColor,
-                                ),
+                              child: ClipRRect(
+                                child: Notifications[index]["IsRead"] == 0
+                                    ? Banner(
+                                        location: BannerLocation.topEnd,
+                                        message: 'جديد',
+                                        color: baseColor,
+                                        child: ee(
+                                            Notifications[index]["Title"],
+                                            Notifications[index]["Body"]
+                                                .toString(),
+                                            Notifications[index]["IsRead"]))
+                                    : ee(
+                                        Notifications[index]["Title"],
+                                        Notifications[index]["Body"].toString(),
+                                        Notifications[index]["IsRead"]),
                               ),
                             ),
                           );
                         }),
                   )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget ee(String title, String Body, int IsRead) {
+    return ListTile(
+      title: Text(
+        title,
+        style: subtitleTx(IsRead == 1 ? secondryColorText : baseColor),
+      ),
+      subtitle: Text(
+        Body.replaceAll("\n", " ").substring(0, 50) +
+            (Body.toString().length > 50 ? "..." : ""),
+        style: descTx2(baseColorText),
+        textAlign: TextAlign.right,
+      ),
+      trailing: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        child: Icon(
+          Icons.arrow_forward_ios,
+          // color: baseColor,
         ),
       ),
     );

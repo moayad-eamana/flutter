@@ -36,15 +36,26 @@ class _ServicesViewState extends State<ServicesView> {
   int id = 0;
   String empNo = "";
   List<int> insertExtensionRequestValid = [0, 6, 7];
-  int? notificationcont;
+
   @override
   void initState() {
     // TODO: implement initState
+    shownotfNub();
     embId();
     hasPermission2();
     print("object");
     // notificationcont = 3;
     super.initState();
+  }
+
+  shownotfNub() async {
+    var response = await getAction("Hr/GetNotReadNotificationsCount/" +
+        EmployeeProfile.getEmployeeNumber());
+    notificationcont = jsonDecode(response.body)["ReturnResult"] == null ||
+            jsonDecode(response.body)["ReturnResult"] == 0
+        ? null
+        : jsonDecode(response.body)["ReturnResult"];
+    setState(() {});
   }
 
   Future<void> hasPermission2() async {
@@ -156,21 +167,21 @@ class _ServicesViewState extends State<ServicesView> {
                       height: 10,
                     ),
 
-                    // Text(
-                    //   "المخالفات الإلكترونية",
-                    //   style: subtitleTx(baseColor),
-                    // ),
+                    Text(
+                      "المخالفات الإلكترونية",
+                      style: subtitleTx(baseColor),
+                    ),
 
-                    // widgetsUni.divider(),
+                    widgetsUni.divider(),
 
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // violation(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    violation(),
 
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     if (sharedPref.getBool("permissionforCRM") == true)
                       Text("خدمة العملاء", style: subtitleTx(baseColor)),
                     if (sharedPref.getBool("permissionforCRM") == true)
