@@ -1,4 +1,6 @@
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/meeting/manageTime/ManageroutinTime.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -90,6 +92,14 @@ class _manageroutinTimeState extends State<manageroutinTimeView> {
               width: 120,
               child: widgetsUni.actionbutton("حفظ", Icons.send, () {
                 widget.manageroutinTime.insert(context);
+                logApiModel logapiO = logApiModel();
+                logapiO.ControllerName = "CRMController";
+                logapiO.ClassName = "CRMController";
+                logapiO.ActionMethodName = "إدارة المواعيد - روتيني - حفظ";
+                logapiO.ActionMethodType = 2;
+                logapiO.StatusCode = 1;
+
+                logApi(logapiO);
               }))
         ],
       ),

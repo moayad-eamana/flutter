@@ -1,4 +1,6 @@
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/meeting/manageTime/manegeMeetingTimeProvider.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -165,6 +167,14 @@ class _manageTimeBuDateState extends State<manageTimeBuDate> {
                 ? Container()
                 : widgetsUni.actionbutton("حقظ", Icons.send, () async {
                     await widget._provider.insert(context);
+                    logApiModel logapiO = logApiModel();
+                    logapiO.ControllerName = "CRMController";
+                    logapiO.ClassName = "CRMController";
+                    logapiO.ActionMethodName = "إدارة المواعيد - إسبوعي - حفظ";
+                    logapiO.ActionMethodType = 2;
+                    logapiO.StatusCode = 1;
+
+                    logApi(logapiO);
                     setState(() {});
                   })
           ],

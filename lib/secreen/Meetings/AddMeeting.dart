@@ -1,9 +1,11 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/model/meeting/meetings.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/handelCalander.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +68,14 @@ class _AddMeetingState extends State<AddMeeting> {
       fetchMeetinsTime(Provider.of<MettingsProvider>(context, listen: false)
           .getMeetingsTimeList);
     });
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "إضافة موعد";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
     super.initState();
   }
 
@@ -713,6 +723,15 @@ class _AddMeetingState extends State<AddMeeting> {
                                 // } catch (e) {
                                 //   print(e);
                                 // }
+                                logApiModel logapiO = logApiModel();
+                                logapiO.ControllerName = "CRMController";
+                                logapiO.ClassName = "CRMController";
+                                logapiO.ActionMethodName =
+                                    "إضافة موعد - إضافة موعد";
+                                logapiO.ActionMethodType = 2;
+                                logapiO.StatusCode = 1;
+
+                                logApi(logapiO);
 
                                 Navigator.pop(context);
                               });

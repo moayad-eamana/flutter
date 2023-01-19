@@ -1,7 +1,9 @@
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/meeting/manageTime/ManageroutinTime.dart';
 import 'package:eamanaapp/provider/meeting/manageTime/manegeMeetingTimeProvider.dart';
 import 'package:eamanaapp/secreen/Meetings/manageTime/manageTimeBuDate.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -22,6 +24,14 @@ class _manegeMeetingTimeState extends State<manegeMeetingTime> {
   void initState() {
     // TODO: implement initState
     getInfoRoutin();
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "إدارة المواعيد";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
     super.initState();
   }
 
