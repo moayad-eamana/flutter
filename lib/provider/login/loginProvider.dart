@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -65,17 +66,29 @@ class LoginProvider extends ChangeNotifier {
         erorMs = e.toString();
         return false;
       }
-
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "Account";
+      logapiO.ClassName = "Account";
+      logapiO.ActionMethodName = "تسجيل دخول";
+      logapiO.ActionMethodType = 1;
       if (respose.data["IsAuthenticated"] == true) {
         PrivateToken = respose.data["PrivateToken"];
         sharedPref.setString("PrivateToken", respose.data["PrivateToken"]);
         username = userName;
         pass = password;
 
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
         //_pref.setString("username", userName);
-
         return true;
       } else {
+        // //PrivateToken = respose.data["PrivateToken"];
+        // sharedPref.setString("PrivateToken", respose.data["PrivateToken"]);
+        // username = userName;
+        // pass = password;
+        logapiO.StatusCode = 2;
+        logapiO.ErrorMessage = respose.data["ErrorMessage"].toString();
+        logApi(logapiO);
         loginerorMs = respose.data["ErrorMessage"].toString();
         return false;
       }
