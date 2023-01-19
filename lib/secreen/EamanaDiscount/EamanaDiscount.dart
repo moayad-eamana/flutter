@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/CategoriesFilter.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/OfferDetails.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -48,7 +49,13 @@ class _EamanaDiscountState extends State<EamanaDiscount> {
         GetCategories = (jsonDecode(respose2.body)["CategoriesList"]);
 
         OffersListfiltred = _OffersList;
-
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "OffersController";
+        logapiO.ClassName = "OffersController";
+        logapiO.ActionMethodName = "العروض";
+        logapiO.ActionMethodType = 1;
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
         // _OffersList = _OffersList.where((element) => null);
 
         //  _OffersList = _OffersList.sort((a, b) => a.compareTo(b));

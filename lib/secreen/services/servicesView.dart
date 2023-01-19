@@ -164,21 +164,21 @@ class _ServicesViewState extends State<ServicesView> {
                     ),
                     mahamme(),
 
-                    SizedBox(
-                      height: 10,
-                    ),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
 
-                    Text(
-                      "المخالفات الإلكترونية",
-                      style: subtitleTx(baseColor),
-                    ),
+                    // Text(
+                    //   "المخالفات الإلكترونية",
+                    //   style: subtitleTx(baseColor),
+                    // ),
 
-                    widgetsUni.divider(),
+                    // widgetsUni.divider(),
 
-                    SizedBox(
-                      height: 10,
-                    ),
-                    violation(),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // violation(),
 
                     SizedBox(
                       height: 10,

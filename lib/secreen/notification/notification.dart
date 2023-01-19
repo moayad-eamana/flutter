@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -42,7 +43,13 @@ class _NotificationPageState extends State<NotificationPage> {
         null);
     notificationcont = null;
     setState(() {});
-
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "NotificationsController";
+    logapiO.ClassName = "NotificationsController";
+    logapiO.ActionMethodName = "الإشعارات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
     EasyLoading.dismiss();
   }
 
@@ -72,7 +79,11 @@ class _NotificationPageState extends State<NotificationPage> {
                                   arguments: ({
                                     "title": Notifications[index]["Title"],
                                     "body": Notifications[index]["Body"],
-                                    "url": Notifications[index]["ImageURL"]
+                                    "url": {
+                                      "image": Notifications[index]["ImageURL"],
+                                      "title": Notifications[index]["Title"],
+                                      "body": Notifications[index]["Body"]
+                                    }
                                   }));
                             },
                             child: Card(
