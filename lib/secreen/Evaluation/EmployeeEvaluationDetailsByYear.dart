@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -40,6 +41,13 @@ class _EmployeeEvaluationDetailsByYearState
           "/" +
           widget.year);
       EvaluationDetailsByYear = jsonDecode(respons.body)["EvaluationsDetails"];
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "MethaqController";
+      logapiO.ClassName = "MethaqController";
+      logapiO.ActionMethodName = "تقييماتي-التفاصيل";
+      logapiO.ActionMethodType = 1;
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
     } else {
       EvaluationDetailsByYear = [];
     }

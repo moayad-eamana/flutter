@@ -1,7 +1,9 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -27,6 +29,13 @@ class _EmpInfoViewState extends State<EmpInfoView> {
   @override
   void dispose() {
     // TODO: implement dispose
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "DaleelController";
+    logapiO.ClassName = "DaleelController";
+    logapiO.ActionMethodName = "عرض صفحة دليل الموظفين";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
     EasyLoading.dismiss();
     super.dispose();
   }
@@ -405,7 +414,13 @@ class _EmpInfoViewState extends State<EmpInfoView> {
     if (sharedPref.getString("dumyuser") != "10284928492") {
       bool hasinfo = await Provider.of<EmpInfoProvider>(context, listen: false)
           .fetchEmpInfo(_search.text);
-
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "DaleelController";
+      logapiO.ClassName = "DaleelController";
+      logapiO.ActionMethodName = "دليل الموظفين";
+      logapiO.ActionMethodType = 1;
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
       if (hasinfo == false) {
         Alert(
           context: context,

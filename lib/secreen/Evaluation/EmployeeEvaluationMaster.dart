@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -34,6 +35,13 @@ class _EmployeeEvaluationMasterState extends State<EmployeeEvaluationMaster> {
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
       EvaluationsMasterList = jsonDecode(response.body)["EvaluationsMaster"];
       EvaluationsMasterList = EvaluationsMasterList.reversed.toList();
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "MethaqController";
+      logapiO.ClassName = "MethaqController";
+      logapiO.ActionMethodName = "تقييماتي";
+      logapiO.ActionMethodType = 1;
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
     } else {
       await Future.delayed(Duration(seconds: 1));
       EvaluationsMasterList = [];

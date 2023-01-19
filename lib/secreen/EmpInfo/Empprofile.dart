@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,7 +45,13 @@ class _EmpProfileState extends State<EmpProfile> {
       } else {
         setState(() {});
       }
-
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "DaleelController";
+      logapiO.ClassName = "DaleelController";
+      logapiO.ActionMethodName = "معلوماتي";
+      logapiO.ActionMethodType = 1;
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
       EasyLoading.dismiss();
     });
 
@@ -296,6 +304,18 @@ class _EmpProfileState extends State<EmpProfile> {
 
                                                 TextButton(
                                                     onPressed: () async {
+                                                      logApiModel logapiO =
+                                                          logApiModel();
+                                                      logapiO.ControllerName =
+                                                          "DaleelController";
+                                                      logapiO.ClassName =
+                                                          "DaleelController";
+                                                      logapiO.ActionMethodName =
+                                                          "apple_wallet";
+                                                      logapiO.ActionMethodType =
+                                                          1;
+                                                      logapiO.StatusCode = 1;
+                                                      logApi(logapiO);
                                                       try {
                                                         // await launchUrl(
                                                         //     await Uri.parse(
@@ -362,7 +382,18 @@ class _EmpProfileState extends State<EmpProfile> {
                                                         // // passFile.save();
                                                         // EasyLoading.dismiss();
                                                         // OpenFilex.open(file.path);
-
+                                                        logApiModel logapiO =
+                                                            logApiModel();
+                                                        logapiO.ControllerName =
+                                                            "DaleelController";
+                                                        logapiO.ClassName =
+                                                            "DaleelController";
+                                                        logapiO.ActionMethodName =
+                                                            "apple_wallet";
+                                                        logapiO.ActionMethodType =
+                                                            1;
+                                                        logapiO.StatusCode = 1;
+                                                        logApi(logapiO);
                                                         await launchUrl(
                                                             await Uri.parse(
                                                                 "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=en"));
@@ -475,6 +506,13 @@ class _EmpProfileState extends State<EmpProfile> {
   }
 
   Future getPdfasync(_provider) async {
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "DaleelController";
+    logapiO.ClassName = "DaleelController";
+    logapiO.ActionMethodName = "مشاركة معلوماتي";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
     final pdf = pw.Document();
     var imag = pw.MemoryImage(
         (await rootBundle.load('assets/SVGs/amanah-v.png'))
