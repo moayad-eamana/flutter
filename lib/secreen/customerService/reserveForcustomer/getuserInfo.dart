@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -442,6 +443,14 @@ class _getusrtInfoState extends State<getusrtInfo> {
       }
     });
     EasyLoading.dismiss();
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "حجز الموعد للمستفيد - تحقق من رقم الهوية";
+    logapiO.ActionMethodType = 2;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
   }
 
   insertApp() async {
@@ -490,6 +499,14 @@ class _getusrtInfoState extends State<getusrtInfo> {
     } else {
       Alerts.successAlert(context, "", "تم إضافة الموعد").show();
     }
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "حجز الموعد للمستفيد - إضافة الموعد";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
   }
 
   List<Widget> userifoWidgets() {

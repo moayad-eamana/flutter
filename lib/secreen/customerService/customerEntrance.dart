@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -25,6 +26,20 @@ class _customerEnteranceState extends State<customerEnterance> {
     // TODO: implement dispose
     EasyLoading.dismiss();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "تسجيل حضور";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
   }
 
   @override
@@ -243,6 +258,14 @@ class _customerEnteranceState extends State<customerEnterance> {
                       .then((value) {
                     Navigator.pop(context);
                   });
+                  logApiModel logapiO = logApiModel();
+                  logapiO.ControllerName = "CRMController";
+                  logapiO.ClassName = "CRMController";
+                  logapiO.ActionMethodName = "تسجيل حضور - تسجيل حضور";
+                  logapiO.ActionMethodType = 2;
+                  logapiO.StatusCode = 1;
+
+                  logApi(logapiO);
                 } else {
                   setState(() {});
                   Alerts.errorAlert(
@@ -277,5 +300,13 @@ class _customerEnteranceState extends State<customerEnterance> {
     }
     EasyLoading.dismiss();
     setState(() {});
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "تسجيل حضور - البحث";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
   }
 }

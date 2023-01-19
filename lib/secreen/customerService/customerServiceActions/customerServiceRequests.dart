@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/QrCode/scannQrcode.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -36,7 +37,16 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
 
   void initState() {
     controller = ScrollController()..addListener(_scrollListener);
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = widget.url == "LeaderAppointment_dashboard"
+        ? "عرض الطلبات - حجز الموعد"
+        : "عرض الطلبات - خدمة العملاء";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
 
+    logApi(logapiO);
     getData();
   }
 
@@ -72,6 +82,7 @@ class _customerServiceRrequestsState extends State<customerServiceRrequests> {
           "page": ++page
         }));
     var res = jsonDecode(respose.body);
+
     for (int i = 0; i <= res.length - 1; i++) {
       // res[i]["name"] =
       //     res[i]["name"].toString().replaceAll(new RegExp(r" "), " ");

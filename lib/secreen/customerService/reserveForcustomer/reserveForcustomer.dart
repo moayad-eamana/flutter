@@ -1,5 +1,7 @@
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/customerService/reserveForcustomer/getuserInfo.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -17,6 +19,14 @@ class _reserveForcustomerState extends State<reserveForcustomer> {
     controller.initialPage;
     controller.keepPage;
 
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "حجز الموعد للمستفيد";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
     super.initState();
   }
 

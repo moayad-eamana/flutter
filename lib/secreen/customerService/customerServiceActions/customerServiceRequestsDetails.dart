@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -47,6 +48,22 @@ class _customerServiceRequestsDetailsState
   bool showNoApp = false;
   List depIDList = [];
   String? depID;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = widget.url == "LeaderAppointment_dashboard"
+        ? "عرض التفاصيل الطلب - حجز الموعد"
+        : "عرض التفاصيل الطلب - خدمة العملاء";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
+  }
+
   void dispose() {
     // TODO: implement dispose
     EasyLoading.dismiss();
@@ -711,6 +728,16 @@ class _customerServiceRequestsDetailsState
           EasyLoading.dismiss();
           request_log = jsonDecode(respose.body);
           setState(() {});
+          logApiModel logapiO = logApiModel();
+          logapiO.ControllerName = "CRMController";
+          logapiO.ClassName = "CRMController";
+          logapiO.ActionMethodName = widget.url == "LeaderAppointment_dashboard"
+              ? "عرض سجل الطلب - حجز الموعد"
+              : "عرض سجل الطلب - خدمة العملاء";
+          logapiO.ActionMethodType = 1;
+          logapiO.StatusCode = 1;
+
+          logApi(logapiO);
         }
         page3 = true;
         page2 = false;
@@ -1062,6 +1089,16 @@ class _customerServiceRequestsDetailsState
       Alerts.successAlert(context, "", "تم التحديث").show().then((value) {
         Navigator.pop(context, true);
       });
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "CRMController";
+      logapiO.ClassName = "CRMController";
+      logapiO.ActionMethodName = widget.url == "LeaderAppointment_dashboard"
+          ? "ارسال الإجراءات - حجز الموعد"
+          : "ارسال الإجراءات - خدمة العملاء";
+      logapiO.ActionMethodType = 2;
+      logapiO.StatusCode = 1;
+
+      logApi(logapiO);
     }
 
     if (jsonDecode(respose.body)["status"] != true) {

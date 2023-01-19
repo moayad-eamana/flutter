@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -41,6 +42,14 @@ class _statisticsState extends State<statistics> {
   void initState() {
     // TODO: implement initState
     getData();
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "CRMController";
+    logapiO.ClassName = "CRMController";
+    logapiO.ActionMethodName = "الإحصائيات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
     super.initState();
   }
 
