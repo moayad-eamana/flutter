@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -234,6 +235,14 @@ class CustomSearchDelegate extends SearchDelegateR {
                                   .show();
                             }
                           }
+                          logApiModel logapiO = logApiModel();
+                          logapiO.ControllerName = "SalaryController";
+                          logapiO.ClassName = "SalaryController";
+                          logapiO.ActionMethodName = "تعريف بالراتب";
+                          logapiO.ActionMethodType = 1;
+                          logapiO.StatusCode = 1;
+
+                          logApi(logapiO);
                         } else if (query == "سجل الرواتب") {
                           if (fingerprint == true) {
                             Navigator.pushNamed(context, "/auth_secreen")
@@ -464,6 +473,14 @@ class CustomSearchDelegate extends SearchDelegateR {
                               EasyLoading.dismiss();
                             }
                           }
+                          logApiModel logapiO = logApiModel();
+                          logapiO.ControllerName = "SalaryController";
+                          logapiO.ClassName = "SalaryController";
+                          logapiO.ActionMethodName = "تعريف بالراتب";
+                          logapiO.ActionMethodType = 1;
+                          logapiO.StatusCode = 1;
+
+                          logApi(logapiO);
                         } else if (query == "سجل الرواتب") {
                           if (fingerprint == true) {
                             Navigator.pushNamed(context, "/auth_secreen")
@@ -529,6 +546,14 @@ class CustomSearchDelegate extends SearchDelegateR {
       await Future.delayed(Duration(seconds: 1));
       respose = "22";
     }
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "VacationsController";
+    logapiO.ClassName = "VacationsController";
+    logapiO.ActionMethodName = "رصيد الاجازات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
 
     EasyLoading.dismiss();
     showDialog<String>(

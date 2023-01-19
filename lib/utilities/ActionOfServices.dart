@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -69,6 +70,15 @@ Future<void> rseed(BuildContext context) async {
   String emNo = await EmployeeProfile.getEmployeeNumber();
   dynamic respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
   respose = jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
+
+  logApiModel logapiO = logApiModel();
+  logapiO.ControllerName = "VacationsController";
+  logapiO.ClassName = "VacationsController";
+  logapiO.ActionMethodName = "رصيد الاجازات";
+  logapiO.ActionMethodType = 1;
+  logapiO.StatusCode = 1;
+
+  logApi(logapiO);
   EasyLoading.dismiss();
   showDialog<String>(
     context: context,
@@ -161,6 +171,14 @@ salary(servName, BuildContext context) async {
       Alerts.warningAlert(context, "خطأ", "لا توجد بيانات للتعريف بالراتب")
           .show();
     }
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "SalaryController";
+    logapiO.ClassName = "SalaryController";
+    logapiO.ActionMethodName = "تعريف بالراتب";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
   } else if (servName == "سجل الرواتب") {
     if (fingerprint == true) {
       Navigator.pushNamed(context, "/auth_secreen").then((value) {

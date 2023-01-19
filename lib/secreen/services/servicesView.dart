@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
@@ -271,6 +272,14 @@ class _ServicesViewState extends State<ServicesView> {
                       await Future.delayed(Duration(seconds: 1));
                       respose = "22";
                     }
+                    logApiModel logapiO = logApiModel();
+                    logapiO.ControllerName = "VacationsController";
+                    logapiO.ClassName = "VacationsController";
+                    logapiO.ActionMethodName = "رصيد الاجازات";
+                    logapiO.ActionMethodType = 1;
+                    logapiO.StatusCode = 1;
+
+                    logApi(logapiO);
 
                     EasyLoading.dismiss();
                     showDialog<String>(
@@ -653,6 +662,14 @@ class _ServicesViewState extends State<ServicesView> {
                       Alerts.errorAlert(context, "", "لايوجد تعريف بالراتب")
                           .show();
                     }
+                    logApiModel logapiO = logApiModel();
+                    logapiO.ControllerName = "SalaryController";
+                    logapiO.ClassName = "SalaryController";
+                    logapiO.ActionMethodName = "تعريف بالراتب";
+                    logapiO.ActionMethodType = 1;
+                    logapiO.StatusCode = 1;
+
+                    logApi(logapiO);
                   },
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/ta3refalratb.svg', "تعريف بالراتب"))),

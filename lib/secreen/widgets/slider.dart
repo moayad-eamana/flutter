@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
@@ -79,6 +80,14 @@ class SliderWidget {
                         await Future.delayed(Duration(seconds: 1));
                         respose = "22";
                       }
+                      logApiModel logapiO = logApiModel();
+                      logapiO.ControllerName = "VacationsController";
+                      logapiO.ClassName = "VacationsController";
+                      logapiO.ActionMethodName = "رصيد الاجازات";
+                      logapiO.ActionMethodType = 1;
+                      logapiO.StatusCode = 1;
+
+                      logApi(logapiO);
 
                       EasyLoading.dismiss();
                       showDialog<String>(

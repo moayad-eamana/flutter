@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
@@ -126,6 +127,15 @@ class _ServicesButtonState extends State<ServicesButton> {
     String emNo = await EmployeeProfile.getEmployeeNumber();
     dynamic respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
     respose = jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
+
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "VacationsController";
+    logapiO.ClassName = "VacationsController";
+    logapiO.ActionMethodName = "رصيد الاجازات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
     EasyLoading.dismiss();
     showDialog<String>(
       context: context,
@@ -241,6 +251,14 @@ class _ServicesButtonState extends State<ServicesButton> {
                     .show();
               }
             }
+            logApiModel logapiO = logApiModel();
+            logapiO.ControllerName = "SalaryController";
+            logapiO.ClassName = "SalaryController";
+            logapiO.ActionMethodName = "تعريف بالراتب";
+            logapiO.ActionMethodType = 1;
+            logapiO.StatusCode = 1;
+
+            logApi(logapiO);
           } else if (query == "سجل الرواتب") {
             if (fingerprint == true) {
               Navigator.pushNamed(context, "/auth_secreen").then((value) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -24,6 +25,14 @@ class _SalaryHistoryState extends State<SalaryHistory>
   @override
   void initState() {
     getData();
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "SalaryController";
+    logapiO.ClassName = "SalaryController";
+    logapiO.ActionMethodName = "سجل الرواتب";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+
+    logApi(logapiO);
     super.initState();
     _controller = AnimationController(
       duration: Duration(milliseconds: 300),
