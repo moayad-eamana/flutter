@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/model/mahamme/PurchaseRequestItems.dart';
 import 'package:eamanaapp/model/mahamme/PurchaseRequestsmodel.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -25,6 +26,13 @@ class PurchaseRequestsProvider extends ChangeNotifier {
           .toList();
       notifyListeners();
     }
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "InboxHRController";
+    logapiO.ClassName = "InboxHRController";
+    logapiO.ActionMethodName = "عرض طلبات الشراء-إعتمادات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
     notifyListeners();
     EasyLoading.dismiss();
   }

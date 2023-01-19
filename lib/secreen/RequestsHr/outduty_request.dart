@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -34,6 +35,12 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
 
   @override
   void initState() {
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "OutDutyController";
+    logapiO.ClassName = "OutDutyController";
+    logapiO.ActionMethodName = "صفحة طلب خارج دوام";
+    logapiO.ActionMethodType = 1;
+    logApi(logapiO);
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) => getuserinfo());
   }
@@ -75,11 +82,20 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
 
         var respose = await postAction("HR/InsertOutDutyRequest/", body);
         print(jsonDecode(respose.body));
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "OutDutyController";
+        logapiO.ClassName = "OutDutyController";
+        logapiO.ActionMethodName = "طلب خارج دوام";
+        logapiO.ActionMethodType = 2;
+
         if (jsonDecode(respose.body)["StatusCode"] != 400) {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
           Alerts.errorAlert(
                   context, "خطأ", jsonDecode(respose.body)["ErrorMessage"])
               .show();
         } else {
+          logapiO.StatusCode = 1;
           Alerts.successAlert(context, "", "تم ارسال الطلب").show();
         }
 

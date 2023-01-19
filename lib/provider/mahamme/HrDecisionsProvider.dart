@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/model/mahamme/HrDecisions.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:http/http.dart' as http;
@@ -14,9 +15,22 @@ class HrDecisionsProvider extends ChangeNotifier {
     var respose = await getAction("Inbox/GetDecisions" + "/" + empNo);
     print((jsonDecode(respose.body)["DecisionList"]));
     try {
-      _hrDecisions = (jsonDecode(respose.body)["DecisionList"] as List)
-          .map(((e) => HrDecisions.fromJson(e)))
-          .toList();
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "InboxHRController";
+      logapiO.ClassName = "InboxHRController";
+      logapiO.ActionMethodName = "عرض طلبات القرارات الإلكترونية-إعتمادات";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(respose.body)["ErrorMessage"] == null) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        _hrDecisions = (jsonDecode(respose.body)["DecisionList"] as List)
+            .map(((e) => HrDecisions.fromJson(e)))
+            .toList();
+      } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+        logApi(logapiO);
+      }
     } catch (e) {
       _hrDecisions = [];
     }

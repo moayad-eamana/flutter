@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -597,9 +598,35 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                     .getHrRequests[
                                                         widget.index ?? 0]
                                                     .RequestTypeID);
+                                            String? controlerName;
+                                            if (_provider
+                                                    .getHrRequests[
+                                                        widget.index ?? 0]
+                                                    .RequestTypeID ==
+                                                2) {
+                                              controlerName = "رفض خارج دوام";
+                                            } else if (_provider
+                                                    .getHrRequests[
+                                                        widget.index ?? 0]
+                                                    .RequestType ==
+                                                "إنتداب") {
+                                              controlerName = "رفض طلب إنتداب";
+                                            } else {
+                                              controlerName = "رفض طلب إجازة";
+                                            }
 
+                                            logApiModel logapiO = logApiModel();
+                                            logapiO.ControllerName =
+                                                "InboxHRController";
+                                            logapiO.ClassName =
+                                                "InboxHRController";
+                                            logapiO.ActionMethodName =
+                                                controlerName;
+                                            logapiO.ActionMethodType = 2;
                                             EasyLoading.dismiss();
                                             if (bool == true) {
+                                              logapiO.StatusCode = 1;
+                                              logApi(logapiO);
                                               Alerts.successAlert(context, "",
                                                       "تم رفض الطلب")
                                                   .show()
@@ -609,6 +636,9 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                                 Navigator.pop(context);
                                               });
                                             } else {
+                                              logapiO.StatusCode = 0;
+                                              logapiO.ErrorMessage = bool;
+                                              logApi(logapiO);
                                               Alerts.errorAlert(
                                                       context, "", bool)
                                                   .show();
@@ -646,7 +676,27 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                         status: '... جاري المعالجة',
                                         maskType: EasyLoadingMaskType.black,
                                       );
+                                      String? controlerName;
+                                      if (_provider
+                                              .getHrRequests[widget.index ?? 0]
+                                              .RequestTypeID ==
+                                          2) {
+                                        controlerName = "إعتماد خارج دوام";
+                                      } else if (_provider
+                                              .getHrRequests[widget.index ?? 0]
+                                              .RequestType ==
+                                          "إنتداب") {
+                                        controlerName = "إعتماد طلب إنتداب";
+                                      } else {
+                                        controlerName = "إعتماد طلب إجازة";
+                                      }
                                       dynamic bool = true;
+                                      logApiModel logapiO = logApiModel();
+                                      logapiO.ControllerName =
+                                          "InboxHRController";
+                                      logapiO.ClassName = "InboxHRController";
+                                      logapiO.ActionMethodName = controlerName;
+                                      logapiO.ActionMethodType = 2;
                                       if (_provider
                                               .getHrRequests[widget.index ?? 0]
                                               .RequestTypeID ==
@@ -679,6 +729,8 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                       }
                                       EasyLoading.dismiss();
                                       if (bool == true) {
+                                        logapiO.StatusCode = 1;
+                                        logApi(logapiO);
                                         Alerts.successAlert(
                                                 context, "", "تم القبول ")
                                             .show()
@@ -686,6 +738,9 @@ class _HRdetailsViewState extends State<HRdetailsView> {
                                           Navigator.pop(context);
                                         });
                                       } else {
+                                        logapiO.StatusCode = 0;
+                                        logapiO.ErrorMessage = bool;
+                                        logApi(logapiO);
                                         Alerts.errorAlert(context, "", bool)
                                             .show();
                                       }

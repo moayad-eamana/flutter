@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/model/mahamme/Mobashara.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,15 @@ class MobasharaProvider extends ChangeNotifier {
       respose = await getAction(
           "Inbox/GetStartWorkRequests/" + EmNo + "/" + TypeID.toString());
     }
-
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "InboxHRController";
+    logapiO.ClassName = "InboxHRController";
+    logapiO.ActionMethodName = TypeID == 132
+        ? "عرض طلبات إعتماد استمرار موظف-إعتمادات"
+        : "مباشرة عمل -إعتمادات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
     if (jsonDecode(respose.body)["RequestsList"] != null) {
       _mobashara = (jsonDecode(respose.body)["RequestsList"] as List)
           .map(((e) => Mobashara.fromJson(e)))

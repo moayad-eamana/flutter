@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -27,9 +28,22 @@ class _CooperativeTrainingRequestsState
       RequestsList = await getAction("Inbox/GetCooperativeTrainingRequests/" +
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
       EasyLoading.dismiss();
-      setState(() {
-        RequestsList = jsonDecode(RequestsList.body)["RequestsList"] ?? [];
-      });
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "InboxHRController";
+      logapiO.ClassName = "InboxHRController";
+      logapiO.ActionMethodName = "عرض طلبات التدريب التعاوني-إعتمادات";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(RequestsList.body)["ErrorMessage"] == null) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        setState(() {
+          RequestsList = jsonDecode(RequestsList.body)["RequestsList"] ?? [];
+        });
+      } else {
+        logapiO.StatusCode = 1;
+        logapiO.ErrorMessage = jsonDecode(RequestsList.body)["ErrorMessage"];
+        logApi(logapiO);
+      }
     });
     super.initState();
   }

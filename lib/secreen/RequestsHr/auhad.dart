@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -48,13 +49,30 @@ class _AuhadState extends State<Auhad> {
       if (sharedPref.getString("dumyuser") != "10284928492") {
         var respose = await getAction("HR/GetEmployeeCustodies/" +
             empinfo.EmployeeNumber.toString().split(".")[0]);
-
-        setState(() {
-          _GetEmployeeCustodies = (jsonDecode(respose.body)["CustodiesList"]);
-          ItemsCount = (jsonDecode(respose.body)["ItemsCount"]);
-          // print(_GetEmployeeCustodies);
-          // print(ItemsCount);
-        });
+        if (jsonDecode(respose.body)["ErrorMessage"] == null) {
+          setState(() {
+            _GetEmployeeCustodies = (jsonDecode(respose.body)["CustodiesList"]);
+            ItemsCount = (jsonDecode(respose.body)["ItemsCount"]);
+            // print(_GetEmployeeCustodies);
+            // print(ItemsCount);
+          });
+          logApiModel logapiO = logApiModel();
+          logapiO.ControllerName = "CustodiesController";
+          logapiO.ClassName = "CustodiesController";
+          logapiO.ActionMethodName = "عرض العهد";
+          logapiO.ActionMethodType = 1;
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
+        } else {
+          logApiModel logapiO = logApiModel();
+          logapiO.ControllerName = "CustodiesController";
+          logapiO.ClassName = "CustodiesController";
+          logapiO.ActionMethodName = "عرض العهد";
+          logapiO.ActionMethodType = 1;
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+          logApi(logapiO);
+        }
       } else {
         await Future.delayed(Duration(seconds: 1));
         _GetEmployeeCustodies = null;

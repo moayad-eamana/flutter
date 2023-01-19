@@ -1,6 +1,8 @@
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -173,6 +175,11 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                               "إعتماد",
                               Icons.check,
                               () async {
+                                logApiModel logapiO = logApiModel();
+                                logapiO.ControllerName = "InboxHRController";
+                                logapiO.ClassName = "InboxHRController";
+                                logapiO.ActionMethodName = "إعتماد طلب شراء";
+                                logapiO.ActionMethodType = 2;
                                 if (_formKey.currentState!.validate()) {
                                   dynamic res =
                                       await _provider.ApprovePurchasesRequest(
@@ -182,6 +189,8 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                           widget.id);
 
                                   if (res == true) {
+                                    logapiO.StatusCode = 1;
+                                    logApi(logapiO);
                                     Alerts.successAlert(
                                             context, "", "تم الإعتماد ")
                                         .show()
@@ -189,6 +198,9 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                       Navigator.pop(context);
                                     });
                                   } else {
+                                    logapiO.StatusCode = 0;
+                                    logapiO.ErrorMessage = res.toString();
+                                    logApi(logapiO);
                                     Alerts.errorAlert(
                                             context, "خطأ", res.toString())
                                         .show();
@@ -200,6 +212,11 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                               "رفض",
                               Icons.close,
                               () async {
+                                logApiModel logapiO = logApiModel();
+                                logapiO.ControllerName = "InboxHRController";
+                                logapiO.ClassName = "InboxHRController";
+                                logapiO.ActionMethodName = "رفض طلب شراء";
+                                logapiO.ActionMethodType = 2;
                                 if (_formKey.currentState!.validate()) {
                                   if (_formKey.currentState!.validate()) {
                                     dynamic res =
@@ -210,6 +227,8 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                             widget.id);
 
                                     if (res == true) {
+                                      logapiO.StatusCode = 1;
+                                      logApi(logapiO);
                                       Alerts.successAlert(
                                               context, "", "تم الرفض ")
                                           .show()
@@ -217,6 +236,9 @@ class _PurchaseRequestsDetailsState extends State<PurchaseRequestsDetails> {
                                         Navigator.pop(context);
                                       });
                                     } else {
+                                      logapiO.StatusCode = 0;
+                                      logapiO.ErrorMessage = res.toString();
+                                      logApi(logapiO);
                                       Alerts.errorAlert(
                                               context, "خطأ", res.toString())
                                           .show();

@@ -1,12 +1,11 @@
 import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/model/mahamme/HrRequests.dart';
 import 'package:eamanaapp/model/mahamme/InboxHeader.dart';
 import 'package:eamanaapp/model/RequestRejectReasons.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
-
-import '../../main.dart';
 
 class EatemadatProvider extends ChangeNotifier {
   bool isLoding = false;
@@ -19,10 +18,23 @@ class EatemadatProvider extends ChangeNotifier {
     var respose = await getAction("Inbox/GetInboxHeader/" + empNo);
     print(respose);
     try {
-      if (jsonDecode(respose.body)["HeaderList"] != null) {
-        _inboxHeader = (jsonDecode(respose.body)["HeaderList"] as List)
-            .map(((e) => InboxHeader.fromJson(e)))
-            .toList();
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "InboxHRController";
+      logapiO.ClassName = "InboxHRController";
+      logapiO.ActionMethodName = "عرض الإعتمادات";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(respose.body)["ErrorMessage"] == null) {
+        if (jsonDecode(respose.body)["HeaderList"] != null) {
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
+          _inboxHeader = (jsonDecode(respose.body)["HeaderList"] as List)
+              .map(((e) => InboxHeader.fromJson(e)))
+              .toList();
+        }
+      } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+        logApi(logapiO);
       }
     } catch (Ex) {}
     _inboxHeader.removeWhere((element) => element.TypeID == 121);
@@ -42,12 +54,25 @@ class EatemadatProvider extends ChangeNotifier {
     String empNo = await EmployeeProfile.getEmployeeNumber();
     var respose = await getAction("Inbox/GetInboxHrRequests/" + empNo);
     print((jsonDecode(respose.body)["RequestList"]));
-    if (jsonDecode(respose.body)["RequestList"] == null) {
-      _hrRequestsList = [];
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "InboxHRController";
+    logapiO.ClassName = "InboxHRController";
+    logapiO.ActionMethodName = "عرض طلبات شؤون الموظفين-إعتمادات";
+    logapiO.ActionMethodType = 1;
+    if (jsonDecode(respose.body)["ErrorMessage"] == null) {
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
+      if (jsonDecode(respose.body)["RequestList"] == null) {
+        _hrRequestsList = [];
+      } else {
+        _hrRequestsList = (jsonDecode(respose.body)["RequestList"] as List)
+            .map(((e) => HrRequests.fromJson(e)))
+            .toList();
+      }
     } else {
-      _hrRequestsList = (jsonDecode(respose.body)["RequestList"] as List)
-          .map(((e) => HrRequests.fromJson(e)))
-          .toList();
+      logapiO.StatusCode = 0;
+      logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+      logApi(logapiO);
     }
 
     isLoding = false;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/Mandates_history_detailes.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -40,7 +41,25 @@ class _Mandates_historyState extends State<Mandates_history> {
       );
       list = await getAction("HR/GetUserMandates/" + Empno);
       EasyLoading.dismiss();
-      list = jsonDecode(list.body)["MandatesList"] ?? [];
+      if (jsonDecode(list.body)["ErrorMessage"] == null) {
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "MandatesController";
+        logapiO.ClassName = "MandatesController";
+        logapiO.ActionMethodName = "عرض طلبات الإنتداب";
+        logapiO.ActionMethodType = 1;
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        list = jsonDecode(list.body)["MandatesList"] ?? [];
+      } else {
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "MandatesController";
+        logapiO.ClassName = "MandatesController";
+        logapiO.ActionMethodName = "عرض طلبات الإنتداب";
+        logapiO.ActionMethodType = 1;
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(list.body)["ErrorMessage"];
+        logApi(logapiO);
+      }
     } else {
       EasyLoading.show(
         status: '... جاري المعالجة',

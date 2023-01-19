@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer_datiels.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -35,7 +36,20 @@ class _desclaimerState extends State<desclaimer> {
     if (sharedPref.getString("dumyuser") != "10284928492") {
       decodeNaif = await getAction("HR/GetEmployeeEvacuations/" +
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
-      naif = jsonDecode(decodeNaif.body)["EvacuationList"] ?? [];
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "HRRequestsController";
+      logapiO.ClassName = "HRRequestsController";
+      logapiO.ActionMethodName = "إستعلام إخلاء طرف";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(decodeNaif.body)["ErrorMessage"] == null) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        naif = jsonDecode(decodeNaif.body)["EvacuationList"] ?? [];
+      } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(decodeNaif.body)["ErrorMessage"];
+        logApi(logapiO);
+      }
     } else {
       await Future.delayed(Duration(seconds: 1));
       naif = [];

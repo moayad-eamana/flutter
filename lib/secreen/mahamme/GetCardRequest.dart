@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -26,9 +27,22 @@ class _GetCardRequestState extends State<GetCardRequest> {
       CardsList = await getAction("inbox/GetWorkCards/" +
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
       EasyLoading.dismiss();
-      setState(() {
-        CardsList = jsonDecode(CardsList.body)["CardsList"] ?? [];
-      });
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "InboxHRController";
+      logapiO.ClassName = "InboxHRController";
+      logapiO.ActionMethodName = "عرض طلبات بطاقة موظف-إعتمادات";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(CardsList.body)["ErrorMessage"] == null) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        setState(() {
+          CardsList = jsonDecode(CardsList.body)["CardsList"] ?? [];
+        });
+      } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(CardsList.body)["ErrorMessage"];
+        logApi(logapiO);
+      }
     });
     super.initState();
   }

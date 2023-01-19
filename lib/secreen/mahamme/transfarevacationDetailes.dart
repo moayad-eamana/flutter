@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -91,6 +92,12 @@ class _transfarevacationDetailesState extends State<transfarevacationDetailes> {
                                 onPrimary: Colors.white, // foreground
                               ),
                               onPressed: () {
+                                logApiModel logapiO = logApiModel();
+                                logapiO.ControllerName = "InboxHRController";
+                                logapiO.ClassName = "InboxHRController";
+                                logapiO.ActionMethodName =
+                                    "إعتماد ترحيل الإجازة";
+                                logapiO.ActionMethodType = 2;
                                 Alerts.confirmAlrt(
                                         context,
                                         "هل أنت متأكد",
@@ -119,6 +126,8 @@ class _transfarevacationDetailesState extends State<transfarevacationDetailes> {
                                     EasyLoading.dismiss();
                                     if (jsonDecode(respons.body)["IsUpdated"] ==
                                         true) {
+                                      logapiO.StatusCode = 1;
+                                      logApi(logapiO);
                                       Alerts.successAlert(
                                               context, "", "تم إعتماد الطلب")
                                           .show()
@@ -126,6 +135,10 @@ class _transfarevacationDetailesState extends State<transfarevacationDetailes> {
                                         Navigator.pop(context, widget.index);
                                       });
                                     } else {
+                                      logapiO.StatusCode = 0;
+                                      logapiO.ErrorMessage = jsonDecode(
+                                          respons.body)["ErrorMessage"];
+                                      logApi(logapiO);
                                       Alerts.errorAlert(
                                               context,
                                               "خطأ",
