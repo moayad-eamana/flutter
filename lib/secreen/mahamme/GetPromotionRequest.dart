@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -36,7 +37,22 @@ class _GetPromotionRequestState extends State<GetPromotionRequest> {
     var response = await getAction("Inbox/GetPromotionRequest/" +
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0]);
     print(PromotionReques);
-    PromotionReques = jsonDecode(response.body)["PromotionInfo"];
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "InboxHRController";
+    logapiO.ClassName = "InboxHRController";
+    logapiO.ActionMethodName = "عرض طلبات إقرار الترقية-إعتمادات";
+    logapiO.ActionMethodType = 1;
+    if (jsonDecode(PromotionReques.body)["ErrorMessage"] == null) {
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
+      PromotionReques = jsonDecode(response.body)["PromotionInfo"];
+    } else {
+      logapiO.StatusCode = 0;
+      logapiO.ErrorMessage = jsonDecode(PromotionReques.body)["ErrorMessage"];
+      logApi(logapiO);
+      PromotionReques = jsonDecode(response.body)["PromotionInfo"];
+    }
+
     setState(() {});
     EasyLoading.dismiss();
   }
@@ -202,9 +218,19 @@ class _GetPromotionRequestState extends State<GetPromotionRequest> {
                                                   "Text": text.toString()
                                                 }));
                                             EasyLoading.dismiss();
+                                            logApiModel logapiO = logApiModel();
+                                            logapiO.ControllerName =
+                                                "InboxHRController";
+                                            logapiO.ClassName =
+                                                "InboxHRController";
+                                            logapiO.ActionMethodName =
+                                                "إعتماد إقرار الترقيه";
+                                            logapiO.ActionMethodType = 2;
                                             if (jsonDecode(response.body)[
                                                     "IsUpdated"] ==
                                                 true) {
+                                              logapiO.StatusCode = 1;
+                                              logApi(logapiO);
                                               Alerts.successAlert(context, "",
                                                       "تم الإعتماد بنجاح")
                                                   .show()
@@ -212,6 +238,12 @@ class _GetPromotionRequestState extends State<GetPromotionRequest> {
                                                 Navigator.pop(context);
                                               });
                                             } else {
+                                              logapiO.StatusCode = 0;
+                                              logapiO.ErrorMessage =
+                                                  jsonDecode(response.body)[
+                                                      "ErrorMessage"];
+
+                                              logApi(logapiO);
                                               Alerts.errorAlert(
                                                       context,
                                                       "خطأ",

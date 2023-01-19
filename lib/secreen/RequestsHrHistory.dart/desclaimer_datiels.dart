@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -35,7 +36,21 @@ class _DesclaimerdatielsState extends State<Desclaimerdatiels> {
     if (sharedPref.getString("dumyuser") != "10284928492") {
       respons =
           await getAction("HR/GetEvacuationDetails/" + widget.RequestNumber);
-      GetEvacuationDetails = jsonDecode(respons.body)["ApprovalsList"];
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "HRRequestsController";
+      logapiO.ClassName = "HRRequestsController";
+      logapiO.ActionMethodName = "إستعلام عن الإجراءات إخلاء طرف";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(respons.body)["ErrorMessage"] == null) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        GetEvacuationDetails = jsonDecode(respons.body)["ApprovalsList"];
+      } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(respons.body)["ErrorMessage"];
+        logApi(logapiO);
+        GetEvacuationDetails = jsonDecode(respons.body)["ApprovalsList"];
+      }
     } else {
       GetEvacuationDetails = [];
     }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/mahamme/desclaimerDetailes.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -34,7 +35,21 @@ class _desclaimerState extends State<desclaimer> {
         "/1/21");
     EasyLoading.dismiss();
     load = false;
-    EvacuationRequests = jsonDecode(response.body)["RequestList"];
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "InboxHRController";
+    logapiO.ClassName = "InboxHRController";
+    logapiO.ActionMethodName = "عرض طلبات إخلاء الطرف-إعتمادات";
+    logapiO.ActionMethodType = 1;
+    if (jsonDecode(response.body)["ErrorMessage"] == null) {
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
+      EvacuationRequests = jsonDecode(response.body)["RequestList"];
+    } else {
+      logapiO.StatusCode = 0;
+      logapiO.ErrorMessage = jsonDecode(response.body)["ErrorMessage"];
+      logApi(logapiO);
+    }
+
     setState(() {});
   }
 

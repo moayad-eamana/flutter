@@ -3,6 +3,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -47,6 +48,12 @@ class _VacationRequestState extends State<VacationRequest> {
 
   @override
   void initState() {
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "VacationsController";
+    logapiO.ClassName = "VacationsController";
+    logapiO.ActionMethodName = "صفحة طلب إجازة";
+    logapiO.ActionMethodType = 1;
+    logApi(logapiO);
     super.initState();
     WidgetsBinding.instance
         ?.addPostFrameCallback((_) => getMainDepartmentEmployees());
@@ -123,11 +130,21 @@ class _VacationRequestState extends State<VacationRequest> {
 
         var respose = await postAction("HR/InsertVacationRequest/", body);
         print(jsonDecode(respose.body));
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "VacationsController";
+        logapiO.ClassName = "VacationsController";
+        logapiO.ActionMethodName = "طلب إجازة";
+        logapiO.ActionMethodType = 2;
         if (jsonDecode(respose.body)["StatusCode"] != 400) {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+          logApi(logapiO);
           Alerts.errorAlert(
                   context, "خطأ", jsonDecode(respose.body)["ErrorMessage"])
               .show();
         } else {
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
           Alerts.successAlert(context, "", "تم ارسال الطلب")
               .show()
               .then((value) async {

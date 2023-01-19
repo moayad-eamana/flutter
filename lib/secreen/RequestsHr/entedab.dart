@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -31,6 +32,18 @@ class _EntedabState extends State<Entedab> {
   double locationId = 0;
   String MandateTypeID = "";
   String? selecteditem = null;
+  @override
+  void initState() {
+    // TODO: implement initState
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "MandatesController";
+    logapiO.ClassName = "MandatesController";
+    logapiO.ActionMethodName = "صفحة طلب الإنتداب";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,6 +199,13 @@ class _EntedabState extends State<Entedab> {
                                       status: '... جاري المعالجة',
                                       maskType: EasyLoadingMaskType.black,
                                     );
+                                    logApiModel logapiO = logApiModel();
+                                    logapiO.ControllerName =
+                                        "MandatesController";
+                                    logapiO.ClassName = "MandatesController";
+                                    logapiO.ActionMethodName = "طلب الإنتداب";
+                                    logapiO.ActionMethodType = 2;
+
                                     var response = await postAction(
                                         "HR/InsertMandateRequest",
                                         jsonEncode({
@@ -207,6 +227,11 @@ class _EntedabState extends State<Entedab> {
                                     if (jsonDecode(
                                             response.body)["StatusCode"] !=
                                         400) {
+                                      logapiO.StatusCode = 0;
+                                      logapiO.ErrorMessage = jsonDecode(
+                                          response.body)["ErrorMessage"];
+                                      logApi(logapiO);
+
                                       Alerts.errorAlert(
                                               context,
                                               "خطأ",
@@ -215,6 +240,8 @@ class _EntedabState extends State<Entedab> {
                                           .show();
                                       return;
                                     } else {
+                                      logapiO.StatusCode = 1;
+                                      logApi(logapiO);
                                       Alerts.successAlert(
                                               context, "", "تمت الاضافة بنجاح")
                                           .show();

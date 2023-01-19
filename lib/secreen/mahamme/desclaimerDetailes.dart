@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/RequestsHr/auhad.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -155,10 +156,20 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
                                             "Notes": "",
                                             "IsApproved": true
                                           }));
+                                      logApiModel logapiO = logApiModel();
+                                      logapiO.ControllerName =
+                                          "InboxHRController";
+                                      logapiO.ClassName = "InboxHRController";
+                                      logapiO.ActionMethodName =
+                                          "إعتماد إخلاء طرف";
+                                      logapiO.ActionMethodType = 2;
+
                                       EasyLoading.dismiss();
                                       if (jsonDecode(
                                               respinse.body)["IsUpdated"] ==
                                           true) {
+                                        logapiO.StatusCode = 1;
+                                        logApi(logapiO);
                                         Alerts.successAlert(
                                                 context, "تم إعتماد الطلب", "")
                                             .show()
@@ -166,6 +177,11 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
                                           Navigator.pop(context, widget.index);
                                         });
                                       } else {
+                                        logapiO.StatusCode = 0;
+                                        logapiO.ErrorMessage = jsonDecode(
+                                            respinse.body)["ErrorMessage"];
+
+                                        logApi(logapiO);
                                         Alerts.errorAlert(
                                                 context,
                                                 "خطأ",
@@ -188,6 +204,12 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
                                   onPrimary: Colors.white, // foreground
                                 ),
                                 onPressed: () {
+                                  logApiModel logapiO = logApiModel();
+                                  logapiO.ControllerName = "InboxHRController";
+                                  logapiO.ClassName = "InboxHRController";
+                                  logapiO.ActionMethodName =
+                                      "رفض طلب إخلاء طرف";
+                                  logapiO.ActionMethodType = 2;
                                   if (!_formKey.currentState!.validate()) {
                                     return;
                                   }
@@ -217,6 +239,8 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
                                       if (jsonDecode(
                                               respinse.body)["IsUpdated"] ==
                                           true) {
+                                        logapiO.StatusCode = 1;
+                                        logApi(logapiO);
                                         Alerts.successAlert(
                                                 context, "تم رفض الطلب", "")
                                             .show()
@@ -224,6 +248,10 @@ class _desclaimerDetailesState extends State<desclaimerDetailes> {
                                           Navigator.pop(context, widget.index);
                                         });
                                       } else {
+                                        logapiO.StatusCode = 0;
+                                        logapiO.ErrorMessage = jsonDecode(
+                                            respinse.body)["ErrorMessage"];
+                                        logApi(logapiO);
                                         Alerts.errorAlert(
                                                 context,
                                                 "خطأ",

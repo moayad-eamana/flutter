@@ -70,7 +70,7 @@ class LoginProvider extends ChangeNotifier {
       logapiO.ControllerName = "Account";
       logapiO.ClassName = "Account";
       logapiO.ActionMethodName = "تسجيل دخول";
-      logapiO.ActionMethodType = 1;
+      logapiO.ActionMethodType = 2;
       if (respose.data["IsAuthenticated"] == true) {
         PrivateToken = respose.data["PrivateToken"];
         sharedPref.setString("PrivateToken", respose.data["PrivateToken"]);
@@ -86,7 +86,7 @@ class LoginProvider extends ChangeNotifier {
         // sharedPref.setString("PrivateToken", respose.data["PrivateToken"]);
         // username = userName;
         // pass = password;
-        logapiO.StatusCode = 2;
+        logapiO.StatusCode = 0;
         logapiO.ErrorMessage = respose.data["ErrorMessage"].toString();
         logApi(logapiO);
         loginerorMs = respose.data["ErrorMessage"].toString();
@@ -125,8 +125,14 @@ class LoginProvider extends ChangeNotifier {
           }),
           headers: {"Content-Type": "application/json"});
     }
-
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "Account";
+    logapiO.ClassName = "Account";
+    logapiO.ActionMethodName = "رمز التحقق";
+    logapiO.ActionMethodType = 2;
     if (jsonDecode(respose.body)["IsValid"] == true) {
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
       sharedPref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
       sharedPref.setString("EmployeeName", empinfo["EmployeeName"].toString());
@@ -171,6 +177,9 @@ class LoginProvider extends ChangeNotifier {
 
       return true;
     }
+    logapiO.StatusCode = 0;
+    logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"].toString();
+    logApi(logapiO);
     return jsonDecode(respose.body)["ErrorMessage"];
   }
 

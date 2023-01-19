@@ -1,7 +1,9 @@
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/MobasharaProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -316,8 +318,18 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                                         "Flag": "R"
                                       }, widget.index, widget.TypeID);
                                       EasyLoading.dismiss();
-
+                                      logApiModel logapiO = logApiModel();
+                                      logapiO.ControllerName =
+                                          "InboxHRController";
+                                      logapiO.ClassName = "InboxHRController";
+                                      logapiO.ActionMethodName =
+                                          widget.TypeID == 132
+                                              ? "رفض إقرار الترقية"
+                                              : "رفض مباشرة عمل";
+                                      logapiO.ActionMethodType = 2;
                                       if (response == true) {
+                                        logapiO.StatusCode = 1;
+                                        logApi(logapiO);
                                         Alerts.successAlert(
                                                 context, "", "تمت الموافقة ")
                                             .show()
@@ -325,6 +337,9 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                                           Navigator.pop(context);
                                         });
                                       } else {
+                                        logapiO.StatusCode = 0;
+                                        logapiO.ErrorMessage = response;
+                                        logApi(logapiO);
                                         EasyLoading.dismiss();
                                         Alerts.errorAlert(
                                                 context, "خطأ", response)
@@ -372,8 +387,18 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                                         "Flag": "A"
                                       }, widget.index, widget.TypeID);
                                       EasyLoading.dismiss();
-
+                                      logApiModel logapiO = logApiModel();
+                                      logapiO.ControllerName =
+                                          "InboxHRController";
+                                      logapiO.ClassName = "InboxHRController";
+                                      logapiO.ActionMethodName =
+                                          widget.TypeID == 132
+                                              ? "إعتماد إقرار الترقية"
+                                              : "إعتماد مباشرة عمل";
+                                      logapiO.ActionMethodType = 2;
                                       if (response == true) {
+                                        logapiO.StatusCode = 1;
+                                        logApi(logapiO);
                                         Alerts.successAlert(
                                                 context, "", "تمت الموافقة ")
                                             .show()
@@ -381,6 +406,9 @@ class _MobasharaDetailsState extends State<MobasharaDetails> {
                                           Navigator.pop(context);
                                         });
                                       } else {
+                                        logapiO.StatusCode = 0;
+                                        logapiO.ErrorMessage = response;
+                                        logApi(logapiO);
                                         EasyLoading.dismiss();
                                         Alerts.errorAlert(
                                                 context, "خطأ", response)

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -329,6 +330,11 @@ class _GetCardRequestInfoState extends State<GetCardRequestInfo> {
                               primary: baseColor,
                             ),
                             onPressed: () async {
+                              logApiModel logapiO = logApiModel();
+                              logapiO.ControllerName = "InboxHRController";
+                              logapiO.ClassName = "InboxHRController";
+                              logapiO.ActionMethodName = "إعتماد طلب إخلاء طرف";
+                              logapiO.ActionMethodType = 2;
                               Alerts.confirmAlrt(
                                       context, "", "هل تريد قبول الطلب", "نعم")
                                   .show()
@@ -351,6 +357,10 @@ class _GetCardRequestInfoState extends State<GetCardRequestInfo> {
                                   EasyLoading.dismiss();
                                   if (jsonDecode(respose.body)["StatusCode"] !=
                                       400) {
+                                    logapiO.StatusCode = 0;
+                                    logapiO.ErrorMessage = jsonDecode(
+                                        respose.body)["ErrorMessage"];
+                                    logApi(logapiO);
                                     Alerts.errorAlert(
                                             context,
                                             "خطأ",
@@ -359,6 +369,9 @@ class _GetCardRequestInfoState extends State<GetCardRequestInfo> {
                                         .show();
                                     return;
                                   } else {
+                                    logapiO.StatusCode = 0;
+
+                                    logApi(logapiO);
                                     Alerts.successAlert(
                                             context, "", "تم قبول الطلب")
                                         .show()
@@ -418,9 +431,20 @@ class _GetCardRequestInfoState extends State<GetCardRequestInfo> {
                                           "Notes": _notes.text
                                         }));
                                     EasyLoading.dismiss();
+                                    logApiModel logapiO = logApiModel();
+                                    logapiO.ControllerName =
+                                        "InboxHRController";
+                                    logapiO.ClassName = "InboxHRController";
+                                    logapiO.ActionMethodName = "رفض بطاقة موضف";
+                                    logapiO.ActionMethodType = 2;
+
                                     if (jsonDecode(
                                             respose.body)["StatusCode"] !=
                                         400) {
+                                      logapiO.StatusCode = 0;
+                                      logapiO.ErrorMessage = jsonDecode(
+                                          respose.body)["ErrorMessage"];
+                                      logApi(logapiO);
                                       Alerts.errorAlert(
                                               context,
                                               "خطأ",
@@ -429,6 +453,8 @@ class _GetCardRequestInfoState extends State<GetCardRequestInfo> {
                                           .show();
                                       return;
                                     } else {
+                                      logapiO.StatusCode = 1;
+                                      logApi(logapiO);
                                       Alerts.successAlert(
                                               context, "", "تم رفض الطلب")
                                           .show()

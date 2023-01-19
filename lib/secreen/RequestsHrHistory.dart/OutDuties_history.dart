@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/OutDuties_history_detailes.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -39,8 +40,20 @@ class _OutDuties_hostiryState extends State<OutDuties_hostiry> {
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
 
       list = await getAction("HR/GetEmployeeOutDuties/" + Empno);
-
-      list = jsonDecode(list.body)["OutDutyList"] ?? [];
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "OutDutyController";
+      logapiO.ClassName = "OutDutyController";
+      logapiO.ActionMethodName = "عرض طلبات خارج دوام";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(list.body)["ErrorMessage"] == null) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        list = jsonDecode(list.body)["OutDutyList"] ?? [];
+      } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(list.body)["ErrorMessage"];
+        logApi(logapiO);
+      }
     } else {
       await Future.delayed(Duration(seconds: 1));
     }

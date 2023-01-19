@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/mahamme/transfarevacationDetailes.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -33,6 +34,13 @@ class _transfarevacationState extends State<transfarevacation> {
     var respnse = await getAction("Inbox/GetExtendVactionRequests/" +
         sharedPref.getDouble("EmployeeNumber").toString().split(".")[0] +
         '/1');
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "InboxHRController";
+    logapiO.ClassName = "InboxHRController";
+    logapiO.ActionMethodName = "ترحيل الإجازات-إعتمادات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
     EasyLoading.dismiss();
     load = false;
     transfarevacationList = jsonDecode(respnse.body)["RequestList"] ?? [];

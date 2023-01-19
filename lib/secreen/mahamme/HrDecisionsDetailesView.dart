@@ -1,5 +1,7 @@
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
@@ -230,7 +232,15 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                                               listen: false)
                                           .PostAproveDesition(widget.index);
                                   EasyLoading.dismiss();
+                                  logApiModel logapiO = logApiModel();
+                                  logapiO.ControllerName = "InboxHRController";
+                                  logapiO.ClassName = "InboxHRController";
+                                  logapiO.ActionMethodName =
+                                      "إعتماد القرارات الإلكترونية";
+                                  logapiO.ActionMethodType = 2;
                                   if (bool == true) {
+                                    logapiO.StatusCode = 1;
+                                    logApi(logapiO);
                                     Alerts.successAlert(
                                             context, "", "تم القبول ")
                                         .show()
@@ -240,6 +250,9 @@ class _HrDecisionsDetailesViewState extends State<HrDecisionsDetailesView> {
                                       Navigator.pop(context);
                                     });
                                   } else {
+                                    logapiO.StatusCode = 0;
+                                    logapiO.ErrorMessage = bool;
+                                    logApi(logapiO);
                                     Alerts.errorAlert(context, "", bool).show();
                                   }
                                 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/vacation_history_request_datiels.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -39,8 +40,20 @@ class _vacation_old_requestState extends State<vacation_old_request> {
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
 
       list = await getAction("HR/GetUserVacations/" + Empno);
-
-      list = jsonDecode(list.body)["VacationsList"] ?? [];
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "OutDutyController";
+      logapiO.ClassName = "OutDutyController";
+      logapiO.ActionMethodName = "عرض طلبات خارج دوام";
+      logapiO.ActionMethodType = 1;
+      if (jsonDecode(list.body)["ErrorMessage"] == null) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
+        list = jsonDecode(list.body)["VacationsList"] ?? [];
+      } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(list.body)["ErrorMessage"];
+        logApi(logapiO);
+      }
     } else {
       await Future.delayed(Duration(seconds: 1));
       list = [];
