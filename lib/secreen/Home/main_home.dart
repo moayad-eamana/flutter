@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
@@ -12,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eamanaapp/utilities/searchX.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MainHome extends StatefulWidget {
   final Function goto;

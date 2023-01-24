@@ -74,7 +74,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
-  print("jjjjjjjjjj");
   if (message.data["module_name"] == "otp") {
     c.increment(message.data["image"]);
     return;
@@ -235,6 +234,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           localizedReason: 'Let OS determine authentication method',
           useErrorDialogs: true,
           stickyAuth: true);
+
       setState(() {
         _authenticated = authenticated;
       });

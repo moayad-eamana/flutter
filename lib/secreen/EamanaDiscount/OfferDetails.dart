@@ -1,17 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/getattachment.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:xml2json/xml2json.dart';
-import 'package:http/http.dart' as http;
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class OfferDetails extends StatefulWidget {
@@ -258,16 +253,26 @@ class _OfferDetailsState extends State<OfferDetails> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    launch("https://wa.me/" +
-                        widget.offer["RespresentiveMobileNo"] +
-                        "/");
-                  },
-                  child: FaIcon(
-                    FontAwesomeIcons.whatsapp,
-                    color: secondryColor,
-                    size: 24.0,
+                Visibility(
+                  visible: widget.offer["RespresentiveMobileNo"]
+                              .toString()
+                              .startsWith("05", 0) ||
+                          widget.offer["RespresentiveMobileNo"]
+                              .toString()
+                              .startsWith("966", 0)
+                      ? true
+                      : false,
+                  child: GestureDetector(
+                    onTap: () {
+                      launch("https://wa.me/" +
+                          widget.offer["RespresentiveMobileNo"] +
+                          "/");
+                    },
+                    child: FaIcon(
+                      FontAwesomeIcons.whatsapp,
+                      color: secondryColor,
+                      size: 24.0,
+                    ),
                   ),
                 ),
                 GestureDetector(
