@@ -25,21 +25,6 @@ class CustomSearchDelegate extends SearchDelegateR {
 
   CustomSearchDelegate(this.context, this.id, this.fav);
 
-  //did't use
-  final rescntservices = [
-    {
-      "service_name": "معلوماتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
-      "icon": 'assets/SVGs/baynaty.svg',
-    },
-  ];
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return [

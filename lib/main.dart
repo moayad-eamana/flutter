@@ -6,6 +6,7 @@ import 'package:eamanaapp/provider/otp.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/Login/loginView.dart';
@@ -39,6 +40,7 @@ import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/ViolationHome.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
+import 'package:eamanaapp/utilities/determinePosition.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -139,7 +141,7 @@ Future<void> main() async {
   //Settings.getSettings();
   setSettings();
   getColorSettings();
-
+  DeterminePosition.determinePosition();
   tz.initializeTimeZones();
 
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -402,6 +404,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/customerServiceRequests': (context) => customerServiceRrequests(""),
           '/reserveForcustomer': (context) => reserveForcustomer(),
           '/meettingsType': (context) => meettingsType(),
+          '/newEmpInfo': (context) => newEmpInfo(true),
         },
       );
     });

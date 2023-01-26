@@ -69,6 +69,7 @@ class LoginProvider extends ChangeNotifier {
       logApiModel logapiO = logApiModel();
       logapiO.ControllerName = "Account";
       logapiO.ClassName = "Account";
+      logapiO.EmployeeNumber = int.parse(userName);
       logapiO.ActionMethodName = "تسجيل دخول";
       logapiO.ActionMethodType = 2;
       if (respose.data["IsAuthenticated"] == true) {
@@ -134,7 +135,8 @@ class LoginProvider extends ChangeNotifier {
       logapiO.StatusCode = 1;
       logApi(logapiO);
       dynamic empinfo = jsonDecode(respose.body)["EmployeeInfo"];
-      sharedPref.setDouble("EmployeeNumber", empinfo["EmployeeNumber"]);
+      sharedPref.setDouble(
+          "EmployeeNumber", double.parse(empinfo["EmployeeNumber"].toString()));
       sharedPref.setString("EmployeeName", empinfo["EmployeeName"].toString());
       sharedPref.setString("FirstName", empinfo["FirstName"].toString());
       sharedPref.setString("SecondName", empinfo["SecondName"].toString());
@@ -167,6 +169,10 @@ class LoginProvider extends ChangeNotifier {
       sharedPref.setString("MainDepartmentName", empinfo["MainDepartmentName"]);
       sharedPref.setInt("Extension", empinfo["Extension"]);
       sharedPref.setInt("GenderID", empinfo["GenderID"]);
+      sharedPref.setInt("GradeID", empinfo["GradeID"]);
+      sharedPref.setInt("ClassID", empinfo["ClassID"]);
+      sharedPref.setString("HireDate", empinfo["HireDate"]);
+
       sharedPref.setString(
           "AccessToken", jsonDecode(respose.body)["AccessToken"] ?? "");
       sharedPref.setString(

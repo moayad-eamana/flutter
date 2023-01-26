@@ -6,6 +6,7 @@ import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
@@ -135,7 +136,19 @@ class _ServicesViewState extends State<ServicesView> {
                         height: 5,
                       ),
                     if (sharedPref.getInt("empTypeID") != 8) hrServices(),
-                    if (sharedPref.getInt("empTypeID") != 8)
+                    if (sharedPref.getInt("empTypeID") == 8)
+                      Text(
+                        "الحضور والإنصراف",
+                        style: subtitleTx(baseColor),
+                      ),
+                    if (sharedPref.getInt("empTypeID") == 8)
+                      widgetsUni.divider(),
+                    if (sharedPref.getInt("empTypeID") == 8)
+                      SizedBox(
+                        height: 10,
+                      ),
+                    if (sharedPref.getInt("empTypeID") == 8) checkinAndOut(),
+                    if (sharedPref.getInt("empTypeID") == 8)
                       SizedBox(
                         height: 10,
                       ),
@@ -209,6 +222,57 @@ class _ServicesViewState extends State<ServicesView> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget checkinAndOut() {
+    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
+    return Container(
+      //margin: EdgeInsets.symmetric(horizontal: 20),
+      child: StaggeredGrid.count(
+        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
+        mainAxisSpacing: 6,
+        crossAxisSpacing: 10,
+        children: [
+          StaggeredGridTile.extent(
+              crossAxisCellCount: 1,
+              mainAxisExtent: hi,
+              child: ElevatedButton(
+                  style: cardServiece,
+                  onPressed: () {},
+                  child: widgetsUni.cardcontentService(
+                      'assets/SVGs/e3tmadaty.svg', "تسجيل حضور"))),
+          if (sharedPref.getString("dumyuser") != "10284928492")
+            StaggeredGridTile.extent(
+                crossAxisCellCount: 1,
+                mainAxisExtent: hi,
+                child: ElevatedButton(
+                    style: cardServiece,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          // ignore: prefer_const_constructors
+                          builder: (BuildContext context) {
+                            return meettingsType();
+                          },
+                        ),
+                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => ChangeNotifierProvider(
+                      //       create: (context) => MettingsProvider(),
+                      //       // ignore: prefer_const_constructors
+                      //       child: MeetingView(),
+                      //     ),
+                      //   ),
+                      // );
+                    },
+                    child: widgetsUni.cardcontentService(
+                        'assets/SVGs/mawa3idi.svg', "مواعيدي")))
+        ],
       ),
     );
   }
@@ -545,15 +609,21 @@ class _ServicesViewState extends State<ServicesView> {
                 "معلوماتي",
                 "assets/SVGs/baynaty.svg",
                 () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => ChangeNotifierProvider(
+                  //         create: (context) => EmpInfoProvider(),
+                  //         // ignore: prefer_const_constructors
+                  //         child: EmpProfile(null),
+                  //       ),
+                  //     ));
+
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => EmpInfoProvider(),
-                          // ignore: prefer_const_constructors
-                          child: EmpProfile(null),
-                        ),
-                      ));
+                    context,
+                    MaterialPageRoute(builder: (context) => newEmpInfo(true)),
+                    // ignore: prefer_const_constructors
+                  );
                 },
               )),
           StaggeredGridTileW(

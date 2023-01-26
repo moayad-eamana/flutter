@@ -4,10 +4,7 @@ import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
@@ -108,13 +105,7 @@ class _ServicesButtonState extends State<ServicesButton> {
     },
     {
       "service_name": "معلوماتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
+      "Navigation": "/newEmpInfo",
       "icon": 'assets/SVGs/baynaty.svg',
     },
   ];

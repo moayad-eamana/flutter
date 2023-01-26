@@ -95,13 +95,7 @@ class listOfServices {
     },
     {
       "service_name": "معلوماتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
+      "Navigation": "/newEmpInfo",
       "icon": 'assets/SVGs/baynaty.svg',
     },
   ];
@@ -120,13 +114,7 @@ class listOfServices {
     },
     {
       "service_name": "معلوماتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
+      "Navigation": "/newEmpInfo",
       "icon": 'assets/SVGs/baynaty.svg',
     },
     {

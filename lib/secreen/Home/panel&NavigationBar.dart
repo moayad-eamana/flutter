@@ -8,6 +8,7 @@ import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
@@ -340,12 +341,12 @@ class _HomPanelState extends State<HomePanel>
       //   child: MeetingView(),
       // ),
       // page 2
-      ChangeNotifierProvider(
-        create: (context) => EmpInfoProvider(),
-        // ignore: prefer_const_constructors
-        child: EmpProfile(true),
-      ),
-
+      // ChangeNotifierProvider(
+      //   create: (context) => EmpInfoProvider(),
+      //   // ignore: prefer_const_constructors
+      //   child: EmpProfile(true),
+      // ),
+      newEmpInfo(false),
       //page 3
       ServicesView(),
       //page 4
@@ -379,6 +380,7 @@ class _HomPanelState extends State<HomePanel>
         : null;
 
     return SafeArea(
+      top: _bottomNavIndex == 1 ? false : true,
       child: WillPopScope(
         onWillPop: () async {
           if (_bottomNavIndex == 4) {

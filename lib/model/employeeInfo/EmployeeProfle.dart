@@ -77,7 +77,9 @@ class EmployeeProfile {
   static String getEmployeeNumber() {
     // EmployeeProfile employeeProfile = new EmployeeProfile();
     // SharedPreferences _pref = await SharedPreferences.getInstance();
-
+    if (sharedPref.getDouble("EmployeeNumber") == null) {
+      return "0";
+    }
     return (sharedPref.getDouble("EmployeeNumber")).toString().split(".")[0];
   }
 

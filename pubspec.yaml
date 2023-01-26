@@ -86,6 +86,7 @@ dependencies:
   flutter_native_splash: ^2.0.3+1
   badges: ^2.0.3
   flutter_linkify: ^5.0.2
+  geolocator: ^9.0.2
 
   
 
