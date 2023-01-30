@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -454,7 +453,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
                     mainAxisAlignment: pw.MainAxisAlignment.center,
                     children: [
                       pw.Text(
-                        EmployeeProfile.getEmployeeNumber(),
+                        sharedPref.getString("EmployeeName") ?? "",
                         textDirection: pw.TextDirection.rtl,
                         style: pw.TextStyle(
                             color: PdfColor.fromHex('#1F9EB9'),

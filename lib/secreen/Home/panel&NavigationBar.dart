@@ -347,6 +347,7 @@ class _HomPanelState extends State<HomePanel>
       //   child: EmpProfile(true),
       // ),
       newEmpInfo(false),
+
       //page 3
       ServicesView(),
       //page 4

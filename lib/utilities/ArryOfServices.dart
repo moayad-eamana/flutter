@@ -114,7 +114,13 @@ class listOfServices {
     },
     {
       "service_name": "معلوماتي",
-      "Navigation": "/newEmpInfo",
+      "Navigation": MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider(
+          create: (context) => EmpInfoProvider(),
+          // ignore: prefer_const_constructors
+          child: EmpProfile(null),
+        ),
+      ),
       "icon": 'assets/SVGs/baynaty.svg',
     },
     {

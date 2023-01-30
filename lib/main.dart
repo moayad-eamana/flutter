@@ -40,7 +40,6 @@ import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/ViolationHome.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
-import 'package:eamanaapp/utilities/determinePosition.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -141,7 +140,7 @@ Future<void> main() async {
   //Settings.getSettings();
   setSettings();
   getColorSettings();
-  DeterminePosition.determinePosition();
+  // DeterminePosition.determinePosition();
   tz.initializeTimeZones();
 
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
