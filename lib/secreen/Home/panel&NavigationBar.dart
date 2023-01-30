@@ -937,7 +937,11 @@ class _HomPanelState extends State<HomePanel>
                                                     begin: Alignment.topCenter,
                                                     end: Alignment.bottomCenter,
                                                     colors: [
-                                                      baseColor,
+                                                      sharedPref.getBool(
+                                                                  "darkmode") ==
+                                                              false
+                                                          ? baseColor
+                                                          : BackGColor,
                                                       secondryColor,
                                                     ],
                                                   ),

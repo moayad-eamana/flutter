@@ -91,6 +91,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
+            color: BackGWhiteColor,
             height: 100.h,
             child: Stack(
               children: [
@@ -161,7 +162,9 @@ class _newEmpInfoState extends State<newEmpInfo> {
                         begin: Alignment.topRight,
                         end: Alignment.bottomLeft,
                         colors: [
-                          baseColor,
+                          sharedPref.getBool("darkmode") == false
+                              ? baseColor
+                              : BackGColor,
                           secondryColor,
                         ],
                       )),
@@ -293,7 +296,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
                                 "الرقم الوضيفي",
                                 EmployeeProfile.getEmployeeNumber(),
                                 Icons.dialpad_sharp,
-                                baseColor),
+                                secondryColor),
                             // Rows("الراتب", "20000", Icons.attach_money_outlined,
                             //     secondryColor),
                             if (sharedPref.getInt("empTypeID") != 8)
@@ -356,7 +359,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
               offset: Offset(8, 8), // Shadow position
             ),
           ],
-          color: Colors.white,
+          color: BackGWhiteColor,
           border: Border.all(color: bordercolor),
           borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Column(
