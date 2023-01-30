@@ -136,11 +136,7 @@ Future<void> main() async {
   await firebase_Notification();
 
   hasePerm = sharedPref.getString("hasePerm");
-  // final deviceInfoPlugin = DeviceInfoPlugin();
-  // final deviceInfo = await deviceInfoPlugin.deviceInfo;
-  // final allInfo = deviceInfo;
-  String udid = await FlutterUdid.consistentUdid;
-  print(udid);
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   //Settings.getSettings();
   setSettings();

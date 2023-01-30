@@ -29,6 +29,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 
+// String udid = await FlutterUdid.consistentUdid;
+// print(udid);
 class ServicesView extends StatefulWidget {
   @override
   _ServicesViewState createState() => _ServicesViewState();
