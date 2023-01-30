@@ -136,22 +136,22 @@ class _ServicesViewState extends State<ServicesView> {
                         height: 5,
                       ),
                     if (sharedPref.getInt("empTypeID") != 8) hrServices(),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   Text(
-                    //     "الحضور والإنصراف",
-                    //     style: subtitleTx(baseColor),
-                    //   ),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   widgetsUni.divider(),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   SizedBox(
-                    //     height: 10,
-                    //   ),
-                    // if (sharedPref.getInt("empTypeID") == 8) checkinAndOut(),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   SizedBox(
-                    //     height: 10,
-                    //   ),
+                    if (sharedPref.getInt("empTypeID") == 8)
+                      Text(
+                        "الحضور والإنصراف",
+                        style: subtitleTx(baseColor),
+                      ),
+                    if (sharedPref.getInt("empTypeID") == 8)
+                      widgetsUni.divider(),
+                    if (sharedPref.getInt("empTypeID") == 8)
+                      SizedBox(
+                        height: 10,
+                      ),
+                    if (sharedPref.getInt("empTypeID") == 8) checkinAndOut(),
+                    if (sharedPref.getInt("empTypeID") == 8)
+                      SizedBox(
+                        height: 10,
+                      ),
                     if (sharedPref.getInt("empTypeID") != 8)
                       Text(
                         "الرواتب",
@@ -271,7 +271,7 @@ class _ServicesViewState extends State<ServicesView> {
                       // );
                     },
                     child: widgetsUni.cardcontentService(
-                        'assets/SVGs/mawa3idi.svg', "مواعيدي")))
+                        'assets/SVGs/mawa3idi.svg', "تسجيل خروج")))
         ],
       ),
     );
