@@ -1,10 +1,8 @@
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
-import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

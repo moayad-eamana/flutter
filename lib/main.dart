@@ -48,6 +48,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_udid/flutter_udid.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
@@ -135,7 +136,11 @@ Future<void> main() async {
   await firebase_Notification();
 
   hasePerm = sharedPref.getString("hasePerm");
-
+  // final deviceInfoPlugin = DeviceInfoPlugin();
+  // final deviceInfo = await deviceInfoPlugin.deviceInfo;
+  // final allInfo = deviceInfo;
+  String udid = await FlutterUdid.consistentUdid;
+  print(udid);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   //Settings.getSettings();
   setSettings();

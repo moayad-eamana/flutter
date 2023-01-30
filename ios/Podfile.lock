@@ -96,6 +96,9 @@ PODS:
     - Flutter
   - flutter_native_timezone (0.0.1):
     - Flutter
+  - flutter_udid (0.0.1):
+    - Flutter
+    - SAMKeychain
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -153,6 +156,7 @@ PODS:
     - MTBBarcodeScanner
   - root_tester (0.0.1):
     - Flutter
+  - SAMKeychain (1.5.3)
   - SDWebImage (5.12.2):
     - SDWebImage/Core (= 5.12.2)
   - SDWebImage/Core (5.12.2)
@@ -177,6 +181,7 @@ DEPENDENCIES:
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_native_timezone (from `.symlinks/plugins/flutter_native_timezone/ios`)
+  - flutter_udid (from `.symlinks/plugins/flutter_udid/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - http_certificate_pinning (from `.symlinks/plugins/http_certificate_pinning/ios`)
@@ -211,6 +216,7 @@ SPEC REPOS:
     - MTBBarcodeScanner
     - nanopb
     - PromisesObjC
+    - SAMKeychain
     - SDWebImage
     - SwiftyGif
     - Toast
@@ -236,6 +242,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_native_timezone:
     :path: ".symlinks/plugins/flutter_native_timezone/ios"
+  flutter_udid:
+    :path: ".symlinks/plugins/flutter_udid/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   geolocator_apple:
@@ -287,6 +295,7 @@ SPEC CHECKSUMS:
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   flutter_native_timezone: 5f05b2de06c9776b4cc70e1839f03de178394d22
+  flutter_udid: 0848809dbed4c055175747ae6a45a8b4f6771e1c
   fluttertoast: 16fbe6039d06a763f3533670197d01fc73459037
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
@@ -304,6 +313,7 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
   root_tester: 6eaef633f42e46427fbf26420d93b5598c0423ad
+  SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
   SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
   shared_preferences_ios: aef470a42dc4675a1cdd50e3158b42e3d1232b32
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
