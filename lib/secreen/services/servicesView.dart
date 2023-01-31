@@ -20,16 +20,20 @@ import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
+import 'package:eamanaapp/utilities/determinePosition.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_udid/flutter_udid.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 
-// String udid = await FlutterUdid.consistentUdid;
 // print(udid);
 class ServicesView extends StatefulWidget {
   @override
@@ -242,38 +246,22 @@ class _ServicesViewState extends State<ServicesView> {
               mainAxisExtent: hi,
               child: ElevatedButton(
                   style: cardServiece,
-                  onPressed: () {},
+                  onPressed: () async {
+                    InsertAttendance(1);
+                  },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/e3tmadaty.svg', "تسجيل حضور"))),
+                      'assets/SVGs/check_in.svg', "تسجيل الحضور"))),
           if (sharedPref.getString("dumyuser") != "10284928492")
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
                 mainAxisExtent: hi,
                 child: ElevatedButton(
                     style: cardServiece,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // ignore: prefer_const_constructors
-                          builder: (BuildContext context) {
-                            return meettingsType();
-                          },
-                        ),
-                      );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => ChangeNotifierProvider(
-                      //       create: (context) => MettingsProvider(),
-                      //       // ignore: prefer_const_constructors
-                      //       child: MeetingView(),
-                      //     ),
-                      //   ),
-                      // );
+                    onPressed: () async {
+                      InsertAttendance(2);
                     },
                     child: widgetsUni.cardcontentService(
-                        'assets/SVGs/mawa3idi.svg', "تسجيل خروج")))
+                        'assets/SVGs/check_out.svg', "تسجيل الإنصراف")))
         ],
       ),
     );
@@ -878,5 +866,139 @@ class _ServicesViewState extends State<ServicesView> {
       }
     });
     ;
+  }
+
+  final LocalAuthentication auth = LocalAuthentication();
+  bool? _canCheckBiometrics;
+  bool? _authenticated;
+
+  void InsertAttendance(int type) async {
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
+    dynamic loaction = await checkloaction();
+    print(loaction);
+    if (loaction == false) {
+      return;
+    }
+
+    await _checkBiometrics();
+
+    if (_canCheckBiometrics == true) {
+      await _authenticate();
+    } else {
+      setState(() {
+        _authenticated = false;
+      });
+      Alerts.warningAlert(
+              context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
+          .show();
+    }
+    EasyLoading.dismiss();
+    if (_authenticated == true) {
+      // show popup massage then push api
+      Alerts.confirmAlrt(context, "تسجيل حضور", "هل تريد تسجيل الحضور", "نعم")
+          .show()
+          .then((value) async {
+        if (value == true) {
+          EasyLoading.show(
+            status: '... جاري المعالجة',
+            maskType: EasyLoadingMaskType.black,
+          );
+
+          String udid = await FlutterUdid.consistentUdid;
+          var respose = await postAction(
+              "HR/InsertAttendance",
+              jsonEncode({
+                "EmployeeNumber":
+                    int.parse(EmployeeProfile.getEmployeeNumber()),
+                "LocationX": loaction.latitude.toString(),
+                "LocationY": loaction.longitude.toString(),
+                "AttendanceTypeID": type,
+                "DeviceID": udid
+              }));
+
+          print(respose.body);
+
+          respose = jsonDecode(respose.body);
+
+          EasyLoading.dismiss();
+
+          if (respose["StatusCode"] == 400) {
+            Alerts.successAlert(
+                    context,
+                    respose["ReturnResult"]["ActionDate"] +
+                        " " +
+                        "تسجيل الحضور بنجاح",
+                    "تم تسجيل الحضور")
+                .show();
+          } else {
+            Alerts.errorAlert(
+                    context, "تسجيل الحضور", respose["ErrorMessage"] ?? "")
+                .show();
+          }
+        }
+      });
+    } else {
+      //if canceleds
+    }
+  }
+
+  Future<void> _checkBiometrics() async {
+    late bool canCheckBiometrics;
+    try {
+      canCheckBiometrics = await auth.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      canCheckBiometrics = false;
+      print(e);
+    }
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _canCheckBiometrics = canCheckBiometrics;
+    });
+  }
+
+  Future<void> _authenticate() async {
+    bool authenticated = false;
+    try {
+      authenticated = await auth.authenticate(
+          localizedReason: 'Let OS determine authentication method',
+          useErrorDialogs: true,
+          stickyAuth: true);
+      setState(() {
+        _authenticated = authenticated;
+      });
+    } on PlatformException catch (e) {
+      setState(() {
+        _authenticated = authenticated;
+      });
+      print(e);
+      return;
+    }
+    if (!mounted) {
+      return;
+    }
+  }
+
+  checkloaction() async {
+    dynamic loaction = await DeterminePosition.determinePosition();
+
+    if (loaction == false) {
+      EasyLoading.dismiss();
+      Alerts.confirmAlrt(context, "تنبيه", "يرجى تشغيل موقع", "إعدادات")
+          .show()
+          .then((value) async {
+        if (value == true) {
+          Geolocator.openLocationSettings();
+        }
+      });
+
+      return loaction;
+    } else {
+      return loaction;
+    }
   }
 }
