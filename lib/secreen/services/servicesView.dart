@@ -250,7 +250,7 @@ class _ServicesViewState extends State<ServicesView> {
                     InsertAttendance(1);
                   },
                   child: widgetsUni.cardcontentService(
-                      'assets/SVGs/check_in.svg', "تسجيل الحضور"))),
+                      'assets/SVGs/check_in1.svg', "تسجيل الحضور"))),
           if (sharedPref.getString("dumyuser") != "10284928492")
             StaggeredGridTile.extent(
                 crossAxisCellCount: 1,
@@ -261,7 +261,7 @@ class _ServicesViewState extends State<ServicesView> {
                       InsertAttendance(2);
                     },
                     child: widgetsUni.cardcontentService(
-                        'assets/SVGs/check_out.svg', "تسجيل الإنصراف")))
+                        'assets/SVGs/check_in1.svg', "تسجيل الإنصراف")))
         ],
       ),
     );
