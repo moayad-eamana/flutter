@@ -967,7 +967,7 @@ class _ServicesViewState extends State<ServicesView> {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-          localizedReason: 'Let OS determine authentication method',
+          localizedReason: 'تسجيل الحضور والإنصراف',
           useErrorDialogs: true,
           stickyAuth: true);
       setState(() {
