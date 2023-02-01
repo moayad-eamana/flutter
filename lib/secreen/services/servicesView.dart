@@ -898,7 +898,10 @@ class _ServicesViewState extends State<ServicesView> {
     EasyLoading.dismiss();
     if (_authenticated == true) {
       // show popup massage then push api
-      Alerts.confirmAlrt(context, "تسجيل حضور", "هل تريد تسجيل الحضور", "نعم")
+      String title = type == 1 ? "تسجيل الحضور" : "تسجيل الإنصراف";
+      String subtitle =
+          type == 1 ? "هل تريد تسجيل الحضور" : "هل تريد تسجيل الإنصراف";
+      Alerts.confirmAlrt(context, title, subtitle, "نعم")
           .show()
           .then((value) async {
         if (value == true) {
@@ -928,14 +931,13 @@ class _ServicesViewState extends State<ServicesView> {
           if (respose["StatusCode"] == 400) {
             Alerts.successAlert(
                     context,
-                    respose["ReturnResult"]["ActionDate"] +
+                    "تم تسجيل بنجاح في" +
                         " " +
-                        "تسجيل الحضور بنجاح",
-                    "تم تسجيل الحضور")
+                        respose["ReturnResult"]["ActionDate"],
+                    "تم تسجيل")
                 .show();
           } else {
-            Alerts.errorAlert(
-                    context, "تسجيل الحضور", respose["ErrorMessage"] ?? "")
+            Alerts.errorAlert(context, title, respose["ErrorMessage"] ?? "")
                 .show();
           }
         }
