@@ -73,12 +73,10 @@ class checkinAndOutFunction {
           EasyLoading.dismiss();
 
           if (respose["StatusCode"] == 400) {
-            Alerts.successAlert(
-                    context,
-                    "تم تسجيل بنجاح في" +
-                        " " +
-                        respose["ReturnResult"]["ActionDate"],
-                    "تم تسجيل")
+            String subtitle2 =
+                type == 1 ? "تم تسجيل الحضور في" : "تم تسجيل الإنصراف في";
+            Alerts.successAlert(context, "تم تسجيل",
+                    subtitle2 + " " + respose["ReturnResult"]["ActionDate"])
                 .show();
           } else {
             Alerts.errorAlert(context, title, respose["ErrorMessage"] ?? "")

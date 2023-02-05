@@ -1,33 +1,21 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
-import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
-import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
-import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
-import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
-import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/services/hrServices.dart';
-import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
-import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
-import 'package:eamanaapp/utilities/determinePosition.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-import 'package:flutter_udid/flutter_udid.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:local_auth/local_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'package:eamanaapp/secreen/services/salaryServices.dart';
 import 'package:eamanaapp/secreen/services/customerService.dart';
+import 'package:eamanaapp/secreen/services/questService.dart';
+import 'package:eamanaapp/secreen/services/otherServices.dart';
+import 'package:eamanaapp/secreen/services/attendanceService.dart';
 
 // print(udid);
 class ServicesView extends StatefulWidget {
@@ -126,40 +114,18 @@ class _ServicesViewState extends State<ServicesView> {
                   children: [
                     // شؤون الموظفين
                     ...obj.hrServices(),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   Text(
-                    //     "الحضور والإنصراف",
-                    //     style: subtitleTx(baseColor),
-                    //   ),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   widgetsUni.divider(),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   SizedBox(
-                    //     height: 10,
-                    //   ),
-                    // if (sharedPref.getInt("empTypeID") == 8) checkinAndOut(),
-                    // if (sharedPref.getInt("empTypeID") == 8)
-                    //   SizedBox(
-                    //     height: 10,
-                    //   ),
                     ...salaryWidgets.salaryWidget(context),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      SizedBox(
-                        height: 10,
-                      ),
-
-                    Text(
-                      "مهامي",
-                      style: subtitleTx(baseColor),
-                    ),
-
-                    widgetsUni.divider(),
-
                     SizedBox(
                       height: 10,
                     ),
-                    mahamme(),
-
+                    ...attendanceService.attendanceWidget(context),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ...questServices.questWidget(context),
+                    SizedBox(
+                      height: 10,
+                    ),
                     // SizedBox(
                     //   height: 10,
                     // ),
@@ -176,241 +142,19 @@ class _ServicesViewState extends State<ServicesView> {
                     // ),
                     // violation(),
 
-                    SizedBox(
-                      height: 10,
-                    ),
-
                     if (sharedPref.getBool("permissionforCRM") == true)
                       ...customerService.customerServiceWidget(context),
                     SizedBox(
                       height: 5,
                     ),
-                    Text("خدمات أخرى", style: subtitleTx(baseColor)),
 
-                    widgetsUni.divider(),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    otherServices(),
+                    ...otherServices.otherWidget(context),
                   ],
                 ),
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget checkinAndOut() {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-    return Container(
-      //margin: EdgeInsets.symmetric(horizontal: 20),
-      child: StaggeredGrid.count(
-        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-        mainAxisSpacing: 6,
-        crossAxisSpacing: 10,
-        children: [
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () async {
-                    InsertAttendance(1);
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/check_in1.svg', "تسجيل الحضور"))),
-          if (sharedPref.getString("dumyuser") != "10284928492")
-            StaggeredGridTile.extent(
-                crossAxisCellCount: 1,
-                mainAxisExtent: hi,
-                child: ElevatedButton(
-                    style: cardServiece,
-                    onPressed: () async {
-                      InsertAttendance(2);
-                    },
-                    child: widgetsUni.cardcontentService(
-                        'assets/SVGs/check_in1.svg', "تسجيل الإنصراف")))
-        ],
-      ),
-    );
-  }
-
-  Widget mahamme() {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-    return Container(
-      //margin: EdgeInsets.symmetric(horizontal: 20),
-      child: StaggeredGrid.count(
-        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-        mainAxisSpacing: 6,
-        crossAxisSpacing: 10,
-        children: [
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => EatemadatProvider(),
-                          // ignore: prefer_const_constructors
-                          child: InboxHedersView(),
-                        ),
-                      ),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/e3tmadaty.svg', "إعتماداتي"))),
-          if (sharedPref.getString("dumyuser") != "10284928492")
-            StaggeredGridTile.extent(
-                crossAxisCellCount: 1,
-                mainAxisExtent: hi,
-                child: ElevatedButton(
-                    style: cardServiece,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          // ignore: prefer_const_constructors
-                          builder: (BuildContext context) {
-                            return meettingsType();
-                          },
-                        ),
-                      );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => ChangeNotifierProvider(
-                      //       create: (context) => MettingsProvider(),
-                      //       // ignore: prefer_const_constructors
-                      //       child: MeetingView(),
-                      //     ),
-                      //   ),
-                      // );
-                    },
-                    child: widgetsUni.cardcontentService(
-                        'assets/SVGs/mawa3idi.svg', "مواعيدي")))
-        ],
-      ),
-    );
-  }
-
-  Widget otherServices() {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-    return Container(
-      //    margin: EdgeInsets.symmetric(horizontal: 20),
-      child: StaggeredGrid.count(
-        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-        mainAxisSpacing: 6,
-        crossAxisSpacing: 8,
-        children: [
-          // if (empNo != "1111")
-          //   StaggeredGridTile.extent(
-          //       crossAxisCellCount: 1,
-          //       mainAxisExtent: hi,
-          //       child: ElevatedButton(
-          //           style: cardServiece,
-          //           onPressed: () {
-          //             Navigator.pushNamed(context, "/events");
-          //           },
-          //           child: widgetsUni.cardcontentService(
-          //               'assets/SVGs/events.svg', "الفعاليات"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    //  Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => CategoriesFilter()),
-                    // );
-
-                    Navigator.pushNamed(context, "/EamanaDiscount");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/offers.svg', "عروض"))),
-          // StaggeredGridTile.extent(
-          //   crossAxisCellCount: 1,
-          //   mainAxisExtent: hi,
-          //   child: ElevatedButton(
-          //       style: cardServiece,
-          //       onPressed: () {
-          //         print("object");
-          //       },
-          //       child: widgetsUni.cardcontentService(
-          //           'assets/SVGs/dalel-emp.svg', "طلب استيكر")),
-          // ),
-
-          StaggeredGridTileW(
-              1,
-              hi,
-              widgetsUni.servicebutton2(
-                "دليل الموظفين",
-                "assets/SVGs/dalelalmowzafen.svg",
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider(
-                          create: (context) => EmpInfoProvider(),
-                          // ignore: prefer_const_constructors
-                          child: EmpInfoView(null),
-                        ),
-                      ));
-                },
-              )),
-          StaggeredGridTileW(
-              1,
-              hi,
-              widgetsUni.servicebutton2(
-                "معلوماتي",
-                "assets/SVGs/baynaty.svg",
-                () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => ChangeNotifierProvider(
-                  //         create: (context) => EmpInfoProvider(),
-                  //         // ignore: prefer_const_constructors
-                  //         child: EmpProfile(null),
-                  //       ),
-                  //     ));
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => newEmpInfo(true)),
-                    // ignore: prefer_const_constructors
-                  );
-                },
-              )),
-          StaggeredGridTileW(
-              1,
-              hi,
-              widgetsUni.servicebutton2(
-                "المفضلة",
-                "assets/SVGs/bookmarks.svg",
-                () {
-                  Navigator.pushNamed(context, "/favs");
-                },
-              )),
-          if (sharedPref.getString("dumyuser") != "10284928492")
-            StaggeredGridTileW(
-                1,
-                hi,
-                widgetsUni.servicebutton2(
-                  "QR Code",
-                  "assets/SVGs/qr_code_scanner.svg",
-                  () {
-                    Navigator.pushNamed(context, "/scannQrcode");
-                  },
-                )),
-        ],
       ),
     );
   }
@@ -437,141 +181,5 @@ class _ServicesViewState extends State<ServicesView> {
         ],
       ),
     );
-  }
-
-  final LocalAuthentication auth = LocalAuthentication();
-  bool? _canCheckBiometrics;
-  bool? _authenticated;
-
-  void InsertAttendance(int type) async {
-    EasyLoading.show(
-      status: '... جاري المعالجة',
-      maskType: EasyLoadingMaskType.black,
-    );
-    dynamic loaction = await checkloaction();
-    print(loaction);
-    if (loaction == false) {
-      return;
-    }
-
-    await _checkBiometrics();
-
-    if (_canCheckBiometrics == true) {
-      await _authenticate();
-    } else {
-      setState(() {
-        _authenticated = false;
-      });
-      Alerts.warningAlert(
-              context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
-          .show();
-    }
-    EasyLoading.dismiss();
-    if (_authenticated == true) {
-      // show popup massage then push api
-      String title = type == 1 ? "تسجيل الحضور" : "تسجيل الإنصراف";
-      String subtitle =
-          type == 1 ? "هل تريد تسجيل الحضور" : "هل تريد تسجيل الإنصراف";
-      Alerts.confirmAlrt(context, title, subtitle, "نعم")
-          .show()
-          .then((value) async {
-        if (value == true) {
-          EasyLoading.show(
-            status: '... جاري المعالجة',
-            maskType: EasyLoadingMaskType.black,
-          );
-
-          String udid = await FlutterUdid.consistentUdid;
-          var respose = await postAction(
-              "HR/InsertAttendance",
-              jsonEncode({
-                "EmployeeNumber":
-                    int.parse(EmployeeProfile.getEmployeeNumber()),
-                "LocationX": loaction.latitude.toString(),
-                "LocationY": loaction.longitude.toString(),
-                "AttendanceTypeID": type,
-                "DeviceID": udid
-              }));
-
-          print(respose.body);
-
-          respose = jsonDecode(respose.body);
-
-          EasyLoading.dismiss();
-
-          if (respose["StatusCode"] == 400) {
-            Alerts.successAlert(
-                    context,
-                    "تم تسجيل بنجاح في" +
-                        " " +
-                        respose["ReturnResult"]["ActionDate"],
-                    "تم تسجيل")
-                .show();
-          } else {
-            Alerts.errorAlert(context, title, respose["ErrorMessage"] ?? "")
-                .show();
-          }
-        }
-      });
-    } else {
-      //if canceleds
-    }
-  }
-
-  Future<void> _checkBiometrics() async {
-    late bool canCheckBiometrics;
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      canCheckBiometrics = false;
-      print(e);
-    }
-    if (!mounted) {
-      return;
-    }
-    setState(() {
-      _canCheckBiometrics = canCheckBiometrics;
-    });
-  }
-
-  Future<void> _authenticate() async {
-    bool authenticated = false;
-    try {
-      authenticated = await auth.authenticate(
-          localizedReason: 'تسجيل الحضور والإنصراف',
-          useErrorDialogs: true,
-          stickyAuth: true);
-      setState(() {
-        _authenticated = authenticated;
-      });
-    } on PlatformException catch (e) {
-      setState(() {
-        _authenticated = authenticated;
-      });
-      print(e);
-      return;
-    }
-    if (!mounted) {
-      return;
-    }
-  }
-
-  checkloaction() async {
-    dynamic loaction = await DeterminePosition.determinePosition();
-
-    if (loaction == false) {
-      EasyLoading.dismiss();
-      Alerts.confirmAlrt(context, "تنبيه", "يرجى تشغيل موقع", "إعدادات")
-          .show()
-          .then((value) async {
-        if (value == true) {
-          Geolocator.openLocationSettings();
-        }
-      });
-
-      return loaction;
-    } else {
-      return loaction;
-    }
   }
 }

@@ -4,6 +4,8 @@ import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/provider/services/hrServicesFunctions.dart';
 import 'package:eamanaapp/provider/services/salaryFunctions.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
+import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
+import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
@@ -11,6 +13,7 @@ import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:eamanaapp/provider/services/checkinAndOutFunction.dart';
 
 class listOfServices {
   BuildContext context;
@@ -294,6 +297,125 @@ class listOfServices {
           );
         }
       },
+    ];
+  }
+
+  List questService() {
+    return [
+      {
+        "service_name": "إعتماداتي",
+        "Navigation": "",
+        "icon": 'assets/SVGs/e3tmadaty.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                create: (context) => EatemadatProvider(),
+                // ignore: prefer_const_constructors
+                child: InboxHedersView(),
+              ),
+            ),
+          );
+        }
+      },
+      {
+        "service_name": "مواعيدي",
+        "Navigation": "",
+        "icon": 'assets/SVGs/mawa3idi.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // ignore: prefer_const_constructors
+              builder: (BuildContext context) {
+                return meettingsType();
+              },
+            ),
+          );
+        }
+      }
+    ];
+  }
+
+  List otherService() {
+    return [
+      {
+        "service_name": "العروض",
+        "Navigation": "/EamanaDiscount",
+        "icon": 'assets/SVGs/offers.svg',
+        "Action": () {
+          Navigator.pushNamed(context, "/EamanaDiscount");
+        }
+      },
+      {
+        "service_name": "دليل الموظفين",
+        "Navigation": "",
+        "icon": "assets/SVGs/dalelalmowzafen.svg",
+        "Action": () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider(
+                  create: (context) => EmpInfoProvider(),
+                  // ignore: prefer_const_constructors
+                  child: EmpInfoView(null),
+                ),
+              ));
+        }
+      },
+      {
+        "service_name": "معلوماتي",
+        "Navigation": "",
+        "icon": "assets/SVGs/baynaty.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => newEmpInfo(true)),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
+      {
+        "service_name": "المفضلة",
+        "Navigation": "/favs",
+        "icon": "assets/SVGs/bookmarks.svg",
+        "Action": () {
+          Navigator.pushNamed(context, "/favs");
+        }
+      },
+      if (sharedPref.getString("dumyuser") != "10284928492")
+        {
+          "service_name": "QR Code",
+          "Navigation": "",
+          "icon": "assets/SVGs/qr_code_scanner.svg",
+          "Action": () {
+            Navigator.pushNamed(context, "/scannQrcode");
+          }
+        },
+    ];
+  }
+
+  List attendanceService() {
+    return [
+      {
+        "service_name": "تسجيل الحضور",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          // InsertAttendance(1);
+          checkinAndOutFunction(context).InsertAttendance(1);
+        },
+      },
+      {
+        "service_name": "تسجيل الإنصراف",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          // InsertAttendance(2);
+          checkinAndOutFunction(context).InsertAttendance(2);
+        },
+      }
     ];
   }
 }
