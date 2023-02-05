@@ -1,24 +1,17 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
-import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
-import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
-import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
-import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
-import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/secreen/services/hrServices.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/SLL_pin.dart';
-import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/determinePosition.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
@@ -33,6 +26,8 @@ import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
+import 'package:eamanaapp/secreen/services/salaryServices.dart';
+import 'package:eamanaapp/secreen/services/customerService.dart';
 
 // print(udid);
 class ServicesView extends StatefulWidget {
@@ -112,6 +107,7 @@ class _ServicesViewState extends State<ServicesView> {
 
   @override
   Widget build(BuildContext context) {
+    hrServicesWidget obj = hrServicesWidget(context);
     print(SizerUtil.deviceType == DeviceType.mobile);
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -129,43 +125,24 @@ class _ServicesViewState extends State<ServicesView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // شؤون الموظفين
-                    //hr
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      Text(
-                        "خدمات الموظفين",
-                        style: subtitleTx(baseColor),
-                      ),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      widgetsUni.divider(),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      SizedBox(
-                        height: 5,
-                      ),
-                    if (sharedPref.getInt("empTypeID") != 8) hrServices(),
-                    if (sharedPref.getInt("empTypeID") == 8)
-                      Text(
-                        "الحضور والإنصراف",
-                        style: subtitleTx(baseColor),
-                      ),
-                    if (sharedPref.getInt("empTypeID") == 8)
-                      widgetsUni.divider(),
-                    if (sharedPref.getInt("empTypeID") == 8)
-                      SizedBox(
-                        height: 10,
-                      ),
-                    if (sharedPref.getInt("empTypeID") == 8) checkinAndOut(),
-                    if (sharedPref.getInt("empTypeID") == 8)
-                      SizedBox(
-                        height: 10,
-                      ),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      Text(
-                        "الرواتب",
-                        style: subtitleTx(baseColor),
-                      ),
-                    if (sharedPref.getInt("empTypeID") != 8)
-                      widgetsUni.divider(),
-                    if (sharedPref.getInt("empTypeID") != 8) salary(),
+                    ...obj.hrServices(),
+                    // if (sharedPref.getInt("empTypeID") == 8)
+                    //   Text(
+                    //     "الحضور والإنصراف",
+                    //     style: subtitleTx(baseColor),
+                    //   ),
+                    // if (sharedPref.getInt("empTypeID") == 8)
+                    //   widgetsUni.divider(),
+                    // if (sharedPref.getInt("empTypeID") == 8)
+                    //   SizedBox(
+                    //     height: 10,
+                    //   ),
+                    // if (sharedPref.getInt("empTypeID") == 8) checkinAndOut(),
+                    // if (sharedPref.getInt("empTypeID") == 8)
+                    //   SizedBox(
+                    //     height: 10,
+                    //   ),
+                    ...salaryWidgets.salaryWidget(context),
                     if (sharedPref.getInt("empTypeID") != 8)
                       SizedBox(
                         height: 10,
@@ -202,16 +179,9 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
+
                     if (sharedPref.getBool("permissionforCRM") == true)
-                      Text("خدمة العملاء", style: subtitleTx(baseColor)),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      widgetsUni.divider(),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      SizedBox(
-                        height: 5,
-                      ),
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      customerService(),
+                      ...customerService.customerServiceWidget(context),
                     SizedBox(
                       height: 5,
                     ),
@@ -262,203 +232,6 @@ class _ServicesViewState extends State<ServicesView> {
                     },
                     child: widgetsUni.cardcontentService(
                         'assets/SVGs/check_in1.svg', "تسجيل الإنصراف")))
-        ],
-      ),
-    );
-  }
-
-  Widget hrServices() {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-    return Container(
-      // margin: EdgeInsets.symmetric(horizontal: 20),
-      child: StaggeredGrid.count(
-        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-        mainAxisSpacing: 15,
-        crossAxisSpacing: 10,
-        children: [
-          StaggeredGridTileW(
-            1,
-            hi,
-            ElevatedButton(
-              style: cardServiece,
-              onPressed: () {
-                Navigator.pushNamed(context, "/VacationRequest");
-              },
-              child: widgetsUni.cardcontentService(
-                  'assets/SVGs/ejaza.svg', "طلب إجازة"),
-            ),
-          ),
-          // widgetsUni.cardcontentService(
-          //   "طلب إجازة",
-          //   'assets/SVGs/khareg-dawam.svg',
-          //   () {
-          //     Navigator.pushNamed(context, "/VacationRequest");
-          //   },
-          // ),),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/OutdutyRequest");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/work_out.svg', "طلب خارج دوام"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () async {
-                    EasyLoading.show(
-                      status: '... جاري المعالجة',
-                      maskType: EasyLoadingMaskType.black,
-                    );
-                    dynamic respose;
-                    if (sharedPref.getString("dumyuser") != "10284928492") {
-                      String emNo = await EmployeeProfile.getEmployeeNumber();
-                      respose =
-                          await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
-                      respose = jsonDecode(respose.body)["EmpInfo"]
-                          ["VacationBalance"];
-                    } else {
-                      await Future.delayed(Duration(seconds: 1));
-                      respose = "22";
-                    }
-                    logApiModel logapiO = logApiModel();
-                    logapiO.ControllerName = "VacationsController";
-                    logapiO.ClassName = "VacationsController";
-                    logapiO.ActionMethodName = "رصيد الاجازات";
-                    logapiO.ActionMethodType = 1;
-                    logapiO.StatusCode = 1;
-
-                    logApi(logapiO);
-
-                    EasyLoading.dismiss();
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: AlertDialog(
-                          backgroundColor: BackGWhiteColor,
-                          title: Builder(builder: (context) {
-                            return Center(
-                              child: Text(
-                                'رصيد الاجازات',
-                                style: titleTx(baseColor),
-                              ),
-                            );
-                          }),
-                          content: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                respose.toString(),
-                                style: TextStyle(
-                                    fontSize: 38,
-                                    fontWeight: FontWeight.bold,
-                                    color: secondryColor),
-                              ),
-                            ],
-                          ),
-                          actions: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                widgetsUni.actionbutton(
-                                  'طلب إجازة',
-                                  Icons.send,
-                                  () {
-                                    Navigator.pushNamed(
-                                            context, "/VacationRequest")
-                                        .then(
-                                            (value) => Navigator.pop(context));
-                                  },
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: Text(
-                                    'إغلاق',
-                                    style: subtitleTx(baseColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/balance.svg', "رصيد إجازات"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/entedab");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/entdab.svg', "طلب إنتداب"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/auhad");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/3ohad.svg', "العهد"))),
-          StaggeredGridTileW(
-            1,
-            hi,
-            ElevatedButton(
-              style: cardServiece,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    // ignore: prefer_const_constructors
-                    builder: (BuildContext context) {
-                      return EmployeeEvaluationMaster();
-                    },
-                  ),
-                );
-              },
-              child: widgetsUni.cardcontentService(
-                  'assets/SVGs/rate.svg', "تقييماتي"),
-            ),
-          ),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => desclaimer()),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/desclaimer.svg', "إستعلام إخلاء طرف"))),
-          if (insertExtensionRequestValid
-              .contains(sharedPref.getInt("empTypeID")))
-            StaggeredGridTileW(
-              1,
-              hi,
-              ElevatedButton(
-                style: cardServiece,
-                onPressed: () {
-                  insertExtensionRequest();
-                },
-                child: widgetsUni.cardcontentService(
-                    'assets/SVGs/Insertvacation.svg', "ترحيل الاجازة"),
-              ),
-            ),
         ],
       ),
     );
@@ -642,102 +415,6 @@ class _ServicesViewState extends State<ServicesView> {
     );
   }
 
-  Widget salary() {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-
-    return Container(
-      //    margin: EdgeInsets.symmetric(horizontal: 20),
-      child: StaggeredGrid.count(
-        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-        mainAxisSpacing: 6,
-        crossAxisSpacing: 8,
-        children: [
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () async {
-                    //final fingerprintSP = await SharedPreferences.getInstance();
-                    bool fingerprint = sharedPref.getBool('fingerprint')!;
-                    if (fingerprint == true) {
-                      Navigator.pushNamed(context, "/auth_secreen")
-                          .then((value) {
-                        if (value == true) {
-                          Navigator.pushNamed(context, "/SalaryHistory");
-                        }
-                      });
-                    } else {
-                      Navigator.pushNamed(context, "/SalaryHistory");
-                    }
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/sejelalrawatb.svg', "سجل الرواتب"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () async {
-                    //final fingerprintSP = await SharedPreferences.getInstance();
-                    bool fingerprint = sharedPref.getBool('fingerprint')!;
-                    EasyLoading.show(
-                      status: '... جاري المعالجة',
-                      maskType: EasyLoadingMaskType.black,
-                    );
-                    if (sharedPref.getString("dumyuser") != "10284928492") {
-                      String emNo = await EmployeeProfile.getEmployeeNumber();
-                      var respons =
-                          await getAction("HR/GetEmployeeSalaryReport/" + emNo);
-                      EasyLoading.dismiss();
-                      if (fingerprint == true) {
-                        Navigator.pushNamed(context, "/auth_secreen")
-                            .then((value) async {
-                          if (value == true) {
-                            //      print(jsonDecode(respons.body)["salaryPdf"]);
-
-                            if (jsonDecode(respons.body)["salaryPdf"] != null) {
-                              ViewFile.open(
-                                  jsonDecode(respons.body)["salaryPdf"], "pdf");
-                            } else {
-                              Alerts.warningAlert(context, "خطأ",
-                                      "لا توجد بيانات للتعريف بالراتب")
-                                  .show();
-                            }
-                          }
-                        });
-                      } else {
-                        if (jsonDecode(respons.body)["salaryPdf"] != null) {
-                          ViewFile.open(
-                              jsonDecode(respons.body)["salaryPdf"], "pdf");
-                        } else {
-                          Alerts.warningAlert(context, "خطأ",
-                                  "لا توجد بيانات للتعريف بالراتب")
-                              .show();
-                        }
-                      }
-                    } else {
-                      await Future.delayed(Duration(seconds: 1));
-                      EasyLoading.dismiss();
-                      Alerts.errorAlert(context, "", "لايوجد تعريف بالراتب")
-                          .show();
-                    }
-                    logApiModel logapiO = logApiModel();
-                    logapiO.ControllerName = "SalaryController";
-                    logapiO.ClassName = "SalaryController";
-                    logapiO.ActionMethodName = "تعريف بالراتب";
-                    logapiO.ActionMethodType = 1;
-                    logapiO.StatusCode = 1;
-
-                    logApi(logapiO);
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/ta3refalratb.svg', "تعريف بالراتب"))),
-        ],
-      ),
-    );
-  }
-
   violation() {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return Container(
@@ -760,112 +437,6 @@ class _ServicesViewState extends State<ServicesView> {
         ],
       ),
     );
-  }
-
-  customerService() {
-    double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
-    return Container(
-      //margin: EdgeInsets.symmetric(horizontal: 20),
-      child: StaggeredGrid.count(
-        crossAxisCount: SizerUtil.deviceType == DeviceType.mobile ? 3 : 4,
-        mainAxisSpacing: 6,
-        crossAxisSpacing: 10,
-        children: [
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => customerServiceRrequests("")),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/violation.svg', "عرض الطلبات"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/reserveForcustomer");
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/set_appoinment.svg', "حجز موعد"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => statistics()),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/assessment.svg', "الإحصائيات"))),
-          StaggeredGridTile.extent(
-              crossAxisCellCount: 1,
-              mainAxisExtent: hi,
-              child: ElevatedButton(
-                  style: cardServiece,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => customerEnterance()),
-                    );
-                  },
-                  child: widgetsUni.cardcontentService(
-                      'assets/SVGs/login.svg', "تسجيل حضور"))),
-        ],
-      ),
-    );
-  }
-
-  void insertExtensionRequest() {
-    Alerts.confirmAlrt(context, "ترحيل الاجازة",
-            "سيتم ترحيل الاجازة, هل انت موافق ؟", "نعم")
-        .show()
-        .then((value) async {
-      if (value == true) {
-        EasyLoading.show(
-          status: '... جاري المعالجة',
-          maskType: EasyLoadingMaskType.black,
-        );
-
-        var respose = await postAction(
-            "HR/InsertExtensionRequest",
-            jsonEncode({
-              "EmployeeNumber": int.parse(sharedPref
-                  .getDouble("EmployeeNumber")
-                  .toString()
-                  .split(".")[0])
-            }));
-
-        print(respose.body);
-
-        respose = jsonDecode(respose.body);
-
-        EasyLoading.dismiss();
-
-        if (respose["StatusMessage"] == "Succeeded") {
-          Alerts.successAlert(context, "ترحيل الاجازة", "تم الطلب الترحيل")
-              .show();
-        } else {
-          Alerts.errorAlert(
-                  context, "ترحيل الاجازة", respose["ErrorMessage"] ?? "")
-              .show();
-        }
-
-        // setState(() {});
-      }
-    });
-    ;
   }
 
   final LocalAuthentication auth = LocalAuthentication();

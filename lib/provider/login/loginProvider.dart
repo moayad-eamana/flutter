@@ -8,6 +8,7 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_udid/flutter_udid.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -102,6 +103,8 @@ class LoginProvider extends ChangeNotifier {
     //  SharedPreferences _pref = await SharedPreferences.getInstance();
     await Firebase.initializeApp();
     FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String udid = await FlutterUdid.consistentUdid;
+    print(udid);
     String? token;
     try {
       token = await messaging.getToken();
@@ -122,7 +125,8 @@ class LoginProvider extends ChangeNotifier {
             "UserName": "DevTeam",
             "Password": "DevTeam",
             "OTP": int.parse(otp),
-            "DeviceID": token
+            "DeviceID": token,
+            // "DeviceKey": udid
           }),
           headers: {"Content-Type": "application/json"});
     }

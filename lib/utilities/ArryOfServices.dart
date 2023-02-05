@@ -1,44 +1,56 @@
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/provider/services/hrServicesFunctions.dart';
+import 'package:eamanaapp/provider/services/salaryFunctions.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
+import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
+import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
+import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class listOfServices {
   BuildContext context;
+
   listOfServices(this.context);
+  List<int> _insertExtensionRequestValid = [0, 6, 7];
 
   final services2 = [
     if (sharedPref.getInt("empTypeID") != 8)
       ////شؤون الموظفين
       {
+        "catg": "hrServices",
         "service_name": "طلب إجازة",
         "Navigation": "/VacationRequest",
         "icon": 'assets/SVGs/ejaza.svg',
       },
     if (sharedPref.getInt("empTypeID") != 8)
       {
+        "catg": "hrServices",
         "service_name": "طلب خارج دوام",
         "Navigation": "/OutdutyRequest",
         "icon": 'assets/SVGs/work_out.svg',
       },
     if (sharedPref.getInt("empTypeID") != 8)
       {
+        "catg": "hrServices",
         "service_name": "رصيد إجازات",
         "Navigation": "",
-        "icon": 'assets/SVGs/balance.svg'
+        "icon": 'assets/SVGs/balance.svg',
       },
     if (sharedPref.getInt("empTypeID") != 8)
       {
+        "catg": "hrServices",
         "service_name": "طلب إنتداب",
         "Navigation": "/entedab",
         "icon": 'assets/SVGs/entdab.svg',
       },
     if (sharedPref.getInt("empTypeID") != 8)
       {
+        "catg": "hrServices",
         "service_name": "العهد", /////////
         "Navigation": "/auhad",
         "icon": 'assets/SVGs/3ohad.svg',
@@ -112,13 +124,7 @@ class listOfServices {
     },
     {
       "service_name": "معلوماتي",
-      "Navigation": MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => EmpInfoProvider(),
-          // ignore: prefer_const_constructors
-          child: EmpProfile(null),
-        ),
-      ),
+      "Navigation": "/newEmpInfo",
       "icon": 'assets/SVGs/baynaty.svg',
     },
     {
@@ -133,4 +139,161 @@ class listOfServices {
       "icon": 'assets/SVGs/dalelalmowzafen.svg',
     },
   ];
+
+  List hrservices() {
+    final services2 = [
+      if (sharedPref.getInt("empTypeID") != 8)
+        ////شؤون الموظفين
+        {
+          "service_name": "طلب إجازة",
+          "Navigation": "/VacationRequest",
+          "icon": 'assets/SVGs/ejaza.svg',
+          "Action": () async {
+            Navigator.pushNamed(context, "/VacationRequest");
+          }
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "طلب خارج دوام",
+          "Navigation": "/OutdutyRequest",
+          "icon": 'assets/SVGs/work_out.svg',
+          "Action": () async {
+            Navigator.pushNamed(context, "/OutdutyRequest");
+          }
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "رصيد إجازات",
+          "Navigation": "",
+          "icon": 'assets/SVGs/balance.svg',
+          "Action": () async {
+            hrServicesFunctions.rased(context);
+          }
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "طلب إنتداب",
+          "Navigation": "/entedab",
+          "icon": 'assets/SVGs/entdab.svg',
+          "Action": () async {
+            Navigator.pushNamed(context, "/entedab");
+          }
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "العهد", /////////
+          "Navigation": "/auhad",
+          "icon": 'assets/SVGs/3ohad.svg',
+          "Action": () async {
+            Navigator.pushNamed(context, "/auhad");
+          }
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "catg": "hrServices",
+          "service_name": "تقييماتي", /////////
+          "Navigation": "/auhad",
+          "icon": 'assets/SVGs/rate.svg',
+          "Action": () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => desclaimer()),
+            );
+          }
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "إستعلام إخلاء طرف", /////////
+          "Navigation": "/auhad",
+          "icon": 'assets/SVGs/desclaimer.svg',
+          "Action": () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => desclaimer()),
+            );
+          }
+        },
+      if (_insertExtensionRequestValid.contains(sharedPref.getInt("empTypeID")))
+        {
+          "service_name": "إستعلام إخلاء طرف", /////////
+          "Navigation": "/auhad",
+          "icon": 'assets/SVGs/Insertvacation.svg',
+          "Action": () async {
+            hrServicesFunctions.insertExtensionRequest(context);
+          }
+        },
+    ];
+    return services2;
+  }
+
+  List Salarservices() {
+    final services2 = [
+      if (sharedPref.getInt("empTypeID") != 8)
+        ////شؤون الموظفين
+        {
+          "service_name": "سجل الرواتب",
+          "Navigation": "/SalaryHistory",
+          "icon": 'assets/SVGs/sejelalrawatb.svg',
+          "Action": () async {
+            salaryFunction.salaryHistory(context);
+          }
+        },
+      {
+        "service_name": "تعريف بالراتب",
+        "Navigation": "/auth_secreen",
+        "icon": 'assets/SVGs/ta3refalratb.svg',
+        "Action": () async {
+          salaryFunction.SalaryReport(context);
+        }
+      },
+    ];
+    return services2;
+  }
+
+  List customerService() {
+    return [
+      {
+        "service_name": "عرض الطلبات",
+        "Navigation": "/newEmpInfo",
+        "icon": 'assets/SVGs/violation.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => customerServiceRrequests("")),
+          );
+        }
+      },
+      {
+        "service_name": "حجز موعد",
+        "Navigation": "/reserveForcustomer",
+        "icon": 'assets/SVGs/set_appoinment.svg',
+        "Action": () {
+          Navigator.pushNamed(context, "/reserveForcustomer");
+        }
+      },
+      {
+        "service_name": "الإحصائيات",
+        "Navigation": "",
+        "icon": 'assets/SVGs/assessment.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => statistics()),
+          );
+        }
+      },
+      {
+        "service_name": "تسجيل حضور",
+        "Navigation": "",
+        "icon": 'assets/SVGs/login.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => customerEnterance()),
+          );
+        }
+      },
+    ];
+  }
 }
