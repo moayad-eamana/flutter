@@ -421,4 +421,41 @@ class listOfServices {
           ]
         : [];
   }
+
+  List sliderService1() {
+    List ww = [];
+    if (sharedPref.getInt("empTypeID") == 8) {
+      ww.addAll([
+        otherService()[0],
+        otherService()[1],
+        otherService()[2],
+        otherService()[3]
+      ]);
+    } else {
+      ww.addAll([
+        questService()[0],
+        hrservices()[1],
+        hrservices()[2],
+        hrservices()[4],
+      ]);
+    }
+
+    return ww;
+  }
+
+  List sliderService2() {
+    List ww = [];
+    if (sharedPref.getInt("empTypeID") == 8) {
+      ww.addAll([]);
+    } else {
+      ww.addAll([
+        hrservices()[0],
+        hrservices()[3],
+        otherService()[2]
+        //   otherService()[3]
+      ]);
+    }
+
+    return ww;
+  }
 }
