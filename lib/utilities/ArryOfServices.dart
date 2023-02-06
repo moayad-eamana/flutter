@@ -400,23 +400,25 @@ class listOfServices {
   }
 
   List attendanceService() {
-    return [
-      {
-        "service_name": "تسجيل الحضور",
-        "Navigation": "",
-        "icon": 'assets/SVGs/check_in1.svg',
-        "Action": () async {
-          attendanceServiceFunction(context).InsertAttendance(1);
-        },
-      },
-      {
-        "service_name": "تسجيل الإنصراف",
-        "Navigation": "",
-        "icon": 'assets/SVGs/check_in1.svg',
-        "Action": () async {
-          attendanceServiceFunction(context).InsertAttendance(2);
-        },
-      }
-    ];
+    return sharedPref.getInt("empTypeID") == 8
+        ? [
+            {
+              "service_name": "تسجيل الحضور",
+              "Navigation": "",
+              "icon": 'assets/SVGs/check_in1.svg',
+              "Action": () async {
+                attendanceServiceFunction(context).InsertAttendance(1);
+              },
+            },
+            {
+              "service_name": "تسجيل الإنصراف",
+              "Navigation": "",
+              "icon": 'assets/SVGs/check_in1.svg',
+              "Action": () async {
+                attendanceServiceFunction(context).InsertAttendance(2);
+              },
+            }
+          ]
+        : [];
   }
 }
