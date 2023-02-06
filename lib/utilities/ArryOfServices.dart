@@ -13,7 +13,7 @@ import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:eamanaapp/provider/services/checkinAndOutFunction.dart';
+import 'package:eamanaapp/provider/services/attendance.dart';
 
 class listOfServices {
   BuildContext context;
@@ -241,63 +241,66 @@ class listOfServices {
             salaryFunction.salaryHistory(context);
           }
         },
-      {
-        "service_name": "تعريف بالراتب",
-        "Navigation": "/auth_secreen",
-        "icon": 'assets/SVGs/ta3refalratb.svg',
-        "Action": () async {
-          salaryFunction.SalaryReport(context);
-        }
-      },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "تعريف بالراتب",
+          "Navigation": "/auth_secreen",
+          "icon": 'assets/SVGs/ta3refalratb.svg',
+          "Action": () async {
+            salaryFunction.SalaryReport(context);
+          }
+        },
     ];
     return services2;
   }
 
   List customerService() {
-    return [
-      {
-        "service_name": "عرض الطلبات",
-        "Navigation": "/newEmpInfo",
-        "icon": 'assets/SVGs/violation.svg',
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => customerServiceRrequests("")),
-          );
-        }
-      },
-      {
-        "service_name": "حجز موعد",
-        "Navigation": "/reserveForcustomer",
-        "icon": 'assets/SVGs/set_appoinment.svg',
-        "Action": () {
-          Navigator.pushNamed(context, "/reserveForcustomer");
-        }
-      },
-      {
-        "service_name": "الإحصائيات",
-        "Navigation": "",
-        "icon": 'assets/SVGs/assessment.svg',
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => statistics()),
-          );
-        }
-      },
-      {
-        "service_name": "تسجيل حضور",
-        "Navigation": "",
-        "icon": 'assets/SVGs/login.svg',
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => customerEnterance()),
-          );
-        }
-      },
-    ];
+    return sharedPref.getBool("permissionforCRM") == true
+        ? [
+            {
+              "service_name": "عرض الطلبات",
+              "Navigation": "/newEmpInfo",
+              "icon": 'assets/SVGs/violation.svg',
+              "Action": () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => customerServiceRrequests("")),
+                );
+              }
+            },
+            {
+              "service_name": "حجز موعد",
+              "Navigation": "/reserveForcustomer",
+              "icon": 'assets/SVGs/set_appoinment.svg',
+              "Action": () {
+                Navigator.pushNamed(context, "/reserveForcustomer");
+              }
+            },
+            {
+              "service_name": "الإحصائيات",
+              "Navigation": "",
+              "icon": 'assets/SVGs/assessment.svg',
+              "Action": () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => statistics()),
+                );
+              }
+            },
+            {
+              "service_name": "تسجيل حضور",
+              "Navigation": "",
+              "icon": 'assets/SVGs/login.svg',
+              "Action": () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => customerEnterance()),
+                );
+              }
+            },
+          ]
+        : [];
   }
 
   List questService() {
@@ -403,8 +406,7 @@ class listOfServices {
         "Navigation": "",
         "icon": 'assets/SVGs/check_in1.svg',
         "Action": () async {
-          // InsertAttendance(1);
-          checkinAndOutFunction(context).InsertAttendance(1);
+          attendanceServiceFunction(context).InsertAttendance(1);
         },
       },
       {
@@ -412,8 +414,7 @@ class listOfServices {
         "Navigation": "",
         "icon": 'assets/SVGs/check_in1.svg',
         "Action": () async {
-          // InsertAttendance(2);
-          checkinAndOutFunction(context).InsertAttendance(2);
+          attendanceServiceFunction(context).InsertAttendance(2);
         },
       }
     ];

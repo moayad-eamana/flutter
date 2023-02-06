@@ -7,11 +7,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
-class questServices {
+class mahammeWidget {
   BuildContext context;
-  questServices(this.context);
+  mahammeWidget(this.context);
 
-  static List<Widget> questWidget(BuildContext context) {
+  static List<Widget> mahamme(BuildContext context) {
     listOfServices list = listOfServices(context);
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return [

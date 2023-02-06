@@ -13,7 +13,7 @@ import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'package:eamanaapp/secreen/services/salaryServices.dart';
 import 'package:eamanaapp/secreen/services/customerService.dart';
-import 'package:eamanaapp/secreen/services/questService.dart';
+import 'package:eamanaapp/secreen/services/mahamme.dart';
 import 'package:eamanaapp/secreen/services/otherServices.dart';
 import 'package:eamanaapp/secreen/services/attendanceService.dart';
 
@@ -118,11 +118,11 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    ...attendanceService.attendanceWidget(context),
+                    ...attendanceServiceWidget.attendanceWidget(context),
                     SizedBox(
                       height: 10,
                     ),
-                    ...questServices.questWidget(context),
+                    ...mahammeWidget.mahamme(context),
                     SizedBox(
                       height: 10,
                     ),
@@ -143,7 +143,7 @@ class _ServicesViewState extends State<ServicesView> {
                     // violation(),
 
                     if (sharedPref.getBool("permissionforCRM") == true)
-                      ...customerService.customerServiceWidget(context),
+                      ...customerServiceWidget.customerService(context),
                     SizedBox(
                       height: 5,
                     ),

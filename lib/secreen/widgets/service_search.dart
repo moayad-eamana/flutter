@@ -1,21 +1,9 @@
-import 'dart:convert';
-
 import 'package:eamanaapp/main.dart';
-import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/model/logApiModel.dart';
-import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
-import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
-import 'package:eamanaapp/utilities/ViewFile.dart';
-import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/searchX.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomSearchDelegate extends SearchDelegateR {
@@ -55,7 +43,13 @@ class CustomSearchDelegate extends SearchDelegateR {
   @override
   Widget buildResults(BuildContext context) {
     List<String> favs = sharedPref.getStringList("favs") ?? [];
-    dynamic Services = listOfServices(context).services2;
+    listOfServices obj = listOfServices(context);
+    dynamic Services = obj.customerService() +
+        obj.hrservices() +
+        obj.Salarservices() +
+        obj.attendanceService() +
+        obj.questService() +
+        obj.otherService();
     for (int i = 0; i < favs.length; i++) {
       for (int j = 0; j < Services.length; j++) {
         if (favs[i] == Services[j]["service_name"]) {
@@ -162,102 +156,7 @@ class CustomSearchDelegate extends SearchDelegateR {
                       Services[index]["service_name"],
                       style: descTx1(baseColorText),
                     ),
-                    onTap: () async {
-                      if (fav == false) {
-                        bool fingerprint = sharedPref.getBool('fingerprint')!;
-
-                        query = Services[index]["service_name"];
-
-                        var navi =
-                            Services[index]["Navigation"].toString().isNotEmpty
-                                ? Services[index]["Navigation"]
-                                : '/home';
-
-                        print(query == "تعريف بالراتب");
-
-                        if (query == "رصيد إجازات") {
-                          rseed();
-                        } else if (query == "تعريف بالراتب") {
-                          EasyLoading.show(
-                            status: '... جاري المعالجة',
-                            maskType: EasyLoadingMaskType.black,
-                          );
-                          String emNo =
-                              await EmployeeProfile.getEmployeeNumber();
-                          var respons = await getAction(
-                              "HR/GetEmployeeSalaryReport/" + emNo);
-                          EasyLoading.dismiss();
-                          if (fingerprint == true) {
-                            Navigator.pushNamed(context, "/auth_secreen")
-                                .then((value) {
-                              if (value == true) {
-                                if (jsonDecode(respons.body)["salaryPdf"] !=
-                                    null) {
-                                  ViewFile.open(
-                                          jsonDecode(respons.body)["salaryPdf"],
-                                          "pdf")
-                                      .then((value) {
-                                    close(this.context, null);
-                                  });
-                                } else {
-                                  Alerts.warningAlert(context, "خطأ",
-                                          "لا توجد بيانات للتعريف بالراتب")
-                                      .show();
-                                }
-                              }
-                            });
-                          } else {
-                            if (jsonDecode(respons.body)["salaryPdf"] != null) {
-                              ViewFile.open(
-                                      jsonDecode(respons.body)["salaryPdf"],
-                                      "pdf")
-                                  .then((value) {
-                                close(this.context, null);
-                              });
-                            } else {
-                              Alerts.warningAlert(context, "خطأ",
-                                      "لا توجد بيانات للتعريف بالراتب")
-                                  .show();
-                            }
-                          }
-                          logApiModel logapiO = logApiModel();
-                          logapiO.ControllerName = "SalaryController";
-                          logapiO.ClassName = "SalaryController";
-                          logapiO.ActionMethodName = "تعريف بالراتب";
-                          logapiO.ActionMethodType = 1;
-                          logapiO.StatusCode = 1;
-
-                          logApi(logapiO);
-                        } else if (query == "سجل الرواتب") {
-                          if (fingerprint == true) {
-                            Navigator.pushNamed(context, "/auth_secreen")
-                                .then((value) {
-                              if (value == true) {
-                                Navigator.pushNamed(
-                                        this.context, "/SalaryHistory")
-                                    .then((value) {
-                                  //   close(this.context, null);
-                                });
-                              }
-                            });
-                          } else {
-                            Navigator.pushNamed(context, "/SalaryHistory")
-                                .then((value) {
-                              close(this.context, true);
-                            });
-                          }
-                        } else {
-                          navi.runtimeType == String
-                              ? Navigator.pushNamed(context, navi)
-                                  .then((value) {
-                                  close(this.context, null);
-                                })
-                              : Navigator.push(context, navi).then((value) {
-                                  close(this.context, null);
-                                });
-                        }
-                      }
-                    }),
+                    onTap: Services[index]["Action"]),
               );
             });
       },
@@ -267,7 +166,14 @@ class CustomSearchDelegate extends SearchDelegateR {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> favs = sharedPref.getStringList("favs") ?? [];
-    dynamic Services = listOfServices(context).services2;
+    listOfServices obj = listOfServices(context);
+    dynamic Services = obj.customerService() +
+        obj.hrservices() +
+        obj.Salarservices() +
+        obj.attendanceService() +
+        obj.questService() +
+        obj.otherService();
+
     for (int i = 0; i < favs.length; i++) {
       for (int j = 0; j < Services.length; j++) {
         if (favs[i] == Services[j]["service_name"]) {
@@ -384,118 +290,118 @@ class CustomSearchDelegate extends SearchDelegateR {
                       suggestions[index]["service_name"],
                       style: descTx1(baseColorText),
                     ),
-                    onTap: () async {
-                      if (fav == false) {
-                        bool fingerprint = sharedPref.getBool('fingerprint')!;
+                    onTap: Services[index]["Action"]
+                    // if (fav == false) {
+                    //   bool fingerprint = sharedPref.getBool('fingerprint')!;
 
-                        query = suggestions[index]["service_name"];
+                    //   query = suggestions[index]["service_name"];
 
-                        var navi = suggestions[index]["Navigation"]
-                                .toString()
-                                .isNotEmpty
-                            ? suggestions[index]["Navigation"]
-                            : '/home';
+                    //   var navi = suggestions[index]["Navigation"]
+                    //           .toString()
+                    //           .isNotEmpty
+                    //       ? suggestions[index]["Navigation"]
+                    //       : '/home';
 
-                        print(query == "تعريف بالراتب");
+                    //   print(query == "تعريف بالراتب");
 
-                        if (query == "رصيد إجازات") {
-                          rseed();
-                        } else if (query == "تعريف بالراتب") {
-                          EasyLoading.show(
-                            status: '... جاري المعالجة',
-                            maskType: EasyLoadingMaskType.black,
-                          );
-                          var respons;
-                          if ((sharedPref.getString("dumyuser") !=
-                              "10284928492")) {
-                            String emNo =
-                                await EmployeeProfile.getEmployeeNumber();
-                            respons = await getAction(
-                                "HR/GetEmployeeSalaryReport/" + emNo);
-                            EasyLoading.dismiss();
-                            if (fingerprint == true) {
-                              Navigator.pushNamed(context, "/auth_secreen")
-                                  .then((value) {
-                                if (value == true) {
-                                  if (jsonDecode(respons.body)["salaryPdf"] !=
-                                      null) {
-                                    ViewFile.open(
-                                            jsonDecode(
-                                                respons.body)["salaryPdf"],
-                                            "pdf")
-                                        .then((value) {
-                                      close(this.context, null);
-                                    });
-                                  } else {
-                                    Alerts.warningAlert(context, "خطأ",
-                                            "لا توجد بيانات للتعريف بالراتب")
-                                        .show();
-                                  }
-                                }
-                              });
-                            }
-                          } else {
-                            if ((sharedPref.getString("dumyuser") !=
-                                "10284928492")) {
-                              if (jsonDecode(respons.body)["salaryPdf"] !=
-                                  null) {
-                                ViewFile.open(
-                                        jsonDecode(respons.body)["salaryPdf"],
-                                        "pdf")
-                                    .then((value) {
-                                  close(this.context, null);
-                                });
-                              } else {
-                                Alerts.warningAlert(context, "خطأ",
-                                        "لا توجد بيانات للتعريف بالراتب")
-                                    .show();
-                              }
-                            } else {
-                              await Future.delayed(Duration(seconds: 1));
-                              Alerts.warningAlert(context, "خطأ",
-                                      "لا توجد بيانات للتعريف بالراتب")
-                                  .show();
-                              EasyLoading.dismiss();
-                            }
-                          }
-                          logApiModel logapiO = logApiModel();
-                          logapiO.ControllerName = "SalaryController";
-                          logapiO.ClassName = "SalaryController";
-                          logapiO.ActionMethodName = "تعريف بالراتب";
-                          logapiO.ActionMethodType = 1;
-                          logapiO.StatusCode = 1;
+                    //   if (query == "رصيد إجازات") {
+                    //     rseed();
+                    //   } else if (query == "تعريف بالراتب") {
+                    //     EasyLoading.show(
+                    //       status: '... جاري المعالجة',
+                    //       maskType: EasyLoadingMaskType.black,
+                    //     );
+                    //     var respons;
+                    //     if ((sharedPref.getString("dumyuser") !=
+                    //         "10284928492")) {
+                    //       String emNo =
+                    //           await EmployeeProfile.getEmployeeNumber();
+                    //       respons = await getAction(
+                    //           "HR/GetEmployeeSalaryReport/" + emNo);
+                    //       EasyLoading.dismiss();
+                    //       if (fingerprint == true) {
+                    //         Navigator.pushNamed(context, "/auth_secreen")
+                    //             .then((value) {
+                    //           if (value == true) {
+                    //             if (jsonDecode(respons.body)["salaryPdf"] !=
+                    //                 null) {
+                    //               ViewFile.open(
+                    //                       jsonDecode(
+                    //                           respons.body)["salaryPdf"],
+                    //                       "pdf")
+                    //                   .then((value) {
+                    //                 close(this.context, null);
+                    //               });
+                    //             } else {
+                    //               Alerts.warningAlert(context, "خطأ",
+                    //                       "لا توجد بيانات للتعريف بالراتب")
+                    //                   .show();
+                    //             }
+                    //           }
+                    //         });
+                    //       }
+                    //     } else {
+                    //       if ((sharedPref.getString("dumyuser") !=
+                    //           "10284928492")) {
+                    //         if (jsonDecode(respons.body)["salaryPdf"] !=
+                    //             null) {
+                    //           ViewFile.open(
+                    //                   jsonDecode(respons.body)["salaryPdf"],
+                    //                   "pdf")
+                    //               .then((value) {
+                    //             close(this.context, null);
+                    //           });
+                    //         } else {
+                    //           Alerts.warningAlert(context, "خطأ",
+                    //                   "لا توجد بيانات للتعريف بالراتب")
+                    //               .show();
+                    //         }
+                    //       } else {
+                    //         await Future.delayed(Duration(seconds: 1));
+                    //         Alerts.warningAlert(context, "خطأ",
+                    //                 "لا توجد بيانات للتعريف بالراتب")
+                    //             .show();
+                    //         EasyLoading.dismiss();
+                    //       }
+                    //     }
+                    //     logApiModel logapiO = logApiModel();
+                    //     logapiO.ControllerName = "SalaryController";
+                    //     logapiO.ClassName = "SalaryController";
+                    //     logapiO.ActionMethodName = "تعريف بالراتب";
+                    //     logapiO.ActionMethodType = 1;
+                    //     logapiO.StatusCode = 1;
 
-                          logApi(logapiO);
-                        } else if (query == "سجل الرواتب") {
-                          if (fingerprint == true) {
-                            Navigator.pushNamed(context, "/auth_secreen")
-                                .then((value) {
-                              if (value == true) {
-                                Navigator.pushNamed(
-                                        this.context, "/SalaryHistory")
-                                    .then((value) {
-                                  //   close(this.context, null);
-                                });
-                              }
-                            });
-                          } else {
-                            Navigator.pushNamed(context, "/SalaryHistory")
-                                .then((value) {
-                              close(this.context, true);
-                            });
-                          }
-                        } else {
-                          navi.runtimeType == String
-                              ? Navigator.pushNamed(context, navi)
-                                  .then((value) {
-                                  close(this.context, null);
-                                })
-                              : Navigator.push(context, navi).then((value) {
-                                  close(this.context, null);
-                                });
-                        }
-                      }
-                    }),
+                    //     logApi(logapiO);
+                    //   } else if (query == "سجل الرواتب") {
+                    //     if (fingerprint == true) {
+                    //       Navigator.pushNamed(context, "/auth_secreen")
+                    //           .then((value) {
+                    //         if (value == true) {
+                    //           Navigator.pushNamed(
+                    //                   this.context, "/SalaryHistory")
+                    //               .then((value) {
+                    //             //   close(this.context, null);
+                    //           });
+                    //         }
+                    //       });
+                    //     } else {
+                    //       Navigator.pushNamed(context, "/SalaryHistory")
+                    //           .then((value) {
+                    //         close(this.context, true);
+                    //       });
+                    //     }
+                    //   } else {
+                    //     navi.runtimeType == String
+                    //         ? Navigator.pushNamed(context, navi)
+                    //             .then((value) {
+                    //             close(this.context, null);
+                    //           })
+                    //         : Navigator.push(context, navi).then((value) {
+                    //             close(this.context, null);
+                    //           });
+                    //   }
+                    // }
+                    ),
               );
             });
       },
@@ -516,81 +422,81 @@ class CustomSearchDelegate extends SearchDelegateR {
     return val;
   }
 
-  Future<void> rseed() async {
-    EasyLoading.show(
-      status: '... جاري المعالجة',
-      maskType: EasyLoadingMaskType.black,
-    );
+  // Future<void> rseed() async {
+  //   EasyLoading.show(
+  //     status: '... جاري المعالجة',
+  //     maskType: EasyLoadingMaskType.black,
+  //   );
 
-    dynamic respose;
-    if ((sharedPref.getString("dumyuser") != "10284928492")) {
-      String emNo = await EmployeeProfile.getEmployeeNumber();
-      respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
-      respose = jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
-    } else {
-      await Future.delayed(Duration(seconds: 1));
-      respose = "22";
-    }
-    logApiModel logapiO = logApiModel();
-    logapiO.ControllerName = "VacationsController";
-    logapiO.ClassName = "VacationsController";
-    logapiO.ActionMethodName = "رصيد الاجازات";
-    logapiO.ActionMethodType = 1;
-    logapiO.StatusCode = 1;
+  //   dynamic respose;
+  //   if ((sharedPref.getString("dumyuser") != "10284928492")) {
+  //     String emNo = await EmployeeProfile.getEmployeeNumber();
+  //     respose = await getAction("HR/GetEmployeeDataByEmpNo/" + emNo);
+  //     respose = jsonDecode(respose.body)["EmpInfo"]["VacationBalance"];
+  //   } else {
+  //     await Future.delayed(Duration(seconds: 1));
+  //     respose = "22";
+  //   }
+  //   logApiModel logapiO = logApiModel();
+  //   logapiO.ControllerName = "VacationsController";
+  //   logapiO.ClassName = "VacationsController";
+  //   logapiO.ActionMethodName = "رصيد الاجازات";
+  //   logapiO.ActionMethodType = 1;
+  //   logapiO.StatusCode = 1;
 
-    logApi(logapiO);
+  //   logApi(logapiO);
 
-    EasyLoading.dismiss();
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => Directionality(
-        textDirection: TextDirection.rtl,
-        child: AlertDialog(
-          backgroundColor: BackGWhiteColor,
-          title: Builder(builder: (context) {
-            return Center(
-              child: Text(
-                'رصيد الاجازات',
-                style: titleTx(baseColor),
-              ),
-            );
-          }),
-          content: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                respose.toString(),
-                style: TextStyle(
-                    fontSize: 38,
-                    fontWeight: FontWeight.bold,
-                    color: secondryColor),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                widgetsUni.actionbutton(
-                  'طلب إجازة',
-                  Icons.send,
-                  () {
-                    Navigator.pushNamed(context, "/VacationRequest")
-                        .then((value) => Navigator.pop(context));
-                  },
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: Text(
-                    'إغلاق',
-                    style: subtitleTx(baseColor),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ).then((value) => close(this.context, null));
-  }
+  //   EasyLoading.dismiss();
+  //   showDialog<String>(
+  //     context: context,
+  //     builder: (BuildContext context) => Directionality(
+  //       textDirection: TextDirection.rtl,
+  //       child: AlertDialog(
+  //         backgroundColor: BackGWhiteColor,
+  //         title: Builder(builder: (context) {
+  //           return Center(
+  //             child: Text(
+  //               'رصيد الاجازات',
+  //               style: titleTx(baseColor),
+  //             ),
+  //           );
+  //         }),
+  //         content: Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             Text(
+  //               respose.toString(),
+  //               style: TextStyle(
+  //                   fontSize: 38,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: secondryColor),
+  //             ),
+  //           ],
+  //         ),
+  //         actions: <Widget>[
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               widgetsUni.actionbutton(
+  //                 'طلب إجازة',
+  //                 Icons.send,
+  //                 () {
+  //                   Navigator.pushNamed(context, "/VacationRequest")
+  //                       .then((value) => Navigator.pop(context));
+  //                 },
+  //               ),
+  //               TextButton(
+  //                 onPressed: () => Navigator.pop(context, 'OK'),
+  //                 child: Text(
+  //                   'إغلاق',
+  //                   style: subtitleTx(baseColor),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   ).then((value) => close(this.context, null));
+  // }
 }

@@ -7,11 +7,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
-class customerService {
+class customerServiceWidget {
   BuildContext context;
-  customerService(this.context);
+  customerServiceWidget(this.context);
 
-  static List<Widget> customerServiceWidget(BuildContext context) {
+  static List<Widget> customerService(BuildContext context) {
     listOfServices list = listOfServices(context);
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return [

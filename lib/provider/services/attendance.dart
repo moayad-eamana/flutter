@@ -11,12 +11,12 @@ import 'package:flutter_udid/flutter_udid.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:local_auth/local_auth.dart';
 
-class checkinAndOutFunction {
+class attendanceServiceFunction {
   final LocalAuthentication auth = LocalAuthentication();
   bool? _canCheckBiometrics;
   bool? _authenticated;
   BuildContext context;
-  checkinAndOutFunction(this.context);
+  attendanceServiceFunction(this.context);
   void InsertAttendance(int type) async {
     EasyLoading.show(
       status: '... جاري المعالجة',

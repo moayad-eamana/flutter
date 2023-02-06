@@ -7,9 +7,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
-class attendanceService {
+class attendanceServiceWidget {
   BuildContext context;
-  attendanceService(this.context);
+  attendanceServiceWidget(this.context);
 
   static List<Widget> attendanceWidget(BuildContext context) {
     listOfServices list = listOfServices(context);
