@@ -413,7 +413,7 @@ class _EmpInfoViewState extends State<EmpInfoView> {
 
     if (sharedPref.getString("dumyuser") != "10284928492") {
       bool hasinfo = await Provider.of<EmpInfoProvider>(context, listen: false)
-          .fetchEmpInfo(_search.text);
+          .fetchEmpInfo(_search.text.trim());
       logApiModel logapiO = logApiModel();
       logapiO.ControllerName = "DaleelController";
       logapiO.ClassName = "DaleelController";
