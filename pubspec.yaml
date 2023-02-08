@@ -88,7 +88,7 @@ dependencies:
   flutter_linkify: ^5.0.2
   geolocator: ^9.0.2
   flutter_udid: ^2.0.1
-
+  flutter_spinkit: ^5.1.0
   
 
 

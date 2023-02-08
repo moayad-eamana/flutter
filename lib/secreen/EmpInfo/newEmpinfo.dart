@@ -17,6 +17,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class newEmpInfo extends StatefulWidget {
   bool? showArrow;
@@ -64,7 +65,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
     }
 
     var response = await getAction(
-        "HR/GetEmployees/" + EmployeeProfile.getEmployeeNumber());
+        "HR/GetEmployeeDataByEmpNo/" + EmployeeProfile.getEmployeeNumber());
     empInfo = jsonDecode(response.body)["EmpInfo"];
     logApiModel logapiO = logApiModel();
     logapiO.ControllerName = "profile";
@@ -263,8 +264,8 @@ class _newEmpInfoState extends State<newEmpInfo> {
                                 children: [
                                   Cards(
                                       empInfo == null
-                                          ? ""
-                                          : empInfo[0]["VacationBalance"]
+                                          ? null
+                                          : empInfo["VacationBalance"]
                                               .toString(),
                                       "الإجازات"),
                                   Cards(sharedPref.getInt("ClassID").toString(),
@@ -293,7 +294,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
                               height: 10,
                             ),
                             Rows(
-                                "الرقم الوضيفي",
+                                "الرقم الوظيفي",
                                 EmployeeProfile.getEmployeeNumber(),
                                 Icons.dialpad_sharp,
                                 secondryColor),
@@ -345,7 +346,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
     );
   }
 
-  Widget Cards(String title, String desc) {
+  Widget Cards(String? title, String desc) {
     return Container(
       height: 120,
       width: 100,
@@ -366,11 +367,13 @@ class _newEmpInfoState extends State<newEmpInfo> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            title,
-            style: subtitleTx(secondryColor),
-            textAlign: TextAlign.right,
-          ),
+          title == null
+              ? SpinKitDoubleBounce(color: secondryColor, size: 30.0)
+              : Text(
+                  title,
+                  style: subtitleTx(secondryColor),
+                  textAlign: TextAlign.right,
+                ),
           Text(
             desc,
             style: titleTx(secondryColorText),
