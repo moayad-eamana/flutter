@@ -44,21 +44,7 @@ Widget servicebuttonFavs(e, BuildContext context) {
   return widgetsUni.servicebutton(
     e["service_name"],
     e["icon"],
-    () {
-      if (e["service_name"] == "رصيد إجازات") {
-        rseed(context);
-        return;
-      }
-      if (e["service_name"] == "سجل الرواتب" ||
-          e["service_name"] == "تعريف بالراتب") {
-        salary(e["service_name"], context);
-        return;
-      }
-      e["Navigation"].runtimeType == String
-          ? Navigator.pushNamed(context, e["Navigation"])
-          : Navigator.push(context, e["Navigation"]);
-      return;
-    },
+    e["Action"],
   );
 }
 
