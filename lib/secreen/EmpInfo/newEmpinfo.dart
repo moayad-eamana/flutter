@@ -38,10 +38,10 @@ class _newEmpInfoState extends State<newEmpInfo> {
   }
 
   getData() async {
-    EasyLoading.show(
-      status: '... جاري المعالجة',
-      maskType: EasyLoadingMaskType.black,
-    );
+    // EasyLoading.show(
+    //   status: '... جاري المعالجة',
+    //   maskType: EasyLoadingMaskType.black,
+    // );
     var g_date = HijriCalendar();
     List date = sharedPref.getString("HireDate").toString().split("/");
     if (date[0] != "") {
