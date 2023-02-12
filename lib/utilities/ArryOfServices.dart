@@ -114,7 +114,7 @@ class listOfServices {
   ];
 
   List hrservices() {
-    final services2 = [
+    List services2 = [
       if (sharedPref.getInt("empTypeID") != 8)
         ////شؤون الموظفين
         {
@@ -200,7 +200,7 @@ class listOfServices {
   }
 
   List Salarservices() {
-    final services2 = [
+    List services2 = [
       if (sharedPref.getInt("empTypeID") != 8)
         ////شؤون الموظفين
         {
@@ -370,26 +370,24 @@ class listOfServices {
   }
 
   List attendanceService() {
-    return sharedPref.getInt("empTypeID") == 8
-        ? [
-            {
-              "service_name": "تسجيل الحضور",
-              "Navigation": "",
-              "icon": 'assets/SVGs/check_in1.svg',
-              "Action": () async {
-                attendanceServiceFunction(context).InsertAttendance(1);
-              },
-            },
-            {
-              "service_name": "تسجيل الإنصراف",
-              "Navigation": "",
-              "icon": 'assets/SVGs/check_in1.svg',
-              "Action": () async {
-                attendanceServiceFunction(context).InsertAttendance(2);
-              },
-            }
-          ]
-        : [];
+    return [
+      {
+        "service_name": "تسجيل الحضور",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          attendanceServiceFunction(context).InsertAttendance(1);
+        },
+      },
+      {
+        "service_name": "تسجيل الإنصراف",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          attendanceServiceFunction(context).InsertAttendance(2);
+        },
+      }
+    ];
   }
 
   List fastservices() {

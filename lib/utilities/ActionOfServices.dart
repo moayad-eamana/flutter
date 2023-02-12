@@ -181,13 +181,19 @@ salary(servName, BuildContext context) async {
 }
 
 List<dynamic> listOfFavs(BuildContext context) {
-  var serv = listOfServices(context);
+  listOfServices obj = listOfServices(context);
+  List serv = obj.Salarservices() +
+      obj.attendanceService() +
+      obj.customerService() +
+      obj.hrservices() +
+      obj.otherService() +
+      obj.questService();
   List<String> favs = sharedPref.getStringList("favs") ?? [];
   List<dynamic> list = [];
   for (int i = 0; favs.length > i; i++) {
-    for (int j = 0; serv.services2.length > j; j++) {
-      if (favs[i] == serv.services2[j]["service_name"]) {
-        list.insert(0, serv.services2[j]);
+    for (int j = 0; serv.length > j; j++) {
+      if (favs[i] == serv[j]["service_name"]) {
+        list.insert(0, serv[j]);
       }
     }
   }
