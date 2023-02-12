@@ -86,6 +86,10 @@ class attendanceServiceFunction {
       });
     } else {
       //if canceleds
+      if (_authenticated == false)
+        Alerts.warningAlert(
+                context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
+            .show();
     }
   }
 
@@ -129,6 +133,7 @@ class attendanceServiceFunction {
     try {
       authenticated = await auth.authenticate(
           localizedReason: 'Let OS determine authentication method',
+          biometricOnly: true,
           useErrorDialogs: true,
           stickyAuth: true);
 
@@ -137,7 +142,7 @@ class attendanceServiceFunction {
       _authenticated = authenticated;
 
       print(e);
-      return;
+      return _authenticated;
     }
     // if (!mounted) {
     //   return;
