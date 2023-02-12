@@ -7,6 +7,7 @@ import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
+import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
@@ -385,6 +386,17 @@ class listOfServices {
         "icon": 'assets/SVGs/check_in1.svg',
         "Action": () async {
           attendanceServiceFunction(context).InsertAttendance(2);
+        },
+      },
+      {
+        "service_name": "الحضور ولإنصراف",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GetAttendanceView()),
+          );
         },
       }
     ];
