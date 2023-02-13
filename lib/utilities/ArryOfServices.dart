@@ -391,7 +391,7 @@ class listOfServices {
       {
         "service_name": "الحضور ولإنصراف",
         "Navigation": "",
-        "icon": 'assets/SVGs/check_in1.svg',
+        "icon": 'assets/SVGs/AttendanceView.svg',
         "Action": () async {
           Navigator.push(
             context,

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/main.dart';
@@ -10,6 +11,7 @@ import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
+import 'package:eamanaapp/secreen/notification/notification.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
@@ -27,7 +29,7 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard_maintained/vcard_maintained.dart';
-
+import 'package:eamanaapp/secreen/notification/bagenotification.dart';
 import 'main_home.dart';
 
 class HomePanel extends StatefulWidget {
@@ -78,8 +80,10 @@ class _HomPanelState extends State<HomePanel>
   String name = "";
   double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
 
-  getuserinfo() {
+  getuserinfo() async {
     empinfo = empinfo.getEmployeeProfile();
+    await badgenotification.shownotfNub();
+    setState(() {});
   }
 
   void cheackNetwork() async {
@@ -567,70 +571,93 @@ class _HomPanelState extends State<HomePanel>
                                                         left: 10),
                                                     child: Column(
                                                       children: [
-                                                        IconButton(
-                                                          iconSize:
-                                                              responsiveMT(
-                                                                  30, 30),
-                                                          icon: Icon(Icons
-                                                              .logout_outlined),
-                                                          color: baseColor,
-                                                          //size: responsiveMT(45, 45),
-                                                          //
-                                                          onPressed: () async {
-                                                            Alerts.confirmAlrt(
-                                                                    context,
-                                                                    "تسجيل خروج",
-                                                                    "هل تريد الخروج من التطبيق",
-                                                                    "نعم")
-                                                                .show()
-                                                                .then(
-                                                                    (value) async {
-                                                              if (value ==
-                                                                  true) {
-                                                                // FirebaseMessaging
-                                                                //     .instance
-                                                                //     .deleteToken();
+                                                        // IconButton(
+                                                        //   iconSize:
+                                                        //       responsiveMT(
+                                                        //           30, 30),
+                                                        //   icon: Icon(Icons
+                                                        //       .logout_outlined),
+                                                        //   color: baseColor,
+                                                        //   //size: responsiveMT(45, 45),
+                                                        //   //
+                                                        //   onPressed: () async {
+                                                        //     Alerts.confirmAlrt(
+                                                        //             context,
+                                                        //             "تسجيل خروج",
+                                                        //             "هل تريد الخروج من التطبيق",
+                                                        //             "نعم")
+                                                        //         .show()
+                                                        //         .then(
+                                                        //             (value) async {
+                                                        //       if (value ==
+                                                        //           true) {
+                                                        //         // FirebaseMessaging
+                                                        //         //     .instance
+                                                        //         //     .deleteToken();
 
-                                                                sharedPref
-                                                                    .setDouble(
-                                                                        "EmployeeNumber",
-                                                                        0);
-                                                                sharedPref
-                                                                    .setString(
-                                                                        "hasePerm",
-                                                                        "");
-                                                                sharedPref.setBool(
-                                                                    "permissionforCRM",
-                                                                    false);
+                                                        //         sharedPref
+                                                        //             .setDouble(
+                                                        //                 "EmployeeNumber",
+                                                        //                 0);
+                                                        //         sharedPref
+                                                        //             .setString(
+                                                        //                 "hasePerm",
+                                                        //                 "");
+                                                        //         sharedPref.setBool(
+                                                        //             "permissionforCRM",
+                                                        //             false);
 
-                                                                sharedPref.setBool(
-                                                                    "permissionforAppReq",
-                                                                    false);
+                                                        //         sharedPref.setBool(
+                                                        //             "permissionforAppReq",
+                                                        //             false);
 
-                                                                sharedPref.setBool(
-                                                                    "permissionforAppManege3",
-                                                                    false);
+                                                        //         sharedPref.setBool(
+                                                        //             "permissionforAppManege3",
+                                                        //             false);
 
-                                                                hasePerm = "";
-                                                                //_pref.clear();
-                                                                //setSettings();
+                                                        //         hasePerm = "";
+                                                        //         //_pref.clear();
+                                                        //         //setSettings();
 
-                                                                Navigator
-                                                                    .pushReplacementNamed(
-                                                                        context,
-                                                                        '/loginView');
-                                                              }
-                                                            });
-                                                          },
-                                                        ),
-                                                        SizedBox(
-                                                          height: 0,
-                                                        ),
-                                                        Text(
-                                                          "تسجيل خروج",
-                                                          style: descTx1(
-                                                              baseColorText),
-                                                        ),
+                                                        //         Navigator
+                                                        //             .pushReplacementNamed(
+                                                        //                 context,
+                                                        //                 '/loginView');
+                                                        //       }
+                                                        //     });
+                                                        //   },
+                                                        // ),
+                                                        // SizedBox(
+                                                        //   height: 0,
+                                                        // ),
+                                                        // Text(
+                                                        //   "تسجيل خروج",
+                                                        //   style: descTx1(
+                                                        //       baseColorText),
+                                                        // ),
+                                                        GestureDetector(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              NotificationPage()));
+                                                            },
+                                                            child: Container(
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  badgenotification
+                                                                      .badgewidget(),
+                                                                ],
+                                                              ),
+                                                            )),
                                                       ],
                                                     ),
                                                   ),
