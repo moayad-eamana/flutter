@@ -19,27 +19,30 @@ class badgenotification {
   }
 
   static Widget badgewidget() {
-    return Column(
-      children: [
-        Badge(
-          showBadge: notificationcont != null ? true : false,
-          badgeContent: Text(
-            notificationcont.toString(),
-            style: descTx1(Colors.white),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        children: [
+          Badge(
+            showBadge: notificationcont != null ? true : false,
+            badgeContent: Text(
+              notificationcont.toString(),
+              style: descTx1(Colors.white),
+            ),
+            badgeColor: redColor,
+            animationType: BadgeAnimationType.scale,
+            child: Icon(
+              Icons.notifications,
+              color: baseColor,
+              size: 40,
+            ),
           ),
-          badgeColor: redColor,
-          animationType: BadgeAnimationType.scale,
-          child: Icon(
-            Icons.notifications,
-            color: baseColor,
-            size: 40,
+          Text(
+            "إشعارات",
+            style: TextStyle(color: baseColorText),
           ),
-        ),
-        Text(
-          "إشعارات",
-          style: TextStyle(color: baseColorText),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
