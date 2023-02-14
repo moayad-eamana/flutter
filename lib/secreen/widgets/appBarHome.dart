@@ -49,7 +49,9 @@ class AppBarHome {
               ),
               shownotification == true && shownotification != null
                   ? Positioned(
-                      left: 25, top: 25, child: badgenotification.badgewidget())
+                      left: 25,
+                      top: 25,
+                      child: badgenotification.badgewidget(context))
                   : Container(),
               // if (sharedPref.getString("dumyuser") != "10284928492")
               //   Align(

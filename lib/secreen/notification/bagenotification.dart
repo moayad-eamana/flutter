@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:badges/badges.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/notification/notification.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -18,30 +19,36 @@ class badgenotification {
         : jsonDecode(response.body)["ReturnResult"];
   }
 
-  static Widget badgewidget() {
+  static Widget badgewidget(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Column(
-        children: [
-          Badge(
-            showBadge: notificationcont != null ? true : false,
-            badgeContent: Text(
-              notificationcont.toString(),
-              style: descTx1(Colors.white),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NotificationPage()));
+        },
+        child: Column(
+          children: [
+            Badge(
+              showBadge: notificationcont != null ? true : false,
+              badgeContent: Text(
+                notificationcont.toString(),
+                style: descTx1(Colors.white),
+              ),
+              badgeColor: redColor,
+              animationType: BadgeAnimationType.scale,
+              child: Icon(
+                Icons.notifications,
+                color: baseColor,
+                size: 40,
+              ),
             ),
-            badgeColor: redColor,
-            animationType: BadgeAnimationType.scale,
-            child: Icon(
-              Icons.notifications,
-              color: baseColor,
-              size: 40,
+            Text(
+              "إشعارات",
+              style: TextStyle(color: baseColorText),
             ),
-          ),
-          Text(
-            "إشعارات",
-            style: TextStyle(color: baseColorText),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

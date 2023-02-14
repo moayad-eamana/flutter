@@ -635,29 +635,21 @@ class _HomPanelState extends State<HomePanel>
                                                         //   style: descTx1(
                                                         //       baseColorText),
                                                         // ),
-                                                        GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              NotificationPage()));
-                                                            },
-                                                            child: Container(
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  badgenotification
-                                                                      .badgewidget(),
-                                                                ],
-                                                              ),
-                                                            )),
+                                                        Container(
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              badgenotification
+                                                                  .badgewidget(
+                                                                      context),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
