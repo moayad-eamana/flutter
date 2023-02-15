@@ -43,7 +43,7 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
     } else {
       // logapiO.StatusCode = 1;
       // logApi(logapiO);
-
+  ///
       // Alerts.successAlert(context, "", "test attendence").show().then((value) {
       //   Navigator.pop(context);
 
