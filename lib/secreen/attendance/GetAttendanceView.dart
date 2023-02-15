@@ -230,7 +230,7 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
           ]),
         ));
   }
-
+//
   DistanceConverter(String d) {
     // m if the distance < 100:
     int distance = int.parse(d);
