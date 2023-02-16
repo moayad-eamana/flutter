@@ -3,7 +3,7 @@ import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-late SharedPreferences sharedPref;
+import '../../main.dart';
 
 class splashScreen extends StatefulWidget {
   const splashScreen({Key? key}) : super(key: key);
