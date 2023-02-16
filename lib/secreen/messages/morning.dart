@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,13 @@ class _morningState extends State<morning> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    EasyLoading.dismiss();
+  }
+
+  @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments;
 
@@ -57,13 +65,7 @@ class _morningState extends State<morning> {
         appBar: AppBarW.appBarW(args["url"]["title"].toString(), context, null),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Image.asset(
-                imageBG,
-                fit: BoxFit.fill,
-              ),
-            ),
+            widgetsUni.bacgroundimage(),
             Container(
               margin: EdgeInsets.all(10),
               child: Card(
@@ -72,23 +74,17 @@ class _morningState extends State<morning> {
                   margin: EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Center(
-                          // child: Text(
-                          //   args["title"],
-                          //   style: titleTx(baseColorText),
-                          // ),
-                          ),
-                      // Center(
-                      //   child: Text(
-                      //     args["body"].toString(),
-                      //     style: titleTx(secondryColor),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      bytes == null
+                          ? Container()
+                          : Image.memory(bytes as Uint8List),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Center(
                         child: Linkify(
                           onOpen: (link) async {
@@ -103,12 +99,6 @@ class _morningState extends State<morning> {
                           linkStyle: titleTx(baseColor),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      bytes == null
-                          ? Container()
-                          : Image.memory(bytes as Uint8List),
                     ],
                   ),
                 ),
