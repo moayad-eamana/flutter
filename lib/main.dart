@@ -37,6 +37,7 @@ import 'package:eamanaapp/secreen/messages/morning.dart';
 import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
+import 'package:eamanaapp/secreen/splashScreen/splashScreen.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/ViolationHome.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
@@ -350,11 +351,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           // buttonColor: Colors.amber,
           // deprecated,
         ),
-        initialRoute: widget.username == null || widget.username == 0
-            ? "/"
-            : fingerprint == false
-                ? '/home'
-                : '/AuthenticateBio',
+
+        initialRoute: '/splashScreen',
+
+        // initialRoute: widget.username == null || widget.username == 0
+        //     ? "/"
+        //     : fingerprint == false
+        //         ? '/home'
+        //         : '/AuthenticateBio',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
@@ -405,6 +409,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/reserveForcustomer': (context) => reserveForcustomer(),
           '/meettingsType': (context) => meettingsType(),
           '/newEmpInfo': (context) => newEmpInfo(true),
+          '/splashScreen': (context) => splashScreen(),
         },
       );
     });
