@@ -241,6 +241,8 @@ class _LoginViewState extends State<LoginView> {
                                               ),
                                               Checkbox(
                                                   value: rememperMe,
+                                                  checkColor: baseColor,
+                                                  activeColor: secondryColor,
                                                   onChanged: (bool? val) {
                                                     setState(() {
                                                       sharedPref.setString(

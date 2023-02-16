@@ -1,1 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path d="M0,0H24V24H0Z" fill="none"/><path d="M4,8.54A4,4,0,0,1,6,12a4,4,0,0,1-2,3.46V18H20V6H4Zm4.13,4,1.26,1,2.39-.64L9.39,8.72l1.4-.38,4,3.74,2.44-.65a1,1,0,0,1,1.18.68,1,1,0,0,1-.69,1.19L8.87,15.66,7.21,12.78Z" fill="#2e8d9a"/><path d="M21.19,3H5A2,2,0,0,0,3,5V9a2,2,0,0,1,0,4v4a2,2,0,0,0,2,2H21a2,2,0,0,0,2-2V5A1.91,1.91,0,0,0,21.19,3ZM21,17H5V14.46A4,4,0,0,0,5,7.54V5H21Z" fill="#274690"/><path d="M17.73,13.3a1,1,0,0,0,.69-1.19,1,1,0,0,0-1.18-.68l-2.44.65-4-3.74-1.4.38,2.4,4.16-2.39.64-1.26-1-.93.25,1.66,2.88Z" fill="#fff"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg20381"
+   sodipodi:docname="ejaza.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs20385" />
+  <sodipodi:namedview
+     id="namedview20383"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="34.875"
+     inkscape:cx="11.985663"
+     inkscape:cy="12.014337"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg20381" />
+  <g
+     id="Layer_2"
+     data-name="Layer 2">
+    <g
+       id="Layer_1-2"
+       data-name="Layer 1">
+      <path
+         d="M0,0H24V24H0Z"
+         fill="none"
+         id="path20371" />
+      <path
+         d="M4,8.54A4,4,0,0,1,6,12a4,4,0,0,1-2,3.46V18H20V6H4Zm4.13,4,1.26,1,2.39-.64L9.39,8.72l1.4-.38,4,3.74,2.44-.65a1,1,0,0,1,1.18.68,1,1,0,0,1-.69,1.19L8.87,15.66,7.21,12.78Z"
+         fill="#2e8d9a"
+         id="path20373"
+         style="fill:#e9dfcf;fill-opacity:1" />
+      <path
+         d="M21.19,3H5A2,2,0,0,0,3,5V9a2,2,0,0,1,0,4v4a2,2,0,0,0,2,2H21a2,2,0,0,0,2-2V5A1.91,1.91,0,0,0,21.19,3ZM21,17H5V14.46A4,4,0,0,0,5,7.54V5H21Z"
+         fill="#274690"
+         id="path20375"
+         style="fill:#6b4e45;fill-opacity:1" />
+      <path
+         d="M17.73,13.3a1,1,0,0,0,.69-1.19,1,1,0,0,0-1.18-.68l-2.44.65-4-3.74-1.4.38,2.4,4.16-2.39.64-1.26-1-.93.25,1.66,2.88Z"
+         fill="#fff"
+         id="path20377" />
+    </g>
+  </g>
+</svg>

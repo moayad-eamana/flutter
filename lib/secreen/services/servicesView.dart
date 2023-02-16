@@ -110,6 +110,9 @@ class _ServicesViewState extends State<ServicesView> {
                   children: [
                     // شؤون الموظفين
                     ...obj.hrServices(),
+                    SizedBox(
+                      height: 10,
+                    ),
                     ...salaryWidgets.salaryWidget(context),
                     SizedBox(
                       height: 10,

@@ -86,7 +86,9 @@ class attendanceServiceFunction {
       });
     } else {
       //if canceleds
-      if (_authenticated == false)
+
+      //if device don't has fingrprint
+      if (_authenticated == null)
         Alerts.warningAlert(
                 context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
             .show();
@@ -139,8 +141,6 @@ class attendanceServiceFunction {
 
       _authenticated = authenticated;
     } on PlatformException catch (e) {
-      _authenticated = authenticated;
-
       print(e);
       return _authenticated;
     }

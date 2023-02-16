@@ -29,18 +29,10 @@ class _MainHomeState extends State<MainHome> {
   List<int> selectsilder = [0, 1];
 
   List<dynamic> imageBanner = [
-    // "assets/image/Ramdan_kreem.jpg",
-    "assets/image/match1.png",
-    "assets/image/match2.png",
-    "assets/image/match3.png",
+    "assets/image/founding_day.jpg",
   ];
-
-  List<int> selectsilderBanner = [0, 1, 2];
-  List<String> selectsilderTitle = [
-    "السعودية ضد الأرجنتين",
-    "السعودية ضد بولندا",
-    "السعودية ضد المكسيك"
-  ];
+  List<int> selectsilderBanner = [0];
+  List<String> selectsilderTitle = ["يوم التأسيس"];
 
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
@@ -314,135 +306,100 @@ class _MainHomeState extends State<MainHome> {
                     ],
                   ),
                 ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // Row(
-                //   children: [
-                //     Text(
-                //       "مباريات منتخبنا",
-                //       style: titleTx(baseColorText),
-                //     ),
-                //     Expanded(
-                //       child: Container(
-                //           // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                //           child: Divider(
-                //         color: baseColorText,
-                //         height: 20,
-                //         thickness: 1,
-                //         indent: 5,
-                //         endIndent: 5,
-                //       )),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // Container(
-                //   decoration: containerdecoration(BackGWhiteColor),
-                //   child: Column(
-                //     children: [
-                //       GestureDetector(
-                //         onTap: () async {
-                //           // Navigator.pushNamed(context, "/events")
-                //           await launchUrl(await Uri.parse(
-                //               "https://www.youtube.com/watch?v=dm1oMi8CcSA"));
-
-                //           // _controller = VideoPlayerController.network(
-                //           //     "https://drive.google.com/file/d/1fVzyAGoKwDpLhwRUOG92al-Xo5ioq8Yi/view?usp=share_link/gidam%20final%20text.mp4")
-                //           //   ..setLooping(true)
-                //           //   ..initialize().then((_) {
-                //           //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-                //           //     _controller.play();
-                //           //     _controller.play();
-
-                //           //     setState(() {});
-                //           //   });
-                //         },
-                //         child: CarouselSlider(
-                //           options: CarouselOptions(
-                //             // aspectRatio: 3 / 4,
-                //             viewportFraction: 1.0,
-                //             enlargeCenterPage: false,
-                //             autoPlay: true,
-                //             height: responsiveMT(150, 200),
-                //             onPageChanged: (index, reason) {
-                //               setState(
-                //                 () {
-                //                   _currentIndexBanner = index;
-                //                 },
-                //               );
-                //             },
-                //           ),
-                //           items: imageBanner
-                //               .map(
-                //                 (e) => GestureDetector(
-                //                   // onTap: () async {
-                //                   //   _controller = VideoPlayerController.network(
-                //                   //       "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4")
-                //                   //     ..initialize().then((_) {
-                //                   //       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-                //                   //       setState(() {});
-                //                   //     });
-
-                //                   //   // final Uri uri = Uri.base(
-                //                   //   //     "https://drive.google.com/file/d/1fVzyAGoKwDpLhwRUOG92al-Xo5ioq8Yi/view?usp=share_link");
-                //                   //   // if (!await launchUrl(uri)) {
-                //                   //   //   throw 'Could not launch $uri';
-                //                   //   // }
-                //                   //   //   "https://drive.google.com/file/d/1fVzyAGoKwDpLhwRUOG92al-Xo5ioq8Yi/view?usp=share_link"
-                //                   // },
-                //                   child: Row(
-                //                     mainAxisSize: MainAxisSize.max,
-                //                     children: [
-                //                       Expanded(
-                //                         child: Image(
-                //                           height: responsiveMT(150, 200),
-                //                           fit: BoxFit.fitWidth,
-                //                           image: AssetImage(e),
-                //                         ),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 ),
-                //               )
-                //               .toList(),
-                //         ),
-                //       ),
-                //       Padding(
-                //         padding: const EdgeInsets.symmetric(horizontal: 20),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //           children: [
-                //             Text(
-                //               selectsilderTitle.elementAt(_currentIndexBanner),
-                //               style: descTx2(secondryColorText),
-                //             ),
-                //             Row(
-                //               mainAxisAlignment: MainAxisAlignment.end,
-                //               children: selectsilderBanner.map((urlOfItem2) {
-                //                 int index =
-                //                     selectsilderBanner.indexOf(urlOfItem2);
-                //                 return Container(
-                //                   width: 10.0,
-                //                   height: 10.0,
-                //                   margin: EdgeInsets.symmetric(
-                //                       vertical: 10.0, horizontal: 2.0),
-                //                   decoration: BoxDecoration(
-                //                       shape: BoxShape.circle,
-                //                       color: _currentIndexBanner == index
-                //                           ? baseColor
-                //                           : secondryColor),
-                //                 );
-                //               }).toList(),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "يوم بدينا",
+                      style: titleTx(baseColorText),
+                    ),
+                    Expanded(
+                      child: Container(
+                          // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                          child: Divider(
+                        color: baseColorText,
+                        height: 20,
+                        thickness: 1,
+                        indent: 5,
+                        endIndent: 5,
+                      )),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: containerdecoration(BackGWhiteColor),
+                  child: Column(
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          // aspectRatio: 3 / 4,
+                          viewportFraction: 1.0,
+                          enlargeCenterPage: false,
+                          autoPlay: true,
+                          height: responsiveMT(150, 200),
+                          onPageChanged: (index, reason) {
+                            setState(
+                              () {
+                                _currentIndexBanner = index;
+                              },
+                            );
+                          },
+                        ),
+                        items: imageBanner
+                            .map(
+                              (e) => Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Image(
+                                      height: responsiveMT(150, 200),
+                                      fit: BoxFit.fitWidth,
+                                      image: AssetImage(e),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              selectsilderTitle.elementAt(_currentIndexBanner),
+                              style: descTx2(secondryColorText),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: selectsilderBanner.map((urlOfItem2) {
+                                int index =
+                                    selectsilderBanner.indexOf(urlOfItem2);
+                                return Container(
+                                  width: 10.0,
+                                  height: 10.0,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: _currentIndexBanner == index
+                                          ? baseColor
+                                          : secondryColor),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

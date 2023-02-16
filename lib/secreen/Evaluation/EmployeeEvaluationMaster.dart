@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -59,13 +60,7 @@ class _EmployeeEvaluationMasterState extends State<EmployeeEvaluationMaster> {
           appBar: AppBarW.appBarW("تقييماتي", context, null),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Image.asset(
-                  imageBG,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              widgetsUni.bacgroundimage(),
               SingleChildScrollView(
                   child: Container(
                 margin: EdgeInsets.all(10),
