@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/notification/bagenotification.dart';
 import 'package:eamanaapp/secreen/services/hrServices.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/SLL_pin.dart';
@@ -31,7 +32,7 @@ class _ServicesViewState extends State<ServicesView> {
   @override
   void initState() {
     // TODO: implement initState
-    shownotfNub();
+
     embId();
     hasPermission2();
     print("object");
@@ -40,12 +41,7 @@ class _ServicesViewState extends State<ServicesView> {
   }
 
   shownotfNub() async {
-    var response = await getAction("Hr/GetNotReadNotificationsCount/" +
-        EmployeeProfile.getEmployeeNumber());
-    notificationcont = jsonDecode(response.body)["ReturnResult"] == null ||
-            jsonDecode(response.body)["ReturnResult"] == 0
-        ? null
-        : jsonDecode(response.body)["ReturnResult"];
+    await badgenotification.shownotfNub();
     setState(() {});
   }
 
