@@ -86,7 +86,7 @@ class _morningState extends State<morning> {
                         height: 10,
                       ),
                       Center(
-                        child: Linkify(
+                        child: SelectableLinkify(
                           onOpen: (link) async {
                             try {
                               if (!await launch(link.url)) {
