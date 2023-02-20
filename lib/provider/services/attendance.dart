@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_udid/flutter_udid.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:local_auth/local_auth.dart';
 
 class attendanceServiceFunction {
@@ -94,22 +95,22 @@ class attendanceServiceFunction {
   }
 
   checkloaction() async {
-    // dynamic loaction = await DeterminePosition.determinePosition();
+    dynamic loaction = await DeterminePosition.determinePosition();
 
-    // if (loaction == false) {
-    //   EasyLoading.dismiss();
-    //   Alerts.confirmAlrt(context, "تنبيه", "يرجى تشغيل موقع", "إعدادات")
-    //       .show()
-    //       .then((value) async {
-    //     if (value == true) {
-    //       Geolocator.openLocationSettings();
-    //     }
-    //   });
+    if (loaction == false) {
+      EasyLoading.dismiss();
+      Alerts.confirmAlrt(context, "تنبيه", "يرجى تشغيل موقع", "إعدادات")
+          .show()
+          .then((value) async {
+        if (value == true) {
+          Geolocator.openLocationSettings();
+        }
+      });
 
-    //   return loaction;
-    // } else {
-    //   return loaction;
-    // }
+      return loaction;
+    } else {
+      return loaction;
+    }
   }
 
   Future<dynamic> _checkBiometrics() async {

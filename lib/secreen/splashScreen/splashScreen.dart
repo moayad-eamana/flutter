@@ -1,7 +1,4 @@
-import 'package:eamanaapp/provider/login/loginProvider.dart';
-import 'package:eamanaapp/secreen/Login/loginView.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main.dart';
 
@@ -16,7 +13,7 @@ class _splashScreenState extends State<splashScreen> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration(seconds: 5), () async {
+    new Future.delayed(Duration(seconds: 3), () async {
       var username = sharedPref.getDouble("EmployeeNumber");
       var fingerprint = sharedPref.getBool("fingerprint");
       late String route;
@@ -33,13 +30,9 @@ class _splashScreenState extends State<splashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-          child: Image(
-              image: NetworkImage(
-                  "https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png?20171228163613"),
-              width: 200,
-              height: 200)),
+    return Image.asset(
+      "assets/image/Splash.png",
+      fit: BoxFit.fill,
     );
   }
 

@@ -13,6 +13,7 @@ class GetAttendanceView extends StatefulWidget {
   @override
   State<GetAttendanceView> createState() => _GetAttendanceViewState();
 }
+
 //
 class _GetAttendanceViewState extends State<GetAttendanceView> {
   List _AttendanceList = [];
@@ -28,8 +29,8 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
         "HR/GetAttendance",
         jsonEncode({
           "EmployeeNumber": 4438104,
-          "FromDate": "2023-02-01",
-          "ToDate": "2023-02-12"
+          "FromDate": "2023-02-19",
+          "ToDate": "2023-02-19"
         }));
 //check if the response is valid
     if (jsonDecode(response.body)["StatusCode"] != 400) {
@@ -43,7 +44,7 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
     } else {
       // logapiO.StatusCode = 1;
       // logApi(logapiO);
-  ///
+      ///
       // Alerts.successAlert(context, "", "test attendence").show().then((value) {
       //   Navigator.pop(context);
 
