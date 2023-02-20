@@ -38,7 +38,9 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
               children: [
                 MyEmployees(),
                 supportTypes(),
-                SupportMessages(),
+                SupportMessages(
+                  list: [],
+                ),
               ],
             )
           ],

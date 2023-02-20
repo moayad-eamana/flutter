@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SupportMessages extends StatefulWidget {
-  const SupportMessages({Key? key}) : super(key: key);
+  SupportMessages({required List list});
 
   @override
   State<SupportMessages> createState() => _SupportMessagesState();
