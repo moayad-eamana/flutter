@@ -44,17 +44,17 @@
 	<string>Access contacts for event attendee editing.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Why is my app authenticating using face id?</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>TemporaryPreciseAccuracy</key>
+		<string>The example App requires temporary access to the device's precise location.</string>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The example App requires access to the device's location.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>app needs to access your microphone roll so that you can upload record. Your record will not be shared without your permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>app needs to access your photo Library roll in order to save images on our server</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The example App requires access to the device&apos;s location.</string>
-	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
-	<dict>
-		<key>TemporaryPreciseAccuracy</key>
-		<string>The example App requires temporary access to the device&apos;s precise location.</string>
-	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
