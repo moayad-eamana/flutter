@@ -87,7 +87,7 @@ class attendanceServiceFunction {
       });
     } else {
       //if canceleds
-      if (_authenticated == false)
+      if (_authenticated == null)
         Alerts.warningAlert(
                 context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
             .show();
@@ -131,11 +131,11 @@ class attendanceServiceFunction {
   }
 
   Future<dynamic> _authenticate() async {
-    bool authenticated = false;
+    bool? authenticated;
     try {
       authenticated = await auth.authenticate(
           localizedReason: 'Let OS determine authentication method',
-          biometricOnly: false,
+          biometricOnly: true,
           useErrorDialogs: true,
           stickyAuth: true);
 
