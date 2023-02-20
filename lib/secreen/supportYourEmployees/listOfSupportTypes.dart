@@ -7,12 +7,14 @@ class listOfSupportTypes {
       {
         "service_name": "العروض",
         "icon": 'assets/SVGs/offers.svg',
-        "Action": () {}
+        "Action": () {
+          NavigatTo(context, []);
+        }
       },
     ];
   }
 
-  NavigatTo(BuildContext context, List messages) {
+  static NavigatTo(BuildContext context, List messages) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => newEmpInfo(true)),

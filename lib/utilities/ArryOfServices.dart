@@ -12,6 +12,7 @@ import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/secreen/supportYourEmployees/supportYourEmployees.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/provider/services/attendance.dart';
@@ -367,6 +368,18 @@ class listOfServices {
             Navigator.pushNamed(context, "/scannQrcode");
           }
         },
+      {
+        "service_name": "ساند موضفينك",
+        "Navigation": "",
+        "icon": "assets/SVGs/baynaty.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => supportYourEmployees()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
     ];
   }
 
