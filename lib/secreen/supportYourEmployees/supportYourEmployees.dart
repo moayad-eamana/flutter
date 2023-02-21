@@ -6,22 +6,21 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter/material.dart';
 
 class supportYourEmployees extends StatefulWidget {
-  const supportYourEmployees({Key? key}) : super(key: key);
-
   @override
   State<supportYourEmployees> createState() => _supportYourEmployeesState();
 }
 
 class _supportYourEmployeesState extends State<supportYourEmployees> {
   final PageController controller = PageController();
+  List listOfmessages = [];
   int index = 1;
   String title = "إختر موظف";
   @override
   void initState() {
     // TODO: implement initState
     controller.initialPage;
-
     controller.keepPage;
+
     super.initState();
   }
 
@@ -35,12 +34,11 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
           children: [
             widgetsUni.bacgroundimage(),
             PageView(
+              controller: controller,
               children: [
                 MyEmployees(),
-                supportTypes(),
-                SupportMessages(
-                  list: [],
-                ),
+                supportTypes(nextPage, listOfmessages),
+                SupportMessages(listOfmessages),
               ],
             )
           ],
@@ -49,8 +47,10 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
     );
   }
 
-  nextPage() {
+  nextPage([List? listOfmessages2]) {
     //  controller.nextPage(duration: Duration.zero, curve: curve)
+    listOfmessages = listOfmessages2 ?? [];
+    setState(() {});
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() + 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);

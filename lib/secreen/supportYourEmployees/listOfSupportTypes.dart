@@ -7,37 +7,27 @@ class listOfSupportTypes {
       {
         "service_name": "عبارات شكر للمتميزين",
         "icon": 'assets/SVGs/offers.svg',
-        "Action": () {
-          NavigatTo(context, ["شكرا", "كفو", "يعطيك العافية"]);
-        }
+        "messages": ["شكرا", "كفو", "يعطيك العافية"]
       },
       {
         "service_name": "عبارات شكر وتقدير للموظفين",
         "icon": 'assets/SVGs/offers.svg',
-        "Action": () {
-          NavigatTo(context, ["شكرا", "كفو", "يعطيك العافية"]);
-        }
+        "messages": ["شكرا", "كفو", "يعطيك العافية"]
       },
       {
         "service_name": "كلمات شكر وزيادة الانتاجية",
         "icon": 'assets/SVGs/offers.svg',
-        "Action": () {
-          NavigatTo(context, ["شكرا", "كفو", "يعطيك العافية"]);
-        }
+        "messages": ["شكرا", "كفو", "يعطيك العافية"]
       },
       {
         "service_name": "استقبال موظف",
         "icon": 'assets/SVGs/offers.svg',
-        "Action": () {
-          NavigatTo(context, ["شكرا", "كفو", "يعطيك العافية"]);
-        }
+        "messages": ["شكرا", "كفو", "يعطيك العافية"]
       },
       {
         "service_name": "عبارات شكر للموظفين المتقاعدين",
         "icon": 'assets/SVGs/offers.svg',
-        "Action": () {
-          NavigatTo(context, ["شكرا", "كفو", "يعطيك العافية"]);
-        }
+        "messages": ["شكرا جزيلا", "كفو", "يعطيك العافية"]
       },
     ];
   }
@@ -47,7 +37,7 @@ class listOfSupportTypes {
       context,
       MaterialPageRoute(
           builder: (context) => SupportMessages(
-                list: messages,
+                messages,
               )),
       // ignore: prefer_const_constructors
     );
