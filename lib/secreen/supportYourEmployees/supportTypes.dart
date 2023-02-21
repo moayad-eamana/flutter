@@ -8,8 +8,9 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class supportTypes extends StatefulWidget {
   Function nextPage;
+  Function listOfmessagesfn;
   List listOfmessages;
-  supportTypes(this.nextPage, this.listOfmessages);
+  supportTypes(this.nextPage, this.listOfmessages, this.listOfmessagesfn);
 
   @override
   State<supportTypes> createState() => _supportTypesState();
@@ -36,7 +37,8 @@ class _supportTypesState extends State<supportTypes> {
                     // e["messages"];
                     widget.listOfmessages = e["messages"];
                     //setState(() {});
-                    widget.nextPage(e["messages"]);
+                    widget.listOfmessagesfn(e["messages"]);
+                    widget.nextPage();
                   }));
             }),
           ],
