@@ -19,7 +19,7 @@ class manegeMeetingTimeProvider {
         Uri.parse(Meetingsurl + "get_appointments_time_with_date.php"),
         body: jsonEncode({
           "token": sharedPref.getString("AccessToken"),
-          "email": "akubaish",
+          "email": sharedPref.getString("Email"),
           "startdate": startDate
         }));
 
