@@ -3,6 +3,7 @@ import 'package:eamanaapp/secreen/supportYourEmployees/SupportMessages.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/supportTypes.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 
 class supportYourEmployees extends StatefulWidget {
@@ -22,7 +23,6 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
     // TODO: implement initState
     controller.initialPage;
     controller.keepPage;
-
     super.initState();
   }
 
@@ -34,31 +34,35 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
         appBar: AppBarW.appBarW(title, context, null),
         body: Stack(
           children: [
-            // Row(
-            //   children: [
-            //     FlatButton(
-            //       child: Text('التالي'),
-            //       onPressed: () {
-            //         nextPage();
-            //       },
-            //     ),
-            //     FlatButton(
-            //       child: Text('السابق'),
-            //       onPressed: () {
-            //         backPag();
-            //       },
-            //     ),
-            //   ],
-            // ),
             widgetsUni.bacgroundimage(),
             PageView(
               controller: controller,
               children: [
-                MyEmployees(_employeesList, _checkedEmployees),
-                supportTypes(nextPage, listOfmessages, listOfmessagesfn),
-                SupportMessages(listOfmessages),
+                MyEmployees(
+                    _employeesList, _checkedEmployees, nextPage),
+                supportTypes(
+                    nextPage, backPage, listOfmessages, listOfmessagesfn),
+                SupportMessages(listOfmessages), //backPage,
               ],
-            )
+            ),
+            // Positioned(
+            //   bottom: 60.0,
+            //   left: 10,
+            //   child: OutlinedButton(
+
+            //       onPressed: nextPage,
+            //       style: ElevatedButton.styleFrom(
+            //           // side: BorderSide(color: secondryColor),
+            //           shape: CircleBorder(),
+            //           padding: EdgeInsets.all(10),
+            //           onPrimary: Colors.white),
+            //       child: Container(
+            //         child: Icon(Icons.arrow_forward_ios),
+            //         padding: EdgeInsets.all(10),
+            //         decoration: BoxDecoration(
+            //             color: secondryColor, shape: BoxShape.circle),
+            //       ))
+            //       ),
           ],
         ),
       ),
@@ -79,7 +83,7 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
     setState(() {});
   }
 
-  backPag() {
+  backPage() {
     // controller.previousPage(duration: duration, curve: curve)();
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() - 1,
