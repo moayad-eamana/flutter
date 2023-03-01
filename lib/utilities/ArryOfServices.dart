@@ -12,6 +12,7 @@ import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
+import 'package:eamanaapp/secreen/momten/momten.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/supportYourEmployees.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -376,6 +377,18 @@ class listOfServices {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => supportYourEmployees()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
+      {
+        "service_name": "مُمْتَنّ",
+        "Navigation": "",
+        "icon": "assets/SVGs/thanks.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Momten()),
             // ignore: prefer_const_constructors
           );
         }
