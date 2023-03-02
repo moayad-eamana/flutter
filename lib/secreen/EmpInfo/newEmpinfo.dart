@@ -129,26 +129,27 @@ class _newEmpInfoState extends State<newEmpInfo> {
                           SizedBox(
                             width: 3,
                           ),
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  side: BorderSide(
-                                    width: 1,
-                                    color: bordercolor,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  primary: baseColor, // background
-                                  onPrimary: Colors.white, // foreground
+                          if (Platform.isIOS)
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    side: BorderSide(
+                                      width: 1,
+                                      color: bordercolor,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    primary: baseColor, // background
+                                    onPrimary: Colors.white, // foreground
 
-                                  elevation: 2),
-                              onPressed: () {
-                                addtoAplewalletasync();
-                              },
-                              child: Text('إضافة إلي المحفظة'),
+                                    elevation: 2),
+                                onPressed: () {
+                                  addtoAplewalletasync();
+                                },
+                                child: Text('إضافة إلي المحفظة'),
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),
