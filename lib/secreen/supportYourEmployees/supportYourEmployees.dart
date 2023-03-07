@@ -29,9 +29,6 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
     // TODO: implement initState
     controller.initialPage;
     controller.keepPage;
-    if (_employeesList.length <= 0) {
-      getData();
-    }
     super.initState();
   }
 
