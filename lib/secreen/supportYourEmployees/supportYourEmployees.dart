@@ -29,6 +29,7 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
     // TODO: implement initState
     controller.initialPage;
     controller.keepPage;
+    getData();
     super.initState();
   }
 
@@ -46,7 +47,7 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
               children: [
                 MyEmployees(_employeesList, _checkedEmployees, nextPage),
                 supportTypes(
-                    nextPage, backPage, listOfmessages, listOfEmployees),
+                    nextPage, backPage, listOfmessages, listOfmessagesfn),
                 SupportMessages(listOfmessages), //backPage,
               ],
             ),
@@ -76,6 +77,11 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() - 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+  }
+
+  listOfmessagesfn(List listOfmessages2) {
+    listOfmessages = listOfmessages2;
+    setState(() {});
   }
 
   //EMPLOYEES LIST:
