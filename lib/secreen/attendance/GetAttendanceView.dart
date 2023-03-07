@@ -29,8 +29,8 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
         "HR/GetAttendance",
         jsonEncode({
           "EmployeeNumber": 4438104,
-          "FromDate": "2023-02-19",
-          "ToDate": "2023-02-19"
+          "FromDate": getLastWeek_startDate(),
+          "ToDate": getLastWeek2_endDate()
         }));
 //check if the response is valid
     if (jsonDecode(response.body)["StatusCode"] != 400) {
@@ -242,5 +242,17 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
     }
   }
 
-  
+  getLastWeek_startDate() {
+    var now = new DateTime.now();
+    var today = new DateTime(now.year, now.month, now.day);
+    var startDate = new DateTime(today.year, today.month, today.day - 7);
+    return startDate.toString();
+  }
+
+  getLastWeek2_endDate() {
+    var now = new DateTime.now();
+    var today = new DateTime(now.year, now.month, now.day);
+    var endDate = new DateTime(today.year, today.month, today.day - 1);
+    return endDate.toString();
+  }
 }
