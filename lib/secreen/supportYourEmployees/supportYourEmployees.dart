@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/secreen/supportYourEmployees/MyEmployees.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/SupportMessages.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/supportTypes.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class supportYourEmployees extends StatefulWidget {
   @override
@@ -14,15 +19,19 @@ class supportYourEmployees extends StatefulWidget {
 class _supportYourEmployeesState extends State<supportYourEmployees> {
   final PageController controller = PageController();
   List listOfmessages = [];
-  List _employeesList = [];
+  List _employeesList = []; //var documents = await loadDocuments() as List;
   List _checkedEmployees = [];
   int index = 1;
   String title = "إختر موظف";
+
   @override
   void initState() {
     // TODO: implement initState
     controller.initialPage;
     controller.keepPage;
+    if (_employeesList.length <= 0) {
+      getData();
+    }
     super.initState();
   }
 
@@ -38,35 +47,22 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
             PageView(
               controller: controller,
               children: [
-                MyEmployees(
-                    _employeesList, _checkedEmployees, nextPage),
+                MyEmployees(_employeesList, _checkedEmployees, nextPage),
                 supportTypes(
-                    nextPage, backPage, listOfmessages, listOfmessagesfn),
+                    nextPage, backPage, listOfmessages, listOfEmployees),
                 SupportMessages(listOfmessages), //backPage,
               ],
             ),
-            // Positioned(
-            //   bottom: 60.0,
-            //   left: 10,
-            //   child: OutlinedButton(
-
-            //       onPressed: nextPage,
-            //       style: ElevatedButton.styleFrom(
-            //           // side: BorderSide(color: secondryColor),
-            //           shape: CircleBorder(),
-            //           padding: EdgeInsets.all(10),
-            //           onPrimary: Colors.white),
-            //       child: Container(
-            //         child: Icon(Icons.arrow_forward_ios),
-            //         padding: EdgeInsets.all(10),
-            //         decoration: BoxDecoration(
-            //             color: secondryColor, shape: BoxShape.circle),
-            //       ))
-            //       ),
           ],
         ),
       ),
     );
+  }
+
+  listOfEmployees(List _employeesList2) {
+    setState(() {
+      _employeesList = _employeesList2;
+    });
   }
 
   nextPage() {
@@ -78,15 +74,42 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
   }
 
-  listOfmessagesfn(List listOfmessages2) {
-    listOfmessages = listOfmessages2;
-    setState(() {});
-  }
-
   backPage() {
     // controller.previousPage(duration: duration, curve: curve)();
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() - 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+  }
+
+  //EMPLOYEES LIST:
+  getData() async {
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
+    var response = await getAction("HR/GetAllEmployeesByManagerNumber/4261003");
+//check if the response is valid
+    if (jsonDecode(response.body)["StatusCode"] != 400) {
+      // logapiO.StatusCode = 0;
+      // logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+      // logApi(logapiO);
+      Alerts.errorAlert(
+              context, "خطأ", jsonDecode(response.body)["ErrorMessage"])
+          .show();
+      return;
+    } else {
+      // logapiO.StatusCode = 1;
+      // logApi(logapiO);
+      ///
+      // Alerts.successAlert(context, "", "test attendence").show().then((value) {
+      //   Navigator.pop(context);
+
+      setState(() {
+        _employeesList = jsonDecode(response.body)['EmpInfo'];
+
+        print(_employeesList);
+      });
+    }
+    EasyLoading.dismiss();
   }
 }

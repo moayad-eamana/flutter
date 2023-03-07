@@ -3,6 +3,7 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class MyEmployees extends StatefulWidget {
   List _employeesList;
@@ -17,34 +18,41 @@ class MyEmployees extends StatefulWidget {
 class _MyEmployeesState extends State<MyEmployees> {
   bool flag = false;
   @override
-  void initState() {
-    widget._employeesList.length <= 0 ? getData() : super.initState();
-  }
+  // void initState() {
+  //   if (widget._employeesList.length <= 0) {
+  //     getData();
+  //   }
+  // }
 
-  getData() async {
-    var response = await getAction("HR/GetAllEmployeesByManagerNumber/4261003");
-//check if the response is valid
-    if (jsonDecode(response.body)["StatusCode"] != 400) {
-      // logapiO.StatusCode = 0;
-      // logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
-      // logApi(logapiO);
-      Alerts.errorAlert(
-              context, "خطأ", jsonDecode(response.body)["ErrorMessage"])
-          .show();
-      return;
-    } else {
-      // logapiO.StatusCode = 1;
-      // logApi(logapiO);
-      ///
-      // Alerts.successAlert(context, "", "test attendence").show().then((value) {
-      //   Navigator.pop(context);
+//   getData() async {
+//     EasyLoading.show(
+//       status: '... جاري المعالجة',
+//       maskType: EasyLoadingMaskType.black,
+//     );
+//     var response = await getAction("HR/GetAllEmployeesByManagerNumber/4261003");
+// //check if the response is valid
+//     if (jsonDecode(response.body)["StatusCode"] != 400) {
+//       // logapiO.StatusCode = 0;
+//       // logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+//       // logApi(logapiO);
+//       Alerts.errorAlert(
+//               context, "خطأ", jsonDecode(response.body)["ErrorMessage"])
+//           .show();
+//       return;
+//     } else {
+//       // logapiO.StatusCode = 1;
+//       // logApi(logapiO);
+//       ///
+//       // Alerts.successAlert(context, "", "test attendence").show().then((value) {
+//       //   Navigator.pop(context);
 
-      setState(() {
-        widget._employeesList = jsonDecode(response.body)['EmpInfo'];
-        print(widget._employeesList);
-      });
-    }
-  }
+//       setState(() {
+//         widget._employeesList = jsonDecode(response.body)['EmpInfo'];
+//         print(widget._employeesList);
+//       });
+//     }
+//     EasyLoading.dismiss();
+//   }
 
   @override
   Widget build(BuildContext context) {
