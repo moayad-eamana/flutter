@@ -370,7 +370,7 @@ class listOfServices {
           }
         },
       {
-        "service_name": "ساند موضفينك",
+        "service_name": "ساند موظفيك",
         "Navigation": "",
         "icon": "assets/SVGs/baynaty.svg",
         "Action": () {
