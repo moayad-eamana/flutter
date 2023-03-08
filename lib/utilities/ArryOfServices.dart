@@ -369,62 +369,62 @@ class listOfServices {
             Navigator.pushNamed(context, "/scannQrcode");
           }
         },
-      {
-        "service_name": "ساند موظفيك",
-        "Navigation": "",
-        "icon": "assets/SVGs/baynaty.svg",
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => supportYourEmployees()),
-            // ignore: prefer_const_constructors
-          );
-        }
-      },
-      {
-        "service_name": "مُمْتَنّ",
-        "Navigation": "",
-        "icon": "assets/SVGs/thanks.svg",
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Momten()),
-            // ignore: prefer_const_constructors
-          );
-        }
-      },
+      // {
+      //   "service_name": "ساند موظفيك",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/baynaty.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => supportYourEmployees()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
+      // {
+      //   "service_name": "مُمْتَنّ",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/thanks.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => Momten()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
     ];
   }
 
   List attendanceService() {
     return [
-      {
-        "service_name": "تسجيل الحضور",
-        "Navigation": "",
-        "icon": 'assets/SVGs/check_in1.svg',
-        "Action": () async {
-          attendanceServiceFunction(context).InsertAttendance(1);
-        },
-      },
-      {
-        "service_name": "تسجيل الإنصراف",
-        "Navigation": "",
-        "icon": 'assets/SVGs/check_in1.svg',
-        "Action": () async {
-          attendanceServiceFunction(context).InsertAttendance(2);
-        },
-      },
-      {
-        "service_name": "الحضور ولإنصراف",
-        "Navigation": "",
-        "icon": 'assets/SVGs/AttendanceView.svg',
-        "Action": () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => GetAttendanceView()),
-          );
-        },
-      }
+      // {
+      //   "service_name": "تسجيل الحضور",
+      //   "Navigation": "",
+      //   "icon": 'assets/SVGs/check_in1.svg',
+      //   "Action": () async {
+      //     attendanceServiceFunction(context).InsertAttendance(1);
+      //   },
+      // },
+      // {
+      //   "service_name": "تسجيل الإنصراف",
+      //   "Navigation": "",
+      //   "icon": 'assets/SVGs/check_in1.svg',
+      //   "Action": () async {
+      //     attendanceServiceFunction(context).InsertAttendance(2);
+      //   },
+      // },
+      // {
+      //   "service_name": "الحضور ولإنصراف",
+      //   "Navigation": "",
+      //   "icon": 'assets/SVGs/AttendanceView.svg',
+      //   "Action": () async {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => GetAttendanceView()),
+      //     );
+      //   },
+      // }
     ];
   }
 
