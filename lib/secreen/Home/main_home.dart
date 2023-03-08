@@ -29,10 +29,10 @@ class _MainHomeState extends State<MainHome> {
   List<int> selectsilder = [0, 1];
 
   List<dynamic> imageBanner = [
-    "assets/image/founding_day.jpg",
+    "assets/image/3LM_KSA.jpeg",
   ];
   List<int> selectsilderBanner = [0];
-  List<String> selectsilderTitle = ["يوم التأسيس"];
+  List<String> selectsilderTitle = ["الراية السعودية"];
 
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
@@ -312,7 +312,7 @@ class _MainHomeState extends State<MainHome> {
                 Row(
                   children: [
                     Text(
-                      "يوم بدينا",
+                      "يوم العلم",
                       style: titleTx(baseColorText),
                     ),
                     Expanded(

@@ -38,9 +38,9 @@ void getColorSettings() {
 
   BackGColor = Color(0xfffcfcfc);
 
-  baseColor = Color(0xff6B4E45); // Color(0xff004F51); // Color(0xff274690)
+  baseColor = Color(0xff005430); // Color(0xff004F51); // Color(0xff274690)
 
-  secondryColor = Color(0xffa17a50); // Color(0xff00A887); // Color(0xff2E8D9A);
+  secondryColor = Color(0xff6EBE8A); // Color(0xff00A887); // Color(0xff2E8D9A);
 
   baseColorText = Color(0xff444444);
 
@@ -50,7 +50,7 @@ void getColorSettings() {
 
   lableTextcolor = Color(0xffE9DFCF); //Color(0xffACC5FF);
 
-  redColor = Color(0xff912b38); //Colors.red
+  redColor = Colors.red; //Colors.red
 
   pinkColor = Colors.pink;
 
@@ -90,10 +90,10 @@ void getColorSettings() {
 
     BackGWhiteColor = Color(0xff231F20); // Color(0xff303030);
 
-    baseColor = Color(0xff6B4E45); // Colors.blueGrey.shade200;
+    baseColor = Color(0xff6EBE8A); // Colors.blueGrey.shade200;0xff6EBE8A
 
     secondryColor =
-        Color(0xffE9DFCF); // Color(0xff226973); //Color(0xff2E8D9A);
+        Color(0xff005430); // Color(0xff226973); //Color(0xff2E8D9A);
 
     baseColorText = Colors.white;
 
