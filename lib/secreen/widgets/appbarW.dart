@@ -75,7 +75,12 @@ class AppBarW {
                                     }
                                   });
                                 } else {
-                                  Navigator.pop(context);
+                                  if (function != null &&
+                                      title == "إختر موظف") {
+                                    function();
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
                                 }
                               },
                             ),
@@ -94,6 +99,9 @@ class AppBarW {
                                     Navigator.pop(context);
                                   }
                                 });
+                              }
+                              if (function != null && title == "إختر موظف") {
+                                function();
                               } else {
                                 Navigator.pop(context);
                               }

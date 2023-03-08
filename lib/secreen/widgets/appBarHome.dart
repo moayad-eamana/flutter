@@ -4,6 +4,7 @@ import 'package:eamanaapp/secreen/notification/notification.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/notification/bagenotification.dart';
+import 'package:flutter_svg/svg.dart';
 
 //NEW
 class AppBarHome {
@@ -47,12 +48,20 @@ class AppBarHome {
                   ),
                 ),
               ),
-              shownotification == true && shownotification != null
-                  ? Positioned(
-                      left: 25,
-                      top: 25,
-                      child: badgenotification.badgewidget(context))
-                  : Container(),
+              Positioned(
+                  right: 25,
+                  top: 25,
+                  child: SvgPicture.asset(
+                    "assets/SVGs/flag-of-saudi-arabia.svg",
+                    width: 50,
+                    height: 50,
+                  )),
+              // shownotification == true && shownotification != null
+              //     ? Positioned(
+              //         left: 25,
+              //         top: 25,
+              //         child: badgenotification.badgewidget(context))
+              //     : Container(),
               // if (sharedPref.getString("dumyuser") != "10284928492")
               //   Align(
               //     alignment: Alignment.centerRight,

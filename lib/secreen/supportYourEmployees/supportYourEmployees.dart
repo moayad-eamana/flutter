@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class supportYourEmployees extends StatefulWidget {
@@ -21,7 +22,7 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
   List listOfmessages = [];
   List _employeesList = []; //var documents = await loadDocuments() as List;
   List _checkedEmployees = [];
-  int index = 1;
+  int index = 0;
   String title = "إختر موظف";
 
   @override
@@ -38,7 +39,9 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW(title, context, null),
+        appBar: AppBarW.appBarW(title, context, null, () {
+          backPage();
+        }),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
@@ -65,7 +68,7 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
 
   nextPage() {
     //  controller.nextPage(duration: Duration.zero, curve: curve)
-
+    index++;
     setState(() {});
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() + 1,
@@ -74,6 +77,11 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
 
   backPage() {
     // controller.previousPage(duration: duration, curve: curve)();
+
+    if (index == 0) {
+      Navigator.pop(context);
+    }
+    index--;
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() - 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
