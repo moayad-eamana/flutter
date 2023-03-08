@@ -13,12 +13,12 @@ class _splashScreenState extends State<splashScreen> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration(seconds: 3), () async {
+    new Future.delayed(Duration(seconds: 0), () async {
       var username = sharedPref.getDouble("EmployeeNumber");
       var fingerprint = sharedPref.getBool("fingerprint");
       late String route;
       if (username == null || username == 0) {
-        route = "/";
+        route = "/home";
       } else if (fingerprint == false) {
         route = "/home";
       } else {

@@ -26,13 +26,23 @@ class _MainHomeState extends State<MainHome> {
   var _currentIndexBanner = 0;
   dynamic id;
 
-  List<int> selectsilder = [0, 1];
+  List<int> selectsilder = [0, 1, 2, 3, 4];
 
   List<dynamic> imageBanner = [
-    "assets/image/3LM_KSA.jpeg",
+    "assets/image/flag1.png",
+    "assets/image/flag2.png",
+    "assets/image/flag3.png",
+    "assets/image/flage4.png",
+    "assets/image/flag5.png",
   ];
-  List<int> selectsilderBanner = [0];
-  List<String> selectsilderTitle = ["الراية السعودية"];
+  List<int> selectsilderBanner = [0, 1, 2, 3, 4];
+  List<String> selectsilderTitle = [
+    "الراية السعودية",
+    "الراية السعودية",
+    "الراية السعودية",
+    "الراية السعودية",
+    "الراية السعودية"
+  ];
 
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
