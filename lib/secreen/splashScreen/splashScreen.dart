@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../main.dart';
 
@@ -13,25 +14,33 @@ class _splashScreenState extends State<splashScreen> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration(seconds: 0), () async {
+    int dur = 0;
+    if (sharedPref.getBool("foundingday") == null) {
+      dur = 5;
+    } else {
+      dur = 3;
+    }
+    new Future.delayed(Duration(seconds: dur), () async {
+      sharedPref.setBool("foundingday", true);
       var username = sharedPref.getDouble("EmployeeNumber");
       var fingerprint = sharedPref.getBool("fingerprint");
       late String route;
       if (username == null || username == 0) {
-        route = "/home";
+        route = "/";
       } else if (fingerprint == false) {
         route = "/home";
       } else {
         route = "/AuthenticateBio";
       }
-      Navigator.pushNamed(context, route);
+      navigatorKey.currentState
+          ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      "assets/image/Splash.png",
+      "assets/SVGs/splash.png",
       fit: BoxFit.fill,
     );
   }
