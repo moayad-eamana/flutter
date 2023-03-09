@@ -37,10 +37,10 @@ class _MainHomeState extends State<MainHome> {
   ];
   List<int> selectsilderBanner = [0, 1, 2, 3, 4];
   List<String> selectsilderTitle = [
-    "علم الدولة السعودية الأولى والثانية ",
-    "علم الدولة السعودية الثالثة إمارة الرياض",
-    "علم الدولة السعودية الثالثة سلطنة نجد",
-    "علم الدولة السعودية الثالثة إمارة نجد والأحساء",
+    "علم الدولة السعودية الأولى والثانية عام 1744-1891",
+    "علم الدولة السعودية الثالثة إمارة الرياض عام 1902-1913",
+    "علم الدولة السعودية الثالثة سلطنة نجد عام 1921-1926",
+    "علم الدولة السعودية الثالثة إمارة نجد و الأحساء عام 1913-1921",
     "علم السعودية منذ عام 1973 حتى الآن"
   ];
 
@@ -377,35 +377,36 @@ class _MainHomeState extends State<MainHome> {
                             )
                             .toList(),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                      Container(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              selectsilderTitle.elementAt(_currentIndexBanner),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: selectsilderBanner.map((urlOfItem2) {
+                            int index = selectsilderBanner.indexOf(urlOfItem2);
+                            return Container(
+                              width: 10.0,
+                              height: 10.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _currentIndexBanner == index
+                                      ? baseColor
+                                      : secondryColor),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Text(
+                              selectsilderTitle.elementAt(_currentIndexBanner) +
+                                  "\n",
                               style: descTx2(secondryColorText),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: selectsilderBanner.map((urlOfItem2) {
-                                int index =
-                                    selectsilderBanner.indexOf(urlOfItem2);
-                                return Container(
-                                  width: 10.0,
-                                  height: 10.0,
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 2.0),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: _currentIndexBanner == index
-                                          ? baseColor
-                                          : secondryColor),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
