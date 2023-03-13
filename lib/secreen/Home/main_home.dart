@@ -26,7 +26,7 @@ class _MainHomeState extends State<MainHome> {
   var _currentIndexBanner = 0;
   dynamic id;
 
-  List<int> selectsilder = [0, 1, 2, 3, 4];
+  List<int> selectsilder = [0, 1];
 
   List<dynamic> imageBanner = [
     "assets/image/flag1.png",
