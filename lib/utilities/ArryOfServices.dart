@@ -5,6 +5,7 @@ import 'package:eamanaapp/provider/services/hrServicesFunctions.dart';
 import 'package:eamanaapp/provider/services/salaryFunctions.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
+import 'package:eamanaapp/secreen/GetViolatedVehicle/GetViolatedVehicleInfo.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
@@ -306,6 +307,27 @@ class listOfServices {
               // ignore: prefer_const_constructors
               builder: (BuildContext context) {
                 return meettingsType();
+              },
+            ),
+          );
+        }
+      }
+    ];
+  }
+
+  List violationVehicleService() {
+    return [
+      {
+        "service_name": "السيارات المسحوبة",
+        "Navigation": "",
+        "icon": 'assets/SVGs/e3tmadaty.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // ignore: prefer_const_constructors
+              builder: (BuildContext context) {
+                return GetViolationVehicleInfo();
               },
             ),
           );

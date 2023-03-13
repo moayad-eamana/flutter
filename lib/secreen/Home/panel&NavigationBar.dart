@@ -11,6 +11,7 @@ import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
+import 'package:eamanaapp/secreen/favs/favs.dart';
 import 'package:eamanaapp/secreen/notification/notification.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
@@ -410,7 +411,7 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: packageInfo.version != localVersion && forceUpdate == true
+          body: false && forceUpdate == true
               ? Directionality(
                   textDirection: TextDirection.rtl,
                   child: AlertDialog(

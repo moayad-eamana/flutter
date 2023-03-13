@@ -26,7 +26,7 @@ class _MainHomeState extends State<MainHome> {
   var _currentIndexBanner = 0;
   dynamic id;
 
-  List<int> selectsilder = [0, 1, 2, 3, 4];
+  List<int> selectsilder = [0, 1];
 
   List<dynamic> imageBanner = [
     "assets/image/flag1.png",
@@ -322,7 +322,7 @@ class _MainHomeState extends State<MainHome> {
                 Row(
                   children: [
                     Text(
-                      "يوم العلم",
+                      "تاريخ الراية السعودية على مر العصور",
                       style: titleTx(baseColorText),
                     ),
                     Expanded(
@@ -366,10 +366,17 @@ class _MainHomeState extends State<MainHome> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: Image(
-                                      height: responsiveMT(150, 200),
-                                      fit: BoxFit.fitWidth,
-                                      image: AssetImage(e),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 2.0, color: baseColor),
+                                        color: Colors.white,
+                                      ),
+                                      child: Image(
+                                        height: responsiveMT(150, 200),
+                                        fit: BoxFit.fitWidth,
+                                        image: AssetImage(e),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -403,7 +410,7 @@ class _MainHomeState extends State<MainHome> {
                             child: Text(
                               selectsilderTitle.elementAt(_currentIndexBanner) +
                                   "\n",
-                              style: descTx2(secondryColorText),
+                              style: descTx1(baseColorText),
                             ),
                           ),
                         ],

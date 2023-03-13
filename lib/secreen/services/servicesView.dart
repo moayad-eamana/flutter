@@ -3,6 +3,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/notification/bagenotification.dart';
 import 'package:eamanaapp/secreen/services/hrServices.dart';
+import 'package:eamanaapp/secreen/services/violationVehicleService.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -143,6 +144,11 @@ class _ServicesViewState extends State<ServicesView> {
 
                     if (sharedPref.getBool("permissionforCRM") == true)
                       ...customerServiceWidget.customerService(context),
+                    SizedBox(
+                      height: 5,
+                    ),
+
+                    ...ViolationVehicleWidgets.violationVehicleWidgets(context),
                     SizedBox(
                       height: 5,
                     ),

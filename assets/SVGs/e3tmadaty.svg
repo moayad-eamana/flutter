@@ -23,7 +23,7 @@
      showgrid="false"
      inkscape:zoom="34.875"
      inkscape:cx="11.985663"
-     inkscape:cy="12.043011"
+     inkscape:cy="12.071685"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -44,12 +44,12 @@
          d="M11,4a8,8,0,1,0,8,8A8,8,0,0,0,11,4ZM9,17,5,13l1.41-1.41L9,14.17l6.59-6.59L17,9Z"
          fill="#2e8d9a"
          id="path17927"
-         style="fill:#6ebe8a;fill-opacity:1" />
+         style="fill:#dbc38f;fill-opacity:1" />
       <path
          d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20ZM16.59,7.58,10,14.17,7.41,11.59,6,13l4,4,8-8Z"
          fill="#274690"
          id="path17929"
-         style="fill:#005430;fill-opacity:1" />
+         style="fill:#00612a;fill-opacity:1" />
     </g>
   </g>
 </svg>

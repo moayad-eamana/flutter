@@ -598,7 +598,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
                         //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
 
                         await launchUrl(await Uri.parse(
-                            "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${sharedPref.getString("Email") ?? ""}&token=${sharedPref.getString('AccessToken')}&lang=ar"));
+                            "https://crm.eamana.gov.sa/agenda/api/apple_wallet/pkpass_API/Eamana_Pkpass_byID.php?id=${EmployeeProfile.getEmployeeNumber() ?? ""}&token=${sharedPref.getString('AccessToken')}&lang=ar"));
                       } catch (e) {}
                     },
                     child: Text("اللغة االعربية")),
@@ -664,7 +664,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
                         logapiO.StatusCode = 1;
                         logApi(logapiO);
                         await launchUrl(await Uri.parse(
-                            "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${(sharedPref.getString("Email") ?? "")}&token=${sharedPref.getString('AccessToken')}&lang=en"));
+                            "https://crm.eamana.gov.sa/agenda/api/apple_wallet/pkpass_API/Eamana_Pkpass_byID.php?id=${EmployeeProfile.getEmployeeNumber() ?? ""}&token=${sharedPref.getString('AccessToken')}&lang=en"));
                       } catch (e) {
                         print("error");
                       }
