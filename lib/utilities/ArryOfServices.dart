@@ -360,6 +360,14 @@ class listOfServices {
           Navigator.pushNamed(context, "/favs");
         }
       },
+      {
+        "service_name": "المحفظة",
+        "Navigation": "/androidWallet",
+        "icon": "assets/SVGs/bookmarks.svg",
+        "Action": () {
+          Navigator.pushNamed(context, "/AndroidWallet");
+        }
+      },
       if (sharedPref.getString("dumyuser") != "10284928492")
         {
           "service_name": "QR Code",
