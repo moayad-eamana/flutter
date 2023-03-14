@@ -56,7 +56,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         // backgroundColor: Colors.transparent,
-        appBar: AppBarW.appBarW("إستعلام عن مخالفة السيارة", context, null),
+        appBar: AppBarW.appBarW("إستعلام عن السيارات", context, null),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),

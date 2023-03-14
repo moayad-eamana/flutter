@@ -318,9 +318,9 @@ class listOfServices {
   List violationVehicleService() {
     return [
       {
-        "service_name": "السيارات المسحوبة",
+        "service_name": "إستعلام عن السيارات",
         "Navigation": "",
-        "icon": 'assets/SVGs/e3tmadaty.svg',
+        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
         "Action": () {
           Navigator.push(
             context,
