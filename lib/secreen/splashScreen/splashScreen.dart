@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/route_manager.dart';
 
 import '../../main.dart';
 
@@ -32,8 +33,7 @@ class _splashScreenState extends State<splashScreen> {
       } else {
         route = "/AuthenticateBio";
       }
-      navigatorKey.currentState
-          ?.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      Navigator.pushNamed(context, route);
     });
   }
 

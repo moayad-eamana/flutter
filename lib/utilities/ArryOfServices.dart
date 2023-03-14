@@ -399,18 +399,18 @@ class listOfServices {
             Navigator.pushNamed(context, "/scannQrcode");
           }
         },
-      // {
-      //   "service_name": "ساند موظفيك",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/baynaty.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => supportYourEmployees()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
+      {
+        "service_name": "ساند موظفيك",
+        "Navigation": "",
+        "icon": "assets/SVGs/baynaty.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => supportYourEmployees()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
       // {
       //   "service_name": "مُمْتَنّ",
       //   "Navigation": "",
