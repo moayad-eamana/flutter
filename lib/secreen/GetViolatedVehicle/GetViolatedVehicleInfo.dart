@@ -330,6 +330,11 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                       print(resulte);
                                       EasyLoading.dismiss();
                                       setState(() {});
+                                    } else {
+                                      Alerts.warningAlert(context, "تنبيه",
+                                              "لا يوجد بيانات")
+                                          .show();
+                                      EasyLoading.dismiss();
                                     }
                                   } else {
                                     if (!_formKey1.currentState!.validate()) {
