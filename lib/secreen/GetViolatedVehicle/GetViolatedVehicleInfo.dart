@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -343,7 +344,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                     print(platechar);
 
                                     var respons = await getAction(
-                                        "NIC/GetViolatedVehicleInfoByPlatNumber?text1=س&text2=و&text3=د&plateNumber=3889&registrationTypeID=1");
+                                        "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1]}&text3=${platechar[2]}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
                                     if (jsonDecode(
                                             respons.body)["StatusCode"] ==
                                         400) {
@@ -351,9 +352,15 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                                   "ResponseData"]["data"]
                                               ["GetViolatedVehicleInfoResponse"]
                                           ["GetViolatedVehicleInfoResult"];
+
                                       print(resulte);
                                       EasyLoading.dismiss();
                                       setState(() {});
+                                    } else {
+                                      Alerts.warningAlert(context, "تنبيه",
+                                              "لا يوجد بيانات")
+                                          .show();
+                                      EasyLoading.dismiss();
                                     }
                                   }
                                 }),
