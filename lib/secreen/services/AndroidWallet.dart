@@ -515,4 +515,4 @@ class _AndroidWalletState extends State<AndroidWallet> {
       ]),
     );
   }
-}
+} //
