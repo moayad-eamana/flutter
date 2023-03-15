@@ -35,6 +35,13 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,

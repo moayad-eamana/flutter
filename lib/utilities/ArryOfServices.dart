@@ -318,9 +318,9 @@ class listOfServices {
   List violationVehicleService() {
     return [
       {
-        "service_name": "السيارات المسحوبة",
+        "service_name": "إستعلام عن السيارات",
         "Navigation": "",
-        "icon": 'assets/SVGs/e3tmadaty.svg',
+        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
         "Action": () {
           Navigator.push(
             context,
@@ -399,18 +399,18 @@ class listOfServices {
             Navigator.pushNamed(context, "/scannQrcode");
           }
         },
-      // {
-      //   "service_name": "ساند موظفيك",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/baynaty.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => supportYourEmployees()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
+      {
+        "service_name": "ساند موظفيك",
+        "Navigation": "",
+        "icon": "assets/SVGs/baynaty.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => supportYourEmployees()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
       // {
       //   "service_name": "مُمْتَنّ",
       //   "Navigation": "",

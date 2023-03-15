@@ -1,3 +1,4 @@
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -31,6 +32,12 @@ class _SupportMessagesState extends State<SupportMessages> {
             return GestureDetector(
               onTap: () {
                 print(widget.list[index]);
+                Alerts.confirmAlrt(
+                        context,
+                        "هل أانت متأكد",
+                        "هل أانت متأكد من إرسال الرسالة\n" + widget.list[index],
+                        'نعم')
+                    .show();
               },
               child: Container(
                 decoration: containerdecoration(BackGWhiteColor),
