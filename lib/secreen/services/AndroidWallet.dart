@@ -1,4 +1,5 @@
 import 'package:eamanaapp/secreen/services/AndroidWallet3.dart';
+import 'package:eamanaapp/secreen/services/AndroidWallet4.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -193,13 +194,10 @@ class _AndroidWalletState extends State<AndroidWallet> {
             )),
             //---- Arabic Card ----
             Positioned(
-                top: 120,
+                top: 180,
                 child: Container(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 70,
-                      ),
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -359,19 +357,16 @@ class _AndroidWalletState extends State<AndroidWallet> {
                 )),
             // ---- بطاقة الموظف ----
             Positioned(
-                top: 300,
+                top: 350,
                 // right: 10,
                 width: 100.w,
                 child: Container(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 70,
-                      ),
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AndroidWallet2()));
+                              builder: (context) => AndroidWallet4()));
                         },
                         child: Card(
                             margin: const EdgeInsets.all(20),
