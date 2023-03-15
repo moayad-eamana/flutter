@@ -8,7 +8,7 @@ class AndroidWallet extends StatefulWidget {
   @override
   State<AndroidWallet> createState() => _AndroidWalletState();
 }
-
+//test
 //get employee's data: الاسم-الوظيفة-الجوال-الرقم الوظيفي
 var name = "نور ناجي عبدالله السعود";
 var position = "مبرمجة تطبيقات الجوال";
