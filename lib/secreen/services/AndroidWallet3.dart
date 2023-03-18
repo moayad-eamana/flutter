@@ -22,68 +22,70 @@ class _AndroidWallet3State extends State<AndroidWallet3> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: SafeArea(
-        child: Container(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: IconButton(
-                        iconSize: 30,
-                        icon: Icon(Icons.arrow_forward_ios_rounded),
-                        onPressed: () {
-                          print("object");
-                          Navigator.pop(context);
-                        },
-                      )),
-                ),
-                Stack(children: [
-                  widgetsUni.bacgroundimage(),
-                  Column(
-                    children: [
-                      Container(
-                        height: 580,
-                        child: PageView(
-                          onPageChanged: (value) {
-                            print(value);
-                            index = value;
-                            setState(() {});
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: IconButton(
+                          iconSize: 30,
+                          icon: Icon(Icons.arrow_forward_ios_rounded),
+                          onPressed: () {
+                            print("object");
+                            Navigator.pop(context);
                           },
-                          // shrinkWrap: true,
-                          dragStartBehavior: DragStartBehavior.down,
-                          reverse: true,
-                          scrollDirection: Axis.horizontal,
+                        )),
+                  ),
+                  Stack(children: [
+                    widgetsUni.bacgroundimage(),
+                    Column(
+                      children: [
+                        Container(
+                          height: 580,
+                          child: PageView(
+                            onPageChanged: (value) {
+                              print(value);
+                              index = value;
+                              setState(() {});
+                            },
+                            // shrinkWrap: true,
+                            dragStartBehavior: DragStartBehavior.down,
+                            reverse: true,
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              widget.cardW,
+                              widget.cardW2,
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            widget.cardW,
-                            widget.cardW2,
+                            TabPageSelectorIndicator(
+                              backgroundColor:
+                                  index == 0 ? secondryColorText : baseColor,
+                              borderColor: secondryColorText,
+                              size: 10,
+                            ),
+                            TabPageSelectorIndicator(
+                              backgroundColor:
+                                  index == 0 ? baseColor : secondryColorText,
+                              borderColor: baseColor,
+                              size: 10,
+                            ),
                           ],
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TabPageSelectorIndicator(
-                            backgroundColor:
-                                index == 0 ? secondryColorText : baseColor,
-                            borderColor: secondryColorText,
-                            size: 10,
-                          ),
-                          TabPageSelectorIndicator(
-                            backgroundColor:
-                                index == 0 ? baseColor : secondryColorText,
-                            borderColor: baseColor,
-                            size: 10,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ]),
-              ],
+                      ],
+                    ),
+                  ]),
+                ],
+              ),
             ),
           ),
         ),
