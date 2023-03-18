@@ -1,3 +1,4 @@
+import 'package:eamanaapp/Cybertips/Cybertips.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
@@ -317,22 +318,22 @@ class listOfServices {
 
   List violationVehicleService() {
     return [
-      {
-        "service_name": "إستعلام عن السيارات",
-        "Navigation": "",
-        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              // ignore: prefer_const_constructors
-              builder: (BuildContext context) {
-                return GetViolationVehicleInfo();
-              },
-            ),
-          );
-        }
-      }
+      // {
+      //   "service_name": "إستعلام عن السيارات",
+      //   "Navigation": "",
+      //   "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         // ignore: prefer_const_constructors
+      //         builder: (BuildContext context) {
+      //           return GetViolationVehicleInfo();
+      //         },
+      //       ),
+      //     );
+      //   }
+      // }
     ];
   }
 
@@ -382,14 +383,14 @@ class listOfServices {
           Navigator.pushNamed(context, "/favs");
         }
       },
-      {
-        "service_name": "المحفظة",
-        "Navigation": "/androidWallet",
-        "icon": "assets/SVGs/bookmarks.svg",
-        "Action": () {
-          Navigator.pushNamed(context, "/AndroidWallet");
-        }
-      },
+      // {
+      //   "service_name": "المحفظة",
+      //   "Navigation": "/androidWallet",
+      //   "icon": "assets/SVGs/bookmarks.svg",
+      //   "Action": () {
+      //     Navigator.pushNamed(context, "/AndroidWallet");
+      //   }
+      // },
       if (sharedPref.getString("dumyuser") != "10284928492")
         {
           "service_name": "QR Code",
@@ -399,18 +400,18 @@ class listOfServices {
             Navigator.pushNamed(context, "/scannQrcode");
           }
         },
-      {
-        "service_name": "ساند موظفيك",
-        "Navigation": "",
-        "icon": "assets/SVGs/baynaty.svg",
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => supportYourEmployees()),
-            // ignore: prefer_const_constructors
-          );
-        }
-      },
+      // {
+      //   "service_name": "ساند موظفيك",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/baynaty.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => supportYourEmployees()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
       // {
       //   "service_name": "مُمْتَنّ",
       //   "Navigation": "",
@@ -419,6 +420,18 @@ class listOfServices {
       //     Navigator.push(
       //       context,
       //       MaterialPageRoute(builder: (context) => Momten()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
+      // {
+      //   "service_name": "نصائح",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/thanks.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => Cybertips()),
       //       // ignore: prefer_const_constructors
       //     );
       //   }

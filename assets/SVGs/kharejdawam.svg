@@ -44,19 +44,19 @@
          d="m 11.193548,17.516129 a 2,2 0 0 1 -1.9999996,-2 v -6 a 2,2 0 0 1 1.9999996,-2 h 6 v -2 H 3.1935484 v 14 H 17.193548 v -2 z"
          fill="#2e8d9a"
          id="path25662"
-         style="fill:#dbc38f;fill-opacity:1" />
+         style="fill:#2CB1A6;fill-opacity:1" />
       <path
          d="M20,7.28V5a2,2,0,0,0-2-2H4A2,2,0,0,0,2,5V19a2,2,0,0,0,2,2H18a2,2,0,0,0,2-2V16.72A2,2,0,0,0,21,15V9A2,2,0,0,0,20,7.28ZM19,9v6H12V9ZM4,19V5H18V7H12a2,2,0,0,0-2,2v6a2,2,0,0,0,2,2h6v2Z"
          fill="#274690"
          id="path25664"
-         style="fill:#00612a;fill-opacity:1" />
+         style="fill:#47235C;fill-opacity:1" />
       <circle
          cx="16"
          cy="12"
          r="1.5"
          fill="#2e8d9a"
          id="circle25666"
-         style="fill:#dbc38f;fill-opacity:1" />
+         style="fill:#2CB1A6;fill-opacity:1" />
     </g>
   </g>
 </svg>

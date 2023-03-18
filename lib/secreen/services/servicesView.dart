@@ -126,9 +126,9 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
+                    SizedBox(
+                      height: 10,
+                    ),
 
                     // Text(
                     //   "المخالفات الإلكترونية",
@@ -144,11 +144,11 @@ class _ServicesViewState extends State<ServicesView> {
 
                     if (sharedPref.getBool("permissionforCRM") == true)
                       ...customerServiceWidget.customerService(context),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
 
-                    ...ViolationVehicleWidgets.violationVehicleWidgets(context),
+                    // ...ViolationVehicleWidgets.violationVehicleWidgets(context),
                     SizedBox(
                       height: 5,
                     ),

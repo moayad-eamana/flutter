@@ -319,105 +319,105 @@ class _MainHomeState extends State<MainHome> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "تاريخ الراية السعودية على مر العصور",
-                      style: titleTx(baseColorText),
-                    ),
-                    Expanded(
-                      child: Container(
-                          // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                          child: Divider(
-                        color: baseColorText,
-                        height: 20,
-                        thickness: 1,
-                        indent: 5,
-                        endIndent: 5,
-                      )),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: containerdecoration(BackGWhiteColor),
-                  child: Column(
-                    children: [
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          // aspectRatio: 3 / 4,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          autoPlay: true,
-                          height: responsiveMT(150, 200),
-                          onPageChanged: (index, reason) {
-                            setState(
-                              () {
-                                _currentIndexBanner = index;
-                              },
-                            );
-                          },
-                        ),
-                        items: imageBanner
-                            .map(
-                              (e) => Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 2.0, color: baseColor),
-                                        color: Colors.white,
-                                      ),
-                                      child: Image(
-                                        height: responsiveMT(150, 200),
-                                        fit: BoxFit.fitWidth,
-                                        image: AssetImage(e),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: selectsilderBanner.map((urlOfItem2) {
-                            int index = selectsilderBanner.indexOf(urlOfItem2);
-                            return Container(
-                              width: 10.0,
-                              height: 10.0,
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 2.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: _currentIndexBanner == index
-                                      ? baseColor
-                                      : secondryColor),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: Text(
-                              selectsilderTitle.elementAt(_currentIndexBanner) +
-                                  "\n",
-                              style: descTx1(baseColorText),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                // Row(
+                //   children: [
+                //     Text(
+                //       "تاريخ الراية السعودية على مر العصور",
+                //       style: titleTx(baseColorText),
+                //     ),
+                //     Expanded(
+                //       child: Container(
+                //           // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                //           child: Divider(
+                //         color: baseColorText,
+                //         height: 20,
+                //         thickness: 1,
+                //         indent: 5,
+                //         endIndent: 5,
+                //       )),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   decoration: containerdecoration(BackGWhiteColor),
+                //   child: Column(
+                //     children: [
+                //       CarouselSlider(
+                //         options: CarouselOptions(
+                //           // aspectRatio: 3 / 4,
+                //           viewportFraction: 1.0,
+                //           enlargeCenterPage: false,
+                //           autoPlay: true,
+                //           height: responsiveMT(150, 200),
+                //           onPageChanged: (index, reason) {
+                //             setState(
+                //               () {
+                //                 _currentIndexBanner = index;
+                //               },
+                //             );
+                //           },
+                //         ),
+                //         items: imageBanner
+                //             .map(
+                //               (e) => Row(
+                //                 mainAxisSize: MainAxisSize.max,
+                //                 children: [
+                //                   Expanded(
+                //                     child: Container(
+                //                       decoration: BoxDecoration(
+                //                         border: Border.all(
+                //                             width: 2.0, color: baseColor),
+                //                         color: Colors.white,
+                //                       ),
+                //                       child: Image(
+                //                         height: responsiveMT(150, 200),
+                //                         fit: BoxFit.fitWidth,
+                //                         image: AssetImage(e),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             )
+                //             .toList(),
+                //       ),
+                //       Container(
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: selectsilderBanner.map((urlOfItem2) {
+                //             int index = selectsilderBanner.indexOf(urlOfItem2);
+                //             return Container(
+                //               width: 10.0,
+                //               height: 10.0,
+                //               margin: EdgeInsets.symmetric(
+                //                   vertical: 20.0, horizontal: 2.0),
+                //               decoration: BoxDecoration(
+                //                   shape: BoxShape.circle,
+                //                   color: _currentIndexBanner == index
+                //                       ? baseColor
+                //                       : secondryColor),
+                //             );
+                //           }).toList(),
+                //         ),
+                //       ),
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Center(
+                //             child: Text(
+                //               selectsilderTitle.elementAt(_currentIndexBanner) +
+                //                   "\n",
+                //               style: descTx1(baseColorText),
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

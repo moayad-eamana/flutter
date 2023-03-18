@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/MyEmployees.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/SupportMessages.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/supportTypes.dart';
@@ -105,7 +107,8 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var response = await getAction("HR/GetAllEmployeesByManagerNumber/4261003");
+    var response = await getAction("HR/GetAllEmployeesByManagerNumber/" +
+        EmployeeProfile.getEmployeeNumber());
 //check if the response is valid
     if (jsonDecode(response.body)["StatusCode"] != 400) {
       // logapiO.StatusCode = 0;

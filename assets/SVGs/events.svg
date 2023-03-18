@@ -48,12 +48,12 @@
          height="2"
          fill="#2e8d9a"
          id="rect23195"
-         style="fill:#dbc38f;fill-opacity:1" />
+         style="fill:#2CB1A6;fill-opacity:1" />
       <path
          d="M19,4H18V2H16V4H8V2H6V4H5A2,2,0,0,0,3,6V20a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2V6A2,2,0,0,0,19,4Zm0,16H5V10H19ZM19,8H5V6H19ZM9,14H7V12H9Zm4,0H11V12h2Zm4,0H15V12h2ZM9,18H7V16H9Zm4,0H11V16h2Zm4,0H15V16h2Z"
          fill="#274690"
          id="path23197"
-         style="fill:#00612a;fill-opacity:1" />
+         style="fill:#47235C;fill-opacity:1" />
     </g>
   </g>
 </svg>

@@ -44,12 +44,12 @@
          d="M20,11V4H13L4,13l7,7ZM16,6.5A1.5,1.5,0,1,1,17.5,8,1.5,1.5,0,0,1,16,6.5Z"
          fill="#2e8d9a"
          id="path29997"
-         style="fill:#dbc38f;fill-opacity:1" />
+         style="fill:#2CB1A6;fill-opacity:1" />
       <path
          d="M22.42,12.41A2,2,0,0,0,23,11V4a2,2,0,0,0-2-2H14a2,2,0,0,0-1.42.59l-9,9A2,2,0,0,0,3,13a2,2,0,0,0,.59,1.41l7,7A2,2,0,0,0,12,22a2,2,0,0,0,1.42-.59ZM5,13l9-9h7v7h0l-9,9Z"
          fill="#274690"
          id="path29999"
-         style="fill:#00612a;fill-opacity:1" />
+         style="fill:#47235C;fill-opacity:1" />
       <circle
          cx="17.5"
          cy="6.5"

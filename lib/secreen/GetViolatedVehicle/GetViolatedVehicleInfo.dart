@@ -309,6 +309,8 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                 widgetsUni.actionbutton('إستعلام', Icons.send,
                                     () async {
                                   print(groupValue);
+                                  resulte = null;
+                                  setState(() {});
                                   if (groupValue == 2) {
                                     if (!_formKey2.currentState!.validate()) {
                                       return;
@@ -340,31 +342,38 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                     if (!_formKey1.currentState!.validate()) {
                                       return;
                                     }
-                                    EasyLoading.show(
-                                      status: '... جاري المعالجة',
-                                      maskType: EasyLoadingMaskType.black,
-                                    );
-                                    List platechar =
-                                        _plateText.text.trim().split(" ");
-                                    print(platechar);
 
-                                    var respons = await getAction(
-                                        "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1]}&text3=${platechar[2]}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
-                                    if (jsonDecode(
-                                            respons.body)["StatusCode"] ==
-                                        400) {
-                                      resulte = jsonDecode(respons.body)[
-                                                  "ResponseData"]["data"]
-                                              ["GetViolatedVehicleInfoResponse"]
-                                          ["GetViolatedVehicleInfoResult"];
+                                    try {
+                                      EasyLoading.show(
+                                        status: '... جاري المعالجة',
+                                        maskType: EasyLoadingMaskType.black,
+                                      );
+                                      List platechar =
+                                          _plateText.text.trim().split(" ");
+                                      if (platechar.length == 1) {
+                                        platechar =
+                                            _plateText.text.trim().split("");
+                                      }
+                                      var respons = await getAction(
+                                          "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1] ?? ""}&text3=${platechar[2] ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
+                                      if (jsonDecode(
+                                              respons.body)["StatusCode"] ==
+                                          400) {
+                                        resulte = jsonDecode(respons.body)[
+                                                    "ResponseData"]["data"][
+                                                "GetViolatedVehicleInfoResponse"]
+                                            ["GetViolatedVehicleInfoResult"];
 
-                                      print(resulte);
-                                      EasyLoading.dismiss();
-                                      setState(() {});
-                                    } else {
-                                      Alerts.warningAlert(context, "تنبيه",
-                                              "لا يوجد بيانات")
-                                          .show();
+                                        print(resulte);
+                                        EasyLoading.dismiss();
+                                        setState(() {});
+                                      } else {
+                                        Alerts.warningAlert(context, "تنبيه",
+                                                "لا يوجد بيانات")
+                                            .show();
+                                        EasyLoading.dismiss();
+                                      }
+                                    } catch (e) {
                                       EasyLoading.dismiss();
                                     }
                                   }

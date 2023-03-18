@@ -48,14 +48,14 @@ class AppBarHome {
                   ),
                 ),
               ),
-              Positioned(
-                  right: 25,
-                  top: 25,
-                  child: SvgPicture.asset(
-                    "assets/SVGs/flag-of-saudi-arabia.svg",
-                    width: 50,
-                    height: 50,
-                  )),
+              // Positioned(
+              //     right: 25,
+              //     top: 25,
+              //     child: SvgPicture.asset(
+              //       "assets/SVGs/flag-of-saudi-arabia.svg",
+              //       width: 50,
+              //       height: 50,
+              //     )),
               // shownotification == true && shownotification != null
               //     ? Positioned(
               //         left: 25,
