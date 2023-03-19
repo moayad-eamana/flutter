@@ -318,22 +318,22 @@ class listOfServices {
 
   List violationVehicleService() {
     return [
-      // {
-      //   "service_name": "إستعلام عن السيارات",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         // ignore: prefer_const_constructors
-      //         builder: (BuildContext context) {
-      //           return GetViolationVehicleInfo();
-      //         },
-      //       ),
-      //     );
-      //   }
-      // }
+      {
+        "service_name": "إستعلام عن السيارات",
+        "Navigation": "",
+        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // ignore: prefer_const_constructors
+              builder: (BuildContext context) {
+                return GetViolationVehicleInfo();
+              },
+            ),
+          );
+        }
+      }
     ];
   }
 
@@ -383,14 +383,14 @@ class listOfServices {
           Navigator.pushNamed(context, "/favs");
         }
       },
-      // {
-      //   "service_name": "المحفظة",
-      //   "Navigation": "/androidWallet",
-      //   "icon": "assets/SVGs/bookmarks.svg",
-      //   "Action": () {
-      //     Navigator.pushNamed(context, "/AndroidWallet");
-      //   }
-      // },
+      {
+        "service_name": "المحفظة",
+        "Navigation": "/androidWallet",
+        "icon": "assets/SVGs/bookmarks.svg",
+        "Action": () {
+          Navigator.pushNamed(context, "/AndroidWallet");
+        }
+      },
       if (sharedPref.getString("dumyuser") != "10284928492")
         {
           "service_name": "QR Code",
@@ -400,74 +400,74 @@ class listOfServices {
             Navigator.pushNamed(context, "/scannQrcode");
           }
         },
-      // {
-      //   "service_name": "ساند موظفيك",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/baynaty.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => supportYourEmployees()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
-      // {
-      //   "service_name": "مُمْتَنّ",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/thanks.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => Momten()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
-      // {
-      //   "service_name": "نصائح",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/thanks.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => Cybertips()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
+      {
+        "service_name": "ساند موظفيك",
+        "Navigation": "",
+        "icon": "assets/SVGs/baynaty.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => supportYourEmployees()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
+      {
+        "service_name": "مُمْتَنّ",
+        "Navigation": "",
+        "icon": "assets/SVGs/thanks.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Momten()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
+      {
+        "service_name": "نصائح",
+        "Navigation": "",
+        "icon": "assets/SVGs/thanks.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Cybertips()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
     ];
   }
 
   List attendanceService() {
     return [
-      // {
-      //   "service_name": "تسجيل الحضور",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/check_in1.svg',
-      //   "Action": () async {
-      //     attendanceServiceFunction(context).InsertAttendance(1);
-      //   },
-      // },
-      // {
-      //   "service_name": "تسجيل الإنصراف",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/check_in1.svg',
-      //   "Action": () async {
-      //     attendanceServiceFunction(context).InsertAttendance(2);
-      //   },
-      // },
-      // {
-      //   "service_name": "الحضور ولإنصراف",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/AttendanceView.svg',
-      //   "Action": () async {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => GetAttendanceView()),
-      //     );
-      //   },
-      // }
+      {
+        "service_name": "تسجيل الحضور",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          attendanceServiceFunction(context).InsertAttendance(1);
+        },
+      },
+      {
+        "service_name": "تسجيل الإنصراف",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          attendanceServiceFunction(context).InsertAttendance(2);
+        },
+      },
+      {
+        "service_name": "الحضور ولإنصراف",
+        "Navigation": "",
+        "icon": 'assets/SVGs/AttendanceView.svg',
+        "Action": () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GetAttendanceView()),
+          );
+        },
+      }
     ];
   }
 
