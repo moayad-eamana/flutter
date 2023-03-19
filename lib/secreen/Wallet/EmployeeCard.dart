@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/secreen/services/AndroidWallet4.dart';
+import 'package:eamanaapp/secreen/Wallet/AndroidWallet4.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';

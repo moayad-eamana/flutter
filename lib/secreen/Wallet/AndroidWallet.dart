@@ -1,8 +1,8 @@
 import 'package:eamanaapp/main.dart';
-import 'package:eamanaapp/secreen/services/AndroidWallet3.dart';
-import 'package:eamanaapp/secreen/services/AndroidWallet4.dart';
-import 'package:eamanaapp/secreen/services/EmployeeCard.dart';
-import 'package:eamanaapp/secreen/services/businesscardw.dart';
+import 'package:eamanaapp/secreen/Wallet/AndroidWallet3.dart';
+import 'package:eamanaapp/secreen/Wallet/AndroidWallet4.dart';
+import 'package:eamanaapp/secreen/Wallet/EmployeeCard.dart';
+import 'package:eamanaapp/secreen/Wallet/businesscardw.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter/material.dart';

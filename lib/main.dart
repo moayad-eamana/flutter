@@ -35,7 +35,7 @@ import 'package:eamanaapp/secreen/mahamme/HrDecisionsView.dart';
 import 'package:eamanaapp/secreen/mahamme/HrRequestsView.dart';
 import 'package:eamanaapp/secreen/messages/morning.dart';
 import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
-import 'package:eamanaapp/secreen/services/AndroidWallet.dart';
+import 'package:eamanaapp/secreen/Wallet/AndroidWallet.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
 import 'package:eamanaapp/secreen/splashScreen/splashScreen.dart';

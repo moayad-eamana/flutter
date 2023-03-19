@@ -1,4 +1,4 @@
-import 'package:eamanaapp/secreen/services/EmployeeCard.dart';
+import 'package:eamanaapp/secreen/Wallet/EmployeeCard.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
