@@ -98,7 +98,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
               children: [
                 //widgetsUni.bacgroundimage(),
                 Positioned(
-                  bottom: (sharedPref.getInt("empTypeID") != 8) ? 140 : 150,
+                  bottom: (sharedPref.getInt("empTypeID") != 8) ? 120 : 150,
                   child: SafeArea(
                     child: Container(
                       width: 100.w,
