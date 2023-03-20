@@ -373,7 +373,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                     );
                                     var respons = await getAction(
                                         "NIC/GetViolatedVehicleInfoByVehicleIDNumber?VehicleIDNumber=" +
-                                            _VehicleIDNumber.text);
+                                            _VehicleIDNumber.text.trim());
                                     if (jsonDecode(
                                             respons.body)["StatusCode"] ==
                                         400) {
@@ -402,7 +402,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                       );
 
                                       var respons = await getAction(
-                                          "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${_plateText1.text}&text2=${_plateText2.text ?? ""}&text3=${_plateText3.text ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
+                                          "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${_plateText1.text.trim()}&text2=${_plateText2.text.trim() ?? ""}&text3=${_plateText3.text ?? ""}&plateNumber=${_platenumber.text.trim()}&registrationTypeID=${_registrationCode}");
                                       if (jsonDecode(
                                               respons.body)["StatusCode"] ==
                                           400) {
