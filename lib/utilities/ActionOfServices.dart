@@ -19,22 +19,7 @@ ServiceButton(e, BuildContext context) {
     100,
     ElevatedButton(
       style: cardServiece,
-      onPressed: () {
-        if (e["service_name"] == "رصيد إجازات") {
-          rseed(context);
-          return;
-        }
-        if (e["service_name"] == "سجل الرواتب" ||
-            e["service_name"] == "تعريف بالراتب") {
-          salary(e["service_name"], context);
-          return;
-        }
-
-        e["Navigation"] is String
-            ? Navigator.pushNamed(context, e["Navigation"])
-            : Navigator.push(context, e["Navigation"]);
-        return;
-      },
+      onPressed: e["Action"],
       child: widgetsUni.cardcontentService(e["icon"], e["service_name"]),
     ),
   );

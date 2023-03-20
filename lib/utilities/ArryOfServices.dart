@@ -6,6 +6,7 @@ import 'package:eamanaapp/provider/services/hrServicesFunctions.dart';
 import 'package:eamanaapp/provider/services/salaryFunctions.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
+import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/GetViolatedVehicle/GetViolatedVehicleInfo.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
@@ -175,7 +176,8 @@ class listOfServices {
           "Action": () async {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => desclaimer()),
+              MaterialPageRoute(
+                  builder: (context) => EmployeeEvaluationMaster()),
             );
           }
         },
