@@ -21,7 +21,9 @@ class GetViolationVehicleInfo extends StatefulWidget {
 class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
   dynamic groupValue = 1;
   TextEditingController _platenumber = TextEditingController();
-  TextEditingController _plateText = TextEditingController();
+  TextEditingController _plateText1 = TextEditingController();
+  TextEditingController _plateText2 = TextEditingController();
+  TextEditingController _plateText3 = TextEditingController();
   TextEditingController _VehicleIDNumber = TextEditingController();
   dynamic resulte;
   String _registrationType = "";
@@ -248,7 +250,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                       ),
                                       TextFormField(
                                         controller: _platenumber,
-                                        keyboardType: TextInputType.text,
+                                        keyboardType: TextInputType.number,
                                         maxLines: 1,
                                         style: TextStyle(color: baseColorText),
                                         decoration: formlabel1("رقم اللوحة"),
@@ -261,18 +263,68 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      TextFormField(
-                                          controller: _plateText,
-                                          keyboardType: TextInputType.text,
-                                          maxLines: 1,
-                                          style:
-                                              TextStyle(color: baseColorText),
-                                          decoration: formlabel1("الحروف"),
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return "الرجاء إدخال حروف اللوحة";
-                                            }
-                                          }),
+                                      Text(
+                                        "حروف اللوحة (من اليسار إلى اليمين)",
+                                        style: descTx1(baseColorText),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                            child: TextFormField(
+                                                controller: _plateText1,
+                                                keyboardType:
+                                                    TextInputType.text,
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                    color: baseColorText),
+                                                decoration: formlabel1("الاول"),
+                                                validator: (value) {
+                                                  if (value!.isEmpty) {
+                                                    return "الرجاء إدخال حروف اللوحة";
+                                                  }
+                                                }),
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Flexible(
+                                            child: TextFormField(
+                                              controller: _plateText2,
+                                              keyboardType: TextInputType.text,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  color: baseColorText),
+                                              decoration: formlabel1("الثاني"),
+                                              // validator: (value) {
+                                              //   if (value!.isEmpty) {
+                                              //     return "الرجاء إدخال حروف اللوحة";
+                                              //   }
+                                              // },
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Flexible(
+                                            child: TextFormField(
+                                              controller: _plateText3,
+                                              keyboardType: TextInputType.text,
+                                              maxLines: 1,
+                                              style: TextStyle(
+                                                  color: baseColorText),
+                                              decoration: formlabel1("الثالث"),
+                                              // validator: (value) {
+                                              //   if (value!.isEmpty) {
+                                              //     return "الرجاء إدخال حروف اللوحة";
+                                              //   }
+                                              // },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -348,14 +400,9 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                         status: '... جاري المعالجة',
                                         maskType: EasyLoadingMaskType.black,
                                       );
-                                      List platechar =
-                                          _plateText.text.trim().split(" ");
-                                      if (platechar.length == 1) {
-                                        platechar =
-                                            _plateText.text.trim().split("");
-                                      }
+
                                       var respons = await getAction(
-                                          "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1] ?? ""}&text3=${platechar[2] ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
+                                          "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${_plateText1.text}&text2=${_plateText2.text ?? ""}&text3=${_plateText3.text ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
                                       if (jsonDecode(
                                               respons.body)["StatusCode"] ==
                                           400) {
