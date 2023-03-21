@@ -273,7 +273,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                           style:
                                               TextStyle(color: baseColorText),
                                           decoration: formlabel1(
-                                              "الحروف من اليسار إلى اليمين"),
+                                              "الحروف باللغة الانجليزية من اليسار"),
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return "الرجاء إدخال حروف اللوحة";
