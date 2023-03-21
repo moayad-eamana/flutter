@@ -52,14 +52,20 @@ class _MainHomeState extends State<MainHome> {
     } else {
       image = true;
     }
+    // myDialog(); // --> test
+    var v = sharedPref.getBool("oneTimeDialog");
+    if (v == true) {
+      myDialog();
+      sharedPref.setBool("oneTimeDialog", false);
+    }
     setState(() {});
   }
 
   @override
   void initState() {
     // TODO: implement initState
-
     embId();
+
     print(packageInfo.version);
     if (sharedPref.getString("dumyuser") != "10284928492") {
       getAction("Offers/GetCategories");
@@ -80,7 +86,7 @@ class _MainHomeState extends State<MainHome> {
     // Future.delayed(Duration.zero).then((value) {
     listofFavs = listOfFavs(context);
     setState(() {});
-    // });
+
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.only(bottom: 70),
@@ -90,6 +96,9 @@ class _MainHomeState extends State<MainHome> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
+                Container(),
+                //my dialog:
+
                 SizedBox(
                   height: responsiveMT(95, 130),
                 ),
@@ -458,5 +467,112 @@ class _MainHomeState extends State<MainHome> {
         ),
       ),
     );
+  }
+
+  myDialog() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) => Center(
+          child: AlertDialog(
+            insetPadding: EdgeInsets.all(20),
+            contentPadding: EdgeInsets.all(0),
+            content: Container(
+              height: 200,
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "رمضان مبارك وكل عام وانتم بخير",
+                      style: TextStyle(
+                          fontSize: 24,
+                          color: baseColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: Text(
+                        "يمكنكم الآن تهنئة احباءكم عبر الضغط على ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: secondryColor,
+                        ), //
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        "مشاركة تهنئة رمضان اسفل الصفحة",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: secondryColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: secondryColor,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("حسناً"),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: baseColor,
+                      ),
+                      onPressed: () async {
+                        EasyLoading.show(
+                          status: '... جاري المعالجة',
+                          maskType: EasyLoadingMaskType.black,
+                        );
+                        Uint8List? bytes;
+                        try {
+                          await http.get(Uri.parse(
+                              'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
+                          final ByteData imageData = await NetworkAssetBundle(
+                                  Uri.parse(
+                                      "https://srv.eamana.gov.sa/RamadanCongratulation/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
+                              .load("");
+
+                          bytes = imageData.buffer.asUint8List();
+                        } catch (e) {}
+
+                        final imageEncoded = base64.encode(
+                            bytes as Uint8List); // returns base64 string
+                        ViewFile.open(imageEncoded, ".png");
+                        EasyLoading.dismiss();
+                        Navigator.pop(context);
+                        setState(() {});
+                      },
+                      child: Text("مشاركة"),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    });
+    // sharedPref.setBool("oneTimeDialog", true);
   }
 }
