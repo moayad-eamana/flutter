@@ -1,12 +1,19 @@
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
+
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/ActionOfServices.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
+import 'package:eamanaapp/utilities/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eamanaapp/utilities/searchX.dart';
@@ -25,27 +32,26 @@ class _MainHomeState extends State<MainHome> {
   var _currentIndex = 0;
   var _currentIndexBanner = 0;
   dynamic id;
-
+  bool? image;
   List<int> selectsilder = [0, 1];
 
   List<dynamic> imageBanner = [
     "assets/image/flag1.png",
-    "assets/image/flag2.png",
-    "assets/image/flag3.png",
-    "assets/image/flage4.png",
-    "assets/image/flag5.png",
   ];
-  List<int> selectsilderBanner = [0, 1, 2, 3, 4];
-  List<String> selectsilderTitle = [
-    "علم الدولة السعودية الأولى والثانية عام 1744-1891",
-    "علم الدولة السعودية الثالثة إمارة الرياض عام 1902-1913",
-    "علم الدولة السعودية الثالثة سلطنة نجد عام 1921-1926",
-    "علم الدولة السعودية الثالثة إمارة نجد و الأحساء عام 1913-1921",
-    "علم السعودية منذ عام 1973 حتى الآن"
-  ];
+  List<int> selectsilderBanner = [0];
+  List<String> selectsilderTitle = ["تهنئة رمضان"];
 
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
+    setState(() {});
+    if (sharedPref.getBool("imageLoad") == true) {
+      sharedPref.setBool("imageLoad", true);
+      await http.get(Uri.parse(
+          'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
+      image = true;
+    } else {
+      image = true;
+    }
     setState(() {});
   }
 
@@ -319,105 +325,133 @@ class _MainHomeState extends State<MainHome> {
                 SizedBox(
                   height: 20,
                 ),
-                // Row(
-                //   children: [
-                //     Text(
-                //       "تاريخ الراية السعودية على مر العصور",
-                //       style: titleTx(baseColorText),
-                //     ),
-                //     Expanded(
-                //       child: Container(
-                //           // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                //           child: Divider(
-                //         color: baseColorText,
-                //         height: 20,
-                //         thickness: 1,
-                //         indent: 5,
-                //         endIndent: 5,
-                //       )),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 10,
-                // ),
-                // Container(
-                //   decoration: containerdecoration(BackGWhiteColor),
-                //   child: Column(
-                //     children: [
-                //       CarouselSlider(
-                //         options: CarouselOptions(
-                //           // aspectRatio: 3 / 4,
-                //           viewportFraction: 1.0,
-                //           enlargeCenterPage: false,
-                //           autoPlay: true,
-                //           height: responsiveMT(150, 200),
-                //           onPageChanged: (index, reason) {
-                //             setState(
-                //               () {
-                //                 _currentIndexBanner = index;
-                //               },
-                //             );
-                //           },
-                //         ),
-                //         items: imageBanner
-                //             .map(
-                //               (e) => Row(
-                //                 mainAxisSize: MainAxisSize.max,
-                //                 children: [
-                //                   Expanded(
-                //                     child: Container(
-                //                       decoration: BoxDecoration(
-                //                         border: Border.all(
-                //                             width: 2.0, color: baseColor),
-                //                         color: Colors.white,
-                //                       ),
-                //                       child: Image(
-                //                         height: responsiveMT(150, 200),
-                //                         fit: BoxFit.fitWidth,
-                //                         image: AssetImage(e),
-                //                       ),
-                //                     ),
-                //                   ),
-                //                 ],
-                //               ),
-                //             )
-                //             .toList(),
-                //       ),
-                //       Container(
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: selectsilderBanner.map((urlOfItem2) {
-                //             int index = selectsilderBanner.indexOf(urlOfItem2);
-                //             return Container(
-                //               width: 10.0,
-                //               height: 10.0,
-                //               margin: EdgeInsets.symmetric(
-                //                   vertical: 20.0, horizontal: 2.0),
-                //               decoration: BoxDecoration(
-                //                   shape: BoxShape.circle,
-                //                   color: _currentIndexBanner == index
-                //                       ? baseColor
-                //                       : secondryColor),
-                //             );
-                //           }).toList(),
-                //         ),
-                //       ),
-                //       Row(
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           Center(
-                //             child: Text(
-                //               selectsilderTitle.elementAt(_currentIndexBanner) +
-                //                   "\n",
-                //               style: descTx1(baseColorText),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                Row(
+                  children: [
+                    Text(
+                      "مشاركة تهنئة بطاقة رمضان",
+                      style: titleTx(baseColorText),
+                    ),
+                    Expanded(
+                      child: Container(
+                          // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                          child: Divider(
+                        color: baseColorText,
+                        height: 20,
+                        thickness: 1,
+                        indent: 5,
+                        endIndent: 5,
+                      )),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: containerdecoration(BackGWhiteColor),
+                  child: Column(
+                    children: [
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          // aspectRatio: 3 / 4,
+                          viewportFraction: 1.0,
+                          enlargeCenterPage: false,
+                          autoPlay: true,
+                          height: responsiveMT(150, 200),
+                          onPageChanged: (index, reason) {
+                            setState(
+                              () {
+                                _currentIndexBanner = index;
+                              },
+                            );
+                          },
+                        ),
+                        items: imageBanner
+                            .map(
+                              (e) => Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        EasyLoading.show(
+                                          status: '... جاري المعالجة',
+                                          maskType: EasyLoadingMaskType.black,
+                                        );
+                                        Uint8List? bytes;
+                                        try {
+                                          await http.get(Uri.parse(
+                                              'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
+                                          final ByteData imageData =
+                                              await NetworkAssetBundle(Uri.parse(
+                                                      "https://srv.eamana.gov.sa/RamadanCongratulation/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
+                                                  .load("");
+
+                                          bytes =
+                                              imageData.buffer.asUint8List();
+                                        } catch (e) {}
+
+                                        final imageEncoded = base64.encode(bytes
+                                            as Uint8List); // returns base64 string
+                                        ViewFile.open(imageEncoded, ".png");
+                                        setState(() {});
+                                        EasyLoading.dismiss();
+                                      },
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 2.0, color: baseColor),
+                                            color: Colors.white,
+                                          ),
+                                          child: image == true
+                                              ? Image.network(
+                                                  "https://srv.eamana.gov.sa/RamadanCongratulation/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png",
+                                                  height:
+                                                      responsiveMT(150, 200),
+                                                  fit: BoxFit.fill,
+                                                )
+                                              : Container()),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: selectsilderBanner.map((urlOfItem2) {
+                            int index = selectsilderBanner.indexOf(urlOfItem2);
+                            return Container(
+                              width: 10.0,
+                              height: 10.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: _currentIndexBanner == index
+                                      ? baseColor
+                                      : secondryColor),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Text(
+                              selectsilderTitle.elementAt(_currentIndexBanner) +
+                                  "\n",
+                              style: descTx1(baseColorText),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
