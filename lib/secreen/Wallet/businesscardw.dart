@@ -77,7 +77,7 @@ class _businesscardwState extends State<businesscardw> {
                         children: [
                           Text(
                             widget.lang == "en"
-                                ? "   Eastern Province Municipality    "
+                                ? "   Eastern Province Municipality   "
                                 : "  أمانة المنطقة الشرقية  ",
                             style: TextStyle(
                                 color: baseColor,
