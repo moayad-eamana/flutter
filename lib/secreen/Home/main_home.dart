@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:eamanaapp/main.dart';
@@ -44,7 +45,7 @@ class _MainHomeState extends State<MainHome> {
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
     setState(() {});
-    if (sharedPref.getBool("imageLoad") == true) {
+    if (sharedPref.getBool("imageLoad") == null) {
       sharedPref.setBool("imageLoad", true);
       await http.get(Uri.parse(
           'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
@@ -54,7 +55,7 @@ class _MainHomeState extends State<MainHome> {
     }
     // myDialog(); // --> test
     var v = sharedPref.getBool("oneTimeDialog");
-    if (v == true) {
+    if (v == null) {
       myDialog();
       sharedPref.setBool("oneTimeDialog", false);
     }
@@ -365,8 +366,8 @@ class _MainHomeState extends State<MainHome> {
                           // aspectRatio: 3 / 4,
                           viewportFraction: 1.0,
                           enlargeCenterPage: false,
-                          autoPlay: true,
-                          height: responsiveMT(150, 200),
+                          autoPlay: false,
+                          height: responsiveMT(300, 200),
                           onPageChanged: (index, reason) {
                             setState(
                               () {
@@ -388,6 +389,19 @@ class _MainHomeState extends State<MainHome> {
                                           maskType: EasyLoadingMaskType.black,
                                         );
                                         Uint8List? bytes;
+                                        logApiModel logapiO = logApiModel();
+                                        logapiO.ControllerName =
+                                            "RamadanCongratulation";
+                                        logapiO.ClassName =
+                                            "RamadanCongratulation";
+                                        logapiO.EmployeeNumber = int.parse(
+                                            EmployeeProfile
+                                                .getEmployeeNumber());
+                                        logapiO.ActionMethodName =
+                                            "بطاقة تهنئة";
+                                        logapiO.ActionMethodType = 2;
+                                        logapiO.StatusCode = 1;
+                                        logApi(logapiO);
                                         try {
                                           await http.get(Uri.parse(
                                               'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
@@ -416,7 +430,7 @@ class _MainHomeState extends State<MainHome> {
                                               ? Image.network(
                                                   "https://srv.eamana.gov.sa/RamadanCongratulation/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png",
                                                   height:
-                                                      responsiveMT(150, 200),
+                                                      responsiveMT(300, 200),
                                                   fit: BoxFit.fill,
                                                 )
                                               : Container()),
@@ -428,23 +442,25 @@ class _MainHomeState extends State<MainHome> {
                             .toList(),
                       ),
                       Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: selectsilderBanner.map((urlOfItem2) {
-                            int index = selectsilderBanner.indexOf(urlOfItem2);
-                            return Container(
-                              width: 10.0,
-                              height: 10.0,
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 2.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: _currentIndexBanner == index
-                                      ? baseColor
-                                      : secondryColor),
-                            );
-                          }).toList(),
-                        ),
+                        margin: EdgeInsets.symmetric(
+                            vertical: 5.0, horizontal: 2.0),
+                        // child: Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: selectsilderBanner.map((urlOfItem2) {
+                        //     int index = selectsilderBanner.indexOf(urlOfItem2);
+                        //     return Container(
+                        //       width: 10.0,
+                        //       height: 10.0,
+                        //       margin: EdgeInsets.symmetric(
+                        //           vertical: 5.0, horizontal: 2.0),
+                        //       decoration: BoxDecoration(
+                        //           shape: BoxShape.circle,
+                        //           color: _currentIndexBanner == index
+                        //               ? baseColor
+                        //               : secondryColor),
+                        //     );
+                        //   }).toList(),
+                        // ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -545,6 +561,15 @@ class _MainHomeState extends State<MainHome> {
                           maskType: EasyLoadingMaskType.black,
                         );
                         Uint8List? bytes;
+                        logApiModel logapiO = logApiModel();
+                        logapiO.ControllerName = "RamadanCongratulation";
+                        logapiO.ClassName = "RamadanCongratulation";
+                        logapiO.EmployeeNumber =
+                            int.parse(EmployeeProfile.getEmployeeNumber());
+                        logapiO.ActionMethodName = "بطاقة تهنئة";
+                        logapiO.ActionMethodType = 2;
+                        logapiO.StatusCode = 1;
+                        logApi(logapiO);
                         try {
                           await http.get(Uri.parse(
                               'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
