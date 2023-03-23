@@ -388,7 +388,7 @@ class listOfServices {
       {
         "service_name": "المحفظة",
         "Navigation": "/androidWallet",
-        "icon": "assets/SVGs/bookmarks.svg",
+        "icon": "assets/SVGs/wallet.svg",
         "Action": () {
           Navigator.pushNamed(context, "/AndroidWallet");
         }
@@ -436,6 +436,14 @@ class listOfServices {
             MaterialPageRoute(builder: (context) => Cybertips()),
             // ignore: prefer_const_constructors
           );
+        }
+      },
+      {
+        "service_name": "مشاركة البايانات",
+        "Navigation": "",
+        "icon": "assets/SVGs/qr_code_scanner.svg",
+        "Action": () {
+          // Navigator.pushNamed(context, "/scannQrcode");
         }
       },
     ];

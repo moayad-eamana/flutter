@@ -10,6 +10,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:sizer/sizer.dart';
 
 class GetViolationVehicleInfo extends StatefulWidget {
   const GetViolationVehicleInfo({Key? key}) : super(key: key);
@@ -426,6 +427,33 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                     : "متوفى"),
                           ],
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: 160,
+                          child: widgetsUni.actionbutton(
+                              "إنذار المستفيد", Icons.send, () async {
+                            Alerts.confirmAlrt(context, "",
+                                    "هل أنت متأكد من إزسال الانذار", "إرسال")
+                                .show()
+                                .then((value) async {
+                              if (value == true) {
+                                EasyLoading.show(
+                                  status: '... جاري المعالجة',
+                                  maskType: EasyLoadingMaskType.black,
+                                );
+                                await Future.delayed(Duration(seconds: 1));
+                                EasyLoading.dismiss();
+                                Alerts.successAlert(context, "", "تم الإنذار")
+                                    .show()
+                                    .then((value) {
+                                  // Navigator.pop(context);
+                                });
+                              }
+                            });
+                          }),
+                        )
                       ],
                     )
                 ],
