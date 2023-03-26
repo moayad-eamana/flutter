@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/QrCode/bottomsheetQrCode.dart';
@@ -13,25 +15,22 @@ class QrcodeList {
         "icon": "assets/SVGs/qr_code_scanner.svg",
         "Action": () {
           // Navigator.pushNamed(context, "/scannQrcode");
-          List MyData = [
-            {
-              "id": 1,
-              "Name": sharedPref.getString("FirstName").toString() +
-                  " " +
-                  sharedPref.getString("LastName").toString(),
-              "Titel": sharedPref.getString("Title").toString() == ""
-                  ? sharedPref.getString("JobName").toString()
-                  : sharedPref.getString("Title").toString(),
-              "PhoneNum": sharedPref.getString("MobileNumber") ?? "",
-              "Email":
-                  sharedPref.getString("Email").toString() + "@eamana.gov.sa",
-              "Extension": sharedPref.getInt("Extension").toString() ?? "",
-              "ID": EmployeeProfile.getEmployeeNumber(),
-            }
-          ];
-          String myData = MyData[0].toString();
+          dynamic MyData = {
+            "id": 1,
+            "Name": sharedPref.getString("FirstName").toString() +
+                " " +
+                sharedPref.getString("LastName").toString(),
+            "Titel": sharedPref.getString("Title").toString() == ""
+                ? sharedPref.getString("JobName").toString()
+                : sharedPref.getString("Title").toString(),
+            "PhoneNum": sharedPref.getString("MobileNumber") ?? "",
+            "Email":
+                sharedPref.getString("Email").toString() + "@eamana.gov.sa",
+            "Extension": sharedPref.getInt("Extension").toString() ?? "",
+            "ID": EmployeeProfile.getEmployeeNumber(),
+          };
 
-          BottomSheetQrCode(myData, context);
+          BottomSheetQrCode(jsonEncode(MyData), context);
         }
       },
       {
