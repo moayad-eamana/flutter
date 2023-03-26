@@ -22,7 +22,7 @@ class EmployeeCard extends StatelessWidget {
                       function!();
                     },
               child: Stack(
-                alignment: AlignmentDirectional.center,
+                // alignment: AlignmentDirectional.center,
                 children: [
                   Card(
                       // color: Colors.grey.withOpacity(0.2),
@@ -207,18 +207,30 @@ class EmployeeCard extends StatelessWidget {
                       )),
                   Center(
                     child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red, width: 4),
-                          color: Colors.red.withOpacity(0.1)),
-                      child: Text(
-                        "  منتهية / Expired  ",
-                        style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red),
+                      child: Card(
+                        color: Colors.red,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 11, left: 11),
+                          child: Text(
+                            "منتهية",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
                       ),
                     ),
                   ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //       border: Border.all(color: Colors.red, width: 4),
+                  //       color: Colors.red.withOpacity(0.1)),
+                  //   child: Text(
+                  //     " منتهية ",
+                  //     style: TextStyle(
+                  //         fontSize: 26,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.red),
+                  //   ),
+                  // ),
                 ],
               )),
         ],
