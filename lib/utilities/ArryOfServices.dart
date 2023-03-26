@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/GetViolatedVehicle/GetViolatedVehicleInfo.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
+import 'package:eamanaapp/secreen/QrCode/listOfQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
@@ -443,7 +444,11 @@ class listOfServices {
         "Navigation": "",
         "icon": "assets/SVGs/qr_code_scanner.svg",
         "Action": () {
-          // Navigator.pushNamed(context, "/scannQrcode");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => listOfQrcode()),
+            // ignore: prefer_const_constructors
+          );
         }
       },
     ];
