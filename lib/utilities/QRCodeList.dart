@@ -20,17 +20,19 @@ class QrcodeList {
             "Name": sharedPref.getString("FirstName").toString() +
                 " " +
                 sharedPref.getString("LastName").toString(),
-            "Titel": sharedPref.getString("Title").toString() == ""
+            "Title": sharedPref.getString("Title").toString() == ""
                 ? sharedPref.getString("JobName").toString()
                 : sharedPref.getString("Title").toString(),
+            "imageUrl": "https://archive.eamana.gov.sa/TransactFileUpload" +
+                sharedPref.getString("ImageURL").toString(),
             "PhoneNum": sharedPref.getString("MobileNumber") ?? "",
-            "Email":
-                sharedPref.getString("Email").toString() + "@eamana.gov.sa",
+            "Email": sharedPref.getString("Email").toString(),
             "Extension": sharedPref.getInt("Extension").toString() ?? "",
             "ID": EmployeeProfile.getEmployeeNumber(),
+            "GenderID": sharedPref.getInt("GenderID"),
           };
 
-          BottomSheetQrCode(jsonEncode(MyData), context);
+          BottomSheetQrCode("بيانتي", jsonEncode(MyData), context);
         }
       },
       {
@@ -39,7 +41,7 @@ class QrcodeList {
         "icon": "assets/SVGs/qr_code_scanner.svg",
         "Action": () {
           // Navigator.pushNamed(context, "/scannQrcode");
-          BottomSheetQrCode("", context);
+          BottomSheetQrCode("جهة الاتصال", "", context);
         }
       },
       {

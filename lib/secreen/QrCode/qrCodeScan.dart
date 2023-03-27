@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:eamanaapp/secreen/QrCode/QrCodeResult/viewQrData.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -76,6 +77,13 @@ class _QrCodeScanState extends State<QrCodeScan> {
 
     controller.scannedDataStream.listen((scanData) async {
       // await FlutterContacts.openExternalView(contact);
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ViewQrData(data: scanData.code)),
+        // ignore: prefer_const_constructors
+      );
       print(scanData);
     });
   }

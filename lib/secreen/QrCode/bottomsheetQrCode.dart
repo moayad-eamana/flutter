@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
-BottomSheetQrCode(String date, BuildContext context) async {
+BottomSheetQrCode(String title, dynamic date, BuildContext context) async {
   showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -17,7 +17,7 @@ BottomSheetQrCode(String date, BuildContext context) async {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  'مشاركة بياناتي',
+                  title,
                   style: titleTx(baseColor),
                 ),
                 SizedBox(
