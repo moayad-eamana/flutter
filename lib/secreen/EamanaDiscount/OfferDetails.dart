@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
-import 'package:eamanaapp/utilities/getattachment.dart';
+import 'package:eamanaapp/utilities/functions/getattachment.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

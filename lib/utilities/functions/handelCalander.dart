@@ -1,7 +1,7 @@
 import 'package:device_calendar/device_calendar.dart' as calendar;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../main.dart';
+import '../../main.dart';
 
 class handelCalander {
   static Future<dynamic> pusToCalander(

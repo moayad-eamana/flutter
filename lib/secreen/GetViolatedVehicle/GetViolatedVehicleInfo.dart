@@ -6,7 +6,7 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
-import 'package:eamanaapp/utilities/functions/getAttachments.dart';
+import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -491,24 +491,33 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                           width: 160,
                           child: widgetsUni.actionbutton(
                               "إنذار المستفيد", Icons.send, () async {
-                            Alerts.confirmAlrt(context, "",
-                                    "هل أنت متأكد من إزسال الانذار", "إرسال")
-                                .show()
-                                .then((value) async {
-                              if (value == true) {
-                                EasyLoading.show(
-                                  status: '... جاري المعالجة',
-                                  maskType: EasyLoadingMaskType.black,
-                                );
-                                await Future.delayed(Duration(seconds: 1));
-                                EasyLoading.dismiss();
-                                Alerts.successAlert(context, "", "تم الإنذار")
-                                    .show()
-                                    .then((value) {
-                                  // Navigator.pop(context);
-                                });
-                              }
-                            });
+                            if (image == null) {
+                              Alerts.errorAlert(
+                                      context, "خطأ", 'يجب إرفاق صورة')
+                                  .show()
+                                  .then((value) {
+                                return;
+                              });
+                            } else {
+                              Alerts.confirmAlrt(context, "",
+                                      "هل أنت متأكد من إزسال الانذار", "إرسال")
+                                  .show()
+                                  .then((value) async {
+                                if (value == true) {
+                                  EasyLoading.show(
+                                    status: '... جاري المعالجة',
+                                    maskType: EasyLoadingMaskType.black,
+                                  );
+                                  await Future.delayed(Duration(seconds: 1));
+                                  EasyLoading.dismiss();
+                                  Alerts.successAlert(context, "", "تم الإنذار")
+                                      .show()
+                                      .then((value) {
+                                    // Navigator.pop(context);
+                                  });
+                                }
+                              });
+                            }
                           }),
                         ),
                         SizedBox(
