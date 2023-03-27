@@ -5,7 +5,7 @@ import 'package:eamanaapp/secreen/Settings/settings.dart';
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
-import 'package:eamanaapp/utilities/ViewFile.dart';
+import 'package:eamanaapp/utilities/functions/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';

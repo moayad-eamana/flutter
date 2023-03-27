@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
+
+import 'image_view.dart';
 
 class widgetsUni {
   static Divider divider() {
@@ -123,6 +127,92 @@ class widgetsUni {
             style: descTx1(BackGWhiteColor),
             maxLines: 2,
           )
+        ],
+      ),
+    );
+  }
+
+  static imgeview(dynamic data, BuildContext context, Function delete) {
+    return Container(
+      height: 100,
+      width: 100,
+      child: Stack(
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+              color: BackGWhiteColor,
+              border: Border.all(
+                color: bordercolor,
+              ),
+              //color: baseColor,
+              borderRadius: BorderRadius.all(
+                new Radius.circular(4),
+              ),
+            ),
+            child: data['type'] != 'pdf'
+                ? GestureDetector(
+                    child: Hero(
+                        tag: data['name'],
+                        child: Image.file(
+                          File(
+                            data['path'],
+                          ),
+                          fit: BoxFit.cover,
+                        )),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) {
+                        return ProfileImage(
+                          tag: data['name'],
+                          path: data['path'],
+                        );
+                      }));
+                    })
+                : Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: BackGWhiteColor,
+                      border: Border.all(
+                        color: bordercolor,
+                      ),
+                      //color: baseColor,
+                      borderRadius: BorderRadius.all(
+                        new Radius.circular(4),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: BoxConstraints(),
+                          icon: const Icon(Icons.picture_as_pdf),
+                          color: baseColor,
+                          onPressed: () async {},
+                        ),
+                        Text(
+                          data['name'],
+                          maxLines: 1,
+                          style: descTx2(baseColorText),
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              constraints: BoxConstraints(),
+              icon: const Icon(Icons.close_rounded),
+              color: redColor,
+              onPressed: () {
+                delete();
+              },
+            ),
+          ),
         ],
       ),
     );

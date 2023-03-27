@@ -66,10 +66,10 @@ class _add_violationState extends State<add_violation>
                     back: backPag,
                     vaiolationModel: vaiolationModel,
                   ),
-                  // attachment(
-                  //   back: backPag,
-                  //   vaiolationModel: vaiolationModel,
-                  // ),
+                  attachment(
+                    back: backPag,
+                    vaiolationModel: vaiolationModel,
+                  ),
                 ],
               ),
             ],

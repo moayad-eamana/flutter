@@ -6,10 +6,12 @@ import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
+import 'package:eamanaapp/utilities/functions/getAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
 class GetViolationVehicleInfo extends StatefulWidget {
@@ -30,7 +32,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
   int _registrationCode = 0;
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
-
+  dynamic image;
   List registrationType = [
     {"type": "خاص", "code": 1},
     {"type": "نقل عام", "code": 2},
@@ -430,6 +432,61 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                         SizedBox(
                           height: 10,
                         ),
+                        image != null
+                            ? Container()
+                            : SizedBox(
+                                width: 160,
+                                child: widgetsUni.actionbutton(
+                                    "إضافة مرفق", Icons.photo_album, () async {
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 150,
+
+                                        ///   color: Colors.amber,
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              TextButton(
+                                                  onPressed: () async {
+                                                    image =
+                                                        await Pickattachments
+                                                            .pickImage(
+                                                                ImageSource
+                                                                    .camera);
+                                                    Navigator.pop(context);
+                                                    setState(() {});
+                                                  },
+                                                  child: Text("الكاميرا")),
+                                              TextButton(
+                                                  onPressed: () async {
+                                                    image =
+                                                        await Pickattachments
+                                                            .pickImage(
+                                                                ImageSource
+                                                                    .gallery);
+                                                    Navigator.pop(context);
+                                                    setState(() {});
+                                                  },
+                                                  child: Text("الاستيديو")),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }),
+                              ),
+                        image != null
+                            ? widgetsUni.imgeview(image, context, () {
+                                image = null;
+                                setState(() {});
+                              })
+                            : Container(),
                         Container(
                           width: 160,
                           child: widgetsUni.actionbutton(
@@ -453,7 +510,10 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                               }
                             });
                           }),
-                        )
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
                     )
                 ],

@@ -9,7 +9,7 @@ import 'package:eamanaapp/secreen/widgets/service_search.dart';
 import 'package:eamanaapp/secreen/widgets/slider.dart';
 import 'package:eamanaapp/utilities/ActionOfServices.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
-import 'package:eamanaapp/utilities/ViewFile.dart';
+import 'package:eamanaapp/utilities/functions/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
