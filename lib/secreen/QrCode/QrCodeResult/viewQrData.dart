@@ -132,11 +132,11 @@ class _ViewQrDataState extends State<ViewQrData> {
                                 Row(
                                   children: [
                                     Text("الرقم الوظيفي : " +
-                                        dataj["ID"].toString()),
+                                        dataj["EmpID"].toString()),
                                     IconButton(
                                         onPressed: () {
                                           FlutterClipboard.copy(
-                                                  dataj["ID"].toString())
+                                                  dataj["EmpID"].toString())
                                               .then((value) => print('copied'));
                                           Fluttertoast.showToast(
                                             msg: "تم النسخ", // message

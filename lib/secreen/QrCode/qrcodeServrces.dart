@@ -1,7 +1,5 @@
 import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
-import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:eamanaapp/utilities/QRCodeList.dart';
-import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sizer/sizer.dart';

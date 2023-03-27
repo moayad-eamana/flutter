@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:eamanaapp/secreen/QrCode/QrCodeResult/viewQrData.dart';
+import 'package:eamanaapp/secreen/widgets/Vcard_Widget/vcardbottomsheet.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -77,14 +79,24 @@ class _QrCodeScanState extends State<QrCodeScan> {
 
     controller.scannedDataStream.listen((scanData) async {
       // await FlutterContacts.openExternalView(contact);
-      Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ViewQrData(data: scanData.code)),
-        // ignore: prefer_const_constructors
-      );
-      print(scanData);
+      this.controller!.pauseCamera();
+      int id = jsonDecode(scanData.code.toString())["id"];
+      print(id);
+      if (id == 1) {
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ViewQrData(data: scanData.code)),
+          // ignore: prefer_const_constructors
+        );
+      }
+      if (id == 2) {
+        print(jsonDecode(scanData.code.toString())["vcard"]);
+        String vCard = jsonDecode(scanData.code.toString())["vcard"];
+        await vcardbottomsheet(context, vCard);
+      }
+      this.controller!.resumeCamera();
     });
   }
 
