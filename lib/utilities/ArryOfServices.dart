@@ -7,10 +7,10 @@ import 'package:eamanaapp/provider/services/salaryFunctions.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
-import 'package:eamanaapp/secreen/GetViolatedVehicle/GetViolatedVehicleInfo.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/QrCode/listOfQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
+import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
@@ -331,7 +331,7 @@ class listOfServices {
             MaterialPageRoute(
               // ignore: prefer_const_constructors
               builder: (BuildContext context) {
-                return GetViolationVehicleInfo();
+                return WarnViolatedVehiclePageView();
               },
             ),
           );
