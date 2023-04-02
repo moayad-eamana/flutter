@@ -16,9 +16,7 @@ class WarnViolatedVehiclePageView extends StatefulWidget {
 class _WarnViolatedVehiclePageViewState
     extends State<WarnViolatedVehiclePageView> {
   final PageController controller = PageController();
-  dynamic carInfo;
-  dynamic MuniciplaityInfo;
-  dynamic AttachementsInfo;
+  ViolatedVehicle violatedVehicle = ViolatedVehicle();
   @override
   void initState() {
     // TODO: implement initState
@@ -45,7 +43,10 @@ class _WarnViolatedVehiclePageViewState
             widgetsUni.bacgroundimage(),
             PageView(
               controller: controller,
-              children: [GetViolationVehicleInfo(), ViolatedVehicleLocation()],
+              children: [
+                GetViolationVehicleInfo(violatedVehicle, nextPage),
+                ViolatedVehicleLocation()
+              ],
             )
           ],
         ),
@@ -56,7 +57,7 @@ class _WarnViolatedVehiclePageViewState
   nextPage() {
     //  controller.nextPage(duration: Duration.zero, curve: curve)
 
-    setState(() {});
+    // setState(() {});
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() + 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
@@ -68,4 +69,11 @@ class _WarnViolatedVehiclePageViewState
     controller.animateToPage(controller.page!.toInt() - 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);
   }
+}
+
+class ViolatedVehicle {
+  dynamic carInfo;
+  dynamic MuniciplaityInfo;
+  dynamic AttachementsInfo;
+  dynamic sendwarning = {};
 }

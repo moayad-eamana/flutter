@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
-import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
@@ -12,22 +12,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sizer/sizer.dart';
 
 class GetViolationVehicleInfo extends StatefulWidget {
-  const GetViolationVehicleInfo({Key? key}) : super(key: key);
+  ViolatedVehicle violatedVehicle;
+  Function nextPage;
+  GetViolationVehicleInfo(this.violatedVehicle, this.nextPage);
 
   @override
   State<GetViolationVehicleInfo> createState() =>
       _GetViolationVehicleInfoState();
 }
 
-class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
+class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
+    with AutomaticKeepAliveClientMixin {
   dynamic groupValue = 1;
   TextEditingController _platenumber = TextEditingController();
   TextEditingController _plateText = TextEditingController();
   TextEditingController _VehicleIDNumber = TextEditingController();
-  dynamic resulte;
+
   String _registrationType = "";
   int _registrationCode = 0;
   final _formKey1 = GlobalKey<FormState>();
@@ -46,6 +48,12 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
     {"type": "دراجة آلية", "code": 10},
     {"type": "مؤقت", "code": 11},
   ];
+  @override
+  void initState() {
+    print(widget.violatedVehicle.carInfo);
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -56,6 +64,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return
         // backgroundColor: Colors.transparent,
 
@@ -307,7 +316,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                         widgetsUni.actionbutton('إستعلام', Icons.send,
                             () async {
                           print(groupValue);
-                          resulte = null;
+                          widget.violatedVehicle.carInfo = null;
                           setState(() {});
                           if (groupValue == 2) {
                             if (!_formKey2.currentState!.validate()) {
@@ -321,10 +330,12 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                 "NIC/GetViolatedVehicleInfoByVehicleIDNumber?VehicleIDNumber=" +
                                     _VehicleIDNumber.text.trim());
                             if (jsonDecode(respons.body)["StatusCode"] == 400) {
-                              resulte = jsonDecode(respons.body)["ResponseData"]
-                                      ["data"]["GetViolatedVehicleInfoResponse"]
-                                  ["GetViolatedVehicleInfoResult"];
-                              print(resulte);
+                              widget.violatedVehicle.carInfo =
+                                  jsonDecode(respons.body)["ResponseData"]
+                                              ["data"]
+                                          ["GetViolatedVehicleInfoResponse"]
+                                      ["GetViolatedVehicleInfoResult"];
+                              print(widget.violatedVehicle.carInfo);
                               EasyLoading.dismiss();
                               setState(() {});
                             } else {
@@ -352,13 +363,13 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                                   "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1] ?? ""}&text3=${platechar[2] ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
                               if (jsonDecode(respons.body)["StatusCode"] ==
                                   400) {
-                                resulte =
+                                widget.violatedVehicle.carInfo =
                                     jsonDecode(respons.body)["ResponseData"]
                                                 ["data"]
                                             ["GetViolatedVehicleInfoResponse"]
                                         ["GetViolatedVehicleInfoResult"];
 
-                                print(resulte);
+                                print(widget.violatedVehicle.carInfo);
                                 EasyLoading.dismiss();
                                 setState(() {});
                               } else {
@@ -385,12 +396,13 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
           // SizedBox(
           //   height: 5,
           // ),
-          if (resulte != null)
+          if (widget.violatedVehicle.carInfo != null)
             Column(
               children: [
                 Row(
                   children: [
-                    cards("هوية المالك", resulte["PersonID"].toString()),
+                    cards("هوية المالك",
+                        widget.violatedVehicle.carInfo["PersonID"].toString()),
                   ],
                 ),
                 SizedBox(
@@ -398,15 +410,21 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                 ),
                 Row(
                   children: [
-                    cards("السيارة", resulte["MakeDescAr"]),
-                    cards("نوع السيارة", resulte["ModelDescAr"])
+                    cards("السيارة",
+                        widget.violatedVehicle.carInfo["MakeDescAr"]),
+                    cards("نوع السيارة",
+                        widget.violatedVehicle.carInfo["ModelDescAr"])
                   ],
                 ),
                 Row(
                   children: [
-                    cards("موديل السيارة", resulte["ModelYear"].toString()),
-                    cards("الحالة",
-                        resulte["IsAlive"] == 1 ? "على قيد الحياة" : "متوفى"),
+                    cards("موديل السيارة",
+                        widget.violatedVehicle.carInfo["ModelYear"].toString()),
+                    cards(
+                        "الحالة",
+                        widget.violatedVehicle.carInfo["IsAlive"] == 1
+                            ? "على قيد الحياة"
+                            : "متوفى"),
                   ],
                 ),
                 SizedBox(
@@ -466,6 +484,33 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
                   width: 160,
                   child: widgetsUni.actionbutton("إنذار المستفيد", Icons.send,
                       () async {
+                    widget.nextPage();
+                    //widget.violatedVehicle.sendwarning=;
+                    widget.violatedVehicle.sendwarning["EmplpyeeNumber"] =
+                        EmployeeProfile.getEmployeeNumber();
+                    widget.violatedVehicle.sendwarning["ChasisNumber"] = "";
+                    widget.violatedVehicle.sendwarning["SerialNumber"] =
+                        groupValue == 1 ? "" : _VehicleIDNumber.text;
+                    widget.violatedVehicle.sendwarning["PlateNumber"] =
+                        _plateText.text;
+                    widget.violatedVehicle.sendwarning["Letter1"] =
+                        _plateText.text.trim()[0];
+                    widget.violatedVehicle.sendwarning["Letter2"] =
+                        _plateText.text.trim()[1];
+                    widget.violatedVehicle.sendwarning["Letter3"] =
+                        _plateText.text.trim()[2];
+                    widget.violatedVehicle.sendwarning["VehicleUserIdNumber"] =
+                        widget.violatedVehicle.carInfo["PersonID"];
+                    widget.violatedVehicle.sendwarning["VehicleModel"] =
+                        widget.violatedVehicle.carInfo["MakeDescAr"].toString();
+
+                    widget.violatedVehicle.sendwarning["VehicleType"] = widget
+                        .violatedVehicle.carInfo["ModelDescAr"]
+                        .toString();
+                    widget.violatedVehicle.sendwarning["VehicleYear"] =
+                        widget.violatedVehicle.carInfo["ModelYear"];
+
+                    return;
                     if (image == null) {
                       Alerts.errorAlert(context, "خطأ", 'يجب إرفاق صورة')
                           .show()
@@ -525,4 +570,8 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
