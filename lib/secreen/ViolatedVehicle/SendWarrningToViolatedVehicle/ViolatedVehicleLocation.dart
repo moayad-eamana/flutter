@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,8 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
   final _formKey1 = GlobalKey<FormState>();
 
   List municipalities = [];
-  List neighborhood = [];
+  List districts = [];
+  String? _selectedItem;
   TextEditingController _streetname = TextEditingController();
   TextEditingController _note = TextEditingController();
 
@@ -127,8 +129,34 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                 }
                               },
                               showSearchBox: true,
-                              onChanged: (v) {
+                              onChanged: (v) async {
                                 try {
+                                  try {
+                                    EasyLoading.show(
+                                      status: '... جاري المعالجة',
+                                      maskType: EasyLoadingMaskType.black,
+                                    );
+
+                                    var respons2 = await getAction(
+                                        "ViolatedCars/GetDistricts/${v["MuniciplaityCode"]}");
+                                    if (jsonDecode(
+                                            respons2.body)["StatusCode"] ==
+                                        400) {
+                                      districts =
+                                          jsonDecode(respons2.body)["Items"];
+
+                                      EasyLoading.dismiss();
+                                      setState(() {});
+                                    } else {
+                                      Alerts.warningAlert(context, "تنبيه",
+                                              "لا يوجد بيانات")
+                                          .show();
+                                      EasyLoading.dismiss();
+                                    }
+                                  } catch (e) {
+                                    EasyLoading.dismiss();
+                                  }
+
                                   setState(() {
                                     print(v);
                                     widget.violatedVehicle.MuniciplaityInfo[
@@ -137,11 +165,13 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                     widget.violatedVehicle.MuniciplaityInfo[
                                             "MuniciplaityCode"] =
                                         v["MuniciplaityCode"];
+                                    _selectedItem = null;
                                     print(widget
                                         .violatedVehicle.MuniciplaityInfo);
                                   });
                                 } catch (e) {
-                                  print(e);
+                                  // print(e);
+                                  EasyLoading.dismiss();
                                 }
                               },
                               popupTitle: Container(
@@ -199,14 +229,17 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                               height: 10,
                             ),
                             DropdownSearch<dynamic>(
-                              items: null,
+                              items: districts,
+                              selectedItem:
+                                  _selectedItem == null ? null : _selectedItem,
+                              key: UniqueKey(),
                               popupBackgroundColor: BackGWhiteColor,
                               popupItemBuilder: (context, rr, isSelected) =>
                                   (Container(
                                 margin: EdgeInsets.only(top: 10),
                                 child: Column(
                                   children: [
-                                    Text(rr["type"].toString(),
+                                    Text(rr["DistrictName"].toString(),
                                         style: subtitleTx(baseColorText))
                                   ],
                                 ),
@@ -219,7 +252,7 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                     : Text(
                                         selectedItem == null
                                             ? ""
-                                            : selectedItem["type"] ?? "",
+                                            : selectedItem ?? "",
                                         style: TextStyle(
                                             fontSize: 16,
                                             color: baseColorText)),
@@ -243,8 +276,10 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                 try {
                                   setState(() {
                                     print(v);
-                                    // _registrationType = v["type"];
-                                    // _registrationCode = v["code"];
+                                    _selectedItem = v["DistrictName"];
+                                    widget.violatedVehicle
+                                            .MuniciplaityInfo["DistrictID"] =
+                                        v["DistrictID"];
                                   });
                                 } catch (e) {}
                               },
@@ -352,7 +387,9 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                                   .MuniciplaityInfo[
                                               "MuniciplaityCode"];
                                       widget.violatedVehicle
-                                          .sendwarning["DistrictID"] = "";
+                                              .sendwarning["DistrictID"] =
+                                          widget.violatedVehicle
+                                              .MuniciplaityInfo["DistrictID"];
                                       widget.violatedVehicle
                                               .sendwarning["StreetName"] =
                                           _streetname.text;
