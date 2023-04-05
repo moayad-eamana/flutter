@@ -5,6 +5,8 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import 'ViolatedVehicleAttachment.dart';
+
 class WarnViolatedVehiclePageView extends StatefulWidget {
   const WarnViolatedVehiclePageView({Key? key}) : super(key: key);
 
@@ -37,15 +39,21 @@ class _WarnViolatedVehiclePageViewState
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("title", context, null),
+        appBar: AppBarW.appBarW("إنذار السيارة", context, null),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
             PageView(
+              physics: NeverScrollableScrollPhysics(),
               controller: controller,
               children: [
                 GetViolationVehicleInfo(violatedVehicle, nextPage),
-                ViolatedVehicleLocation()
+                ViolatedVehicleLocation(
+                  violatedVehicle: violatedVehicle,
+                  nextPage: nextPage,
+                  backPage: backPage,
+                ),
+                ViolatedVehicleAttachment(violatedVehicle, backPage)
               ],
             )
           ],
@@ -73,7 +81,7 @@ class _WarnViolatedVehiclePageViewState
 
 class ViolatedVehicle {
   dynamic carInfo;
-  dynamic MuniciplaityInfo;
-  dynamic AttachementsInfo;
+  dynamic MuniciplaityInfo = {};
+  List AttachementsInfo = [];
   dynamic sendwarning = {};
 }

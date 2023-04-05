@@ -315,9 +315,11 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                       children: [
                         widgetsUni.actionbutton('إستعلام', Icons.send,
                             () async {
-                          print(groupValue);
                           widget.violatedVehicle.carInfo = null;
+                          FocusManager.instance.primaryFocus?.unfocus();
+
                           setState(() {});
+
                           if (groupValue == 2) {
                             if (!_formKey2.currentState!.validate()) {
                               return;
@@ -433,45 +435,46 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                 image != null
                     ? Container()
                     : SizedBox(
-                        width: 160,
+                        width: 95,
                         child: widgetsUni.actionbutton(
-                            "إضافة مرفق", Icons.photo_album, () async {
-                          showModalBottomSheet<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                height: 150,
+                            "التالي", Icons.arrow_forward, () async {
+                          widget.nextPage();
+                          //widget.violatedVehicle.sendwarning=;
+                          widget.violatedVehicle.sendwarning["EmplpyeeNumber"] =
+                              int.parse(EmployeeProfile.getEmployeeNumber());
 
-                                ///   color: Colors.amber,
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      TextButton(
-                                          onPressed: () async {
-                                            image =
-                                                await Pickattachments.pickImage(
-                                                    ImageSource.camera);
-                                            Navigator.pop(context);
-                                            setState(() {});
-                                          },
-                                          child: Text("الكاميرا")),
-                                      TextButton(
-                                          onPressed: () async {
-                                            image =
-                                                await Pickattachments.pickImage(
-                                                    ImageSource.gallery);
-                                            Navigator.pop(context);
-                                            setState(() {});
-                                          },
-                                          child: Text("الاستيديو")),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                          widget.violatedVehicle.sendwarning["ChasisNumber"] =
+                              groupValue == 1 ? "" : _VehicleIDNumber.text;
+                          widget.violatedVehicle.sendwarning["PlateNumber"] =
+                              _platenumber.text;
+                          widget.violatedVehicle.sendwarning["Letter1"] =
+                              _plateText.text.trim()[0];
+                          widget.violatedVehicle.sendwarning["Letter2"] =
+                              _plateText.text.trim()[1];
+                          widget.violatedVehicle.sendwarning["Letter3"] =
+                              _plateText.text.trim()[2];
+                          widget.violatedVehicle
+                                  .sendwarning["VehicleUserIdNumber"] =
+                              widget.violatedVehicle.carInfo["PersonID"];
+                          widget.violatedVehicle.sendwarning["VehicleModel"] =
+                              widget.violatedVehicle.carInfo["ModelDescAr"]
+                                  .toString();
+
+                          widget.violatedVehicle.sendwarning["VehicleType"] =
+                              widget.violatedVehicle.carInfo["MakeDescAr"]
+                                  .toString();
+                          widget.violatedVehicle.sendwarning["VehicleYear"] =
+                              widget.violatedVehicle.carInfo["ModelYear"];
+                          widget.violatedVehicle.sendwarning["VehicleColor"] =
+                              widget
+                                  .violatedVehicle.carInfo["MajorColorDescAr"];
+
+                          widget.violatedVehicle.sendwarning["LifeStatus"] =
+                              widget.violatedVehicle.carInfo["IsAlive"];
+
+                          widget.violatedVehicle.sendwarning["SendSMS"] = true;
+
+                          widget.nextPage();
                         }),
                       ),
                 image != null
@@ -480,65 +483,6 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                         setState(() {});
                       })
                     : Container(),
-                Container(
-                  width: 160,
-                  child: widgetsUni.actionbutton("إنذار المستفيد", Icons.send,
-                      () async {
-                    widget.nextPage();
-                    //widget.violatedVehicle.sendwarning=;
-                    widget.violatedVehicle.sendwarning["EmplpyeeNumber"] =
-                        EmployeeProfile.getEmployeeNumber();
-                    widget.violatedVehicle.sendwarning["ChasisNumber"] = "";
-                    widget.violatedVehicle.sendwarning["SerialNumber"] =
-                        groupValue == 1 ? "" : _VehicleIDNumber.text;
-                    widget.violatedVehicle.sendwarning["PlateNumber"] =
-                        _plateText.text;
-                    widget.violatedVehicle.sendwarning["Letter1"] =
-                        _plateText.text.trim()[0];
-                    widget.violatedVehicle.sendwarning["Letter2"] =
-                        _plateText.text.trim()[1];
-                    widget.violatedVehicle.sendwarning["Letter3"] =
-                        _plateText.text.trim()[2];
-                    widget.violatedVehicle.sendwarning["VehicleUserIdNumber"] =
-                        widget.violatedVehicle.carInfo["PersonID"];
-                    widget.violatedVehicle.sendwarning["VehicleModel"] =
-                        widget.violatedVehicle.carInfo["MakeDescAr"].toString();
-
-                    widget.violatedVehicle.sendwarning["VehicleType"] = widget
-                        .violatedVehicle.carInfo["ModelDescAr"]
-                        .toString();
-                    widget.violatedVehicle.sendwarning["VehicleYear"] =
-                        widget.violatedVehicle.carInfo["ModelYear"];
-
-                    return;
-                    if (image == null) {
-                      Alerts.errorAlert(context, "خطأ", 'يجب إرفاق صورة')
-                          .show()
-                          .then((value) {
-                        return;
-                      });
-                    } else {
-                      Alerts.confirmAlrt(context, "",
-                              "هل أنت متأكد من إزسال الانذار", "إرسال")
-                          .show()
-                          .then((value) async {
-                        if (value == true) {
-                          EasyLoading.show(
-                            status: '... جاري المعالجة',
-                            maskType: EasyLoadingMaskType.black,
-                          );
-                          await Future.delayed(Duration(seconds: 1));
-                          EasyLoading.dismiss();
-                          Alerts.successAlert(context, "", "تم الإنذار")
-                              .show()
-                              .then((value) {
-                            // Navigator.pop(context);
-                          });
-                        }
-                      });
-                    }
-                  }),
-                ),
                 SizedBox(
                   height: 20,
                 ),

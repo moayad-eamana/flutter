@@ -140,7 +140,6 @@ class widgetsUni {
         children: [
           Container(
             height: 100,
-            width: 100,
             decoration: BoxDecoration(
               color: BackGWhiteColor,
               border: Border.all(
@@ -159,6 +158,7 @@ class widgetsUni {
                           File(
                             data['path'],
                           ),
+                          width: 100.w,
                           fit: BoxFit.cover,
                         )),
                     onTap: () {
@@ -208,6 +208,7 @@ class widgetsUni {
               constraints: BoxConstraints(),
               icon: const Icon(Icons.close_rounded),
               color: redColor,
+              iconSize: 30,
               onPressed: () {
                 delete();
               },

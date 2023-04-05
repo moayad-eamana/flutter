@@ -99,11 +99,18 @@ class _NotificationPageState extends State<NotificationPage> {
                                             Notifications[index]["Title"],
                                             Notifications[index]["Body"]
                                                 .toString(),
-                                            Notifications[index]["IsRead"]))
+                                            Notifications[index]["IsRead"],
+                                            Notifications[index]
+                                                    ["NotificationDate"]
+                                                .toString()
+                                                .split("T")[0]))
                                     : ee(
                                         Notifications[index]["Title"],
                                         Notifications[index]["Body"].toString(),
-                                        Notifications[index]["IsRead"]),
+                                        Notifications[index]["IsRead"],
+                                        Notifications[index]["NotificationDate"]
+                                            .toString()
+                                            .split("T")[0]),
                               ),
                             ),
                           );
@@ -115,11 +122,23 @@ class _NotificationPageState extends State<NotificationPage> {
     );
   }
 
-  Widget ee(String title, String Body, int IsRead) {
+  Widget ee(String title, String Body, int IsRead, String Date) {
     return ListTile(
-      title: Text(
-        title,
-        style: subtitleTx(IsRead == 1 ? secondryColorText : baseColor),
+      title: Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: subtitleTx(IsRead == 1 ? secondryColorText : baseColor),
+          ),
+          SizedBox(
+            width: 15,
+          ),
+          Text(
+            Date,
+            style: descTx1(baseColorText),
+          )
+        ],
       ),
       subtitle: Text(
         Body.replaceAll("\n", " ").substring(0, 50) +

@@ -379,7 +379,7 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                   if (!_formKey1.currentState!.validate()) {
                                     return;
                                   } else {
-                                    // widget.nextPage();
+                                    widget.nextPage();
                                     setState(() {
                                       widget.violatedVehicle
                                               .sendwarning["MuniciplaityID"] =
@@ -393,6 +393,12 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                       widget.violatedVehicle
                                               .sendwarning["StreetName"] =
                                           _streetname.text;
+                                      widget.violatedVehicle
+                                          .sendwarning["VisitRequest"] = {
+                                        "Notes": _note.text,
+                                        "VisiID": 1,
+                                        "Attachements": []
+                                      };
                                       print(widget.violatedVehicle.sendwarning);
                                     });
                                   }
