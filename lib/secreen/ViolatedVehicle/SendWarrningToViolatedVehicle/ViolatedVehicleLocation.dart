@@ -52,7 +52,7 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
       var respose = await getAction("ViolatedCars/GetActiveMunicipalities");
       print(respose.body);
       setState(() {
-        municipalities = jsonDecode(respose.body)["Items"];
+        municipalities = jsonDecode(respose.body)["data"];
       });
       EasyLoading.dismiss();
     }
@@ -143,7 +143,7 @@ class _ViolatedVehicleLocationState extends State<ViolatedVehicleLocation>
                                             respons2.body)["StatusCode"] ==
                                         400) {
                                       districts =
-                                          jsonDecode(respons2.body)["Items"];
+                                          jsonDecode(respons2.body)["data"];
 
                                       EasyLoading.dismiss();
                                       setState(() {});

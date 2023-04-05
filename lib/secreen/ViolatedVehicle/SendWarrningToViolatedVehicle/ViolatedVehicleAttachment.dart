@@ -96,6 +96,12 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
                           .show()
                           .then((value) async {
                         if (value == true) {
+                          // widget.violatedVehicle.sendwarning["VisitRequest"]
+                          //     ["Attachements"] = [];
+                          // widget.violatedVehicle.sendwarning["StatusID"] = 1;
+                          // widget.violatedVehicle.sendwarning["SerialNumber"] =
+                          //     5;
+
                           EasyLoading.show(
                             status: '... جاري المعالجة',
                             maskType: EasyLoadingMaskType.black,
@@ -104,7 +110,14 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
                               "ViolatedCars/InsertViolationRequest",
                               jsonEncode(widget.violatedVehicle.sendwarning));
                           if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                            Alerts.successAlert(context, "", "تم إرسال الانذار")
+                            Alerts.successAlert(
+                                    context,
+                                    "",
+                                    "تم إرسال الانذار برقم " +
+                                        " " +
+                                        jsonDecode(
+                                                reponse.body)["RequestNumber"]
+                                            .toString())
                                 .show()
                                 .then((value) {
                               Navigator.pop(context);
@@ -224,8 +237,8 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
 
       return loaction;
     } else {
-      widget.violatedVehicle.sendwarning["LocationX"] = loaction.latitude;
-      widget.violatedVehicle.sendwarning["LocationY"] = loaction.longitude;
+      widget.violatedVehicle.sendwarning["Coordinates_X"] = loaction.latitude;
+      widget.violatedVehicle.sendwarning["Coordinates_y"] = loaction.longitude;
       return loaction;
     }
   }

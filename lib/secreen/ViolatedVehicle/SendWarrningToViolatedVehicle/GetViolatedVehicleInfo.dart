@@ -446,7 +446,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                           widget.violatedVehicle.sendwarning["ChasisNumber"] =
                               groupValue == 1 ? "" : _VehicleIDNumber.text;
                           widget.violatedVehicle.sendwarning["PlateNumber"] =
-                              _platenumber.text;
+                              int.parse(_platenumber.text);
                           widget.violatedVehicle.sendwarning["Letter1"] =
                               _plateText.text.trim()[0];
                           widget.violatedVehicle.sendwarning["Letter2"] =
@@ -472,7 +472,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                           widget.violatedVehicle.sendwarning["LifeStatus"] =
                               widget.violatedVehicle.carInfo["IsAlive"];
 
-                          widget.violatedVehicle.sendwarning["SendSMS"] = true;
+                          widget.violatedVehicle.sendwarning["SendSMS"] = false;
 
                           widget.nextPage();
                         }),
