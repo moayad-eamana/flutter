@@ -11,6 +11,7 @@ import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/QrCode/listOfQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
+import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehicleList.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
@@ -322,7 +323,7 @@ class listOfServices {
   List violationVehicleService() {
     return [
       {
-        "service_name": "إستعلام عن السيارات",
+        "service_name": "إنذار سيارة",
         "Navigation": "",
         "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
         "Action": () {
@@ -336,7 +337,23 @@ class listOfServices {
             ),
           );
         }
-      }
+      },
+      {
+        "service_name": "إستعلام",
+        "Navigation": "",
+        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // ignore: prefer_const_constructors
+              builder: (BuildContext context) {
+                return ViolatedVehicleList();
+              },
+            ),
+          );
+        }
+      },
     ];
   }
 
