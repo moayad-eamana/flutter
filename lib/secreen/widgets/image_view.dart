@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ProfileImage extends StatefulWidget {
-  ProfileImage({required this.tag, this.path, Key? key}) : super(key: key);
+  ProfileImage({required this.tag, this.path, this.link, Key? key})
+      : super(key: key);
   String tag;
   String? path;
-
+  String? link;
   @override
   State<ProfileImage> createState() => _ProfileImageState();
 }
@@ -28,7 +29,7 @@ class _ProfileImageState extends State<ProfileImage> {
   final transformationController = TransformationController();
   @override
   Widget build(BuildContext context) {
-    if (widget.tag == "profile")
+    if (widget.tag == "profile" || widget.link == "car")
       return Scaffold(
         body: GestureDetector(
           child: Center(
@@ -41,16 +42,20 @@ class _ProfileImageState extends State<ProfileImage> {
                   //           empinfo.ImageURL.toString().split("\$")[1],
                   //     ),
                   //   ),
-                  CachedNetworkImage(
-                imageUrl: "https://archive.eamana.gov.sa/TransactFileUpload" +
-                    empinfo.ImageURL.toString(),
-                imageBuilder: (context, imageProvider) => PhotoView(
-                  imageProvider: imageProvider,
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  "assets/image/blank-profile.png",
-                ),
-              ),
+
+                  widget.tag == "profile"
+                      ? CachedNetworkImage(
+                          imageUrl:
+                              "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                  empinfo.ImageURL.toString(),
+                          imageBuilder: (context, imageProvider) => PhotoView(
+                            imageProvider: imageProvider,
+                          ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            "assets/image/blank-profile.png",
+                          ),
+                        )
+                      : Image.network(widget.path.toString()),
               //  FadeInImage.assetNetwork(
               //     fit: BoxFit.cover,
               //     // width: 100,

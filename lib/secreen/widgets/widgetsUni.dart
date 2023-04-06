@@ -218,4 +218,33 @@ class widgetsUni {
       ),
     );
   }
+
+  static viewImageNetwork(String link, BuildContext context) {
+    return GestureDetector(
+        child: Hero(
+          tag: link,
+          child: Container(
+            decoration: BoxDecoration(
+              color: BackGWhiteColor,
+              border: Border.all(
+                color: bordercolor,
+              ),
+              //color: baseColor,
+              borderRadius: BorderRadius.all(
+                new Radius.circular(4),
+              ),
+            ),
+            child: Image.network(link),
+          ),
+        ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return ProfileImage(
+              tag: link,
+              path: link,
+              link: "car",
+            );
+          }));
+        });
+  }
 }
