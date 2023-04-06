@@ -341,7 +341,7 @@ class listOfServices {
       {
         "service_name": "إستعلام",
         "Navigation": "",
-        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+        "icon": 'assets/SVGs/car_details.svg',
         "Action": () {
           Navigator.push(
             context,

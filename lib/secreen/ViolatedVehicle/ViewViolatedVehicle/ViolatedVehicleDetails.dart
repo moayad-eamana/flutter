@@ -1,11 +1,15 @@
+import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/FirstVisit.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'ViolatedVehicleinfo.dart';
+
 class ViolatedVehichleDetails extends StatefulWidget {
-  const ViolatedVehichleDetails({Key? key}) : super(key: key);
+  dynamic vehicle;
+  ViolatedVehichleDetails(this.vehicle);
 
   @override
   State<ViolatedVehichleDetails> createState() =>
@@ -13,6 +17,9 @@ class ViolatedVehichleDetails extends StatefulWidget {
 }
 
 class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
+  bool page1 = false;
+  bool page2 = false;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -24,84 +31,14 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
             widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 20),
-                child: Column(
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: ExpansionPanelList(
+                  expansionCallback: (panelIndex, isExpanded) async {
+                    changePanale(panelIndex, isExpanded);
+                  },
                   children: [
-                    Row(
-                      children: [
-                        cards("هوية المالك", '102255514484'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        cards("رقم الطلب", '1518'),
-                        cards("تاريخ الطلب", '2023-03-08'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        cards("رقم اللوحة", '1342'),
-                        cards("الحروف", 'DFR'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        cards("السيارة", "سوناتا"),
-                        cards("نوع السيارة", "هونداي")
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        cards("موديل السيارة", "2007"),
-                        cards("الحالة", "على قيد الحياه"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        cards("المنطقة", 'وسط الدمام - حي السلام'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          widgetsUni.actionbutton('عرض الموقع', Icons.map,
-                              () async {
-                            if (await launchUrl(
-                                Uri.parse(
-                                    "https://www.google.com/maps/search/?api=1&query=${26.394624},${50.095718412}"),
-                                mode: LaunchMode.externalApplication)) {
-                            } else {
-                              await launchUrl(
-                                Uri.parse(
-                                    "https://www.google.com/maps/search/?api=1&query=${26.394624},${50.095718412}"),
-                              );
-                            }
-                          }),
-                          widgetsUni.actionbutton(
-                              'عرض المرفقات', Icons.attach_file, () {}),
-                        ],
-                      ),
-                    )
+                    carinfo(),
+                    firstvisit(),
                   ],
                 ),
               ),
@@ -111,26 +48,52 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
       ),
     );
   }
-}
 
-Widget cards(String title, String desc) {
-  return Expanded(
-    child: Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      child: Card(
-          child: Container(
-        decoration: containerdecoration(BackGWhiteColor),
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: subtitleTx(secondryColorText),
-            ),
-            Text(desc, style: subtitleTx(baseColorText)),
-          ],
-        ),
-      )),
-    ),
-  );
+  ExpansionPanel carinfo() {
+    return ExpansionPanel(
+      backgroundColor: BackGColor,
+      isExpanded: page1,
+      canTapOnHeader: true,
+      headerBuilder: (BuildContext context, bool isExpanded) {
+        print(isExpanded);
+        return ListTile(
+          title: Text(
+            "معلومات السيارة",
+            style: subtitleTx(baseColor),
+          ),
+        );
+      },
+      body: ViolatedVehicle(widget.vehicle),
+    );
+  }
+
+  ExpansionPanel firstvisit() {
+    return ExpansionPanel(
+      backgroundColor: BackGColor,
+      isExpanded: page2,
+      canTapOnHeader: true,
+      headerBuilder: (BuildContext context, bool isExpanded) {
+        print(isExpanded);
+        return ListTile(
+          title: Text(
+            "الزيارة الأولى",
+            style: subtitleTx(baseColor),
+          ),
+        );
+      },
+      body: FirstVisit(widget.vehicle),
+    );
+  }
+
+  changePanale(panelIndex, isExpanded) {
+    if (panelIndex == 0) {
+      page1 = !page1;
+      page2 = false;
+      setState(() {});
+    } else if (panelIndex == 1) {
+      page2 = !page2;
+      page1 = false;
+      setState(() {});
+    }
+  }
 }
