@@ -30,45 +30,70 @@ class _ProfileImageState extends State<ProfileImage> {
   @override
   Widget build(BuildContext context) {
     if (widget.tag == "profile" || widget.link == "car")
-      return Scaffold(
-        body: GestureDetector(
-          child: Center(
-            child: Hero(
-              tag: widget.tag,
-              child:
-                  //  PhotoView(
-                  //     imageProvider: CachedNetworkImageProvider(
-                  //       "https://archive.eamana.gov.sa/TransactFileUpload" +
-                  //           empinfo.ImageURL.toString().split("\$")[1],
-                  //     ),
-                  //   ),
+      return SafeArea(
+        child: Scaffold(
+          body: GestureDetector(
+            child: Stack(
+              children: [
+                Positioned(
+                  right: 5,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 30,
+                        ),
+                        //   Text("رجوع")
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Hero(
+                    tag: widget.tag,
+                    child:
+                        //  PhotoView(
+                        //     imageProvider: CachedNetworkImageProvider(
+                        //       "https://archive.eamana.gov.sa/TransactFileUpload" +
+                        //           empinfo.ImageURL.toString().split("\$")[1],
+                        //     ),
+                        //   ),
 
-                  widget.tag == "profile"
-                      ? CachedNetworkImage(
-                          imageUrl:
-                              "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                  empinfo.ImageURL.toString(),
-                          imageBuilder: (context, imageProvider) => PhotoView(
-                            imageProvider: imageProvider,
-                          ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            "assets/image/blank-profile.png",
-                          ),
-                        )
-                      : Image.network(widget.path.toString()),
-              //  FadeInImage.assetNetwork(
-              //     fit: BoxFit.cover,
-              //     // width: 100,
-              //     // height: 100,
-              //     image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-              //         empinfo.ImageURL.toString().split("\$")[1],
-              //     placeholder: "",
-              //   ),
+                        widget.tag == "profile"
+                            ? CachedNetworkImage(
+                                imageUrl:
+                                    "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                        empinfo.ImageURL.toString(),
+                                imageBuilder: (context, imageProvider) =>
+                                    PhotoView(
+                                  imageProvider: imageProvider,
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                  "assets/image/blank-profile.png",
+                                ),
+                              )
+                            : Image.network(widget.path.toString()),
+                    //  FadeInImage.assetNetwork(
+                    //     fit: BoxFit.cover,
+                    //     // width: 100,
+                    //     // height: 100,
+                    //     image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+                    //         empinfo.ImageURL.toString().split("\$")[1],
+                    //     placeholder: "",
+                    //   ),
+                  ),
+                ),
+              ],
             ),
+            onTap: () {
+              Navigator.pop(context);
+            },
           ),
-          onTap: () {
-            Navigator.pop(context);
-          },
         ),
       );
     return Directionality(

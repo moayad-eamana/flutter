@@ -80,7 +80,7 @@ class _ViolatedVehicleState extends State<ViolatedVehicle> {
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               widgetsUni.actionbutton('عرض الموقع', Icons.map, () async {
                 if (await launchUrl(
@@ -95,7 +95,6 @@ class _ViolatedVehicleState extends State<ViolatedVehicle> {
                   );
                 }
               }),
-              widgetsUni.actionbutton('عرض المرفقات', Icons.attach_file, () {}),
             ],
           ),
         )

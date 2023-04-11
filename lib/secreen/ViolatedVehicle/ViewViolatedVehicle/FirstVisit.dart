@@ -70,61 +70,22 @@ class _FirstVisitState extends State<FirstVisit> {
           height: 5,
         ),
 
-        ///
-        GridView.builder(
-          shrinkWrap: true,
-          itemCount: path.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, crossAxisSpacing: 10.0, mainAxisSpacing: 5.0),
-          itemBuilder: (BuildContext context, int index) {
-            return widgetsUni.viewImageNetwork(path[index].toString(), context);
-          },
-        ),
-
+        /// show images
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              widgetsUni.actionbutton('عرض الموقع', Icons.map, () async {
-                if (await launchUrl(
-                  Uri.parse(
-                      "https://www.google.com/maps/search/?api=1&query={widget.vehicle["
-                      "]},{widget.["
-                      "]}"),
-                  mode: LaunchMode.externalApplication,
-                )) {
-                } else {
-                  await launchUrl(
-                    Uri.parse(
-                        "https://www.google.com/maps/search/?api=1&query={widget.vehicle["
-                        "]},{widget.["
-                        "]}"),
-                  );
-                }
-              }),
-              widgetsUni.actionbutton('عرض المرفقات', Icons.attach_file,
-                  () async {
-                var respone = await getAction(
-                    "ViolatedCars/GetVisitAttachments/${visits["ArcSerial"]}");
-                respone = jsonDecode(respone.body);
-                if (respone["StatusCode"] == 400) {
-                  respone = respone["data"];
-                  print(respone[0]["FilePath"]);
-                  List path = [
-                    {
-                      "https://archive.eamana.gov.sa/TransactFileUpload" +
-                          respone[0]["FilePath"]
-                    }
-                  ];
-                } else {
-                  Alerts.warningAlert(context, "رسالة", "لا توجد بيانات")
-                      .show();
-                }
-              }),
-            ],
+          margin: EdgeInsets.all(15),
+          child: GridView.builder(
+            shrinkWrap: true,
+            itemCount: path.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 5.0),
+            itemBuilder: (BuildContext context, int index) {
+              return widgetsUni.viewImageNetwork(
+                  path[index].toString(), context);
+            },
           ),
-        )
+        ),
       ],
     );
   }

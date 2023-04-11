@@ -215,7 +215,7 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
 
     if (a != null) {
       widget.violatedVehicle.AttachementsInfo.add(a);
-      widget.violatedVehicle.sendwarning["VisitRequest"]["Attachements"].add(a);
+      //   widget.violatedVehicle.sendwarning["VisitRequest"]["Attachements"].add(a);
       (widget.violatedVehicle.sendwarning["VisitRequest"]["Attachements"]).add(
           {"FileBytes": a["base64"], "FileName": a["name"], "DocTypeID": 17});
       setState(() {});
