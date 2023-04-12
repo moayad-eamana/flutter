@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/model/employeeInfo/EmpInfo.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,9 +69,6 @@ class _FirstVisitState extends State<FirstVisit> {
                 visits["Notes"] == "" ? "لاتوجد ملاحظات" : visits["Notes"]),
           ],
         ),
-        SizedBox(
-          height: 5,
-        ),
 
         /// show images
         Container(
@@ -86,6 +86,97 @@ class _FirstVisitState extends State<FirstVisit> {
             },
           ),
         ),
+
+        if (widget.firstvisit["StatusID"] == 2)
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                widgetsUni.actionbutton('إحالة الطلب للمراقب', Icons.forward,
+                    () async {
+                  Alerts.confirmAlrt(context, "رسالة تأكيد",
+                          "هل تريد إحالة الطلب للمراقب ؟", "نعم")
+                      .show()
+                      .then((value) async {
+                    if (value == true) {
+                      EasyLoading.show(
+                        status: '... جاري المعالجة',
+                        maskType: EasyLoadingMaskType.black,
+                      );
+                      var reponse = await postAction(
+                          "Inbox/UpdateViolatedVehiclesRequestStatus",
+                          jsonEncode({
+                            "RequestNumber": widget.firstvisit["RequestID"],
+                            "Notes": "",
+                            "NewStatusID": 3,
+                            "EmployeeNumber":
+                                int.parse(EmployeeProfile.getEmployeeNumber()),
+                          }));
+                      if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+                        Alerts.successAlert(
+                                context,
+                                "",
+                                "تم تحديث الطلب" +
+                                    " " +
+                                    jsonDecode(reponse.body)["StatusMessage"]
+                                        .toString())
+                            .show()
+                            .then((value) {
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        Alerts.errorAlert(context, "خطأ",
+                                jsonDecode(reponse.body)["ErrorMessage"])
+                            .show();
+                      }
+                      EasyLoading.dismiss();
+                    }
+                  });
+                }),
+                widgetsUni.actionbutton('إغلاق الطلب', Icons.close, () async {
+                  Alerts.confirmAlrt(context, "رسالة تأكيد",
+                          "هل تريد إغلاق الطلب ؟", "نعم")
+                      .show()
+                      .then((value) async {
+                    if (value == true) {
+                      EasyLoading.show(
+                        status: '... جاري المعالجة',
+                        maskType: EasyLoadingMaskType.black,
+                      );
+                      var reponse = await postAction(
+                          "Inbox/UpdateViolatedVehiclesRequestStatus",
+                          jsonEncode({
+                            "RequestNumber": widget.firstvisit["RequestID"],
+                            "Notes": "",
+                            "NewStatusID": 10,
+                            "EmployeeNumber":
+                                int.parse(EmployeeProfile.getEmployeeNumber()),
+                          }));
+                      if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+                        Alerts.successAlert(
+                                context,
+                                "",
+                                "تم تحديث الطلب" +
+                                    " " +
+                                    jsonDecode(reponse.body)["StatusMessage"]
+                                        .toString())
+                            .show()
+                            .then((value) {
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        Alerts.errorAlert(context, "خطأ",
+                                jsonDecode(reponse.body)["ErrorMessage"])
+                            .show();
+                      }
+                      EasyLoading.dismiss();
+                    }
+                  });
+                }),
+              ],
+            ),
+          ),
       ],
     );
   }
