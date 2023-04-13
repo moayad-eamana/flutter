@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,6 +26,21 @@ class _SecondVisitState extends State<SecondVisit> {
   bool yes = false;
   bool no = false;
   List location = [];
+  double? Location_X;
+  double? Location_Y;
+  @override
+  void initState() {
+    // TODO: implement initState
+    getLocation();
+    super.initState();
+  }
+
+  getLocation() async {
+    var response = await getAction("ViolatedCars/GetLocations");
+    location = jsonDecode(response.body)["data"];
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -61,7 +78,10 @@ class _SecondVisitState extends State<SecondVisit> {
             SizedBox(
               height: 15,
             ),
-            dropDownLocation(),
+            if (no == true) dropDownLocation(),
+            SizedBox(
+              height: 15,
+            ),
             SizedBox(
               height: 15,
             ),
@@ -215,15 +235,13 @@ class _SecondVisitState extends State<SecondVisit> {
       items: location,
       popupBackgroundColor: BackGWhiteColor,
       popupItemBuilder: (context, rr, isSelected) =>
-          dropDownCss.popupItemBuilder(rr["MunicipalityName"].toString()),
+          dropDownCss.popupItemBuilder(rr["LocationName"].toString()),
       dropdownBuilder: (context, selectedItem) => Container(
         decoration: null,
         child: selectedItem == null
             ? null
             : Text(
-                selectedItem == null
-                    ? ""
-                    : selectedItem["MunicipalityName"] ?? "",
+                selectedItem == null ? "" : selectedItem["LocationName"] ?? "",
                 style: TextStyle(fontSize: 16, color: baseColorText)),
       ),
       dropdownBuilderSupportsNullItem: true,
@@ -239,7 +257,11 @@ class _SecondVisitState extends State<SecondVisit> {
         }
       },
       showSearchBox: true,
-      onChanged: (v) async {},
+      onChanged: (v) async {
+        Location_X = v["Location_X"];
+        Location_Y = v["Location_Y"];
+        print(Location_X);
+      },
       popupTitle: dropDownCss.popupTitle("الموقع"),
       popupShape: dropDownCss.popupShape(),
       emptyBuilder: (context, searchEntry) => Center(

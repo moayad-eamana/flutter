@@ -10,7 +10,8 @@ import 'ViolatedVehicleinfo.dart';
 
 class ViolatedVehichleDetails extends StatefulWidget {
   dynamic vehicle;
-  ViolatedVehichleDetails(this.vehicle);
+  int typId;
+  ViolatedVehichleDetails(this.vehicle, this.typId);
 
   @override
   State<ViolatedVehichleDetails> createState() =>
@@ -22,6 +23,13 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
   bool page2 = false;
   bool page3 = false;
   bool page4 = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    openDefultePanel();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +50,8 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
                   children: [
                     carinfo(),
                     firstvisit(),
-                    secondvisit(),
-                    violationInfoW()
+                    if (widget.vehicle["StatusID"] >= 3) secondvisit(),
+                    if (widget.vehicle["StatusID"] >= 4) violationInfoW()
                   ],
                 ),
               ),
@@ -148,6 +156,18 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
       page2 = false;
       page3 = false;
     }
+    setState(() {});
+  }
+
+  openDefultePanel() {
+    if (widget.typId == 152) {
+      page2 = true;
+    } else if (widget.typId == 153) {
+      page3 = true;
+    } else if (widget.typId == 154) {
+      page4 = true;
+    }
+
     setState(() {});
   }
 }

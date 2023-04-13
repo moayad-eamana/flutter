@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehiclepanels.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -7,10 +9,11 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:http/http.dart';
 import 'package:sizer/sizer.dart';
 
 class ViolatedVehicleList extends StatefulWidget {
+  int typeId;
+  ViolatedVehicleList(this.typeId);
   @override
   State<ViolatedVehicleList> createState() => _ViolatedVehicleListState();
 }
@@ -30,7 +33,14 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
-    var resbonse = await getAction("ViolatedCars/GetViolatedCarsRequests/2");
+    var resbonse;
+    if (widget.typeId == -1) {
+      resbonse = await getAction("ViolatedCars/GetViolatedCarsRequests/2");
+    } else {
+      resbonse = await getAction("Inbox/GetViolatedVehiclesRequests/" +
+          EmployeeProfile.getEmployeeNumber());
+    }
+
     isloading = false;
     VehicleList = jsonDecode(resbonse.body)["data"] ?? [];
     setState(() {});
@@ -70,7 +80,7 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
                                       // ignore: prefer_const_constructors
                                       builder: (BuildContext context) {
                                         return ViolatedVehichleDetails(
-                                            VehicleList[index]);
+                                            VehicleList[index], widget.typeId);
                                       },
                                     ),
                                   );

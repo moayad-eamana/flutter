@@ -3,6 +3,7 @@ import 'package:eamanaapp/provider/mahamme/HrDecisionsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/MobasharaProvider.dart';
 import 'package:eamanaapp/provider/mahamme/PurchaseRequestsProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehicleList.dart';
 import 'package:eamanaapp/secreen/mahamme/CooperativeTrainingRequests.dart';
 import 'package:eamanaapp/secreen/mahamme/GetCardRequest.dart';
 import 'package:eamanaapp/secreen/mahamme/GetPromotionRequest.dart';
@@ -244,7 +245,24 @@ class _InboxHedersViewState extends State<InboxHedersView> {
           );
         },
       );
+    } else if (_provider.TypeID == 152 ||
+        _provider.TypeID == 153 ||
+        _provider.TypeID == 154 ||
+        _provider.TypeID == 155 ||
+        _provider.TypeID == 165) {
+      return caerdContent(
+        "السيارات المسحوبة",
+        "assets/SVGs/ViolatedVehicleInfo.svg",
+        () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ViolatedVehicleList(_provider.TypeID)),
+          );
+        },
+      );
     }
+
     //else if (_provider.TypeID == 120) {
     //   return caerdContent(
     //     "إعتماد إعارة",
