@@ -7,7 +7,7 @@
    fill="#000000"
    version="1.1"
    id="svg16"
-   sodipodi:docname="work_out.svg"
+   sodipodi:docname="work_history_black_24dp.svg"
    inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -26,8 +26,8 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="34.875"
-     inkscape:cx="10.896057"
-     inkscape:cy="12.100358"
+     inkscape:cx="10.853047"
+     inkscape:cy="12.014337"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -47,7 +47,7 @@
     <g
        id="g10">
       <path
-         d="M 3.0537635,8.9999999 V 20 h 7.0799995 c -0.05,-0.33 -0.08,-0.66 -0.08,-1 0,-3.87 3.13,-7 7,-7 0.7,0 1.37,0.1 2,0.29 V 8.9999999 Z"
+         d="M 4.8602151,8.8888889 V 19.888889 h 7.0799999 c -0.05,-0.33 -0.08,-0.66 -0.08,-1 0,-3.87 3.13,-7 7,-7 0.7,0 1.37,0.1 2,0.29 V 8.8888889 Z"
          opacity=".3"
          id="path6"
          style="opacity:1;fill:#2CB1A6;fill-opacity:1" />

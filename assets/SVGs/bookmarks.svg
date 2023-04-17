@@ -6,7 +6,7 @@
    fill="#000000"
    version="1.1"
    id="svg17352"
-   sodipodi:docname="bookmarks.svg"
+   sodipodi:docname="bookmarks_black_24dp.svg"
    inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,8 +25,8 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="34.875"
-     inkscape:cx="7.4551971"
-     inkscape:cy="12.100358"
+     inkscape:cx="7.4121864"
+     inkscape:cy="12.014337"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
@@ -38,7 +38,7 @@
      fill="none"
      id="path17348" />
   <path
-     style="fill:#2CB1A6;fill-opacity:1;stroke:none;stroke-width:0.0286738"
+     style="fill:#2CB1A6;fill-opacity:1;stroke:#2CB1A6;stroke-width:0.0286738"
      d="M 4.1290322,14.450903 V 7.9856631 H 9.1182789 14.107527 V 14.45468 c 0,5.163746 -0.0072,6.466124 -0.03584,6.454678 -0.01971,-0.0079 -1.134205,-0.486687 -2.476649,-1.064 -1.342444,-0.577313 -2.4607181,-1.049659 -2.4850521,-1.049659 -0.02433,0 -1.1259714,0.465717 -2.4480815,1.034928 -1.3221103,0.569211 -2.4328692,1.046311 -2.468353,1.060222 l -0.064516,0.02529 z"
      id="path17427" />
   <path

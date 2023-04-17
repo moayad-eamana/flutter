@@ -23,6 +23,7 @@ class SecondVisit extends StatefulWidget {
 class _SecondVisitState extends State<SecondVisit> {
   final _formKey1 = GlobalKey<FormState>();
   List images = [null, null, null];
+  List Ataachment = [null, null, null];
   bool yes = false;
   bool no = false;
   List location = [];
@@ -64,9 +65,9 @@ class _SecondVisitState extends State<SecondVisit> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CardsAttachment("السيارة عند التأشير", 0),
-                    CardsAttachment("السيارة عند الرفع", 1),
-                    CardsAttachment("المحضر", 2)
+                    CardsAttachment("السيارة عند التأشير", 0, 763),
+                    CardsAttachment("السيارة عند الرفع", 1, 764),
+                    CardsAttachment("المحضر", 2, 765)
                   ],
                 )
               ],
@@ -100,7 +101,7 @@ class _SecondVisitState extends State<SecondVisit> {
   }
 
 // pick images
-  Widget CardsAttachment(String caption, int index) {
+  Widget CardsAttachment(String caption, int index, int docTypeID) {
     return Column(
       children: [
         images[index] == null
@@ -120,7 +121,7 @@ class _SecondVisitState extends State<SecondVisit> {
                   ),
                   InkWell(
                     onTap: () {
-                      BottomSheet(index);
+                      BottomSheet(index, docTypeID);
                     },
                     child: Container(
                       height: 100,
@@ -132,7 +133,7 @@ class _SecondVisitState extends State<SecondVisit> {
               )
             : InkWell(
                 onTap: () {
-                  BottomSheet(index);
+                  BottomSheet(index, docTypeID);
                 },
                 child: Image.file(
                   File(images[index]["path"]),
@@ -148,7 +149,7 @@ class _SecondVisitState extends State<SecondVisit> {
     );
   }
 
-  BottomSheet(int indx) {
+  BottomSheet(int indx, int docTypeID) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -167,6 +168,11 @@ class _SecondVisitState extends State<SecondVisit> {
                       Navigator.pop(context);
                       images[indx] =
                           await Pickattachments.pickImage(ImageSource.camera);
+                      Ataachment[indx]["FileBytes"] = images[indx]["base64"];
+                      Ataachment[indx]["FileName"] = images[indx]["name"];
+                      Ataachment[indx]["FilePath"] = images[indx]["path"];
+                      Ataachment[indx]["DocTypeName"] = images[indx]["type"];
+                      Ataachment[indx]["DocTypeID"] = docTypeID;
                       setState(() {});
                     },
                     child: Text("الكاميرا"),
@@ -179,6 +185,11 @@ class _SecondVisitState extends State<SecondVisit> {
                       Navigator.pop(context);
                       images[indx] =
                           await Pickattachments.pickImage(ImageSource.gallery);
+                      Ataachment[indx]["FileBytes"] = images[indx]["base64"];
+                      Ataachment[indx]["FileName"] = images[indx]["name"];
+                      Ataachment[indx]["FilePath"] = images[indx]["path"];
+                      Ataachment[indx]["DocTypeName"] = images[indx]["type"];
+                      Ataachment[indx]["DocTypeID"] = docTypeID;
                       setState(() {});
                     },
                     child: Text("الاستديو"),

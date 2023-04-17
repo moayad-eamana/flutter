@@ -40,13 +40,13 @@ class _MainHomeState extends State<MainHome> {
     "assets/image/flag1.png",
   ];
   List<int> selectsilderBanner = [0];
-  List<String> selectsilderTitle = ["تهنئة رمضان"];
+  List<String> selectsilderTitle = ["تهنئة العيد"];
 
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
     setState(() {});
-    if (sharedPref.getBool("imageLoad") == null) {
-      sharedPref.setBool("imageLoad", true);
+    if (sharedPref.getBool("imageLoad22s") == null) {
+      sharedPref.setBool("imageLoad22", true);
       await http.get(Uri.parse(
           'https://srv.eamana.gov.sa/EidCongrats/Home/index?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
       image = true;
@@ -57,7 +57,7 @@ class _MainHomeState extends State<MainHome> {
     var v = sharedPref.getBool("oneTimeDialog1");
     if (v == null) {
       myDialog();
-      sharedPref.setBool("oneTimeDialog", false);
+      sharedPref.setBool("oneTimeDialog1", false);
     }
     setState(() {});
   }
@@ -501,7 +501,7 @@ class _MainHomeState extends State<MainHome> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "عساكم من العوادة وكل عام وانتم بخير",
+                      "عاد عيدكم ودامت أفراحكم",
                       style: TextStyle(
                           fontSize: 24,
                           color: baseColor,
@@ -521,7 +521,7 @@ class _MainHomeState extends State<MainHome> {
                     ),
                     Center(
                       child: Text(
-                        "مشاركة تهنئة رمضان اسفل الصفحة",
+                        "مشاركة تهنئة العيد اسفل الصفحة",
                         style: TextStyle(
                           fontSize: 14,
                           color: secondryColor,
