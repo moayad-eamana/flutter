@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/route_manager.dart';
 
 import '../../main.dart';
 
@@ -16,13 +14,13 @@ class _splashScreenState extends State<splashScreen> {
   void initState() {
     super.initState();
     int dur = 0;
-    if (sharedPref.getBool("foundingday") == null) {
+    if (sharedPref.getBool("splash1") == null) {
       dur = 5;
     } else {
       dur = 3;
     }
     new Future.delayed(Duration(seconds: dur), () async {
-      sharedPref.setBool("foundingday", true);
+      sharedPref.setBool("splash1", true);
       var username = sharedPref.getDouble("EmployeeNumber");
       var fingerprint = sharedPref.getBool("fingerprint");
       late String route;

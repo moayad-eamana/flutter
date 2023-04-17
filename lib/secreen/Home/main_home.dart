@@ -48,13 +48,13 @@ class _MainHomeState extends State<MainHome> {
     if (sharedPref.getBool("imageLoad") == null) {
       sharedPref.setBool("imageLoad", true);
       await http.get(Uri.parse(
-          'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
+          'https://srv.eamana.gov.sa/EidCongrats/Home/index?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
       image = true;
     } else {
       image = true;
     }
     // myDialog(); // --> test
-    var v = sharedPref.getBool("oneTimeDialog");
+    var v = sharedPref.getBool("oneTimeDialog1");
     if (v == null) {
       myDialog();
       sharedPref.setBool("oneTimeDialog", false);
@@ -338,7 +338,7 @@ class _MainHomeState extends State<MainHome> {
                 Row(
                   children: [
                     Text(
-                      "مشاركة تهنئة بطاقة رمضان",
+                      "مشاركة تهنئة بطاقة العيد",
                       style: titleTx(baseColorText),
                     ),
                     Expanded(
@@ -404,10 +404,10 @@ class _MainHomeState extends State<MainHome> {
                                         logApi(logapiO);
                                         try {
                                           await http.get(Uri.parse(
-                                              'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
+                                              'https://srv.eamana.gov.sa/EidCongrats/Home/index?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
                                           final ByteData imageData =
                                               await NetworkAssetBundle(Uri.parse(
-                                                      "https://srv.eamana.gov.sa/RamadanCongratulation/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
+                                                      "https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
                                                   .load("");
 
                                           bytes =
@@ -428,7 +428,7 @@ class _MainHomeState extends State<MainHome> {
                                           ),
                                           child: image == true
                                               ? Image.network(
-                                                  "https://srv.eamana.gov.sa/RamadanCongratulation/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png",
+                                                  "https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png",
                                                   height:
                                                       responsiveMT(300, 200),
                                                   fit: BoxFit.fill,
@@ -501,7 +501,7 @@ class _MainHomeState extends State<MainHome> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "رمضان مبارك وكل عام وانتم بخير",
+                      "عساكم من العوادة وكل عام وانتم بخير",
                       style: TextStyle(
                           fontSize: 24,
                           color: baseColor,
