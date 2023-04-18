@@ -97,7 +97,7 @@ class _violationInfoState extends State<violationInfo> {
         // ),
 
         // statusID == 4
-        if (statusID == 2) e3tmadbutton(),
+        if (statusID == 4) e3tmadbutton(),
         SizedBox(
           height: 15,
         ),
@@ -347,8 +347,8 @@ class _violationInfoState extends State<violationInfo> {
       child: Row(
         children: [
           widgetsUni.actionbutton('إعتماد', Icons.forward, () async {
-            Alerts.confirmAlrt(context, "رسالة تأكيد",
-                    "هل تريد إحالة الطلب للمراقب ؟", "نعم")
+            Alerts.confirmAlrt(
+                    context, "رسالة تأكيد", "هل تريد إعتماد المخالفة ؟", "نعم")
                 .show()
                 .then((value) async {
               if (value == true) {
@@ -366,13 +366,7 @@ class _violationInfoState extends State<violationInfo> {
                           int.parse(EmployeeProfile.getEmployeeNumber()),
                     }));
                 if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                  Alerts.successAlert(
-                          context,
-                          "",
-                          "تم تحديث الطلب" +
-                              " " +
-                              jsonDecode(reponse.body)["StatusMessage"]
-                                  .toString())
+                  Alerts.successAlert(context, "", "سيتم إرسال رسالة نصية ")
                       .show()
                       .then((value) {
                     Navigator.pop(context);

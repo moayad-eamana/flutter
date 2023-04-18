@@ -115,12 +115,7 @@ class _FirstVisitState extends State<FirstVisit> {
                           }));
                       if (jsonDecode(reponse.body)["StatusCode"] == 400) {
                         Alerts.successAlert(
-                                context,
-                                "",
-                                "تم تحديث الطلب" +
-                                    " " +
-                                    jsonDecode(reponse.body)["StatusMessage"]
-                                        .toString())
+                                context, "", "تم إحالة الطلب للمراقب")
                             .show()
                             .then((value) {
                           Navigator.pop(context);
@@ -154,13 +149,7 @@ class _FirstVisitState extends State<FirstVisit> {
                                 int.parse(EmployeeProfile.getEmployeeNumber()),
                           }));
                       if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                        Alerts.successAlert(
-                                context,
-                                "",
-                                "تم تحديث الطلب" +
-                                    " " +
-                                    jsonDecode(reponse.body)["StatusMessage"]
-                                        .toString())
+                        Alerts.successAlert(context, "", "تم إغلاق الطلب")
                             .show()
                             .then((value) {
                           Navigator.pop(context);
