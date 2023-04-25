@@ -249,7 +249,7 @@ class _InboxHedersViewState extends State<InboxHedersView> {
         _provider.TypeID == 153 ||
         _provider.TypeID == 154 ||
         _provider.TypeID == 155 ||
-        _provider.TypeID == 165) {
+        _provider.TypeID == 156) {
       return caerdContent(
         "السيارات المسحوبة",
         "assets/SVGs/ViolatedVehicleInfo.svg",

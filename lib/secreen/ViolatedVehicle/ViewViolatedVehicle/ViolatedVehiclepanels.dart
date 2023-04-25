@@ -50,10 +50,8 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
                   children: [
                     carinfo(),
                     firstvisit(),
-                    //   if (widget.vehicle["StatusID"] >= 3)
-                    secondvisit(),
-                    // if (widget.vehicle["StatusID"] >= 4)
-                    violationInfoW()
+                    if (widget.vehicle["StatusID"] >= 3) secondvisit(),
+                    if (widget.vehicle["StatusID"] >= 4) violationInfoW()
                   ],
                 ),
               ),

@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/utilities/dropDownCss.dart';
@@ -23,12 +24,14 @@ class SecondVisit extends StatefulWidget {
 class _SecondVisitState extends State<SecondVisit> {
   final _formKey1 = GlobalKey<FormState>();
   List images = [null, null, null];
-  List Ataachment = [null, null, null];
+  List Ataachment = [{}, {}, {}];
   bool yes = false;
   bool no = false;
   List location = [];
   double? Location_X;
   double? Location_Y;
+  int? locationID;
+  TextEditingController _Note = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -87,9 +90,32 @@ class _SecondVisitState extends State<SecondVisit> {
               height: 15,
             ),
             TextFormField(
+              controller: _Note,
               maxLines: 3,
               style: TextStyle(color: baseColorText),
               decoration: formlabel1("ملاحظات"),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "الرجاء إدخال الملاحظات";
+                }
+              },
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: widgetsUni.actionbutton("إرسال", Icons.send, () {
+                  send();
+                })),
+                SizedBox(
+                  width: 15,
+                ),
+                Expanded(
+                    child: widgetsUni.actionbutton(
+                        "إلغاء البلاغ", Icons.close, () {})),
+              ],
             ),
             SizedBox(
               height: 15,
@@ -262,7 +288,7 @@ class _SecondVisitState extends State<SecondVisit> {
       dropdownSearchDecoration: formlabel1("اختر الموقع"),
       validator: (value) {
         if (value == "" || value == null) {
-          return "الرجاء إختيار الموعد";
+          return "الرجاء إختيار الموقع";
         } else {
           return null;
         }
@@ -287,5 +313,80 @@ class _SecondVisitState extends State<SecondVisit> {
       clearButton: dropDownCss.clearButton(),
       dropDownButton: dropDownCss.dropDownButton(),
     );
+  }
+
+  send() async {
+    var res = valdation();
+    if (res != false) {
+      Alerts.confirmAlrt(context, "", "هل أنت متأكد من إرسال الطلب", "نعم")
+          .show()
+          .then((value) async {
+        if (value == true) {
+          EasyLoading.show(
+            status: '... جاري المعالجة',
+            maskType: EasyLoadingMaskType.black,
+          );
+
+          var response = await postAction(
+              "ViolatedCars/InsertVisit",
+              jsonEncode({
+                "EmplpyeeNumber":
+                    int.parse(EmployeeProfile.getEmployeeNumber()),
+                "RequestNumber": widget.vehicle["RequestID"],
+                "Notes": _Note.text,
+                "IsProcessed": yes ? 1 : 0,
+                "LocationID": locationID,
+                "VisiID": 2,
+                "Attachements": Ataachment
+              }));
+
+          if (jsonDecode(response.body)["StatusCode"] == 400) {
+            var response2 = await postAction(
+                "Inbox/UpdateViolatedVehiclesRequestStatus",
+                jsonEncode({
+                  "RequestNumber": widget.vehicle["RequestID"],
+                  "Notes": "",
+                  "NewStatusID": 4,
+                  "EmployeeNumber":
+                      int.parse(EmployeeProfile.getEmployeeNumber()),
+                }));
+            EasyLoading.dismiss();
+
+            if (jsonDecode(response2.body)["StatusCode"] == 400) {
+              Alerts.successAlert(context, "", "تم الارسال")
+                  .show()
+                  .then((value) {
+                Navigator.pop(context);
+              });
+            } else {
+              Alerts.errorAlert(
+                      context, "", jsonDecode(response2.body)["ErrorMessage"])
+                  .show();
+              return;
+            }
+          } else {
+            EasyLoading.dismiss();
+            Alerts.errorAlert(context, "خطأ",
+                    jsonDecode(response.body)["ErrorMessage"].toString())
+                .show();
+            return;
+          }
+        }
+      });
+    }
+  }
+
+  valdation() {
+    if (images.contains(null)) {
+      Alerts.errorAlert(context, "خطأ", "يجب إرفاق الصور").show();
+      return false;
+    }
+    if (yes == false && no == false) {
+      Alerts.errorAlert(context, "خطأ", "يجب إختيار معالجة البلاغ").show();
+      return false;
+    }
+    if (!_formKey1.currentState!.validate()) {
+      return false;
+    }
   }
 }

@@ -345,6 +345,7 @@ class _violationInfoState extends State<violationInfo> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           widgetsUni.actionbutton('إعتماد', Icons.forward, () async {
             Alerts.confirmAlrt(
