@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>رقمي تجريبي</string>
+	<string>رقمي</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,8 +29,6 @@
 		<string>https</string>
 		<string>http</string>
 	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>app requires you enable the location to complete the process</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -46,6 +44,8 @@
 	<string>Access contacts for event attendee editing.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Why is my app authenticating using face id?</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>app requires you enable the location to complete the process</string>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
 	<dict>
 		<key>TemporaryPreciseAccuracy</key>

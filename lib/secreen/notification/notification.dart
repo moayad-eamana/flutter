@@ -141,7 +141,8 @@ class _NotificationPageState extends State<NotificationPage> {
         ],
       ),
       subtitle: Text(
-        Body.replaceAll("\n", " ").substring(0, 50) +
+        Body.replaceAll("\n", " ")
+                .substring(0, Body.length <= 50 ? Body.toString().length : 50) +
             (Body.toString().length > 50 ? "..." : ""),
         style: descTx2(baseColorText),
         textAlign: TextAlign.right,

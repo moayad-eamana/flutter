@@ -45,8 +45,8 @@ class _MainHomeState extends State<MainHome> {
   embId() async {
     id = await EmployeeProfile.getEmplPerm();
     setState(() {});
-    if (sharedPref.getBool("imageLoad22s") == null) {
-      sharedPref.setBool("imageLoad22", true);
+    if (sharedPref.getBool("imageLoad2023-0") == null) {
+      sharedPref.setBool("imageLoad2023-0", true);
       await http.get(Uri.parse(
           'https://srv.eamana.gov.sa/EidCongrats/Home/index?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
       image = true;
@@ -54,10 +54,10 @@ class _MainHomeState extends State<MainHome> {
       image = true;
     }
     // myDialog(); // --> test
-    var v = sharedPref.getBool("oneTimeDialog1");
+    var v = sharedPref.getBool("oneTimeDialog2023-0");
     if (v == null) {
       myDialog();
-      sharedPref.setBool("oneTimeDialog1", false);
+      sharedPref.setBool("oneTimeDialog2023-0", false);
     }
     setState(() {});
   }
@@ -335,148 +335,148 @@ class _MainHomeState extends State<MainHome> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      "مشاركة تهنئة بطاقة العيد",
-                      style: titleTx(baseColorText),
-                    ),
-                    Expanded(
-                      child: Container(
-                          // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                          child: Divider(
-                        color: baseColorText,
-                        height: 20,
-                        thickness: 1,
-                        indent: 5,
-                        endIndent: 5,
-                      )),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: containerdecoration(BackGWhiteColor),
-                  child: Column(
-                    children: [
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          // aspectRatio: 3 / 4,
-                          viewportFraction: 1.0,
-                          enlargeCenterPage: false,
-                          autoPlay: false,
-                          height: responsiveMT(300, 200),
-                          onPageChanged: (index, reason) {
-                            setState(
-                              () {
-                                _currentIndexBanner = index;
-                              },
-                            );
-                          },
-                        ),
-                        items: imageBanner
-                            .map(
-                              (e) => Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        EasyLoading.show(
-                                          status: '... جاري المعالجة',
-                                          maskType: EasyLoadingMaskType.black,
-                                        );
-                                        Uint8List? bytes;
-                                        logApiModel logapiO = logApiModel();
-                                        logapiO.ControllerName =
-                                            "RamadanCongratulation";
-                                        logapiO.ClassName =
-                                            "RamadanCongratulation";
-                                        logapiO.EmployeeNumber = int.parse(
-                                            EmployeeProfile
-                                                .getEmployeeNumber());
-                                        logapiO.ActionMethodName =
-                                            "بطاقة تهنئة";
-                                        logapiO.ActionMethodType = 2;
-                                        logapiO.StatusCode = 1;
-                                        logApi(logapiO);
-                                        try {
-                                          await http.get(Uri.parse(
-                                              'https://srv.eamana.gov.sa/EidCongrats/Home/index?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
-                                          final ByteData imageData =
-                                              await NetworkAssetBundle(Uri.parse(
-                                                      "https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
-                                                  .load("");
+                // Row(
+                //   children: [
+                //     Text(
+                //       "مشاركة تهنئة بطاقة العيد",
+                //       style: titleTx(baseColorText),
+                //     ),
+                //     Expanded(
+                //       child: Container(
+                //           // margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                //           child: Divider(
+                //         color: baseColorText,
+                //         height: 20,
+                //         thickness: 1,
+                //         indent: 5,
+                //         endIndent: 5,
+                //       )),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   decoration: containerdecoration(BackGWhiteColor),
+                //   child: Column(
+                //     children: [
+                //       CarouselSlider(
+                //         options: CarouselOptions(
+                //           // aspectRatio: 3 / 4,
+                //           viewportFraction: 1.0,
+                //           enlargeCenterPage: false,
+                //           autoPlay: false,
+                //           height: responsiveMT(300, 200),
+                //           onPageChanged: (index, reason) {
+                //             setState(
+                //               () {
+                //                 _currentIndexBanner = index;
+                //               },
+                //             );
+                //           },
+                //         ),
+                //         items: imageBanner
+                //             .map(
+                //               (e) => Row(
+                //                 mainAxisSize: MainAxisSize.max,
+                //                 children: [
+                //                   Expanded(
+                //                     child: GestureDetector(
+                //                       onTap: () async {
+                //                         EasyLoading.show(
+                //                           status: '... جاري المعالجة',
+                //                           maskType: EasyLoadingMaskType.black,
+                //                         );
+                //                         Uint8List? bytes;
+                //                         logApiModel logapiO = logApiModel();
+                //                         logapiO.ControllerName =
+                //                             "RamadanCongratulation";
+                //                         logapiO.ClassName =
+                //                             "RamadanCongratulation";
+                //                         logapiO.EmployeeNumber = int.parse(
+                //                             EmployeeProfile
+                //                                 .getEmployeeNumber());
+                //                         logapiO.ActionMethodName =
+                //                             "بطاقة تهنئة";
+                //                         logapiO.ActionMethodType = 2;
+                //                         logapiO.StatusCode = 1;
+                //                         logApi(logapiO);
+                //                         try {
+                //                           await http.get(Uri.parse(
+                //                               'https://srv.eamana.gov.sa/EidCongrats/Home/index?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
+                //                           final ByteData imageData =
+                //                               await NetworkAssetBundle(Uri.parse(
+                //                                       "https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
+                //                                   .load("");
 
-                                          bytes =
-                                              imageData.buffer.asUint8List();
-                                        } catch (e) {}
+                //                           bytes =
+                //                               imageData.buffer.asUint8List();
+                //                         } catch (e) {}
 
-                                        final imageEncoded = base64.encode(bytes
-                                            as Uint8List); // returns base64 string
-                                        ViewFile.open(imageEncoded, ".png");
-                                        setState(() {});
-                                        EasyLoading.dismiss();
-                                      },
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 2.0, color: baseColor),
-                                            color: Colors.white,
-                                          ),
-                                          child: image == true
-                                              ? Image.network(
-                                                  "https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png",
-                                                  height:
-                                                      responsiveMT(300, 200),
-                                                  fit: BoxFit.fill,
-                                                )
-                                              : Container()),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 2.0),
-                        // child: Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: selectsilderBanner.map((urlOfItem2) {
-                        //     int index = selectsilderBanner.indexOf(urlOfItem2);
-                        //     return Container(
-                        //       width: 10.0,
-                        //       height: 10.0,
-                        //       margin: EdgeInsets.symmetric(
-                        //           vertical: 5.0, horizontal: 2.0),
-                        //       decoration: BoxDecoration(
-                        //           shape: BoxShape.circle,
-                        //           color: _currentIndexBanner == index
-                        //               ? baseColor
-                        //               : secondryColor),
-                        //     );
-                        //   }).toList(),
-                        // ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: Text(
-                              selectsilderTitle.elementAt(_currentIndexBanner) +
-                                  "\n",
-                              style: descTx1(baseColorText),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                //                         final imageEncoded = base64.encode(bytes
+                //                             as Uint8List); // returns base64 string
+                //                         ViewFile.open(imageEncoded, ".png");
+                //                         setState(() {});
+                //                         EasyLoading.dismiss();
+                //                       },
+                //                       child: Container(
+                //                           decoration: BoxDecoration(
+                //                             border: Border.all(
+                //                                 width: 2.0, color: baseColor),
+                //                             color: Colors.white,
+                //                           ),
+                //                           child: image == true
+                //                               ? Image.network(
+                //                                   "https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png",
+                //                                   height:
+                //                                       responsiveMT(300, 200),
+                //                                   fit: BoxFit.fill,
+                //                                 )
+                //                               : Container()),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             )
+                //             .toList(),
+                //       ),
+                //       Container(
+                //         margin: EdgeInsets.symmetric(
+                //             vertical: 5.0, horizontal: 2.0),
+                //         // child: Row(
+                //         //   mainAxisAlignment: MainAxisAlignment.center,
+                //         //   children: selectsilderBanner.map((urlOfItem2) {
+                //         //     int index = selectsilderBanner.indexOf(urlOfItem2);
+                //         //     return Container(
+                //         //       width: 10.0,
+                //         //       height: 10.0,
+                //         //       margin: EdgeInsets.symmetric(
+                //         //           vertical: 5.0, horizontal: 2.0),
+                //         //       decoration: BoxDecoration(
+                //         //           shape: BoxShape.circle,
+                //         //           color: _currentIndexBanner == index
+                //         //               ? baseColor
+                //         //               : secondryColor),
+                //         //     );
+                //         //   }).toList(),
+                //         // ),
+                //       ),
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Center(
+                //             child: Text(
+                //               selectsilderTitle.elementAt(_currentIndexBanner) +
+                //                   "\n",
+                //               style: descTx1(baseColorText),
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -572,10 +572,10 @@ class _MainHomeState extends State<MainHome> {
                         logApi(logapiO);
                         try {
                           await http.get(Uri.parse(
-                              'https://srv.eamana.gov.sa/RamadanCongratulation/Home/Congratulation?employeeNumber=${EmployeeProfile.getEmployeeNumber()}'));
+                              'https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png}'));
                           final ByteData imageData = await NetworkAssetBundle(
                                   Uri.parse(
-                                      "https://srv.eamana.gov.sa/RamadanCongratulation/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
+                                      "https://srv.eamana.gov.sa/EidCongrats/Content/Files/${EmployeeProfile.getEmployeeNumber()}.png"))
                               .load("");
 
                           bytes = imageData.buffer.asUint8List();
