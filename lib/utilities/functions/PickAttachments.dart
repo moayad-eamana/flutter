@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Pickattachments {
@@ -12,7 +13,7 @@ class Pickattachments {
       imageQuality: 100,
     );
     if (images != null) {
-      final imageTemp = File(images!.path);
+      final imageTemp = File(images.path);
       var base64 = base64Encode(await imageTemp.readAsBytes());
       int sizeInBytes = imageTemp.lengthSync();
       double sizeInMb = sizeInBytes / (1024 * 1024);
@@ -52,6 +53,26 @@ class Pickattachments {
         });
       }
 
+      return res;
+    }
+  }
+
+  static pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    dynamic file;
+    if (result != null) {
+      file = result;
+    }
+
+    if (file != null) {
+      final filTemp = await File(file.files[0].path);
+      var base64 = base64Encode(await filTemp.readAsBytes());
+      var res = {
+        'path': file.files[0].path,
+        'type': file.files[0].extension,
+        'name': file.files[0].name,
+        'base64': base64,
+      };
       return res;
     }
   }

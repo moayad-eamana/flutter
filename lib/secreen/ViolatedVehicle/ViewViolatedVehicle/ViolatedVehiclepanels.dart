@@ -164,7 +164,7 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
       page2 = true;
     } else if (widget.typId == 153) {
       page3 = true;
-    } else if (widget.typId == 154) {
+    } else if (widget.typId == 154 || widget.typId == 156) {
       page4 = true;
     }
 

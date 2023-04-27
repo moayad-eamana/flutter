@@ -31,10 +31,12 @@ class _SecondVisitState extends State<SecondVisit> {
   double? Location_X;
   double? Location_Y;
   int? locationID;
+
   TextEditingController _Note = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
+
     getLocation();
     super.initState();
   }
@@ -78,7 +80,7 @@ class _SecondVisitState extends State<SecondVisit> {
             SizedBox(
               height: 15,
             ),
-            isNoticeproceed(),
+            if (findDiffDays() > 7) isNoticeproceed(),
             SizedBox(
               height: 15,
             ),
@@ -103,20 +105,22 @@ class _SecondVisitState extends State<SecondVisit> {
             SizedBox(
               height: 15,
             ),
-            Row(
-              children: [
-                Expanded(
-                    child: widgetsUni.actionbutton("إرسال", Icons.send, () {
-                  send();
-                })),
-                SizedBox(
-                  width: 15,
-                ),
-                Expanded(
-                    child: widgetsUni.actionbutton(
-                        "إلغاء البلاغ", Icons.close, () {})),
-              ],
-            ),
+            if (widget.vehicle["StatusID"] == 3)
+              Row(
+                children: [
+                  if (findDiffDays() > 7)
+                    Expanded(
+                        child: widgetsUni.actionbutton("إرسال", Icons.send, () {
+                      send();
+                    })),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Expanded(
+                      child: widgetsUni.actionbutton(
+                          "إلغاء البلاغ", Icons.close, () {})),
+                ],
+              ),
             SizedBox(
               height: 15,
             ),
@@ -388,5 +392,12 @@ class _SecondVisitState extends State<SecondVisit> {
     if (!_formKey1.currentState!.validate()) {
       return false;
     }
+  }
+
+  findDiffDays() {
+    DateTime dt = DateTime.parse(widget.vehicle["RequestDate"]);
+    final date2 = DateTime.now();
+    final difference = date2.difference(dt).inDays;
+    return difference;
   }
 }
