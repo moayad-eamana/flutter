@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehiclepanels.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -24,18 +22,19 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
   @override
   void initState() {
     // TODO: implement initState
-    getData();
+    getData("0");
     super.initState();
   }
 
-  getData() async {
+  getData(String statuseID) async {
     EasyLoading.show(
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
     var resbonse;
     if (widget.typeId == -1) {
-      resbonse = await getAction("ViolatedCars/GetViolatedCarsRequests/2");
+      resbonse =
+          await getAction("ViolatedCars/GetViolatedCarsRequests/" + statuseID);
     } else {
       resbonse = await getAction("Inbox/GetViolatedVehiclesRequests/" +
           EmployeeProfile.getEmployeeNumber());
@@ -51,84 +50,123 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Scaffold(
-          appBar: AppBarW.appBarW("السيارات المسحوبة", context, null),
-          body: SingleChildScrollView(
-            child: Container(
-              height: 90.h,
-              child: Stack(
-                children: [
-                  widgetsUni.bacgroundimage(),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: VehicleList.length == 0 && isloading == false
-                        ? Center(
-                            child: Text(
-                              "لايوجد بيانات",
-                              style: titleTx(baseColor),
-                            ),
-                          )
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: VehicleList.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      // ignore: prefer_const_constructors
-                                      builder: (BuildContext context) {
-                                        return ViolatedVehichleDetails(
-                                            VehicleList[index], widget.typeId);
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  child: Container(
-                                    decoration:
-                                        containerdecoration(Colors.white),
-                                    child: ListTile(
-                                      title: Text(
-                                        VehicleList[index]["StatusName"],
-                                        style: subtitleTx(baseColor),
+      child: DefaultTabController(
+        initialIndex: 0,
+        length: 3,
+        child: Scaffold(
+            appBar: widget.typeId == -1
+                ? AppBar(
+                    bottom: TabBar(
+                      labelColor: baseColor,
+                      onTap: (value) {
+                        print(value);
+                        if (value == 1) {
+                          value = 10;
+                        } else if (value == 2) {
+                          value = 7;
+                        } else {
+                          value = 0;
+                        }
+                        getData(value.toString());
+                      },
+                      tabs: [
+                        Tab(
+                          child: Text("تحت الإجراء"),
+                        ),
+                        Tab(
+                          child: Text("منتهية"),
+                        ),
+                        Tab(
+                          child: Text("متلفة"),
+                        ),
+                      ],
+                    ),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    title: Text(
+                      'السيارات المسحوبة',
+                      style: titleTx(secondryColor),
+                    ),
+                  )
+                : AppBarW.appBarW("السيارات المسحوبة", context, null),
+            body: SingleChildScrollView(
+              child: Container(
+                height: 90.h,
+                child: Stack(
+                  children: [
+                    widgetsUni.bacgroundimage(),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: VehicleList.length == 0 && isloading == false
+                          ? Center(
+                              child: Text(
+                                "لايوجد بيانات",
+                                style: titleTx(baseColor),
+                              ),
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: VehicleList.length,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        // ignore: prefer_const_constructors
+                                        builder: (BuildContext context) {
+                                          return ViolatedVehichleDetails(
+                                              VehicleList[index],
+                                              widget.typeId);
+                                        },
                                       ),
-                                      leading: Text(
-                                        VehicleList[index]["RequestID"]
-                                            .toString(),
-                                        style: subtitleTx(secondryColor),
+                                    );
+                                  },
+                                  child: Card(
+                                    child: Container(
+                                      decoration:
+                                          containerdecoration(Colors.white),
+                                      child: ListTile(
+                                        title: Text(
+                                          VehicleList[index]["StatusName"],
+                                          style: subtitleTx(baseColor),
+                                        ),
+                                        leading: Text(
+                                          VehicleList[index]["RequestID"]
+                                              .toString(),
+                                          style: subtitleTx(secondryColor),
+                                        ),
+                                        subtitle: Row(
+                                          children: [
+                                            Text(
+                                              "نوع السيارة:  " +
+                                                  VehicleList[index]
+                                                      ["VehicleType"] +
+                                                  " - ",
+                                              style: descTx1(baseColorText),
+                                            ),
+                                            Text(
+                                              "التاريخ: " +
+                                                  VehicleList[index]
+                                                          ["RequestDate"]
+                                                      .toString()
+                                                      .split("T")[0],
+                                              style: descTx1(baseColorText),
+                                            ),
+                                          ],
+                                        ),
+                                        trailing: Icon(Icons.arrow_forward_ios),
                                       ),
-                                      subtitle: Row(
-                                        children: [
-                                          Text(
-                                            "نوع السيارة:  " +
-                                                VehicleList[index]
-                                                    ["VehicleType"] +
-                                                " - ",
-                                            style: descTx1(baseColorText),
-                                          ),
-                                          Text(
-                                            "التاريخ: " +
-                                                VehicleList[index]
-                                                        ["RequestDate"]
-                                                    .toString()
-                                                    .split("T")[0],
-                                            style: descTx1(baseColorText),
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: Icon(Icons.arrow_forward_ios),
                                     ),
                                   ),
-                                ),
-                              );
-                            }),
-                  )
-                ],
+                                );
+                              }),
+                    )
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 }

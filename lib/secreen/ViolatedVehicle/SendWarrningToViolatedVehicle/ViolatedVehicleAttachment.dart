@@ -201,7 +201,7 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
             .add({
           "FileBytes": a[i]["base64"],
           "FileName": a[i]["name"],
-          "DocTypeID": 17
+          "DocTypeID": 762
         });
       }
       setState(() {});
@@ -217,7 +217,7 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
       widget.violatedVehicle.AttachementsInfo.add(a);
       //   widget.violatedVehicle.sendwarning["VisitRequest"]["Attachements"].add(a);
       (widget.violatedVehicle.sendwarning["VisitRequest"]["Attachements"]).add(
-          {"FileBytes": a["base64"], "FileName": a["name"], "DocTypeID": 17});
+          {"FileBytes": a["base64"], "FileName": a["name"], "DocTypeID": 762});
       setState(() {});
     }
   }

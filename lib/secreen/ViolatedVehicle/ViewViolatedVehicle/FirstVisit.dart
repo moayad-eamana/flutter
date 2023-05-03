@@ -1,19 +1,12 @@
-import 'dart:convert';
-
-import 'package:eamanaapp/model/employeeInfo/EmpInfo.dart';
-import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/secreen/widgets/alerts.dart';
-import 'package:eamanaapp/utilities/constantApi.dart';
+import 'package:eamanaapp/provider/ViolatedVehicle/FirstVisitP.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class FirstVisit extends StatefulWidget {
+  List imageByArcSerial;
   dynamic firstvisit;
-  FirstVisit(this.firstvisit);
+  FirstVisit(this.firstvisit, this.imageByArcSerial);
 
   @override
   State<FirstVisit> createState() => _FirstVisitState();
@@ -28,30 +21,24 @@ class _FirstVisitState extends State<FirstVisit> {
     super.initState();
     setState(() {
       visits = widget.firstvisit["Visits"][0];
-      print(visits);
       getimage();
     });
   }
 
   void getimage() async {
-    var respone = await getAction(
-        "ViolatedCars/GetVisitAttachments/${visits["ArcSerial"]}");
-    respone = jsonDecode(respone.body);
-    if (respone["StatusCode"] == 400) {
-      respone = respone["data"];
-      print(respone[0]["FilePath"]);
-      path = [
-        "https://archive.eamana.gov.sa/TransactFileUpload/" +
-            respone[1]["FilePath"]
-      ];
-      setState(() {});
-    } else {
-      Alerts.warningAlert(context, "رسالة", "لا توجد بيانات").show();
-    }
+    path = widget.imageByArcSerial
+        .where((element) => element["DocTypeID"] == 762)
+        .toList();
+    print(path);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    path = widget.imageByArcSerial
+        .where((element) => element["DocTypeID"] == 762)
+        .toList();
+    print(path);
     return Column(
       children: [
         Row(
@@ -82,11 +69,13 @@ class _FirstVisitState extends State<FirstVisit> {
                 mainAxisSpacing: 5.0),
             itemBuilder: (BuildContext context, int index) {
               return widgetsUni.viewImageNetwork(
-                  path[index].toString(), context);
+                  "https://archive.eamana.gov.sa/TransactFileUpload/" +
+                      path[index]["FilePath"].toString(),
+                  context);
             },
           ),
         ),
-
+        // eatmad for first visit
         if (widget.firstvisit["StatusID"] == 2)
           Container(
             margin: EdgeInsets.all(10),
@@ -95,73 +84,13 @@ class _FirstVisitState extends State<FirstVisit> {
               children: [
                 widgetsUni.actionbutton('إحالة الطلب للمراقب', Icons.forward,
                     () async {
-                  Alerts.confirmAlrt(context, "رسالة تأكيد",
-                          "هل تريد إحالة الطلب للمراقب ؟", "نعم")
-                      .show()
-                      .then((value) async {
-                    if (value == true) {
-                      EasyLoading.show(
-                        status: '... جاري المعالجة',
-                        maskType: EasyLoadingMaskType.black,
-                      );
-                      var reponse = await postAction(
-                          "Inbox/UpdateViolatedVehiclesRequestStatus",
-                          jsonEncode({
-                            "RequestNumber": widget.firstvisit["RequestID"],
-                            "Notes": "",
-                            "NewStatusID": 3,
-                            "EmployeeNumber":
-                                int.parse(EmployeeProfile.getEmployeeNumber()),
-                          }));
-                      if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                        Alerts.successAlert(
-                                context, "", "تم إحالة الطلب للمراقب")
-                            .show()
-                            .then((value) {
-                          Navigator.pop(context);
-                        });
-                      } else {
-                        Alerts.errorAlert(context, "خطأ",
-                                jsonDecode(reponse.body)["ErrorMessage"])
-                            .show();
-                      }
-                      EasyLoading.dismiss();
-                    }
-                  });
+                  FirstVisitP.transformToinespector(
+                      context, widget.firstvisit["RequestID"]);
                 }),
+                //cancel request
                 widgetsUni.actionbutton('إغلاق الطلب', Icons.close, () async {
-                  Alerts.confirmAlrt(context, "رسالة تأكيد",
-                          "هل تريد إغلاق الطلب ؟", "نعم")
-                      .show()
-                      .then((value) async {
-                    if (value == true) {
-                      EasyLoading.show(
-                        status: '... جاري المعالجة',
-                        maskType: EasyLoadingMaskType.black,
-                      );
-                      var reponse = await postAction(
-                          "Inbox/UpdateViolatedVehiclesRequestStatus",
-                          jsonEncode({
-                            "RequestNumber": widget.firstvisit["RequestID"],
-                            "Notes": "",
-                            "NewStatusID": 10,
-                            "EmployeeNumber":
-                                int.parse(EmployeeProfile.getEmployeeNumber()),
-                          }));
-                      if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                        Alerts.successAlert(context, "", "تم إغلاق الطلب")
-                            .show()
-                            .then((value) {
-                          Navigator.pop(context);
-                        });
-                      } else {
-                        Alerts.errorAlert(context, "خطأ",
-                                jsonDecode(reponse.body)["ErrorMessage"])
-                            .show();
-                      }
-                      EasyLoading.dismiss();
-                    }
-                  });
+                  FirstVisitP.cancelRequest(
+                      context, widget.firstvisit["RequestID"]);
                 }),
               ],
             ),

@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/FirstVisit.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/SecondVisit.dart';
+import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/transactions.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/violationInfo.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -23,12 +27,29 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
   bool page2 = false;
   bool page3 = false;
   bool page4 = false;
+  bool page5 = false;
+  List imageByArcSerial = [];
   @override
   void initState() {
     // TODO: implement initState
-
+    getimage();
     openDefultePanel();
     super.initState();
+  }
+
+  void getimage() async {
+    var respone = await getAction(
+        "ViolatedCars/GetVisitAttachments/${widget.vehicle["ArcSerial"]}");
+    respone = jsonDecode(respone.body);
+    if (respone["StatusCode"] == 400) {
+      respone = respone["data"];
+      print(respone[0]["FilePath"]);
+      imageByArcSerial = respone;
+      print(imageByArcSerial);
+      setState(() {});
+    } else {
+      //Alerts.warningAlert(context, "رسالة", "لا توجد بيانات").show();
+    }
   }
 
   @override
@@ -51,7 +72,8 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
                     carinfo(),
                     firstvisit(),
                     if (widget.vehicle["StatusID"] >= 3) secondvisit(),
-                    if (widget.vehicle["StatusID"] >= 4) violationInfoW()
+                    if (widget.vehicle["StatusID"] >= 4) violationInfoW(),
+                    transaction(),
                   ],
                 ),
               ),
@@ -94,7 +116,7 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
           ),
         );
       },
-      body: FirstVisit(widget.vehicle),
+      body: FirstVisit(widget.vehicle, imageByArcSerial),
     );
   }
 
@@ -112,7 +134,7 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
           ),
         );
       },
-      body: SecondVisit(widget.vehicle),
+      body: SecondVisit(widget.vehicle, imageByArcSerial),
     );
   }
 
@@ -134,24 +156,52 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
     );
   }
 
+  ExpansionPanel transaction() {
+    return ExpansionPanel(
+      backgroundColor: BackGColor,
+      isExpanded: page5,
+      canTapOnHeader: true,
+      headerBuilder: (BuildContext context, bool isExpanded) {
+        print(isExpanded);
+        return ListTile(
+          title: Text(
+            "سجل الطلب",
+            style: subtitleTx(baseColor),
+          ),
+        );
+      },
+      body: transactions(),
+    );
+  }
+
   changePanale(panelIndex, isExpanded) {
     if (panelIndex == 0) {
       page1 = !page1;
       page2 = false;
       page3 = false;
       page4 = false;
+      page5 = false;
     } else if (panelIndex == 1) {
       page2 = !page2;
       page1 = false;
       page3 = false;
       page4 = false;
+      page5 = false;
     } else if (panelIndex == 2) {
       page3 = !page3;
       page1 = false;
       page2 = false;
       page4 = false;
+      page5 = false;
     } else if (panelIndex == 3) {
       page4 = !page4;
+      page1 = false;
+      page2 = false;
+      page3 = false;
+      page5 = false;
+    } else if (panelIndex == 4) {
+      page5 = !page5;
+      page4 = false;
       page1 = false;
       page2 = false;
       page3 = false;

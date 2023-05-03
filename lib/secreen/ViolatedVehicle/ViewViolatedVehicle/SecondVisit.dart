@@ -1,21 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/provider/ViolatedVehicle/SecondVisitP.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/utilities/dropDownCss.dart';
 
 class SecondVisit extends StatefulWidget {
   dynamic vehicle;
-  SecondVisit(this.vehicle);
+  List imagesss = [];
+  SecondVisit(this.vehicle, this.imagesss);
 
   @override
   State<SecondVisit> createState() => _SecondVisitState();
@@ -24,6 +24,7 @@ class SecondVisit extends StatefulWidget {
 class _SecondVisitState extends State<SecondVisit> {
   final _formKey1 = GlobalKey<FormState>();
   List images = [null, null, null];
+
   List Ataachment = [{}, {}, {}];
   bool yes = false;
   bool no = false;
@@ -31,24 +32,50 @@ class _SecondVisitState extends State<SecondVisit> {
   double? Location_X;
   double? Location_Y;
   int? locationID;
-
+  String? LocationName;
+  List path = [];
   TextEditingController _Note = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
 
     getLocation();
+    filtterimages();
+    if (widget.vehicle["StatusID"] >= 4) {
+      _Note.text = widget.vehicle["Visits"][1]["Notes"];
+      LocationName = widget.vehicle["Visits"][1]["Location"];
+      setState(() {});
+    }
     super.initState();
+  }
+
+  filtterimages() {
+    path = widget.imagesss
+        .where((element) =>
+            element["DocTypeID"] == 763 ||
+            element["DocTypeID"] == 764 ||
+            element["DocTypeID"] == 765)
+        .toList();
+
+    setState(() {});
+    //  print(widget.images);
   }
 
   getLocation() async {
     var response = await getAction("ViolatedCars/GetLocations");
     location = jsonDecode(response.body)["data"];
+
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    path = widget.imagesss
+        .where((element) =>
+            element["DocTypeID"] == 763 ||
+            element["DocTypeID"] == 764 ||
+            element["DocTypeID"] == 765)
+        .toList();
     return Form(
       key: _formKey1,
       child: Container(
@@ -70,9 +97,12 @@ class _SecondVisitState extends State<SecondVisit> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CardsAttachment("السيارة عند التأشير", 0, 763),
-                    CardsAttachment("السيارة عند الرفع", 1, 764),
-                    CardsAttachment("المحضر", 2, 765)
+                    CardsAttachment("السيارة عند التأشير", 0, 763,
+                        path.length > 0 ? path[2]["FilePath"] : ""),
+                    CardsAttachment("السيارة عند الرفع", 1, 764,
+                        path.length > 0 ? path[1]["FilePath"] : ""),
+                    CardsAttachment("المحضر", 2, 765,
+                        path.length > 0 ? path[0]["FilePath"] : "")
                   ],
                 )
               ],
@@ -80,17 +110,32 @@ class _SecondVisitState extends State<SecondVisit> {
             SizedBox(
               height: 15,
             ),
-            if (findDiffDays() > 7) isNoticeproceed(),
+
+            if (findDiffDays() > 7 && widget.vehicle["StatusID"] == 3)
+              isNoticeproceed(),
             SizedBox(
               height: 15,
             ),
-            if (no == true) dropDownLocation(),
-            SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              height: 15,
-            ),
+            // show location if the car still in the location
+            if (no == true && widget.vehicle["StatusID"] == 3)
+              dropDownLocation(),
+            if (no == true && widget.vehicle["StatusID"] == 3)
+              SizedBox(
+                height: 15,
+              ),
+            if (widget.vehicle["StatusID"] > 3)
+              TextFormField(
+                enabled: false,
+                controller: TextEditingController(
+                    text: widget.vehicle["Visits"][1]["Location"]),
+                style: TextStyle(color: baseColorText),
+                decoration: formlabel1("الموقع"),
+              ),
+
+            if (widget.vehicle["StatusID"] > 3)
+              SizedBox(
+                height: 15,
+              ),
             TextFormField(
               controller: _Note,
               maxLines: 3,
@@ -105,6 +150,7 @@ class _SecondVisitState extends State<SecondVisit> {
             SizedBox(
               height: 15,
             ),
+            // show button Actions
             if (widget.vehicle["StatusID"] == 3)
               Row(
                 children: [
@@ -117,8 +163,11 @@ class _SecondVisitState extends State<SecondVisit> {
                     width: 15,
                   ),
                   Expanded(
-                      child: widgetsUni.actionbutton(
-                          "إلغاء البلاغ", Icons.close, () {})),
+                      child: widgetsUni
+                          .actionbutton('إلغاء الطلب', Icons.forward, () async {
+                    SecondVisitP.cancelRequest(
+                        context, widget.vehicle["RequestID"]);
+                  })),
                 ],
               ),
             SizedBox(
@@ -131,46 +180,56 @@ class _SecondVisitState extends State<SecondVisit> {
   }
 
 // pick images
-  Widget CardsAttachment(String caption, int index, int docTypeID) {
+  Widget CardsAttachment(
+      String caption, int index, int docTypeID, String link) {
     return Column(
       children: [
-        images[index] == null
-            ? Stack(
-                fit: StackFit.loose,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      //print("object");
-                    },
-                    child: Placeholder(
-                      color: secondryColorText,
-                      strokeWidth: 0.4,
-                      fallbackHeight: 100,
-                      fallbackWidth: 100,
+        if (widget.vehicle["StatusID"] == 3)
+          images[index] == null
+              ? Stack(
+                  fit: StackFit.loose,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        //print("object");
+                      },
+                      child: Placeholder(
+                        color: secondryColorText,
+                        strokeWidth: 0.4,
+                        fallbackHeight: 100,
+                        fallbackWidth: 100,
+                      ),
                     ),
+                    InkWell(
+                      onTap: () {
+                        BottomSheet(index, docTypeID);
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        child: Center(child: Text("صورة")),
+                      ),
+                    ),
+                  ],
+                )
+              : InkWell(
+                  onTap: () {
+                    BottomSheet(index, docTypeID);
+                  },
+                  child: Image.file(
+                    File(images[index]["path"]),
+                    width: 100,
+                    height: 100,
                   ),
-                  InkWell(
-                    onTap: () {
-                      BottomSheet(index, docTypeID);
-                    },
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      child: Center(child: Text("صورة")),
-                    ),
-                  )
-                ],
-              )
-            : InkWell(
-                onTap: () {
-                  BottomSheet(index, docTypeID);
-                },
-                child: Image.file(
-                  File(images[index]["path"]),
-                  width: 100,
-                  height: 100,
                 ),
-              ),
+        if (widget.vehicle["StatusID"] > 3 && link != "")
+          Container(
+            width: 100,
+            height: 100,
+            child: widgetsUni.viewImageNetwork(
+                "https://archive.eamana.gov.sa/TransactFileUpload/" + link,
+                context),
+          ),
         Text(
           caption,
           style: descTx1(baseColorText),
@@ -301,7 +360,8 @@ class _SecondVisitState extends State<SecondVisit> {
       onChanged: (v) async {
         Location_X = v["Location_X"];
         Location_Y = v["Location_Y"];
-        print(Location_X);
+        locationID = v["LocationID"];
+        print(v);
       },
       popupTitle: dropDownCss.popupTitle("الموقع"),
       popupShape: dropDownCss.popupShape(),
@@ -322,61 +382,8 @@ class _SecondVisitState extends State<SecondVisit> {
   send() async {
     var res = valdation();
     if (res != false) {
-      Alerts.confirmAlrt(context, "", "هل أنت متأكد من إرسال الطلب", "نعم")
-          .show()
-          .then((value) async {
-        if (value == true) {
-          EasyLoading.show(
-            status: '... جاري المعالجة',
-            maskType: EasyLoadingMaskType.black,
-          );
-
-          var response = await postAction(
-              "ViolatedCars/InsertVisit",
-              jsonEncode({
-                "EmplpyeeNumber":
-                    int.parse(EmployeeProfile.getEmployeeNumber()),
-                "RequestNumber": widget.vehicle["RequestID"],
-                "Notes": _Note.text,
-                "IsProcessed": yes ? 1 : 0,
-                "LocationID": locationID,
-                "VisiID": 2,
-                "Attachements": Ataachment
-              }));
-
-          if (jsonDecode(response.body)["StatusCode"] == 400) {
-            var response2 = await postAction(
-                "Inbox/UpdateViolatedVehiclesRequestStatus",
-                jsonEncode({
-                  "RequestNumber": widget.vehicle["RequestID"],
-                  "Notes": "",
-                  "NewStatusID": 4,
-                  "EmployeeNumber":
-                      int.parse(EmployeeProfile.getEmployeeNumber()),
-                }));
-            EasyLoading.dismiss();
-
-            if (jsonDecode(response2.body)["StatusCode"] == 400) {
-              Alerts.successAlert(context, "", "تم الارسال")
-                  .show()
-                  .then((value) {
-                Navigator.pop(context);
-              });
-            } else {
-              Alerts.errorAlert(
-                      context, "", jsonDecode(response2.body)["ErrorMessage"])
-                  .show();
-              return;
-            }
-          } else {
-            EasyLoading.dismiss();
-            Alerts.errorAlert(context, "خطأ",
-                    jsonDecode(response.body)["ErrorMessage"].toString())
-                .show();
-            return;
-          }
-        }
-      });
+      SecondVisitP.sendSecondVisit(context, widget.vehicle["RequestID"],
+          _Note.text, yes, locationID, Ataachment);
     }
   }
 

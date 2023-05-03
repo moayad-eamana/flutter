@@ -1,15 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/provider/ViolatedVehicle/violationInfoP.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
@@ -39,7 +36,6 @@ class _violationInfoState extends State<violationInfo> {
     getSadadStatus();
     setState(() {
       statusID = widget.vehicle["StatusID"];
-      print(statusID);
     });
   }
 
@@ -251,38 +247,8 @@ class _violationInfoState extends State<violationInfo> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           widgetsUni.actionbutton('إعتماد', Icons.forward, () async {
-            Alerts.confirmAlrt(
-                    context, "رسالة تأكيد", "هل تريد إعتماد المخالفة ؟", "نعم")
-                .show()
-                .then((value) async {
-              if (value == true) {
-                EasyLoading.show(
-                  status: '... جاري المعالجة',
-                  maskType: EasyLoadingMaskType.black,
-                );
-                var reponse = await postAction(
-                    "Inbox/UpdateViolatedVehiclesRequestStatus",
-                    jsonEncode({
-                      "RequestNumber": widget.vehicle["RequestID"],
-                      "Notes": "",
-                      "NewStatusID": 5,
-                      "EmployeeNumber":
-                          int.parse(EmployeeProfile.getEmployeeNumber()),
-                    }));
-                if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                  Alerts.successAlert(context, "", "سيتم إرسال رسالة نصية ")
-                      .show()
-                      .then((value) {
-                    Navigator.pop(context);
-                  });
-                } else {
-                  Alerts.errorAlert(context, "خطأ",
-                          jsonDecode(reponse.body)["ErrorMessage"])
-                      .show();
-                }
-                EasyLoading.dismiss();
-              }
-            });
+            violationInfoP.approveViolation(
+                context, widget.vehicle["RequestID"]);
           }),
         ],
       ),
@@ -302,55 +268,11 @@ class _violationInfoState extends State<violationInfo> {
                       .show();
                   return;
                 }
-                Alerts.confirmAlrt(context, "",
-                        "سوف يتم تحويل الطلب إلى مدير إدارة النظافة", "تحويل")
-                    .show()
-                    .then((value) async {
-                  if (value == true) {
-                    EasyLoading.show(
-                      status: '... جاري المعالجة',
-                      maskType: EasyLoadingMaskType.black,
-                    );
-                    var reponse = await postAction(
-                        "Inbox/UpdateViolatedVehiclesRequestStatus",
-                        jsonEncode({
-                          "RequestNumber": widget.vehicle["RequestID"],
-                          "Notes": "",
-                          "NewStatusID": 6,
-                          "EmployeeNumber":
-                              int.parse(EmployeeProfile.getEmployeeNumber()),
-                        }));
-                    if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                      var response2 = await postAction(
-                          "ViolatedCars/UploadImages",
-                          jsonEncode({
-                            "EmplpyeeNumber":
-                                int.parse(EmployeeProfile.getEmployeeNumber()),
-                            "ArcSerial": widget.vehicle["ArcSerial"],
-                            "Attachements": [
-                              {
-                                "DocTypeID": 762,
-                                "FileBytes": attac["base64"],
-                                "FileName": attac["name"],
-                                "FilePath": attac["path"],
-                                "DocTypeName": attac["type"]
-                              },
-                            ]
-                          }));
-                      EasyLoading.dismiss();
-                      Alerts.successAlert(context, "", "تم تحويل الطلب")
-                          .show()
-                          .then((value) {
-                        Navigator.pop(context);
-                      });
-                    } else {
-                      Alerts.errorAlert(context, "خطأ",
-                              jsonDecode(reponse.body)["ErrorMessage"])
-                          .show();
-                    }
-                    EasyLoading.dismiss();
-                  }
-                });
+                violationInfoP.transfareToManager(
+                    context,
+                    widget.vehicle["RequestID"],
+                    widget.vehicle["ArcSerial"],
+                    attac);
               })),
         SizedBox(
           width: 10,
@@ -360,35 +282,8 @@ class _violationInfoState extends State<violationInfo> {
               width: 150,
               child: widgetsUni.actionbutton("تم تسليم السيارة", Icons.send,
                   () async {
-                Alerts.confirmAlrt(context, "", "سوف يتم إلغاء الطلب", "نعم")
-                    .show()
-                    .then((value) async {
-                  EasyLoading.show(
-                    status: '... جاري المعالجة',
-                    maskType: EasyLoadingMaskType.black,
-                  );
-                  var reponse = await postAction(
-                      "Inbox/UpdateViolatedVehiclesRequestStatus",
-                      jsonEncode({
-                        "RequestNumber": widget.vehicle["RequestID"],
-                        "Notes": "",
-                        "NewStatusID": 10,
-                        "EmployeeNumber":
-                            int.parse(EmployeeProfile.getEmployeeNumber()),
-                      }));
-                  if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                    EasyLoading.dismiss();
-                    Alerts.successAlert(context, "", "تم إلغاء الطلب")
-                        .show()
-                        .then((value) {
-                      Navigator.pop(context);
-                    });
-                  } else {
-                    Alerts.errorAlert(context, "خطأ",
-                            jsonDecode(reponse.body)["ErrorMessage"])
-                        .show();
-                  }
-                });
+                violationInfoP.cancel5Request(
+                    context, widget.vehicle["RequestID"]);
               })),
       ],
     );

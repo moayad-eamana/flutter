@@ -130,17 +130,17 @@ class _ServicesViewState extends State<ServicesView> {
                     //   height: 10,
                     // ),
 
-                    // Text(
-                    //   "المخالفات الإلكترونية",
-                    //   style: subtitleTx(baseColor),
-                    // ),
+                    Text(
+                      "المخالفات الإلكترونية",
+                      style: subtitleTx(baseColor),
+                    ),
 
-                    // widgetsUni.divider(),
+                    widgetsUni.divider(),
 
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // violation(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    violation(),
 
                     if (sharedPref.getBool("permissionforCRM") == true)
                       ...customerServiceWidget.customerService(context),
@@ -148,10 +148,10 @@ class _ServicesViewState extends State<ServicesView> {
                       height: 5,
                     ),
 
-                    // ...ViolationVehicleWidgets.violationVehicleWidgets(context),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
+                    ...ViolationVehicleWidgets.violationVehicleWidgets(context),
+                    SizedBox(
+                      height: 5,
+                    ),
 
                     ...otherServices.otherWidget(context),
                   ],

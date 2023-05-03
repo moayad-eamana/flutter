@@ -405,7 +405,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/CooperativeTrainingRequestsInfo': (context) =>
               CooperativeTrainingRequestsInfo(),
           '/contactsView': (context) => ContactsView(),
-          '/scannQrcode': (context) => scanQrcode(),
+          // '/scannQrcode': (context) => scanQrcode(),
           '/ViolationHome': (context) => ViolationHome(),
           '/customerServiceRequests': (context) => customerServiceRrequests(""),
           '/reserveForcustomer': (context) => reserveForcustomer(),

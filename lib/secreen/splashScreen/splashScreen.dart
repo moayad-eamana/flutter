@@ -14,13 +14,13 @@ class _splashScreenState extends State<splashScreen> {
   void initState() {
     super.initState();
     int dur = 0;
-    if (sharedPref.getBool("splash1") == null) {
+    if (sharedPref.getBool("splash2") == null) {
       dur = 5;
     } else {
       dur = 3;
     }
     new Future.delayed(Duration(seconds: dur), () async {
-      sharedPref.setBool("splash1", true);
+      sharedPref.setBool("splash2", true);
       var username = sharedPref.getDouble("EmployeeNumber");
       var fingerprint = sharedPref.getBool("fingerprint");
       late String route;
