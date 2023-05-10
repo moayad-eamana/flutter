@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -109,7 +111,16 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
                           var reponse = await postAction(
                               "ViolatedCars/InsertViolationRequest",
                               jsonEncode(widget.violatedVehicle.sendwarning));
+                          logApiModel logapiO = logApiModel();
+                          logapiO.ControllerName = "ViolatedVehicle";
+                          logapiO.ClassName = "ViolatedVehicle";
+                          logapiO.EmployeeNumber =
+                              int.parse(EmployeeProfile.getEmployeeNumber());
+                          logapiO.ActionMethodName = "إنذار سيارة";
+                          logapiO.ActionMethodType = 2;
                           if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+                            logapiO.StatusCode = 1;
+                            logApi(logapiO);
                             Alerts.successAlert(
                                     context,
                                     "",
@@ -123,6 +134,10 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
                               Navigator.pop(context);
                             });
                           } else {
+                            logapiO.StatusCode = 0;
+                            logapiO.ErrorMessage =
+                                jsonDecode(reponse.body)["ErrorMessage"];
+                            logApi(logapiO);
                             Alerts.errorAlert(context, "خطأ",
                                     jsonDecode(reponse.body)["ErrorMessage"])
                                 .show();

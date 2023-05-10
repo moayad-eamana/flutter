@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
+import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/functions/determinePosition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:local_auth/local_auth.dart';
 
 class attendanceServiceFunction {
@@ -29,18 +31,20 @@ class attendanceServiceFunction {
       return;
     }
 
-    _canCheckBiometrics = await _checkBiometrics();
+    // _canCheckBiometrics = await _checkBiometrics();
 
-    if (_canCheckBiometrics == true) {
-      _authenticated = await _authenticate();
-    } else {
-      _authenticated = false;
+    // if (_canCheckBiometrics == true) {
+    //   _authenticated = await _authenticate();
+    // } else {
+    //   _authenticated = false;
 
-      Alerts.warningAlert(
-              context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
-          .show();
-    }
-    EasyLoading.dismiss();
+    //   Alerts.warningAlert(
+    //           context, "تنبيه", "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
+    //       .show();
+    // }
+    // EasyLoading.dismiss();
+    await Pickattachments.pickImage(ImageSource.camera);
+    _authenticated = true;
     if (_authenticated == true) {
       // show popup massage then push api
       String title = type == 1 ? "تسجيل الحضور" : "تسجيل الإنصراف";

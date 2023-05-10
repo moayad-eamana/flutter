@@ -473,33 +473,33 @@ class listOfServices {
 
   List attendanceService() {
     return [
-      // {
-      //   "service_name": "تسجيل الحضور",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/check_in1.svg',
-      //   "Action": () async {
-      //     attendanceServiceFunction(context).InsertAttendance(1);
-      //   },
-      // },
-      // {
-      //   "service_name": "تسجيل الإنصراف",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/check_in1.svg',
-      //   "Action": () async {
-      //     attendanceServiceFunction(context).InsertAttendance(2);
-      //   },
-      // },
-      // {
-      //   "service_name": "الحضور ولإنصراف",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/AttendanceView.svg',
-      //   "Action": () async {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => GetAttendanceView()),
-      //     );
-      //   },
-      // }
+      {
+        "service_name": "تسجيل الحضور",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          attendanceServiceFunction(context).InsertAttendance(1);
+        },
+      },
+      {
+        "service_name": "تسجيل الإنصراف",
+        "Navigation": "",
+        "icon": 'assets/SVGs/check_in1.svg',
+        "Action": () async {
+          attendanceServiceFunction(context).InsertAttendance(2);
+        },
+      },
+      {
+        "service_name": "الحضور ولإنصراف",
+        "Navigation": "",
+        "icon": 'assets/SVGs/AttendanceView.svg',
+        "Action": () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GetAttendanceView()),
+          );
+        },
+      }
     ];
   }
 

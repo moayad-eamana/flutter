@@ -13,9 +13,10 @@ import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/utilities/dropDownCss.dart';
 
 class SecondVisit extends StatefulWidget {
+  int typeid;
   dynamic vehicle;
   List imagesss = [];
-  SecondVisit(this.vehicle, this.imagesss);
+  SecondVisit(this.vehicle, this.imagesss, this.typeid);
 
   @override
   State<SecondVisit> createState() => _SecondVisitState();
@@ -111,7 +112,9 @@ class _SecondVisitState extends State<SecondVisit> {
               height: 15,
             ),
 
-            if (findDiffDays() > 7 && widget.vehicle["StatusID"] == 3)
+            if (findDiffDays() > 7 &&
+                widget.vehicle["StatusID"] == 3 &&
+                widget.typeid != -1)
               isNoticeproceed(),
             SizedBox(
               height: 15,
@@ -151,7 +154,7 @@ class _SecondVisitState extends State<SecondVisit> {
               height: 15,
             ),
             // show button Actions
-            if (widget.vehicle["StatusID"] == 3)
+            if (widget.vehicle["StatusID"] == 3 && widget.typeid != -1)
               Row(
                 children: [
                   if (findDiffDays() > 7)

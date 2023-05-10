@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class FirstVisit extends StatefulWidget {
+  int typId;
   List imageByArcSerial;
   dynamic firstvisit;
-  FirstVisit(this.firstvisit, this.imageByArcSerial);
+  FirstVisit(this.firstvisit, this.imageByArcSerial, this.typId);
 
   @override
   State<FirstVisit> createState() => _FirstVisitState();
@@ -76,7 +77,7 @@ class _FirstVisitState extends State<FirstVisit> {
           ),
         ),
         // eatmad for first visit
-        if (widget.firstvisit["StatusID"] == 2)
+        if (widget.firstvisit["StatusID"] == 2 && widget.typId != -1)
           Container(
             margin: EdgeInsets.all(10),
             child: Row(

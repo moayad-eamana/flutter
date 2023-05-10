@@ -118,10 +118,10 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    // ...attendanceServiceWidget.attendanceWidget(context),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
+                    ...attendanceServiceWidget.attendanceWidget(context),
+                    SizedBox(
+                      height: 10,
+                    ),
                     ...mahammeWidget.mahamme(context),
                     SizedBox(
                       height: 10,

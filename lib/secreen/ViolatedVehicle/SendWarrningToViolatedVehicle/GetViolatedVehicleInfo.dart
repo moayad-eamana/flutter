@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -331,6 +332,13 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                             var respons = await getAction(
                                 "NIC/GetViolatedVehicleInfoByVehicleIDNumber?VehicleIDNumber=" +
                                     _VehicleIDNumber.text.trim());
+                            logApiModel logapiO = logApiModel();
+                            logapiO.ControllerName = "ViolatedVehicle";
+                            logapiO.ClassName = "ViolatedVehicle";
+                            logapiO.EmployeeNumber =
+                                int.parse(EmployeeProfile.getEmployeeNumber());
+                            logapiO.ActionMethodName = "إستعلام عن سيارة";
+                            logapiO.ActionMethodType = 2;
                             if (jsonDecode(respons.body)["StatusCode"] == 400) {
                               widget.violatedVehicle.carInfo =
                                   jsonDecode(respons.body)["ResponseData"]
@@ -339,8 +347,12 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                                       ["GetViolatedVehicleInfoResult"];
                               print(widget.violatedVehicle.carInfo);
                               EasyLoading.dismiss();
+                              logapiO.StatusCode = 1;
+                              logApi(logapiO);
                               setState(() {});
                             } else {
+                              logapiO.StatusCode = 0;
+                              logApi(logapiO);
                               Alerts.warningAlert(
                                       context, "تنبيه", "لا يوجد بيانات")
                                   .show();

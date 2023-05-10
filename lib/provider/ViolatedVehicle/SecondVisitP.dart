@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,12 @@ class SecondVisitP {
           status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ClassName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ActionMethodName = "إغلاق الزيارة الثانية";
+        logapiO.EmployeeNumber = int.parse(EmployeeProfile.getEmployeeNumber());
+        logapiO.ActionMethodType = 2;
         var reponse = await postAction(
             "Inbox/UpdateViolatedVehiclesRequestStatus",
             jsonEncode({
@@ -25,12 +32,17 @@ class SecondVisitP {
               "EmployeeNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
             }));
         if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
           Alerts.successAlert(context, "", "تم إلغاء الطلب")
               .show()
               .then((value) {
             Navigator.pop(context);
           });
         } else {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(reponse.body)["ErrorMessage"];
+          logApi(logapiO);
           Alerts.errorAlert(
                   context, "خطأ", jsonDecode(reponse.body)["ErrorMessage"])
               .show();
@@ -50,7 +62,12 @@ class SecondVisitP {
           status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
-
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "InsertVisit";
+        logapiO.ClassName = "InsertVisit";
+        logapiO.ActionMethodName = "إرسال الزيارة الثانية";
+        logapiO.EmployeeNumber = int.parse(EmployeeProfile.getEmployeeNumber());
+        logapiO.ActionMethodType = 2;
         var response = await postAction(
             "ViolatedCars/InsertVisit",
             jsonEncode({
@@ -76,6 +93,8 @@ class SecondVisitP {
           EasyLoading.dismiss();
 
           if (jsonDecode(response2.body)["StatusCode"] == 400) {
+            logapiO.StatusCode = 1;
+            logApi(logapiO);
             Alerts.successAlert(context, "", "تم الارسال").show().then((value) {
               Navigator.pop(context);
             });
@@ -86,6 +105,9 @@ class SecondVisitP {
             return;
           }
         } else {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(response.body)["ErrorMessage"];
+          logApi(logapiO);
           EasyLoading.dismiss();
           Alerts.errorAlert(context, "خطأ",
                   jsonDecode(response.body)["ErrorMessage"].toString())

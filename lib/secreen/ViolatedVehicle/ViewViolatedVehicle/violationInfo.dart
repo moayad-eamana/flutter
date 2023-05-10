@@ -11,9 +11,10 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class violationInfo extends StatefulWidget {
+  int typId;
   dynamic vehicle;
 
-  violationInfo(this.vehicle);
+  violationInfo(this.vehicle, this.typId);
 
   @override
   State<violationInfo> createState() => _violationInfoState();
@@ -120,7 +121,7 @@ class _violationInfoState extends State<violationInfo> {
             "تبقى " + (90 - findDateDifrince()).toString() + " يوم مهلة",
             style: subtitleTx(baseColor),
           ),
-        if (statusID == 4) e3tmadbutton(),
+        if (statusID == 4 && widget.typId != -1) e3tmadbutton(),
 
         e5tmadbutton(),
         SizedBox(
@@ -259,7 +260,9 @@ class _violationInfoState extends State<violationInfo> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (widget.vehicle["IsPaid"] == false && findDateDifrince() > 90)
+        if (widget.vehicle["IsPaid"] == false &&
+            findDateDifrince() > 90 &&
+            widget.typId != -1)
           Container(
               width: 150,
               child: widgetsUni.actionbutton("تحويل الطلب", Icons.send, () {
@@ -277,7 +280,7 @@ class _violationInfoState extends State<violationInfo> {
         SizedBox(
           width: 10,
         ),
-        if (widget.vehicle["IsPaid"] == true)
+        if (widget.vehicle["IsPaid"] == true && widget.typId != -1)
           Container(
               width: 150,
               child: widgetsUni.actionbutton("تم تسليم السيارة", Icons.send,

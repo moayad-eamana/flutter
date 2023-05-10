@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,12 @@ class violationInfoP {
           status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ClassName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ActionMethodName = "تحويل الطلب إلى مدير إدارة النظافة ";
+        logapiO.EmployeeNumber = int.parse(EmployeeProfile.getEmployeeNumber());
+        logapiO.ActionMethodType = 2;
         var reponse = await postAction(
             "Inbox/UpdateViolatedVehiclesRequestStatus",
             jsonEncode({
@@ -27,6 +34,8 @@ class violationInfoP {
               "EmployeeNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
             }));
         if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
           var response2 = await postAction(
               "ViolatedCars/UploadImages",
               jsonEncode({
@@ -50,6 +59,9 @@ class violationInfoP {
             Navigator.pop(context);
           });
         } else {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(reponse.body)["ErrorMessage"];
+          logApi(logapiO);
           Alerts.errorAlert(
                   context, "خطأ", jsonDecode(reponse.body)["ErrorMessage"])
               .show();
@@ -67,6 +79,12 @@ class violationInfoP {
         status: '... جاري المعالجة',
         maskType: EasyLoadingMaskType.black,
       );
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "UpdateViolatedVehiclesRequestStatus";
+      logapiO.ClassName = "UpdateViolatedVehiclesRequestStatus";
+      logapiO.ActionMethodName = "إغلاق الطلب بعد الزيارة الثانية";
+      logapiO.EmployeeNumber = int.parse(EmployeeProfile.getEmployeeNumber());
+      logapiO.ActionMethodType = 2;
       var reponse = await postAction(
           "Inbox/UpdateViolatedVehiclesRequestStatus",
           jsonEncode({
@@ -76,11 +94,16 @@ class violationInfoP {
             "EmployeeNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
           }));
       if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+        logapiO.StatusCode = 1;
+        logApi(logapiO);
         EasyLoading.dismiss();
         Alerts.successAlert(context, "", "تم إلغاء الطلب").show().then((value) {
           Navigator.pop(context);
         });
       } else {
+        logapiO.StatusCode = 0;
+        logapiO.ErrorMessage = jsonDecode(reponse.body)["ErrorMessage"];
+        logApi(logapiO);
         Alerts.errorAlert(
                 context, "خطأ", jsonDecode(reponse.body)["ErrorMessage"])
             .show();
@@ -98,6 +121,12 @@ class violationInfoP {
           status: '... جاري المعالجة',
           maskType: EasyLoadingMaskType.black,
         );
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ClassName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ActionMethodName = "إعتماد المخالفة";
+        logapiO.EmployeeNumber = int.parse(EmployeeProfile.getEmployeeNumber());
+        logapiO.ActionMethodType = 2;
         var reponse = await postAction(
             "Inbox/UpdateViolatedVehiclesRequestStatus",
             jsonEncode({
@@ -107,12 +136,17 @@ class violationInfoP {
               "EmployeeNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
             }));
         if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
           Alerts.successAlert(context, "", "سيتم إرسال رسالة نصية ")
               .show()
               .then((value) {
             Navigator.pop(context);
           });
         } else {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(reponse.body)["ErrorMessage"];
+          logApi(logapiO);
           Alerts.errorAlert(
                   context, "خطأ", jsonDecode(reponse.body)["ErrorMessage"])
               .show();

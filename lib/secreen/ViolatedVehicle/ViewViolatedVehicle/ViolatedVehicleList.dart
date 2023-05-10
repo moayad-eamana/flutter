@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehiclepanels.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
@@ -32,6 +33,12 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
       maskType: EasyLoadingMaskType.black,
     );
     var resbonse;
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "GetViolatedCarsRequests";
+    logapiO.ClassName = "GetViolatedCarsRequests";
+    logapiO.ActionMethodName = "إستعلام السيارات المسحوبة";
+    logapiO.EmployeeNumber = int.parse(EmployeeProfile.getEmployeeNumber());
+    logapiO.ActionMethodType = 1;
     if (widget.typeId == -1) {
       resbonse =
           await getAction("ViolatedCars/GetViolatedCarsRequests/" + statuseID);
@@ -39,7 +46,8 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
       resbonse = await getAction("Inbox/GetViolatedVehiclesRequests/" +
           EmployeeProfile.getEmployeeNumber());
     }
-
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
     isloading = false;
     VehicleList = jsonDecode(resbonse.body)["data"] ?? [];
     setState(() {});

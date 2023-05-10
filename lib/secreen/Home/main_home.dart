@@ -55,10 +55,10 @@ class _MainHomeState extends State<MainHome> {
     }
     // myDialog(); // --> test
     var v = sharedPref.getBool("oneTimeDialog2023-0");
-    if (v == null) {
-      myDialog();
-      sharedPref.setBool("oneTimeDialog2023-0", false);
-    }
+    // if (v == null) {
+    //   myDialog();
+    //   sharedPref.setBool("oneTimeDialog2023-0", false);
+    // }
     setState(() {});
   }
 

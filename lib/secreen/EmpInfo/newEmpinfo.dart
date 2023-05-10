@@ -43,11 +43,16 @@ class _newEmpInfoState extends State<newEmpInfo> {
     //   maskType: EasyLoadingMaskType.black,
     // );
     var g_date = HijriCalendar();
+
     List date = sharedPref.getString("HireDate").toString().split("/");
     if (date[0] != "") {
-      DateTime date2 = g_date.hijriToGregorian(
-          int.parse(date[2]), int.parse(date[1]), int.parse(date[0]));
-      int aa = date2.subtract(Duration(days: DateTime.now().year * 365)).year;
+      int aa = HijriCalendar.now().hYear - int.parse(date[2]);
+      if (HijriCalendar.now().hMonth == int.parse(date[1]) &&
+          HijriCalendar.now().hDay >= int.parse(date[0])) {
+        aa = aa + 1;
+      } else if (HijriCalendar.now().hMonth > int.parse(date[1])) {
+        aa = aa + 1;
+      }
       print(aa.abs());
       aa = aa.abs();
       if (aa == 1 || aa == 2) {
@@ -98,7 +103,8 @@ class _newEmpInfoState extends State<newEmpInfo> {
               children: [
                 //widgetsUni.bacgroundimage(),
                 Positioned(
-                  bottom: (sharedPref.getInt("empTypeID") != 8) ? 120 : 150, // 13
+                  bottom:
+                      (sharedPref.getInt("empTypeID") != 8) ? 120 : 150, // 13
                   child: SafeArea(
                     child: Container(
                       width: 100.w,

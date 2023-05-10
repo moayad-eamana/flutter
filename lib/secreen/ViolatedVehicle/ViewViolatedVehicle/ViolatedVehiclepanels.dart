@@ -62,20 +62,38 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
           children: [
             widgetsUni.bacgroundimage(),
             SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                child: ExpansionPanelList(
-                  expansionCallback: (panelIndex, isExpanded) async {
-                    changePanale(panelIndex, isExpanded);
-                  },
-                  children: [
-                    carinfo(),
-                    firstvisit(),
-                    if (widget.vehicle["StatusID"] >= 3) secondvisit(),
-                    if (widget.vehicle["StatusID"] >= 4) violationInfoW(),
-                    transaction(),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    child: ExpansionPanelList(
+                      expansionCallback: (panelIndex, isExpanded) async {
+                        changePanale(panelIndex, isExpanded);
+                      },
+                      children: [
+                        carinfo(),
+                        firstvisit(),
+                        if (widget.vehicle["StatusID"] >= 3) secondvisit(),
+                        if (widget.vehicle["StatusID"] >= 4) violationInfoW(),
+                        // transaction(),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                transactions(widget.vehicle["RequestID"])),
+                      );
+                    },
+                    child: Text("سجل الطلب"),
+                    style: ElevatedButton.styleFrom(
+                      primary: baseColor, // Background color
+                    ),
+                  )
+                ],
               ),
             ),
           ],
@@ -116,7 +134,7 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
           ),
         );
       },
-      body: FirstVisit(widget.vehicle, imageByArcSerial),
+      body: FirstVisit(widget.vehicle, imageByArcSerial, widget.typId),
     );
   }
 
@@ -134,7 +152,7 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
           ),
         );
       },
-      body: SecondVisit(widget.vehicle, imageByArcSerial),
+      body: SecondVisit(widget.vehicle, imageByArcSerial, widget.typId),
     );
   }
 
@@ -152,25 +170,7 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
           ),
         );
       },
-      body: violationInfo(widget.vehicle),
-    );
-  }
-
-  ExpansionPanel transaction() {
-    return ExpansionPanel(
-      backgroundColor: BackGColor,
-      isExpanded: page5,
-      canTapOnHeader: true,
-      headerBuilder: (BuildContext context, bool isExpanded) {
-        print(isExpanded);
-        return ListTile(
-          title: Text(
-            "سجل الطلب",
-            style: subtitleTx(baseColor),
-          ),
-        );
-      },
-      body: transactions(),
+      body: violationInfo(widget.vehicle, widget.typId),
     );
   }
 
