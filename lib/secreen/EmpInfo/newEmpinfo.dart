@@ -47,11 +47,9 @@ class _newEmpInfoState extends State<newEmpInfo> {
     List date = sharedPref.getString("HireDate").toString().split("/");
     if (date[0] != "") {
       int aa = HijriCalendar.now().hYear - int.parse(date[2]);
-      if (HijriCalendar.now().hMonth == int.parse(date[1]) &&
-          HijriCalendar.now().hDay >= int.parse(date[0])) {
-        aa = aa + 1;
-      } else if (HijriCalendar.now().hMonth > int.parse(date[1])) {
-        aa = aa + 1;
+
+      if (HijriCalendar.now().hMonth < int.parse(date[1])) {
+        aa = aa - 1;
       }
       print(aa.abs());
       aa = aa.abs();
