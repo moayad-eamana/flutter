@@ -9,9 +9,9 @@ class Pickattachments {
     final ImagePicker _picker = ImagePicker();
     XFile? images;
     images = await _picker.pickImage(
-      source: source,
-      imageQuality: 100,
-    );
+        source: source,
+        imageQuality: 100,
+        preferredCameraDevice: CameraDevice.front);
     if (images != null) {
       final imageTemp = File(images.path);
       var base64 = base64Encode(await imageTemp.readAsBytes());

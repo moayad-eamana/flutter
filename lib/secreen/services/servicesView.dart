@@ -49,6 +49,15 @@ class _ServicesViewState extends State<ServicesView> {
   Future<void> hasPermission2() async {
     EmployeeProfile empinfo = await EmployeeProfile();
 
+    dynamic response = await getAction(
+        "ViolatedCars/GetUserGroups/" + EmployeeProfile.getEmployeeNumber());
+    response = jsonDecode(response.body)["data"];
+    if (response != null) {
+      sharedPref.setBool("ViolatedCars", true);
+    } else {
+      sharedPref.setBool("ViolatedCars", false);
+    }
+    setState(() {});
     empinfo = await empinfo.getEmployeeProfile();
     if (await checkSSL(
         "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php")) {
@@ -118,40 +127,41 @@ class _ServicesViewState extends State<ServicesView> {
                     SizedBox(
                       height: 10,
                     ),
-                    // ...attendanceServiceWidget.attendanceWidget(context),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
+                    ...attendanceServiceWidget.attendanceWidget(context),
+                    SizedBox(
+                      height: 10,
+                    ),
                     ...mahammeWidget.mahamme(context),
                     SizedBox(
                       height: 10,
                     ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
+                    SizedBox(
+                      height: 10,
+                    ),
 
-                    // Text(
-                    //   "المخالفات الإلكترونية",
-                    //   style: subtitleTx(baseColor),
-                    // ),
+                    Text(
+                      "المخالفات الإلكترونية",
+                      style: subtitleTx(baseColor),
+                    ),
 
-                    // widgetsUni.divider(),
+                    widgetsUni.divider(),
 
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // violation(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    violation(),
 
                     if (sharedPref.getBool("permissionforCRM") == true)
                       ...customerServiceWidget.customerService(context),
                     SizedBox(
                       height: 5,
                     ),
-
-                    // ...ViolationVehicleWidgets.violationVehicleWidgets(context),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
+                    if (sharedPref.getBool("ViolatedCars") == true)
+                      ...ViolationVehicleWidgets.violationVehicleWidgets(
+                          context),
+                    SizedBox(
+                      height: 5,
+                    ),
 
                     ...otherServices.otherWidget(context),
                   ],

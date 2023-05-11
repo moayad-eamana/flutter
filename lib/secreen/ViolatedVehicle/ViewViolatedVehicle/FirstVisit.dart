@@ -62,6 +62,7 @@ class _FirstVisitState extends State<FirstVisit> {
         Container(
           margin: EdgeInsets.all(15),
           child: GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: path.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -17,8 +17,13 @@ Future<String> Bearer() async {
   return sharedPref.getString("AccessToken") ?? "";
 }
 
-dynamic getAction(String link) async {
+dynamic getAction(String link, {String? optioal}) async {
   if (sharedPref.getString("dumyuser") == "10284928492") {
+    Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+  }
+  if (link.split("/")[0] == "ViolatedCars" ||
+      link.split("/")[0] == "NIC" ||
+      link == "Inbox/UpdateViolatedVehiclesRequestStatus") {
     Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   }
   dynamic respns;
@@ -52,6 +57,11 @@ dynamic getAction(String link) async {
 //EE
 dynamic postAction(String link, dynamic body) async {
   if (sharedPref.getString("dumyuser") == "10284928492") {
+    Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+  }
+  if (link.split("/")[0] == "ViolatedCars" ||
+      link.split("/")[0] == "NIC" ||
+      link == "Inbox/UpdateViolatedVehiclesRequestStatus") {
     Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   }
   dynamic respns;

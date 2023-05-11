@@ -374,7 +374,8 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                                 platechar = _plateText.text.trim().split("");
                               }
                               var respons = await getAction(
-                                  "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1] ?? ""}&text3=${platechar[2] ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}");
+                                  "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1] ?? ""}&text3=${platechar[2] ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}",
+                                  optioal: "test");
                               if (jsonDecode(respons.body)["StatusCode"] ==
                                   400) {
                                 widget.violatedVehicle.carInfo =

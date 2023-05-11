@@ -155,4 +155,49 @@ class violationInfoP {
       }
     });
   }
+
+  static approveDestroy(BuildContext context, int RequestID) {
+    Alerts.confirmAlrt(
+            context, "رسالة تأكيد", "هل تريد إعتماد الاتلاف ؟", "نعم")
+        .show()
+        .then((value) async {
+      if (value == true) {
+        EasyLoading.show(
+          status: '... جاري المعالجة',
+          maskType: EasyLoadingMaskType.black,
+        );
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ClassName = "UpdateViolatedVehiclesRequestStatus";
+        logapiO.ActionMethodName = "إعتماد الاتلاف";
+        logapiO.EmployeeNumber = int.parse(EmployeeProfile.getEmployeeNumber());
+        logapiO.ActionMethodType = 2;
+        var reponse = await postAction(
+            "Inbox/UpdateViolatedVehiclesRequestStatus",
+            jsonEncode({
+              "RequestNumber": RequestID,
+              "Notes": "",
+              "NewStatusID": 7,
+              "EmployeeNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
+            }));
+        if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
+          Alerts.successAlert(context, "", "تم إعتاد الاتلاف ")
+              .show()
+              .then((value) {
+            Navigator.pop(context);
+          });
+        } else {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(reponse.body)["ErrorMessage"];
+          logApi(logapiO);
+          Alerts.errorAlert(
+                  context, "خطأ", jsonDecode(reponse.body)["ErrorMessage"])
+              .show();
+        }
+        EasyLoading.dismiss();
+      }
+    });
+  }
 }

@@ -30,7 +30,7 @@ class attendanceServiceFunction {
     if (loaction == false) {
       return;
     }
-
+    EasyLoading.dismiss();
     // _canCheckBiometrics = await _checkBiometrics();
 
     // if (_canCheckBiometrics == true) {
@@ -43,9 +43,9 @@ class attendanceServiceFunction {
     //       .show();
     // }
     // EasyLoading.dismiss();
-    await Pickattachments.pickImage(ImageSource.camera);
+    var image = await Pickattachments.pickImage(ImageSource.camera);
     _authenticated = true;
-    if (_authenticated == true) {
+    if (_authenticated == true && image != null) {
       // show popup massage then push api
       String title = type == 1 ? "تسجيل الحضور" : "تسجيل الإنصراف";
       String subtitle =
@@ -68,7 +68,9 @@ class attendanceServiceFunction {
                 "LocationX": loaction.latitude.toString(),
                 "LocationY": loaction.longitude.toString(),
                 "AttendanceTypeID": type,
-                "DeviceID": udid
+                "DeviceID": udid,
+                "FileBytes": image["base64"],
+                "FileExtension": image["type"]
               }));
 
           print(respose.body);

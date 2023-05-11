@@ -127,6 +127,10 @@ class _violationInfoState extends State<violationInfo> {
         SizedBox(
           height: 15,
         ),
+        e6tmadbutton(),
+        SizedBox(
+          height: 15,
+        ),
       ],
     );
   }
@@ -271,11 +275,10 @@ class _violationInfoState extends State<violationInfo> {
                       .show();
                   return;
                 }
-                violationInfoP.transfareToManager(
-                    context,
-                    widget.vehicle["RequestID"],
-                    widget.vehicle["ArcSerial"],
-                    attac);
+                violationInfoP.approveDestroy(
+                  context,
+                  widget.vehicle["RequestID"],
+                );
               })),
         SizedBox(
           width: 10,
@@ -287,6 +290,29 @@ class _violationInfoState extends State<violationInfo> {
                   () async {
                 violationInfoP.cancel5Request(
                     context, widget.vehicle["RequestID"]);
+              })),
+      ],
+    );
+  }
+
+  e6tmadbutton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (statusID == 5 && widget.typId != -1)
+          Container(
+              width: 150,
+              child: widgetsUni.actionbutton("تحويل الطلب", Icons.send, () {
+                if (attac == null) {
+                  Alerts.errorAlert(context, "خطأ", "يجب إدراج صورة السيارة")
+                      .show();
+                  return;
+                }
+                violationInfoP.transfareToManager(
+                    context,
+                    widget.vehicle["RequestID"],
+                    widget.vehicle["ArcSerial"],
+                    attac);
               })),
       ],
     );
