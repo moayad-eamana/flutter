@@ -1,4 +1,8 @@
 import 'dart:convert';
+import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
+import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
@@ -6,6 +10,7 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class GetAttendanceView extends StatefulWidget {
   GetAttendanceView({Key? key}) : super(key: key);
@@ -24,35 +29,54 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
   getData() async {
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
     var response = await postAction(
         "HR/GetAttendance",
         jsonEncode({
-          "EmployeeNumber": 4438104,
-          "FromDate": getLastFiveDays(), //5 days after 
+          "EmployeeNumber": EmployeeProfile.getEmployeeNumber(),
+          "FromDate": getLastFiveDays(), //5 days after
           "ToDate": Today() //today
         }));
 //check if the response is valid
     if (jsonDecode(response.body)["StatusCode"] != 400) {
-      // logapiO.StatusCode = 0;
-      // logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
-      // logApi(logapiO);
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "GetAttendance";
+      logapiO.ClassName = "GetAttendance";
+      logapiO.ActionMethodName = "سجل الحضور والانصراف";
+      logapiO.ActionMethodType = 2;
+      logapiO.ErrorMessage = jsonDecode(response.body)["ErrorMessage"];
+      logapiO.StatusCode = 0;
+
+      logApi(logapiO);
       Alerts.errorAlert(
               context, "خطأ", jsonDecode(response.body)["ErrorMessage"])
           .show();
       return;
     } else {
-      // logapiO.StatusCode = 1;
-      // logApi(logapiO);
-      ///
-      // Alerts.successAlert(context, "", "test attendence").show().then((value) {
-      //   Navigator.pop(context);
-
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "GetAttendance";
+      logapiO.ClassName = "GetAttendance";
+      logapiO.ActionMethodName = "سجل الحضور والانصراف";
+      logapiO.ActionMethodType = 2;
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
       setState(() {
         _AttendanceList = jsonDecode(response.body)['ReturnResult'];
         print(_AttendanceList);
       });
     }
+    EasyLoading.dismiss();
   }
 
   @override
@@ -245,14 +269,14 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
   getLastFiveDays() {
     var now = new DateTime.now();
     var today = new DateTime(now.year, now.month, now.day);
-    var startDate = new DateTime(today.year, today.month, today.day - 5);
+    var startDate = new DateTime(today.year, today.month, today.day - 7);
     return startDate.toString();
   }
 
   Today() {
     var now = new DateTime.now();
     var today = new DateTime(now.year, now.month, now.day);
-    var endDate = new DateTime(today.year, today.month, today.day );
+    var endDate = new DateTime(today.year, today.month, today.day);
     return endDate.toString();
   }
 }
