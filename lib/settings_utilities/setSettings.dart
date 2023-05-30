@@ -9,10 +9,12 @@ import 'package:flutter_svg/svg.dart';
 String raqameUpdate = "raqameUpdateAll";
 String offers = "offers";
 String Morning = "morning";
+//String events = "events";
 
 // String raqameUpdate = "test_raqameUpdate";
 // String offers = "test_offers";
 // String morning = "test_morning";
+// String events = "Events_Test";
 
 void setSettings() async {
   await Firebase.initializeApp();
@@ -47,6 +49,11 @@ void setSettings() async {
     await FirebaseMessaging.instance.subscribeToTopic(Morning);
     sharedPref.setBool("morning", true);
   }
+  // if (sharedPref.getBool('events') == null) {
+  //   //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+  //   await FirebaseMessaging.instance.subscribeToTopic(events);
+  //   sharedPref.setBool("events", true);
+  // }
 }
 
 void configLoading() {

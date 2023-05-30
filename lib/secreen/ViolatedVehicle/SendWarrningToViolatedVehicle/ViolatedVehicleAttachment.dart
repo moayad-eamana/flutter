@@ -37,10 +37,10 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
           children: [
             Row(
               children: [
-                Card(ImageSource.gallery, "الاستديو"),
-                SizedBox(
-                  width: 20,
-                ),
+                // Card(ImageSource.gallery, "الاستديو"),
+                // SizedBox(
+                //   width: 20,
+                // ),
                 Card(ImageSource.camera, "الكاميرا"),
               ],
             ),

@@ -179,13 +179,17 @@ class AppBarW {
                     ),
                   ),
                 ),
-              if (title == "عروض الموظفين" && function != null)
+              if ((title == "عروض الموظفين" ||
+                      title == "سجل الحضور و الإنصراف") &&
+                  function != null)
                 Positioned(
                   left: 25,
                   top: 25,
                   child: GestureDetector(
                     onTap: () {
-                      function(context);
+                      title == "سجل الحضور و الإنصراف"
+                          ? function()
+                          : function(context);
                     },
                     child: Container(
                       child: Column(
@@ -198,7 +202,7 @@ class AppBarW {
                             size: 40,
                           ),
                           Text(
-                            "تصنيفات",
+                            title == "سجل الحضور و الإنصراف" ? "" : "تصنيفات",
                             style: TextStyle(color: baseColorText),
                           ),
                         ],
@@ -261,7 +265,7 @@ class AppBarW {
                     ),
                   ),
                 ),
-              if (function != null && title == "الإحصائيات")
+              if (function != null && (title == "الإحصائيات"))
                 Positioned(
                   left: 25,
                   top: 25,

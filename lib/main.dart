@@ -353,13 +353,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           // deprecated,
         ),
 
-        initialRoute: '/splashScreen',
+        // initialRoute: '/splashScreen',
 
-        // initialRoute: widget.username == null || widget.username == 0
-        //     ? "/"
-        //     : fingerprint == false
-        //         ? '/home'
-        //         : '/AuthenticateBio',
+        initialRoute: widget.username == null || widget.username == 0
+            ? "/"
+            : fingerprint == false
+                ? '/home'
+                : '/AuthenticateBio',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
@@ -405,7 +405,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/CooperativeTrainingRequestsInfo': (context) =>
               CooperativeTrainingRequestsInfo(),
           '/contactsView': (context) => ContactsView(),
-          // '/scannQrcode': (context) => scanQrcode(),
+          '/scannQrcode': (context) => scanQrcode(),
           '/ViolationHome': (context) => ViolationHome(),
           '/customerServiceRequests': (context) => customerServiceRrequests(""),
           '/reserveForcustomer': (context) => reserveForcustomer(),

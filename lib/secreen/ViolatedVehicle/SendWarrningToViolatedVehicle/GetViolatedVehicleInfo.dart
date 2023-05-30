@@ -342,9 +342,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                             if (jsonDecode(respons.body)["StatusCode"] == 400) {
                               widget.violatedVehicle.carInfo =
                                   jsonDecode(respons.body)["ResponseData"]
-                                              ["data"]
-                                          ["GetViolatedVehicleInfoResponse"]
-                                      ["GetViolatedVehicleInfoResult"];
+                                      ["data"]["result"];
                               print(widget.violatedVehicle.carInfo);
                               EasyLoading.dismiss();
                               logapiO.StatusCode = 1;
@@ -380,9 +378,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                                   400) {
                                 widget.violatedVehicle.carInfo =
                                     jsonDecode(respons.body)["ResponseData"]
-                                                ["data"]
-                                            ["GetViolatedVehicleInfoResponse"]
-                                        ["GetViolatedVehicleInfoResult"];
+                                        ["data"]["result"];
 
                                 print(widget.violatedVehicle.carInfo);
                                 EasyLoading.dismiss();
@@ -417,7 +413,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                 Row(
                   children: [
                     cards("هوية المالك",
-                        widget.violatedVehicle.carInfo["PersonID"].toString()),
+                        widget.violatedVehicle.carInfo["PersonId"].toString()),
                   ],
                 ),
                 SizedBox(
@@ -468,7 +464,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                               _plateText.text.trim()[2];
                           widget.violatedVehicle
                                   .sendwarning["VehicleUserIdNumber"] =
-                              widget.violatedVehicle.carInfo["PersonID"];
+                              widget.violatedVehicle.carInfo["PersonId"];
                           widget.violatedVehicle.sendwarning["VehicleModel"] =
                               widget.violatedVehicle.carInfo["ModelDescAr"]
                                   .toString();
@@ -485,7 +481,7 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                           widget.violatedVehicle.sendwarning["LifeStatus"] =
                               widget.violatedVehicle.carInfo["IsAlive"];
 
-                          widget.violatedVehicle.sendwarning["SendSMS"] = false;
+                          widget.violatedVehicle.sendwarning["SendSMS"] = true;
 
                           widget.nextPage();
                         }),

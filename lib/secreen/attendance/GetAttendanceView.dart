@@ -10,7 +10,9 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class GetAttendanceView extends StatefulWidget {
   GetAttendanceView({Key? key}) : super(key: key);
@@ -22,9 +24,12 @@ class GetAttendanceView extends StatefulWidget {
 //
 class _GetAttendanceViewState extends State<GetAttendanceView> {
   List _AttendanceList = [];
+  bool showdatePick = false;
+  var startDate;
+  var endDate;
   @override
   void initState() {
-    getData();
+    getData(false);
 
     super.initState();
   }
@@ -36,7 +41,7 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
     super.dispose();
   }
 
-  getData() async {
+  getData(bool customeDate) async {
     EasyLoading.show(
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
@@ -45,8 +50,9 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
         "HR/GetAttendance",
         jsonEncode({
           "EmployeeNumber": EmployeeProfile.getEmployeeNumber(),
-          "FromDate": getLastFiveDays(), //5 days after
-          "ToDate": Today() //today
+          "FromDate":
+              customeDate ? startDate : getLastFiveDays(), //5 days after
+          "ToDate": customeDate ? endDate : Today() //today
         }));
 //check if the response is valid
     if (jsonDecode(response.body)["StatusCode"] != 400) {
@@ -84,96 +90,164 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          appBar: AppBarW.appBarW("سجل الحضور و الإنصراف", context, null, null),
+          appBar: AppBarW.appBarW("سجل الحضور و الإنصراف", context, null, () {
+            showdatePick = true;
+            setState(() {});
+          }),
           backgroundColor: Colors.grey[200],
           body: Stack(children: [
             widgetsUni.bacgroundimage(),
-            Container(
-                // color: BackGWhiteColor,
-                margin: EdgeInsets.symmetric(vertical: 12),
-                child: ListView.builder(
-                    itemCount: _AttendanceList.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                          height: 270,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Card(
-                            elevation: 1,
-                            child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 15),
-                                child: Column(children: [
-                                  Text(
-                                    _AttendanceList[index]["Day"] +
-                                        ", " +
-                                        _AttendanceList[index]["AttendanceDate"]
-                                            .split("T")[0],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                        color: baseColor),
-                                  ),
-                                  Divider(
-                                    thickness: 0.5,
-                                    color: bordercolor,
-                                  ),
-                                  SizedBox(
-                                    height: 13,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "الحضور",
-                                            style: TextStyle(
-                                                color: baseColorText,
-                                                fontFamily: "Cairo",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.wb_sunny_rounded,
-                                                color: baseColor,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                  "الساعة " +
-                                                      _AttendanceList[index]
-                                                          ["InTime"],
-                                                  style:
-                                                      TextStyle(fontSize: 12)),
-                                            ],
-                                          ),
-                                          sizeBox(),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                color: baseColor,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
+            Opacity(
+              opacity: showdatePick ? 0.6 : 1,
+              child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 12),
+                  child: ListView.builder(
+                      itemCount: _AttendanceList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            height: 270,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Card(
+                              elevation: 1,
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 15),
+                                  child: Column(children: [
+                                    Text(
+                                      _AttendanceList[index]["Day"] +
+                                          ", " +
+                                          _AttendanceList[index]
+                                                  ["AttendanceDate"]
+                                              .split("T")[0],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                          color: baseColor),
+                                    ),
+                                    Divider(
+                                      thickness: 0.5,
+                                      color: bordercolor,
+                                    ),
+                                    SizedBox(
+                                      height: 13,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "الحضور",
+                                              style: TextStyle(
+                                                  color: baseColorText,
+                                                  fontFamily: "Cairo",
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.wb_sunny_rounded,
+                                                  color: baseColor,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                    "الساعة " +
+                                                        _AttendanceList[index]
+                                                            ["InTime"],
+                                                    style: TextStyle(
+                                                        fontSize: 12)),
+                                              ],
+                                            ),
+                                            sizeBox(),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on_outlined,
+                                                  color: baseColor,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                    "على بُعد " +
+                                                        DistanceConverter(
+                                                            _AttendanceList[index]
+                                                                        [
+                                                                        "InDistance"]
+                                                                    .toString()
+                                                                    .split(".")[
+                                                                0]) + //(distance).toString().split(".")[0]
+                                                        " من \n" +
+                                                        _AttendanceList[index][
+                                                            "AttendaceBuilding"],
+                                                    style: TextStyle(
+                                                        fontSize: 12)),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "الإنصراف",
+                                              style: TextStyle(
+                                                  color: baseColorText,
+                                                  fontFamily: "Cairo",
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.bedtime,
+                                                  color: baseColor,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                    "الساعة " +
+                                                        _AttendanceList[index]
+                                                            ["OutTime"],
+                                                    style: TextStyle(
+                                                        fontSize: 12)),
+                                              ],
+                                            ),
+                                            sizeBox(),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on_outlined,
+                                                  color: baseColor,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
                                                   "على بُعد " +
                                                       DistanceConverter(
                                                           _AttendanceList[index]
-                                                                      ["InDistance"]
+                                                                      [
+                                                                      "OutDistance"]
                                                                   .toString()
                                                                   .split(".")[
                                                               0]) + //(distance).toString().split(".")[0]
@@ -181,77 +255,54 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
                                                       _AttendanceList[index]
                                                           ["AttendaceBuilding"],
                                                   style:
-                                                      TextStyle(fontSize: 12)),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "الإنصراف",
-                                            style: TextStyle(
-                                                color: baseColorText,
-                                                fontFamily: "Cairo",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.bedtime,
-                                                color: baseColor,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                  "الساعة " +
-                                                      _AttendanceList[index]
-                                                          ["OutTime"],
-                                                  style:
-                                                      TextStyle(fontSize: 12)),
-                                            ],
-                                          ),
-                                          sizeBox(),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                color: baseColor,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "على بُعد " +
-                                                    DistanceConverter(_AttendanceList[
-                                                                    index]
-                                                                ["OutDistance"]
-                                                            .toString()
-                                                            .split(".")[
-                                                        0]) + //(distance).toString().split(".")[0]
-                                                    " من \n" +
-                                                    _AttendanceList[index]
-                                                        ["AttendaceBuilding"],
-                                                style: TextStyle(fontSize: 12),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  )
-                                ])),
-                          ));
-                    })),
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ])),
+                            ));
+                      })),
+            ),
+            showdatePick
+                ? Center(
+                    child: Card(
+                      child: Container(
+                        decoration: containerdecoration(Colors.white),
+                        height: 350,
+                        width: 350,
+                        child: SfDateRangePicker(
+                          // showTodayButton: true,
+                          showActionButtons: true,
+                          cancelText: "إغلاق",
+                          confirmText: "تطبيق",
+                          onSelectionChanged: (value) {
+                            print(value);
+                          },
+                          selectionMode: DateRangePickerSelectionMode.range,
+                          backgroundColor: Colors.white,
+                          onCancel: () {
+                            showdatePick = false;
+                            setState(() {});
+                          },
+                          onSubmit: (dynamic value) {
+                            print(value);
+                            startDate = value.startDate.toString();
+                            endDate = value.endDate.toString();
+                            showdatePick = false;
+                            if (startDate != "null" && endDate != "null") {
+                              getData(true);
+                            }
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
           ]),
         ));
   }
@@ -269,14 +320,15 @@ class _GetAttendanceViewState extends State<GetAttendanceView> {
   getLastFiveDays() {
     var now = new DateTime.now();
     var today = new DateTime(now.year, now.month, now.day);
-    var startDate = new DateTime(today.year, today.month, today.day - 7);
+    startDate = new DateTime(today.year, today.month, today.day - 7);
+    print(startDate.toString());
     return startDate.toString();
   }
 
   Today() {
     var now = new DateTime.now();
     var today = new DateTime(now.year, now.month, now.day);
-    var endDate = new DateTime(today.year, today.month, today.day);
+    endDate = new DateTime(today.year, today.month, today.day);
     return endDate.toString();
   }
 }

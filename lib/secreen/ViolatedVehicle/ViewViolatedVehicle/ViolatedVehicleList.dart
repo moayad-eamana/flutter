@@ -50,6 +50,7 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
     logApi(logapiO);
     isloading = false;
     VehicleList = jsonDecode(resbonse.body)["data"] ?? [];
+    //VehicleList = VehicleList.reversed.toList();
     setState(() {});
     EasyLoading.dismiss();
   }
@@ -99,77 +100,77 @@ class _ViolatedVehicleListState extends State<ViolatedVehicleList> {
                 : AppBarW.appBarW("السيارات المسحوبة", context, null),
             body: SingleChildScrollView(
               child: Container(
-                height: 90.h,
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Stack(
                   children: [
                     widgetsUni.bacgroundimage(),
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      child: VehicleList.length == 0 && isloading == false
-                          ? Center(
+                    VehicleList.length == 0 && isloading == false
+                        ? Container(
+                            height: 100.h,
+                            child: Center(
                               child: Text(
                                 "لايوجد بيانات",
                                 style: titleTx(baseColor),
                               ),
-                            )
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: VehicleList.length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        // ignore: prefer_const_constructors
-                                        builder: (BuildContext context) {
-                                          return ViolatedVehichleDetails(
-                                              VehicleList[index],
-                                              widget.typeId);
-                                        },
+                            ),
+                          )
+                        : ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: VehicleList.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      // ignore: prefer_const_constructors
+                                      builder: (BuildContext context) {
+                                        return ViolatedVehichleDetails(
+                                            VehicleList[index], widget.typeId);
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Card(
+                                  child: Container(
+                                    decoration:
+                                        containerdecoration(Colors.white),
+                                    child: ListTile(
+                                      title: Text(
+                                        VehicleList[index]["StatusName"],
+                                        style: subtitleTx(baseColor),
                                       ),
-                                    );
-                                  },
-                                  child: Card(
-                                    child: Container(
-                                      decoration:
-                                          containerdecoration(Colors.white),
-                                      child: ListTile(
-                                        title: Text(
-                                          VehicleList[index]["StatusName"],
-                                          style: subtitleTx(baseColor),
-                                        ),
-                                        leading: Text(
-                                          VehicleList[index]["RequestID"]
-                                              .toString(),
-                                          style: subtitleTx(secondryColor),
-                                        ),
-                                        subtitle: Row(
-                                          children: [
-                                            Text(
-                                              "نوع السيارة:  " +
-                                                  VehicleList[index]
-                                                      ["VehicleType"] +
-                                                  " - ",
-                                              style: descTx1(baseColorText),
-                                            ),
-                                            Text(
-                                              "التاريخ: " +
-                                                  VehicleList[index]
-                                                          ["RequestDate"]
-                                                      .toString()
-                                                      .split("T")[0],
-                                              style: descTx1(baseColorText),
-                                            ),
-                                          ],
-                                        ),
-                                        trailing: Icon(Icons.arrow_forward_ios),
+                                      leading: Text(
+                                        VehicleList[index]["RequestID"]
+                                            .toString(),
+                                        style: subtitleTx(secondryColor),
                                       ),
+                                      subtitle: Row(
+                                        children: [
+                                          Text(
+                                            "نوع السيارة:  " +
+                                                VehicleList[index]
+                                                    ["VehicleType"] +
+                                                " - ",
+                                            style: descTx1(baseColorText),
+                                          ),
+                                          Text(
+                                            "التاريخ: " +
+                                                VehicleList[index]
+                                                        ["RequestDate"]
+                                                    .toString()
+                                                    .split("T")[0],
+                                            style: descTx1(baseColorText),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: Icon(Icons.arrow_forward_ios),
                                     ),
                                   ),
-                                );
-                              }),
-                    )
+                                ),
+                              );
+                            })
                   ],
                 ),
               ),

@@ -54,8 +54,14 @@ class _ServicesViewState extends State<ServicesView> {
     response = jsonDecode(response.body)["data"];
     if (response != null) {
       sharedPref.setBool("ViolatedCars", true);
+      if (response[0]["GroupID"] == 1) {
+        sharedPref.setBool("WarnViolatedCars", true);
+      } else {
+        sharedPref.setBool("WarnViolatedCars", false);
+      }
     } else {
       sharedPref.setBool("ViolatedCars", false);
+      sharedPref.setBool("WarnViolatedCars", false);
     }
     setState(() {});
     empinfo = await empinfo.getEmployeeProfile();

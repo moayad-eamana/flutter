@@ -10,7 +10,7 @@ class Pickattachments {
     XFile? images;
     images = await _picker.pickImage(
         source: source,
-        imageQuality: 100,
+        imageQuality: 30,
         preferredCameraDevice: CameraDevice.front);
     if (images != null) {
       final imageTemp = File(images.path);
@@ -34,7 +34,7 @@ class Pickattachments {
     List<XFile>? images;
     List res = [];
     images = await _picker.pickMultiImage(
-      imageQuality: 100,
+      imageQuality: 30,
     );
     print(images);
     print(images);

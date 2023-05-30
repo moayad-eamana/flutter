@@ -204,8 +204,17 @@ class _SecondVisitState extends State<SecondVisit> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {
-                        BottomSheet(index, docTypeID);
+                      onTap: () async {
+                        images[index] =
+                            await Pickattachments.pickImage(ImageSource.camera);
+                        Ataachment[index]["FileBytes"] =
+                            images[index]["base64"];
+                        Ataachment[index]["FileName"] = images[index]["name"];
+                        Ataachment[index]["FilePath"] = images[index]["path"];
+                        Ataachment[index]["DocTypeName"] =
+                            images[index]["type"];
+                        Ataachment[index]["DocTypeID"] = docTypeID;
+                        setState(() {});
                       },
                       child: Container(
                         height: 100,
@@ -216,8 +225,15 @@ class _SecondVisitState extends State<SecondVisit> {
                   ],
                 )
               : InkWell(
-                  onTap: () {
-                    BottomSheet(index, docTypeID);
+                  onTap: () async {
+                    images[index] =
+                        await Pickattachments.pickImage(ImageSource.camera);
+                    Ataachment[index]["FileBytes"] = images[index]["base64"];
+                    Ataachment[index]["FileName"] = images[index]["name"];
+                    Ataachment[index]["FilePath"] = images[index]["path"];
+                    Ataachment[index]["DocTypeName"] = images[index]["type"];
+                    Ataachment[index]["DocTypeID"] = docTypeID;
+                    setState(() {});
                   },
                   child: Image.file(
                     File(images[index]["path"]),
@@ -270,23 +286,23 @@ class _SecondVisitState extends State<SecondVisit> {
                     child: Text("الكاميرا"),
                   ),
                 ),
-                Container(
-                  width: 100.w,
-                  child: TextButton(
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      images[indx] =
-                          await Pickattachments.pickImage(ImageSource.gallery);
-                      Ataachment[indx]["FileBytes"] = images[indx]["base64"];
-                      Ataachment[indx]["FileName"] = images[indx]["name"];
-                      Ataachment[indx]["FilePath"] = images[indx]["path"];
-                      Ataachment[indx]["DocTypeName"] = images[indx]["type"];
-                      Ataachment[indx]["DocTypeID"] = docTypeID;
-                      setState(() {});
-                    },
-                    child: Text("الاستديو"),
-                  ),
-                ),
+                // Container(
+                //   width: 100.w,
+                //   child: TextButton(
+                //     onPressed: () async {
+                //       Navigator.pop(context);
+                //       images[indx] =
+                //           await Pickattachments.pickImage(ImageSource.gallery);
+                //       Ataachment[indx]["FileBytes"] = images[indx]["base64"];
+                //       Ataachment[indx]["FileName"] = images[indx]["name"];
+                //       Ataachment[indx]["FilePath"] = images[indx]["path"];
+                //       Ataachment[indx]["DocTypeName"] = images[indx]["type"];
+                //       Ataachment[indx]["DocTypeID"] = docTypeID;
+                //       setState(() {});
+                //     },
+                //     child: Text("الاستديو"),
+                //   ),
+                // ),
               ],
             ),
           ),
