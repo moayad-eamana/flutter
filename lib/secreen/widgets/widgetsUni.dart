@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
@@ -234,7 +235,75 @@ class widgetsUni {
                 new Radius.circular(4),
               ),
             ),
-            child: Image.network(link),
+            child: Image.network(
+              link,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  color: baseColor,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                      color: secondryColor,
+                    ),
+                  ),
+                );
+              },
+              // fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return ProfileImage(
+              tag: link,
+              path: link,
+              link: "car",
+            );
+          }));
+        });
+  }
+
+  static viewImageNetworkEvent(String link, BuildContext context) {
+    return GestureDetector(
+        child: Hero(
+          tag: link,
+          child: Container(
+            width: 100.w,
+            decoration: BoxDecoration(
+              color: BackGWhiteColor,
+              border: Border.all(
+                color: bordercolor,
+              ),
+              //color: baseColor,
+              borderRadius: BorderRadius.all(
+                new Radius.circular(4),
+              ),
+            ),
+            child: Image.network(
+              link,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  color: baseColor,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                      color: secondryColor,
+                    ),
+                  ),
+                );
+              },
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         onTap: () {

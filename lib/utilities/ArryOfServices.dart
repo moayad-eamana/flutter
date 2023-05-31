@@ -16,6 +16,7 @@ import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
+import 'package:eamanaapp/secreen/events/events_page.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/momten/momten.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/supportYourEmployees.dart';
@@ -465,6 +466,18 @@ class listOfServices {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => listOfQrcode()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      }, //EventsPage
+      {
+        "service_name": "المناسبات  ",
+        "Navigation": "",
+        "icon": "assets/SVGs/Occasion1.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EventsPage()),
             // ignore: prefer_const_constructors
           );
         }

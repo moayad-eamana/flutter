@@ -48,7 +48,7 @@ void getColorSettings() {
 
   bordercolor = Color(0xffDDDDDD);
 
-  lableTextcolor = Color(0xffE9DFCF); //Color(0xffACC5FF);
+  lableTextcolor = Color(0xffACC5FF); //Color(0xffACC5FF);
 
   redColor = Colors.red; //Colors.red
 
@@ -88,7 +88,7 @@ void getColorSettings() {
 
     BackGColor = Colors.grey.shade900;
 
-    BackGWhiteColor = Color(0xff231F20); // Color(0xff303030);
+    BackGWhiteColor = Color(0xff303030); // Color(0xff303030);
 
     baseColor = Color(0xff2E8D9A); // Colors.blueGrey.shade200;0xff6EBE8A
 
