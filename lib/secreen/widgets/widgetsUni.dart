@@ -280,9 +280,9 @@ class widgetsUni {
                 color: bordercolor,
               ),
               //color: baseColor,
-              borderRadius: BorderRadius.all(
-                new Radius.circular(4),
-              ),
+              // borderRadius: BorderRadius.all(
+              //   new Radius.circular(4),
+              // ),
             ),
             child: Image.network(
               link,

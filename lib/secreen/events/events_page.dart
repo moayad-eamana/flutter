@@ -138,11 +138,11 @@ class _EventsPageState extends State<EventsPage> {
                                 //       Events[index]["EmployeeName"]),
                                 // ),
                                 Container(
-                                  height: 400,
+                                  height: 420,
                                   decoration:
                                       containerdecoration(BackGWhiteColor),
                                   margin: EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 20),
+                                      horizontal: 10, vertical: 10),
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 0, vertical: 0),
                                   child: Column(
