@@ -27,6 +27,7 @@ import 'package:eamanaapp/secreen/auth.dart';
 import 'package:eamanaapp/secreen/community/comments.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/reserveForcustomer/reserveForcustomer.dart';
+import 'package:eamanaapp/secreen/events/events_page.dart';
 import 'package:eamanaapp/secreen/favs/favs.dart';
 import 'package:eamanaapp/secreen/mahamme/CooperativeTrainingRequestsInfo.dart';
 import 'package:eamanaapp/secreen/mahamme/GetCardRequestInfo.dart';
@@ -327,13 +328,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           Locale('en', ''),
           Locale('ar', ''),
         ],
+
         navigatorKey: navigatorKey,
-        builder: EasyLoading.init(),
+        builder: EasyLoading.init(builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: child!,
+          );
+        }),
         debugShowCheckedModeBanner: false,
         title: 'رقمي',
         theme: ThemeData(
           //dark mode
           //brightness: Brightness.dark,
+
           primarySwatch: Colors.blue,
           fontFamily: 'Cairo',
           tabBarTheme: TabBarTheme(
@@ -412,6 +420,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/meettingsType': (context) => meettingsType(),
           '/newEmpInfo': (context) => newEmpInfo(true),
           '/splashScreen': (context) => splashScreen(),
+          '/events_page': (context) => EventsPage(),
         },
       );
     });

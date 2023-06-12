@@ -225,7 +225,11 @@ Future<void> handelfirbasemessge(RemoteMessage message) async {
         }));
     return;
   }
-  if (message.data["module_name"] == "Offers") {
+  if (message.data["module_name"] == "Events") {
+    navigatorKey.currentState?.pushNamed("/events_page");
+    return;
+  }
+  if (message.data["module_name"] == "events") {
     navigatorKey.currentState?.pushNamed("/EamanaDiscount");
     return;
   }

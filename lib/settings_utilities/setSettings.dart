@@ -14,7 +14,7 @@ String Morning = "morning";
 // String raqameUpdate = "test_raqameUpdate";
 // String offers = "test_offers";
 // String morning = "test_morning";
-// String events = "Events_Test";
+String events = "Events_Test";
 
 void setSettings() async {
   await Firebase.initializeApp();
@@ -39,7 +39,8 @@ void setSettings() async {
     // await FirebaseMessaging.instance.subscribeToTopic('test');
     sharedPref.setBool("updatenotification", true);
   }
-  if (sharedPref.getBool('offers') == null) {
+  if (sharedPref.getBool('offers') != null ||
+      sharedPref.getBool('offers') == null) {
     //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
     await FirebaseMessaging.instance.subscribeToTopic(offers);
     sharedPref.setBool("offers", true);
@@ -49,11 +50,12 @@ void setSettings() async {
     await FirebaseMessaging.instance.subscribeToTopic(Morning);
     sharedPref.setBool("morning", true);
   }
-  // if (sharedPref.getBool('events') == null) {
-  //   //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
-  //   await FirebaseMessaging.instance.subscribeToTopic(events);
-  //   sharedPref.setBool("events", true);
-  // }
+  if (sharedPref.getBool('events') == null ||
+      sharedPref.getBool('events') != null) {
+    //   await FirebaseMessaging.instance.subscribeToTopic('raqameUpdate');
+    await FirebaseMessaging.instance.subscribeToTopic(events);
+    sharedPref.setBool("events", true);
+  }
 }
 
 void configLoading() {

@@ -269,10 +269,10 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                                   controller: _plateText,
                                   keyboardType: TextInputType.text,
                                   maxLines: 1,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                        RegExp("[a-zA-Z]"))
-                                  ],
+                                  // inputFormatters: [
+                                  //   FilteringTextInputFormatter.allow(
+                                  //       RegExp("[a-zA-Z]"))
+                                  // ],
                                   style: TextStyle(color: baseColorText),
                                   decoration: formlabel1(
                                       "الحروف باللغة الانجليزية من اليسار"),
@@ -436,6 +436,15 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                         widget.violatedVehicle.carInfo["IsAlive"] == 1
                             ? "على قيد الحياة"
                             : "متوفى"),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    cards("لون السيارة",
+                        widget.violatedVehicle.carInfo["MajorColorDescAr"])
                   ],
                 ),
                 SizedBox(

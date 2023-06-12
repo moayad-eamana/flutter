@@ -10,6 +10,7 @@ import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/QrCode/listOfQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
+import 'package:eamanaapp/secreen/SafetyandSecurity/WarnViolatedVehicle.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehicleList.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
@@ -517,6 +518,27 @@ class listOfServices {
             }
           ]
         : [];
+  }
+
+  List SafetyandSecurityList() {
+    return [
+      {
+        "service_name": "إنذار سيارة",
+        "Navigation": "",
+        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // ignore: prefer_const_constructors
+              builder: (BuildContext context) {
+                return WarnViolatedVehicleSftyAndSecurity();
+              },
+            ),
+          );
+        }
+      },
+    ];
   }
 
   List fastservices() {

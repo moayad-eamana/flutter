@@ -174,7 +174,7 @@ class _newEmpInfoState extends State<newEmpInfo> {
                           secondryColor,
                         ],
                       )),
-                      height: (sharedPref.getInt("empTypeID") != 8) ? 230 : 200,
+                      height: (sharedPref.getInt("empTypeID") != 8) ? 250 : 200,
                       child: Stack(
                         overflow: Overflow.visible,
                         fit: StackFit.loose,

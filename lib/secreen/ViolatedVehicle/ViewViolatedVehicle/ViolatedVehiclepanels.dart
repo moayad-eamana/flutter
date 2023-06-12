@@ -39,7 +39,7 @@ class _ViolatedVehichleDetailsState extends State<ViolatedVehichleDetails> {
 
   void getimage() async {
     var respone = await getAction(
-        "ViolatedCars/GetVisitAttachments/${widget.vehicle["ArcSerial"]}");
+        "ViolatedCars/GetVisitAttachments/${widget.vehicle["Visits"][0]["ArcSerial"]}");
     respone = jsonDecode(respone.body);
     if (respone["StatusCode"] == 400) {
       respone = respone["data"];

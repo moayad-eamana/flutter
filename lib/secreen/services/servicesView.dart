@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/notification/bagenotification.dart';
+import 'package:eamanaapp/secreen/services/SafetyandSecurity.dart';
 import 'package:eamanaapp/secreen/services/hrServices.dart';
 import 'package:eamanaapp/secreen/services/violationVehicleService.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
@@ -166,6 +167,9 @@ class _ServicesViewState extends State<ServicesView> {
                     if (sharedPref.getBool("ViolatedCars") == true)
                       ...ViolationVehicleWidgets.violationVehicleWidgets(
                           context),
+                    SizedBox(height: 10),
+                    ...SafetyandSecurity.SafetyandSecurityWidget(context),
+
                     SizedBox(
                       height: 5,
                     ),
