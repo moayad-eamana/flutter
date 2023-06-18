@@ -279,37 +279,37 @@ class _CommunityState extends State<Community> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundColor: baseColor,
-            radius: responsiveMT(26, 28),
-            child: empinfo.ImageURL == null || empinfo.ImageURL == ""
-                ? Image.asset("assets/image/blank-profile.png")
-                : ClipOval(
-                    child: CachedNetworkImage(
-                      height: 50,
-                      width: 50,
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          "https://archive.eamana.gov.sa/TransactFileUpload" +
-                              empinfo.ImageURL.toString().split("\$")[1],
-                    ),
-                  ),
-            // ClipOval(
-            //     child: FadeInImage
-            //         .assetNetwork(
-            //       fit: BoxFit.cover,
-            //       width: 50,
-            //       height: 50,
-            //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
-            //           empinfo.ImageURL
-            //                   .toString()
-            //               .split(
-            //                   "\$")[1],
-            //       placeholder:
-            //           "assets/image/avatar.jpg",
-            //     ),
-            //   ),
-          ),
+          // CircleAvatar(
+          //   backgroundColor: baseColor,
+          //   radius: responsiveMT(26, 28),
+          //   child: empinfo.ImageURL == null || empinfo.ImageURL == ""
+          //       ? Image.asset("assets/image/blank-profile.png")
+          //       : ClipOval(
+          //           child: CachedNetworkImage(
+          //             height: 50,
+          //             width: 50,
+          //             fit: BoxFit.cover,
+          //             imageUrl:
+          //                 "https://archive.eamana.gov.sa/TransactFileUpload" +
+          //                     empinfo.ImageURL.toString().split("\$")[1],
+          //           ),
+          //         ),
+          //   // ClipOval(
+          //   //     child: FadeInImage
+          //   //         .assetNetwork(
+          //   //       fit: BoxFit.cover,
+          //   //       width: 50,
+          //   //       height: 50,
+          //   //       image: "https://archive.eamana.gov.sa/TransactFileUpload" +
+          //   //           empinfo.ImageURL
+          //   //                   .toString()
+          //   //               .split(
+          //   //                   "\$")[1],
+          //   //       placeholder:
+          //   //           "assets/image/avatar.jpg",
+          //   //     ),
+          //   //   ),
+          // ),
           SizedBox(
             width: 10,
           ),

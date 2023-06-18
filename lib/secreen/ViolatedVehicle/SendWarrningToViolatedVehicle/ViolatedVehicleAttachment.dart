@@ -111,6 +111,7 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
                           var reponse = await postAction(
                               "ViolatedCars/InsertViolationRequest",
                               jsonEncode(widget.violatedVehicle.sendwarning));
+                          EasyLoading.dismiss();
                           logApiModel logapiO = logApiModel();
                           logapiO.ControllerName = "ViolatedVehicle";
                           logapiO.ClassName = "ViolatedVehicle";

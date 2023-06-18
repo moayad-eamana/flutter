@@ -17,19 +17,19 @@ class Pickattachments {
 
       images = await _picker.pickImage(
         source: source,
-        preferredCameraDevice: CameraDevice.front,
-        imageQuality: 60,
+        // preferredCameraDevice: CameraDevice.front,
+        // imageQuality: 60,
       );
       if (images != null) {
         final imageTemp = File(images.path);
 
-        var result = await FlutterImageCompress.compressAndGetFile(
-          images.path,
-          images.path + "compressed" + images.name.split(".").last,
-          quality: 30,
-        );
+        // var result = await FlutterImageCompress.compressAndGetFile(
+        //   images.path,
+        //   images.path + "compressed" + images.name.split(".").last,
+        //   quality: 30,
+        // );
         File rotatedImage =
-            await FlutterExifRotation.rotateImage(path: result!.path);
+            await FlutterExifRotation.rotateImage(path: imageTemp!.path);
         var base64 = base64Encode(await rotatedImage.readAsBytes());
         int sizeInBytes = imageTemp.lengthSync();
         double sizeInMb = sizeInBytes / (1024 * 1024);

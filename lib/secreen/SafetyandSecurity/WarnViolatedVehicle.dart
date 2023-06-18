@@ -8,6 +8,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WarnViolatedVehicleSftyAndSecurity extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _WarnViolatedVehicleSftyAndSecurityState
   TextEditingController _platenumber = TextEditingController();
   TextEditingController _plateText = TextEditingController();
   TextEditingController _VehicleIDNumber = TextEditingController();
-
+  dynamic respons;
   String _registrationType = "";
   int _registrationCode = 0;
   final _formKey1 = GlobalKey<FormState>();
@@ -59,7 +60,7 @@ class _WarnViolatedVehicleSftyAndSecurityState
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBarW.appBarW("إنذار سيارة", context, null),
+        appBar: AppBarW.appBarW("تنبيه سيارة", context, null),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -308,7 +309,7 @@ class _WarnViolatedVehicleSftyAndSecurityState
                           children: [
                             widgetsUni.actionbutton('إستعلام', Icons.send,
                                 () async {
-                              carInfo = null;
+                              //carInfo = null;
                               FocusManager.instance.primaryFocus?.unfocus();
 
                               setState(() {});
@@ -321,7 +322,7 @@ class _WarnViolatedVehicleSftyAndSecurityState
                                   status: '... جاري المعالجة',
                                   maskType: EasyLoadingMaskType.black,
                                 );
-                                var respons = await getAction(
+                                respons = await getAction(
                                     "NIC/GetViolatedVehicleInfoByVehicleIDNumber?VehicleIDNumber=" +
                                         _VehicleIDNumber.text.trim());
 
@@ -331,6 +332,9 @@ class _WarnViolatedVehicleSftyAndSecurityState
                                       jsonDecode(respons.body)["ResponseData"]
                                           ["data"]["result"];
                                   print(carInfo);
+                                  respons =
+                                      jsonDecode(respons.body)["ResponseData"]
+                                          ["data"]["EmployeeInfo"];
                                   EasyLoading.dismiss();
 
                                   setState(() {});
@@ -356,15 +360,16 @@ class _WarnViolatedVehicleSftyAndSecurityState
                                     platechar =
                                         _plateText.text.trim().split("");
                                   }
-                                  var respons = await getAction(
-                                      "NIC/GetViolatedVehicleInfoByPlatNumber?text1=${platechar[0]}&text2=${platechar[1] ?? ""}&text3=${platechar[2] ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}",
+                                  respons = await getAction(
+                                      "NIC/GetViolatedVehicleInfoByPlatNumberSecurity?text1=${platechar[0]}&text2=${platechar[1] ?? ""}&text3=${platechar[2] ?? ""}&plateNumber=${_platenumber.text}&registrationTypeID=${_registrationCode}",
                                       optioal: "test");
                                   if (jsonDecode(respons.body)["StatusCode"] ==
                                       400) {
                                     carInfo =
                                         jsonDecode(respons.body)["ResponseData"]
                                             ["data"]["result"];
-
+                                    respons = jsonDecode(
+                                        respons.body)["EmployeeInfo"];
                                     print(carInfo);
                                     EasyLoading.dismiss();
                                     setState(() {});
@@ -434,7 +439,7 @@ class _WarnViolatedVehicleSftyAndSecurityState
                         ? Container()
                         : SizedBox(
                             width: 150,
-                            child: widgetsUni.actionbutton("إنذار سيارة",
+                            child: widgetsUni.actionbutton("تنبيه سيارة",
                                 Icons.arrow_forward, () async {}),
                           ),
                     image != null
@@ -443,11 +448,15 @@ class _WarnViolatedVehicleSftyAndSecurityState
                             setState(() {});
                           })
                         : Container(),
-                    SizedBox(
-                      width: 150,
-                      child: widgetsUni.actionbutton(
-                          "إتصال", Icons.arrow_forward, () async {}),
-                    ),
+                    if (respons != null)
+                      SizedBox(
+                        width: 150,
+                        child: widgetsUni.actionbutton(
+                            "إتصال", Icons.arrow_forward, () async {
+                          print(respons["MobileNumber"]);
+                          launch("tel://" + respons["MobileNumber"]);
+                        }),
+                      ),
                     SizedBox(
                       height: 20,
                     ),

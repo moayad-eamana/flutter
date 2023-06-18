@@ -111,7 +111,7 @@ class attendanceServiceFunction {
                 logapiO.ActionMethodName =
                     type == 1 ? "تسجيل حضور" : "تسجيل الانصراف";
                 logapiO.ActionMethodType = 2;
-                logapiO.ErrorMessage = jsonDecode(respose.body)["ErrorMessage"];
+                logapiO.ErrorMessage = respose["ErrorMessage"];
                 logapiO.StatusCode = 0;
 
                 logApi(logapiO);

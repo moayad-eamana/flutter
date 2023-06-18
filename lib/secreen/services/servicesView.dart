@@ -168,11 +168,11 @@ class _ServicesViewState extends State<ServicesView> {
                       ...ViolationVehicleWidgets.violationVehicleWidgets(
                           context),
                     SizedBox(height: 10),
-                    ...SafetyandSecurity.SafetyandSecurityWidget(context),
+                    // ...SafetyandSecurity.SafetyandSecurityWidget(context),
 
-                    SizedBox(
-                      height: 5,
-                    ),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
 
                     ...otherServices.otherWidget(context),
                   ],

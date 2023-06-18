@@ -58,9 +58,20 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
               controller: controller,
               children: [
                 MyEmployees(_employeesList, _checkedEmployees, nextPage),
-                supportTypes(
-                    nextPage, backPage, listOfmessages, listOfmessagesfn),
-                SupportMessages(listOfmessages), //backPage,
+                // supportTypes(
+                //     nextPage, backPage, listOfmessages, listOfmessagesfn),
+                SupportMessages([
+                  "من الجيد أن يكون لديك موظف مستعد دائمًا لمواجهة التحدي!",
+                  "أداؤك الممتاز هو مصدر إلهام للجميع. استمر في العمل العظيم!",
+                  "الموظف الموثوق به هو أفضل هدية يمكن للقائد أن يطلبها. شكرا لكونك شخص يمكنني الاعتماد عليه",
+                  "أنا معجب باستمرار  أدائك. شكرا لعملكم الشاق!",
+                  "الإنتاجية هي القدرة على القيام بأشياء لم تكن قادرًا على القيام بها من قبل",
+                  "لقد عملت بجد للوصول إلى ما أنت عليه الآن. تهانينا على مكافأتك التي حصلت عليها عن جدارة!",
+                  "يسعدنا أن تظل جزءًا من فريقنا. إليكم مستقبل واعد في مؤسستنا!",
+                  "شكرا",
+                  "كفو",
+                  "يعطيك العافية"
+                ]), //backPage,
               ],
             ),
           ],
