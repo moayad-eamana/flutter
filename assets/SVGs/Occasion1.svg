@@ -41,9 +41,9 @@
      d="m 4.483871,5.4587814 h 14 v 2 h -14 z"
      opacity=".3"
      id="path261"
-     style="opacity:1;fill:#2e8d9a;fill-opacity:1" />
+     style="opacity:1;fill:#00bd82;fill-opacity:1" />
   <path
      d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zm0-12H5V5h14v2zm-2.51 4.53l-1.06-1.06-4.87 4.87-2.11-2.11-1.06 1.06 3.17 3.17z"
      id="path263"
-     style="fill:#274690;fill-opacity:1" />
+     style="fill:#3d4d55;fill-opacity:1" />
 </svg>
