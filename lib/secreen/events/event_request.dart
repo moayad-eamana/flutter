@@ -8,6 +8,7 @@ import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFiele
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
+import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -34,8 +35,12 @@ class _EventRequestState extends State<EventRequest> {
   var _degreesID = null;
   final _formKey = GlobalKey<FormState>();
 
-  List<XFile>? images;
-  final ImagePicker _picker = ImagePicker();
+  var images;
+
+  String? fileName;
+  String? fileBytes;
+  String? filePath;
+
   List listofimage = [];
 
   TextEditingController _dateFrom = TextEditingController();
@@ -69,7 +74,9 @@ class _EventRequestState extends State<EventRequest> {
               "CreationtypeID": 1,
               "RelativeID": _relativesID,
               "DegreeID": _degreesID,
-              "UserNumber": int.parse(EmployeeProfile.getEmployeeNumber())
+              "UserNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
+              "FileBytes": fileBytes,
+              "FileName": fileName,
             }));
         if (jsonDecode(reponse.body)["StatusCode"] == 400) {
           Alerts.successAlert(context, "", "تم إرسال الطلب").show();
@@ -525,75 +532,68 @@ class _EventRequestState extends State<EventRequest> {
                             SizedBox(
                               height: 10,
                             ),
-                            // Text(
-                            //   "إضافة المرفقات",
-                            //   style: titleTx(baseColor),
-                            // ),
-                            // SizedBox(
-                            //   height: 10,
-                            // ),
-                            // Row(
-                            //   children: [
-                            //     Container(
-                            //       height: 70,
-                            //       width: 70,
-                            //       decoration: BoxDecoration(
-                            //         color: BackGWhiteColor,
-                            //         border: Border.all(
-                            //           color: bordercolor,
-                            //         ),
-                            //         //color: baseColor,
-                            //         borderRadius: BorderRadius.all(
-                            //           new Radius.circular(4),
-                            //         ),
-                            //       ),
-                            //       child: IconButton(
-                            //         padding: EdgeInsets.zero,
-                            //         constraints: BoxConstraints(),
-                            //         icon: const Icon(Icons.image),
-                            //         color: baseColor,
-                            //         onPressed: () async {
-                            //           //from gallary
-                            //           images = await _picker.pickMultiImage(
-                            //             imageQuality: 100,
-                            //             maxHeight: 1440,
-                            //             maxWidth: 1440,
-                            //           );
-                            //           print(images);
-                            //           if (images != null) {
-                            //             for (int i = 0;
-                            //                 i < images!.length;
-                            //                 i++) {
-                            //               final imageTemp =
-                            //                   File(images![i].path);
-                            //               var base64 = base64Encode(
-                            //                   await imageTemp.readAsBytes());
-                            //               int sizeInBytes =
-                            //                   imageTemp.lengthSync();
-                            //               double sizeInMb =
-                            //                   sizeInBytes / (1024 * 1024);
-                            //               print(sizeInMb);
-                            //               listofimage.add({
-                            //                 'path': images![i].path,
-                            //                 'type':
-                            //                     images![i].name.split(".").last,
-                            //                 'name': images![i].name,
-                            //                 'base64': base64,
-                            //                 'size': sizeInMb
-                            //               });
-                            //             }
-
-                            //             setState(() {});
-                            //           } else {
-                            //             return;
-                            //           }
-                            //         },
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
+                            Text(
+                              "إضافة المرفقات",
+                              style: titleTx(baseColor),
+                            ),
                             SizedBox(
-                              width: 10,
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    images = await Pickattachments.pickFile(
+                                        ["pdf", "png", "jpeg", "jpg"]);
+
+                                    print(images);
+
+                                    if (images["size"] < 2000000) {
+                                      filePath = images["path"];
+                                      fileName = images["name"];
+                                      fileBytes = images["base64"];
+                                    } else {
+                                      Alerts.warningAlert(context, "حجم الملف",
+                                              "يجب ان لا يزيد حجم الملف عن 2 ميجابايت ")
+                                          .show();
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: images == null
+                                        ? Stack(
+                                            children: [
+                                              Placeholder(
+                                                color: secondryColorText,
+                                                strokeWidth: 0.4,
+                                                fallbackHeight: 100,
+                                                fallbackWidth: 100,
+                                              ),
+                                              Center(child: Text("صورة")),
+                                            ],
+                                          )
+                                        : images["type"] == "pdf"
+                                            ? Icon(
+                                                Icons.picture_as_pdf,
+                                                color: baseColor,
+                                                size: 50,
+                                              )
+                                            : Image.file(
+                                                File(filePath.toString()),
+                                                width: 100,
+                                                height: 100,
+                                              ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (images == null && _eventID == 4)
+                              Text("يرجى ارفاق ملف", style: descTx2(redColor)),
+                            SizedBox(
+                              height: 10,
                             ),
                             TextFormField(
                               maxLength: 300,
@@ -627,7 +627,13 @@ class _EventRequestState extends State<EventRequest> {
                                     Icons.send,
                                     () {
                                       if (_formKey.currentState!.validate()) {
-                                        InsertEvent();
+                                        if (images == null && _eventID == 4) {
+                                          Alerts.warningAlert(context, "مرفقات",
+                                                  "يرجى ارفاق صورة")
+                                              .show();
+                                        } else {
+                                          InsertEvent();
+                                        }
                                       }
                                     },
                                   ),

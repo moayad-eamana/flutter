@@ -78,8 +78,11 @@ class Pickattachments {
     }
   }
 
-  static pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+  static pickFile(List<String>? ext) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ext,
+      type: FileType.custom,
+    );
     dynamic file;
     if (result != null) {
       file = result;
@@ -92,6 +95,7 @@ class Pickattachments {
         'path': file.files[0].path,
         'type': file.files[0].extension,
         'name': file.files[0].name,
+        'size': file.files[0].size,
         'base64': base64,
       };
       return res;
