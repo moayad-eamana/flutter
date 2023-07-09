@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class MyEmployees extends StatefulWidget {
   List _employeesList;
@@ -13,12 +16,10 @@ class MyEmployees extends StatefulWidget {
 
 class _MyEmployeesState extends State<MyEmployees> {
   bool flag = false;
+  List filter = [];
+  int index = 0;
+  TextEditingController search = TextEditingController();
   @override
-  // void initState() {
-  //   if (widget._employeesList.length <= 0) {
-  //     getData();
-  //   }
-  // }
 
 //   getData() async {
 //     EasyLoading.show(
@@ -55,6 +56,31 @@ class _MyEmployeesState extends State<MyEmployees> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Column(children: [
+          Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              //  height: 120,
+              width: 90.w,
+              child: TextField(
+                controller: search,
+                decoration: formlabel1("بحث"),
+                onChanged: (value) {
+                  if (index == 0) {
+                    var cc = jsonEncode(widget._employeesList);
+                    filter = jsonDecode(cc);
+                    index++;
+                  }
+                  widget._employeesList = widget._employeesList
+                      .where((element) =>
+                          element["EmployeeName"].toString().contains(value))
+                      .toList();
+                  if (value == "") {
+                    var cc = jsonEncode(filter);
+                    widget._employeesList = jsonDecode(cc);
+                    setState(() {});
+                  }
+                  setState(() {});
+                },
+              )),
           Container(
             height: 610,
             width: 400,
@@ -130,11 +156,16 @@ class _MyEmployeesState extends State<MyEmployees> {
                                 if (widget._employeesList[index]
                                         ["isSelected"] ==
                                     true) {
-                                  widget._checkedEmployees.add(widget
-                                      ._employeesList[index]["EmployeeNumber"]);
+                                  widget._checkedEmployees.add(int.parse(widget
+                                      ._employeesList[index]["EmployeeNumber"]
+                                      .toString()
+                                      .split(".")[0]));
                                 } else {
-                                  widget._checkedEmployees.remove(widget
-                                      ._employeesList[index]["EmployeeNumber"]);
+                                  widget._checkedEmployees.remove(int.parse(
+                                      widget._employeesList[index]
+                                              ["EmployeeNumber"]
+                                          .toString()
+                                          .split(".")[0]));
                                 }
                                 ;
                               },

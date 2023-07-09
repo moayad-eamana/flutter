@@ -11,12 +11,14 @@ import '../../main.dart';
 
 class badgenotification {
   static shownotfNub() async {
-    var response = await getAction("Hr/GetNotReadNotificationsCount/" +
-        EmployeeProfile.getEmployeeNumber());
-    notificationcont = jsonDecode(response.body)["ReturnResult"] == null ||
-            jsonDecode(response.body)["ReturnResult"] == 0
-        ? null
-        : jsonDecode(response.body)["ReturnResult"];
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      var response = await getAction("Hr/GetNotReadNotificationsCount/" +
+          EmployeeProfile.getEmployeeNumber());
+      notificationcont = jsonDecode(response.body)["ReturnResult"] == null ||
+              jsonDecode(response.body)["ReturnResult"] == 0
+          ? null
+          : jsonDecode(response.body)["ReturnResult"];
+    }
   }
 
   static Widget badgewidget(BuildContext context) {

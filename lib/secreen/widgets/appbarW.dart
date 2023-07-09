@@ -152,7 +152,7 @@ class AppBarW {
                     ),
                   ),
                 ),
-              if (title == "عرض الطلبات" && function != null)
+              if ((title == "عرض الطلبات") && function != null)
                 Positioned(
                   left: 25,
                   top: 25,

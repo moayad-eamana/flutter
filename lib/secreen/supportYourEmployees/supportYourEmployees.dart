@@ -4,14 +4,13 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/MyEmployees.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/SupportMessages.dart';
-import 'package:eamanaapp/secreen/supportYourEmployees/supportTypes.dart';
+import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class supportYourEmployees extends StatefulWidget {
@@ -26,7 +25,7 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
   List _checkedEmployees = [];
   int index = 0;
   String title = "إختر موظف";
-
+  TextEditingController customeMsg = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -51,6 +50,119 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
         appBar: AppBarW.appBarW(title, context, null, () {
           backPage();
         }),
+        floatingActionButton: index == 1
+            ? Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  margin: EdgeInsets.only(right: 30),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      // Add your onPressed code here!
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Container(
+                              height: 300,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 20),
+                                      child: TextField(
+                                        controller: customeMsg,
+                                        decoration: formlabel1("نص الرسالة"),
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                    sizeBox(),
+                                    Container(
+                                      width: 80,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            side: BorderSide(
+                                              width: 1,
+                                              color: bordercolor,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                            primary: baseColor, // background
+                                            onPrimary:
+                                                Colors.white, // foreground
+
+                                            elevation: 2),
+                                        child: Text('إرسال'),
+                                        onPressed: () async {
+                                          //  Navigator.pop(context);
+                                          EasyLoading.show(
+                                            status: '... جاري المعالجة',
+                                            maskType: EasyLoadingMaskType.black,
+                                          );
+                                          await postAction(
+                                              "Notifications/SendFCMNotification",
+                                              jsonEncode({
+                                                "Employees": _checkedEmployees,
+                                                "notification": {
+                                                  "body": customeMsg.text,
+                                                  "title": sharedPref
+                                                          .getString(
+                                                              "FirstName")
+                                                          .toString() +
+                                                      "  " +
+                                                      sharedPref
+                                                          .getString("LastName")
+                                                          .toString() +
+                                                      " يساندك ",
+                                                  "image": "sample string 3"
+                                                },
+                                                "data": {
+                                                  "module_id": "6",
+                                                  "request_id": "0",
+                                                  "module_name": "Support",
+                                                  "image": "sample string 4",
+                                                  "body": customeMsg.text,
+                                                  "title": sharedPref
+                                                          .getString(
+                                                              "FirstName")
+                                                          .toString() +
+                                                      "  " +
+                                                      sharedPref
+                                                          .getString("LastName")
+                                                          .toString() +
+                                                      " يساندك "
+                                                },
+                                                "ApplicationID": 2
+                                              }));
+                                          EasyLoading.dismiss();
+                                          Alerts.successAlert(context, "",
+                                                  "تم إرسال الرسالة")
+                                              .show()
+                                              .then((value) {
+                                            Navigator.pop(context);
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    backgroundColor: baseColor,
+                    child: const Icon(Icons.add),
+                  ),
+                ),
+              )
+            : Container(),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
@@ -71,19 +183,13 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
                   "شكرا",
                   "كفو",
                   "يعطيك العافية"
-                ]), //backPage,
+                ], _checkedEmployees), //backPage,
               ],
             ),
           ],
         ),
       ),
     );
-  }
-
-  listOfEmployees(List _employeesList2) {
-    setState(() {
-      _employeesList = _employeesList2;
-    });
   }
 
   nextPage() {
@@ -102,6 +208,7 @@ class _supportYourEmployeesState extends State<supportYourEmployees> {
       Navigator.pop(context);
     }
     index--;
+    setState(() {});
     FocusScope.of(context).unfocus();
     controller.animateToPage(controller.page!.toInt() - 1,
         duration: Duration(milliseconds: 400), curve: Curves.easeIn);

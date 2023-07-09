@@ -38,10 +38,9 @@ void getColorSettings() {
 
   BackGColor = Color(0xfffcfcfc);
 
-  baseColor = Color(0xff3d4d55); // Color(0xff004F51); // Color(0xff274690)
+  baseColor = Color(0xff274690); // Color(0xff 274690); // Color(0xff274690)
 
-  secondryColor = Color(
-      0xff00bd82); // Color(0xff00A887); // Color(0xff2E8D9A);Color(0xff3d4d55);
+  secondryColor = Color(0xff2E8D9A); // Color(0xff2E8D9A); // Color(0xff2E8D9A);
 
   baseColorText = Color(0xff444444);
 

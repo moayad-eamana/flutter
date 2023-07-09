@@ -8,6 +8,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WarnViolatedVehicleSftyAndSecurity extends StatefulWidget {
@@ -454,7 +455,10 @@ class _WarnViolatedVehicleSftyAndSecurityState
                         child: widgetsUni.actionbutton(
                             "إتصال", Icons.arrow_forward, () async {
                           print(respons["MobileNumber"]);
-                          launch("tel://" + respons["MobileNumber"]);
+                          //  launch("tel://" + respons["MobileNumber"]);
+                          FlutterPhoneDirectCaller.callNumber(
+                            "0567442031",
+                          );
                         }),
                       ),
                     SizedBox(

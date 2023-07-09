@@ -93,6 +93,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^19.4.48
   flutter_exif_rotation: ^0.4.3
   flutter_image_compress: ^2.0.0
+  flutter_phone_direct_caller: ^2.1.1
 
 
 

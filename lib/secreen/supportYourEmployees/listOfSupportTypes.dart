@@ -53,10 +53,7 @@ class listOfSupportTypes {
   static NavigatTo(BuildContext context, List messages) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => SupportMessages(
-                messages,
-              )),
+      MaterialPageRoute(builder: (context) => SupportMessages(messages, [])),
       // ignore: prefer_const_constructors
     );
   }

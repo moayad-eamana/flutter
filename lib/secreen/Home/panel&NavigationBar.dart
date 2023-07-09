@@ -1,18 +1,13 @@
 import 'dart:io';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:badges/badges.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Settings/settings.dart';
-import 'package:eamanaapp/secreen/favs/favs.dart';
-import 'package:eamanaapp/secreen/notification/notification.dart';
 import 'package:eamanaapp/secreen/services/servicesView.dart';
 import 'package:eamanaapp/secreen/statistics/statistics.dart';
 import 'package:eamanaapp/secreen/widgets/image_view.dart';
@@ -22,7 +17,6 @@ import 'package:eamanaapp/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:sizer/sizer.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -411,7 +405,7 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: packageInfo.version != localVersion && forceUpdate == true
+          body: packageInfo.version != localVersion && false
               ? Directionality(
                   textDirection: TextDirection.rtl,
                   child: AlertDialog(

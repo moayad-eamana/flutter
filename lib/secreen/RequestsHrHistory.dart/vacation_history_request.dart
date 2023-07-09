@@ -39,7 +39,10 @@ class _vacation_old_requestState extends State<vacation_old_request> {
       String Empno =
           sharedPref.getDouble("EmployeeNumber").toString().split(".")[0];
 
-      list = await getAction("HR/GetUserVacations/" + Empno);
+      list = await getAction((sharedPref.getInt("empTypeID") != 8
+              ? "HR/GetUserVacations/"
+              : "HR/GetUserVacationsCompanies/") +
+          Empno);
       logApiModel logapiO = logApiModel();
       logapiO.ControllerName = "OutDutyController";
       logapiO.ClassName = "OutDutyController";

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -8,24 +7,23 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 import 'SLL_pin.dart';
 
-String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
-// String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
-// String CRMURL = "https://crm.eamana.gov.sa/agenda/api/";
-String CRMURL = "https://crm.eamana.gov.sa/agenda_dev/api/";
+// String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+// String CRMURL = "https://crm.eamana.gov.sa/agenda_dev/api/";
+String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
+String CRMURL = "https://crm.eamana.gov.sa/agenda/api/";
 
 Future<String> Bearer() async {
   return sharedPref.getString("AccessToken") ?? "";
 }
 
 dynamic getAction(String link, {String? optioal}) async {
-  // if (link.split("/")[0] == "ViolatedCars" ||
-  //     link.split("/")[0] == "NIC" ||
-  //     link == "Inbox/UpdateViolatedVehiclesRequestStatus") {
+  // if (link.split("/")[1] == "GetAllEmployeesByManagerNumber" ||
+  //     link.split("/")[1] == "SendFCMNotification") {
+  //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
+  // } else {
   //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   // }
-  // // else {
-  // //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
-  // // }
+
   if (sharedPref.getString("dumyuser") == "10284928492") {
     Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   }
@@ -60,14 +58,12 @@ dynamic getAction(String link, {String? optioal}) async {
 
 //EE
 dynamic postAction(String link, dynamic body) async {
-  // if (link.split("/")[0] == "ViolatedCars" ||
-  //     link.split("/")[0] == "NIC" ||
-  //     link == "Inbox/UpdateViolatedVehiclesRequestStatus") {
+  // if (link.split("/")[1] == "GetAllEmployeesByManagerNumber" ||
+  //     link.split("/")[1] == "SendFCMNotification") {
+  //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
+  // } else {
   //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   // }
-  // // else {
-  // //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
-  // // }
   if (sharedPref.getString("dumyuser") == "10284928492") {
     Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   }

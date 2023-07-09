@@ -69,6 +69,7 @@ int? notificationcont;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 String? localVersion;
 bool forceUpdate = false;
+bool showImage = false;
 final navigatorKey = GlobalKey<NavigatorState>();
 dynamic hasePerm = "";
 late PackageInfo packageInfo;
@@ -219,6 +220,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ? remoteConfig.getString("ServerVersionAndroidAll")
         : remoteConfig.getString("ServerVersionIOSAll");
     forceUpdate = remoteConfig.getBool("forceUpdateAll");
+    showImage = remoteConfig.getBool("showImage");
     setState(() {});
     print(localVersion.toString() + " _ios");
     print(packageInfo.version);
@@ -361,13 +363,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           // deprecated,
         ),
 
-        initialRoute: '/splashScreen',
+        // initialRoute: '/splashScreen',
 
-        // initialRoute: widget.username == null || widget.username == 0
-        //     ? "/"
-        //     : fingerprint == false
-        //         ? '/home'
-        //         : '/AuthenticateBio',
+        initialRoute: widget.username == null || widget.username == 0
+            ? "/"
+            : fingerprint == false
+                ? '/home'
+                : '/AuthenticateBio',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),

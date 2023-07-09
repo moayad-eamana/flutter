@@ -17,6 +17,7 @@ import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
+import 'package:eamanaapp/secreen/events/event_request.dart';
 import 'package:eamanaapp/secreen/events/events_page.dart';
 import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/momten/momten.dart';
@@ -125,8 +126,9 @@ class listOfServices {
 
   List hrservices() {
     List services2 = [
-      if (sharedPref.getInt("empTypeID") != 8)
-        ////شؤون الموظفين
+      ////شؤون الموظفين
+      if (sharedPref.getInt("empTypeID") != 8 ||
+          sharedPref.getInt("MainDepartmentID") == 422150000)
         {
           "service_name": "طلب إجازة",
           "Navigation": "/VacationRequest",
@@ -423,18 +425,19 @@ class listOfServices {
             Navigator.pushNamed(context, "/scannQrcode");
           }
         },
-      // {
-      //   "service_name": "ساند موظفيك",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/baynaty.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => supportYourEmployees()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
+      // if (sharedPref.getBool("IsGeneralManager") == true)
+      //   {
+      //     "service_name": "ساند موظفيك",
+      //     "Navigation": "",
+      //     "icon": "assets/SVGs/baynaty.svg",
+      //     "Action": () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => supportYourEmployees()),
+      //         // ignore: prefer_const_constructors
+      //       );
+      //     }
+      //   },
       // {
       //   "service_name": "مُمْتَنّ",
       //   "Navigation": "",
@@ -471,6 +474,11 @@ class listOfServices {
       //     );
       //   }
       // }, //EventsPage
+    ];
+  }
+
+  List Events() {
+    return [
       {
         "service_name": "المناسبات  ",
         "Navigation": "",
@@ -479,6 +487,18 @@ class listOfServices {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => EventsPage()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
+      {
+        "service_name": "تقديم طلب  ",
+        "Navigation": "",
+        "icon": "assets/SVGs/events.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EventRequest()),
             // ignore: prefer_const_constructors
           );
         }
@@ -563,7 +583,7 @@ class listOfServices {
       ]);
     } else {
       ww.addAll([
-        questService()[0],
+        Events()[0],
         hrservices()[1],
         hrservices()[2],
         hrservices()[4],

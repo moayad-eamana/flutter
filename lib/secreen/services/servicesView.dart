@@ -20,6 +20,8 @@ import 'package:eamanaapp/secreen/services/mahamme.dart';
 import 'package:eamanaapp/secreen/services/otherServices.dart';
 import 'package:eamanaapp/secreen/services/attendanceService.dart';
 
+import 'EventsServices.dart';
+
 // print(udid);
 class ServicesView extends StatefulWidget {
   @override
@@ -49,47 +51,56 @@ class _ServicesViewState extends State<ServicesView> {
 
   Future<void> hasPermission2() async {
     EmployeeProfile empinfo = await EmployeeProfile();
-
-    dynamic response = await getAction(
-        "ViolatedCars/GetUserGroups/" + EmployeeProfile.getEmployeeNumber());
-    response = jsonDecode(response.body)["data"];
-    if (response != null) {
-      sharedPref.setBool("ViolatedCars", true);
-      if (response[0]["GroupID"] == 1) {
-        sharedPref.setBool("WarnViolatedCars", true);
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      dynamic response = await getAction(
+          "ViolatedCars/GetUserGroups/" + EmployeeProfile.getEmployeeNumber());
+      response = jsonDecode(response.body)["data"];
+      if (response != null) {
+        sharedPref.setBool("ViolatedCars", true);
+        if (response[0]["GroupID"] == 1) {
+          sharedPref.setBool("WarnViolatedCars", true);
+        } else {
+          sharedPref.setBool("WarnViolatedCars", false);
+        }
       } else {
+        sharedPref.setBool("ViolatedCars", false);
         sharedPref.setBool("WarnViolatedCars", false);
       }
-    } else {
-      sharedPref.setBool("ViolatedCars", false);
-      sharedPref.setBool("WarnViolatedCars", false);
-    }
-    setState(() {});
-    empinfo = await empinfo.getEmployeeProfile();
-    if (await checkSSL(
-        "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php")) {
-      try {
-        var respose = await http.post(
-            Uri.parse(CRMURL + "api-mobile/getAppointmentsPermission.php"),
-            body: jsonEncode({
-              "token": sharedPref.getString("AccessToken"),
-              "username": empinfo.Email
-            }));
-        hasePerm = jsonDecode(respose.body)["message"];
-        sharedPref.setBool(
-            "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
-        sharedPref.setString(
-            "deptid", jsonDecode(respose.body)["deptid"] ?? "");
-        sharedPref.setString(
-            "leadid", jsonDecode(respose.body)["leadid"] ?? "");
-        sharedPref.setBool("permissionforAppManege3",
-            jsonDecode(respose.body)["permissionforAppManege"]);
-        sharedPref.setBool("permissionforAppReq",
-            jsonDecode(respose.body)["permissionforAppReq"]);
-        setState(() {});
-      } catch (e) {}
-    } else {
-      return;
+      setState(() {});
+      dynamic response2 = await getAction(
+          "HR/IsGeneralManager/" + EmployeeProfile.getEmployeeNumber());
+      if (jsonDecode(response2.body)["OccasionOrderVMs"] == 1) {
+        sharedPref.setBool("IsGeneralManager", true);
+      } else {
+        sharedPref.setBool("IsGeneralManager", false);
+      }
+      setState(() {});
+      empinfo = await empinfo.getEmployeeProfile();
+      if (await checkSSL(
+          "https://crm.eamana.gov.sa/agenda/api/api-mobile/getAppointmentsPermission.php")) {
+        try {
+          var respose = await http.post(
+              Uri.parse(CRMURL + "api-mobile/getAppointmentsPermission.php"),
+              body: jsonEncode({
+                "token": sharedPref.getString("AccessToken"),
+                "username": empinfo.Email
+              }));
+          hasePerm = jsonDecode(respose.body)["message"];
+          sharedPref.setBool(
+              "permissionforCRM", jsonDecode(respose.body)["permissionforCRM"]);
+          sharedPref.setString(
+              "deptid", jsonDecode(respose.body)["deptid"] ?? "");
+          sharedPref.setString(
+              "leadid", jsonDecode(respose.body)["leadid"] ?? "");
+          sharedPref.setBool("permissionforAppManege3",
+              jsonDecode(respose.body)["permissionforAppManege"]);
+          sharedPref.setBool("permissionforAppReq",
+              jsonDecode(respose.body)["permissionforAppReq"]);
+          setState(() {});
+        } catch (e) {}
+      } else {
+        return;
+      }
     }
 
     //hasePerm = hasePerm;
@@ -168,12 +179,11 @@ class _ServicesViewState extends State<ServicesView> {
                       ...ViolationVehicleWidgets.violationVehicleWidgets(
                           context),
                     SizedBox(height: 10),
+
                     // ...SafetyandSecurity.SafetyandSecurityWidget(context),
 
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
-
+                    ...EventsServicesWidget.Event(context),
+                    SizedBox(height: 10),
                     ...otherServices.otherWidget(context),
                   ],
                 ),

@@ -55,8 +55,7 @@ class _VacationRequestState extends State<VacationRequest> {
     logapiO.ActionMethodType = 1;
     logApi(logapiO);
     super.initState();
-    WidgetsBinding.instance
-        ?.addPostFrameCallback((_) => getMainDepartmentEmployees());
+    getMainDepartmentEmployees();
   }
 
   @override
@@ -78,16 +77,24 @@ class _VacationRequestState extends State<VacationRequest> {
     );
     await getuserinfo();
     if (sharedPref.getString("dumyuser") != "10284928492") {
-      var respose = await getAction("HR/GetEmployeeReplacments/" +
-          empinfo.EmployeeNumber.toString().split(".")[0]);
+      var respose = sharedPref.getInt("empTypeID") != 8
+          ? await getAction("HR/GetEmployeeReplacments/" +
+              EmployeeProfile.getEmployeeNumber())
+          : await getAction("HR/GetCompanyEmployeeReplacementList/" +
+              EmployeeProfile.getEmployeeNumber());
       // print(empinfo.MainDepartmentID.toString());
       //print("respose = " + respose.toString());
       try {
-        if (jsonDecode(respose.body)["EmployeesList"] != null) {
-          _MainDepartmentEmployees =
-              (jsonDecode(respose.body)["EmployeesList"] as List)
-                  .map(((e) => MainDepartmentEmployees.fromJson(e)))
-                  .toList();
+        if (jsonDecode(respose.body)[sharedPref.getInt("empTypeID") != 8
+                ? "EmployeesList"
+                : "EmpInfo"] !=
+            null) {
+          _MainDepartmentEmployees = (jsonDecode(respose.body)[
+                  sharedPref.getInt("empTypeID") != 8
+                      ? "EmployeesList"
+                      : "EmpInfo"] as List)
+              .map(((e) => MainDepartmentEmployees.fromJson(e)))
+              .toList();
 
           //print(_MainDepartmentEmployees[0].EmployeeName);
           setState(() {});
@@ -104,16 +111,30 @@ class _VacationRequestState extends State<VacationRequest> {
 
   Future<void> InsertVacationRequest() async {
 //rtyrtyer
-    Map data = {
-      "EmployeeNumber": empinfo.EmployeeNumber,
-      "ReplaceEmployeeNumber": _ReplaceEmployeeNumber,
-      "VacationDays": int.parse(_daysNumber.text),
-      "VacationTypeID": int.parse(_VacationTypeID.toString().split(".")[0]),
-      "StartDate": _date.text,
-      //"2022-02-23T13:05:22.2919384+03:00",
-      "Notes": _note.text.toString(),
-      "SignatureApprovalFlag": _SignatureApproval,
-    };
+    Map data = sharedPref.getInt("empTypeID") != 8
+        ? {
+            "EmployeeNumber": empinfo.EmployeeNumber,
+            "ReplaceEmployeeNumber": _ReplaceEmployeeNumber,
+            "VacationDays": int.parse(_daysNumber.text),
+            "VacationTypeID":
+                int.parse(_VacationTypeID.toString().split(".")[0]),
+            "StartDate": _date.text,
+            //"2022-02-23T13:05:22.2919384+03:00",
+            "Notes": _note.text.toString(),
+            "SignatureApprovalFlag": _SignatureApproval,
+          }
+        : {
+            "EmployeeNumber": EmployeeProfile.getEmployeeNumber(),
+            "ReqplacmentEmployeeNumber":
+                int.parse(_ReplaceEmployeeNumber.toString().split(".")[0]),
+            "VacationDays": int.parse(_daysNumber.text),
+            "StartDate": _date.text,
+            "VacationTypeID": int.parse(_VacationTypeID.toString()),
+            "Notes": _note.text.toString(),
+            // "DepartmentID": 8,
+            // "BdgLoc": 9
+            // "EndDate": "2023-07-05T12:04:57.2705948+03:00",
+          };
 
     //encode Map to JSON
 
@@ -128,7 +149,9 @@ class _VacationRequestState extends State<VacationRequest> {
           maskType: EasyLoadingMaskType.black,
         );
 
-        var respose = await postAction("HR/InsertVacationRequest/", body);
+        var respose = sharedPref.getInt("empTypeID") != 8
+            ? await postAction("HR/InsertVacationRequest/", body)
+            : await postAction("HR/InsertVacationRequestCompanies", body);
         print(jsonDecode(respose.body));
         logApiModel logapiO = logApiModel();
         logapiO.ControllerName = "VacationsController";
@@ -177,11 +200,18 @@ class _VacationRequestState extends State<VacationRequest> {
     });
   }
 
-  List<Map<dynamic, dynamic>> vacationTypes = [
-    {"VacationTypeName": "إجازة اعتيادية", "VacationID": 116.0},
-    {"VacationTypeName": "إجازة اضطرارية", "VacationID": 122.0},
-    {"VacationTypeName": "تمديد إجازة اعتيادية", "VacationID": 124.0},
-  ];
+  List<Map<dynamic, dynamic>> vacationTypes =
+      sharedPref.getInt("empTypeID") != 8
+          ? [
+              {"VacationTypeName": "إجازة اعتيادية", "VacationID": 116.0},
+              {"VacationTypeName": "إجازة اضطرارية", "VacationID": 122.0},
+              {"VacationTypeName": "تمديد إجازة اعتيادية", "VacationID": 124.0},
+            ]
+          : [
+              {"VacationTypeName": "إجازة اعتيادية", "VacationID": 1},
+              {"VacationTypeName": "إجازة اضطرارية", "VacationID": 2},
+              {"VacationTypeName": "إجازة إستثنائية", "VacationID": 3}
+            ];
 
   List<Map<dynamic, dynamic>> _SignatureApprovalFlag = [
     {"index": 0, "Flag": "نعم", "SignatureApprovalFlag": true},
@@ -662,50 +692,50 @@ class _VacationRequestState extends State<VacationRequest> {
                                   //     ),
                                   //   ),
                                   // ),
-
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "إعطاء البدیل صلاحیات التوقیع بالانابة في نظام المعاملات ؟",
-                                          style: descTx1(baseColorText),
-                                          maxLines: 3,
+                                  if (sharedPref.getInt("empTypeID") != 8)
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            "إعطاء البدیل صلاحیات التوقیع بالانابة في نظام المعاملات ؟",
+                                            style: descTx1(baseColorText),
+                                            maxLines: 3,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 2,
-                                      ),
-                                      ToggleSwitch(
-                                        radiusStyle: true,
-                                        borderWidth: 1,
-                                        borderColor: [bordercolor],
-                                        inactiveBgColor: BackGColor,
-                                        inactiveFgColor: baseColorText,
-                                        minWidth: 50.0,
-                                        minHeight: 35,
-                                        initialLabelIndex:
-                                            ToggleSwitchindex == -1
-                                                ? null
-                                                : ToggleSwitchindex,
-                                        activeBgColor: [baseColor],
-                                        totalSwitches: 2,
-                                        labels: ['نعم', 'لا'],
-                                        onToggle: (index) {
-                                          int indexS = index as int;
-                                          _SignatureApproval =
-                                              _SignatureApprovalFlag[indexS]
-                                                  ["SignatureApprovalFlag"];
+                                        SizedBox(
+                                          width: 2,
+                                        ),
+                                        ToggleSwitch(
+                                          radiusStyle: true,
+                                          borderWidth: 1,
+                                          borderColor: [bordercolor],
+                                          inactiveBgColor: BackGColor,
+                                          inactiveFgColor: baseColorText,
+                                          minWidth: 50.0,
+                                          minHeight: 35,
+                                          initialLabelIndex:
+                                              ToggleSwitchindex == -1
+                                                  ? null
+                                                  : ToggleSwitchindex,
+                                          activeBgColor: [baseColor],
+                                          totalSwitches: 2,
+                                          labels: ['نعم', 'لا'],
+                                          onToggle: (index) {
+                                            int indexS = index as int;
+                                            _SignatureApproval =
+                                                _SignatureApprovalFlag[indexS]
+                                                    ["SignatureApprovalFlag"];
 
-                                          ToggleSwitchindex =
-                                              _SignatureApprovalFlag[indexS]
-                                                  ["index"];
+                                            ToggleSwitchindex =
+                                                _SignatureApprovalFlag[indexS]
+                                                    ["index"];
 
-                                          print(
-                                              'switched to: $_SignatureApproval');
-                                        },
-                                      ),
-                                    ],
-                                  ),
+                                            print(
+                                                'switched to: $_SignatureApproval');
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   errormessege == true
                                       ? Text(
                                           "هل توافق أم لا؟... الرجاء الاختيار",
@@ -715,9 +745,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                           ),
                                         )
                                       : Container(),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
+                                  if (sharedPref.getInt("empTypeID") != 8)
+                                    SizedBox(
+                                      height: 5,
+                                    ),
 
                                   // DropdownSearch<dynamic>(
                                   //   items: _SignatureApprovalFlag,
@@ -835,9 +866,10 @@ class _VacationRequestState extends State<VacationRequest> {
                                   //     onChanged: print,
                                   //   ),
                                 ]),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            if (sharedPref.getInt("empTypeID") != 8)
+                              SizedBox(
+                                height: 10,
+                              ),
                             TextFormField(
                               controller: _note,
                               keyboardType: TextInputType.text,
@@ -883,7 +915,8 @@ class _VacationRequestState extends State<VacationRequest> {
                                     Icons.send,
                                     () {
                                       // Validate returns true if the form is valid, or false otherwise.
-                                      if (_SignatureApproval == null) {
+                                      if (_SignatureApproval == null &&
+                                          sharedPref.getInt("empTypeID") != 8) {
                                         setState(() {
                                           errormessege = true;
                                         });
@@ -910,6 +943,11 @@ class _VacationRequestState extends State<VacationRequest> {
                                           _ReplaceEmployeeNumber != null) {
                                         // If the form is valid, display a snackbar. In the real world,
                                         // you'd often call a server or save the information in a database.
+                                        InsertVacationRequest();
+                                      }
+                                      if (sharedPref.getInt("empTypeID") == 8 &&
+                                          _ReplaceEmployeeNumber != null &&
+                                          _formKey.currentState!.validate()) {
                                         InsertVacationRequest();
                                       }
                                     },

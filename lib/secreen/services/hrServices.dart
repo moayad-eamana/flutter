@@ -15,17 +15,22 @@ class hrServicesWidget {
     double hi = SizerUtil.deviceType == DeviceType.mobile ? 100 : 140;
     return [
       //hr
-      if (sharedPref.getInt("empTypeID") != 8)
+      if (sharedPref.getInt("empTypeID") != 8 ||
+          sharedPref.getInt("MainDepartmentID") == 422150000)
         Text(
           "خدمات الموظفين",
           style: subtitleTx(baseColor),
         ),
-      if (sharedPref.getInt("empTypeID") != 8) widgetsUni.divider(),
-      if (sharedPref.getInt("empTypeID") != 8)
+      if (sharedPref.getInt("empTypeID") != 8 ||
+          sharedPref.getInt("MainDepartmentID") == 422150000)
+        widgetsUni.divider(),
+      if (sharedPref.getInt("empTypeID") != 8 ||
+          sharedPref.getInt("MainDepartmentID") == 422150000)
         SizedBox(
           height: 5,
         ),
-      if (sharedPref.getInt("empTypeID") != 8)
+      if (sharedPref.getInt("empTypeID") != 8 ||
+          sharedPref.getInt("MainDepartmentID") == 422150000)
         Container(
           // margin: EdgeInsets.symmetric(horizontal: 20),
           child: StaggeredGrid.count(

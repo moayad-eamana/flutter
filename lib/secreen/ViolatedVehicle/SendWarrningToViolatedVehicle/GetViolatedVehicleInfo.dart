@@ -491,7 +491,9 @@ class _GetViolationVehicleInfoState extends State<GetViolationVehicleInfo>
                               widget.violatedVehicle.carInfo["IsAlive"];
 
                           widget.violatedVehicle.sendwarning["SendSMS"] = true;
-
+                          widget.violatedVehicle
+                                  .sendwarning["RegestirationTypeID"] =
+                              _registrationCode;
                           widget.nextPage();
                         }),
                       ),

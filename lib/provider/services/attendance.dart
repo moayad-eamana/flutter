@@ -13,7 +13,6 @@ import 'package:flutter_udid/flutter_udid.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class attendanceServiceFunction {
   final LocalAuthentication auth = LocalAuthentication();
