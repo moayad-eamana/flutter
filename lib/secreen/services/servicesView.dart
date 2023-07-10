@@ -68,8 +68,8 @@ class _ServicesViewState extends State<ServicesView> {
       }
       setState(() {});
       dynamic response2 = await getAction(
-          "HR/IsGeneralManager/" + EmployeeProfile.getEmployeeNumber());
-      if (jsonDecode(response2.body)["OccasionOrderVMs"] == 1) {
+          "HR/IsManager/" + EmployeeProfile.getEmployeeNumber());
+      if (jsonDecode(response2.body)["IsGeneralMaanger"] == 1) {
         sharedPref.setBool("IsGeneralManager", true);
       } else {
         sharedPref.setBool("IsGeneralManager", false);
@@ -178,7 +178,7 @@ class _ServicesViewState extends State<ServicesView> {
                     if (sharedPref.getBool("ViolatedCars") == true)
                       ...ViolationVehicleWidgets.violationVehicleWidgets(
                           context),
-                    SizedBox(height: 10),
+                    // SizedBox(height: 10),
 
                     // ...SafetyandSecurity.SafetyandSecurityWidget(context),
 

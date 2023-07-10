@@ -7,10 +7,10 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 import 'SLL_pin.dart';
 
-// String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
-// String CRMURL = "https://crm.eamana.gov.sa/agenda_dev/api/";
-String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
-String CRMURL = "https://crm.eamana.gov.sa/agenda/api/";
+String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+String CRMURL = "https://crm.eamana.gov.sa/agenda_dev/api/";
+// String Url = "https://srv.eamana.gov.sa/NewAmanaAPIs/API/";
+// String CRMURL = "https://crm.eamana.gov.sa/agenda/api/";
 
 Future<String> Bearer() async {
   return sharedPref.getString("AccessToken") ?? "";
@@ -64,9 +64,9 @@ dynamic postAction(String link, dynamic body) async {
   // } else {
   //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
   // }
-  if (sharedPref.getString("dumyuser") == "10284928492") {
-    Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
-  }
+  // if (sharedPref.getString("dumyuser") == "10284928492") {
+  //   Url = "https://srv.eamana.gov.sa/NewAmanaAPIs_test/API/";
+  // }
 
   dynamic respns;
   if (await checkSSL(Url)) {
