@@ -9,6 +9,7 @@ import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/QrCode/listOfQrcode.dart';
+import 'package:eamanaapp/secreen/RequestsHr/LeaveRequestCompanies.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/SafetyandSecurity/WarnViolatedVehicle.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
@@ -135,6 +136,19 @@ class listOfServices {
           "icon": 'assets/SVGs/ejaza.svg',
           "Action": () async {
             Navigator.pushNamed(context, "/VacationRequest");
+          }
+        },
+      if (sharedPref.getInt("empTypeID") == 8 ||
+          sharedPref.getInt("MainDepartmentID") == 422150000)
+        {
+          "service_name": "طلب إستئذان",
+          "Navigation": "/VacationRequest",
+          "icon": 'assets/SVGs/ejaza.svg',
+          "Action": () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LeaveRequestCompanies()),
+            );
           }
         },
       if (sharedPref.getInt("empTypeID") != 8)
