@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
@@ -8,6 +9,7 @@ import 'package:eamanaapp/secreen/widgets/DropdownSearchW.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
+import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/utilities/functions/handelCalander.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +38,11 @@ class _VacationRequestState extends State<VacationRequest> {
   var _VacationTypeID;
   var _SignatureApproval;
   var VacationTypeName;
+  var images;
 
+  String? fileName;
+  String? fileBytes;
+  String? filePath;
   DropdownSearchW drop1 = new DropdownSearchW();
   EmployeeProfile empinfo = new EmployeeProfile();
 
@@ -131,6 +137,8 @@ class _VacationRequestState extends State<VacationRequest> {
             "StartDate": _date.text,
             "VacationTypeID": int.parse(_VacationTypeID.toString()),
             "Notes": _note.text.toString(),
+            "FileBytes": _VacationTypeID == 1 ? null : fileBytes,
+            "FileName": _VacationTypeID == 1 ? null : fileName
             // "DepartmentID": 8,
             // "BdgLoc": 9
             // "EndDate": "2023-07-05T12:04:57.2705948+03:00",
@@ -139,7 +147,10 @@ class _VacationRequestState extends State<VacationRequest> {
     //encode Map to JSON
 
     var body = json.encode(data);
-
+    if (sharedPref.getInt("empTypeID") == 8 && images == null) {
+      Alerts.errorAlert(context, "خطأ", "يجب إدخال مرفق").show();
+      return;
+    }
     Alerts.confirmAlrt(context, "تأكيد", "هل انت متأكد؟", "نعم")
         .show()
         .then((value) async {
@@ -209,7 +220,7 @@ class _VacationRequestState extends State<VacationRequest> {
             ]
           : [
               {"VacationTypeName": "إجازة اعتيادية", "VacationID": 1},
-              {"VacationTypeName": "إجازة اضطرارية", "VacationID": 2},
+              {"VacationTypeName": "إجازة مرضية", "VacationID": 2},
               {"VacationTypeName": "إجازة إستثنائية", "VacationID": 3}
             ];
 
@@ -445,6 +456,70 @@ class _VacationRequestState extends State<VacationRequest> {
                                       color: baseColor,
                                     ),
                                   ),
+                                  if (_VacationTypeID == 2 ||
+                                      _VacationTypeID == 3)
+                                    Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () async {
+                                            images =
+                                                await Pickattachments.pickFile([
+                                              "pdf",
+                                              "png",
+                                              "jpeg",
+                                              "jpg"
+                                            ]);
+
+                                            print(images);
+                                            if (images != null) {
+                                              if (images["size"] < 2000000) {
+                                                filePath = images["path"];
+                                                fileName = images["name"];
+                                                fileBytes = images["base64"];
+                                              } else {
+                                                Alerts.warningAlert(
+                                                        context,
+                                                        "حجم الملف",
+                                                        "يجب ان لا يزيد حجم الملف عن 2 ميجابايت ")
+                                                    .show();
+                                              }
+                                            }
+
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            height: 100,
+                                            width: 100,
+                                            child: images == null
+                                                ? Stack(
+                                                    children: [
+                                                      Placeholder(
+                                                        color:
+                                                            secondryColorText,
+                                                        strokeWidth: 0.4,
+                                                        fallbackHeight: 100,
+                                                        fallbackWidth: 100,
+                                                      ),
+                                                      Center(
+                                                          child: Text("مرفق")),
+                                                    ],
+                                                  )
+                                                : images["type"] == "pdf"
+                                                    ? Icon(
+                                                        Icons.picture_as_pdf,
+                                                        color: baseColor,
+                                                        size: 50,
+                                                      )
+                                                    : Image.file(
+                                                        File(filePath
+                                                            .toString()),
+                                                        width: 100,
+                                                        height: 100,
+                                                      ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   //////////
                                   ///
                                   ///
