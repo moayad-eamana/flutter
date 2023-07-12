@@ -2,9 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/secreen/events/event_comments.dart';
-import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -14,10 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:sizer/sizer.dart';
 
 class EventRequest extends StatefulWidget {
   const EventRequest({Key? key}) : super(key: key);
@@ -34,6 +29,12 @@ class _EventRequestState extends State<EventRequest> {
   var _relativesID = null;
   var _degreesID = null;
   final _formKey = GlobalKey<FormState>();
+
+  var _EmployeeNumber = null;
+  String? _EmployeeName = null;
+
+  late List<MainDepartmentEmployees> _MainDepartmentEmployees = [];
+  EmployeeProfile empinfo = new EmployeeProfile();
 
   var images;
 
@@ -67,11 +68,13 @@ class _EventRequestState extends State<EventRequest> {
         var reponse = await postAction(
             "Ens/InsertOccasionOrder",
             jsonEncode({
-              "EmployeeNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
+              "EmployeeNumber": _EmployeeNumber == null
+                  ? int.parse(EmployeeProfile.getEmployeeNumber())
+                  : int.parse(_EmployeeNumber.toString().split(".")[0]),
               "SocialTypeId": _eventID,
               "SocialOccurredDate": _dateFrom.text,
               "SocialEmployeeNote": _note.text,
-              "CreationtypeID": 1,
+              "CreationtypeID": _EmployeeNumber == null ? 1 : 2,
               "RelativeID": _relativesID,
               "DegreeID": _degreesID,
               "UserNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
@@ -123,11 +126,39 @@ class _EventRequestState extends State<EventRequest> {
       status: '... جاري المعالجة',
       maskType: EasyLoadingMaskType.black,
     );
+
+    await getuserinfo();
+
+    var respose1 = await getAction("HR/GetAllEmployeesByManagerNumber/" +
+        EmployeeProfile.getEmployeeNumber());
+    // print(empinfo.MainDepartmentID.toString());
+    //print("respose = " + respose.toString());
+    try {
+      if (jsonDecode(respose1.body)["EmpInfo"] != null) {
+        _MainDepartmentEmployees =
+            (jsonDecode(respose1.body)["EmpInfo"] as List)
+                .map(((e) => MainDepartmentEmployees.fromJson(e)))
+                .toList();
+
+        //print(_MainDepartmentEmployees[0].EmployeeName);
+        setState(() {});
+      }
+      EasyLoading.dismiss();
+    } catch (Ex) {
+      EasyLoading.dismiss();
+    }
+
     var respose = await getAction("Ens/GetOccasionsTypes");
-    print(respose.body);
+    // print(respose.body);
 
     eventsType = jsonDecode(respose.body)["OccasionsTypeVMs"] ?? [];
+
     EasyLoading.dismiss();
+    setState(() {});
+  }
+
+  getuserinfo() async {
+    empinfo = await empinfo.getEmployeeProfile();
     setState(() {});
   }
 
@@ -164,6 +195,118 @@ class _EventRequestState extends State<EventRequest> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            DropdownSearch<dynamic>(
+                              popupBackgroundColor: BackGWhiteColor,
+                              // key: UniqueKey(),
+                              items: _MainDepartmentEmployees,
+                              popupItemBuilder: (context, rr, isSelected) =>
+                                  (Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: [
+                                    Text(rr.EmployeeName,
+                                        style: subtitleTx(baseColorText))
+                                  ],
+                                ),
+                              )),
+                              dropdownBuilder: (context, selectedItem) =>
+                                  Container(
+                                child: selectedItem == null
+                                    ? null
+                                    : Text(
+                                        _EmployeeName == null
+                                            ? ""
+                                            : _EmployeeName ?? "",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: baseColorText)),
+                              ),
+                              dropdownBuilderSupportsNullItem: true,
+                              selectedItem:
+                                  _EmployeeName == null ? null : _EmployeeName,
+                              showSelectedItems: false,
+                              mode: Mode.BOTTOM_SHEET,
+                              showClearButton:
+                                  _EmployeeNumber == null ? false : true,
+
+                              maxHeight: 400,
+                              showAsSuffixIcons: true,
+                              itemAsString: (item) => item?.EmployeeName ?? "",
+                              dropdownSearchDecoration: formlabel1("الموظف"),
+                              // validator: (value) {
+                              //   if (value == "" || value == null) {
+                              //     return "الرجاء إختيار الموظف";
+                              //   } else {
+                              //     return null;
+                              //   }
+                              // },
+                              showSearchBox: true,
+                              onChanged: (v) {
+                                try {
+                                  _EmployeeNumber = v?.EmployeeNumber;
+
+                                  print(v?.EmployeeNumber.toString());
+                                  _EmployeeName = v.EmployeeName;
+                                  // if (v?.EmployeeNumber == null) {
+                                  //   _EmployeeName = null;
+                                  // }
+                                  setState(() {});
+                                } catch (e) {}
+                              },
+                              popupTitle: Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  color: secondryColor,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "الموظف",
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              popupShape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(24),
+                                  topRight: Radius.circular(24),
+                                ),
+                              ),
+                              emptyBuilder: (context, searchEntry) => Center(
+                                child: Text(
+                                  "لا يوجد بيانات",
+                                  style: TextStyle(
+                                    color: baseColorText,
+                                  ),
+                                ),
+                              ),
+                              searchFieldProps: TextFieldProps(
+                                textAlign: TextAlign.right,
+                                decoration: formlabel1(""),
+                                style: TextStyle(
+                                  color: baseColorText,
+                                ),
+                                textDirection: TextDirection.rtl,
+                              ),
+                              clearButton: Icon(
+                                Icons.clear,
+                                color: baseColor,
+                              ),
+                              dropDownButton: Icon(
+                                Icons.arrow_drop_down,
+                                color: baseColor,
+                              ),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
