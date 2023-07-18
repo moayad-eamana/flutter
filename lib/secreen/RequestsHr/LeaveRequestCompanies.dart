@@ -30,10 +30,18 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
   EmployeeProfile empinfo = new EmployeeProfile();
   String? selecteditem = null;
   var _ReplaceEmployeeNumber;
+  int ToggleSwitchindex = -1;
   bool errormessege = false;
   bool errormessege2 = false;
   var resBody;
   var permissionTypeId;
+
+  @override
+  void initState() {
+    getData();
+    getMainDepartmentEmployees();
+    super.initState();
+  }
 
   Future<void> InsertLeaveRequest() async {
     Map data = {
@@ -125,13 +133,6 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
       EasyLoading.dismiss();
       _MainDepartmentEmployees = [];
     }
-  }
-
-  @override
-  void initState() {
-    getData();
-    getMainDepartmentEmployees();
-    super.initState();
   }
 
   @override
@@ -243,12 +244,16 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                     inactiveFgColor: baseColorText,
                                     activeBgColor: [baseColor],
                                     totalSwitches: 2,
+                                    initialLabelIndex: ToggleSwitchindex == -1
+                                        ? null
+                                        : ToggleSwitchindex, //to initiate the index with a proper value
                                     labels: ['حضور', 'انصراف'],
                                     onToggle: (index) {
                                       int indexS = index as int;
+                                      ToggleSwitchindex = index;
                                       permissionTypeId = indexS;
-                                      print(
-                                          'switched to: ' + indexS.toString());
+                                      print('switched to: ' +
+                                          ToggleSwitchindex.toString());
                                     },
                                   ),
                                 ],
