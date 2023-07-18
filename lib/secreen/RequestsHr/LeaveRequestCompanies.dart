@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
@@ -8,6 +9,7 @@ import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
+import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -35,6 +37,10 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
   bool errormessege2 = false;
   var resBody;
   var permissionTypeId;
+  var images;
+  String? fileName;
+  String? fileBytes;
+  String? filePath;
 
   @override
   void initState() {
@@ -47,7 +53,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
     Map data = {
       "EmployeeNumber": empinfo.EmployeeNumber,
       "ReplaceEmployeeNumber": _ReplaceEmployeeNumber,
-      "PermissionTypeID": permissionTypeId,
+      "PermissionTypeID": ToggleSwitchindex,
       "PersmissionDate": _date.text,
       "Notes": _note.text.toString(),
     };
@@ -165,8 +171,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                         return Form(
                           key: _formKey,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            // crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Center(
                                 child: Text(
@@ -251,12 +256,78 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                     onToggle: (index) {
                                       int indexS = index as int;
                                       ToggleSwitchindex = index;
-                                      permissionTypeId = indexS;
+
                                       print('switched to: ' +
                                           ToggleSwitchindex.toString());
                                     },
                                   ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "المرفقات",
+                                        style: descTx1(baseColorText),
+                                        maxLines: 3,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        images = await Pickattachments.pickFile(
+                                            ["pdf", "png", "jpeg", "jpg"]);
+
+                                        print(images);
+                                        if (images != null) {
+                                          if (images["size"] < 2000000) {
+                                            filePath = images["path"];
+                                            fileName = images["name"];
+                                            fileBytes = images["base64"];
+                                          } else {
+                                            Alerts.warningAlert(
+                                                    context,
+                                                    "حجم الملف",
+                                                    "يجب ان لا يزيد حجم الملف عن 2 ميجابايت ")
+                                                .show();
+                                          }
+                                        }
+
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        height: 100,
+                                        width: 100,
+                                        child: images == null
+                                            ? Stack(
+                                                children: [
+                                                  Placeholder(
+                                                    color: secondryColorText,
+                                                    strokeWidth: 0.4,
+                                                    fallbackHeight: 100,
+                                                    fallbackWidth: 100,
+                                                  ),
+                                                  Center(child: Text("مرفق")),
+                                                ],
+                                              )
+                                            : images["type"] == "pdf"
+                                                ? Icon(
+                                                    Icons.picture_as_pdf,
+                                                    color: baseColor,
+                                                    size: 50,
+                                                  )
+                                                : Image.file(
+                                                    File(filePath.toString()),
+                                                    width: 100,
+                                                    height: 100,
+                                                  ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               StaggeredGrid.count(
                                 crossAxisCount: responsiveGrid(1, 2),
@@ -436,28 +507,31 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                               SizedBox(
                                 height: 10,
                               ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              widgetsUni.actionbutton(
-                                'تنفيذ',
-                                Icons.send,
-                                () {
-                                  ////
-                                  if (_ReplaceEmployeeNumber == null) {
-                                    setState(() {
-                                      errormessege2 = true;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      errormessege2 = false;
-                                    });
-                                  }
+                              Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Container(
+                                  width: 90,
+                                  child: widgetsUni.actionbutton(
+                                    'تنفيذ',
+                                    Icons.send,
+                                    () {
+                                      ////
+                                      if (_ReplaceEmployeeNumber == null) {
+                                        setState(() {
+                                          errormessege2 = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          errormessege2 = false;
+                                        });
+                                      }
 
-                                  if (_formKey.currentState!.validate()) {
-                                    InsertLeaveRequest();
-                                  }
-                                },
+                                      if (_formKey.currentState!.validate()) {
+                                        InsertLeaveRequest();
+                                      }
+                                    },
+                                  ),
+                                ),
                               ),
                             ],
                           ),
