@@ -5,6 +5,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -82,13 +83,25 @@ class _EventRequestState extends State<EventRequest> {
               "FileBytes": fileBytes,
               "FileName": fileName,
             }));
+        logApiModel logapiO = logApiModel();
+        logapiO.ControllerName = "Ens";
+        logapiO.ClassName = "InsertOccasionOrder";
+        logapiO.ActionMethodName = "تقديم طلب مناسبة";
+        logapiO.ActionMethodType = 2;
+
         if (jsonDecode(reponse.body)["StatusCode"] == 400) {
+          logapiO.StatusCode = 1;
+          logApi(logapiO);
           Alerts.successAlert(context, "", "تم إرسال الطلب").show();
         } else {
+          logapiO.StatusCode = 0;
+          logapiO.ErrorMessage = jsonDecode(reponse.body)["ErrorMessage"];
+          logApi(logapiO);
           Alerts.errorAlert(
                   context, "خطأ", jsonDecode(reponse.body)["ErrorMessage"])
               .show();
         }
+
         EasyLoading.dismiss();
       }
     });

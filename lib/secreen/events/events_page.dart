@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/model/logApiModel.dart';
 import 'package:eamanaapp/secreen/events/event_comments.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -85,13 +86,13 @@ class _EventsPageState extends State<EventsPage> {
     }));
 
     setState(() {});
-    // logApiModel logapiO = logApiModel();
-    // logapiO.ControllerName = "NotificationsController";
-    // logapiO.ClassName = "NotificationsController";
-    // logapiO.ActionMethodName = "الإشعارات";
-    // logapiO.ActionMethodType = 1;
-    // logapiO.StatusCode = 1;
-    // logApi(logapiO);
+    logApiModel logapiO = logApiModel();
+    logapiO.ControllerName = "Ens";
+    logapiO.ClassName = "GetApprovedOccasions";
+    logapiO.ActionMethodName = "المناسبات";
+    logapiO.ActionMethodType = 1;
+    logapiO.StatusCode = 1;
+    logApi(logapiO);
   }
 
   @override
