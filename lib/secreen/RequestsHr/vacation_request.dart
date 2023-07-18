@@ -147,7 +147,9 @@ class _VacationRequestState extends State<VacationRequest> {
     //encode Map to JSON
 
     var body = json.encode(data);
-    if (sharedPref.getInt("empTypeID") == 8 && images == null) {
+    if (sharedPref.getInt("empTypeID") == 8 &&
+        images == null &&
+        vacationTypes[0]["VacationID"] != 1) {
       Alerts.errorAlert(context, "خطأ", "يجب إدخال مرفق").show();
       return;
     }

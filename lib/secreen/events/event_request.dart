@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/HR/MainDepartmentEmployees.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
@@ -128,24 +129,25 @@ class _EventRequestState extends State<EventRequest> {
     );
 
     await getuserinfo();
+    if (sharedPref.getBool("IsGeneralManager") == true) {
+      var respose1 = await getAction("HR/GetAllEmployeesByManagerNumber/" +
+          EmployeeProfile.getEmployeeNumber());
+      // print(empinfo.MainDepartmentID.toString());
+      //print("respose = " + respose.toString());
+      try {
+        if (jsonDecode(respose1.body)["EmpInfo"] != null) {
+          _MainDepartmentEmployees =
+              (jsonDecode(respose1.body)["EmpInfo"] as List)
+                  .map(((e) => MainDepartmentEmployees.fromJson(e)))
+                  .toList();
 
-    var respose1 = await getAction("HR/GetAllEmployeesByManagerNumber/" +
-        EmployeeProfile.getEmployeeNumber());
-    // print(empinfo.MainDepartmentID.toString());
-    //print("respose = " + respose.toString());
-    try {
-      if (jsonDecode(respose1.body)["EmpInfo"] != null) {
-        _MainDepartmentEmployees =
-            (jsonDecode(respose1.body)["EmpInfo"] as List)
-                .map(((e) => MainDepartmentEmployees.fromJson(e)))
-                .toList();
-
-        //print(_MainDepartmentEmployees[0].EmployeeName);
-        setState(() {});
+          //print(_MainDepartmentEmployees[0].EmployeeName);
+          setState(() {});
+        }
+        EasyLoading.dismiss();
+      } catch (Ex) {
+        EasyLoading.dismiss();
       }
-      EasyLoading.dismiss();
-    } catch (Ex) {
-      EasyLoading.dismiss();
     }
 
     var respose = await getAction("Ens/GetOccasionsTypes");
@@ -198,115 +200,118 @@ class _EventRequestState extends State<EventRequest> {
                             SizedBox(
                               height: 10,
                             ),
-                            DropdownSearch<dynamic>(
-                              popupBackgroundColor: BackGWhiteColor,
-                              // key: UniqueKey(),
-                              items: _MainDepartmentEmployees,
-                              popupItemBuilder: (context, rr, isSelected) =>
-                                  (Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Column(
-                                  children: [
-                                    Text(rr.EmployeeName,
-                                        style: subtitleTx(baseColorText))
-                                  ],
-                                ),
-                              )),
-                              dropdownBuilder: (context, selectedItem) =>
-                                  Container(
-                                child: selectedItem == null
-                                    ? null
-                                    : Text(
-                                        _EmployeeName == null
-                                            ? ""
-                                            : _EmployeeName ?? "",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color: baseColorText)),
-                              ),
-                              dropdownBuilderSupportsNullItem: true,
-                              selectedItem:
-                                  _EmployeeName == null ? null : _EmployeeName,
-                              showSelectedItems: false,
-                              mode: Mode.BOTTOM_SHEET,
-                              showClearButton:
-                                  _EmployeeNumber == null ? false : true,
-
-                              maxHeight: 400,
-                              showAsSuffixIcons: true,
-                              itemAsString: (item) => item?.EmployeeName ?? "",
-                              dropdownSearchDecoration: formlabel1("الموظف"),
-                              // validator: (value) {
-                              //   if (value == "" || value == null) {
-                              //     return "الرجاء إختيار الموظف";
-                              //   } else {
-                              //     return null;
-                              //   }
-                              // },
-                              showSearchBox: true,
-                              onChanged: (v) {
-                                try {
-                                  _EmployeeNumber = v?.EmployeeNumber;
-
-                                  print(v?.EmployeeNumber.toString());
-                                  _EmployeeName = v.EmployeeName;
-                                  // if (v?.EmployeeNumber == null) {
-                                  //   _EmployeeName = null;
-                                  // }
-                                  setState(() {});
-                                } catch (e) {}
-                              },
-                              popupTitle: Container(
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  color: secondryColor,
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20),
+                            if (sharedPref.getBool("IsGeneralManager") == true)
+                              DropdownSearch<dynamic>(
+                                popupBackgroundColor: BackGWhiteColor,
+                                // key: UniqueKey(),
+                                items: _MainDepartmentEmployees,
+                                popupItemBuilder: (context, rr, isSelected) =>
+                                    (Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Column(
+                                    children: [
+                                      Text(rr.EmployeeName,
+                                          style: subtitleTx(baseColorText))
+                                    ],
                                   ),
+                                )),
+                                dropdownBuilder: (context, selectedItem) =>
+                                    Container(
+                                  child: selectedItem == null
+                                      ? null
+                                      : Text(
+                                          _EmployeeName == null
+                                              ? ""
+                                              : _EmployeeName ?? "",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: baseColorText)),
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    "الموظف",
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                dropdownBuilderSupportsNullItem: true,
+                                selectedItem: _EmployeeName == null
+                                    ? null
+                                    : _EmployeeName,
+                                showSelectedItems: false,
+                                mode: Mode.BOTTOM_SHEET,
+                                showClearButton:
+                                    _EmployeeNumber == null ? false : true,
+
+                                maxHeight: 400,
+                                showAsSuffixIcons: true,
+                                itemAsString: (item) =>
+                                    item?.EmployeeName ?? "",
+                                dropdownSearchDecoration: formlabel1("الموظف"),
+                                // validator: (value) {
+                                //   if (value == "" || value == null) {
+                                //     return "الرجاء إختيار الموظف";
+                                //   } else {
+                                //     return null;
+                                //   }
+                                // },
+                                showSearchBox: true,
+                                onChanged: (v) {
+                                  try {
+                                    _EmployeeNumber = v?.EmployeeNumber;
+
+                                    print(v?.EmployeeNumber.toString());
+                                    _EmployeeName = v.EmployeeName;
+                                    // if (v?.EmployeeNumber == null) {
+                                    //   _EmployeeName = null;
+                                    // }
+                                    setState(() {});
+                                  } catch (e) {}
+                                },
+                                popupTitle: Container(
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    color: secondryColor,
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "الموظف",
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              popupShape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(24),
-                                  topRight: Radius.circular(24),
+                                popupShape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(24),
+                                    topRight: Radius.circular(24),
+                                  ),
                                 ),
-                              ),
-                              emptyBuilder: (context, searchEntry) => Center(
-                                child: Text(
-                                  "لا يوجد بيانات",
+                                emptyBuilder: (context, searchEntry) => Center(
+                                  child: Text(
+                                    "لا يوجد بيانات",
+                                    style: TextStyle(
+                                      color: baseColorText,
+                                    ),
+                                  ),
+                                ),
+                                searchFieldProps: TextFieldProps(
+                                  textAlign: TextAlign.right,
+                                  decoration: formlabel1(""),
                                   style: TextStyle(
                                     color: baseColorText,
                                   ),
+                                  textDirection: TextDirection.rtl,
+                                ),
+                                clearButton: Icon(
+                                  Icons.clear,
+                                  color: baseColor,
+                                ),
+                                dropDownButton: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: baseColor,
                                 ),
                               ),
-                              searchFieldProps: TextFieldProps(
-                                textAlign: TextAlign.right,
-                                decoration: formlabel1(""),
-                                style: TextStyle(
-                                  color: baseColorText,
-                                ),
-                                textDirection: TextDirection.rtl,
-                              ),
-                              clearButton: Icon(
-                                Icons.clear,
-                                color: baseColor,
-                              ),
-                              dropDownButton: Icon(
-                                Icons.arrow_drop_down,
-                                color: baseColor,
-                              ),
-                            ),
                             SizedBox(
                               height: 10,
                             ),

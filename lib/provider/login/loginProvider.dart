@@ -176,6 +176,8 @@ class LoginProvider extends ChangeNotifier {
       sharedPref.setInt("GradeID", empinfo["GradeID"]);
       sharedPref.setInt("ClassID", empinfo["ClassID"]);
       sharedPref.setString("HireDate", empinfo["HireDate"]);
+      sharedPref.setString("FullNameEN", empinfo["FullNameEN"]);
+      sharedPref.setString("TitleEN", empinfo["TitleEN"]);
 
       sharedPref.setString(
           "AccessToken", jsonDecode(respose.body)["AccessToken"] ?? "");
