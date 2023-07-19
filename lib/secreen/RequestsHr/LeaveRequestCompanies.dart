@@ -38,6 +38,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
   var resBody;
   var permissionTypeId;
   var images;
+  var returnedImage;
   String? fileName;
   String? fileBytes;
   String? filePath;
@@ -287,6 +288,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                             filePath = images["path"];
                                             fileName = images["name"];
                                             fileBytes = images["base64"];
+                                            returnedImage = images;
                                           } else {
                                             Alerts.warningAlert(
                                                     context,
@@ -296,7 +298,9 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                           }
                                         }
 
-                                        setState(() {});
+                                        setState(() {
+                                          images = returnedImage;
+                                        });
                                       },
                                       child: Container(
                                         height: 100,
@@ -329,6 +333,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                   ],
                                 ),
                               ),
+                              //replacement employee list
                               StaggeredGrid.count(
                                 crossAxisCount: responsiveGrid(1, 2),
                                 mainAxisSpacing: 10,
@@ -507,6 +512,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                               SizedBox(
                                 height: 10,
                               ),
+                              //submit button
                               Align(
                                 alignment: Alignment.bottomLeft,
                                 child: Container(
