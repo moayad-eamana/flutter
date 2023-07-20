@@ -11,10 +11,12 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class LeaveRequestCompanies extends StatefulWidget {
@@ -45,7 +47,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
 
   @override
   void initState() {
-    getData();
+    // getData();
     getMainDepartmentEmployees();
     super.initState();
   }
@@ -96,12 +98,12 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
     });
   }
 
-  Future<void> getData() async {
-    String empNo = await EmployeeProfile.getEmployeeNumber();
-    var respose =
-        await getAction("HR/GetUserLeavesPermissionsCompanies/" + empNo);
-    print(respose);
-  }
+  // Future<void> getData() async {
+  //   String empNo = await EmployeeProfile.getEmployeeNumber();
+  //   var respose =
+  //       await getAction("HR/GetUserLeavesPermissionsCompanies/" + empNo);
+  //   print(respose);
+  // }
 
   getuserinfo() async {
     empinfo = await empinfo.getEmployeeProfile();
@@ -109,10 +111,10 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
   }
 
   Future<void> getMainDepartmentEmployees() async {
-    // EasyLoading.show(
-    //   status: '... جاري المعالجة',
-    //   maskType: EasyLoadingMaskType.black,
-    // );
+    EasyLoading.show(
+      status: '... جاري المعالجة',
+      maskType: EasyLoadingMaskType.black,
+    );
     await getuserinfo();
     if (sharedPref.getString("dumyuser") != "10284928492") {
       var respose = sharedPref.getInt("empTypeID") != 8
@@ -330,6 +332,19 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                                   ),
                                       ),
                                     ),
+                                    images != null
+                                        ? InkWell(
+                                            onTap: () {
+                                              images = null;
+                                              this.setState(() {});
+                                              print("FILE DELETED");
+                                            },
+                                            child: Icon(
+                                              Icons.delete_rounded,
+                                              color: Colors.red,
+                                              size: 20,
+                                            ))
+                                        : Container(),
                                   ],
                                 ),
                               ),
