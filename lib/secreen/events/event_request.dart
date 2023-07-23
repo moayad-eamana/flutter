@@ -737,15 +737,31 @@ class _EventRequestState extends State<EventRequest> {
                                             ],
                                           )
                                         : images["type"] == "pdf"
-                                            ? Icon(
-                                                Icons.picture_as_pdf,
-                                                color: baseColor,
-                                                size: 50,
+                                            ? Container(
+                                                decoration: BoxDecoration(
+                                                  color: BackGWhiteColor,
+                                                  border: Border.all(
+                                                    color: bordercolor,
+                                                  ),
+                                                ),
+                                                child: Icon(
+                                                  Icons.picture_as_pdf,
+                                                  color: baseColor,
+                                                  size: 50,
+                                                ),
                                               )
-                                            : Image.file(
-                                                File(filePath.toString()),
-                                                width: 100,
-                                                height: 100,
+                                            : Container(
+                                                decoration: BoxDecoration(
+                                                  color: BackGWhiteColor,
+                                                  border: Border.all(
+                                                    color: bordercolor,
+                                                  ),
+                                                ),
+                                                child: Image.file(
+                                                  File(filePath.toString()),
+                                                  width: 100,
+                                                  height: 100,
+                                                ),
                                               ),
                                   ),
                                 ),
