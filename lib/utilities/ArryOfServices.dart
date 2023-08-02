@@ -14,6 +14,8 @@ import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/SafetyandSecurity/WarnViolatedVehicle.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehicleList.dart';
+import 'package:eamanaapp/secreen/Wallet/AndroidWallet3.dart';
+import 'package:eamanaapp/secreen/Wallet/businesscardw.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
@@ -138,7 +140,7 @@ class listOfServices {
             Navigator.pushNamed(context, "/VacationRequest");
           }
         },
-      if (sharedPref.getInt("empTypeID") == 8 ||
+      if (sharedPref.getInt("empTypeID") == 8 &&
           sharedPref.getInt("MainDepartmentID") == 422150000)
         {
           "service_name": "طلب إستئذان",
@@ -215,7 +217,7 @@ class listOfServices {
         },
       if (_insertExtensionRequestValid.contains(sharedPref.getInt("empTypeID")))
         {
-          "service_name": "إستعلام إخلاء طرف", /////////
+          "service_name": "ترحيل الإجازة", /////////
           "Navigation": "/auhad",
           "icon": 'assets/SVGs/Insertvacation.svg',
           "Action": () async {
@@ -414,22 +416,27 @@ class listOfServices {
           );
         }
       },
-      // {
-      //   "service_name": "المفضلة",
-      //   "Navigation": "/favs",
-      //   "icon": "assets/SVGs/bookmarks.svg",
-      //   "Action": () {
-      //     Navigator.pushNamed(context, "/favs");
-      //   }
-      // },
-      // {
-      //   "service_name": "المحفظة",
-      //   "Navigation": "/androidWallet",
-      //   "icon": "assets/SVGs/wallet.svg",
-      //   "Action": () {
-      //     Navigator.pushNamed(context, "/AndroidWallet");
-      //   }
-      // },
+      {
+        "service_name": "المفضلة",
+        "Navigation": "/favs",
+        "icon": "assets/SVGs/bookmarks.svg",
+        "Action": () {
+          Navigator.pushNamed(context, "/favs");
+        }
+      },
+      {
+        "service_name": "المحفظة",
+        "Navigation": "/androidWallet",
+        "icon": "assets/SVGs/wallet.svg",
+        "Action": () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AndroidWallet3(
+                      businesscardw(null, "AR"), businesscardw(null, "en"))));
+          //  Navigator.pushNamed(context, "/AndroidWallet");
+        }
+      },
       if (sharedPref.getString("dumyuser") != "10284928492")
         {
           "service_name": "QR Code",
@@ -557,22 +564,22 @@ class listOfServices {
 
   List SafetyandSecurityList() {
     return [
-      // {
-      //   "service_name": "تنبيه السيارة",
-      //   "Navigation": "",
-      //   "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         // ignore: prefer_const_constructors
-      //         builder: (BuildContext context) {
-      //           return WarnViolatedVehicleSftyAndSecurity();
-      //         },
-      //       ),
-      //     );
-      //   }
-      // },
+      {
+        "service_name": "تنبيه السيارة",
+        "Navigation": "",
+        "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              // ignore: prefer_const_constructors
+              builder: (BuildContext context) {
+                return WarnViolatedVehicleSftyAndSecurity();
+              },
+            ),
+          );
+        }
+      },
     ];
   }
 

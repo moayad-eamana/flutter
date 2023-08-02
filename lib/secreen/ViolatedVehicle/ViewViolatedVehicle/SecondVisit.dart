@@ -42,7 +42,8 @@ class _SecondVisitState extends State<SecondVisit> {
 
     getLocation();
     filtterimages();
-    if (widget.vehicle["StatusID"] >= 4) {
+    if (widget.vehicle["StatusID"] >= 4 &&
+        widget.vehicle["Visits"].length >= 2) {
       _Note.text = widget.vehicle["Visits"][1]["Notes"];
       LocationName = widget.vehicle["Visits"][1]["Location"];
       setState(() {});

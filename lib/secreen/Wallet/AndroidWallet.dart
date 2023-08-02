@@ -79,14 +79,14 @@ class _AndroidWalletState extends State<AndroidWallet> {
                                     businesscardw(null, "en"))));
                       }, "AR")),
                   // ---- بطاقة الموظف ----
-                  Positioned(
-                      top: 250,
-                      // right: 10,
-                      width: 100.w,
-                      child: EmployeeCard(() {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => AndroidWallet4()));
-                      })),
+                  // Positioned(
+                  //     top: 250,
+                  //     // right: 10,
+                  //     width: 100.w,
+                  //     child: EmployeeCard(() {
+                  //       Navigator.of(context).push(MaterialPageRoute(
+                  //           builder: (context) => AndroidWallet4()));
+                  //     })),
                 ]),
               ],
             ),
