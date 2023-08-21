@@ -5,6 +5,7 @@ import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -15,7 +16,13 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../main.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+  const LoginView({
+    Key? key,
+    required this.analytics,
+    required this.observer,
+  }) : super(key: key);
 
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -24,6 +31,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
+    call();
     print("objectaswsd");
     if (sharedPref.getBool("rememberMe") == true) {
       rememperMe = true;
@@ -39,6 +47,12 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
   }
 
+  call() async {
+    await widget.analytics.setCurrentScreen(
+      screenName: 'mm',
+      screenClassOverride: 'moayad test',
+    );
+  }
   // void smspermission() async {
   //   try {
   //     final Telephony telephony = Telephony.instance;
@@ -67,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<LoginProvider>(context);
-    return packageInfo.version != localVersion && false
+    return packageInfo.version != localVersion && forceUpdate == true
         ? Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(

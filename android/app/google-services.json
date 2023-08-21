@@ -29,6 +29,13 @@
             {
               "client_id": "309438403428-jdnqo2hhmsfghobcdl1nl0oc5ernbd26.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "309438403428-4q1su3qhg2tfph7srau9av7dkabrgohm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.eamana.raqame"
+              }
             }
           ]
         }

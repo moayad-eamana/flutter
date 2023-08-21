@@ -94,6 +94,10 @@ dependencies:
   flutter_exif_rotation: ^0.4.3
   flutter_image_compress: ^2.0.0
   flutter_phone_direct_caller: ^2.1.1
+  firebase_performance: ^0.8.0+6
+  firebase_analytics: ^9.1.1
+  
+
 
 
 
@@ -104,8 +108,9 @@ dependencies:
 dependency_overrides: 
   firebase_messaging_platform_interface: 3.1.6 
   firebase_remote_config_platform_interface: 1.0.5
-  
-  
+  firebase_performance_platform_interface: 0.1.0+5
+  firebase_analytics_platform_interface: 3.0.5
+
  
   
    

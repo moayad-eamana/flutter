@@ -232,6 +232,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.1"
+  firebase:
+    dependency: transitive
+    description:
+      name: firebase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.3"
+  firebase_analytics:
+    dependency: "direct main"
+    description:
+      name: firebase_analytics
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.1.1"
+  firebase_analytics_platform_interface:
+    dependency: "direct overridden"
+    description:
+      name: firebase_analytics_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.5"
+  firebase_analytics_web:
+    dependency: transitive
+    description:
+      name: firebase_analytics_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0+7"
   firebase_core:
     dependency: "direct main"
     description:
@@ -274,6 +302,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.8"
+  firebase_performance:
+    dependency: "direct main"
+    description:
+      name: firebase_performance
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0+6"
+  firebase_performance_platform_interface:
+    dependency: "direct overridden"
+    description:
+      name: firebase_performance_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+5"
+  firebase_performance_web:
+    dependency: transitive
+    description:
+      name: firebase_performance_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+6"
   firebase_remote_config:
     dependency: "direct main"
     description:

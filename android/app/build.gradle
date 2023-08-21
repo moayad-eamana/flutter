@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -55,9 +56,9 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.eamana.eamanaapp.gov.sa"
         minSdkVersion 20
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode 112
-        versionName "1.0.23"
+        targetSdkVersion "33"
+        versionCode 121
+        versionName "1.0.30"
         multiDexEnabled true
     }
 

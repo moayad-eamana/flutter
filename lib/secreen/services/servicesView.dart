@@ -58,8 +58,10 @@ class _ServicesViewState extends State<ServicesView> {
       if (response != null) {
         sharedPref.setBool("ViolatedCars", true);
         if (response[0]["GroupID"] == 1) {
+          sharedPref.setInt("GroupID", response[0]["GroupID"]);
           sharedPref.setBool("WarnViolatedCars", true);
         } else {
+          sharedPref.setInt("GroupID", 00);
           sharedPref.setBool("WarnViolatedCars", false);
         }
       } else {
@@ -178,7 +180,7 @@ class _ServicesViewState extends State<ServicesView> {
                     if (sharedPref.getBool("ViolatedCars") == true)
                       ...ViolationVehicleWidgets.violationVehicleWidgets(
                           context),
-                    // SizedBox(height: 10),
+                    SizedBox(height: 10),
 
                     // ...SafetyandSecurity.SafetyandSecurityWidget(context),
 

@@ -1,16 +1,25 @@
+import 'dart:convert';
+
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
+import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
+import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:notification_permissions/notification_permissions.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
 class Settings extends StatefulWidget {
@@ -28,6 +37,10 @@ bool test_offers = true;
 
 class _SettingsState extends State<Settings> {
   //
+  TextEditingController currentpassword = TextEditingController();
+  TextEditingController newpassword = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   void getSettings() {
     //final settingSP = await SharedPreferences.getInstance();
     fingerprint = sharedPref.getBool("fingerprint") ?? false;
@@ -122,7 +135,7 @@ class _SettingsState extends State<Settings> {
                         height: 10,
                       ),
                       Container(
-                          height: 150,
+                          height: 200,
                           //margin: EdgeInsets.all(20),
                           decoration: containerdecoration(BackGWhiteColor),
                           child: Padding(
@@ -210,6 +223,210 @@ class _SettingsState extends State<Settings> {
                                         // },
                                         ),
                                   ],
+                                ),
+                                Divider(
+                                  color: bordercolor,
+                                ),
+                                Center(
+                                  child: Container(
+                                    height: 50,
+                                    // width: 150,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        side: BorderSide(
+                                          width: 0.5,
+                                          color: bordercolor,
+                                        ),
+                                        elevation: 0,
+                                        primary: baseColor,
+                                      ),
+                                      onPressed: () async {
+                                        showModalBottomSheet<void>(
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                      .viewInsets
+                                                      .bottom),
+                                              child: SingleChildScrollView(
+                                                child: Container(
+                                                  height: 350,
+                                                  child: Center(
+                                                    child: Directionality(
+                                                      textDirection:
+                                                          TextDirection.rtl,
+                                                      child: Container(
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal: 20,
+                                                                vertical: 50),
+                                                        child: Form(
+                                                          key: _formKey,
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: <Widget>[
+                                                              TextFormField(
+                                                                controller:
+                                                                    currentpassword,
+                                                                decoration:
+                                                                    formlabel1(
+                                                                        "كلمة المرور الحالية"),
+                                                                validator:
+                                                                    (value) {
+                                                                  if (value!
+                                                                      .isEmpty) {
+                                                                    return "يجب إدخال كلمة المرور الحالية";
+                                                                  }
+                                                                },
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              TextFormField(
+                                                                controller:
+                                                                    newpassword,
+                                                                decoration:
+                                                                    formlabel1(
+                                                                        "كلمة المرور الجديدة"),
+                                                                validator:
+                                                                    (value) {
+                                                                  if (value!
+                                                                      .isEmpty) {
+                                                                    return "يجب إدخال كلمة المرور الجديدة";
+                                                                  }
+                                                                },
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Container(
+                                                                width: 120,
+                                                                child: widgetsUni
+                                                                    .actionbutton(
+                                                                        "إرسال",
+                                                                        Icons
+                                                                            .send,
+                                                                        () async {
+                                                                  if (!_formKey
+                                                                      .currentState!
+                                                                      .validate()) {
+                                                                    return;
+                                                                  }
+                                                                  Alerts.confirmAlrt(
+                                                                          context,
+                                                                          "",
+                                                                          "هل أنت متأكد",
+                                                                          "نعم")
+                                                                      .show()
+                                                                      .then(
+                                                                          (value) async {
+                                                                    if (value ==
+                                                                        true) {
+                                                                      EasyLoading
+                                                                          .show(
+                                                                        status:
+                                                                            '... جاري المعالجة',
+                                                                        maskType:
+                                                                            EasyLoadingMaskType.black,
+                                                                      );
+                                                                      dynamic
+                                                                          response =
+                                                                          await postAction(
+                                                                              "HR/UserChangePassword",
+                                                                              jsonEncode({
+                                                                                "UserName": sharedPref.getString("Email"),
+                                                                                "CurrentPassword": currentpassword.text,
+                                                                                "NewPassword": newpassword.text,
+                                                                                "EmployeeNumber": EmployeeProfile.getEmployeeNumber()
+                                                                              }));
+
+                                                                      if (jsonDecode(
+                                                                              response.body)["StatusCode"] ==
+                                                                          400) {
+                                                                        Alerts.errorAlert(
+                                                                                context,
+                                                                                "",
+                                                                                "تم تغير كلمة المرور")
+                                                                            .show()
+                                                                            .then((value) {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        });
+                                                                      } else {
+                                                                        Alerts.errorAlert(
+                                                                                context,
+                                                                                "خطأ",
+                                                                                jsonDecode(response.body)["ErrorMessage"])
+                                                                            .show()
+                                                                            .then((value) {});
+                                                                      }
+
+                                                                      EasyLoading
+                                                                          .dismiss();
+                                                                    }
+                                                                  });
+                                                                }),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          // Icon(,
+                                          //     color: Colors.white, size: 18),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Text(
+                                            "تغير كلمة المرور",
+                                            style: descTx1(Colors.white),
+                                            maxLines: 2,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    // widgetsUni.actionbutton(
+                                    //   "تسجيل خروج",
+                                    //   Icons.logout,
+                                    //   () async {
+                                    //     Alerts.confirmAlrt(context, "تسجيل خروج",
+                                    //             "هل تريد الخروج من التطبيق", "نعم")
+                                    //         .show()
+                                    //         .then((value) async {
+                                    //       if (value == true) {
+                                    //         SharedPreferences _pref =
+                                    //             await SharedPreferences.getInstance();
+                                    //         _pref.setString("EmployeeNumber", "");
+
+                                    //         Navigator.pushReplacementNamed(
+                                    //             context, '/loginView');
+                                    //       }
+                                    //     });
+                                    //   },
+                                    // ),
+                                  ),
                                 ),
                                 Divider(
                                   color: bordercolor,

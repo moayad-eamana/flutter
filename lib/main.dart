@@ -44,6 +44,7 @@ import 'package:eamanaapp/secreen/violation/addViolation/ViolationHome.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -62,6 +63,7 @@ import 'package:sizer/sizer.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 
 late AndroidNotificationChannel channel;
 int? notificationcont;
@@ -138,9 +140,9 @@ Future<void> main() async {
 
   packageInfo = await PackageInfo.fromPlatform();
   await firebase_Notification();
-
+  FirebasePerformance performance = FirebasePerformance.instance;
   hasePerm = sharedPref.getString("hasePerm");
-
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   //Settings.getSettings();
   setSettings();
@@ -317,6 +319,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     setState(() {});
   }
 
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
@@ -330,7 +335,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           Locale('en', ''),
           Locale('ar', ''),
         ],
-
+        navigatorObservers: <NavigatorObserver>[observer],
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(builder: (context, child) {
           return MediaQuery(
@@ -363,17 +368,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           // deprecated,
         ),
 
-        // initialRoute: '/splashScreen',
+        initialRoute: '/splashScreen',
 
-        initialRoute: widget.username == null || widget.username == 0
-            ? "/"
-            : fingerprint == false
-                ? '/home'
-                : '/AuthenticateBio',
+        // initialRoute: widget.username == null || widget.username == 0
+        //     ? "/"
+        //     : fingerprint == false
+        //         ? '/home'
+        //         : '/AuthenticateBio',
         routes: {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
-                child: LoginView(),
+                child: LoginView(
+                  analytics: analytics,
+                  observer: observer,
+                ),
               ),
           '/TabBarDemo': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
@@ -381,7 +389,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               ),
           '/loginView': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
-                child: LoginView(),
+                child: LoginView(
+                  analytics: analytics,
+                  observer: observer,
+                ),
               ),
           '/home': (context) => HomePanel(),
           '/OTPView': (context) => OTPView(),

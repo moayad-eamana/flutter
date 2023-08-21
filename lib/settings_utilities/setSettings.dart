@@ -2,6 +2,7 @@ import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -28,6 +29,8 @@ void setSettings() async {
   //   events = "Events";
   // }
   await Firebase.initializeApp();
+  FirebasePerformance performance = FirebasePerformance.instance;
+
   if (sharedPref.getBool('fingerprint') == null) {
     sharedPref.setBool("fingerprint", false);
   }
