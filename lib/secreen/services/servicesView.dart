@@ -56,15 +56,16 @@ class _ServicesViewState extends State<ServicesView> {
           "ViolatedCars/GetUserGroups/" + EmployeeProfile.getEmployeeNumber());
       response = jsonDecode(response.body)["data"];
       if (response != null) {
+        sharedPref.setInt("GroupID", response[0]["GroupID"]);
+
         sharedPref.setBool("ViolatedCars", true);
         if (response[0]["GroupID"] == 1) {
-          sharedPref.setInt("GroupID", response[0]["GroupID"]);
           sharedPref.setBool("WarnViolatedCars", true);
         } else {
-          sharedPref.setInt("GroupID", 00);
           sharedPref.setBool("WarnViolatedCars", false);
         }
       } else {
+        sharedPref.setInt("GroupID", 00);
         sharedPref.setBool("ViolatedCars", false);
         sharedPref.setBool("WarnViolatedCars", false);
       }

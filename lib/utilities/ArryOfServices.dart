@@ -14,6 +14,7 @@ import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
 import 'package:eamanaapp/secreen/SafetyandSecurity/WarnViolatedVehicle.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehicleList.dart';
+import 'package:eamanaapp/secreen/ViolatedVehicle/vehicle_notice.dart';
 import 'package:eamanaapp/secreen/Wallet/AndroidWallet3.dart';
 import 'package:eamanaapp/secreen/Wallet/businesscardw.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
@@ -342,7 +343,7 @@ class listOfServices {
 
   List violationVehicleService() {
     return [
-      if (sharedPref.getBool("WarnViolatedCars") == true)
+      if (sharedPref.getInt("GroupID") == 1)
         {
           "service_name": "إنذار سيارة",
           "Navigation": "",
@@ -375,6 +376,24 @@ class listOfServices {
           );
         }
       },
+      if (sharedPref.getInt("GroupID") == 3 ||
+          sharedPref.getInt("GroupID") == 2)
+        {
+          "service_name": "إنذار سيارة",
+          "Navigation": "",
+          "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+          "Action": () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                // ignore: prefer_const_constructors
+                builder: (BuildContext context) {
+                  return vehicle_notice();
+                },
+              ),
+            );
+          }
+        },
     ];
   }
 
@@ -460,42 +479,42 @@ class listOfServices {
             );
           }
         },
-      {
-        "service_name": "مُمْتَنّ",
-        "Navigation": "",
-        "icon": "assets/SVGs/thanks.svg",
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Momten()),
-            // ignore: prefer_const_constructors
-          );
-        }
-      },
-      {
-        "service_name": "نصائح",
-        "Navigation": "",
-        "icon": "assets/SVGs/thanks.svg",
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Cybertips()),
-            // ignore: prefer_const_constructors
-          );
-        }
-      },
-      {
-        "service_name": "مشاركة البايانات",
-        "Navigation": "",
-        "icon": "assets/SVGs/qr_code_scanner.svg",
-        "Action": () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => listOfQrcode()),
-            // ignore: prefer_const_constructors
-          );
-        }
-      }, //EventsPage
+      // {
+      //   "service_name": "مُمْتَنّ",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/thanks.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => Momten()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
+      // {
+      //   "service_name": "نصائح",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/thanks.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => Cybertips()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
+      // {
+      //   "service_name": "مشاركة البايانات",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/qr_code_scanner.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => listOfQrcode()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // }, //EventsPage
     ];
   }
 

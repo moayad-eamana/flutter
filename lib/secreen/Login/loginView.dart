@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
+import 'package:eamanaapp/secreen/Login/forgetPassword.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -142,21 +144,6 @@ class _LoginViewState extends State<LoginView> {
                     //  background(),
                     widgetsUni.bacgroundimage(),
 
-                    // Positioned(
-                    //   right: 0,
-                    //   top: 50,
-                    //   child: Image.asset(
-                    //     "assets/image/Giddam-Supporting.png",
-                    //     // fit: BoxFit.co,
-                    //     width: 150,
-                    //     height: 120,
-                    //   ),
-                    // ),
-                    // Positioned(
-                    //   left: 40,
-                    //   top: 80,
-                    //   child: logo(),
-                    // ),
                     Positioned(
                       bottom: 0,
                       child: Row(
@@ -242,6 +229,20 @@ class _LoginViewState extends State<LoginView> {
                                         password(),
                                         const SizedBox(
                                           height: 10,
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            Get.to(forgetPassword());
+                                          },
+                                          child: Text(
+                                            'نسيت كلمة المرور',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.blue,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
                                         ),
                                         Container(
                                           margin: EdgeInsets.symmetric(

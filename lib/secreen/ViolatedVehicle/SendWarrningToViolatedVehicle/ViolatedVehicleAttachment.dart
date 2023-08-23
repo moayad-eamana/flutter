@@ -27,6 +27,7 @@ class ViolatedVehicleAttachment extends StatefulWidget {
 }
 
 class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
+  bool disablebut = false;
   @override
   @override
   Widget build(BuildContext context) {
@@ -72,81 +73,95 @@ class _ViolatedVehicleAttachmentState extends State<ViolatedVehicleAttachment> {
             widget.violatedVehicle.AttachementsInfo.isNotEmpty
                 ? SizedBox(
                     width: 95,
-                    child:
-                        widgetsUni.actionbutton("إنذار", Icons.send, () async {
-                      print(widget.violatedVehicle);
-                      EasyLoading.show(
-                        status: '... جاري المعالجة',
-                        maskType: EasyLoadingMaskType.black,
-                      );
+                    child: widgetsUni.actionbutton(
+                        "إنذار",
+                        Icons.send,
+                        disablebut
+                            ? null
+                            : () async {
+                                print(widget.violatedVehicle);
+                                EasyLoading.show(
+                                  status: '... جاري المعالجة',
+                                  maskType: EasyLoadingMaskType.black,
+                                );
 
-                      dynamic location = await checkloaction();
-                      if (location == false) {
-                        EasyLoading.dismiss();
-                        return;
-                      }
+                                dynamic location = await checkloaction();
+                                if (location == false) {
+                                  EasyLoading.dismiss();
+                                  return;
+                                }
 
-                      EasyLoading.dismiss();
-                      Alerts.confirmAlrt(
-                              context,
-                              "",
-                              " سوف يتم أخذ الموقع الحالي وإرسال الإنذار للسيارة برقم " +
-                                  widget.violatedVehicle
-                                      .sendwarning["PlateNumber"]
-                                      .toString(),
-                              "نعم")
-                          .show()
-                          .then((value) async {
-                        if (value == true) {
-                          // widget.violatedVehicle.sendwarning["VisitRequest"]
-                          //     ["Attachements"] = [];
-                          // widget.violatedVehicle.sendwarning["StatusID"] = 1;
-                          // widget.violatedVehicle.sendwarning["SerialNumber"] =
-                          //     5;
+                                EasyLoading.dismiss();
+                                Alerts.confirmAlrt(
+                                        context,
+                                        "",
+                                        " سوف يتم أخذ الموقع الحالي وإرسال الإنذار للسيارة برقم " +
+                                            widget.violatedVehicle
+                                                .sendwarning["PlateNumber"]
+                                                .toString(),
+                                        "نعم")
+                                    .show()
+                                    .then((value) async {
+                                  if (value == true) {
+                                    // widget.violatedVehicle.sendwarning["VisitRequest"]
+                                    //     ["Attachements"] = [];
+                                    // widget.violatedVehicle.sendwarning["StatusID"] = 1;
+                                    // widget.violatedVehicle.sendwarning["SerialNumber"] =
+                                    //     5;
+                                    disablebut = true;
+                                    setState(() {});
 
-                          EasyLoading.show(
-                            status: '... جاري المعالجة',
-                            maskType: EasyLoadingMaskType.black,
-                          );
-                          var reponse = await postAction(
-                              "ViolatedCars/InsertViolationRequest",
-                              jsonEncode(widget.violatedVehicle.sendwarning));
-                          EasyLoading.dismiss();
-                          logApiModel logapiO = logApiModel();
-                          logapiO.ControllerName = "ViolatedVehicle";
-                          logapiO.ClassName = "ViolatedVehicle";
-                          logapiO.EmployeeNumber =
-                              int.parse(EmployeeProfile.getEmployeeNumber());
-                          logapiO.ActionMethodName = "إنذار سيارة";
-                          logapiO.ActionMethodType = 2;
-                          if (jsonDecode(reponse.body)["StatusCode"] == 400) {
-                            logapiO.StatusCode = 1;
-                            logApi(logapiO);
-                            Alerts.successAlert(
-                                    context,
-                                    "",
-                                    "تم إرسال الانذار برقم " +
-                                        " " +
-                                        jsonDecode(
-                                                reponse.body)["RequestNumber"]
-                                            .toString())
-                                .show()
-                                .then((value) {
-                              Navigator.pop(context);
-                            });
-                          } else {
-                            logapiO.StatusCode = 0;
-                            logapiO.ErrorMessage =
-                                jsonDecode(reponse.body)["ErrorMessage"];
-                            logApi(logapiO);
-                            Alerts.errorAlert(context, "خطأ",
-                                    jsonDecode(reponse.body)["ErrorMessage"])
-                                .show();
-                          }
-                          EasyLoading.dismiss();
-                        }
-                      });
-                    }))
+                                    EasyLoading.show(
+                                      status: '... جاري المعالجة',
+                                      maskType: EasyLoadingMaskType.black,
+                                    );
+                                    disablebut = false;
+                                    setState(() {});
+                                    var reponse = await postAction(
+                                        "ViolatedCars/InsertViolationRequest",
+                                        jsonEncode(widget
+                                            .violatedVehicle.sendwarning));
+                                    EasyLoading.dismiss();
+                                    logApiModel logapiO = logApiModel();
+                                    logapiO.ControllerName = "ViolatedVehicle";
+                                    logapiO.ClassName = "ViolatedVehicle";
+                                    logapiO.EmployeeNumber = int.parse(
+                                        EmployeeProfile.getEmployeeNumber());
+                                    logapiO.ActionMethodName = "إنذار سيارة";
+                                    logapiO.ActionMethodType = 2;
+                                    if (jsonDecode(
+                                            reponse.body)["StatusCode"] ==
+                                        400) {
+                                      logapiO.StatusCode = 1;
+                                      logApi(logapiO);
+                                      Alerts.successAlert(
+                                              context,
+                                              "",
+                                              "تم إرسال الانذار برقم " +
+                                                  " " +
+                                                  jsonDecode(reponse.body)[
+                                                          "RequestNumber"]
+                                                      .toString())
+                                          .show()
+                                          .then((value) {
+                                        Navigator.pop(context);
+                                      });
+                                    } else {
+                                      logapiO.StatusCode = 0;
+                                      logapiO.ErrorMessage = jsonDecode(
+                                          reponse.body)["ErrorMessage"];
+                                      logApi(logapiO);
+                                      Alerts.errorAlert(
+                                              context,
+                                              "خطأ",
+                                              jsonDecode(
+                                                  reponse.body)["ErrorMessage"])
+                                          .show();
+                                    }
+                                    EasyLoading.dismiss();
+                                  }
+                                });
+                              }))
                 : Container(),
             SizedBox(
                 width: 95,

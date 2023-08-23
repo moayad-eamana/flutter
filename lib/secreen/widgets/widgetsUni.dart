@@ -101,7 +101,7 @@ class widgetsUni {
         child: widgetsUni.cardcontentService(icon, text));
   }
 
-  static Widget actionbutton(String text, icon, VoidCallback onClicked) {
+  static Widget actionbutton(String text, icon, VoidCallback? onClicked) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -114,9 +114,11 @@ class widgetsUni {
         elevation: 0,
         primary: baseColor,
       ),
-      onPressed: () {
-        onClicked();
-      },
+      onPressed: onClicked == null
+          ? null
+          : () {
+              onClicked();
+            },
       child: Row(
         children: [
           Icon(icon, color: BackGWhiteColor, size: 18),
