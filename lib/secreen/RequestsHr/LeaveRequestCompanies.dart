@@ -259,7 +259,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                     onToggle: (index) {
                                       int indexS = index as int;
                                       ToggleSwitchindex = index;
-
+                                      ToggleSwitchindex++;
                                       print('switched to: ' +
                                           ToggleSwitchindex.toString());
                                     },
