@@ -59,6 +59,8 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
       "PermissionTypeID": ToggleSwitchindex,
       "PersmissionDate": _date.text,
       "Notes": _note.text.toString(),
+      "FileBytes": fileBytes,
+      "FileName": fileName
     };
 
     //encode Map to JSON
@@ -298,6 +300,9 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                                     "يجب ان لا يزيد حجم الملف عن 2 ميجابايت ")
                                                 .show();
                                           }
+                                        } else {
+                                          fileBytes = null;
+                                          fileName = null;
                                         }
 
                                         setState(() {
