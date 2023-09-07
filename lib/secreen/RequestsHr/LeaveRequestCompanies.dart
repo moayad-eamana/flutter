@@ -13,6 +13,7 @@ import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -54,17 +55,19 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
 
   Future<void> InsertLeaveRequest() async {
     Map data = {
-      "EmployeeNumber": empinfo.EmployeeNumber,
-      "ReplaceEmployeeNumber": _ReplaceEmployeeNumber,
+      "EmployeeNumber": int.parse(EmployeeProfile.getEmployeeNumber()),
+      "ReplacmentEmployeeNumber":
+          int.parse(_ReplaceEmployeeNumber.toString().split(".")[0]),
       "PermissionTypeID": ToggleSwitchindex,
       "PersmissionDate": _date.text,
       "Notes": _note.text.toString(),
       "FileBytes": fileBytes,
       "FileName": fileName
     };
+    print(data);
 
     //encode Map to JSON
-    var body = json.encode(data);
+    var body = jsonEncode(data);
 
     Alerts.confirmAlrt(context, "تأكيد", "هل انت متأكد؟", "نعم")
         .show()
@@ -92,7 +95,9 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
         } else {
           logapiO.StatusCode = 1;
           logApi(logapiO);
-          Alerts.successAlert(context, "", "تم ارسال الطلب").show();
+          Alerts.successAlert(context, "", "تم ارسال الطلب")
+              .show()
+              .then((value) => Navigator.pop(context));
         }
 
         EasyLoading.dismiss();
@@ -451,7 +456,7 @@ class _LeaveRequestCompaniesState extends State<LeaveRequestCompanies> {
                                         _ReplaceEmployeeNumber =
                                             v?.EmployeeNumber;
 
-                                        print(v?.EmployeeNumber.toString());
+                                        print(_ReplaceEmployeeNumber);
                                         selecteditem = v.EmployeeName;
                                         //setState(() {});
                                       } catch (e) {}

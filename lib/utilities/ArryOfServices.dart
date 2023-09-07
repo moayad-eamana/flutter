@@ -379,7 +379,7 @@ class listOfServices {
       if (sharedPref.getInt("GroupID") == 3 ||
           sharedPref.getInt("GroupID") == 2)
         {
-          "service_name": "إنذار سيارة",
+          "service_name": "إشعار سيارة",
           "Navigation": "",
           "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
           "Action": () {
