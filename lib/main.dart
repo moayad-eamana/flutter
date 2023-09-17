@@ -6,7 +6,9 @@ import 'package:eamanaapp/provider/otp.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/EmpInfo/my_Card.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
+import 'package:eamanaapp/secreen/Home/Drawer&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Home/panel&NavigationBar.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
 import 'package:eamanaapp/secreen/Login/loginView.dart';
@@ -137,7 +139,7 @@ Future<void> main() async {
   //     await Future.delayed(const Duration(seconds: 0)));
   print("dddd");
   sharedPref = await SharedPreferences.getInstance();
-
+  sharedPref.setBool("darkmode", false);
   packageInfo = await PackageInfo.fromPlatform();
   await firebase_Notification();
   FirebasePerformance performance = FirebasePerformance.instance;
@@ -350,12 +352,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           //brightness: Brightness.dark,
 
           primarySwatch: Colors.blue,
-          fontFamily: 'Cairo',
+          fontFamily: 'TheSansArabic',
           tabBarTheme: TabBarTheme(
               labelColor: Colors.black,
               labelStyle: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Cairo"), // color for text
+                  fontFamily: "TheSansArabic2"), // color for text
               indicator: UnderlineTabIndicator(
                   // color for indicator (underline)
                   borderSide: BorderSide(color: baseColor))),
@@ -394,7 +396,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
                   observer: observer,
                 ),
               ),
-          '/home': (context) => HomePanel(),
+          '/home': (context) => Home(),
           '/OTPView': (context) => OTPView(),
           '/HrRequestsView': (context) => HrRequestsView(),
           '/HRdetailsView': (context) => HRdetailsView(),
@@ -404,7 +406,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/Empprofile': (context) => EmpProfile(null),
           '/HrDecisionsView': (context) => HrDecisionsView(),
           '/services': (context) => ServicesView(),
-          '/EamanaDiscount': (context) => EamanaDiscount(null),
+          '/EamanaDiscount': (context) => EamanaDiscount(null, null),
           '/VacationRequest': (context) => VacationRequest(),
           '/entedab': (context) => Entedab(),
           '/OutdutyRequest': (context) => OutdutyRequest(),
@@ -434,6 +436,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/newEmpInfo': (context) => newEmpInfo(true),
           '/splashScreen': (context) => splashScreen(),
           '/events_page': (context) => EventsPage(),
+          '/MyCard': (context) => MyCard(),
         },
       );
     });

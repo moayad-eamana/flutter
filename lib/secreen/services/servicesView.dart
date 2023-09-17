@@ -1,26 +1,23 @@
 import 'dart:convert';
+
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/notification/bagenotification.dart';
-import 'package:eamanaapp/secreen/services/SafetyandSecurity.dart';
-import 'package:eamanaapp/secreen/services/hrServices.dart';
-import 'package:eamanaapp/secreen/services/violationVehicleService.dart';
-import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
+import 'package:eamanaapp/secreen/services/ListViewServices.dart';
+import 'package:eamanaapp/secreen/widgets/StaggeredGridTileW.dart';
+import 'package:eamanaapp/secreen/widgets/appbarW.dart';
+import 'package:eamanaapp/secreen/widgets/service_search.dart';
+import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:eamanaapp/utilities/SLL_pin.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/searchX.dart';
+import 'package:eamanaapp/utilities/styles/CSS/CSS.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
-import 'package:eamanaapp/secreen/services/salaryServices.dart';
-import 'package:eamanaapp/secreen/services/customerService.dart';
-import 'package:eamanaapp/secreen/services/mahamme.dart';
-import 'package:eamanaapp/secreen/services/otherServices.dart';
-import 'package:eamanaapp/secreen/services/attendanceService.dart';
-
-import 'EventsServices.dart';
 
 // print(udid);
 class ServicesView extends StatefulWidget {
@@ -31,6 +28,7 @@ class ServicesView extends StatefulWidget {
 class _ServicesViewState extends State<ServicesView> {
   int id = 0;
   String empNo = "";
+  TextEditingController _search = TextEditingController();
   List<int> insertExtensionRequestValid = [0, 6, 7];
 
   @override
@@ -57,7 +55,6 @@ class _ServicesViewState extends State<ServicesView> {
       response = jsonDecode(response.body)["data"];
       if (response != null) {
         sharedPref.setInt("GroupID", response[0]["GroupID"]);
-
         sharedPref.setBool("ViolatedCars", true);
         if (response[0]["GroupID"] == 1) {
           sharedPref.setBool("WarnViolatedCars", true);
@@ -122,13 +119,13 @@ class _ServicesViewState extends State<ServicesView> {
 
   @override
   Widget build(BuildContext context) {
-    hrServicesWidget obj = hrServicesWidget(context);
+    listOfServices list = listOfServices(context);
+
     print(SizerUtil.deviceType == DeviceType.mobile);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar:
-            AppBarHome.appBarW("جميع الخدمات", context, true, notificationcont),
+        appBar: AppBarW.appBarW("جميع الخدمات", context, false),
         body: Stack(
           children: [
             widgetsUni.bacgroundimage(),
@@ -139,55 +136,39 @@ class _ServicesViewState extends State<ServicesView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // شؤون الموظفين
-                    ...obj.hrServices(),
+                    searchTX(),
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
-                    ...salaryWidgets.salaryWidget(context),
-                    SizedBox(
-                      height: 10,
+                    StaggeredGrid.count(
+                      crossAxisCount:
+                          SizerUtil.deviceType == DeviceType.mobile ? 2 : 4,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 10,
+                      children: [
+                        ...list.AllService().map((e) {
+                          return StaggeredGridTileW(
+                              1,
+                              SizerUtil.deviceType == DeviceType.mobile
+                                  ? 183
+                                  : 140,
+                              widgetsUni.servicebutton(
+                                  e["service_name"],
+                                  e["icon"],
+                                  e["Action"] == null
+                                      ? () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ListViewServices(e["List"],
+                                                        e["service_name"])),
+                                          );
+                                        }
+                                      : e["Action"]));
+                        }),
+                      ],
                     ),
-                    if (sharedPref.getInt("MainDepartmentID") == 422150000)
-                      ...attendanceServiceWidget.attendanceWidget(context),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    ...mahammeWidget.mahamme(context),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-
-                    // Text(
-                    //   "المخالفات الإلكترونية",
-                    //   style: subtitleTx(baseColor),
-                    // ),
-
-                    // widgetsUni.divider(),
-
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
-                    // violation(),
-
-                    if (sharedPref.getBool("permissionforCRM") == true)
-                      ...customerServiceWidget.customerService(context),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    if (sharedPref.getBool("ViolatedCars") == true)
-                      ...ViolationVehicleWidgets.violationVehicleWidgets(
-                          context),
-                    SizedBox(height: 10),
-
-                    // ...SafetyandSecurity.SafetyandSecurityWidget(context),
-
-                    ...EventsServicesWidget.Event(context),
-                    SizedBox(height: 10),
-                    ...otherServices.otherWidget(context),
                   ],
                 ),
               ),
@@ -218,6 +199,45 @@ class _ServicesViewState extends State<ServicesView> {
                   child: widgetsUni.cardcontentService(
                       'assets/SVGs/violation.svg', "إنشاء مخالفة"))),
         ],
+      ),
+    );
+  }
+
+  searchTX() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      child: GestureDetector(
+        onTap: () {
+          print("object");
+          showSearchX(
+                  context: context,
+                  delegate: CustomSearchDelegate(context, id, false))
+              .then((value) {
+            setState(() {
+              // listofFavs = listOfFavs(context);
+            });
+          });
+
+          FocusScope.of(context).unfocus();
+        },
+        child: TextField(
+          showCursor: false,
+          enabled: false,
+          readOnly: true,
+          controller: _search,
+          keyboardType: TextInputType.text,
+          maxLines: 1,
+          decoration: CSS.TextFieldDecoration("تبحث عن خدمة محددة؟",
+              icon: Icon(Icons.search)),
+          onTap: () {
+            print("object");
+            //FocusScope.of(context).unfocus();
+
+            showSearchX(
+                context: context,
+                delegate: CustomSearchDelegate(context, id, false));
+          },
+        ),
       ),
     );
   }

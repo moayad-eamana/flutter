@@ -6,11 +6,14 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
+import 'package:eamanaapp/utilities/styles/CSS/CSS.dart';
 
 class OutdutyRequest extends StatefulWidget {
   const OutdutyRequest({Key? key}) : super(key: key);
@@ -59,7 +62,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
 //rtyrtyer
     Map data = {
       "EmployeeNumber": empinfo.EmployeeNumber,
-      "OutDutyHours": _HoursNumberC,
+      "OutDutyHours": _HoursNumber.text, //true ?
       "StartDate": _dateFrom.text,
       "EndDate": _dateTo.text,
       "DepartmentID": empinfo.DepartmentID,
@@ -112,39 +115,263 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
           //  backgroundColor: Colors.transparent,
 
           appBar: AppBarW.appBarW("طلب خارج الدوام", context, null),
-          body: Stack(
+          body:
+              // Stack(
+              //   children: [
+              //     widgetsUni.bacgroundimage(),
+              //     SingleChildScrollView(
+              //       child: Padding(
+              //         padding: const EdgeInsets.all(20.0),
+              //         child: Container(
+              //           decoration: BoxDecoration(
+              //             color: BackGWhiteColor,
+              //             border: Border.all(
+              //               color: bordercolor,
+              //             ),
+              //             //color: baseColor,
+              //             borderRadius: BorderRadius.all(
+              //               new Radius.circular(4),
+              //             ),
+              //           ),
+              //           child: Form(
+              //             key: _formKey,
+              //             child: Padding(
+              //               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              //               child: Column(
+              //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //                 crossAxisAlignment: CrossAxisAlignment.start,
+              //                 children: [
+              //                   Center(
+              //                     child: Text(
+              //                       "فضلاً أدخل بيانات طلب خارج الدوام",
+              //                       style: titleTx(baseColor),
+              //                     ),
+              //                   ),
+              //                   SizedBox(
+              //                     height: 20,
+              //                   ),
+              //                   StaggeredGrid.count(
+              //                       crossAxisCount: responsiveGrid(1, 2),
+              //                       mainAxisSpacing: 10,
+              //                       crossAxisSpacing: 10,
+              //                       children: [
+              //                         Container(
+              //                           decoration:
+              //                               containerdecoration(BackGWhiteColor),
+              //                           child: SpinBox(
+              //                             max: 7,
+              //                             min: 0.5,
+              //                             value: 0.5,
+              //                             decimals: 1,
+              //                             readOnly: true,
+              //                             step: 0.5,
+              //                             decoration: InputDecoration(
+              //                               labelText: 'ادخل عدد الساعات',
+              //                               labelStyle:
+              //                                   TextStyle(color: secondryColorText),
+              //                             ),
+              //                             textStyle: subtitleTx(baseColorText),
+              //                             incrementIcon: Icon(
+              //                               Icons.add_box_outlined,
+              //                               size: 30,
+              //                               color: baseColor,
+              //                             ),
+              //                             decrementIcon: Icon(
+              //                               Icons.indeterminate_check_box_outlined,
+              //                               size: 30,
+              //                               color: baseColor,
+              //                             ),
+              //                             onChanged: (value) {
+              //                               _HoursNumberC = value;
+              //                               print(_HoursNumberC);
+              //                             },
+              //                           ),
+              //                         ),
+              //                         // TextFormField(2
+              //                         //   //style: subtitleTx(Colors.white),
+              //                         //   controller: _HoursNumber,
+              //                         //   inputFormatters: <TextInputFormatter>[
+              //                         //     FilteringTextInputFormatter.digitsOnly
+              //                         //   ],
+              //                         //   keyboardType: TextInputType.number,
+              //                         //   maxLines: 1,
+              //                         //   decoration: formlabel1("عدد الساعات"),
+              //                         //   validator: (value) {
+              //                         //     if (value == null || value.isEmpty) {
+              //                         //       return 'يرجى إدخال عدد الساعات';
+              //                         //     }
+              //                         //     return null;
+              //                         //   },
+              //                         // ),
+              //                         TextFormField(
+              //                           controller: _dateFrom,
+              //                           style: TextStyle(color: baseColorText),
+              //                           readOnly: true,
+              //                           // keyboardType: TextInputType.datetime,
+              //                           maxLines: 1,
+              //                           decoration:
+              //                               formlabel1("تاريخ بداية خارج الدوام"),
+              //                           validator: (value) {
+              //                             if (value == null || value.isEmpty) {
+              //                               return 'يرجى إختيار تاريخ المحدد';
+              //                             }
+              //                             return null;
+              //                           },
+              //                           onTap: () {
+              //                             DatePicker.showDatePicker(context,
+              //                                 theme: DatePickerTheme(
+              //                                   backgroundColor: BackGWhiteColor,
+              //                                   itemStyle: TextStyle(
+              //                                     color: baseColorText,
+              //                                   ),
+              //                                 ),
+              //                                 showTitleActions: true,
+              //                                 minTime: DateTime(2021, 3, 5),
+              //                                 onChanged: (date) {
+              //                               _dateFrom.text =
+              //                                   date.toString().split(" ")[0];
+              //                               print('change $date');
+              //                             }, onConfirm: (date) {
+              //                               _dateFrom.text =
+              //                                   date.toString().split(" ")[0];
+              //                               print('confirm $date');
+              //                             },
+              //                                 currentTime: DateTime.now(),
+              //                                 locale: LocaleType.ar);
+              //                           },
+              //                         ),
+              //                         TextFormField(
+              //                           controller: _dateTo,
+              //                           style: TextStyle(color: baseColorText),
+              //                           readOnly: true,
+              //                           // keyboardType: TextInputType.datetime,
+              //                           maxLines: 1,
+              //                           decoration:
+              //                               formlabel1("تاريخ نهاية خارج الدوام"),
+              //                           validator: (value) {
+              //                             if (value == null || value.isEmpty) {
+              //                               return 'يرجى إختيار تاريخ المحدد';
+              //                             }
+              //                             return null;
+              //                           },
+              //                           onTap: () {
+              //                             DatePicker.showDatePicker(context,
+              //                                 theme: DatePickerTheme(
+              //                                   backgroundColor: BackGWhiteColor,
+              //                                   itemStyle: TextStyle(
+              //                                     color: baseColorText,
+              //                                   ),
+              //                                 ),
+              //                                 showTitleActions: true,
+              //                                 minTime: DateTime(2021, 3, 5),
+              //                                 onChanged: (date) {
+              //                               _dateTo.text =
+              //                                   date.toString().split(" ")[0];
+              //                               print('change $date');
+              //                             }, onConfirm: (date) {
+              //                               _dateTo.text =
+              //                                   date.toString().split(" ")[0];
+              //                               print('confirm $date');
+              //                             },
+              //                                 currentTime: DateTime.now(),
+              //                                 locale: LocaleType.ar);
+              //                           },
+              //                         ),
+              //                       ]),
+              //                   SizedBox(
+              //                     height: 10,
+              //                   ),
+              //                   TextFormField(
+              //                     maxLength: 300,
+              //                     style: TextStyle(color: baseColorText),
+              //                     controller: _note,
+              //                     keyboardType: TextInputType.text,
+              //                     maxLines: 3,
+              //                     decoration: formlabel1("ملاحظات"),
+              //                     validator: (value) {
+              //                       if (value == null || value.isEmpty) {
+              //                         return 'يرجى كتابة ملاحظة';
+              //                       } else if (value.length < 15) {
+              //                         return 'الرجاء إدخال أكثر من ١٥ حرف';
+              //                       }
+              //                       return null;
+              //                     },
+              //                   ),
+              //                   SizedBox(
+              //                     height: 10,
+              //                   ),
+              //                   Align(
+              //                     alignment: Alignment.bottomCenter,
+              //                     child: Row(
+              //                       mainAxisAlignment: MainAxisAlignment.end,
+              //                       children: [
+              //                         // widgetsUni.actionbutton(
+              //                         //   "الطلبات السابقة",
+              //                         //   Icons.local_attraction_sharp,
+              //                         //   () {
+              //                         //     print("ee");
+              //                         //   },
+              //                         // ),
+              //                         SizedBox(
+              //                           width: 10,
+              //                         ),
+              //                         widgetsUni.actionbutton(
+              //                           'الطلبات السابقة',
+              //                           Icons.history,
+              //                           () {
+              //                             Navigator.pushNamed(
+              //                                 context, "/OutDuties_hostiry");
+              //                           },
+              //                         ),
+              //                         SizedBox(
+              //                           width: 10,
+              //                         ),
+              //                         widgetsUni.actionbutton(
+              //                           'تنفيذ',
+              //                           Icons.send,
+              //                           () {
+              //                             // Validate returns true if the form is valid, or false otherwise.
+              //                             if (_formKey.currentState!.validate()) {
+              //                               // If the form is valid, display a snackbar. In the real world,
+              //                               // you'd often call a server or save the information in a database.
+              //                               InsertOutDutyRequest();
+              //                             }
+              //                           },
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              Stack(
             children: [
-              widgetsUni.bacgroundimage(),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: BackGWhiteColor,
-                      border: Border.all(
-                        color: bordercolor,
-                      ),
-                      //color: baseColor,
-                      borderRadius: BorderRadius.all(
-                        new Radius.circular(4),
-                      ),
-                    ),
+              Padding(
+                padding: EdgeInsets.all(30),
+                child: Container(
+                  child: SingleChildScrollView(
                     child: Form(
                       key: _formKey,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        padding: EdgeInsets.all(20),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(
+                            Container(
+                              alignment: Alignment.topRight,
                               child: Text(
-                                "فضلاً أدخل بيانات طلب خارج الدوام",
-                                style: titleTx(baseColor),
+                                "عدد الساعات",
+                                style: fontsStyle.px14(
+                                    fontsStyle.thirdColor(), FontWeight.bold),
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             StaggeredGrid.count(
                                 crossAxisCount: responsiveGrid(1, 2),
@@ -152,8 +379,6 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 crossAxisSpacing: 10,
                                 children: [
                                   Container(
-                                    decoration:
-                                        containerdecoration(BackGWhiteColor),
                                     child: SpinBox(
                                       max: 7,
                                       min: 0.5,
@@ -162,20 +387,45 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                       readOnly: true,
                                       step: 0.5,
                                       decoration: InputDecoration(
-                                        labelText: 'ادخل عدد الساعات',
                                         labelStyle:
                                             TextStyle(color: secondryColorText),
+                                        errorStyle: TextStyle(color: redColor),
+                                        contentPadding: EdgeInsets.symmetric(
+                                          vertical: responsiveMT(6, 30),
+                                          horizontal: 6.0,
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7.0),
+                                          borderSide:
+                                              BorderSide(color: bordercolor),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: bordercolor),
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: bordercolor),
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                        ),
+                                        labelText: 'ادخل عدد الساعات',
+                                        fillColor: Colors.white,
+                                        filled: true,
                                       ),
                                       textStyle: subtitleTx(baseColorText),
                                       incrementIcon: Icon(
                                         Icons.add_box_outlined,
                                         size: 30,
-                                        color: baseColor,
+                                        color: fontsStyle.HeaderColor(),
                                       ),
                                       decrementIcon: Icon(
                                         Icons.indeterminate_check_box_outlined,
                                         size: 30,
-                                        color: baseColor,
+                                        color: fontsStyle.HeaderColor(),
                                       ),
                                       onChanged: (value) {
                                         _HoursNumberC = value;
@@ -183,159 +433,173 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                       },
                                     ),
                                   ),
-                                  // TextFormField(2
-                                  //   //style: subtitleTx(Colors.white),
-                                  //   controller: _HoursNumber,
-                                  //   inputFormatters: <TextInputFormatter>[
-                                  //     FilteringTextInputFormatter.digitsOnly
-                                  //   ],
-                                  //   keyboardType: TextInputType.number,
-                                  //   maxLines: 1,
-                                  //   decoration: formlabel1("عدد الساعات"),
-                                  //   validator: (value) {
-                                  //     if (value == null || value.isEmpty) {
-                                  //       return 'يرجى إدخال عدد الساعات';
-                                  //     }
-                                  //     return null;
-                                  //   },
-                                  // ),
-                                  TextFormField(
-                                    controller: _dateFrom,
-                                    style: TextStyle(color: baseColorText),
-                                    readOnly: true,
-                                    // keyboardType: TextInputType.datetime,
-                                    maxLines: 1,
-                                    decoration:
-                                        formlabel1("تاريخ بداية خارج الدوام"),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'يرجى إختيار تاريخ المحدد';
-                                      }
-                                      return null;
-                                    },
-                                    onTap: () {
-                                      DatePicker.showDatePicker(context,
-                                          theme: DatePickerTheme(
-                                            backgroundColor: BackGWhiteColor,
-                                            itemStyle: TextStyle(
-                                              color: baseColorText,
-                                            ),
-                                          ),
-                                          showTitleActions: true,
-                                          minTime: DateTime(2021, 3, 5),
-                                          onChanged: (date) {
-                                        _dateFrom.text =
-                                            date.toString().split(" ")[0];
-                                        print('change $date');
-                                      }, onConfirm: (date) {
-                                        _dateFrom.text =
-                                            date.toString().split(" ")[0];
-                                        print('confirm $date');
-                                      },
-                                          currentTime: DateTime.now(),
-                                          locale: LocaleType.ar);
-                                    },
-                                  ),
-                                  TextFormField(
-                                    controller: _dateTo,
-                                    style: TextStyle(color: baseColorText),
-                                    readOnly: true,
-                                    // keyboardType: TextInputType.datetime,
-                                    maxLines: 1,
-                                    decoration:
-                                        formlabel1("تاريخ نهاية خارج الدوام"),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'يرجى إختيار تاريخ المحدد';
-                                      }
-                                      return null;
-                                    },
-                                    onTap: () {
-                                      DatePicker.showDatePicker(context,
-                                          theme: DatePickerTheme(
-                                            backgroundColor: BackGWhiteColor,
-                                            itemStyle: TextStyle(
-                                              color: baseColorText,
-                                            ),
-                                          ),
-                                          showTitleActions: true,
-                                          minTime: DateTime(2021, 3, 5),
-                                          onChanged: (date) {
-                                        _dateTo.text =
-                                            date.toString().split(" ")[0];
-                                        print('change $date');
-                                      }, onConfirm: (date) {
-                                        _dateTo.text =
-                                            date.toString().split(" ")[0];
-                                        print('confirm $date');
-                                      },
-                                          currentTime: DateTime.now(),
-                                          locale: LocaleType.ar);
-                                    },
-                                  ),
                                 ]),
+
                             SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
-                            TextFormField(
-                              maxLength: 300,
-                              style: TextStyle(color: baseColorText),
-                              controller: _note,
-                              keyboardType: TextInputType.text,
-                              maxLines: 3,
-                              decoration: formlabel1("ملاحظات"),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'يرجى كتابة ملاحظة';
-                                } else if (value.length < 15) {
-                                  return 'الرجاء إدخال أكثر من ١٥ حرف';
-                                }
-                                return null;
-                              },
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  // widgetsUni.actionbutton(
-                                  //   "الطلبات السابقة",
-                                  //   Icons.local_attraction_sharp,
-                                  //   () {
-                                  //     print("ee");
-                                  //   },
-                                  // ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  widgetsUni.actionbutton(
-                                    'الطلبات السابقة',
-                                    Icons.history,
-                                    () {
-                                      Navigator.pushNamed(
-                                          context, "/OutDuties_hostiry");
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  widgetsUni.actionbutton(
-                                    'تنفيذ',
-                                    Icons.send,
-                                    () {
-                                      // Validate returns true if the form is valid, or false otherwise.
-                                      if (_formKey.currentState!.validate()) {
-                                        // If the form is valid, display a snackbar. In the real world,
-                                        // you'd often call a server or save the information in a database.
-                                        InsertOutDutyRequest();
-                                      }
-                                    },
-                                  ),
-                                ],
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "تاريخ بداية خارج الدوام",
+                                style: fontsStyle.px14(
+                                    fontsStyle.thirdColor(), FontWeight.bold),
                               ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: TextFormField(
+                                controller: _dateFrom,
+                                decoration:
+                                    CSS.TextFieldDecoration('اختر التاريخ'),
+                                style: fontsStyle.px14(
+                                    Colors.grey, FontWeight.normal),
+                                // inputFormatters: <TextInputFormatter>[
+                                //   FilteringTextInputFormatter.digitsOnly
+                                // ],
+                                maxLines: 1,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'يرجى إختيار تاريخ المحدد';
+                                  }
+                                  return null;
+                                },
+                                onTap: () {
+                                  DatePicker.showDatePicker(context,
+                                      theme: DatePickerTheme(
+                                        backgroundColor: BackGWhiteColor,
+                                        itemStyle: TextStyle(
+                                          color: baseColorText,
+                                        ),
+                                      ),
+                                      showTitleActions: true,
+                                      minTime: DateTime(2021, 3, 5),
+                                      onChanged: (date) {
+                                    _dateFrom.text =
+                                        date.toString().split(" ")[0];
+                                    print('change $date');
+                                  }, onConfirm: (date) {
+                                    _dateFrom.text =
+                                        date.toString().split(" ")[0];
+                                    print('confirm $date');
+                                  },
+                                      currentTime: DateTime.now(),
+                                      locale: LocaleType.ar);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "تاريخ نهاية خارج الدوام",
+                                style: fontsStyle.px14(
+                                    fontsStyle.thirdColor(), FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: TextFormField(
+                                controller: _dateTo,
+                                decoration:
+                                    CSS.TextFieldDecoration('اختر التاريخ'),
+                                style: fontsStyle.px14(
+                                    Colors.grey, FontWeight.normal),
+                                maxLines: 1,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'يرجى إختيار تاريخ المحدد';
+                                  }
+                                  return null;
+                                },
+                                onTap: () {
+                                  DatePicker.showDatePicker(context,
+                                      theme: DatePickerTheme(
+                                        backgroundColor: BackGWhiteColor,
+                                        itemStyle: TextStyle(
+                                          color: baseColorText,
+                                        ),
+                                      ),
+                                      showTitleActions: true,
+                                      minTime: DateTime(2021, 3, 5),
+                                      onChanged: (date) {
+                                    _dateTo.text =
+                                        date.toString().split(" ")[0];
+                                    print('change $date');
+                                  }, onConfirm: (date) {
+                                    _dateTo.text =
+                                        date.toString().split(" ")[0];
+                                    print('confirm $date');
+                                  },
+                                      currentTime: DateTime.now(),
+                                      locale: LocaleType.ar);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  "الملاحظات",
+                                  style: fontsStyle.px14(
+                                      fontsStyle.thirdColor(), FontWeight.bold),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: TextFormField(
+                                controller: _note,
+                                decoration:
+                                    CSS.TextFieldDecoration('اكتب ملاحظات'),
+                                style: fontsStyle.px14(
+                                    Colors.grey, FontWeight.normal),
+                                maxLines: 3,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'يرجى كتابة ملاحظة';
+                                  } else if (value.length < 15) {
+                                    return 'الرجاء إدخال أكثر من ١٥ حرف';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            // submit button
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              height: 40,
+                              width: 250,
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      InsertOutDutyRequest();
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: fontsStyle.HeaderColor(),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7.0),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'ارسال',
+                                    style: fontsStyle.px16(
+                                        Colors.white, FontWeight.bold),
+                                  )),
                             ),
                           ],
                         ),
@@ -343,7 +607,7 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           )),
     );

@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/logApiModel.dart';
+import 'package:eamanaapp/secreen/salary/salaryHistory.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/functions/ViewFile.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 
 import '../../main.dart';
 
@@ -17,11 +19,13 @@ class salaryFunction {
     if (fingerprint == true) {
       Navigator.pushNamed(context, "/auth_secreen").then((value) {
         if (value == true) {
-          Navigator.pushNamed(context, "/SalaryHistory");
+          Get.to(SalaryHistory());
+          //   Navigator.pushNamed(context, "/SalaryHistory");
         }
       });
     } else {
-      Navigator.pushNamed(context, "/SalaryHistory");
+      Get.to(SalaryHistory());
+      // Navigator.pushNamed(context, "/SalaryHistory");
     }
   }
 

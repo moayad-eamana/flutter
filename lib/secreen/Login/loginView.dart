@@ -2,18 +2,18 @@ import 'dart:io';
 
 import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/secreen/Login/OTPView.dart';
-import 'package:eamanaapp/secreen/Login/forgetPassword.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/styles/CSS.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
 
 import '../../main.dart';
 
@@ -73,6 +73,7 @@ class _LoginViewState extends State<LoginView> {
   bool passError = false;
   bool rememperMe = false;
   var _provider;
+  bool passwordVisible = true;
 
   @override
   void dispose() {
@@ -141,42 +142,27 @@ class _LoginViewState extends State<LoginView> {
                 height: 100.h,
                 child: Stack(
                   children: [
-                    //  background(),
-                    widgetsUni.bacgroundimage(),
-
                     Positioned(
                       bottom: 0,
-                      child: Row(
-                        //  mainAxisAlignment: Ma,
+                      child: Stack(
                         children: [
-                          Container(
-                            width: 40.w,
-                            height: 65,
-                            child: Container(
-                              //  height: 50,
-                              padding: EdgeInsets.all(8),
-                              child: Image.asset(
-                                'assets/image/raqamy-logo.png',
-                                alignment: Alignment.center,
-                                // width: MediaQuery.of(context).size.width,
-                                //height: MediaQuery.of(context).size.height,
-                                fit: BoxFit.contain,
-                              ),
+                          SvgPicture.asset(
+                            'assets/SVGs/Rectangle-8.svg',
+                            width: 100.w,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            child: SvgPicture.asset(
+                              'assets/SVGs/Rectangle-7.svg',
+                              width: 100.w,
                             ),
                           ),
-                          Container(
-                            width: 60.w,
-                            height: 65,
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            child: Center(
-                              child: Text(
-                                "أمانة المنطقة الشرقية - وكالة التحول الرقمي والمدن الذكية",
-                                style: descTx1(Colors.white),
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: baseColor,
+                          Positioned(
+                            bottom: 40,
+                            right: 40,
+                            child: SvgPicture.asset(
+                              'assets/SVGs/amana-logo.svg',
+                              width: 70,
                             ),
                           ),
                         ],
@@ -184,127 +170,111 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     Directionality(
                       textDirection: TextDirection.rtl,
-                      child: Center(
-                        child: SingleChildScrollView(
+                      child: SingleChildScrollView(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 120,
+                          ),
+                          logo(),
+                          SizedBox(
+                            height: 0,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: responsiveMT(20, 50), vertical: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 30),
                             child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            //    const Text("تسجيل الدخول"),
-                            //   const Text("فضلا أدخل معلومات التسجيل"),
-                            logo(),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: responsiveMT(20, 100),
-                                        vertical: 20),
-                                    padding: EdgeInsets.symmetric(vertical: 25),
-                                    decoration:
-                                        containerdecoration(BackGWhiteColor),
-                                    child: Column(
-                                      //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        Text(
-                                          "أھلا بك في رقمي جوال\n من فضلك نحتاج معلومات الدخول",
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                          style: titleTx(baseColor),
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        userName(),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        password(),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.to(forgetPassword());
-                                          },
-                                          child: Text(
-                                            'نسيت كلمة المرور',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.blue,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 30),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "تذكرني",
-                                                style:
-                                                    subtitleTx(baseColorText),
-                                              ),
-                                              Checkbox(
-                                                  value: rememperMe,
-                                                  checkColor: baseColor,
-                                                  activeColor: secondryColor,
-                                                  onChanged: (bool? val) {
-                                                    setState(() {
-                                                      sharedPref.setString(
-                                                          "emNoPref",
-                                                          _username.text);
-                                                      sharedPref.setString(
-                                                          "PassPref",
-                                                          _password.text);
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  "تسجيل الدخول",
+                                  textAlign: TextAlign.right,
+                                  style: fontsStyle.px20(
+                                      fontsStyle.baseColor(), FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                Text(
+                                  "الرقم الوظيفي",
+                                  textAlign: TextAlign.right,
+                                  style: fontsStyle.px12Bold(
+                                      fontsStyle.baseColor(), FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                userName(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  "الرقم السري",
+                                  textAlign: TextAlign.right,
+                                  style: fontsStyle.px12Bold(
+                                      fontsStyle.baseColor(), FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                password(),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 24.0,
+                                      width: 24.0,
+                                      child: Checkbox(
+                                          value: rememperMe,
+                                          checkColor: baseColor,
+                                          activeColor: Colors.white,
+                                          onChanged: (bool? val) {
+                                            setState(() {
+                                              sharedPref.setString(
+                                                  "emNoPref", _username.text);
+                                              sharedPref.setString(
+                                                  "PassPref", _password.text);
 
-                                                      rememperMe = val ?? false;
+                                              rememperMe = val ?? false;
 
-                                                      if (val == true) {
-                                                        sharedPref.setBool(
-                                                            "rememberMe", true);
-                                                      } else {
-                                                        sharedPref.setBool(
-                                                            "rememberMe",
-                                                            false);
-                                                      }
-                                                    });
-                                                  }),
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            // Text(
-                                            //   "تغير كلمة المرور",
-                                            //   style: subtitleTx(baseColor),
-                                            // ),
-                                            loginBtn(_provider),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                      ],
+                                              if (val == true) {
+                                                sharedPref.setBool(
+                                                    "rememberMe", true);
+                                              } else {
+                                                sharedPref.setBool(
+                                                    "rememberMe", false);
+                                              }
+                                            });
+                                          }),
                                     ),
-                                  ),
-                                ],
-                              ),
+                                    Text(
+                                      "تذكرني",
+                                      style: fontsStyle.px12normal(
+                                          fontsStyle.SecondaryColor(),
+                                          FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                loginBtn(_provider),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
                             ),
-                          ],
-                        )),
-                      ),
+                          ),
+                        ],
+                      )),
                     ),
                   ],
                 ),
@@ -315,38 +285,15 @@ class _LoginViewState extends State<LoginView> {
 
   Widget userName() {
     return Container(
-      margin: const EdgeInsets.only(left: 30, right: 30),
+      // margin: const EdgeInsets.only(left: 30, right: 30),
       child: TextField(
         controller: _username,
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.number,
         maxLines: 1,
         style: TextStyle(
           color: baseColorText,
         ),
-        decoration: InputDecoration(
-          labelStyle: TextStyle(color: secondryColorText),
-          errorStyle: TextStyle(color: redColor),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: responsiveMT(8, 30), horizontal: 10.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: BorderSide(color: bordercolor),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: bordercolor),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: bordercolor),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          // filled: true,
-          // fillColor: Colors.white,
-          errorText: _usernameError ? "الرجاء إدخال الرقم الوظيفي" : null,
-          labelText: "رقم الوظيفي",
-          // labelStyle: TextStyle(color: lableTextcolor),
-          alignLabelWithHint: true,
-        ),
+        decoration: CSS.TextFieldDecoration(""),
         onChanged: (String val) {
           sharedPref.setString("emNoPref", _username.text);
 
@@ -364,11 +311,11 @@ class _LoginViewState extends State<LoginView> {
 
   Widget password() {
     return Container(
-      margin: const EdgeInsets.only(left: 30, right: 30),
+      // margin: const EdgeInsets.only(left: 30, right: 30),
       child: TextField(
         controller: _password,
         keyboardType: TextInputType.text,
-        obscureText: true,
+        obscureText: passwordVisible,
         enableSuggestions: false,
         autocorrect: false,
         maxLines: 1,
@@ -376,29 +323,13 @@ class _LoginViewState extends State<LoginView> {
           color: baseColorText,
         ),
         textAlign: TextAlign.right,
-        decoration: InputDecoration(
-          labelStyle: TextStyle(color: secondryColorText),
-          errorStyle: TextStyle(color: redColor),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: responsiveMT(8, 30), horizontal: 10.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: BorderSide(color: bordercolor),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: bordercolor),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: bordercolor),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          // filled: true,
-          // fillColor: Colors.white,
-          labelText: "الرقم السري",
-          // labelStyle: TextStyle(color: lableTextcolor),
-          errorText: (passError ? "الرجاء إدخال الرقم السري" : null),
-        ),
+        decoration: CSS.TextFieldDecorationPass("", passwordVisible, () {
+          setState(
+            () {
+              passwordVisible = !passwordVisible;
+            },
+          );
+        }),
         onChanged: (String val) {
           sharedPref.setString("PassPref", _password.text);
           setState(() {
@@ -413,20 +344,11 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget background() {
-    return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
-      child: Image.asset(
-        imageBG,
-        fit: BoxFit.fill,
-      ),
-    );
-  }
-
   Widget logo() {
     return Image.asset(
-      "assets/image/rakamy-logo-21.png",
-      width: 120,
+      "assets/SVGs/Raqmylogo.png",
+      width: 150,
+      height: 140,
     );
   }
 
@@ -442,12 +364,11 @@ class _LoginViewState extends State<LoginView> {
 
   Widget loginBtn(_provider) {
     var provider2 = Provider.of<LoginProvider>(context, listen: false);
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          primary: baseColor, // background
-          onPrimary: Colors.white, // foreground
-          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 8)),
-      onPressed: () async {
+    return CSS.baseElevatedButton(
+      "تسجيل الدخول",
+      0,
+      () async {
+        FocusScope.of(context).unfocus();
         bool erore = false;
         erore = checkValditionSubmit();
         if (!erore) {
@@ -472,14 +393,45 @@ class _LoginViewState extends State<LoginView> {
             return;
           }
           if (isValiedUser) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChangeNotifierProvider.value(
-                    value: provider2,
-                    child: OTPView(),
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => ChangeNotifierProvider.value(
+            //         value: provider2,
+            //         child: OTPView(),
+            //       ),
+            //     ));
+
+            showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              enableDrag: false,
+              isDismissible: false,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0))),
+              builder: (BuildContext context) {
+                return Container(
+                  height: 70.h,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: bordercolor),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0))),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0)),
+                    child: ChangeNotifierProvider.value(
+                      value: provider2,
+                      child: OTPView(),
+                    ),
                   ),
-                ));
+                );
+              },
+            );
           } else {
             if (_provider.geterorMs != "") {
               Alerts.errorAlert(context, "خطأ", _provider.geterorMs).show();
@@ -489,7 +441,6 @@ class _LoginViewState extends State<LoginView> {
           }
         }
       },
-      child: const Text('دخول'),
     );
   }
 

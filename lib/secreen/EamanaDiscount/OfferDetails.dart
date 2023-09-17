@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
 
 class OfferDetails extends StatefulWidget {
   dynamic offer;
@@ -87,7 +88,6 @@ class _OfferDetailsState extends State<OfferDetails> {
         appBar: AppBarW.appBarW("تفاصيل العرض", context, null),
         body: Stack(
           children: [
-            widgetsUni.bacgroundimage(),
             SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -95,15 +95,326 @@ class _OfferDetailsState extends State<OfferDetails> {
                   children: [
                     Column(
                       children: [
-                        CompanyName(),
-                        StartAndEndDAte(),
-                        OfferName(),
-                        CompanyNotes(),
-                        Respresentiveinfo(),
+                        // CompanyName(),
+                        // StartAndEndDAte(),
+                        // OfferName(),
+                        // CompanyNotes(),
+                        // Respresentiveinfo(),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
+                        // ViewPF(),
                         SizedBox(
-                          height: 10,
+                          height: 15,
                         ),
-                        ViewPF(),
+                        Container(
+                          // height: 400,
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(14, 31, 53, 0.06),
+                                offset: Offset(0, 4),
+                                blurRadius: 1,
+                                spreadRadius: 0,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        widget.offer["CompanyName"],
+                                        style: fontsStyle.px20(
+                                            fontsStyle.baseColor(),
+                                            FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(228, 242, 242, 1),
+                                        borderRadius: BorderRadius.circular(31),
+                                      ),
+                                      child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              11, 3, 11, 3),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "خصم " +
+                                                    widget.offer["DiscoutRatio"]
+                                                        .toString()
+                                                        .split(".")[0] +
+                                                    " % ",
+                                                style: fontsStyle.px16(
+                                                    fontsStyle.HeaderColor(),
+                                                    FontWeight.bold),
+                                              ),
+                                            ],
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "ينتهي بتاريخ " +
+                                          widget.offer["OfferExpiryDate"]
+                                              .toString()
+                                              .split("T")[0],
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "نبذة عن العرض",
+                                      style: fontsStyle.px16(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(0, 13, 0, 13),
+                                  child: Text(
+                                    widget.offer["OfferName"],
+                                    style: fontsStyle.px13(
+                                      fontsStyle.thirdColor(),
+                                      FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      child: ViewPF(),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "ملاحظات",
+                                      style: fontsStyle.px16(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(0, 13, 0, 13),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          widget.offer["CompanyNotes"],
+                                          style: fontsStyle.px13(
+                                            fontsStyle.thirdColor(),
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "ممثل الشركة",
+                                      style: fontsStyle.px16(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(0, 13, 0, 13),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        widget.offer["CreatedBy"],
+                                        style: fontsStyle.px13(
+                                          fontsStyle.thirdColor(),
+                                          FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                //--email
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 13),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      launch("mailto:" +
+                                          widget.offer["CompanyEmail"]);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.email_outlined,
+                                          color: fontsStyle.FourthColor(),
+                                          size: 20.0,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          widget.offer["CompanyEmail"],
+                                          style: fontsStyle.px13(
+                                              fontsStyle.HeaderColor(),
+                                              FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                //-- phone
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 13),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      launch("tel://" +
+                                          widget
+                                              .offer["RespresentiveMobileNo"]);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.phone_outlined,
+                                          color: fontsStyle.FourthColor(),
+                                          size: 20.0,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          widget.offer["RespresentiveMobileNo"],
+                                          style: fontsStyle.px13(
+                                              fontsStyle.HeaderColor(),
+                                              FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                //--whatsapp
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(0, 0, 0, 13),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      launch("https://wa.me/" +
+                                          widget
+                                              .offer["RespresentiveMobileNo"] +
+                                          "/");
+                                    },
+                                    child: Row(
+                                      children: [
+                                        FaIcon(
+                                          FontAwesomeIcons.whatsapp,
+                                          color: fontsStyle.FourthColor(),
+                                          size: 20.0,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          widget.offer["RespresentiveMobileNo"],
+                                          style: fontsStyle.px13(
+                                              fontsStyle.HeaderColor(),
+                                              FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                if (widget.offer["URL"] != "" &&
+                                    widget.offer["URL"] != "sample string 6")
+                                  Container(
+                                    margin: EdgeInsets.fromLTRB(0, 0, 0, 13),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        try {
+                                          // widget.offer["URL"] = "https://www.google.com/";
+                                          // launch(widget.offer["URL"]);
+                                          if (await canLaunch(
+                                              widget.offer["URL"])) {
+                                            await launch(widget.offer["URL"]);
+                                          } else {
+                                            Alerts.errorAlert(context, "خطأ",
+                                                    "يوجد خطأ بالرابط")
+                                                .show();
+                                            throw 'Could not launch ' +
+                                                widget.offer["URL"];
+                                          }
+                                        } catch (e) {}
+                                      },
+                                      child: Container(
+                                        width: 100.w,
+                                        child: Wrap(
+                                          direction: Axis.horizontal,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.link,
+                                              color: fontsStyle.FourthColor(),
+                                              size: 20.0,
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Wrap(
+                                              children: [
+                                                Text(
+                                                  widget.offer["URL"] +
+                                                      "dedede",
+                                                  style: fontsStyle.px13(
+                                                      fontsStyle.HeaderColor(),
+                                                      FontWeight.bold),
+                                                  maxLines: 3,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     )
                   ],
@@ -380,10 +691,10 @@ class _OfferDetailsState extends State<OfferDetails> {
 
   Widget ViewPF() {
     return Container(
-      width: 150,
-      height: 50,
-      child: ElevatedButton(
-          onPressed: () async {
+      // width: 150,
+      // height: 50,
+      child: InkWell(
+          onTap: () async {
             path = await getAttachment(widget.offer["ArcSerial"]);
             // await getFilePath();
             if (Platform.isIOS) {
@@ -398,25 +709,25 @@ class _OfferDetailsState extends State<OfferDetails> {
             }
             //launchUrl(path);
           },
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
-            ),
-            side: BorderSide(
-              width: 0.5,
-              color: bordercolor,
-            ),
-            elevation: 0,
-            primary: baseColor,
-          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("عرض المرفق"),
+              Icon(
+                Icons.link_rounded,
+                color: fontsStyle.HeaderColor(),
+              ),
               SizedBox(
                 width: 5,
               ),
-              Icon(Icons.open_in_browser)
+              Text(
+                "عرض المرفق",
+                style: fontsStyle.px13(
+                    fontsStyle.HeaderColor(), FontWeight.normal),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              // Icon(Icons.open_in_browser)
             ],
           )),
     );

@@ -83,7 +83,7 @@ void configLoading() {
     ..maskColor = baseColor.withOpacity(0.5)
     ..userInteractions = true
     ..indicatorWidget = Container(
-      height: 40,
+      height: 60,
       width: 90,
       child: Column(
         children: [
@@ -92,9 +92,10 @@ void configLoading() {
           //   width: 100,
           // ),
           Image(
-              width: 80,
-              //  height: 80,
-              image: AssetImage("assets/image/rakamy-logo-21.png")),
+              fit: BoxFit.contain,
+              width: 100,
+              height: 55,
+              image: AssetImage("assets/SVGs/Raqmyogo2.png")),
         ],
       ),
     )

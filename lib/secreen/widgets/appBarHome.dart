@@ -14,12 +14,12 @@ class AppBarHome {
       preferredSize: Size.fromHeight(90.0),
       child: AppBar(
         automaticallyImplyLeading: false,
-        flexibleSpace: SafeArea(
-          child: Stack(
-            fit: StackFit.loose,
-            overflow: Overflow.visible,
-            children: [
-              Container(
+        flexibleSpace: Stack(
+          fit: StackFit.loose,
+          overflow: Overflow.visible,
+          children: [
+            SafeArea(
+              child: Container(
                 decoration: BoxDecoration(color: BackGWhiteColor),
                 child: Center(
                   child: Column(
@@ -48,37 +48,37 @@ class AppBarHome {
                   ),
                 ),
               ),
-              // Positioned(
-              //     right: 25,
-              //     top: 25,
-              //     child: SvgPicture.asset(
-              //       "assets/SVGs/flag-of-saudi-arabia.svg",
-              //       width: 50,
-              //       height: 50,
-              //     )),
-              // shownotification == true && shownotification != null
-              //     ? Positioned(
-              //         left: 25,
-              //         top: 25,
-              //         child: badgenotification.badgewidget(context))
-              //     : Container(),
-              // if (sharedPref.getString("dumyuser") != "10284928492")
-              //   Align(
-              //     alignment: Alignment.centerRight,
-              //     child: Image.asset(
-              //       "assets/image/GiddamLogo.png",
-              //       fit: BoxFit.fill,
-              //     ),
-              //   ),
-              // Container(
-              //   margin: EdgeInsets.only(right: 25),
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [],
-              //   ),
-              // ),
-            ],
-          ),
+            ),
+            // Positioned(
+            //     right: 25,
+            //     top: 25,
+            //     child: SvgPicture.asset(
+            //       "assets/SVGs/flag-of-saudi-arabia.svg",
+            //       width: 50,
+            //       height: 50,
+            //     )),
+            // shownotification == true && shownotification != null
+            //     ? Positioned(
+            //         left: 25,
+            //         top: 25,
+            //         child: badgenotification.badgewidget(context))
+            //     : Container(),
+            // if (sharedPref.getString("dumyuser") != "10284928492")
+            //   Align(
+            //     alignment: Alignment.centerRight,
+            //     child: Image.asset(
+            //       "assets/image/GiddamLogo.png",
+            //       fit: BoxFit.fill,
+            //     ),
+            //   ),
+            // Container(
+            //   margin: EdgeInsets.only(right: 25),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [],
+            //   ),
+            // ),
+          ],
         ),
       ),
     );

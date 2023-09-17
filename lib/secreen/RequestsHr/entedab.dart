@@ -14,6 +14,8 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
+import 'package:eamanaapp/utilities/styles/CSS/CSS.dart';
 
 class Entedab extends StatefulWidget {
   const Entedab({Key? key}) : super(key: key);
@@ -50,51 +52,50 @@ class _EntedabState extends State<Entedab> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBarW.appBarW("طلب إنتداب", context, null),
-        body: Stack(
-          children: [
-            widgetsUni.bacgroundimage(),
-            SingleChildScrollView(
-              child: Container(
-                //color: Colors.amber,
-                decoration: BoxDecoration(
-                    color: BackGWhiteColor,
-                    border: Border.all(color: bordercolor),
-                    borderRadius: BorderRadius.all(Radius.circular(4))),
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Column(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "فضلا أدخل بيانات طلب الانتداب",
-                        style: subtitleTx(secondryColorText),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Form(
-                        key: _formKey,
-                        child: StaggeredGrid.count(
-                            crossAxisCount: responsiveGrid(1, 2),
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            children: [
-                              TextFormField(
-                                keyboardType: TextInputType.text,
-                                style: TextStyle(color: baseColorText),
-                                readOnly: true,
-                                maxLines: 1,
+          // backgroundColor: Colors.transparent,
+          appBar: AppBarW.appBarW("طلب إنتداب", context, null),
+          body: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(30),
+                child: SingleChildScrollView(
+                  child: Container(
+                    child: Form(
+                      key: _formKey,
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Column(
+                          children: [
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "تاريخ الانتداب",
+                                style: fontsStyle.px14(
+                                    fontsStyle.thirdColor(), FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: TextFormField(
                                 controller: _date,
-                                decoration: formlabel1("تاريخ الانتداب"),
+                                readOnly: true,
+                                minLines: 1,
+                                decoration:
+                                    CSS.TextFieldDecoration('اختر التاريخ'),
+                                style: fontsStyle.px14(
+                                    Colors.grey, FontWeight.normal),
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.number,
+                                maxLines: 1,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "الرجاء إختيار التاريخ";
-                                  } else {
-                                    return null;
+                                    return 'فضلاً أدخل تاريخ الإنتداب';
                                   }
+                                  return null;
                                 },
                                 onTap: () {
                                   DatePicker.showDatePicker(context,
@@ -107,166 +108,446 @@ class _EntedabState extends State<Entedab> {
                                       showTitleActions: true,
                                       minTime: DateTime(2021, 3, 5),
                                       onChanged: (date) {
-                                    //  print('change $date');
+                                    _date.text = date.toString().split(" ")[0];
+                                    print('change $date');
                                   }, onConfirm: (date) {
-                                    setState(() {
-                                      _date.text =
-                                          date.toString().split(" ")[0];
-                                    });
+                                    _date.text = date.toString().split(" ")[0];
+                                    print('confirm $date');
                                   },
                                       currentTime: DateTime.now(),
                                       locale: LocaleType.ar);
                                 },
                               ),
-                              TextFormField(
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(color: baseColorText),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "عدد الايام",
+                                style: fontsStyle.px14(
+                                    fontsStyle.thirdColor(), FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: TextFormField(
+                                controller: _dayNumber,
+                                decoration:
+                                    CSS.TextFieldDecoration('عدد الايام'),
+                                style: fontsStyle.px14(
+                                    Colors.grey, FontWeight.normal),
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
+                                keyboardType: TextInputType.number,
                                 maxLines: 1,
-                                controller: _dayNumber,
-                                decoration: formlabel1("عدد الايام"),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return "الرجاء إدخال عدد الايام";
-                                  } else {
-                                    return null;
+                                    return 'يرجى كتابة عدد الايام';
                                   }
+                                  return null;
                                 },
                               ),
-                              EntedabTypes(),
-                              mandateLocations.length == 0
-                                  ? location()
-                                  : location(),
-                              TextFormField(
-                                keyboardType: TextInputType.text,
-                                maxLines: 3,
-                                style: TextStyle(color: baseColorText),
-                                controller: _Note,
-                                decoration: formlabel1("ملاحظات"),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                "نوع الانتداب",
+                                style: fontsStyle.px14(
+                                    fontsStyle.thirdColor(), FontWeight.bold),
                               ),
-                            ]),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          widgetsUni.actionbutton(
-                            'الطلبات السابقة',
-                            Icons.history,
-                            () {
-                              Navigator.pushNamed(context, "/Mandates_history");
-                            },
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          widgetsUni.actionbutton(
-                            'تنفيذ',
-                            Icons.send,
-                            () {
-                              // Validate returns true if the form is valid, or false otherwise.
-                              if (_formKey.currentState!.validate()) {
-                                // If the form is valid, display a snackbar. In the real world,
-                                // you'd often call a server or save the information in a database.
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            EntedabTypes(),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  "جهة الإنتداب",
+                                  style: fontsStyle.px14(
+                                      fontsStyle.thirdColor(), FontWeight.bold),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            location(),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  "الملاحظات",
+                                  style: fontsStyle.px14(
+                                      fontsStyle.thirdColor(), FontWeight.bold),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              child: TextFormField(
+                                controller: _Note,
+                                maxLines: 3,
+                                decoration:
+                                    CSS.TextFieldDecoration('اكتب ملاحظات'),
+                                style: fontsStyle.px14(
+                                    Colors.grey, FontWeight.normal),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            // submit button
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              height: 40,
+                              width: 250,
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      // If the form is valid, display a snackbar. In the real world,
+                                      // you'd often call a server or save the information in a database.
 
-                                Alerts.confirmAlrt(
-                                        context, "", "هل أنت متأكد", "نعم")
-                                    .show()
-                                    .then((value) async {
-                                  if (value == true) {
-                                    double emNo = await EmployeeProfile
-                                        .getEmployeeNumberasDouble();
-                                    int DepartmentID =
-                                        await EmployeeProfile.getDepartmentID();
-                                    // print(double.parse(
-                                    //     DepartmentID.toStringAsFixed(1)));
-                                    // print({
-                                    //   "EmployeeNumber": emNo,
-                                    //   "MandateTypeID": MandateTypeID,
-                                    //   "MandateDays": int.parse(_dayNumber.text),
-                                    //   "StartDate": _date.text,
-                                    //   "EndDate": "",
-                                    //   "MandateLocationID": locationId,
-                                    //   "DepartmentID": double.parse(
-                                    //       DepartmentID.toStringAsFixed(1)),
-                                    //   "Notes": _Note.text
-                                    // });
-                                    EasyLoading.show(
-                                      status: '... جاري المعالجة',
-                                      maskType: EasyLoadingMaskType.black,
-                                    );
-                                    logApiModel logapiO = logApiModel();
-                                    logapiO.ControllerName =
-                                        "MandatesController";
-                                    logapiO.ClassName = "MandatesController";
-                                    logapiO.ActionMethodName = "طلب الإنتداب";
-                                    logapiO.ActionMethodType = 2;
+                                      Alerts.confirmAlrt(context, "",
+                                              "هل أنت متأكد", "نعم")
+                                          .show()
+                                          .then((value) async {
+                                        if (value == true) {
+                                          double emNo = await EmployeeProfile
+                                              .getEmployeeNumberasDouble();
+                                          int DepartmentID =
+                                              await EmployeeProfile
+                                                  .getDepartmentID();
+                                          // print(double.parse(
+                                          //     DepartmentID.toStringAsFixed(1)));
+                                          // print({
+                                          //   "EmployeeNumber": emNo,
+                                          //   "MandateTypeID": MandateTypeID,
+                                          //   "MandateDays": int.parse(_dayNumber.text),
+                                          //   "StartDate": _date.text,
+                                          //   "EndDate": "",
+                                          //   "MandateLocationID": locationId,
+                                          //   "DepartmentID": double.parse(
+                                          //       DepartmentID.toStringAsFixed(1)),
+                                          //   "Notes": _Note.text
+                                          // });
+                                          EasyLoading.show(
+                                            status: '... جاري المعالجة',
+                                            maskType: EasyLoadingMaskType.black,
+                                          );
+                                          logApiModel logapiO = logApiModel();
+                                          logapiO.ControllerName =
+                                              "MandatesController";
+                                          logapiO.ClassName =
+                                              "MandatesController";
+                                          logapiO.ActionMethodName =
+                                              "طلب الإنتداب";
+                                          logapiO.ActionMethodType = 2;
 
-                                    var response = await postAction(
-                                        "HR/InsertMandateRequest",
-                                        jsonEncode({
-                                          "EmployeeNumber": emNo,
-                                          "MandateTypeID": MandateTypeID,
-                                          "MandateDays":
-                                              int.parse(_dayNumber.text),
-                                          "StartDate": _date.text,
-                                          "EndDate": "",
-                                          "MandateLocationID": int.parse(
-                                              locationId
-                                                  .toString()
-                                                  .split(".")[0]),
-                                          "DepartmentID": double.parse(
-                                              DepartmentID.toStringAsFixed(1)),
-                                          "Notes": _Note.text
-                                        }));
-                                    EasyLoading.dismiss();
-                                    if (jsonDecode(
-                                            response.body)["StatusCode"] !=
-                                        400) {
-                                      logapiO.StatusCode = 0;
-                                      logapiO.ErrorMessage = jsonDecode(
-                                          response.body)["ErrorMessage"];
-                                      logApi(logapiO);
+                                          var response = await postAction(
+                                              "HR/InsertMandateRequest",
+                                              jsonEncode({
+                                                "EmployeeNumber": emNo,
+                                                "MandateTypeID": MandateTypeID,
+                                                "MandateDays":
+                                                    int.parse(_dayNumber.text),
+                                                "StartDate": _date.text,
+                                                "EndDate": "",
+                                                "MandateLocationID": int.parse(
+                                                    locationId
+                                                        .toString()
+                                                        .split(".")[0]),
+                                                "DepartmentID": double.parse(
+                                                    DepartmentID
+                                                        .toStringAsFixed(1)),
+                                                "Notes": _Note.text
+                                              }));
+                                          EasyLoading.dismiss();
+                                          if (jsonDecode(response.body)[
+                                                  "StatusCode"] !=
+                                              400) {
+                                            logapiO.StatusCode = 0;
+                                            logapiO.ErrorMessage = jsonDecode(
+                                                response.body)["ErrorMessage"];
+                                            logApi(logapiO);
 
-                                      Alerts.errorAlert(
-                                              context,
-                                              "خطأ",
-                                              jsonDecode(response.body)[
-                                                  "ErrorMessage"])
-                                          .show();
-                                      return;
-                                    } else {
-                                      logapiO.StatusCode = 1;
-                                      logApi(logapiO);
-                                      Alerts.successAlert(
-                                              context, "", "تمت الاضافة بنجاح")
-                                          .show();
+                                            Alerts.errorAlert(
+                                                    context,
+                                                    "خطأ",
+                                                    jsonDecode(response.body)[
+                                                        "ErrorMessage"])
+                                                .show();
+                                            return;
+                                          } else {
+                                            logapiO.StatusCode = 1;
+                                            logApi(logapiO);
+                                            Alerts.successAlert(context, "",
+                                                    "تمت الاضافة بنجاح")
+                                                .show();
+                                          }
+                                          // print(response);
+                                        }
+                                      });
+
+                                      // ScaffoldMessenger.of(context).showSnackBar(
+                                      //   const SnackBar(
+                                      //       content: Text('Processing Data')),
+                                      // );
                                     }
-                                    // print(response);
-                                  }
-                                });
-
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   const SnackBar(
-                                //       content: Text('Processing Data')),
-                                // );
-                              }
-                            },
-                          ),
-                        ],
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: fontsStyle.HeaderColor(),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7.0),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'ارسال',
+                                    style: fontsStyle.px16(
+                                        Colors.white, FontWeight.bold),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
+              )
+            ],
+          )
+          // Stack(
+          //   children: [
+          //     widgetsUni.bacgroundimage(),
+          //     SingleChildScrollView(
+          //       child: Container(
+          //         //color: Colors.amber,
+          //         decoration: BoxDecoration(
+          //             color: BackGWhiteColor,
+          //             border: Border.all(color: bordercolor),
+          //             borderRadius: BorderRadius.all(Radius.circular(4))),
+          //         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          //         child: Container(
+          //           margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          //           child: Column(
+          //             //   mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Text(
+          //                 "فضلا أدخل بيانات طلب الانتداب",
+          //                 style: subtitleTx(secondryColorText),
+          //               ),
+          //               SizedBox(
+          //                 height: 20,
+          //               ),
+          //               Form(
+          //                 key: _formKey,
+          //                 child: StaggeredGrid.count(
+          //                     crossAxisCount: responsiveGrid(1, 2),
+          //                     mainAxisSpacing: 10,
+          //                     crossAxisSpacing: 10,
+          //                     children: [
+          //                       TextFormField(
+          //                         keyboardType: TextInputType.text,
+          //                         style: TextStyle(color: baseColorText),
+          //                         readOnly: true,
+          //                         maxLines: 1,
+          //                         controller: _date,
+          //                         decoration: formlabel1("تاريخ الانتداب"),
+          //                         validator: (value) {
+          //                           if (value == null || value.isEmpty) {
+          //                             return "الرجاء إختيار التاريخ";
+          //                           } else {
+          //                             return null;
+          //                           }
+          //                         },
+          //                         onTap: () {
+          //                           DatePicker.showDatePicker(context,
+          //                               theme: DatePickerTheme(
+          //                                 backgroundColor: BackGWhiteColor,
+          //                                 itemStyle: TextStyle(
+          //                                   color: baseColorText,
+          //                                 ),
+          //                               ),
+          //                               showTitleActions: true,
+          //                               minTime: DateTime(2021, 3, 5),
+          //                               onChanged: (date) {
+          //                             //  print('change $date');
+          //                           }, onConfirm: (date) {
+          //                             setState(() {
+          //                               _date.text =
+          //                                   date.toString().split(" ")[0];
+          //                             });
+          //                           },
+          //                               currentTime: DateTime.now(),
+          //                               locale: LocaleType.ar);
+          //                         },
+          //                       ),
+          //                       TextFormField(
+          //                         keyboardType: TextInputType.number,
+          //                         style: TextStyle(color: baseColorText),
+          //                         inputFormatters: <TextInputFormatter>[
+          //                           FilteringTextInputFormatter.digitsOnly
+          //                         ],
+          //                         maxLines: 1,
+          //                         controller: _dayNumber,
+          //                         decoration: formlabel1("عدد الايام"),
+          //                         validator: (value) {
+          //                           if (value == null || value.isEmpty) {
+          //                             return "الرجاء إدخال عدد الايام";
+          //                           } else {
+          //                             return null;
+          //                           }
+          //                         },
+          //                       ),
+          //                       EntedabTypes(),
+          //                       mandateLocations.length == 0
+          //                           ? location()
+          //                           : location(),
+          //                       TextFormField(
+          //                         keyboardType: TextInputType.text,
+          //                         maxLines: 3,
+          //                         style: TextStyle(color: baseColorText),
+          //                         controller: _Note,
+          //                         decoration: formlabel1("ملاحظات"),
+          //                       ),
+          //                     ]),
+          //               ),
+          //               SizedBox(
+          //                 height: 20,
+          //               ),
+          //               Row(
+          //                 mainAxisAlignment: MainAxisAlignment.end,
+          //                 children: [
+          //                   widgetsUni.actionbutton(
+          //                     'الطلبات السابقة',
+          //                     Icons.history,
+          //                     () {
+          //                       Navigator.pushNamed(context, "/Mandates_history");
+          //                     },
+          //                   ),
+          //                   SizedBox(
+          //                     width: 10,
+          //                   ),
+          //                   widgetsUni.actionbutton(
+          //                     'تنفيذ',
+          //                     Icons.send,
+          //                     () {
+          //                       // Validate returns true if the form is valid, or false otherwise.
+          //                       if (_formKey.currentState!.validate()) {
+          //                         // If the form is valid, display a snackbar. In the real world,
+          //                         // you'd often call a server or save the information in a database.
+
+          //                         Alerts.confirmAlrt(
+          //                                 context, "", "هل أنت متأكد", "نعم")
+          //                             .show()
+          //                             .then((value) async {
+          //                           if (value == true) {
+          //                             double emNo = await EmployeeProfile
+          //                                 .getEmployeeNumberasDouble();
+          //                             int DepartmentID =
+          //                                 await EmployeeProfile.getDepartmentID();
+          //                             // print(double.parse(
+          //                             //     DepartmentID.toStringAsFixed(1)));
+          //                             // print({
+          //                             //   "EmployeeNumber": emNo,
+          //                             //   "MandateTypeID": MandateTypeID,
+          //                             //   "MandateDays": int.parse(_dayNumber.text),
+          //                             //   "StartDate": _date.text,
+          //                             //   "EndDate": "",
+          //                             //   "MandateLocationID": locationId,
+          //                             //   "DepartmentID": double.parse(
+          //                             //       DepartmentID.toStringAsFixed(1)),
+          //                             //   "Notes": _Note.text
+          //                             // });
+          //                             EasyLoading.show(
+          //                               status: '... جاري المعالجة',
+          //                               maskType: EasyLoadingMaskType.black,
+          //                             );
+          //                             logApiModel logapiO = logApiModel();
+          //                             logapiO.ControllerName =
+          //                                 "MandatesController";
+          //                             logapiO.ClassName = "MandatesController";
+          //                             logapiO.ActionMethodName = "طلب الإنتداب";
+          //                             logapiO.ActionMethodType = 2;
+
+          //                             var response = await postAction(
+          //                                 "HR/InsertMandateRequest",
+          //                                 jsonEncode({
+          //                                   "EmployeeNumber": emNo,
+          //                                   "MandateTypeID": MandateTypeID,
+          //                                   "MandateDays":
+          //                                       int.parse(_dayNumber.text),
+          //                                   "StartDate": _date.text,
+          //                                   "EndDate": "",
+          //                                   "MandateLocationID": int.parse(
+          //                                       locationId
+          //                                           .toString()
+          //                                           .split(".")[0]),
+          //                                   "DepartmentID": double.parse(
+          //                                       DepartmentID.toStringAsFixed(1)),
+          //                                   "Notes": _Note.text
+          //                                 }));
+          //                             EasyLoading.dismiss();
+          //                             if (jsonDecode(
+          //                                     response.body)["StatusCode"] !=
+          //                                 400) {
+          //                               logapiO.StatusCode = 0;
+          //                               logapiO.ErrorMessage = jsonDecode(
+          //                                   response.body)["ErrorMessage"];
+          //                               logApi(logapiO);
+
+          //                               Alerts.errorAlert(
+          //                                       context,
+          //                                       "خطأ",
+          //                                       jsonDecode(response.body)[
+          //                                           "ErrorMessage"])
+          //                                   .show();
+          //                               return;
+          //                             } else {
+          //                               logapiO.StatusCode = 1;
+          //                               logApi(logapiO);
+          //                               Alerts.successAlert(
+          //                                       context, "", "تمت الاضافة بنجاح")
+          //                                   .show();
+          //                             }
+          //                             // print(response);
+          //                           }
+          //                         });
+
+          //                         // ScaffoldMessenger.of(context).showSnackBar(
+          //                         //   const SnackBar(
+          //                         //       content: Text('Processing Data')),
+          //                         // );
+          //                       }
+          //                     },
+          //                   ),
+          //                 ],
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+
+          ),
     );
   }
 
@@ -293,7 +574,7 @@ class _EntedabState extends State<Entedab> {
       showAsSuffixIcons: true,
       itemAsString: (item) => item["name"],
       // showSelectedItems: true,
-      dropdownSearchDecoration: formlabel1("نوع الانتداب"),
+      dropdownSearchDecoration: CSS.TextFieldDecoration('اختر نوع الإنتداب'),
       //added in last update
       dropdownBuilder: (context, selectedItem) => Container(
         decoration: null,
@@ -316,12 +597,12 @@ class _EntedabState extends State<Entedab> {
       // ),
       validator: (value) {
         if (value == "" || value == null) {
-          return "الرجاء إدخال نوع الانتداب";
+          return "الرجاء اختيار نوع الإنتداب";
         } else {
           return null;
         }
       },
-      showSearchBox: true,
+      showSearchBox: false,
       onChanged: (v) async {
         setState(() {
           selecteditem = null;
@@ -364,21 +645,15 @@ class _EntedabState extends State<Entedab> {
       popupTitle: Container(
         height: 60,
         decoration: BoxDecoration(
-          color: secondryColor,
+          color: fontsStyle.HeaderColor(),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
         ),
         child: Center(
-          child: Text(
-            "نوع الانتداب",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: baseColorText,
-            ),
-          ),
+          child: Text("نوع الإنتداب",
+              style: fontsStyle.px20(Colors.white, FontWeight.bold)),
         ),
       ),
 
@@ -425,17 +700,7 @@ class _EntedabState extends State<Entedab> {
       showAsSuffixIcons: true,
 
       // showSelectedItems: true,
-      dropdownSearchDecoration: formlabel1("جهة الانتداب"),
-      // InputDecoration(
-      //   hintText: "جهة الانتداب",
-      //   helperStyle: TextStyle(color: Colors.amber),
-      //   contentPadding: EdgeInsets.symmetric(
-      //       vertical: responsiveMT(10, 30), horizontal: responsiveMT(10, 20)),
-      //   border: OutlineInputBorder(
-      //     borderRadius: BorderRadius.circular(4.0),
-      //     borderSide: BorderSide(color: bordercolor),
-      //   ),
-      // ),
+      dropdownSearchDecoration: CSS.TextFieldDecoration("اختر جهة الإنتداب"),
       validator: (value) {
         if (value == "" || value == null) {
           return "الرجاء إدخال جهة الانتداب";
@@ -463,7 +728,7 @@ class _EntedabState extends State<Entedab> {
       popupTitle: Container(
         height: 60,
         decoration: BoxDecoration(
-          color: secondryColor,
+          color: fontsStyle.HeaderColor(),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -472,11 +737,7 @@ class _EntedabState extends State<Entedab> {
         child: Center(
           child: Text(
             "جهة الانتداب",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+            style: fontsStyle.px20(Colors.white, FontWeight.bold),
           ),
         ),
       ),

@@ -178,7 +178,7 @@ class LoginProvider extends ChangeNotifier {
       sharedPref.setString("HireDate", empinfo["HireDate"]);
       sharedPref.setString("FullNameEN", empinfo["FullNameEN"]);
       sharedPref.setString("TitleEN", empinfo["TitleEN"]);
-
+      sharedPref.setString("Country", empinfo["Country"]).toString();
       sharedPref.setString(
           "AccessToken", jsonDecode(respose.body)["AccessToken"] ?? "");
       sharedPref.setString(
@@ -200,10 +200,10 @@ class LoginProvider extends ChangeNotifier {
 
     sharedPref.setDouble("EmployeeNumber", 2334023.0);
     sharedPref.setString("EmployeeName", "علي بن علي");
-    sharedPref.setString("FirstName", "علي");
+    sharedPref.setString("FirstName", "محمد");
     sharedPref.setString("SecondName", "محمد");
     sharedPref.setString("ThirdName", "محمد");
-    sharedPref.setString("LastName", "العوفي");
+    sharedPref.setString("LastName", "إبراهيم");
     sharedPref.setInt("DepartmentID", 1);
     sharedPref.setString("DepartmentName", "الحاسب");
     sharedPref.setString("Email", "mohammed@gmail.com");
@@ -220,13 +220,16 @@ class LoginProvider extends ChangeNotifier {
     sharedPref.setString("ImageURL", '');
     sharedPref.setString("Title", "مبرمج");
     sharedPref.setString("DirectManagerName", "");
-
+    sharedPref.setString("HireDate", "1439/08/08");
     sharedPref.setInt("DirectManagerEmployeeNumber", 1);
     sharedPref.setInt("GeneralManagerEmployeeNumber", 7373773773);
     sharedPref.setInt("MainDepartmentID", 3);
     sharedPref.setString("MainDepartmentName", "حاسب");
     sharedPref.setInt("Extension", 3333);
     sharedPref.setInt("GenderID", 1);
+    sharedPref.setInt("ClassID", 11);
+    sharedPref.setInt("GradeID", 11);
+
     sharedPref.setString("AccessToken", "eee" ?? "");
     sharedPref.setString(
         "tokenTime", (DateTime.now().add(Duration(days: 3))).toString());

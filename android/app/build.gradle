@@ -56,9 +56,9 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.eamana.eamanaapp.gov.sa"
         minSdkVersion 22
-        targetSdkVersion 33
-        versionCode 132
-        versionName "1.0.32"
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode 148
+        versionName "1.0.34"
         multiDexEnabled true
     }
 

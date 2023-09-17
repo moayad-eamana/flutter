@@ -2,16 +2,27 @@ import 'package:eamanaapp/Cybertips/Cybertips.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/mahamme/EmpInfoProvider.dart';
 import 'package:eamanaapp/provider/mahamme/eatemadatProvider.dart';
+import 'package:eamanaapp/provider/meeting/meetingsProvider.dart';
 import 'package:eamanaapp/provider/services/hrServicesFunctions.dart';
 import 'package:eamanaapp/provider/services/salaryFunctions.dart';
 import 'package:eamanaapp/secreen/EmpInfo/EmpInfoView.dart';
 import 'package:eamanaapp/secreen/EmpInfo/newEmpinfo.dart';
 import 'package:eamanaapp/secreen/Evaluation/EmployeeEvaluationMaster.dart';
+import 'package:eamanaapp/secreen/Meetings/manageTime/manageMettingTime.dart';
+import 'package:eamanaapp/secreen/Meetings/meetingsView.dart';
 import 'package:eamanaapp/secreen/Meetings/mettingsType.dart';
 import 'package:eamanaapp/secreen/QrCode/listOfQrcode.dart';
 import 'package:eamanaapp/secreen/RequestsHr/LeaveRequestCompanies.dart';
+import 'package:eamanaapp/secreen/RequestsHr/entedab.dart';
+import 'package:eamanaapp/secreen/RequestsHr/outduty_request.dart';
+import 'package:eamanaapp/secreen/RequestsHr/vacation_request.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/Mandates_history.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/OutDuties_history.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/UserLeavesPermissionsCompanies_history.dart';
 import 'package:eamanaapp/secreen/RequestsHrHistory.dart/desclaimer.dart';
+import 'package:eamanaapp/secreen/RequestsHrHistory.dart/vacation_history_request.dart';
 import 'package:eamanaapp/secreen/SafetyandSecurity/WarnViolatedVehicle.dart';
+import 'package:eamanaapp/secreen/Tobacco/Insert_Disclosure.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/SendWarrningToViolatedVehicle/WarnViolatedVehiclePageView.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/ViewViolatedVehicle/ViolatedVehicleList.dart';
 import 'package:eamanaapp/secreen/ViolatedVehicle/vehicle_notice.dart';
@@ -20,6 +31,7 @@ import 'package:eamanaapp/secreen/Wallet/businesscardw.dart';
 import 'package:eamanaapp/secreen/attendance/GetAttendanceView.dart';
 import 'package:eamanaapp/secreen/customerService/customerEntrance.dart';
 import 'package:eamanaapp/secreen/customerService/customerServiceActions/customerServiceRequests.dart';
+import 'package:eamanaapp/secreen/customerService/reserveForcustomer/reserveForcustomer.dart';
 import 'package:eamanaapp/secreen/customerService/statistics.dart';
 import 'package:eamanaapp/secreen/events/event_request.dart';
 import 'package:eamanaapp/secreen/events/events_page.dart';
@@ -27,6 +39,7 @@ import 'package:eamanaapp/secreen/mahamme/InboxHedersView.dart';
 import 'package:eamanaapp/secreen/momten/momten.dart';
 import 'package:eamanaapp/secreen/supportYourEmployees/supportYourEmployees.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:eamanaapp/provider/services/attendance.dart';
 
@@ -36,7 +49,7 @@ class listOfServices {
   listOfServices(this.context);
   List<int> _insertExtensionRequestValid = [0, 6, 7];
 
-  final services2 = [
+  final Allserviceswww = [
     if (sharedPref.getInt("empTypeID") != 8)
       ////شؤون الموظفين
       {
@@ -343,7 +356,7 @@ class listOfServices {
 
   List violationVehicleService() {
     return [
-      if (sharedPref.getInt("GroupID") == 1)
+      if (sharedPref.getBool("WarnViolatedCars") == true)
         {
           "service_name": "إنذار سيارة",
           "Navigation": "",
@@ -376,24 +389,6 @@ class listOfServices {
           );
         }
       },
-      if (sharedPref.getInt("GroupID") == 3 ||
-          sharedPref.getInt("GroupID") == 2)
-        {
-          "service_name": "إشعار سيارة",
-          "Navigation": "",
-          "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
-          "Action": () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                // ignore: prefer_const_constructors
-                builder: (BuildContext context) {
-                  return vehicle_notice();
-                },
-              ),
-            );
-          }
-        },
     ];
   }
 
@@ -479,42 +474,42 @@ class listOfServices {
             );
           }
         },
-      // {
-      //   "service_name": "مُمْتَنّ",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/thanks.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => Momten()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
-      // {
-      //   "service_name": "نصائح",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/thanks.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => Cybertips()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // },
-      // {
-      //   "service_name": "مشاركة البايانات",
-      //   "Navigation": "",
-      //   "icon": "assets/SVGs/qr_code_scanner.svg",
-      //   "Action": () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => listOfQrcode()),
-      //       // ignore: prefer_const_constructors
-      //     );
-      //   }
-      // }, //EventsPage
+      {
+        "service_name": "مُمْتَنّ",
+        "Navigation": "",
+        "icon": "assets/SVGs/thanks.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Momten()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
+      {
+        "service_name": "نصائح",
+        "Navigation": "",
+        "icon": "assets/SVGs/thanks.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Cybertips()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      },
+      {
+        "service_name": "مشاركة البايانات",
+        "Navigation": "",
+        "icon": "assets/SVGs/qr_code_scanner.svg",
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => listOfQrcode()),
+            // ignore: prefer_const_constructors
+          );
+        }
+      }, //EventsPage
     ];
   }
 
@@ -652,5 +647,480 @@ class listOfServices {
     }
 
     return ww;
+  }
+
+  List AllService() {
+    return [
+      if (sharedPref.getInt("empTypeID") == 8 &&
+          sharedPref.getInt("MainDepartmentID") == 422150000)
+        {
+          "List": UserLeavesPermissionsCompanies(),
+          "service_name": "إستئذان",
+          "icon": 'assets/SVGs/ejaza.svg',
+          "Action": null
+        },
+      if (sharedPref.getInt("empTypeID") != 8 ||
+          sharedPref.getInt("MainDepartmentID") == 422150000)
+        {
+          "List": Vacations(),
+          "service_name": "الإجازات",
+          "icon": 'assets/SVGs/ejaza.svg',
+          "Action": null
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "List": out_dutis(),
+          "service_name": "خارج دوام",
+          "icon": 'assets/SVGs/work_out.svg',
+          "Action": null,
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "List": entedab(),
+          "service_name": "الإنتدابات",
+          "icon": 'assets/SVGs/entdab.svg',
+          "Action": null
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        ////شؤون الموظفين
+        {
+          "List": salary(),
+          "service_name": "الرواتب",
+          "icon": 'assets/SVGs/sejelalrawatb.svg',
+          "Action": null
+        },
+      {
+        "service_name": "إعتماداتي",
+        "Navigation": "",
+        "icon": 'assets/SVGs/e3tmadaty.svg',
+        "Action": () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChangeNotifierProvider(
+                create: (context) => EatemadatProvider(),
+                // ignore: prefer_const_constructors
+                child: InboxHedersView(),
+              ),
+            ),
+          );
+        }
+      },
+      if (sharedPref.getInt("MainDepartmentID") == 422150000)
+        {
+          "List": attendance(),
+          "service_name": "الحضور والإنصراف",
+          "icon": 'assets/SVGs/AttendanceView.svg',
+          "Action": null,
+        },
+      if (sharedPref.getBool("permissionforCRM") == true)
+        {
+          "List": customerServices(),
+          "service_name": "خدمة العملاء",
+          "icon": 'assets/SVGs/violation.svg',
+          "Action": null
+        },
+      {
+        "List": Event(),
+        "service_name": "المناسبات",
+        "icon": "assets/SVGs/Occasion1.svg",
+        "Action": null
+      },
+      {
+        "service_name": "العروض",
+        "icon": 'assets/SVGs/offers.svg',
+        "Action": () {
+          Navigator.pushNamed(context, "/EamanaDiscount");
+        }
+      },
+      {
+        "service_name": "دليل الموظفين",
+        "Navigation": "",
+        "icon": "assets/SVGs/dalelalmowzafen.svg",
+        "Action": () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider(
+                  create: (context) => EmpInfoProvider(),
+                  // ignore: prefer_const_constructors
+                  child: EmpInfoView(null),
+                ),
+              ));
+        }
+      },
+      {
+        "service_name": "العهد", /////////
+        "icon": 'assets/SVGs/3ohad.svg',
+        "Action": () async {
+          Navigator.pushNamed(context, "/auhad");
+        }
+      },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "تقييماتي", /////////
+          "icon": 'assets/SVGs/rate.svg',
+          "Action": () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EmployeeEvaluationMaster()),
+            );
+          }
+        },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "إخلاء طرف", /////////
+          "icon": 'assets/SVGs/desclaimer.svg',
+          "Action": () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => desclaimer()),
+            );
+          }
+        },
+      if (sharedPref.getBool("IsGeneralManager") == true &&
+          sharedPref.getInt("MainDepartmentID") == 422150000)
+        {
+          "List": Erfan(),
+          "service_name": "عرفان", /////////
+          "icon": 'assets/SVGs/erfan.svg',
+          "Action": null
+        },
+      if (sharedPref.getString("dumyuser") != "10284928492")
+        {
+          "service_name": "QR Code",
+          "Navigation": "",
+          "icon": "assets/SVGs/qr_code_scanner.svg",
+          "Action": () {
+            Navigator.pushNamed(context, "/scannQrcode");
+          }
+        },
+      {
+        "List": MM(),
+        "service_name": "مواعيدي",
+        "icon": 'assets/SVGs/mawa3idi.svg',
+        "Action": null
+      },
+      {
+        "service_name": "المحفظة",
+        "Navigation": "/androidWallet",
+        "icon": "assets/SVGs/wallet.svg",
+        "Action": () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AndroidWallet3(
+                      businesscardw(null, "AR"), businesscardw(null, "en"))));
+          //  Navigator.pushNamed(context, "/AndroidWallet");
+        }
+      },
+      if (sharedPref.getBool("ViolatedCars") == true)
+        {
+          "List": violationVehicle(),
+          "service_name": "السيارات المسحوبة",
+          "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+          "Action": null
+        },
+      // {
+      //   "service_name": "المفضلة",
+      //   "Navigation": "/favs",
+      //   "icon": "assets/SVGs/bookmarks.svg",
+      //   "Action": () {
+      //     Navigator.pushNamed(context, "/favs");
+      //   }
+      // },
+      // {
+      //   "List": null,
+      //   "service_name": "التبغ",
+      //   "icon": 'assets/SVGs/violation.svg',
+      //   "Action": () {
+      //     Get.to(Insert_Disclosure());
+      //   }
+      // },
+    ];
+  }
+
+  List Vacations() {
+    return [
+      {
+        "service_name": "طلب إجازة",
+        "Action": () {
+          Get.to(VacationRequest());
+        }
+      },
+      {
+        "service_name": "طلباتي السابقة",
+        "Action": () async {
+          Get.to(vacation_old_request());
+        }
+      },
+      if (sharedPref.getInt("empTypeID") != 8)
+        {
+          "service_name": "رصيد إجازات",
+          "Action": () async {
+            hrServicesFunctions.rased(context);
+          }
+        },
+    ];
+  }
+
+  List out_dutis() {
+    return [
+      {
+        "service_name": "طلب خارج دوام",
+        "Action": () async {
+          Get.to(OutdutyRequest());
+          // Navigator.pushNamed(context, "/OutdutyRequest");
+        }
+      },
+      {
+        "service_name": "طلباتي",
+        "Action": () async {
+          Get.to(OutDuties_hostiry());
+
+          // Navigator.pushNamed(context, "/OutDuties_hostiry");
+        }
+      },
+    ];
+  }
+
+  List entedab() {
+    return [
+      {
+        "service_name": "طلب إنتداب",
+        "Action": () async {
+          Get.to(Entedab());
+
+          // Navigator.pushNamed(context, "/entedab");
+        },
+      },
+      {
+        "service_name": "طلباتي السابقة",
+        "Action": () async {
+          Get.to(Mandates_history());
+          //Navigator.pushNamed(context, "/Mandates_history");
+        },
+      },
+    ];
+  }
+
+  List salary() {
+    return [
+      ////شؤون الموظفين
+      {
+        "service_name": "سجل الرواتب",
+        "Action": () async {
+          salaryFunction.salaryHistory(this.context);
+        }
+      },
+
+      {
+        "service_name": "تعريف بالراتب",
+        "Action": () async {
+          salaryFunction.SalaryReport(this.context);
+        }
+      },
+    ];
+  }
+
+  List attendance() {
+    return sharedPref.getInt("MainDepartmentID") == 422150000
+        ? [
+            {
+              "service_name": "تسجيل الحضور",
+              "Action": () async {
+                attendanceServiceFunction(this.context).InsertAttendance(1);
+              },
+            },
+            {
+              "service_name": "تسجيل الإنصراف",
+              "Action": () async {
+                attendanceServiceFunction(this.context).InsertAttendance(2);
+              },
+            },
+            {
+              "service_name": "الحضور ولإنصراف",
+              "Action": () async {
+                Get.to(GetAttendanceView());
+              },
+            }
+          ]
+        : [];
+  }
+
+  List customerServices() {
+    return sharedPref.getBool("permissionforCRM") == true
+        ? [
+            {
+              "service_name": "عرض الطلبات",
+              "Action": () {
+                Get.to(customerServiceRrequests(""));
+              }
+            },
+            {
+              "service_name": "حجز موعد",
+              "Action": () {
+                Get.to(reserveForcustomer());
+              }
+            },
+            {
+              "service_name": "الإحصائيات",
+              "Action": () {
+                Get.to(statistics());
+              }
+            },
+            {
+              "service_name": "تسجيل حضور",
+              "Action": () {
+                Get.to(customerEnterance());
+              }
+            },
+          ]
+        : [];
+  }
+
+  List Event() {
+    return [
+      {
+        "service_name": "المناسبات  ",
+        "Navigation": "",
+        "icon": "assets/SVGs/Occasion1.svg",
+        "Action": () {
+          Get.to(EventsPage());
+        }
+      },
+      {
+        "service_name": "تقديم طلب  ",
+        "Navigation": "",
+        "icon": "assets/SVGs/events.svg",
+        "Action": () {
+          Get.to(EventRequest());
+        }
+      },
+    ];
+  }
+
+  List Erfan() {
+    return [
+      if (sharedPref.getBool("IsGeneralManager") == true &&
+          sharedPref.getInt("MainDepartmentID") == 422150000)
+        {
+          "service_name": "ساند موظفيك",
+          "Navigation": "",
+          "icon": "assets/SVGs/baynaty.svg",
+          "Action": () {
+            Navigator.push(
+              this.context,
+              MaterialPageRoute(builder: (context) => supportYourEmployees()),
+              // ignore: prefer_const_constructors
+            );
+          }
+        },
+      // {
+      //   "service_name": "مُمْتَنّ",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/thanks.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       this.context,
+      //       MaterialPageRoute(builder: (context) => Momten()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
+      // {
+      //   "service_name": "نصائح",
+      //   "Navigation": "",
+      //   "icon": "assets/SVGs/thanks.svg",
+      //   "Action": () {
+      //     Navigator.push(
+      //       this.context,
+      //       MaterialPageRoute(builder: (context) => Cybertips()),
+      //       // ignore: prefer_const_constructors
+      //     );
+      //   }
+      // },
+    ];
+  }
+
+  List MM() {
+    return [
+      {
+        "service_name": "مواعيدي",
+        "Action": () {
+          Get.to(MeetingView());
+        }
+      },
+      {
+        "service_name": "مواعيد المستفيد",
+        "Action": () {
+          Get.to(customerServiceRrequests("LeaderAppointment_dashboard"));
+        }
+      },
+      {
+        "service_name": "إدارة المواعيد",
+        "Action": () {
+          Get.to(manegeMeetingTime());
+        }
+      },
+    ];
+  }
+
+  List violationVehicle() {
+    return [
+      if (sharedPref.getInt("GroupID") == 1)
+        {
+          "service_name": "إنذار سيارة",
+          "Navigation": "",
+          "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+          "Action": () {
+            Get.to(WarnViolatedVehiclePageView());
+          }
+        },
+      {
+        "service_name": "إستعلام",
+        "Navigation": "",
+        "icon": 'assets/SVGs/car_details.svg',
+        "Action": () {
+          Get.to(ViolatedVehicleList(-1));
+        }
+      },
+      if (sharedPref.getInt("GroupID") == 3 ||
+          sharedPref.getInt("GroupID") == 2)
+        {
+          "service_name": "إشعار سيارة",
+          "Navigation": "",
+          "icon": 'assets/SVGs/ViolatedVehicleInfo.svg',
+          "Action": () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                // ignore: prefer_const_constructors
+                builder: (BuildContext context) {
+                  return vehicle_notice();
+                },
+              ),
+            );
+          }
+        },
+    ];
+  }
+
+  List UserLeavesPermissionsCompanies() {
+    return [
+      {
+        "service_name": "طلب إستئذان",
+        "Action": () async {
+          Get.to(LeaveRequestCompanies());
+        }
+      },
+      {
+        "service_name": "طلباتي",
+        "Action": () {
+          Get.to(UserLeavesPermissionsCompanies_history());
+        }
+      },
+    ];
   }
 }

@@ -1,17 +1,15 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
-import 'package:eamanaapp/provider/otp.dart';
-import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/styles/CSS.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
 
 class OTPView extends StatefulWidget {
   const OTPView({Key? key}) : super(key: key);
@@ -22,27 +20,8 @@ class OTPView extends StatefulWidget {
 
 class _OTPViewState extends State<OTPView> {
   TextEditingController _otp = TextEditingController();
-  // final Telephony telephony = Telephony.instance;
-
-  // Future<void> SmsListener() async {
-  //   print("platform" + Platform.isAndroid.toString());
-  //   if (Platform.isAndroid) {
-  //     telephony.listenIncomingSms(
-  //         onNewMessage: (SmsMessage message) {
-  //           // Handle message
-  //           if (message.body != null) {
-  //             print(message.body.toString());
-  //             setState(() {
-  //               _otp.text = message.body.toString().substring(37, 41);
-  //             });
-  //           }
-  //         },
-  //         listenInBackground: false
-
-  //         // onBackgroundMessage: backgroundMessageHandler
-  //         );
-  //   }
-  // }
+  dynamic isValid;
+  bool oncomplated = false;
 
   @override
   void initState() {
@@ -51,19 +30,45 @@ class _OTPViewState extends State<OTPView> {
     print(c.count);
     c.otp.text = c.count == "" ? "" : c.count.toString();
     setState(() {});
+    startTimer();
     super.initState();
   }
 
+  Timer? countdownTimer;
+  Duration myDuration = Duration(minutes: 5);
+
+  void startTimer() {
+    countdownTimer =
+        Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+  }
+
+  void setCountDown() {
+    final reduceSecondsBy = 1;
+    setState(() {
+      final seconds = myDuration.inSeconds - reduceSecondsBy;
+      if (seconds < 0) {
+        countdownTimer!.cancel();
+      } else {
+        myDuration = Duration(seconds: seconds);
+      }
+    });
+  }
+
   bool errorM = false;
+
   @override
   void dispose() {
     // TODO: implement dispose
     EasyLoading.dismiss();
+    countdownTimer!.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    String strDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = strDigits(myDuration.inMinutes.remainder(60));
+    final seconds = strDigits(myDuration.inSeconds.remainder(60));
     var _provider = Provider.of<LoginProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
@@ -71,62 +76,74 @@ class _OTPViewState extends State<OTPView> {
           height: 100.h,
           child: Stack(
             children: [
-              //   background(),
-              widgetsUni.bacgroundimage(),
-              // Container(
-              //   margin: EdgeInsets.only(top: 80),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //     children: [
-              //       logo(),
-              //     ],
-              //   ),
-              // ),
               Directionality(
                 textDirection: TextDirection.rtl,
-                child: Center(
-                  child: SingleChildScrollView(
-                      child: Column(
-                    children: [
-                      logo(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 20.0),
-                          decoration: BoxDecoration(
-                            color: BackGWhiteColor,
-                            border: Border.all(
-                              color: bordercolor,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              new Radius.circular(4),
-                            ),
-                          ),
+                child: SingleChildScrollView(
+                    child: Stack(
+                  children: [
+                    Positioned(
+                        top: 10,
+                        left: 10,
+                        child: IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })),
+                    Column(
+                      children: [
+                        // SizedBox(
+                        //   height: 80,
+                        // ),
+                        // logo(),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Text("تسجيل الدخول",
-                                  style: titleTx(secondryColorText)),
-                              Text("فضلا أدخل الرمز المرسل على الجوال",
-                                  style: titleTx(secondryColorText)),
+                              Text(
+                                "رمز التحقق",
+                                style: fontsStyle.px20(
+                                    fontsStyle.baseColor(), FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
                               SizedBox(
                                 height: 10,
                               ),
-                              smsTxt(),
+                              Text(
+                                "فضلا أدخل الرمز المرسل على الجوال",
+                                style: fontsStyle.px14(
+                                    fontsStyle.SecondaryColor(),
+                                    FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '$minutes:$seconds',
+                                style: fontsStyle.px16(
+                                    secondryColor, FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              otpTxt(),
+                              SizedBox(
+                                height: 30,
+                              ),
                               submitBtn(),
                             ],
                           ),
                         ),
-                      ),
-                    ],
-                  )),
-                ),
+                      ],
+                    ),
+                  ],
+                )),
               ),
             ],
           ),
@@ -147,8 +164,8 @@ class _OTPViewState extends State<OTPView> {
 
   Widget logo() {
     return Image.asset(
-      "assets/image/rakamy-logo-21.png",
-      width: 150,
+      "assets/image/raqmy-icon.png",
+      width: 200,
     );
   }
 
@@ -162,105 +179,123 @@ class _OTPViewState extends State<OTPView> {
     );
   }
 
-  Widget smsTxt() {
-    return Container(
-      margin: const EdgeInsets.only(left: 100, right: 100),
+  Widget otpTxt() {
+    return Directionality(
+      textDirection: TextDirection.ltr,
       child: Column(
         children: [
-          TextField(
+          PinCodeTextField(
+            appContext: context,
+            autoFocus: true,
+            pastedTextStyle: TextStyle(
+              color: secondryColor,
+              fontWeight: FontWeight.bold,
+            ),
+            length: 6,
+            obscureText: false,
+            obscuringCharacter: '*',
+            animationType: AnimationType.fade,
+            // validator: (v) {
+            //   if (v.toString().length >= 6) {
+            //     oncomplated = true;
+            //   } else {
+            //     oncomplated = false;
+            //   }
+            // },
+            pinTheme: PinTheme(
+              shape: PinCodeFieldShape.box,
+              borderRadius: BorderRadius.circular(6.7),
+              fieldHeight: 50,
+              fieldWidth: 50,
+              activeColor: errorM == false ? secondryColor : redColor,
+              inactiveColor: bordercolor,
+              selectedColor: secondryColor,
+            ),
+            cursorColor: Colors.black,
+            animationDuration: Duration(milliseconds: 300),
+            textStyle: TextStyle(fontSize: 20, height: 1.6),
+            // backgroundColor: BackGWhiteColor,
+            // errorAnimationController: errorController,
             controller: _otp,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ],
             keyboardType: TextInputType.number,
-            maxLines: 1,
-            style: TextStyle(
-              color: baseColorText,
-            ),
-            textAlign: TextAlign.right,
-            decoration: InputDecoration(
-              labelStyle: TextStyle(color: secondryColorText),
-              errorStyle: TextStyle(color: redColor),
-              contentPadding: EdgeInsets.symmetric(
-                  vertical: responsiveMT(8, 30), horizontal: 10.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4.0),
-                borderSide: BorderSide(color: bordercolor),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: bordercolor),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: bordercolor),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              labelText: "الرمز المؤقت",
-              alignLabelWithHint: true,
-            ),
-          ),
-          SizedBox(
-            height: 5,
+            onCompleted: (v) {
+              print("Completed");
+            },
+            onChanged: (value) {
+              print(" wwww =  $value");
+              //for test length = 4
+              if (value.length >= 4) {
+                oncomplated = true;
+              } else {
+                oncomplated = false;
+              }
+              setState(() {
+                errorM = false;
+              });
+            },
+
+            beforeTextPaste: (text) {
+              print("Allowing to paste $text");
+              //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+              //but you can show anything you want here, like your pop up saying wrong paste format or etc
+              return true;
+            },
           ),
           errorM == false
               ? Container()
               : Text(
-                  "فضلا ادخل الرمز المؤقت",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: redColor,
-                  ),
-                )
+                  isValid ?? "الرجاء إدخال الرمز",
+                  style: descTx2(redColor),
+                ),
         ],
       ),
     );
   }
 
   Widget submitBtn() {
-    return Container(
-      margin: const EdgeInsets.only(top: 10),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: baseColor, // background
-          onPrimary: Colors.white, // foreground
-        ),
-        onPressed: () async {
-          if (_otp.text == "") {
-            setState(() {
-              errorM = true;
-            });
-          } else {
-            setState(() {
-              errorM = false;
-            });
-            EasyLoading.show(
-              status: '... جاري المعالجة',
-              maskType: EasyLoadingMaskType.black,
-            );
-            dynamic isValid;
-            if (sharedPref.getString("dumyuser") == "10284928492") {
-              await Future.delayed(Duration(seconds: 1));
-              Provider.of<LoginProvider>(context, listen: false)
-                  .checkUserOTP2(_otp.text);
-              isValid = true;
-            } else {
-              isValid = await Provider.of<LoginProvider>(context, listen: false)
-                  .checkUserOTP(_otp.text);
-            }
+    return CSS.baseElevatedButton(
+        "تحقق",
+        0,
+        oncomplated == true
+            ? () async {
+                if (_otp.text == "") {
+                  setState(() {
+                    errorM = true;
+                  });
+                } else {
+                  setState(() {
+                    errorM = false;
+                  });
+                  EasyLoading.show(
+                    status: '... جاري المعالجة',
+                    maskType: EasyLoadingMaskType.black,
+                  );
 
-            EasyLoading.dismiss();
-            if (isValid is bool) {
-              //here to make initialRoute is /home
-              // Navigator.of(context).pushNamedAndRemoveUntil(
-              //     '/home', (Route<dynamic> route) => false);
-              Navigator.pushReplacementNamed(context, "/home");
-            } else {
-              Alerts.errorAlert(context, "خطأ", isValid).show();
-            }
-          }
-        },
-        child: const Text('إستمرار'),
-      ),
-    );
+                  if (sharedPref.getString("dumyuser") == "10284928492") {
+                    await Future.delayed(Duration(seconds: 1));
+                    Provider.of<LoginProvider>(context, listen: false)
+                        .checkUserOTP2(_otp.text);
+                    isValid = true;
+                  } else {
+                    isValid =
+                        await Provider.of<LoginProvider>(context, listen: false)
+                            .checkUserOTP(_otp.text);
+                  }
+
+                  EasyLoading.dismiss();
+                  if (isValid is bool) {
+                    //here to make initialRoute is /home
+                    // Navigator.of(context).pushNamedAndRemoveUntil(
+                    //     '/home', (Route<dynamic> route) => false);
+                    Navigator.pushReplacementNamed(context, "/home");
+                  } else {
+                    setState(() {
+                      errorM = true;
+                    });
+                    // Alerts.errorAlert(context, "خطأ", isValid).show();
+                  }
+                }
+              }
+            : null);
   }
 }

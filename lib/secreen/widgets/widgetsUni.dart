@@ -1,7 +1,6 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
@@ -16,17 +15,16 @@ class widgetsUni {
     );
   }
 
+  static Divider divider2() {
+    return Divider(
+      thickness: 0.5,
+      color: Color(0xff838383),
+    );
+  }
+
   static bacgroundimage() {
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
-      child: Opacity(
-        opacity: 1,
-        child: Image.asset(
-          imageBG,
-          fit: BoxFit.fill,
-          //   height: 100.h,
-        ),
-      ),
     );
   }
 
@@ -70,22 +68,56 @@ class widgetsUni {
         onPressed: () {
           onClicked();
         },
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
               icon,
               //color: Colors.white,
-              width: responsiveMT(42, 48),
+              width: responsiveMT(72, 48),
+              height: 70,
             ),
             SizedBox(
-              width: 10,
+              height: 15,
             ),
-            Expanded(
-              child: Text(
-                text,
-                style: descTx1(baseColorText),
-                maxLines: 2,
-              ),
+            Text(
+              text,
+              style:
+                  fontsStyle.px14(fontsStyle.SecondaryColor(), FontWeight.bold),
+              maxLines: 1,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Widget servicebuttonMainPage(
+      String text, String icon, VoidCallback onClicked) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      child: ElevatedButton(
+        style: cardServiece,
+        onPressed: () {
+          onClicked();
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              icon,
+              //color: Colors.white,
+              width: responsiveMT(72, 48),
+              height: 70,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              text,
+              style: fontsStyle.px12Bold(
+                  fontsStyle.SecondaryColor(), FontWeight.bold),
+              maxLines: 2,
             )
           ],
         ),

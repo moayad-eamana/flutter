@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:eamanaapp/secreen/violation/addViolation/company/ListOfTextFieleds.dart';
 import 'package:flutter/services.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
+
+import 'package:eamanaapp/utilities/styles/CSS.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamanaapp/main.dart';
@@ -37,6 +41,15 @@ class _newEmpInfoState extends State<newEmpInfo> {
     super.initState();
   }
 
+  getYearOfService() {
+    List date = sharedPref.getString("HireDate").toString().split("/");
+    if (date[0] != "") {
+      int aa = HijriCalendar.now().hYear - int.parse(date[2]);
+      return aa.toString();
+    }
+    return null;
+  }
+
   getData() async {
     // EasyLoading.show(
     //   status: '... جاري المعالجة',
@@ -66,19 +79,20 @@ class _newEmpInfoState extends State<newEmpInfo> {
       }
       setState(() {});
     }
-
-    var response = await getAction(
-        "HR/GetEmployeeDataByEmpNo/" + EmployeeProfile.getEmployeeNumber());
-    empInfo = jsonDecode(response.body)["EmpInfo"];
-    logApiModel logapiO = logApiModel();
-    logapiO.ControllerName = "profile";
-    logapiO.ClassName = "profile";
-    logapiO.ActionMethodName = "معلوماتي";
-    logapiO.ActionMethodType = 1;
-    logapiO.StatusCode = 1;
-    logApi(logapiO);
-    setState(() {});
-    EasyLoading.dismiss();
+    if (sharedPref.getString("dumyuser") != "10284928492") {
+      var response = await getAction(
+          "HR/GetEmployeeDataByEmpNo/" + EmployeeProfile.getEmployeeNumber());
+      empInfo = jsonDecode(response.body)["EmpInfo"];
+      logApiModel logapiO = logApiModel();
+      logapiO.ControllerName = "profile";
+      logapiO.ClassName = "profile";
+      logapiO.ActionMethodName = "معلوماتي";
+      logapiO.ActionMethodType = 1;
+      logapiO.StatusCode = 1;
+      logApi(logapiO);
+      setState(() {});
+      EasyLoading.dismiss();
+    }
   }
 
   @override
@@ -91,596 +105,965 @@ class _newEmpInfoState extends State<newEmpInfo> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            color: BackGWhiteColor,
-            height: 100.h,
-            child: Stack(
-              children: [
-                //widgetsUni.bacgroundimage(),
-                Positioned(
-                  bottom:
-                      (sharedPref.getInt("empTypeID") != 8) ? 120 : 150, // 13
-                  child: SafeArea(
-                    child: Container(
-                      width: 100.w,
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  side: BorderSide(
-                                    width: 1,
-                                    color: bordercolor,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  primary: baseColor, // background
-                                  onPrimary: Colors.white, // foreground
-
-                                  elevation: 2),
-                              onPressed: () async {
-                                getPdfasync();
-                              },
-                              child: Text('مشاركة بطاقة العمل'),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 3,
-                          ),
-                          if (Platform.isIOS)
-                            Expanded(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    side: BorderSide(
-                                      width: 1,
-                                      color: bordercolor,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    primary: baseColor, // background
-                                    onPrimary: Colors.white, // foreground
-
-                                    elevation: 2),
-                                onPressed: () {
-                                  addtoAplewalletasync();
-                                },
-                                child: Text('إضافة إلي المحفظة'),
-                              ),
-                            ),
-                        ],
-                      ),
+        textDirection: TextDirection.rtl,
+        child: Scaffold(
+          backgroundColor: BackGColor,
+          body: Stack(overflow: Overflow.visible, children: [
+            Container(
+              height: 100.h,
+              child: Column(
+                children: [
+                  // -- header
+                  Container(
+                    height: 200,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      color: fontsStyle.HeaderColor(),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                    ),
+                    child: Row(
+                      children: [
+                        // IconButton(
+                        //     onPressed: () {
+                        //       Navigator.pop(context);
+                        //     },
+                        //     icon: Icon(
+                        //       Icons.arrow_back_ios,
+                        //       color: Colors.white,
+                        //     )),
+                        // Text(
+                        //   "بياناتي",
+                        //   style: fontsStyle.px20(Colors.white, FontWeight.bold),
+                        // ),
+                      ],
                     ),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: [
-                          sharedPref.getBool("darkmode") == false
-                              ? baseColor
-                              : BackGColor,
-                          secondryColor,
-                        ],
-                      )),
-                      height: (sharedPref.getInt("empTypeID") != 8) ? 250 : 200,
-                      child: Stack(
-                        overflow: Overflow.visible,
-                        fit: StackFit.loose,
-                        children: [
-                          SafeArea(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Visibility(
-                                            visible: widget.showArrow == true
-                                                ? true
-                                                : false,
-                                            child: Directionality(
-                                                textDirection:
-                                                    TextDirection.ltr,
-                                                child: GestureDetector(
-                                                  onTap: () =>
-                                                      Navigator.pop(context),
-                                                  child: Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    color: Colors.white,
-                                                  ),
-                                                )),
-                                          ),
-                                          Text(
-                                            sharedPref
-                                                    .getString("FirstName")
-                                                    .toString() +
-                                                " " +
-                                                sharedPref
-                                                    .getString("LastName")
-                                                    .toString(),
-                                            style: titleTx(Colors.white),
-                                            textAlign: TextAlign.right,
-                                            textDirection: TextDirection.rtl,
-                                          ),
-                                          Text(
-                                            (sharedPref
-                                                        .getString("Title")
-                                                        .toString() ==
-                                                    ""
-                                                ? sharedPref
-                                                    .getString("JobName")
-                                                    .toString()
-                                                : sharedPref
-                                                    .getString("Title")
-                                                    .toString()),
-                                            style: subtitleTx(Colors.white),
-                                          ),
-                                          Text(
-                                            datedesc,
-                                            style: subtitleTx(Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      ClipOval(
-                                        child: CachedNetworkImage(
-                                          height: 80,
-                                          width: 80,
-                                          fit: BoxFit.cover,
-                                          imageUrl:
-                                              "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                                  sharedPref
-                                                      .getString("ImageURL")
-                                                      .toString(),
-                                          errorWidget: (context, url, error) =>
-                                              Image.asset(
-                                            "assets/image/blank-profile.png",
-                                          ),
+                  Container(
+                      child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 70,
+                        ),
+                        Container(
+                          child: Text(
+                            sharedPref.getString("EmployeeName") ?? "",
+                            style: fontsStyle.px14(
+                                fontsStyle.thirdColor(), FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        //if it's govm emp, render title
+                        if (sharedPref.getInt("empTypeID") != 8)
+                          Container(
+                            child: Text(
+                              sharedPref.getString("Title") ?? "",
+                              style: fontsStyle.px14(
+                                  fontsStyle.thirdColor(), FontWeight.bold),
+                            ),
+                          ),
+                        if (sharedPref.getString("JobName") == "")
+                          SizedBox(
+                            height:
+                                sharedPref.getInt("empTypeID") != 8 ? 30 : 0,
+                          ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        //if it's govm emp, render this row
+                        if (sharedPref.getInt("empTypeID") != 8)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(228, 242, 242, 1),
+                                  borderRadius: BorderRadius.circular(31),
+                                ),
+                                child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(11, 3, 11, 3),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'المرتبة: ',
+                                          style: fontsStyle.px12normal(
+                                              fontsStyle.thirdColor(),
+                                              FontWeight.normal),
                                         ),
+                                        Text(
+                                          sharedPref
+                                                  .getInt("ClassID")
+                                                  .toString() ??
+                                              "",
+                                          style: fontsStyle.px12normal(
+                                              fontsStyle.thirdColor(),
+                                              FontWeight.normal),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(228, 242, 242, 1),
+                                  borderRadius: BorderRadius.circular(31),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(11, 3, 11, 3),
+                                  child: Row(
+                                    children: [
+                                      Text('الدرجة: '),
+                                      Text(
+                                        sharedPref
+                                                .getInt("GradeID")
+                                                .toString() ??
+                                            "",
                                       ),
                                     ],
                                   ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(228, 242, 242, 1),
+                                  borderRadius: BorderRadius.circular(31),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(11, 3, 11, 3),
+                                  child: Row(
+                                    children: [
+                                      Text('سنوات الخدمة: '),
+                                      Text(getYearOfService() ?? ""),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                      ],
+                    ),
+                  )),
+                  // -- emp info --
+                  SafeArea(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      width: 350,
+                      // //height: 309,
+                      // decoration: BoxDecoration(
+                      //   color: Color.fromRGBO(255, 255, 255, 1),
+                      //   borderRadius: BorderRadius.circular(20),
+                      // ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(7),
+                            topRight: Radius.circular(7),
+                            bottomLeft: Radius.circular(7),
+                            bottomRight: Radius.circular(7)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xff0E1F35).withOpacity(0.06),
+                            spreadRadius: 0,
+                            blurRadius: 4,
+                            offset: Offset(0, 0), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(23, 20, 23, 20),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'الرقم الوظيفي: ',
+                                  style: fontsStyle.px13(
+                                    fontsStyle.thirdColor(),
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  EmployeeProfile.getEmployeeNumber(),
+                                  style: fontsStyle.px13(
+                                    fontsStyle.thirdColor(),
+                                    FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              children: [
+                                Text(
+                                  'البريد الإلكتروني: ',
+                                  style: fontsStyle.px13(
+                                    fontsStyle.thirdColor(),
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  sharedPref.getString("Email") ?? "",
+                                  style: fontsStyle.px13(
+                                    fontsStyle.thirdColor(),
+                                    FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              children: [
+                                Text(
+                                  'رقم الجوال: ',
+                                  style: fontsStyle.px13(
+                                    fontsStyle.thirdColor(),
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                    sharedPref.getString("MobileNumber") ?? ""),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Row(
+                              children: [
+                                Text(
+                                  'رقم التحويلة: ',
+                                  style: fontsStyle.px13(
+                                    fontsStyle.thirdColor(),
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  sharedPref.getInt("Extension").toString() ??
+                                      "",
+                                  style: fontsStyle.px13(
+                                    fontsStyle.thirdColor(),
+                                    FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text.rich(
+                                TextSpan(
+                                  style: TextStyle(fontSize: 16),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: 'الإدارة: ',
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: sharedPref
+                                          .getString("DepartmentName"),
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                maxLines: 4,
+                                softWrap: true,
+                                overflow: TextOverflow.visible,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            if (sharedPref.getInt("empTypeID") != 8)
+                              Row(
+                                children: [
+                                  Text(
+                                    'تاريخ التعيين في الأمانة: ',
+                                    style: fontsStyle.px13(
+                                      fontsStyle.thirdColor(),
+                                      FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    sharedPref.getString("HireDate") ?? "",
+                                    style: fontsStyle.px13(
+                                      fontsStyle.thirdColor(),
+                                      FontWeight.normal,
+                                    ),
+                                  ),
                                 ],
+                              ),
+                            SizedBox(height: 10),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //-- image --
+            Positioned(
+              top: 140,
+              right: 150,
+              child:
+                  // Container(
+                  //   height: 109,
+                  //   width: 109,
+                  //   child: ClipOval(
+                  //     child: CachedNetworkImage(
+                  //       height: 80,
+                  //       width: 80,
+                  //       fit: BoxFit.cover,
+                  //       imageUrl:
+                  //           "https://archive.eamana.gov.sa/TransactFileUpload" +
+                  //               sharedPref.getString("ImageURL").toString(),
+                  //       errorWidget: (context, url, error) => Image.asset(
+                  //         "assets/image/blank-profile.png",
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  Container(
+                width: 100,
+                height: 100,
+                margin: EdgeInsets.only(right: 10),
+                child: CircleAvatar(
+                  backgroundColor: baseColor,
+                  radius: responsiveMT(24, 26),
+                  child: ClipOval(
+                    child: sharedPref.getString("ImageURL") == "" ||
+                            sharedPref.getInt("GenderID") == 2
+                        ? Image.asset(
+                            "assets/image/blank-profile.png",
+                          )
+                        : ClipOval(
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100,
+                              image:
+                                  "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                      sharedPref
+                                          .getString("ImageURL")
+                                          .toString(),
+                              placeholder: "assets/image/blank-profile.png",
+                              imageErrorBuilder: (context, error, stackTrace) =>
+                                  Image.asset(
+                                "assets/image/blank-profile.png",
                               ),
                             ),
                           ),
-                          if (sharedPref.getInt("empTypeID") != 8)
-                            Positioned(
-                              bottom: -60,
-                              child: Row(
-                                children: [
-                                  Cards(
-                                      empInfo == null
-                                          ? null
-                                          : empInfo["VacationBalance"]
-                                              .toString(),
-                                      "الإجازات"),
-                                  Cards(sharedPref.getInt("ClassID").toString(),
-                                      "المرتبة"),
-                                  Cards(sharedPref.getInt("GradeID").toString(),
-                                      "الدرجة"),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: (sharedPref.getInt("empTypeID") != 8) ? 80 : 40,
-                    ),
-                    Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "معلوماتي",
-                              style: titleTx(baseColorText),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Rows(
-                                "الرقم الوظيفي",
-                                EmployeeProfile.getEmployeeNumber(),
-                                Icons.dialpad_sharp,
-                                secondryColor),
-                            // Rows("الراتب", "20000", Icons.attach_money_outlined,
-                            //     secondryColor),
-                            if (sharedPref.getInt("empTypeID") != 8)
-                              Rows(
-                                  "المرتبة",
-                                  sharedPref.getInt("ClassID").toString(),
-                                  Icons.grade,
-                                  baseColor),
-                            if (sharedPref.getInt("empTypeID") != 8)
-                              Rows(
-                                  "الدرجة",
-                                  sharedPref.getInt("GradeID").toString(),
-                                  Icons.stairs,
-                                  secondryColor),
-                            Rows(
-                                "الإيميل",
-                                sharedPref.getString("Email").toString() +
-                                    "@eamana.gov.sa",
-                                Icons.email,
-                                baseColor),
-                            Rows(
-                                "الجوال",
-                                sharedPref.getString("MobileNumber") ?? "",
-                                Icons.phone,
-                                secondryColor),
-                            Rows("جهة العمل", "أمانة الشرقية",
-                                Icons.location_on, baseColor),
-                            if (sharedPref.getInt("empTypeID") != 8)
-                              Rows(
-                                  "تاريخ الإنضمام",
-                                  sharedPref.getString("HireDate") ?? "",
-                                  Icons.date_range,
-                                  secondryColor),
-                            SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        ))
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget Cards(String? title, String desc) {
-    return Container(
-      height: 120,
-      width: 100,
-      padding: EdgeInsets.all(8),
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black54,
-              blurRadius: 5,
-              offset: Offset(8, 8), // Shadow position
-            ),
-          ],
-          color: BackGWhiteColor,
-          border: Border.all(color: bordercolor),
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          title == null
-              ? SpinKitDoubleBounce(color: secondryColor, size: 30.0)
-              : Text(
-                  title,
-                  style: subtitleTx(secondryColor),
-                  textAlign: TextAlign.right,
-                ),
-          Text(
-            desc,
-            style: titleTx(secondryColorText),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget Rows(String tiltle, String desc, dynamic icon, Color color) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(
-                icon,
-                color: color,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                tiltle,
-                style: subtitleTx(baseColorText),
-              ),
-            ],
-          ),
-          Text(desc, style: subtitleTx(baseColorText)),
-        ],
-      ),
-    );
-  }
-
-  Future getPdfasync() async {
-    logApiModel logapiO = logApiModel();
-    logapiO.ControllerName = "DaleelController";
-    logapiO.ClassName = "DaleelController";
-    logapiO.ActionMethodName = "مشاركة معلوماتي";
-    logapiO.ActionMethodType = 1;
-    logapiO.StatusCode = 1;
-    logApi(logapiO);
-    final pdf = pw.Document();
-    var imag = pw.MemoryImage(
-        (await rootBundle.load('assets/SVGs/amanah-v.png'))
-            .buffer
-            .asUint8List());
-    final fontData = await rootBundle.load("assets/Cairo-Regular.ttf");
-    final ttf = pw.Font.ttf(fontData.buffer.asByteData());
-    pdf.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        textDirection: pw.TextDirection.rtl,
-        build: (pw.Context context) {
-          return pw.Directionality(
-              textDirection: pw.TextDirection.rtl,
-              child: pw.Container(
-                  child: pw.Center(
-                      child: pw.Container(
-                height: 250,
-                width: 500,
-                decoration: pw.BoxDecoration(
-                  color: PdfColors.white,
-                  borderRadius: pw.BorderRadius.only(
-                      topLeft: pw.Radius.circular(10),
-                      topRight: pw.Radius.circular(10),
-                      bottomLeft: pw.Radius.circular(10),
-                      bottomRight: pw.Radius.circular(10)),
-                  boxShadow: [
-                    pw.BoxShadow(
-                        color: PdfColorGrey(0.1),
-                        spreadRadius: 18,
-                        blurRadius: 18,
-                        offset: PdfPoint(0, 3)
-                        // changes position of shadow
-                        ),
-                  ],
-                ),
-                margin: pw.EdgeInsets.symmetric(horizontal: 10),
-                child: pw.Container(
-                  child: pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.center,
-                    children: [
-                      pw.Text(
-                        sharedPref.getString("EmployeeName") ?? "",
-                        textDirection: pw.TextDirection.rtl,
-                        style: pw.TextStyle(
-                            color: PdfColor.fromHex('#1F9EB9'),
-                            fontSize: 18,
-                            font: ttf,
-                            fontWeight: pw.FontWeight.bold),
-                      ),
-                      pw.Text(
-                        sharedPref.getString("Title") ?? "",
-                        textDirection: pw.TextDirection.rtl,
-                        style: pw.TextStyle(font: ttf),
-                      ),
-                      pw.SizedBox(
-                        height: 10,
-                      ),
-                      pw.Directionality(
-                        textDirection: pw.TextDirection.rtl,
-                        child: pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
-                          children: [
-                            pw.Container(
-                              width: 150,
-                              height: 130,
-                              child: pw.Image(
-                                imag,
-                                alignment: pw.Alignment.center,
-                                //width:
-                                //    pw. MediaQuery.of(context).size.width,
-                                //height: MediaQuery.of(context).size.height,
-                                fit: pw.BoxFit.cover,
-                              ),
-                            ),
-                            pw.Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.end,
-                              mainAxisAlignment: pw.MainAxisAlignment.center,
-                              children: [
-                                pw.Row(
-                                    mainAxisAlignment: pw.MainAxisAlignment.end,
-                                    children: [
-                                      pw.Text(
-                                          sharedPref
-                                                  .getString("MobileNumber") ??
-                                              "",
-                                          style: pw.TextStyle(font: ttf)),
-                                      pw.Text("رقم الجوال : ",
-                                          style: pw.TextStyle(font: ttf)),
-                                    ]),
-                                pw.Container(
-                                  child: pw.Row(
-                                      mainAxisAlignment:
-                                          pw.MainAxisAlignment.end,
-                                      children: [
-                                        pw.Text(
-                                            sharedPref
-                                                    .getInt("Extension")
-                                                    .toString() ??
-                                                "",
-                                            style: pw.TextStyle(font: ttf)),
-                                        pw.Text("رقم التحويلة : ",
-                                            style: pw.TextStyle(font: ttf)),
-                                      ]),
-                                ),
-                                pw.Row(children: [
-                                  pw.Text(
-                                      sharedPref.getString("Email") ??
-                                          "" + "@eamana.gov.sa",
-                                      style: pw.TextStyle(font: ttf)),
-                                  pw.Text("البريد الالكتروني : ",
-                                      style: pw.TextStyle(font: ttf)),
-                                ]),
-                                pw.Row(children: [
-                                  pw.Text(EmployeeProfile.getEmployeeNumber(),
-                                      style: pw.TextStyle(font: ttf)),
-                                  pw.Text("الرقم الوظيفي : ",
-                                      style: pw.TextStyle(font: ttf)),
-                                ]),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
                   ),
                 ),
-              )
-                      // Center
-                      )));
-        }));
+              ),
+            )
+          ]),
+        ));
 
-    final bytes = await pdf.save();
+    // Directionality(
+    //   textDirection: TextDirection.rtl,
+    //   child:
+    //   Scaffold(
+    //     body: SingleChildScrollView(
+    //       child: Container(
+    //         color: BackGWhiteColor,
+    //         height: 100.h,
+    //         child: Stack(
+    //           children: [
+    //             //widgetsUni.bacgroundimage(),
+    //             Positioned(
+    //               bottom:
+    //                   (sharedPref.getInt("empTypeID") != 8) ? 120 : 150, // 13
+    //               child: SafeArea(
+    //                 child: Container(
+    //                   width: 100.w,
+    //                   padding: EdgeInsets.all(10),
+    //                   child: Row(
+    //                     //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     children: [
+    //                       Expanded(
+    //                         child: ElevatedButton(
+    //                           style: ElevatedButton.styleFrom(
+    //                               side: BorderSide(
+    //                                 width: 1,
+    //                                 color: bordercolor,
+    //                               ),
+    //                               shape: RoundedRectangleBorder(
+    //                                 borderRadius: BorderRadius.circular(5.0),
+    //                               ),
+    //                               primary: baseColor, // background
+    //                               onPrimary: Colors.white, // foreground
 
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File(
-        '${dir.path}/${(sharedPref.getString("FirstName") ?? "") + " " + (sharedPref.getString("LastName") ?? "")}.pdf');
+    //                               elevation: 2),
+    //                           onPressed: () async {
+    //                             getPdfasync();
+    //                           },
+    //                           child: Text('مشاركة بطاقة العمل'),
+    //                         ),
+    //                       ),
+    //                       SizedBox(
+    //                         width: 3,
+    //                       ),
+    //                       if (Platform.isIOS)
+    //                         Expanded(
+    //                           child: ElevatedButton(
+    //                             style: ElevatedButton.styleFrom(
+    //                                 side: BorderSide(
+    //                                   width: 1,
+    //                                   color: bordercolor,
+    //                                 ),
+    //                                 shape: RoundedRectangleBorder(
+    //                                   borderRadius: BorderRadius.circular(5.0),
+    //                                 ),
+    //                                 primary: baseColor, // background
+    //                                 onPrimary: Colors.white, // foreground
 
-    await file.writeAsBytes(bytes);
-    final url = file.path;
+    //                                 elevation: 2),
+    //                             onPressed: () {
+    //                               addtoAplewalletasync();
+    //                             },
+    //                             child: Text('إضافة إلي المحفظة'),
+    //                           ),
+    //                         ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //               ),
+    //             ),
+    //             Column(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 Container(
+    //                   decoration: BoxDecoration(
+    //                       gradient: LinearGradient(
+    //                     begin: Alignment.topRight,
+    //                     end: Alignment.bottomLeft,
+    //                     colors: [
+    //                       sharedPref.getBool("darkmode") == false
+    //                           ? baseColor
+    //                           : BackGColor,
+    //                       secondryColor,
+    //                     ],
+    //                   )),
+    //                   height: (sharedPref.getInt("empTypeID") != 8) ? 250 : 200,
+    //                   child: Stack(
+    //                     overflow: Overflow.visible,
+    //                     fit: StackFit.loose,
+    //                     children: [
+    //                       SafeArea(
+    //                         child: Container(
+    //                           margin: EdgeInsets.symmetric(horizontal: 10),
+    //                           child: Column(
+    //                             crossAxisAlignment: CrossAxisAlignment.start,
+    //                             children: [
+    //                               Row(
+    //                                 mainAxisAlignment:
+    //                                     MainAxisAlignment.spaceBetween,
+    //                                 children: [
+    //                                   Column(
+    //                                     crossAxisAlignment:
+    //                                         CrossAxisAlignment.start,
+    //                                     children: [
+    //                                       Visibility(
+    //                                         visible: widget.showArrow == true
+    //                                             ? true
+    //                                             : false,
+    //                                         child: Directionality(
+    //                                             textDirection:
+    //                                                 TextDirection.ltr,
+    //                                             child: GestureDetector(
+    //                                               onTap: () =>
+    //                                                   Navigator.pop(context),
+    //                                               child: Icon(
+    //                                                 Icons.arrow_forward_ios,
+    //                                                 color: Colors.white,
+    //                                               ),
+    //                                             )),
+    //                                       ),
+    //                                       Text(
+    //                                         sharedPref
+    //                                                 .getString("FirstName")
+    //                                                 .toString() +
+    //                                             " " +
+    //                                             sharedPref
+    //                                                 .getString("LastName")
+    //                                                 .toString(),
+    //                                         style: titleTx(Colors.white),
+    //                                         textAlign: TextAlign.right,
+    //                                         textDirection: TextDirection.rtl,
+    //                                       ),
+    //                                       Text(
+    //                                         (sharedPref
+    //                                                     .getString("Title")
+    //                                                     .toString() ==
+    //                                                 ""
+    //                                             ? sharedPref
+    //                                                 .getString("JobName")
+    //                                                 .toString()
+    //                                             : sharedPref
+    //                                                 .getString("Title")
+    //                                                 .toString()),
+    //                                         style: subtitleTx(Colors.white),
+    //                                       ),
+    //                                       Text(
+    //                                         datedesc,
+    //                                         style: subtitleTx(Colors.white),
+    //                                       ),
+    //                                     ],
+    //                                   ),
+    //                                   ClipOval(
+    //                                     child: CachedNetworkImage(
+    //                                       height: 80,
+    //                                       width: 80,
+    //                                       fit: BoxFit.cover,
+    //                                       imageUrl:
+    //                                           "https://archive.eamana.gov.sa/TransactFileUpload" +
+    //                                               sharedPref
+    //                                                   .getString("ImageURL")
+    //                                                   .toString(),
+    //                                       errorWidget: (context, url, error) =>
+    //                                           Image.asset(
+    //                                         "assets/image/blank-profile.png",
+    //                                       ),
+    //                                     ),
+    //                                   ),
+    //                                 ],
+    //                               ),
+    //                             ],
+    //                           ),
+    //                         ),
+    //                       ),
+    //                       if (sharedPref.getInt("empTypeID") != 8)
+    //                         Positioned(
+    //                           bottom: -60,
+    //                           child: Row(
+    //                             children: [
+    //                               Cards(
+    //                                   empInfo == null
+    //                                       ? null
+    //                                       : empInfo["VacationBalance"]
+    //                                           .toString(),
+    //                                   "الإجازات"),
+    //                               Cards(sharedPref.getInt("ClassID").toString(),
+    //                                   "المرتبة"),
+    //                               Cards(sharedPref.getInt("GradeID").toString(),
+    //                                   "الدرجة"),
+    //                             ],
+    //                           ),
+    //                         ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 SizedBox(
+    //                   height: (sharedPref.getInt("empTypeID") != 8) ? 80 : 40,
+    //                 ),
+    //                 Container(
+    //                     margin: EdgeInsets.symmetric(horizontal: 10),
+    //                     child: Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Text(
+    //                           "معلوماتي",
+    //                           style: titleTx(baseColorText),
+    //                         ),
+    //                         SizedBox(
+    //                           height: 10,
+    //                         ),
+    //                         Rows(
+    //                             "الرقم الوظيفي",
+    //                             EmployeeProfile.getEmployeeNumber(),
+    //                             Icons.dialpad_sharp,
+    //                             secondryColor),
+    //                         // Rows("الراتب", "20000", Icons.attach_money_outlined,
+    //                         //     secondryColor),
+    //                         if (sharedPref.getInt("empTypeID") != 8)
+    //                           Rows(
+    //                               "المرتبة",
+    //                               sharedPref.getInt("ClassID").toString(),
+    //                               Icons.grade,
+    //                               baseColor),
+    //                         if (sharedPref.getInt("empTypeID") != 8)
+    //                           Rows(
+    //                               "الدرجة",
+    //                               sharedPref.getInt("GradeID").toString(),
+    //                               Icons.stairs,
+    //                               secondryColor),
+    //                         Rows(
+    //                             "الإيميل",
+    //                             sharedPref.getString("Email").toString() +
+    //                                 "@eamana.gov.sa",
+    //                             Icons.email,
+    //                             baseColor),
+    //                         Rows(
+    //                             "الجوال",
+    //                             sharedPref.getString("MobileNumber") ?? "",
+    //                             Icons.phone,
+    //                             secondryColor),
+    //                         Rows("جهة العمل", "أمانة الشرقية",
+    //                             Icons.location_on, baseColor),
+    //                         if (sharedPref.getInt("empTypeID") != 8)
+    //                           Rows(
+    //                               "تاريخ الإنضمام",
+    //                               sharedPref.getString("HireDate") ?? "",
+    //                               Icons.date_range,
+    //                               secondryColor),
+    //                         SizedBox(
+    //                           height: 20,
+    //                         ),
+    //                       ],
+    //                     ))
+    //               ],
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
 
-    await OpenFilex.open(url);
+    // );
   }
 
-  addtoAplewalletasync() async {
-    try {
-      showModalBottomSheet<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            padding: EdgeInsets.all(10),
-            height: 200,
-            child: Column(
-              children: [
-                Text(
-                  "اللغة المفضلة",
-                  style: subtitleTx(baseColor),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                // widgetsUni.divider(),
+  // Widget Cards(String? title, String desc) {
+  //   return Container(
+  //     height: 120,
+  //     width: 100,
+  //     padding: EdgeInsets.all(8),
+  //     margin: EdgeInsets.symmetric(horizontal: 5),
+  //     decoration: BoxDecoration(
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.black54,
+  //             blurRadius: 5,
+  //             offset: Offset(8, 8), // Shadow position
+  //           ),
+  //         ],
+  //         color: BackGWhiteColor,
+  //         border: Border.all(color: bordercolor),
+  //         borderRadius: BorderRadius.all(Radius.circular(20))),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         title == null
+  //             ? SpinKitDoubleBounce(color: secondryColor, size: 30.0)
+  //             : Text(
+  //                 title,
+  //                 style: subtitleTx(secondryColor),
+  //                 textAlign: TextAlign.right,
+  //               ),
+  //         Text(
+  //           desc,
+  //           style: titleTx(secondryColorText),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-                widgetsUni.divider(),
+  // Widget Rows(String tiltle, String desc, dynamic icon, Color color) {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Row(
+  //           children: [
+  //             Icon(
+  //               icon,
+  //               color: color,
+  //             ),
+  //             SizedBox(
+  //               width: 10,
+  //             ),
+  //             Text(
+  //               tiltle,
+  //               style: subtitleTx(baseColorText),
+  //             ),
+  //           ],
+  //         ),
+  //         Text(desc, style: subtitleTx(baseColorText)),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-                TextButton(
-                    onPressed: () async {
-                      logApiModel logapiO = logApiModel();
-                      logapiO.ControllerName = "DaleelController";
-                      logapiO.ClassName = "DaleelController";
-                      logapiO.ActionMethodName = "apple_wallet";
-                      logapiO.ActionMethodType = 1;
-                      logapiO.StatusCode = 1;
-                      logApi(logapiO);
-                      try {
-                        // await launchUrl(
-                        //     await Uri.parse(
-                        //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
+  // Future getPdfasync() async {
+  //   logApiModel logapiO = logApiModel();
+  //   logapiO.ControllerName = "DaleelController";
+  //   logapiO.ClassName = "DaleelController";
+  //   logapiO.ActionMethodName = "مشاركة معلوماتي";
+  //   logapiO.ActionMethodType = 1;
+  //   logapiO.StatusCode = 1;
+  //   logApi(logapiO);
+  //   final pdf = pw.Document();
+  //   var imag = pw.MemoryImage(
+  //       (await rootBundle.load('assets/SVGs/amanah-v.png'))
+  //           .buffer
+  //           .asUint8List());
+  //   final fontData = await rootBundle.load("assets/Cairo-Regular.ttf");
+  //   final ttf = pw.Font.ttf(fontData.buffer.asByteData());
+  //   pdf.addPage(pw.Page(
+  //       pageFormat: PdfPageFormat.a4,
+  //       textDirection: pw.TextDirection.rtl,
+  //       build: (pw.Context context) {
+  //         return pw.Directionality(
+  //             textDirection: pw.TextDirection.rtl,
+  //             child: pw.Container(
+  //                 child: pw.Center(
+  //                     child: pw.Container(
+  //               height: 250,
+  //               width: 500,
+  //               decoration: pw.BoxDecoration(
+  //                 color: PdfColors.white,
+  //                 borderRadius: pw.BorderRadius.only(
+  //                     topLeft: pw.Radius.circular(10),
+  //                     topRight: pw.Radius.circular(10),
+  //                     bottomLeft: pw.Radius.circular(10),
+  //                     bottomRight: pw.Radius.circular(10)),
+  //                 boxShadow: [
+  //                   pw.BoxShadow(
+  //                       color: PdfColorGrey(0.1),
+  //                       spreadRadius: 18,
+  //                       blurRadius: 18,
+  //                       offset: PdfPoint(0, 3)
+  //                       // changes position of shadow
+  //                       ),
+  //                 ],
+  //               ),
+  //               margin: pw.EdgeInsets.symmetric(horizontal: 10),
+  //               child: pw.Container(
+  //                 child: pw.Column(
+  //                   mainAxisAlignment: pw.MainAxisAlignment.center,
+  //                   children: [
+  //                     pw.Text(
+  //                       sharedPref.getString("EmployeeName") ?? "",
+  //                       textDirection: pw.TextDirection.rtl,
+  //                       style: pw.TextStyle(
+  //                           color: PdfColor.fromHex('#1F9EB9'),
+  //                           fontSize: 18,
+  //                           font: ttf,
+  //                           fontWeight: pw.FontWeight.bold),
+  //                     ),
+  //                     pw.Text(
+  //                       sharedPref.getString("Title") ?? "",
+  //                       textDirection: pw.TextDirection.rtl,
+  //                       style: pw.TextStyle(font: ttf),
+  //                     ),
+  //                     pw.SizedBox(
+  //                       height: 10,
+  //                     ),
+  //                     pw.Directionality(
+  //                       textDirection: pw.TextDirection.rtl,
+  //                       child: pw.Row(
+  //                         mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
+  //                         children: [
+  //                           pw.Container(
+  //                             width: 150,
+  //                             height: 130,
+  //                             child: pw.Image(
+  //                               imag,
+  //                               alignment: pw.Alignment.center,
+  //                               //width:
+  //                               //    pw. MediaQuery.of(context).size.width,
+  //                               //height: MediaQuery.of(context).size.height,
+  //                               fit: pw.BoxFit.cover,
+  //                             ),
+  //                           ),
+  //                           pw.Column(
+  //                             crossAxisAlignment: pw.CrossAxisAlignment.end,
+  //                             mainAxisAlignment: pw.MainAxisAlignment.center,
+  //                             children: [
+  //                               pw.Row(
+  //                                   mainAxisAlignment: pw.MainAxisAlignment.end,
+  //                                   children: [
+  //                                     pw.Text(
+  //                                         sharedPref
+  //                                                 .getString("MobileNumber") ??
+  //                                             "",
+  //                                         style: pw.TextStyle(font: ttf)),
+  //                                     pw.Text("رقم الجوال : ",
+  //                                         style: pw.TextStyle(font: ttf)),
+  //                                   ]),
+  //                               pw.Container(
+  //                                 child: pw.Row(
+  //                                     mainAxisAlignment:
+  //                                         pw.MainAxisAlignment.end,
+  //                                     children: [
+  //                                       pw.Text(
+  //                                           sharedPref
+  //                                                   .getInt("Extension")
+  //                                                   .toString() ??
+  //                                               "",
+  //                                           style: pw.TextStyle(font: ttf)),
+  //                                       pw.Text("رقم التحويلة : ",
+  //                                           style: pw.TextStyle(font: ttf)),
+  //                                     ]),
+  //                               ),
+  //                               pw.Row(children: [
+  //                                 pw.Text(
+  //                                     sharedPref.getString("Email") ??
+  //                                         "" + "@eamana.gov.sa",
+  //                                     style: pw.TextStyle(font: ttf)),
+  //                                 pw.Text("البريد الالكتروني : ",
+  //                                     style: pw.TextStyle(font: ttf)),
+  //                               ]),
+  //                               pw.Row(children: [
+  //                                 pw.Text(EmployeeProfile.getEmployeeNumber(),
+  //                                     style: pw.TextStyle(font: ttf)),
+  //                                 pw.Text("الرقم الوظيفي : ",
+  //                                     style: pw.TextStyle(font: ttf)),
+  //                               ]),
+  //                             ],
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     )
+  //                   ],
+  //                 ),
+  //               ),
+  //             )
+  //                     // Center
+  //                     )));
+  //       }));
 
-                        await launchUrl(await Uri.parse(
-                            "https://crm.eamana.gov.sa/agenda/api/apple_wallet/pkpass_API/Eamana_Pkpass_byID.php?id=${EmployeeProfile.getEmployeeNumber() ?? ""}&token=${sharedPref.getString('AccessToken')}&lang=ar"));
-                      } catch (e) {}
-                    },
-                    child: Text("اللغة االعربية")),
-                TextButton(
-                    onPressed: () async {
-                      try {
-                        // EasyLoading.show(
-                        //   status:
-                        //       '... جاري المعالجة',
-                        //   maskType:
-                        //       EasyLoadingMaskType
-                        //           .black,
-                        // );
+  //   final bytes = await pdf.save();
 
-                        // Response response;
-                        // Dio dio = new Dio();
+  //   final dir = await getApplicationDocumentsDirectory();
+  //   final file = File(
+  //       '${dir.path}/${(sharedPref.getString("FirstName") ?? "") + " " + (sharedPref.getString("LastName") ?? "")}.pdf');
 
-                        // final appStorage =
-                        //     await getApplicationDocumentsDirectory();
-                        // var file = File(
-                        //     '${appStorage.path}/wallet.pkpass');
-                        // final raf = file.openSync(
-                        //   mode: FileMode.append,
-                        // );
+  //   await file.writeAsBytes(bytes);
+  //   final url = file.path;
 
-                        // response = await dio.post(
-                        //   "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar",
-                        //   options: Options(
-                        //       responseType:
-                        //           ResponseType
-                        //               .bytes,
-                        //       followRedirects:
-                        //           false,
-                        //       receiveTimeout: 0),
-                        // );
-                        // if (response.data !=
-                        //     null) {
-                        //   try {
-                        //     raf.writeFromSync(
-                        //         response.data);
-                        //     await raf.close();
-                        //     print("path = " +
-                        //         file.path);
-                        //   } catch (e) {
-                        //     print(e);
-                        //   }
-                        // } else {
-                        //   print("Data error");
-                        // }
-                        // // PassFile passFile =
-                        // //     await Pass()
-                        // //         .fetchPreviewFromUrl(
-                        // //             url: response
-                        // //                 .data);
-                        // // passFile.save();
-                        // EasyLoading.dismiss();
-                        // OpenFilex.open(file.path);
-                        logApiModel logapiO = logApiModel();
-                        logapiO.ControllerName = "DaleelController";
-                        logapiO.ClassName = "DaleelController";
-                        logapiO.ActionMethodName = "apple_wallet";
-                        logapiO.ActionMethodType = 1;
-                        logapiO.StatusCode = 1;
-                        logApi(logapiO);
-                        await launchUrl(await Uri.parse(
-                            "https://crm.eamana.gov.sa/agenda/api/apple_wallet/pkpass_API/Eamana_Pkpass_byID.php?id=${EmployeeProfile.getEmployeeNumber() ?? ""}&token=${sharedPref.getString('AccessToken')}&lang=en"));
-                      } catch (e) {
-                        print("error");
-                      }
-                    },
-                    child: Text("اللغة الانجليزية")),
-              ],
-            ),
-          );
-        },
-      );
-    } catch (e) {
-      return;
-    }
-  }
+  //   await OpenFilex.open(url);
+  // }
+
+  // addtoAplewalletasync() async {
+  //   try {
+  //     showModalBottomSheet<void>(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return Container(
+  //           padding: EdgeInsets.all(10),
+  //           height: 200,
+  //           child: Column(
+  //             children: [
+  //               Text(
+  //                 "اللغة المفضلة",
+  //                 style: subtitleTx(baseColor),
+  //               ),
+  //               SizedBox(
+  //                 height: 5,
+  //               ),
+  //               // widgetsUni.divider(),
+
+  //               widgetsUni.divider(),
+
+  //               TextButton(
+  //                   onPressed: () async {
+  //                     logApiModel logapiO = logApiModel();
+  //                     logapiO.ControllerName = "DaleelController";
+  //                     logapiO.ClassName = "DaleelController";
+  //                     logapiO.ActionMethodName = "apple_wallet";
+  //                     logapiO.ActionMethodType = 1;
+  //                     logapiO.StatusCode = 1;
+  //                     logApi(logapiO);
+  //                     try {
+  //                       // await launchUrl(
+  //                       //     await Uri.parse(
+  //                       //         "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_Pkpass2.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}"));
+
+  //                       await launchUrl(await Uri.parse(
+  //                           "https://crm.eamana.gov.sa/agenda/api/apple_wallet/pkpass_API/Eamana_Pkpass_byID.php?id=${EmployeeProfile.getEmployeeNumber() ?? ""}&token=${sharedPref.getString('AccessToken')}&lang=ar"));
+  //                     } catch (e) {}
+  //                   },
+  //                   child: Text("اللغة االعربية")),
+  //               TextButton(
+  //                   onPressed: () async {
+  //                     try {
+  //                       // EasyLoading.show(
+  //                       //   status:
+  //                       //       '... جاري المعالجة',
+  //                       //   maskType:
+  //                       //       EasyLoadingMaskType
+  //                       //           .black,
+  //                       // );
+
+  //                       // Response response;
+  //                       // Dio dio = new Dio();
+
+  //                       // final appStorage =
+  //                       //     await getApplicationDocumentsDirectory();
+  //                       // var file = File(
+  //                       //     '${appStorage.path}/wallet.pkpass');
+  //                       // final raf = file.openSync(
+  //                       //   mode: FileMode.append,
+  //                       // );
+
+  //                       // response = await dio.post(
+  //                       //   "https://crm.eamana.gov.sa/agenda_dev/api/apple_wallet/pkpass_API/Eamana_PkpassArOrEn.php?email=${_provider[0].Email}&token=${sharedPref.getString('AccessToken')}&lang=ar",
+  //                       //   options: Options(
+  //                       //       responseType:
+  //                       //           ResponseType
+  //                       //               .bytes,
+  //                       //       followRedirects:
+  //                       //           false,
+  //                       //       receiveTimeout: 0),
+  //                       // );
+  //                       // if (response.data !=
+  //                       //     null) {
+  //                       //   try {
+  //                       //     raf.writeFromSync(
+  //                       //         response.data);
+  //                       //     await raf.close();
+  //                       //     print("path = " +
+  //                       //         file.path);
+  //                       //   } catch (e) {
+  //                       //     print(e);
+  //                       //   }
+  //                       // } else {
+  //                       //   print("Data error");
+  //                       // }
+  //                       // // PassFile passFile =
+  //                       // //     await Pass()
+  //                       // //         .fetchPreviewFromUrl(
+  //                       // //             url: response
+  //                       // //                 .data);
+  //                       // // passFile.save();
+  //                       // EasyLoading.dismiss();
+  //                       // OpenFilex.open(file.path);
+  //                       logApiModel logapiO = logApiModel();
+  //                       logapiO.ControllerName = "DaleelController";
+  //                       logapiO.ClassName = "DaleelController";
+  //                       logapiO.ActionMethodName = "apple_wallet";
+  //                       logapiO.ActionMethodType = 1;
+  //                       logapiO.StatusCode = 1;
+  //                       logApi(logapiO);
+  //                       await launchUrl(await Uri.parse(
+  //                           "https://crm.eamana.gov.sa/agenda/api/apple_wallet/pkpass_API/Eamana_Pkpass_byID.php?id=${EmployeeProfile.getEmployeeNumber() ?? ""}&token=${sharedPref.getString('AccessToken')}&lang=en"));
+  //                     } catch (e) {
+  //                       print("error");
+  //                     }
+  //                   },
+  //                   child: Text("اللغة الانجليزية")),
+  //             ],
+  //           ),
+  //         );
+  //       },
+  //     );
+  //   } catch (e) {
+  //     return;
+  //   }
+  // }
+
 }

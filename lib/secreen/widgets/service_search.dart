@@ -1,4 +1,5 @@
 import 'package:eamanaapp/main.dart';
+import 'package:eamanaapp/secreen/services/ListViewServices.dart';
 import 'package:eamanaapp/utilities/ArryOfServices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,24 +45,19 @@ class CustomSearchDelegate extends SearchDelegateR {
   Widget buildResults(BuildContext context) {
     List<String> favs = sharedPref.getStringList("favs") ?? [];
     listOfServices obj = listOfServices(context);
-    dynamic Services = obj.customerService() +
-        obj.hrservices() +
-        obj.Salarservices() +
-        obj.attendanceService() +
-        obj.questService() +
-        obj.otherService();
-    for (int i = 0; i < favs.length; i++) {
-      for (int j = 0; j < Services.length; j++) {
-        if (favs[i] == Services[j]["service_name"]) {
-          var tmp = Services[j];
+    dynamic Services = obj.AllService();
+    // for (int i = 0; i < favs.length; i++) {
+    //   for (int j = 0; j < Services.length; j++) {
+    //     if (favs[i] == Services[j]["service_name"]) {
+    //       var tmp = Services[j];
 
-          Services.removeAt(j);
-          Services.insert(0, tmp);
-          // services2.removeAt(j + 1);
+    //       Services.removeAt(j);
+    //       Services.insert(0, tmp);
+    //       // services2.removeAt(j + 1);
 
-        }
-      }
-    }
+    //     }
+    //   }
+    // }
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return ListView.builder(
@@ -70,84 +66,84 @@ class CustomSearchDelegate extends SearchDelegateR {
               return Directionality(
                 textDirection: TextDirection.rtl,
                 child: ListTile(
-                    trailing: GestureDetector(
-                      onTap: () {
-                        List<String> favs =
-                            sharedPref.getStringList("favs") ?? [];
+                    // trailing: GestureDetector(
+                    //   onTap: () {
+                    //     List<String> favs =
+                    //         sharedPref.getStringList("favs") ?? [];
 
-                        // Find the ScaffoldMessenger in the widget tree
-                        // and use it to show a SnackBar.
+                    //     // Find the ScaffoldMessenger in the widget tree
+                    //     // and use it to show a SnackBar.
 
-                        if (!isFav(Services[index]["service_name"] as String)) {
-                          if (favs.length == 0) {
-                            // final snackBar = SnackBar(
-                            //   content: Text("تم إضافة الخدمة الى مفضلتي"),
-                            //   duration: Duration(seconds: 1),
-                            // );
-                            // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            Fluttertoast.showToast(
-                              msg: "تم إضافة الخدمة الى مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1, // duration
-                              backgroundColor: BackGColor,
-                              textColor: baseColorText,
-                            );
-                            favs.insert(
-                                0, Services[index]["service_name"] as String);
-                          } else {
-                            // final snackBar = SnackBar(
-                            //   content: Text("تم إضافة الخدمة الى مفضلتي"),
-                            //   width: 10,
-                            // );
-                            // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            // print(MediaQuery.of(context).viewInsets.bottom != 0);
-                            Fluttertoast.showToast(
-                              msg: "تم إضافة الخدمة الى مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1, // duration
-                              backgroundColor: BackGColor,
-                              textColor: baseColorText,
-                            );
-                            favs.insert(favs.length - 1,
-                                Services[index]["service_name"] as String);
-                          }
+                    //     if (!isFav(Services[index]["service_name"] as String)) {
+                    //       if (favs.length == 0) {
+                    //         // final snackBar = SnackBar(
+                    //         //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                    //         //   duration: Duration(seconds: 1),
+                    //         // );
+                    //         // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //         Fluttertoast.showToast(
+                    //           msg: "تم إضافة الخدمة الى مفضلتي", // message
+                    //           toastLength: Toast.LENGTH_SHORT, // length
+                    //           gravity: ToastGravity.CENTER, // location
+                    //           timeInSecForIosWeb: 1, // duration
+                    //           backgroundColor: BackGColor,
+                    //           textColor: baseColorText,
+                    //         );
+                    //         favs.insert(
+                    //             0, Services[index]["service_name"] as String);
+                    //       } else {
+                    //         // final snackBar = SnackBar(
+                    //         //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                    //         //   width: 10,
+                    //         // );
+                    //         // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //         // print(MediaQuery.of(context).viewInsets.bottom != 0);
+                    //         Fluttertoast.showToast(
+                    //           msg: "تم إضافة الخدمة الى مفضلتي", // message
+                    //           toastLength: Toast.LENGTH_SHORT, // length
+                    //           gravity: ToastGravity.CENTER, // location
+                    //           timeInSecForIosWeb: 1, // duration
+                    //           backgroundColor: BackGColor,
+                    //           textColor: baseColorText,
+                    //         );
+                    //         favs.insert(favs.length - 1,
+                    //             Services[index]["service_name"] as String);
+                    //       }
 
-                          sharedPref.setStringList("favs", favs);
-                        } else {
-                          for (int i = 0; i < favs.length; i++) {
-                            if (Services[index]["service_name"] == favs[i]) {
-                              favs.removeAt(i);
-                              sharedPref.setStringList("favs", favs);
-                            }
-                          }
-                          // final snackBar = SnackBar(
-                          //   content: Text("تم حذف الخدمة من مفضلتي"),
-                          // );
-                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          // print(MediaQuery.of(context).viewInsets.bottom);
-                          Fluttertoast.showToast(
-                            msg: "تم حذف الخدمة من مفضلتي", // message
-                            toastLength: Toast.LENGTH_SHORT, // length
-                            gravity: ToastGravity.CENTER, // location
-                            timeInSecForIosWeb: 1, // duration
-                            backgroundColor: BackGColor,
-                            textColor: baseColorText,
-                          );
-                        }
+                    //       sharedPref.setStringList("favs", favs);
+                    //     } else {
+                    //       for (int i = 0; i < favs.length; i++) {
+                    //         if (Services[index]["service_name"] == favs[i]) {
+                    //           favs.removeAt(i);
+                    //           sharedPref.setStringList("favs", favs);
+                    //         }
+                    //       }
+                    //       // final snackBar = SnackBar(
+                    //       //   content: Text("تم حذف الخدمة من مفضلتي"),
+                    //       // );
+                    //       // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //       // print(MediaQuery.of(context).viewInsets.bottom);
+                    //       Fluttertoast.showToast(
+                    //         msg: "تم حذف الخدمة من مفضلتي", // message
+                    //         toastLength: Toast.LENGTH_SHORT, // length
+                    //         gravity: ToastGravity.CENTER, // location
+                    //         timeInSecForIosWeb: 1, // duration
+                    //         backgroundColor: BackGColor,
+                    //         textColor: baseColorText,
+                    //       );
+                    //     }
 
-                        print("object");
-                        setState(() {});
-                        //    buildSuggestions(context);
-                      },
-                      child: Icon(
-                        Icons.star,
-                        color: isFav(Services[index]["service_name"].toString())
-                            ? secondryColor
-                            : Colors.grey,
-                      ),
-                    ),
+                    //     print("object");
+                    //     setState(() {});
+                    //     //    buildSuggestions(context);
+                    //   },
+                    //   child: Icon(
+                    //     Icons.ac_unit,
+                    //     color: isFav(Services[index]["service_name"].toString())
+                    //         ? secondryColor
+                    //         : Colors.grey,
+                    //   ),
+                    // ),
                     leading: SvgPicture.asset(
                       Services[index]["icon"],
                       width: responsiveMT(30, 35),
@@ -156,7 +152,22 @@ class CustomSearchDelegate extends SearchDelegateR {
                       Services[index]["service_name"],
                       style: descTx1(baseColorText),
                     ),
-                    onTap: Services[index]["Action"]),
+                    onTap: Services[index]["Action"] != null
+                        ? Services[index]["Action"]
+                        : () {
+                            // Navigator.pushNamed(this.context, "/SalaryHistory")
+                            //     .then((value) {
+                            //   //   close(this.context, null);
+                            // });
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ListViewServices(
+                                      Services[index]["List"],
+                                      Services[index]["service_name"])),
+                            ).then((value) {});
+                          }),
               );
             });
       },
@@ -167,25 +178,20 @@ class CustomSearchDelegate extends SearchDelegateR {
   Widget buildSuggestions(BuildContext context) {
     List<String> favs = sharedPref.getStringList("favs") ?? [];
     listOfServices obj = listOfServices(context);
-    dynamic Services = obj.customerService() +
-        obj.hrservices() +
-        obj.Salarservices() +
-        obj.attendanceService() +
-        obj.questService() +
-        obj.otherService();
+    dynamic Services = obj.AllService();
 
-    for (int i = 0; i < favs.length; i++) {
-      for (int j = 0; j < Services.length; j++) {
-        if (favs[i] == Services[j]["service_name"]) {
-          var tmp = Services[j];
+    // for (int i = 0; i < favs.length; i++) {
+    //   for (int j = 0; j < Services.length; j++) {
+    //     if (favs[i] == Services[j]["service_name"]) {
+    //       var tmp = Services[j];
 
-          Services.removeAt(j);
-          Services.insert(0, tmp);
-          // services2.removeAt(j + 1);
+    //       Services.removeAt(j);
+    //       Services.insert(0, tmp);
+    //       // services2.removeAt(j + 1);
 
-        }
-      }
-    }
+    //     }
+    //   }
+    // }
     final suggestions = query.isEmpty
         ? Services // replaced with rescntservices
         : Services.where((s) {
@@ -202,86 +208,86 @@ class CustomSearchDelegate extends SearchDelegateR {
               return Directionality(
                 textDirection: TextDirection.rtl,
                 child: ListTile(
-                    trailing: GestureDetector(
-                      onTap: () {
-                        List<String> favs =
-                            sharedPref.getStringList("favs") ?? [];
+                    // trailing: GestureDetector(
+                    //   onTap: () {
+                    //     List<String> favs =
+                    //         sharedPref.getStringList("favs") ?? [];
 
-                        // Find the ScaffoldMessenger in the widget tree
-                        // and use it to show a SnackBar.
+                    //     // Find the ScaffoldMessenger in the widget tree
+                    //     // and use it to show a SnackBar.
 
-                        if (!isFav(
-                            suggestions[index]["service_name"] as String)) {
-                          if (favs.length == 0) {
-                            // final snackBar = SnackBar(
-                            //   content: Text("تم إضافة الخدمة الى مفضلتي"),
-                            //   duration: Duration(seconds: 1),
-                            // );
-                            // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            Fluttertoast.showToast(
-                              msg: "تم إضافة الخدمة الى مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1, // duration
-                              backgroundColor: BackGColor,
-                              textColor: baseColorText,
-                            );
-                            favs.insert(0,
-                                suggestions[index]["service_name"] as String);
-                          } else {
-                            // final snackBar = SnackBar(
-                            //   content: Text("تم إضافة الخدمة الى مفضلتي"),
-                            //   width: 10,
-                            // );
-                            // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            // print(MediaQuery.of(context).viewInsets.bottom != 0);
-                            Fluttertoast.showToast(
-                              msg: "تم إضافة الخدمة الى مفضلتي", // message
-                              toastLength: Toast.LENGTH_SHORT, // length
-                              gravity: ToastGravity.CENTER, // location
-                              timeInSecForIosWeb: 1, // duration
-                              backgroundColor: BackGColor,
-                              textColor: baseColorText,
-                            );
-                            favs.insert(favs.length - 1,
-                                suggestions[index]["service_name"] as String);
-                          }
+                    //     if (!isFav(
+                    //         suggestions[index]["service_name"] as String)) {
+                    //       if (favs.length == 0) {
+                    //         // final snackBar = SnackBar(
+                    //         //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                    //         //   duration: Duration(seconds: 1),
+                    //         // );
+                    //         // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //         Fluttertoast.showToast(
+                    //           msg: "تم إضافة الخدمة الى مفضلتي", // message
+                    //           toastLength: Toast.LENGTH_SHORT, // length
+                    //           gravity: ToastGravity.CENTER, // location
+                    //           timeInSecForIosWeb: 1, // duration
+                    //           backgroundColor: BackGColor,
+                    //           textColor: baseColorText,
+                    //         );
+                    //         favs.insert(0,
+                    //             suggestions[index]["service_name"] as String);
+                    //       } else {
+                    //         // final snackBar = SnackBar(
+                    //         //   content: Text("تم إضافة الخدمة الى مفضلتي"),
+                    //         //   width: 10,
+                    //         // );
+                    //         // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //         // print(MediaQuery.of(context).viewInsets.bottom != 0);
+                    //         Fluttertoast.showToast(
+                    //           msg: "تم إضافة الخدمة الى مفضلتي", // message
+                    //           toastLength: Toast.LENGTH_SHORT, // length
+                    //           gravity: ToastGravity.CENTER, // location
+                    //           timeInSecForIosWeb: 1, // duration
+                    //           backgroundColor: BackGColor,
+                    //           textColor: baseColorText,
+                    //         );
+                    //         favs.insert(favs.length - 1,
+                    //             suggestions[index]["service_name"] as String);
+                    //       }
 
-                          sharedPref.setStringList("favs", favs);
-                        } else {
-                          for (int i = 0; i < favs.length; i++) {
-                            if (suggestions[index]["service_name"] == favs[i]) {
-                              favs.removeAt(i);
-                              sharedPref.setStringList("favs", favs);
-                            }
-                          }
-                          // final snackBar = SnackBar(
-                          //   content: Text("تم حذف الخدمة من مفضلتي"),
-                          // );
-                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          // print(MediaQuery.of(context).viewInsets.bottom);
-                          Fluttertoast.showToast(
-                            msg: "تم حذف الخدمة من مفضلتي", // message
-                            toastLength: Toast.LENGTH_SHORT, // length
-                            gravity: ToastGravity.CENTER, // location
-                            timeInSecForIosWeb: 1, // duration
-                            backgroundColor: BackGColor,
-                            textColor: baseColorText,
-                          );
-                        }
+                    //       sharedPref.setStringList("favs", favs);
+                    //     } else {
+                    //       for (int i = 0; i < favs.length; i++) {
+                    //         if (suggestions[index]["service_name"] == favs[i]) {
+                    //           favs.removeAt(i);
+                    //           sharedPref.setStringList("favs", favs);
+                    //         }
+                    //       }
+                    //       // final snackBar = SnackBar(
+                    //       //   content: Text("تم حذف الخدمة من مفضلتي"),
+                    //       // );
+                    //       // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //       // print(MediaQuery.of(context).viewInsets.bottom);
+                    //       Fluttertoast.showToast(
+                    //         msg: "تم حذف الخدمة من مفضلتي", // message
+                    //         toastLength: Toast.LENGTH_SHORT, // length
+                    //         gravity: ToastGravity.CENTER, // location
+                    //         timeInSecForIosWeb: 1, // duration
+                    //         backgroundColor: BackGColor,
+                    //         textColor: baseColorText,
+                    //       );
+                    //     }
 
-                        print("object");
-                        setState(() {});
-                        //    buildSuggestions(context);
-                      },
-                      child: Icon(
-                        Icons.star,
-                        color:
-                            isFav(suggestions[index]["service_name"].toString())
-                                ? secondryColor
-                                : Colors.grey,
-                      ),
-                    ),
+                    //     print("object");
+                    //     setState(() {});
+                    //     //    buildSuggestions(context);
+                    //   },
+                    //   child: Icon(
+                    //     Icons.ac_unit,
+                    //     color:
+                    //         isFav(suggestions[index]["service_name"].toString())
+                    //             ? secondryColor
+                    //             : Colors.grey,
+                    //   ),
+                    // ),
                     leading: SvgPicture.asset(
                       suggestions[index]["icon"],
                       width: responsiveMT(30, 35),
@@ -290,7 +296,22 @@ class CustomSearchDelegate extends SearchDelegateR {
                       suggestions[index]["service_name"],
                       style: descTx1(baseColorText),
                     ),
-                    onTap: Services[index]["Action"]
+                    onTap: suggestions[index]["Action"] != null
+                        ? suggestions[index]["Action"]
+                        : () {
+                            // Navigator.pushNamed(this.context, "/SalaryHistory")
+                            //     .then((value) {
+                            //   //   close(this.context, null);
+                            // });
+                            close(this.context, null);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ListViewServices(
+                                      suggestions[index]["List"],
+                                      suggestions[index]["service_name"])),
+                            ).then((value) {});
+                          }
                     // if (fav == false) {
                     //   bool fingerprint = sharedPref.getBool('fingerprint')!;
 

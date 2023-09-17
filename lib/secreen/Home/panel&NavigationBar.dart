@@ -351,7 +351,7 @@ class _HomPanelState extends State<HomePanel>
       ServicesView(),
       //page 4
 
-      EamanaDiscount(true),
+      EamanaDiscount(true, false),
 
       //home page
       MainHome(() {
@@ -405,7 +405,7 @@ class _HomPanelState extends State<HomePanel>
         child: Scaffold(
           // resizeToAvoidBottomInset: false,
           backgroundColor: BackGColor,
-          body: packageInfo.version != localVersion && forceUpdate == true
+          body: packageInfo.version != localVersion && false
               ? Directionality(
                   textDirection: TextDirection.rtl,
                   child: AlertDialog(

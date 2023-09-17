@@ -97,8 +97,11 @@ dependencies:
   firebase_performance: ^0.8.0+6
   firebase_analytics: ^9.1.1
   pin_code_fields: ^7.4.0
+  expandable: ^5.0.1
+  month_picker_dialog: ^0.4.0
 
-
+ 
+ 
 
 
 
@@ -127,7 +130,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/SVGs/appstore.png"
+  image_path: "assets/SVGs/appstore.jpeg"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -141,9 +144,13 @@ flutter_icons:
 # The following section is specific to Flutter.
 flutter:
   fonts:
-    - family: Cairo
+    - family: TheSansArabic
       fonts:
-        - asset: assets/Cairo-Regular.ttf
+        - asset: assets/alfont_com_AlFont_com_TheSansArabic-Light.otf
+     
+    - family: TheSansArabic2
+      fonts:
+        - asset: assets/TheSansExtraBold-ExtraBold.ttf      
           
 
 

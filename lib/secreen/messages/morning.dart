@@ -12,6 +12,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
 
 class morning extends StatefulWidget {
   @override
@@ -65,42 +66,46 @@ class _morningState extends State<morning> {
         appBar: AppBarW.appBarW(args["url"]["title"].toString(), context, null),
         body: Stack(
           children: [
-            widgetsUni.bacgroundimage(),
+            // widgetsUni.bacgroundimage(),
             Container(
               margin: EdgeInsets.all(10),
-              child: Card(
-                color: BackGWhiteColor,
-                child: Container(
-                  margin: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      bytes == null
-                          ? Container()
-                          : Image.memory(bytes as Uint8List),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: SelectableLinkify(
-                          onOpen: (link) async {
-                            try {
-                              if (!await launch(link.url)) {
-                                throw 'Could not launch ';
-                              }
-                            } catch (e) {}
-                          },
-                          text: args["url"]["body"].toString(),
-                          style: titleTx(secondryColor),
-                          linkStyle: titleTx(baseColor),
-                        ),
-                      ),
-                    ],
-                  ),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      args["url"]["title"].toString(),
+                      style: fontsStyle.px16(
+                          fontsStyle.thirdColor(), FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    SelectableLinkify(
+                      onOpen: (link) async {
+                        try {
+                          if (!await launch(link.url)) {
+                            throw 'Could not launch ';
+                          }
+                        } catch (e) {}
+                      },
+                      text: args["url"]["body"].toString(),
+                      style: fontsStyle.px14(
+                          fontsStyle.thirdColor(), FontWeight.bold),
+                      linkStyle: titleTx(baseColor),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    bytes == null
+                        ? Container()
+                        : Center(child: Image.memory(bytes as Uint8List)),
+                  ],
                 ),
               ),
             )

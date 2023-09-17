@@ -1,26 +1,20 @@
-import 'dart:convert';
-
 import 'package:eamanaapp/main.dart';
-import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
-import 'package:eamanaapp/secreen/EmpInfo/Empprofile.dart';
+import 'package:eamanaapp/secreen/changePassword/changePaswword.dart';
 import 'package:eamanaapp/secreen/widgets/alerts.dart';
-import 'package:eamanaapp/secreen/widgets/appBarHome.dart';
 import 'package:eamanaapp/settings_utilities/firebase_Notification.dart';
 import 'package:eamanaapp/settings_utilities/setSettings.dart';
-import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
+import 'package:eamanaapp/utilities/styles/CSS/CSS.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:notification_permissions/notification_permissions.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
 
 class Settings extends StatefulWidget {
   final Function? update;
@@ -37,10 +31,6 @@ bool test_offers = true;
 
 class _SettingsState extends State<Settings> {
   //
-  TextEditingController currentpassword = TextEditingController();
-  TextEditingController newpassword = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-
   void getSettings() {
     //final settingSP = await SharedPreferences.getInstance();
     fingerprint = sharedPref.getBool("fingerprint") ?? false;
@@ -112,74 +102,137 @@ class _SettingsState extends State<Settings> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           // backgroundColor: BackGColor,
-          appBar: AppBarHome.appBarW("الاعدادات", context),
-          body: Stack(
-            children: [
-              widgetsUni.bacgroundimage(),
-              SingleChildScrollView(
-                child: Container(
-                  //color: Colors.amber,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "إعدادات الحساب",
-                        style: titleTx(baseColor),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          height: 200,
-                          //margin: EdgeInsets.all(20),
-                          decoration: containerdecoration(BackGWhiteColor),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // InkWell(
-                                //   onTap: () {},
-                                //   child: Text("تغيير كلمة المرور",
-                                //       style: descTx1(baseColorText)),
-                                // ),
-                                Row(
-                                  children: [
-                                    Text("الدخول عبر السمات الحيوية",
-                                        style: descTx1(baseColorText)),
-                                    Spacer(),
-                                    Switch(
-                                        activeColor: baseColor,
-                                        value: fingerprint,
-                                        onChanged: (bool newValue) async {
-                                          // EasyLoading.show(
-                                          //   status: '... جاري المعالجة',
-                                          //   maskType: EasyLoadingMaskType.black,
-                                          // );
+          // appBar: AppBarHome.appBarW("الاعدادات", context),
+          body: SingleChildScrollView(
+            child: Container(
+              height: 100.h,
+              child: Stack(
+                //   alignment: AlignmentDirectional.topCenter,
+                overflow: Overflow.visible,
+                children: [
+                  Container(
+                    height: 300,
+                    width: 100.w,
+                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.fromLTRB(108, 64, 24, 0),
+                    decoration: BoxDecoration(
+                      color: fontsStyle.HeaderColor(),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
+                            )),
+                        Text(
+                          "الإعدادات",
+                          style: fontsStyle.px20(Colors.white, FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 140,
+                    // right: 5,
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xff000000).withOpacity(0.17),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(
+                                      0, 0), // changes position of shadow
+                                ),
+                              ],
+                              color: BackGWhiteColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(17.2),
+                              )),
+                          width: 90.w,
+                          // height: 220,
+                          // color: Colors.amber,
+                          margin: EdgeInsets.symmetric(horizontal: 18),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                          child: Column(
+                            children: [
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // InkWell(
+                                  //   onTap: () {},
+                                  //   child: Text("تغيير كلمة المرور",
+                                  //       style: descTx1(baseColorText)),
+                                  // ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "إعدادات الحساب",
+                                    style: titleTx(baseColor),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("الدخول عبر السمات الحيوية",
+                                          style: descTx1(baseColorText)),
+                                      Spacer(),
+                                      CupertinoSwitch(
+                                          // activeColor: baseColor,
+                                          value: fingerprint,
+                                          onChanged: (bool newValue) async {
+                                            // EasyLoading.show(
+                                            //   status: '... جاري المعالجة',
+                                            //   maskType: EasyLoadingMaskType.black,
+                                            // );
 
-                                          if (fingerprint == false) {
-                                            await _checkBiometrics();
+                                            if (fingerprint == false) {
+                                              await _checkBiometrics();
 
-                                            if (_canCheckBiometrics == true) {
-                                              await _authenticate();
+                                              if (_canCheckBiometrics == true) {
+                                                await _authenticate();
+                                              } else {
+                                                setState(() {
+                                                  _authenticated = false;
+                                                });
+                                                Alerts.warningAlert(
+                                                        context,
+                                                        "تنبيه",
+                                                        "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
+                                                    .show();
+                                              }
+
+                                              if (_authenticated == true) {
+                                                // final fingerprintSP =
+                                                //     await SharedPreferences
+                                                //         .getInstance();
+                                                sharedPref.setBool(
+                                                    "fingerprint", newValue);
+                                                setState(() {
+                                                  fingerprint = sharedPref
+                                                      .getBool('fingerprint')!;
+                                                });
+                                                print("fingerprint = " +
+                                                    fingerprint.toString());
+                                              } else {
+                                                //if canceleds
+                                              }
                                             } else {
-                                              setState(() {
-                                                _authenticated = false;
-                                              });
-                                              Alerts.warningAlert(
-                                                      context,
-                                                      "تنبيه",
-                                                      "لا يمكن تفعيل البصمة, لعدم توفره بالجهاز")
-                                                  .show();
-                                            }
-
-                                            if (_authenticated == true) {
                                               // final fingerprintSP =
                                               //     await SharedPreferences
                                               //         .getInstance();
@@ -191,752 +244,349 @@ class _SettingsState extends State<Settings> {
                                               });
                                               print("fingerprint = " +
                                                   fingerprint.toString());
-                                            } else {
-                                              //if canceleds
                                             }
-                                          } else {
-                                            // final fingerprintSP =
-                                            //     await SharedPreferences
-                                            //         .getInstance();
-                                            sharedPref.setBool(
-                                                "fingerprint", newValue);
-                                            setState(() {
-                                              fingerprint = sharedPref
-                                                  .getBool('fingerprint')!;
-                                            });
-                                            print("fingerprint = " +
-                                                fingerprint.toString());
+                                            // EasyLoading.dismiss();
                                           }
-                                          // EasyLoading.dismiss();
-                                        }
 
-                                        //   final fingerprintSP =
-                                        //       await SharedPreferences.getInstance();
-                                        //   fingerprintSP.setBool(
-                                        //       "fingerprint", newValue);
-                                        //   setState(() {
-                                        //     fingerprint =
-                                        //         fingerprintSP.getBool('fingerprint')!;
-                                        //   });
-                                        //   print("fingerprint = " +
-                                        //       fingerprint.toString());
-                                        // },
-                                        ),
-                                  ],
-                                ),
-                                Divider(
-                                  color: bordercolor,
-                                ),
-                                Center(
-                                  child: Container(
-                                    height: 50,
-                                    // width: 150,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        side: BorderSide(
-                                          width: 0.5,
-                                          color: bordercolor,
-                                        ),
-                                        elevation: 0,
-                                        primary: baseColor,
-                                      ),
-                                      onPressed: () async {
-                                        showModalBottomSheet<void>(
-                                          isScrollControlled: true,
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Padding(
-                                              padding: EdgeInsets.only(
-                                                  bottom: MediaQuery.of(context)
-                                                      .viewInsets
-                                                      .bottom),
-                                              child: SingleChildScrollView(
-                                                child: Container(
-                                                  height: 350,
-                                                  child: Center(
-                                                    child: Directionality(
-                                                      textDirection:
-                                                          TextDirection.rtl,
-                                                      child: Container(
-                                                        margin: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 20,
-                                                                vertical: 50),
-                                                        child: Form(
-                                                          key: _formKey,
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: <Widget>[
-                                                              TextFormField(
-                                                                controller:
-                                                                    currentpassword,
-                                                                decoration:
-                                                                    formlabel1(
-                                                                        "كلمة المرور الحالية"),
-                                                                validator:
-                                                                    (value) {
-                                                                  if (value!
-                                                                      .isEmpty) {
-                                                                    return "يجب إدخال كلمة المرور الحالية";
-                                                                  }
-                                                                },
-                                                              ),
-                                                              SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              TextFormField(
-                                                                controller:
-                                                                    newpassword,
-                                                                decoration:
-                                                                    formlabel1(
-                                                                        "كلمة المرور الجديدة"),
-                                                                validator:
-                                                                    (value) {
-                                                                  if (value!
-                                                                      .isEmpty) {
-                                                                    return "يجب إدخال كلمة المرور الجديدة";
-                                                                  }
-                                                                },
-                                                              ),
-                                                              SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              Container(
-                                                                width: 120,
-                                                                child: widgetsUni
-                                                                    .actionbutton(
-                                                                        "إرسال",
-                                                                        Icons
-                                                                            .send,
-                                                                        () async {
-                                                                  if (!_formKey
-                                                                      .currentState!
-                                                                      .validate()) {
-                                                                    return;
-                                                                  }
-                                                                  Alerts.confirmAlrt(
-                                                                          context,
-                                                                          "",
-                                                                          "هل أنت متأكد",
-                                                                          "نعم")
-                                                                      .show()
-                                                                      .then(
-                                                                          (value) async {
-                                                                    if (value ==
-                                                                        true) {
-                                                                      EasyLoading
-                                                                          .show(
-                                                                        status:
-                                                                            '... جاري المعالجة',
-                                                                        maskType:
-                                                                            EasyLoadingMaskType.black,
-                                                                      );
-                                                                      dynamic
-                                                                          response =
-                                                                          await postAction(
-                                                                              "HR/UserChangePassword",
-                                                                              jsonEncode({
-                                                                                "UserName": sharedPref.getString("Email"),
-                                                                                "CurrentPassword": currentpassword.text,
-                                                                                "NewPassword": newpassword.text,
-                                                                                "EmployeeNumber": EmployeeProfile.getEmployeeNumber()
-                                                                              }));
-
-                                                                      if (jsonDecode(
-                                                                              response.body)["StatusCode"] ==
-                                                                          400) {
-                                                                        Alerts.errorAlert(
-                                                                                context,
-                                                                                "",
-                                                                                "تم تغير كلمة المرور")
-                                                                            .show()
-                                                                            .then((value) {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        });
-                                                                      } else {
-                                                                        Alerts.errorAlert(
-                                                                                context,
-                                                                                "خطأ",
-                                                                                jsonDecode(response.body)["ErrorMessage"])
-                                                                            .show()
-                                                                            .then((value) {});
-                                                                      }
-
-                                                                      EasyLoading
-                                                                          .dismiss();
-                                                                    }
-                                                                  });
-                                                                }),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          // Icon(,
-                                          //     color: Colors.white, size: 18),
-                                          SizedBox(
-                                            width: 20,
+                                          //   final fingerprintSP =
+                                          //       await SharedPreferences.getInstance();
+                                          //   fingerprintSP.setBool(
+                                          //       "fingerprint", newValue);
+                                          //   setState(() {
+                                          //     fingerprint =
+                                          //         fingerprintSP.getBool('fingerprint')!;
+                                          //   });
+                                          //   print("fingerprint = " +
+                                          //       fingerprint.toString());
+                                          // },
                                           ),
-                                          Text(
-                                            "تغير كلمة المرور",
-                                            style: descTx1(Colors.white),
-                                            maxLines: 2,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    // widgetsUni.actionbutton(
-                                    //   "تسجيل خروج",
-                                    //   Icons.logout,
-                                    //   () async {
-                                    //     Alerts.confirmAlrt(context, "تسجيل خروج",
-                                    //             "هل تريد الخروج من التطبيق", "نعم")
-                                    //         .show()
-                                    //         .then((value) async {
-                                    //       if (value == true) {
-                                    //         SharedPreferences _pref =
-                                    //             await SharedPreferences.getInstance();
-                                    //         _pref.setString("EmployeeNumber", "");
-
-                                    //         Navigator.pushReplacementNamed(
-                                    //             context, '/loginView');
-                                    //       }
-                                    //     });
-                                    //   },
-                                    // ),
-                                  ),
-                                ),
-                                Divider(
-                                  color: bordercolor,
-                                ),
-                                Center(
-                                  child: Container(
-                                    height: 50,
-                                    // width: 150,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        side: BorderSide(
-                                          width: 0.5,
-                                          color: bordercolor,
-                                        ),
-                                        elevation: 0,
-                                        primary: baseColor,
-                                      ),
-                                      onPressed: () async {
-                                        Alerts.confirmAlrt(
-                                                context,
-                                                "تسجيل خروج",
-                                                "هل تريد الخروج من التطبيق",
-                                                "نعم")
-                                            .show()
-                                            .then((value) async {
-                                          if (value == true) {
-                                            // FirebaseMessaging.instance
-                                            //     .deleteToken();
-
-                                            sharedPref.setDouble(
-                                                "EmployeeNumber", 0);
-                                            sharedPref.setString(
-                                                "hasePerm", "");
-                                            sharedPref.setBool(
-                                                "permissionforCRM", false);
-
-                                            hasePerm = "";
-                                            //_pref.clear();
-                                            //setSettings();
-
-                                            Navigator.pushReplacementNamed(
-                                                context, '/loginView');
-                                          }
-                                        });
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.logout,
-                                              color: Colors.white, size: 18),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text(
-                                            "تسجيل خروج",
-                                            style: descTx1(Colors.white),
-                                            maxLines: 2,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    // widgetsUni.actionbutton(
-                                    //   "تسجيل خروج",
-                                    //   Icons.logout,
-                                    //   () async {
-                                    //     Alerts.confirmAlrt(context, "تسجيل خروج",
-                                    //             "هل تريد الخروج من التطبيق", "نعم")
-                                    //         .show()
-                                    //         .then((value) async {
-                                    //       if (value == true) {
-                                    //         SharedPreferences _pref =
-                                    //             await SharedPreferences.getInstance();
-                                    //         _pref.setString("EmployeeNumber", "");
-
-                                    //         Navigator.pushReplacementNamed(
-                                    //             context, '/loginView');
-                                    //       }
-                                    //     });
-                                    //   },
-                                    // ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "إعدادات الالوان",
-                        style: titleTx(baseColor),
-                        textAlign: TextAlign.right,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          //margin: EdgeInsets.all(20),
-                          decoration: containerdecoration(BackGWhiteColor),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text("عمى الألوان",
-                                        style: descTx1(baseColorText)),
-                                    Spacer(),
-                                    Switch(
-                                      activeColor: baseColor,
-                                      value: blindness,
-                                      onChanged: (bool newValue) {
-                                        // final blindnessSP =
-                                        //     await SharedPreferences
-                                        //         .getInstance();
-                                        sharedPref.setBool(
-                                            "blindness", newValue);
-                                        setState(() {
-                                          blindness =
-                                              sharedPref.getBool('blindness')!;
-                                        });
-                                        print("blindness = " +
-                                            blindness.toString());
-                                        getColorSettings();
-                                        widget.update!();
-                                        configLoading();
-                                        SystemChrome.setSystemUIOverlayStyle(
-                                            SystemUiOverlayStyle(
-                                          statusBarColor: baseColor,
-                                        ));
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                Divider(
-                                  color: bordercolor,
-                                ),
-                                Row(
-                                  children: [
-                                    Text("النظام الليلي",
-                                        style: descTx1(baseColorText)),
-                                    Spacer(),
-                                    Switch(
-                                      activeColor: baseColor,
-                                      value: darkmode,
-                                      onChanged: (bool newValue) async {
-                                        // final darkmodeSP =
-                                        //     await SharedPreferences
-                                        //         .getInstance();
-                                        sharedPref.setBool(
-                                            "darkmode", newValue);
-                                        setState(() {
-                                          darkmode =
-                                              sharedPref.getBool('darkmode')!;
-                                        });
-                                        print("darkmode = " +
-                                            darkmode.toString());
-                                        getColorSettings();
-
-                                        widget.update!();
-                                        configLoading();
-                                        SystemChrome.setSystemUIOverlayStyle(
-                                            SystemUiOverlayStyle(
-                                          statusBarColor: baseColor,
-                                        ));
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "إعدادات الاشعارات",
-                        style: titleTx(baseColor),
-                        textAlign: TextAlign.right,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            //margin: EdgeInsets.all(20),
-                            decoration: containerdecoration(BackGWhiteColor),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text("إشعارات التحديثات",
-                                          style: descTx1(baseColorText)),
-                                      Spacer(),
-                                      Switch(
-                                        activeColor: baseColor,
-                                        value: updatenotification,
-                                        onChanged: (bool newValue) async {
-                                          sharedPref.setBool(
-                                              "updatenotification", newValue);
-                                          setState(() {
-                                            updatenotification = sharedPref
-                                                .getBool('updatenotification')!;
-                                          });
-                                          print("updatenotification = " +
-                                              updatenotification.toString());
-
-                                          if (sharedPref.getBool(
-                                                  "updatenotification") ==
-                                              false) {
-                                            await FirebaseMessaging.instance
-                                                .unsubscribeFromTopic(
-                                                    raqameUpdate);
-                                          } else {
-                                            await FirebaseMessaging.instance
-                                                .subscribeToTopic(raqameUpdate);
-                                          }
-
-                                          widget.update!();
-                                        },
-                                      ),
                                     ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    width: 90.w,
+                                    child: Center(
+                                      child: CSS.customElevatedButton(
+                                        "تغيير كلمة المرور",
+                                        100.w,
+                                        () {
+                                          Get.to(changePassword());
+                                        },
+                                        Colors.white,
+                                        secondryColor,
+                                        secondryColor,
+                                      ),
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                    height: 20,
                                   ),
                                   Divider(
                                     color: bordercolor,
                                   ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    "إعدادات الالوان",
+                                    style: titleTx(baseColor),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   Row(
                                     children: [
-                                      Text("إشعارات العروض",
+                                      Text("عمى الألوان",
                                           style: descTx1(baseColorText)),
                                       Spacer(),
-                                      Switch(
-                                        activeColor: baseColor,
-                                        value: test_offers,
-                                        onChanged: (bool newValue) async {
+                                      CupertinoSwitch(
+                                        // activeColor: baseColor,
+
+                                        value: blindness,
+                                        onChanged: (bool newValue) {
+                                          // final blindnessSP =
+                                          //     await SharedPreferences
+                                          //         .getInstance();
                                           sharedPref.setBool(
-                                              "offers", newValue);
+                                              "blindness", newValue);
                                           setState(() {
-                                            test_offers =
-                                                sharedPref.getBool('offers')!;
+                                            blindness = sharedPref
+                                                .getBool('blindness')!;
                                           });
-                                          print("offers = " +
-                                              test_offers.toString());
-
-                                          if (sharedPref.getBool("offers") ==
-                                              false) {
-                                            // await FirebaseMessaging.instance
-                                            //     .unsubscribeFromTopic(
-                                            //         'raqameUpdate');
-                                            await FirebaseMessaging.instance
-                                                .unsubscribeFromTopic(offers);
-                                          } else {
-                                            // await FirebaseMessaging.instance
-                                            //     .subscribeToTopic('raqameUpdate');
-                                            await FirebaseMessaging.instance
-                                                .subscribeToTopic(offers);
-                                          }
-
+                                          print("blindness = " +
+                                              blindness.toString());
+                                          getColorSettings();
                                           widget.update!();
+                                          configLoading();
+                                          SystemChrome.setSystemUIOverlayStyle(
+                                              SystemUiOverlayStyle(
+                                            statusBarColor: baseColor,
+                                          ));
                                         },
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          if (permissionStatusFuture != "granted")
-                            Container(
-                              decoration: containerdecoration(
-                                  redColor.withOpacity(0.6)),
-                              height: 130,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      side: BorderSide(
-                                        width: 0.5,
-                                        color: bordercolor,
-                                      ),
-                                      elevation: 0,
-                                      primary: baseColor,
-                                    ),
-                                    onPressed: () async {
-                                      NotificationPermissions
-                                          .requestNotificationPermissions(
-                                              iosSettings:
-                                                  const NotificationSettingsIos(
-                                                      sound: true,
-                                                      badge: true,
-                                                      alert: true));
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.notifications_active,
-                                            color: Colors.white, size: 18),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(
-                                          'تفعيل الاشعارات من الاعدادات النظام',
-                                          style: descTx1(Colors.white),
-                                          maxLines: 2,
-                                        )
-                                      ],
-                                    ),
+
+                                  Row(
+                                    children: [
+                                      // Text("النظام الليلي",
+                                      //     style: descTx1(baseColorText)),
+                                      // Spacer(),
+                                      // CupertinoSwitch(
+                                      //   // activeColor: baseColor,
+                                      //   value: darkmode,
+                                      //   onChanged: (bool newValue) async {
+                                      //     // final darkmodeSP =
+                                      //     //     await SharedPreferences
+                                      //     //         .getInstance();
+                                      //     sharedPref.setBool(
+                                      //         "darkmode", newValue);
+                                      //     setState(() {
+                                      //       darkmode =
+                                      //           sharedPref.getBool('darkmode')!;
+                                      //     });
+                                      //     print("darkmode = " +
+                                      //         darkmode.toString());
+                                      //     getColorSettings();
+
+                                      //     widget.update!();
+                                      //     configLoading();
+                                      //     SystemChrome.setSystemUIOverlayStyle(
+                                      //         SystemUiOverlayStyle(
+                                      //       statusBarColor: baseColor,
+                                      //     ));
+                                      //   },
+                                      // ),
+                                    ],
                                   ),
-                                  // widgetsUni.actionbutton(
-                                  //     'تفعيل الاشعارات من الاعدادات النظام',
-                                  //     Icons.notifications_active, () async {
-                                  //   NotificationPermissions
-                                  //       .requestNotificationPermissions(
-                                  //           iosSettings:
-                                  //               const NotificationSettingsIos(
-                                  //                   sound: true,
-                                  //                   badge: true,
-                                  //                   alert: true));
-                                  // }),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Divider(
+                                    color: bordercolor,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+
+                                  Stack(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "إعدادات الاشعارات",
+                                            style: titleTx(baseColor),
+                                            textAlign: TextAlign.right,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text("إشعارات التحديثات",
+                                                  style:
+                                                      descTx1(baseColorText)),
+                                              Spacer(),
+                                              CupertinoSwitch(
+                                                // activeColor: baseColor,
+                                                value: updatenotification,
+
+                                                onChanged:
+                                                    (bool newValue) async {
+                                                  sharedPref.setBool(
+                                                      "updatenotification",
+                                                      newValue);
+                                                  setState(() {
+                                                    updatenotification =
+                                                        sharedPref.getBool(
+                                                            'updatenotification')!;
+                                                  });
+                                                  print(
+                                                      "updatenotification = " +
+                                                          updatenotification
+                                                              .toString());
+
+                                                  if (sharedPref.getBool(
+                                                          "updatenotification") ==
+                                                      false) {
+                                                    await FirebaseMessaging
+                                                        .instance
+                                                        .unsubscribeFromTopic(
+                                                            raqameUpdate);
+                                                  } else {
+                                                    await FirebaseMessaging
+                                                        .instance
+                                                        .subscribeToTopic(
+                                                            raqameUpdate);
+                                                  }
+
+                                                  widget.update!();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text("إشعارات العروض",
+                                                  style:
+                                                      descTx1(baseColorText)),
+                                              Spacer(),
+                                              CupertinoSwitch(
+                                                // activeColor: baseColor,
+                                                value: test_offers,
+                                                onChanged:
+                                                    (bool newValue) async {
+                                                  sharedPref.setBool(
+                                                      "offers", newValue);
+                                                  setState(() {
+                                                    test_offers = sharedPref
+                                                        .getBool('offers')!;
+                                                  });
+                                                  print("offers = " +
+                                                      test_offers.toString());
+
+                                                  if (sharedPref
+                                                          .getBool("offers") ==
+                                                      false) {
+                                                    // await FirebaseMessaging.instance
+                                                    //     .unsubscribeFromTopic(
+                                                    //         'raqameUpdate');
+                                                    await FirebaseMessaging
+                                                        .instance
+                                                        .unsubscribeFromTopic(
+                                                            offers);
+                                                  } else {
+                                                    // await FirebaseMessaging.instance
+                                                    //     .subscribeToTopic('raqameUpdate');
+                                                    await FirebaseMessaging
+                                                        .instance
+                                                        .subscribeToTopic(
+                                                            offers);
+                                                  }
+
+                                                  widget.update!();
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ], //notification
+                                      ),
+                                      if (permissionStatusFuture != "granted")
+                                        Container(
+                                          decoration: containerdecoration(
+                                              redColor.withOpacity(0.6)),
+                                          height: 130,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              CSS.baseElevatedButton(
+                                                'تفعيل الاشعارات من الاعدادات النظام',
+                                                250,
+                                                () async {
+                                                  NotificationPermissions
+                                                      .requestNotificationPermissions(
+                                                          iosSettings:
+                                                              const NotificationSettingsIos(
+                                                                  sound: true,
+                                                                  badge: true,
+                                                                  alert: true));
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Divider(
+                                    color: bordercolor,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "تواصل معنا",
+                                    style: titleTx(baseColor),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    child: Text(
+                                      "للبلاغات 940",
+                                      style: descTx1(baseColorText),
+                                    ),
+                                    onTap: () {
+                                      launch("tel://940");
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    child: Text(
+                                      "للمساعدة : help@eamana.gov.sa",
+                                      style: descTx1(baseColorText),
+                                    ),
+                                    onTap: () {
+                                      launch("mailto:help@eamana.gov.sa");
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    child: Text("الدعم الفني : 8046333 - 013",
+                                        style: descTx1(baseColorText)),
+                                    onTap: () {
+                                      launch("tel://0138046333");
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    child: Text(
+                                        "العلاقات العامة : 8046000 - 013",
+                                        style: descTx1(baseColorText)),
+                                    onTap: () {
+                                      launch("tel://0138046000");
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    child: Text("واتساب : 0530245555",
+                                        style: descTx1(baseColorText)),
+                                    onTap: () {
+                                      launch("https://wa.me/+966530245555/");
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                 ],
-                              ),
-                            ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "تواصل معنا",
-                        style: titleTx(baseColor),
-                        textAlign: TextAlign.right,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                          height: 190,
-                          //margin: EdgeInsets.all(20),
-                          decoration: containerdecoration(BackGWhiteColor),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Column(
-                                  children: [
-                                    InkWell(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.chat_bubble_outline,
-                                            color: secondryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            "للبلاغات 940",
-                                            style: descTx1(baseColorText),
-                                          ),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        launch("tel://940");
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    InkWell(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.email_outlined,
-                                            color: secondryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                            "للمساعدة : help@eamana.gov.sa",
-                                            style: descTx1(baseColorText),
-                                          ),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        launch("mailto:help@eamana.gov.sa");
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    InkWell(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.contact_support_outlined,
-                                            color: secondryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text("الدعم الفني : 8046333 - 013",
-                                              style: descTx1(baseColorText)),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        launch("tel://0138046333");
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    InkWell(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.local_phone_outlined,
-                                            color: secondryColor,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text(
-                                              "العلاقات العامة : 8046000 - 013",
-                                              style: descTx1(baseColorText)),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        launch("tel://0138046000");
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    InkWell(
-                                      child: Row(
-                                        children: [
-                                          FaIcon(
-                                            FontAwesomeIcons.whatsapp,
-                                            color: secondryColor,
-                                            size: 24.0,
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          Text("واتساب : 0530245555",
-                                              style: descTx1(baseColorText)),
-                                        ],
-                                      ),
-                                      onTap: () {
-                                        launch("https://wa.me/+966530245555/");
-                                      },
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: Column(
-                          children: [
-                            Image(
-                              //width: responsiveMT(90, 150),
-                              alignment: Alignment.center,
-                              width: 200,
-                              color: darkmode == true ? Colors.white : null,
-                              image: AssetImage("assets/image/raqamy-logo.png"),
-                            ),
-                            // Text("الإصدار الأول 1.20.22",
-                            //     style: descTx1(baseColorText)),
-                            // Text(packageInfo.buildNumber,
-                            //     style: descTx1(baseColorText)),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                          ],
+                              ), //all inside
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ));
   }

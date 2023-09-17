@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:eamanaapp/secreen/widgets/alerts.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,22 +16,22 @@ class Pickattachments {
       XFile? images;
 
       images = await _picker.pickImage(
-        source: ImageSource.camera,
+        source: source,
         // preferredCameraDevice: CameraDevice.front,
         // imageQuality: 60,
       );
       if (images != null) {
-        //  final imageTemp = File(images.path);
+        final imageTemp = File(images.path);
 
         var result = await FlutterImageCompress.compressAndGetFile(
           images.path,
-          images.path + "compressed." + images.name.split(".").last,
+          images.path + "compressed" + images.name.split(".").last,
           quality: 30,
         );
         File rotatedImage =
             await FlutterExifRotation.rotateImage(path: result!.path);
         var base64 = base64Encode(await rotatedImage.readAsBytes());
-        int sizeInBytes = rotatedImage.lengthSync();
+        int sizeInBytes = imageTemp.lengthSync();
         double sizeInMb = sizeInBytes / (1024 * 1024);
         print(sizeInMb);
         var res = {

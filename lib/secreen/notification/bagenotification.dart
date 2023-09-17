@@ -26,8 +26,11 @@ class badgenotification {
       textDirection: TextDirection.rtl,
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NotificationPage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      NotificationPage(notificationcont: notificationcont)));
         },
         child: Column(
           children: [
@@ -39,15 +42,12 @@ class badgenotification {
               ),
               badgeColor: redColor,
               animationType: BadgeAnimationType.scale,
+              position: BadgePosition.topStart(start: 0),
               child: Icon(
-                Icons.notifications,
-                color: baseColor,
+                Icons.notifications_none_outlined,
+                color: Colors.white,
                 size: 40,
               ),
-            ),
-            Text(
-              "إشعارات",
-              style: TextStyle(color: baseColorText),
             ),
           ],
         ),

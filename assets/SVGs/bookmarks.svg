@@ -1,48 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   height="24px"
-   viewBox="0 0 24 24"
-   width="24px"
-   fill="#000000"
-   version="1.1"
-   id="svg17352"
-   sodipodi:docname="bookmarks_black_24dp.svg"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs17356" />
-  <sodipodi:namedview
-     id="namedview17354"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="34.875"
-     inkscape:cx="7.4121864"
-     inkscape:cy="12.014337"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg17352" />
-  <path
-     d="M0 0h24v24H0V0z"
-     fill="none"
-     id="path17348" />
-  <path
-     style="fill:#2E8D9A;fill-opacity:1;stroke:#2E8D9A;stroke-width:0.0286738"
-     d="M 4.1290322,14.450903 V 7.9856631 H 9.1182789 14.107527 V 14.45468 c 0,5.163746 -0.0072,6.466124 -0.03584,6.454678 -0.01971,-0.0079 -1.134205,-0.486687 -2.476649,-1.064 -1.342444,-0.577313 -2.4607181,-1.049659 -2.4850521,-1.049659 -0.02433,0 -1.1259714,0.465717 -2.4480815,1.034928 -1.3221103,0.569211 -2.4328692,1.046311 -2.468353,1.060222 l -0.064516,0.02529 z"
-     id="path17427" />
-  <path
-     d="M15 7v12.97l-4.21-1.81-.79-.34-.79.34L5 19.97V7h10m4-6H8.99C7.89 1 7 1.9 7 3h10c1.1 0 2 .9 2 2v13l2 1V3c0-1.1-.9-2-2-2zm-4 4H5c-1.1 0-2 .9-2 2v16l7-3 7 3V7c0-1.1-.9-2-2-2z"
-     id="path17350"
-     style="fill:#274690;fill-opacity:1" />
+<svg width="82" height="64" viewBox="0 0 82 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2081_4171)">
+<path d="M54 16.4998V15.7998C54 12.4861 51.3137 9.7998 48 9.7998H29C25.6863 9.7998 23 12.4861 23 15.7998V54.1487C23 54.7568 23.6515 55.1425 24.1847 54.8502L37.9711 47.2899C38.3006 47.1092 38.6994 47.1092 39.0289 47.2899L52.8153 54.8502C53.3485 55.1425 54 54.7568 54 54.1487V43.7971M49.2403 27.0326L41.918 27.8624C41.0652 27.9591 40.7223 29.0144 41.3554 29.5938L46.7915 34.569C47.0508 34.8063 47.1664 35.1623 47.0962 35.5067L45.6227 42.7271C45.4511 43.5679 46.3487 44.2201 47.0954 43.7971L53.5071 40.1645C53.66 40.0778 53.83 40.0345 54 40.0345C54.17 40.0345 54.34 40.0778 54.4929 40.1645L60.9046 43.7971C61.6513 44.2201 62.5489 43.5679 62.3773 42.7271L60.9038 35.5067C60.8336 35.1623 60.9492 34.8063 61.2085 34.569L66.6446 29.5938C67.2777 29.0144 66.9348 27.9591 66.082 27.8624L58.7597 27.0326C58.4105 26.993 58.1077 26.773 57.9621 26.4531L54.9102 19.7456C54.7325 19.3551 54.3662 19.1598 54 19.1598C53.6338 19.1598 53.2675 19.3551 53.0898 19.7456L50.0379 26.4531C49.8923 26.773 49.5895 26.993 49.2403 27.0326Z" stroke="#214187" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_2081_4171">
+<rect width="81.9803" height="63.0618" fill="white"/>
+</clipPath>
+</defs>
 </svg>
