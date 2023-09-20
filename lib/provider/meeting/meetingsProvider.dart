@@ -269,7 +269,7 @@ class MettingsProvider extends ChangeNotifier {
             color: Colors.blue,
             icon: '@mipmap/launcher_icon',
           ),
-          iOS: IOSNotificationDetails(
+          iOS: DarwinNotificationDetails(
               // subtitle: " test",
               )),
     );
@@ -384,7 +384,7 @@ class MettingsProvider extends ChangeNotifier {
             color: Colors.blue,
             icon: '@mipmap/launcher_icon',
           ),
-          iOS: IOSNotificationDetails(
+          iOS: DarwinNotificationDetails(
               // subtitle: " test",
               )),
     );

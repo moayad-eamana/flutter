@@ -25,7 +25,7 @@ class Pickattachments {
 
         var result = await FlutterImageCompress.compressAndGetFile(
           images.path,
-          images.path + "compressed" + images.name.split(".").last,
+          images.path + "compressed." + images.name.split(".").last,
           quality: 30,
         );
         File rotatedImage =

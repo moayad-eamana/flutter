@@ -228,12 +228,12 @@ abstract class SearchDelegateR<T> {
     assert(theme != null);
     return theme.copyWith(
       appBarTheme: AppBarTheme(
-        brightness: colorScheme.brightness,
+        //    brightness: colorScheme.brightness,
         backgroundColor: colorScheme.brightness == Brightness.dark
             ? Colors.grey[900]
             : BackGColor,
         iconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
-        textTheme: theme.textTheme,
+        // textTheme: theme.textTheme,
       ),
       inputDecorationTheme: searchFieldDecorationTheme ??
           InputDecorationTheme(

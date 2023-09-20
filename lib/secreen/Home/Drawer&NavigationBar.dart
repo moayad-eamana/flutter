@@ -305,7 +305,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 )
               : Stack(
                   fit: StackFit.loose,
-                  overflow: Overflow.visible,
+                  // overflow: Overflow.visible,
                   clipBehavior: Clip.hardEdge,
                   children: [
                     Container(

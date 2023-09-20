@@ -12,7 +12,6 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hijri/hijri_calendar.dart';
-import 'package:hijri_picker/hijri_picker.dart';
 import 'package:intl/intl.dart' as format;
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
@@ -144,35 +143,36 @@ class _getusrtInfoState extends State<getusrtInfo> {
                                 child: TextButton(
                                     onPressed: () async {
                                       try {
-                                        final HijriCalendar? picked =
-                                            await showHijriDatePicker(
-                                          context: context,
-                                          locale: Locale('ar', ''),
-                                          initialDate: selectedDate,
-                                          lastDate: HijriCalendar()
-                                            ..hYear = 1446
-                                            ..hMonth = 9
-                                            ..hDay = 25,
-                                          firstDate: HijriCalendar()
-                                            ..hYear = 1370
-                                            ..hMonth = 12
-                                            ..hDay = 25,
-                                          initialDatePickerMode:
-                                              DatePickerMode.day,
-                                        );
+                                        final HijriCalendar? picked;
+                                        // =
+                                        //     await showHijriDatePicker(
+                                        //   context: context,
+                                        //   locale: Locale('ar', ''),
+                                        //   initialDate: selectedDate,
+                                        //   lastDate: HijriCalendar()
+                                        //     ..hYear = 1446
+                                        //     ..hMonth = 9
+                                        //     ..hDay = 25,
+                                        //   firstDate: HijriCalendar()
+                                        //     ..hYear = 1370
+                                        //     ..hMonth = 12
+                                        //     ..hDay = 25,
+                                        //   initialDatePickerMode:
+                                        //       DatePickerMode.day,
+                                        // );
                                         // print(picked);
-                                        if (picked != null) {
-                                          var date = replacearabicNumber(
-                                              picked.toString());
-                                          print(date);
-                                          date = date.replaceAll("-", "/");
-                                          var datearr = date.split('/');
+                                        // if (picked != null) {
+                                        //   var date = replacearabicNumber(
+                                        //       picked.toString());
+                                        //   print(date);
+                                        //   date = date.replaceAll("-", "/");
+                                        //   var datearr = date.split('/');
 
-                                          DOB = new DateTime(
-                                              int.parse(datearr[0]),
-                                              int.parse(datearr[1]),
-                                              int.parse(datearr[2]));
-                                        }
+                                        //   DOB = new DateTime(
+                                        //       int.parse(datearr[0]),
+                                        //       int.parse(datearr[1]),
+                                        //       int.parse(datearr[2]));
+                                        // }
                                         setState(() {});
                                         Navigator.pop(context);
                                       } catch (e) {}

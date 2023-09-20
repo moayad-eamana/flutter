@@ -458,7 +458,7 @@ class _HomPanelState extends State<HomePanel>
                 )
               : Stack(
                   fit: StackFit.loose,
-                  overflow: Overflow.visible,
+                  //  overflow: Overflow.visible,
                   clipBehavior: Clip.hardEdge,
                   children: [
                     Container(
@@ -773,7 +773,7 @@ class _HomPanelState extends State<HomePanel>
                               visible: showpanel,
                               child: Stack(
                                 fit: StackFit.loose,
-                                overflow: Overflow.visible,
+                                // overflow: Overflow.visible,
                                 clipBehavior: Clip.hardEdge,
                                 children: [
                                   Container(

@@ -16,7 +16,7 @@ class AppBarHome {
         automaticallyImplyLeading: false,
         flexibleSpace: Stack(
           fit: StackFit.loose,
-          overflow: Overflow.visible,
+          // overflow: Overflow.visible,
           children: [
             SafeArea(
               child: Container(

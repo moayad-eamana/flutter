@@ -66,8 +66,8 @@ class _SettingsState extends State<Settings> {
     try {
       authenticated = await auth.authenticate(
           localizedReason: 'Let OS determine authentication method',
-          useErrorDialogs: true,
-          stickyAuth: true);
+          options:
+              AuthenticationOptions(useErrorDialogs: true, stickyAuth: true));
       setState(() {
         _authenticated = authenticated;
       });
@@ -108,7 +108,7 @@ class _SettingsState extends State<Settings> {
               height: 100.h,
               child: Stack(
                 //   alignment: AlignmentDirectional.topCenter,
-                overflow: Overflow.visible,
+                //overflow: Overflow.visible,
                 children: [
                   Container(
                     height: 300,

@@ -434,7 +434,7 @@ class _OfferDetailsState extends State<OfferDetails> {
       width: 100.w,
       padding: EdgeInsets.all(10),
       child: Stack(
-        overflow: Overflow.visible,
+        //overflow: Overflow.visible,
         children: [
           Positioned(
             top: -5,

@@ -80,18 +80,18 @@ class _LoansRequestsViewState extends State<LoansRequestsView> {
                                 curve: Curves.linear,
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ChangeNotifierProvider.value(
-                                                value: _provider,
-                                                child:
-                                                    LoansRequestsDetailesView(
-                                                  index: index,
-                                                )),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         ChangeNotifierProvider.value(
+                                    //             value: _provider,
+                                    //             child:
+                                    //                 LoansRequestsDetailesView(
+                                    //               index: index,
+                                    //             )),
+                                    //   ),
+                                    // );
                                   },
                                   child: SizedBox(
                                     height: 200,

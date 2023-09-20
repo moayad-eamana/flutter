@@ -18,12 +18,12 @@ import 'package:eamanaapp/utilities/styles/CSS/fontsStyle.dart';
 import '../../main.dart';
 
 class LoginView extends StatefulWidget {
-  final FirebaseAnalytics analytics;
-  final FirebaseAnalyticsObserver observer;
+  // final FirebaseAnalytics analytics;
+  // final FirebaseAnalyticsObserver observer;
   const LoginView({
     Key? key,
-    required this.analytics,
-    required this.observer,
+    // required this.analytics,
+    // required this.observer,
   }) : super(key: key);
 
   @override
@@ -50,10 +50,10 @@ class _LoginViewState extends State<LoginView> {
   }
 
   call() async {
-    await widget.analytics.setCurrentScreen(
-      screenName: 'mm',
-      screenClassOverride: 'moayad test',
-    );
+    // await widget.analytics.setCurrentScreen(
+    //   screenName: 'mm',
+    //   screenClassOverride: 'moayad test',
+    // );
   }
   // void smspermission() async {
   //   try {

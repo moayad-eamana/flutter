@@ -80,9 +80,9 @@ class _SalaryHistoryState extends State<SalaryHistory>
       child: Scaffold(
         appBar: AppBarW.appBarW("سجل الرواتب", context, null),
         body: Stack(
-          fit: StackFit.loose,
-          overflow: Overflow.visible,
-          clipBehavior: Clip.hardEdge,
+          // fit: StackFit.loose,
+          //   overflow: Overflow.visible,
+          clipBehavior: Clip.none,
           children: [
             widgetsUni.bacgroundimage(),
             listOfSalary.length == 0
@@ -160,9 +160,9 @@ class _SalaryHistoryState extends State<SalaryHistory>
                             return Column(
                               children: [
                                 Stack(
-                                  fit: StackFit.loose,
-                                  overflow: Overflow.visible,
-                                  clipBehavior: Clip.hardEdge,
+                                  // fit: StackFit.loose,
+                                  //overflow: Overflow.visible,
+                                  clipBehavior: Clip.none,
                                   children: [
                                     Card(
                                       margin:
@@ -263,9 +263,7 @@ class _SalaryHistoryState extends State<SalaryHistory>
 
   Widget buildStack(String lable, dynamic salary, Color color) {
     return Stack(
-      fit: StackFit.loose,
-      overflow: Overflow.visible,
-      clipBehavior: Clip.hardEdge,
+      clipBehavior: Clip.none,
       children: [
         Container(
           height: 50,

@@ -54,9 +54,10 @@ class _Settings2State extends State<Settings2> {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-          localizedReason: 'Let OS determine authentication method',
-          useErrorDialogs: true,
-          stickyAuth: true);
+        options: AuthenticationOptions(stickyAuth: true, useErrorDialogs: true),
+        localizedReason: 'Let OS determine authentication method',
+      );
+
       setState(() {
         _authenticated = authenticated;
       });

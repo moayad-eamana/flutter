@@ -1,7 +1,6 @@
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:local_auth/auth_strings.dart';
 
 import 'package:local_auth/local_auth.dart';
 
@@ -20,9 +19,9 @@ class _AuthenticateBioState extends State<AuthenticateBio> {
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
 
-  AndroidAuthMessages androidAuthStrings =
-      const AndroidAuthMessages(signInTitle: "الرجاء التحقق من هويتك");
-  IOSAuthMessages iOSAuthStrings = const IOSAuthMessages();
+  // AndroidAuthMessages androidAuthStrings =
+  //     const AndroidAuthMessages(signInTitle: "الرجاء التحقق من هويتك");
+  // IOSAuthMessages iOSAuthStrings = const IOSAuthMessages();
 
   @override
   void initState() {
@@ -43,10 +42,10 @@ class _AuthenticateBioState extends State<AuthenticateBio> {
         _authorized = 'Authenticating';
       });
       authenticated = await auth.authenticate(
-          androidAuthStrings: androidAuthStrings,
-          localizedReason: 'تحقق',
-          useErrorDialogs: true,
-          stickyAuth: true);
+        options: AuthenticationOptions(useErrorDialogs: true, stickyAuth: true),
+        //  androidAuthStrings: androidAuthStrings,
+        localizedReason: 'تحقق',
+      );
       setState(() {
         _isAuthenticating = false;
       });

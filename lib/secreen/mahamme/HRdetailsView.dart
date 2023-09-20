@@ -9,7 +9,7 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:provider/provider.dart';
@@ -864,12 +864,12 @@ class _HRdetailsViewState extends State<HRdetailsView> {
           decoration: formlabel1("تاريخ البداية"),
           onTap: () {
             DatePicker.showDatePicker(context,
-                theme: DatePickerTheme(
-                  backgroundColor: BackGWhiteColor,
-                  itemStyle: TextStyle(
-                    color: baseColorText,
-                  ),
-                ),
+                // theme: DatePickerThemeData(
+                //   backgroundColor: BackGWhiteColor,
+                //   // itemStyle: TextStyle(
+                //   //   color: baseColorText,
+                //   // ),
+                // ),
                 showTitleActions: true,
                 minTime: DateTime(2020, 3, 5), onChanged: (date) {
               print('change $date');
@@ -894,12 +894,12 @@ class _HRdetailsViewState extends State<HRdetailsView> {
           ),
           onTap: () {
             DatePicker.showDatePicker(context,
-                theme: DatePickerTheme(
-                  backgroundColor: BackGWhiteColor,
-                  itemStyle: TextStyle(
-                    color: baseColorText,
-                  ),
-                ),
+                // theme: DatePickerThemeData(
+                //   backgroundColor: BackGWhiteColor,
+                //   // itemStyle: TextStyle(
+                //   //   color: baseColorText,
+                //   // ),
+                // ),
                 showTitleActions: true,
                 minTime: DateTime(2020, 3, 5), onChanged: (date) {
               print('change $date');

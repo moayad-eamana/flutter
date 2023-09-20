@@ -6,9 +6,7 @@ import 'package:eamanaapp/secreen/widgets/appbarW.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -468,12 +466,12 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 },
                                 onTap: () {
                                   DatePicker.showDatePicker(context,
-                                      theme: DatePickerTheme(
-                                        backgroundColor: BackGWhiteColor,
-                                        itemStyle: TextStyle(
-                                          color: baseColorText,
-                                        ),
-                                      ),
+                                      // theme: DatePickerThemeData(
+                                      //   backgroundColor: BackGWhiteColor,
+                                      //   // itemStyle: TextStyle(
+                                      //   //   color: baseColorText,
+                                      //   // ),
+                                      // ),
                                       showTitleActions: true,
                                       minTime: DateTime(2021, 3, 5),
                                       onChanged: (date) {
@@ -520,12 +518,12 @@ class _OutdutyRequestState extends State<OutdutyRequest> {
                                 },
                                 onTap: () {
                                   DatePicker.showDatePicker(context,
-                                      theme: DatePickerTheme(
-                                        backgroundColor: BackGWhiteColor,
-                                        itemStyle: TextStyle(
-                                          color: baseColorText,
-                                        ),
-                                      ),
+                                      // theme: DatePickerThemeData(
+                                      //   backgroundColor: BackGWhiteColor,
+                                      //   // itemStyle: TextStyle(
+                                      //   //   color: baseColorText,
+                                      //   // ),
+                                      // ),
                                       showTitleActions: true,
                                       minTime: DateTime(2021, 3, 5),
                                       onChanged: (date) {

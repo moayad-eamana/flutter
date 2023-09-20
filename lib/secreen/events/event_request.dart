@@ -12,7 +12,7 @@ import 'package:eamanaapp/utilities/constantApi.dart';
 import 'package:eamanaapp/utilities/functions/PickAttachments.dart';
 import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 
@@ -669,12 +669,12 @@ class _EventRequestState extends State<EventRequest> {
                               },
                               onTap: () {
                                 DatePicker.showDatePicker(context,
-                                    theme: DatePickerTheme(
-                                      backgroundColor: BackGWhiteColor,
-                                      itemStyle: TextStyle(
-                                        color: baseColorText,
-                                      ),
-                                    ),
+                                    // theme: DatePickerTheme(
+                                    //   backgroundColor: BackGWhiteColor,
+                                    //   itemStyle: TextStyle(
+                                    //     color: baseColorText,
+                                    //   ),
+                                    // ),
                                     showTitleActions: true,
                                     minTime: DateTime(2021, 3, 5),
                                     onChanged: (date) {

@@ -108,266 +108,196 @@ class _newEmpInfoState extends State<newEmpInfo> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: BackGColor,
-          body: Stack(overflow: Overflow.visible, children: [
-            Container(
-              height: 100.h,
-              child: Column(
-                children: [
-                  // -- header
-                  Container(
-                    height: 200,
-                    width: 100.w,
-                    decoration: BoxDecoration(
-                      color: fontsStyle.HeaderColor(),
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20)),
-                    ),
-                    child: Row(
-                      children: [
-                        // IconButton(
-                        //     onPressed: () {
-                        //       Navigator.pop(context);
-                        //     },
-                        //     icon: Icon(
-                        //       Icons.arrow_back_ios,
-                        //       color: Colors.white,
-                        //     )),
-                        // Text(
-                        //   "بياناتي",
-                        //   style: fontsStyle.px20(Colors.white, FontWeight.bold),
-                        // ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                      child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          height: 70,
+          body: Stack(
+
+              // overflow: Overflow.visible,
+
+              children: [
+                Container(
+                  height: 100.h,
+                  child: Column(
+                    children: [
+                      // -- header
+                      Container(
+                        height: 200,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                          color: fontsStyle.HeaderColor(),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
                         ),
-                        Container(
-                          child: Text(
-                            sharedPref.getString("EmployeeName") ?? "",
-                            style: fontsStyle.px14(
-                                fontsStyle.thirdColor(), FontWeight.bold),
-                          ),
+                        child: Row(
+                          children: [
+                            // IconButton(
+                            //     onPressed: () {
+                            //       Navigator.pop(context);
+                            //     },
+                            //     icon: Icon(
+                            //       Icons.arrow_back_ios,
+                            //       color: Colors.white,
+                            //     )),
+                            // Text(
+                            //   "بياناتي",
+                            //   style: fontsStyle.px20(Colors.white, FontWeight.bold),
+                            // ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        //if it's govm emp, render title
-                        if (sharedPref.getInt("empTypeID") != 8)
-                          Container(
-                            child: Text(
-                              sharedPref.getString("Title") ?? "",
-                              style: fontsStyle.px14(
-                                  fontsStyle.thirdColor(), FontWeight.bold),
+                      ),
+                      Container(
+                          child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              height: 70,
                             ),
-                          ),
-                        if (sharedPref.getString("JobName") == "")
-                          SizedBox(
-                            height:
-                                sharedPref.getInt("empTypeID") != 8 ? 30 : 0,
-                          ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        //if it's govm emp, render this row
-                        if (sharedPref.getInt("empTypeID") != 8)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(228, 242, 242, 1),
-                                  borderRadius: BorderRadius.circular(31),
-                                ),
-                                child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(11, 3, 11, 3),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'المرتبة: ',
-                                          style: fontsStyle.px12normal(
-                                              fontsStyle.thirdColor(),
-                                              FontWeight.normal),
-                                        ),
-                                        Text(
-                                          sharedPref
-                                                  .getInt("ClassID")
-                                                  .toString() ??
-                                              "",
-                                          style: fontsStyle.px12normal(
-                                              fontsStyle.thirdColor(),
-                                              FontWeight.normal),
-                                        ),
-                                      ],
-                                    )),
+                            Container(
+                              child: Text(
+                                sharedPref.getString("EmployeeName") ?? "",
+                                style: fontsStyle.px14(
+                                    fontsStyle.thirdColor(), FontWeight.bold),
                               ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            //if it's govm emp, render title
+                            if (sharedPref.getInt("empTypeID") != 8)
                               Container(
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(228, 242, 242, 1),
-                                  borderRadius: BorderRadius.circular(31),
+                                child: Text(
+                                  sharedPref.getString("Title") ?? "",
+                                  style: fontsStyle.px14(
+                                      fontsStyle.thirdColor(), FontWeight.bold),
                                 ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(11, 3, 11, 3),
-                                  child: Row(
-                                    children: [
-                                      Text('الدرجة: '),
-                                      Text(
-                                        sharedPref
-                                                .getInt("GradeID")
-                                                .toString() ??
-                                            "",
+                              ),
+                            if (sharedPref.getString("JobName") == "")
+                              SizedBox(
+                                height: sharedPref.getInt("empTypeID") != 8
+                                    ? 30
+                                    : 0,
+                              ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            //if it's govm emp, render this row
+                            if (sharedPref.getInt("empTypeID") != 8)
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(228, 242, 242, 1),
+                                      borderRadius: BorderRadius.circular(31),
+                                    ),
+                                    child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            11, 3, 11, 3),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'المرتبة: ',
+                                              style: fontsStyle.px12normal(
+                                                  fontsStyle.thirdColor(),
+                                                  FontWeight.normal),
+                                            ),
+                                            Text(
+                                              sharedPref
+                                                      .getInt("ClassID")
+                                                      .toString() ??
+                                                  "",
+                                              style: fontsStyle.px12normal(
+                                                  fontsStyle.thirdColor(),
+                                                  FontWeight.normal),
+                                            ),
+                                          ],
+                                        )),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(228, 242, 242, 1),
+                                      borderRadius: BorderRadius.circular(31),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          11, 3, 11, 3),
+                                      child: Row(
+                                        children: [
+                                          Text('الدرجة: '),
+                                          Text(
+                                            sharedPref
+                                                    .getInt("GradeID")
+                                                    .toString() ??
+                                                "",
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(228, 242, 242, 1),
-                                  borderRadius: BorderRadius.circular(31),
-                                ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(11, 3, 11, 3),
-                                  child: Row(
-                                    children: [
-                                      Text('سنوات الخدمة: '),
-                                      Text(getYearOfService() ?? ""),
-                                    ],
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(228, 242, 242, 1),
+                                      borderRadius: BorderRadius.circular(31),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          11, 3, 11, 3),
+                                      child: Row(
+                                        children: [
+                                          Text('سنوات الخدمة: '),
+                                          Text(getYearOfService() ?? ""),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
+                              )
+                          ],
+                        ),
+                      )),
+                      // -- emp info --
+                      SafeArea(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          width: 350,
+                          // //height: 309,
+                          // decoration: BoxDecoration(
+                          //   color: Color.fromRGBO(255, 255, 255, 1),
+                          //   borderRadius: BorderRadius.circular(20),
+                          // ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(7),
+                                topRight: Radius.circular(7),
+                                bottomLeft: Radius.circular(7),
+                                bottomRight: Radius.circular(7)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xff0E1F35).withOpacity(0.06),
+                                spreadRadius: 0,
+                                blurRadius: 4,
+                                offset:
+                                    Offset(0, 0), // changes position of shadow
                               ),
                             ],
-                          )
-                      ],
-                    ),
-                  )),
-                  // -- emp info --
-                  SafeArea(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      width: 350,
-                      // //height: 309,
-                      // decoration: BoxDecoration(
-                      //   color: Color.fromRGBO(255, 255, 255, 1),
-                      //   borderRadius: BorderRadius.circular(20),
-                      // ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(7),
-                            topRight: Radius.circular(7),
-                            bottomLeft: Radius.circular(7),
-                            bottomRight: Radius.circular(7)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xff0E1F35).withOpacity(0.06),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: Offset(0, 0), // changes position of shadow
                           ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(23, 20, 23, 20),
-                        child: Column(
-                          children: [
-                            Row(
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(23, 20, 23, 20),
+                            child: Column(
                               children: [
-                                Text(
-                                  'الرقم الوظيفي: ',
-                                  style: fontsStyle.px13(
-                                    fontsStyle.thirdColor(),
-                                    FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  EmployeeProfile.getEmployeeNumber(),
-                                  style: fontsStyle.px13(
-                                    fontsStyle.thirdColor(),
-                                    FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Text(
-                                  'البريد الإلكتروني: ',
-                                  style: fontsStyle.px13(
-                                    fontsStyle.thirdColor(),
-                                    FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  sharedPref.getString("Email") ?? "",
-                                  style: fontsStyle.px13(
-                                    fontsStyle.thirdColor(),
-                                    FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Text(
-                                  'رقم الجوال: ',
-                                  style: fontsStyle.px13(
-                                    fontsStyle.thirdColor(),
-                                    FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                    sharedPref.getString("MobileNumber") ?? ""),
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Text(
-                                  'رقم التحويلة: ',
-                                  style: fontsStyle.px13(
-                                    fontsStyle.thirdColor(),
-                                    FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  sharedPref.getInt("Extension").toString() ??
-                                      "",
-                                  style: fontsStyle.px13(
-                                    fontsStyle.thirdColor(),
-                                    FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                            Container(
-                              alignment: Alignment.topRight,
-                              child: Text.rich(
-                                TextSpan(
-                                  style: TextStyle(fontSize: 16),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: 'الإدارة: ',
+                                Row(
+                                  children: [
+                                    Text(
+                                      'الرقم الوظيفي: ',
                                       style: fontsStyle.px13(
                                         fontsStyle.thirdColor(),
                                         FontWeight.bold,
                                       ),
                                     ),
-                                    TextSpan(
-                                      text: sharedPref
-                                          .getString("DepartmentName"),
+                                    Text(
+                                      EmployeeProfile.getEmployeeNumber(),
                                       style: fontsStyle.px13(
                                         fontsStyle.thirdColor(),
                                         FontWeight.normal,
@@ -375,99 +305,179 @@ class _newEmpInfoState extends State<newEmpInfo> {
                                     ),
                                   ],
                                 ),
-                                maxLines: 4,
-                                softWrap: true,
-                                overflow: TextOverflow.visible,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            if (sharedPref.getInt("empTypeID") != 8)
-                              Row(
-                                children: [
-                                  Text(
-                                    'تاريخ التعيين في الأمانة: ',
-                                    style: fontsStyle.px13(
-                                      fontsStyle.thirdColor(),
-                                      FontWeight.bold,
+                                SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'البريد الإلكتروني: ',
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    sharedPref.getString("HireDate") ?? "",
-                                    style: fontsStyle.px13(
-                                      fontsStyle.thirdColor(),
-                                      FontWeight.normal,
+                                    Text(
+                                      sharedPref.getString("Email") ?? "",
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.normal,
+                                      ),
                                     ),
+                                  ],
+                                ),
+                                SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'رقم الجوال: ',
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(sharedPref.getString("MobileNumber") ??
+                                        ""),
+                                  ],
+                                ),
+                                SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'رقم التحويلة: ',
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      sharedPref
+                                              .getInt("Extension")
+                                              .toString() ??
+                                          "",
+                                      style: fontsStyle.px13(
+                                        fontsStyle.thirdColor(),
+                                        FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 15),
+                                Container(
+                                  alignment: Alignment.topRight,
+                                  child: Text.rich(
+                                    TextSpan(
+                                      style: TextStyle(fontSize: 16),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: 'الإدارة: ',
+                                          style: fontsStyle.px13(
+                                            fontsStyle.thirdColor(),
+                                            FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: sharedPref
+                                              .getString("DepartmentName"),
+                                          style: fontsStyle.px13(
+                                            fontsStyle.thirdColor(),
+                                            FontWeight.normal,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    maxLines: 4,
+                                    softWrap: true,
+                                    overflow: TextOverflow.visible,
                                   ),
-                                ],
-                              ),
-                            SizedBox(height: 10),
-                          ],
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                if (sharedPref.getInt("empTypeID") != 8)
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'تاريخ التعيين في الأمانة: ',
+                                        style: fontsStyle.px13(
+                                          fontsStyle.thirdColor(),
+                                          FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        sharedPref.getString("HireDate") ?? "",
+                                        style: fontsStyle.px13(
+                                          fontsStyle.thirdColor(),
+                                          FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                SizedBox(height: 10),
+                              ],
+                            ),
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
+                ),
+                //-- image --
+                Positioned(
+                  top: 140,
+                  right: 150,
+                  child:
+                      // Container(
+                      //   height: 109,
+                      //   width: 109,
+                      //   child: ClipOval(
+                      //     child: CachedNetworkImage(
+                      //       height: 80,
+                      //       width: 80,
+                      //       fit: BoxFit.cover,
+                      //       imageUrl:
+                      //           "https://archive.eamana.gov.sa/TransactFileUpload" +
+                      //               sharedPref.getString("ImageURL").toString(),
+                      //       errorWidget: (context, url, error) => Image.asset(
+                      //         "assets/image/blank-profile.png",
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      Container(
+                    width: 100,
+                    height: 100,
+                    margin: EdgeInsets.only(right: 10),
+                    child: CircleAvatar(
+                      backgroundColor: baseColor,
+                      radius: responsiveMT(24, 26),
+                      child: ClipOval(
+                        child: sharedPref.getString("ImageURL") == "" ||
+                                sharedPref.getInt("GenderID") == 2
+                            ? Image.asset(
+                                "assets/image/blank-profile.png",
+                              )
+                            : ClipOval(
+                                child: FadeInImage.assetNetwork(
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 100,
+                                  image:
+                                      "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                          sharedPref
+                                              .getString("ImageURL")
+                                              .toString(),
+                                  placeholder: "assets/image/blank-profile.png",
+                                  imageErrorBuilder:
+                                      (context, error, stackTrace) =>
+                                          Image.asset(
+                                    "assets/image/blank-profile.png",
+                                  ),
+                                ),
+                              ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            //-- image --
-            Positioned(
-              top: 140,
-              right: 150,
-              child:
-                  // Container(
-                  //   height: 109,
-                  //   width: 109,
-                  //   child: ClipOval(
-                  //     child: CachedNetworkImage(
-                  //       height: 80,
-                  //       width: 80,
-                  //       fit: BoxFit.cover,
-                  //       imageUrl:
-                  //           "https://archive.eamana.gov.sa/TransactFileUpload" +
-                  //               sharedPref.getString("ImageURL").toString(),
-                  //       errorWidget: (context, url, error) => Image.asset(
-                  //         "assets/image/blank-profile.png",
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  Container(
-                width: 100,
-                height: 100,
-                margin: EdgeInsets.only(right: 10),
-                child: CircleAvatar(
-                  backgroundColor: baseColor,
-                  radius: responsiveMT(24, 26),
-                  child: ClipOval(
-                    child: sharedPref.getString("ImageURL") == "" ||
-                            sharedPref.getInt("GenderID") == 2
-                        ? Image.asset(
-                            "assets/image/blank-profile.png",
-                          )
-                        : ClipOval(
-                            child: FadeInImage.assetNetwork(
-                              fit: BoxFit.cover,
-                              width: 100,
-                              height: 100,
-                              image:
-                                  "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                      sharedPref
-                                          .getString("ImageURL")
-                                          .toString(),
-                              placeholder: "assets/image/blank-profile.png",
-                              imageErrorBuilder: (context, error, stackTrace) =>
-                                  Image.asset(
-                                "assets/image/blank-profile.png",
-                              ),
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-            )
-          ]),
+                )
+              ]),
         ));
 
     // Directionality(
@@ -1065,5 +1075,4 @@ class _newEmpInfoState extends State<newEmpInfo> {
   //     return;
   //   }
   // }
-
 }

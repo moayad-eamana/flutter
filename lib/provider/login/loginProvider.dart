@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:eamanaapp/firebase_options.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/model/logApiModel.dart';
@@ -101,7 +102,9 @@ class LoginProvider extends ChangeNotifier {
 
   Future<dynamic> checkUserOTP(String otp) async {
     //  SharedPreferences _pref = await SharedPreferences.getInstance();
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     String udid = await FlutterUdid.consistentUdid;
     print(udid);

@@ -54,40 +54,42 @@ class _AndroidWalletState extends State<AndroidWallet> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Stack(overflow: Overflow.visible, children: [
-                  widgetsUni.bacgroundimage(),
-                  //---- English Card -----
-                  // Positioned(
-                  //     width: 100.w,
-                  //     child: businesscardw(() {
-                  //       Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //               builder: (context) =>
-                  //                   AndroidWallet2(businesscardw(null, "en"))));
-                  //     }, "en")),
-                  //---- Arabic Card ----
-                  Positioned(
-                      // top: 190,
-                      width: 100.w,
-                      child: businesscardw(() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AndroidWallet3(
-                                    businesscardw(null, "AR"),
-                                    businesscardw(null, "en"))));
-                      }, "AR")),
-                  // ---- بطاقة الموظف ----
-                  // Positioned(
-                  //     top: 250,
-                  //     // right: 10,
-                  //     width: 100.w,
-                  //     child: EmployeeCard(() {
-                  //       Navigator.of(context).push(MaterialPageRoute(
-                  //           builder: (context) => AndroidWallet4()));
-                  //     })),
-                ]),
+                Stack(
+                    // overflow: Overflow.visible,
+                    children: [
+                      widgetsUni.bacgroundimage(),
+                      //---- English Card -----
+                      // Positioned(
+                      //     width: 100.w,
+                      //     child: businesscardw(() {
+                      //       Navigator.push(
+                      //           context,
+                      //           MaterialPageRoute(
+                      //               builder: (context) =>
+                      //                   AndroidWallet2(businesscardw(null, "en"))));
+                      //     }, "en")),
+                      //---- Arabic Card ----
+                      Positioned(
+                          // top: 190,
+                          width: 100.w,
+                          child: businesscardw(() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AndroidWallet3(
+                                        businesscardw(null, "AR"),
+                                        businesscardw(null, "en"))));
+                          }, "AR")),
+                      // ---- بطاقة الموظف ----
+                      // Positioned(
+                      //     top: 250,
+                      //     // right: 10,
+                      //     width: 100.w,
+                      //     child: EmployeeCard(() {
+                      //       Navigator.of(context).push(MaterialPageRoute(
+                      //           builder: (context) => AndroidWallet4()));
+                      //     })),
+                    ]),
               ],
             ),
           ),

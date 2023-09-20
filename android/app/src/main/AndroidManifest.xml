@@ -6,6 +6,21 @@
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+<!-- Required only if your app needs to access videos
+     that other apps created. -->
+<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+<!-- Required only if your app needs to access audio files
+     that other apps created. -->
+<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 <!-- 
   <intent>
     <action android:name="android.intent.action.VIEW" />
@@ -37,10 +52,13 @@
     <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
   
    <application
+        android:usesCleartextTraffic="true"
         android:label="رقمي"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+        
         <activity
+
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"

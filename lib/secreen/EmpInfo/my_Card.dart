@@ -58,7 +58,7 @@ class _MyCardState extends State<MyCard> {
             height: 100.h,
             child: Stack(
               alignment: AlignmentDirectional.topCenter,
-              overflow: Overflow.visible,
+              //   overflow: Overflow.visible,
               children: [
                 Container(
                   height: 200,

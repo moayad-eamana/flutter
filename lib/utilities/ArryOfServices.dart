@@ -830,14 +830,14 @@ class listOfServices {
       //     Navigator.pushNamed(context, "/favs");
       //   }
       // },
-      // {
-      //   "List": null,
-      //   "service_name": "التبغ",
-      //   "icon": 'assets/SVGs/violation.svg',
-      //   "Action": () {
-      //     Get.to(Insert_Disclosure());
-      //   }
-      // },
+      {
+        "List": null,
+        "service_name": "الرقابة على الافصاح",
+        "icon": 'assets/SVGs/violation.svg',
+        "Action": () {
+          Get.to(Insert_Disclosure());
+        }
+      },
     ];
   }
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:eamanaapp/model/employeeInfo/EmployeeProfle.dart';
 import 'package:eamanaapp/secreen/notification/notification.dart';
 import 'package:eamanaapp/utilities/constantApi.dart';
@@ -34,15 +34,15 @@ class badgenotification {
         },
         child: Column(
           children: [
-            Badge(
+            badges.Badge(
               showBadge: notificationcont != null ? true : false,
               badgeContent: Text(
                 notificationcont.toString(),
                 style: descTx1(Colors.white),
               ),
               badgeColor: redColor,
-              animationType: BadgeAnimationType.scale,
-              position: BadgePosition.topStart(start: 0),
+              animationType: badges.BadgeAnimationType.scale,
+              position: badges.BadgePosition.topStart(start: 0),
               child: Icon(
                 Icons.notifications_none_outlined,
                 color: Colors.white,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:eamanaapp/firebase_options.dart';
 import 'package:eamanaapp/main.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -11,7 +12,7 @@ import 'package:http/http.dart' as http;
 
 String? permissionStatusFuture;
 firebase_Notification() async {
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -101,11 +102,11 @@ listenToFirbaseNotification() async {
   if (Platform.isAndroid) {
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: (String? payload) async {
+      onDidReceiveNotificationResponse: ((payload) {
         if (payload != null) {
           debugPrint('notification payload: $payload');
           print("sqqw'le;wq;l");
-          var message = jsonDecode(payload);
+          var message = jsonDecode(payload as String);
           if (message["module_name"] == "GeneralMessages") {
             navigatorKey.currentState?.pushNamed("/morning",
                 arguments: ({
@@ -118,9 +119,27 @@ listenToFirbaseNotification() async {
             handelfirbasemessge(message);
           }
         }
-        // selectedNotificationPayload = payload;
-        // selectNotificationSubject.add(payload);
-      },
+      }),
+      // onSelectNotification: (String? payload) async {
+      //   if (payload != null) {
+      //     debugPrint('notification payload: $payload');
+      //     print("sqqw'le;wq;l");
+      //     var message = jsonDecode(payload);
+      //     if (message["module_name"] == "GeneralMessages") {
+      //       navigatorKey.currentState?.pushNamed("/morning",
+      //           arguments: ({
+      //             "title": message["title"],
+      //             "body": message["body"],
+      //             "url": message
+      //           }));
+      //       return;
+      //     } else {
+      //       handelfirbasemessge(message);
+      //     }
+      //   }
+      //   // selectedNotificationPayload = payload;
+      //   // selectNotificationSubject.add(payload);
+      // },
     );
   }
 

@@ -28,8 +28,8 @@ void setSettings() async {
   //   Morning = "morning";
   //   events = "Events";
   // }
-  await Firebase.initializeApp();
-  FirebasePerformance performance = FirebasePerformance.instance;
+  // await Firebase.initializeApp();
+  // FirebasePerformance performance = FirebasePerformance.instance;
 
   if (sharedPref.getBool('fingerprint') == null) {
     sharedPref.setBool("fingerprint", false);

@@ -254,7 +254,7 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
           ? Alignment.bottomCenter
           : Alignment.topCenter,
       fit: StackFit.loose,
-      overflow: Overflow.visible,
+      // overflow: Overflow.visible,
       clipBehavior: Clip.hardEdge,
       children: <Widget>[
         //make the back widget take up the entire back side
@@ -334,7 +334,7 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
                   },
                   child: Stack(
                     fit: StackFit.loose,
-                    overflow: Overflow.visible,
+                    //overflow: Overflow.visible,
                     clipBehavior: Clip.hardEdge,
                     children: <Widget>[
                       //open panel

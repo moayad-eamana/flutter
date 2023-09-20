@@ -171,9 +171,8 @@ class attendanceServiceFunction {
     try {
       authenticated = await auth.authenticate(
           localizedReason: 'Let OS determine authentication method',
-          biometricOnly: true,
-          useErrorDialogs: true,
-          stickyAuth: true);
+          options: AuthenticationOptions(
+              biometricOnly: true, useErrorDialogs: true, stickyAuth: true));
 
       _authenticated = authenticated;
     } on PlatformException catch (e) {

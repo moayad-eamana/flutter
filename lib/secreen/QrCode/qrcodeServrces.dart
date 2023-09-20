@@ -17,13 +17,13 @@ class QrCodeServices {
         mainAxisSpacing: 15,
         crossAxisSpacing: 10,
         children: [
-          ...QrcodeList.qrcodelist(context).map((e) {
-            return StaggeredGridTileW(
-                1,
-                hi,
-                widgetsUni.servicebutton2(
-                    e["service_name"], e["icon"], e["Action"]));
-          }),
+          // ...QrcodeList.qrcodelist(context).map((e) {
+          //   return StaggeredGridTileW(
+          //       1,
+          //       hi,
+          //       widgetsUni.servicebutton2(
+          //           e["service_name"], e["icon"], e["Action"]));
+          // }),
         ],
       ),
     ];

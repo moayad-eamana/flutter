@@ -5,7 +5,7 @@ import 'package:eamanaapp/utilities/globalcss.dart';
 import 'package:eamanaapp/secreen/widgets/widgetsUni.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:sizer/sizer.dart';
 
 class bunud extends StatefulWidget {
@@ -246,12 +246,12 @@ class _bunudState extends State<bunud> with AutomaticKeepAliveClientMixin {
                     },
                     onTap: () {
                       DatePicker.showDatePicker(context,
-                          theme: DatePickerTheme(
-                            backgroundColor: BackGWhiteColor,
-                            itemStyle: TextStyle(
-                              color: baseColorText,
-                            ),
-                          ),
+                          // theme: DatePickerThemeData(
+                          //   backgroundColor: BackGWhiteColor,
+                          //   // itemStyle: TextStyle(
+                          //   //   color: baseColorText,
+                          //   // ),
+                          // ),
                           showTitleActions: true,
                           minTime: DateTime(2021, 3, 5), onChanged: (date) {
                         widget.vaiolationModel.bunud_model.violationDate.text =

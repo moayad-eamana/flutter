@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:eamanaapp/auth_secreen.dart';
 import 'package:eamanaapp/events.dart';
+import 'package:eamanaapp/firebase_options.dart';
 import 'package:eamanaapp/provider/login/loginProvider.dart';
 import 'package:eamanaapp/provider/otp.dart';
 import 'package:eamanaapp/secreen/EamanaDiscount/EamanaDiscount.dart';
@@ -57,6 +58,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:root_tester/root_tester.dart';
@@ -81,7 +83,7 @@ late SharedPreferences sharedPref;
 final Controller c = Get.put(Controller());
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
   if (message.data["module_name"] == "otp") {
@@ -137,11 +139,19 @@ Future<void> main() async {
   //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // FlutterNativeSplash.removeAfter(
   //     await Future.delayed(const Duration(seconds: 0)));
+
   print("dddd");
   sharedPref = await SharedPreferences.getInstance();
   sharedPref.setBool("darkmode", false);
   packageInfo = await PackageInfo.fromPlatform();
-  await firebase_Notification();
+  try {
+    // FirebaseApp app = await Firebase.initializeApp(
+    //   options: DefaultFirebaseOptions.currentPlatform,
+    // );
+    await firebase_Notification();
+  } catch (e) {
+    print(e);
+  }
   FirebasePerformance performance = FirebasePerformance.instance;
   hasePerm = sharedPref.getString("hasePerm");
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -151,6 +161,9 @@ Future<void> main() async {
   getColorSettings();
   // DeterminePosition.determinePosition();
   tz.initializeTimeZones();
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.storage,
+  ].request();
 
   // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
   //   statusBarColor: baseColor,
@@ -212,7 +225,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   getVersionFromServer() async {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+
     final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: const Duration(seconds: 10),
@@ -242,9 +257,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-          localizedReason: 'Let OS determine authentication method',
-          useErrorDialogs: true,
-          stickyAuth: true);
+        options: AuthenticationOptions(useErrorDialogs: true, stickyAuth: true),
+        localizedReason: 'Let OS determine authentication method',
+      );
 
       setState(() {
         _authenticated = authenticated;
@@ -288,7 +303,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       setState(() {});
       packageInfo = await PackageInfo.fromPlatform();
       setState(() {});
-      await Firebase.initializeApp();
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+
       final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
       await remoteConfig.setConfigSettings(RemoteConfigSettings(
         fetchTimeout: const Duration(seconds: 10),
@@ -337,7 +354,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           Locale('en', ''),
           Locale('ar', ''),
         ],
-        navigatorObservers: <NavigatorObserver>[observer],
+        // navigatorObservers: <NavigatorObserver>[observer],
         navigatorKey: navigatorKey,
         builder: EasyLoading.init(builder: (context, child) {
           return MediaQuery(
@@ -381,9 +398,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
                 child: LoginView(
-                  analytics: analytics,
-                  observer: observer,
-                ),
+                    // analytics: analytics,
+                    // observer: observer,
+                    ),
               ),
           '/TabBarDemo': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
@@ -392,9 +409,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           '/loginView': (context) => ChangeNotifierProvider(
                 create: (_) => LoginProvider(),
                 child: LoginView(
-                  analytics: analytics,
-                  observer: observer,
-                ),
+                    // analytics: analytics,
+                    // observer: observer,
+                    ),
               ),
           '/home': (context) => Home(),
           '/OTPView': (context) => OTPView(),

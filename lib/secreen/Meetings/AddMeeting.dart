@@ -11,7 +11,7 @@ import 'package:eamanaapp/utilities/functions/handelCalander.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -237,12 +237,12 @@ class _AddMeetingState extends State<AddMeeting> {
                             },
                             onTap: () {
                               DatePicker.showDatePicker(context,
-                                  theme: DatePickerTheme(
-                                    backgroundColor: BackGWhiteColor,
-                                    itemStyle: TextStyle(
-                                      color: baseColorText,
-                                    ),
-                                  ),
+                                  // theme: DatePickerThemeData(
+                                  //   backgroundColor: BackGWhiteColor,
+                                  //   // itemStyle: TextStyle(
+                                  //   //   color: baseColorText,
+                                  //   // ),
+                                  // ),
                                   showTitleActions: true,
                                   minTime: DateTime(2021, 3, 5),
                                   onChanged: (date) {

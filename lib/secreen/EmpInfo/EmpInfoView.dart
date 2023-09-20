@@ -701,14 +701,12 @@ class EmployeeDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Stack(
-              overflow: Overflow.visible,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            height: 100.h,
+            child: Stack(
               children: [
-                // -- header --
                 Container(
                   height: 330,
                   width: 100.w,
@@ -747,7 +745,7 @@ class EmployeeDetailsView extends StatelessWidget {
                   right: 50,
                   left: 50,
                   child: Container(
-                    height: 415,
+                    height: 430,
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(255, 255, 255, 1),
                       borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -761,7 +759,7 @@ class EmployeeDetailsView extends StatelessWidget {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(22, 56, 22, 56),
+                      padding: const EdgeInsets.fromLTRB(22, 56, 22, 0),
                       child: Column(
                         children: [
                           SizedBox(
@@ -934,6 +932,7 @@ class EmployeeDetailsView extends StatelessWidget {
                                                   onPressed: data.GenderID == 2
                                                       ? null
                                                       : () {
+                                                          print("object");
                                                           if (data.GenderID ==
                                                               1) {
                                                             launch(
@@ -977,21 +976,26 @@ class EmployeeDetailsView extends StatelessWidget {
                 Positioned(
                   top: 190,
                   right: 150,
-                  child: Container(
-                    height: 109,
-                    width: 109,
-                    child: ClipOval(
-                      child: FadeInImage.assetNetwork(
-                        fit: BoxFit.cover,
-                        width: 66,
-                        height: 66,
-                        image:
-                            "https://archive.eamana.gov.sa/TransactFileUpload" +
-                                data.ImageURL,
-                        placeholder: "assets/image/blank-profile.png",
-                        imageErrorBuilder: (context, error, stackTrace) =>
-                            Image.asset(
-                          "assets/image/blank-profile.png",
+                  child: GestureDetector(
+                    onTap: () {
+                      print("object");
+                    },
+                    child: Container(
+                      height: 109,
+                      width: 109,
+                      child: ClipOval(
+                        child: FadeInImage.assetNetwork(
+                          fit: BoxFit.cover,
+                          width: 66,
+                          height: 66,
+                          image:
+                              "https://archive.eamana.gov.sa/TransactFileUpload" +
+                                  data.ImageURL,
+                          placeholder: "assets/image/blank-profile.png",
+                          imageErrorBuilder: (context, error, stackTrace) =>
+                              Image.asset(
+                            "assets/image/blank-profile.png",
+                          ),
                         ),
                       ),
                     ),
@@ -999,7 +1003,7 @@ class EmployeeDetailsView extends StatelessWidget {
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
